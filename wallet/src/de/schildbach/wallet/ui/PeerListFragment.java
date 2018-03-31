@@ -26,9 +26,9 @@ import java.util.Map;
 import org.bitcoinj.core.Peer;
 import org.bitcoinj.core.VersionMessage;
 
+import de.schildbach.wallet.R;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.service.BlockchainService;
-import de.schildbach.wallet_test.R;
 
 import android.app.Activity;
 import android.app.Application;

@@ -54,6 +54,7 @@ import com.google.common.base.Strings;
 
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.R;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.data.AddressBookChangeLiveData;
 import de.schildbach.wallet.data.AddressBookProvider;
@@ -81,7 +82,6 @@ import de.schildbach.wallet.ui.TransactionsAdapter;
 import de.schildbach.wallet.util.Bluetooth;
 import de.schildbach.wallet.util.Nfc;
 import de.schildbach.wallet.util.WalletUtils;
-import de.schildbach.wallet_test.R;
 
 import android.app.Activity;
 import android.app.Application;

@@ -35,6 +35,7 @@ import org.slf4j.LoggerFactory;
 import com.google.common.collect.Iterables;
 
 import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.R;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.data.AddressBookProvider;
 import de.schildbach.wallet.data.PaymentIntent;
@@ -45,7 +46,6 @@ import de.schildbach.wallet.util.Qr;
 import de.schildbach.wallet.util.Toast;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet.util.WholeStringBuilder;
-import de.schildbach.wallet_test.R;
 
 import android.app.Activity;
 import android.app.Application;

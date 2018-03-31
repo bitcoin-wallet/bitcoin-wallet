@@ -30,8 +30,6 @@ import org.slf4j.LoggerFactory;
 
 import com.google.common.io.BaseEncoding;
 
-import de.schildbach.wallet_test.R;
-
 import android.os.Build;
 import android.os.Environment;
 import android.text.format.DateUtils;
@@ -43,7 +41,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
  * @author Andreas Schildbach
  */
 public final class Constants {
-    public static final boolean TEST = R.class.getPackage().getName().contains("_test");
+    public static final boolean TEST = true;
 
     /** Network this wallet is on (e.g. testnet or mainnet). */
     public static final NetworkParameters NETWORK_PARAMETERS = TEST ? TestNet3Params.get() : MainNetParams.get();

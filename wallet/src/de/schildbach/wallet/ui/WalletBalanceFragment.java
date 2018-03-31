@@ -22,6 +22,7 @@ import org.bitcoinj.utils.Fiat;
 
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.R;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.data.BlockchainStateLiveData;
 import de.schildbach.wallet.data.ExchangeRate;
@@ -30,7 +31,6 @@ import de.schildbach.wallet.data.WalletBalanceLiveData;
 import de.schildbach.wallet.service.BlockchainState;
 import de.schildbach.wallet.ui.send.FeeCategory;
 import de.schildbach.wallet.ui.send.SendCoinsActivity;
-import de.schildbach.wallet_test.R;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;

@@ -32,10 +32,10 @@ import org.slf4j.LoggerFactory;
 
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.R;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.data.TimeLiveData;
 import de.schildbach.wallet.service.BlockchainService;
-import de.schildbach.wallet_test.R;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;

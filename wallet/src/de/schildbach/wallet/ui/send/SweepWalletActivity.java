@@ -19,9 +19,9 @@ package de.schildbach.wallet.ui.send;
 
 import org.bitcoinj.core.VersionedChecksummedBytes;
 
+import de.schildbach.wallet.R;
 import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.ui.AbstractWalletActivity;
-import de.schildbach.wallet_test.R;
 
 import android.content.Context;
 import android.content.Intent;

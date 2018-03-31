@@ -17,8 +17,8 @@
 
 package de.schildbach.wallet.util;
 
+import de.schildbach.wallet.R;
 import de.schildbach.wallet.ui.AbstractWalletActivity;
-import de.schildbach.wallet_test.R;
 
 import android.app.Activity;
 import android.app.Dialog;

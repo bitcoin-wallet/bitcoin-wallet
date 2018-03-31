@@ -35,10 +35,10 @@ import org.spongycastle.crypto.params.KeyParameter;
 import com.google.common.util.concurrent.ListenableFuture;
 
 import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.R;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.ui.AbstractWalletActivity;
 import de.schildbach.wallet.ui.DialogBuilder;
-import de.schildbach.wallet_test.R;
 
 import android.app.AlertDialog;
 import android.app.Dialog;

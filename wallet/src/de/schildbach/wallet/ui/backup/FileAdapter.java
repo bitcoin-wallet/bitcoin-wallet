@@ -20,7 +20,7 @@ package de.schildbach.wallet.ui.backup;
 import java.io.File;
 import java.util.List;
 
-import de.schildbach.wallet_test.R;
+import de.schildbach.wallet.R;
 
 import android.content.Context;
 import android.view.LayoutInflater;

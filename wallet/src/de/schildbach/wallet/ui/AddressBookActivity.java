@@ -17,8 +17,8 @@
 
 package de.schildbach.wallet.ui;
 
+import de.schildbach.wallet.R;
 import de.schildbach.wallet.util.ViewPagerTabs;
-import de.schildbach.wallet_test.R;
 
 import android.content.Context;
 import android.content.Intent;

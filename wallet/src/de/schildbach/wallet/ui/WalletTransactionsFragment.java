@@ -44,6 +44,7 @@ import org.slf4j.LoggerFactory;
 
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.R;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.data.AddressBookChangeLiveData;
 import de.schildbach.wallet.data.AddressBookProvider;
@@ -53,7 +54,6 @@ import de.schildbach.wallet.ui.send.RaiseFeeDialogFragment;
 import de.schildbach.wallet.util.BitmapFragment;
 import de.schildbach.wallet.util.Qr;
 import de.schildbach.wallet.util.WalletUtils;
-import de.schildbach.wallet_test.R;
 
 import android.app.Application;
 import android.app.admin.DevicePolicyManager;

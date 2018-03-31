@@ -23,10 +23,10 @@ import org.bitcoinj.core.Address;
 import org.bitcoinj.wallet.Wallet;
 
 import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.R;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.data.AddressBookProvider;
 import de.schildbach.wallet.util.WalletUtils;
-import de.schildbach.wallet_test.R;
 
 import android.app.Dialog;
 import android.content.ContentResolver;
