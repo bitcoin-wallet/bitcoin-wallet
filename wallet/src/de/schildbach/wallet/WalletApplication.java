@@ -22,6 +22,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
 import org.bitcoinj.core.Transaction;
@@ -41,6 +42,7 @@ import org.slf4j.LoggerFactory;
 import com.google.common.base.Splitter;
 import com.google.common.base.Stopwatch;
 import com.google.common.collect.ImmutableList;
+import com.google.common.util.concurrent.SettableFuture;
 
 import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.util.Bluetooth;
@@ -59,8 +61,11 @@ import android.media.AudioAttributes;
 import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Looper;
 import android.os.StrictMode;
 import android.preference.PreferenceManager;
+import android.support.annotation.MainThread;
+import android.support.annotation.WorkerThread;
 import android.support.v4.content.LocalBroadcastManager;
 import android.widget.Toast;
 
@@ -72,11 +77,13 @@ public class WalletApplication extends Application {
 
     private File walletFile;
     private WalletFiles walletFiles;
+    private Configuration config;
 
     public static final String ACTION_WALLET_REFERENCE_CHANGED = WalletApplication.class.getPackage().getName()
             + ".wallet_reference_changed";
 
     public static final long TIME_CREATE_APPLICATION = System.currentTimeMillis();
+    private static final String BIP39_WORDLIST_FILENAME = "bip39-wordlist.txt";
 
     private static final Logger log = LoggerFactory.getLogger(WalletApplication.class);
 
@@ -110,13 +117,9 @@ public class WalletApplication extends Application {
             }
         };
 
-        initMnemonicCode();
-
         activityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
 
         walletFile = getFileStreamPath(Constants.Files.WALLET_FILENAME_PROTOBUF);
-
-        loadWalletFromProtobuf();
 
         final Configuration config = getConfiguration();
         config.updateLastVersionCode(packageInfo.versionCode);
@@ -129,94 +132,131 @@ public class WalletApplication extends Application {
         initNotificationManager();
     }
 
-    private static final String BIP39_WORDLIST_FILENAME = "bip39-wordlist.txt";
-
-    private void initMnemonicCode() {
-        try {
-            final Stopwatch watch = Stopwatch.createStarted();
-            MnemonicCode.INSTANCE = new MnemonicCode(getAssets().open(BIP39_WORDLIST_FILENAME), null);
-            watch.stop();
-            log.info("BIP39 wordlist loaded from: '{}', took {}", BIP39_WORDLIST_FILENAME, watch);
-        } catch (final IOException x) {
-            throw new Error(x);
-        }
-    }
-
-    private Configuration config;
-
     public synchronized Configuration getConfiguration() {
         if (config == null)
             config = new Configuration(PreferenceManager.getDefaultSharedPreferences(this), getResources());
         return config;
     }
 
+    @MainThread
     public Wallet getWallet() {
-        return walletFiles.getWallet();
-    }
-
-    private void loadWalletFromProtobuf() {
-        Wallet wallet;
-        if (walletFile.exists()) {
-            try (final FileInputStream walletStream = new FileInputStream(walletFile)) {
-                final Stopwatch watch = Stopwatch.createStarted();
-                wallet = new WalletProtobufSerializer().readWallet(walletStream);
-                watch.stop();
-
-                if (!wallet.getParams().equals(Constants.NETWORK_PARAMETERS))
-                    throw new UnreadableWalletException("bad wallet network parameters: " + wallet.getParams().getId());
-
-                log.info("wallet loaded from: '{}', took {}", walletFile, watch);
-            } catch (final IOException | UnreadableWalletException x) {
-                log.error("problem loading wallet", x);
-
-                Toast.makeText(WalletApplication.this, x.getClass().getName(), Toast.LENGTH_LONG).show();
-
-                wallet = restoreWalletFromBackup();
+        final Stopwatch watch = Stopwatch.createStarted();
+        final SettableFuture<Wallet> future = SettableFuture.create();
+        getWalletAsync(new OnWalletLoadedListener() {
+            @Override
+            public void onWalletLoaded(Wallet wallet) {
+                future.set(wallet);
             }
-
-            if (!wallet.isConsistent()) {
-                Toast.makeText(this, "inconsistent wallet: " + walletFile, Toast.LENGTH_LONG).show();
-
-                wallet = restoreWalletFromBackup();
-            }
-
-            if (!wallet.getParams().equals(Constants.NETWORK_PARAMETERS))
-                throw new Error("bad wallet network parameters: " + wallet.getParams().getId());
-
-            wallet.cleanup();
-            walletFiles = wallet.autosaveToFile(walletFile, Constants.Files.WALLET_AUTOSAVE_DELAY_MS,
-                    TimeUnit.MILLISECONDS, null);
-        } else {
-            final Stopwatch watch = Stopwatch.createStarted();
-            wallet = new Wallet(Constants.NETWORK_PARAMETERS);
-            walletFiles = wallet.autosaveToFile(walletFile, Constants.Files.WALLET_AUTOSAVE_DELAY_MS,
-                    TimeUnit.MILLISECONDS, null);
-            autosaveWalletNow(); // persist...
-            backupWallet(); // ...and backup asap
+        });
+        try {
+            return future.get();
+        } catch (final InterruptedException | ExecutionException x) {
+            throw new RuntimeException(x);
+        } finally {
             watch.stop();
-            log.info("fresh wallet created, took {}", watch);
-
-            config.armBackupReminder();
+            if (Looper.myLooper() == Looper.getMainLooper())
+                log.warn("UI thread blocked for " + watch + " when using getWallet()", new RuntimeException());
         }
     }
 
-    private Wallet restoreWalletFromBackup() {
-        try (final InputStream is = openFileInput(Constants.Files.WALLET_KEY_BACKUP_PROTOBUF)) {
-            final Wallet wallet = new WalletProtobufSerializer().readWallet(is, true, null);
+    private Object getWalletLock = new Object();
 
-            if (!wallet.isConsistent())
-                throw new Error("inconsistent backup");
+    @MainThread
+    public void getWalletAsync(final OnWalletLoadedListener listener) {
+        new Thread() {
+            @Override
+            public void run() {
+                org.bitcoinj.core.Context.propagate(Constants.CONTEXT);
+                synchronized (getWalletLock) {
+                    initMnemonicCode();
+                    if (walletFiles == null)
+                        loadWalletFromProtobuf();
+                }
+                listener.onWalletLoaded(walletFiles.getWallet());
+            }
 
-            BlockchainService.resetBlockchain(this);
+            @WorkerThread
+            private void loadWalletFromProtobuf() {
+                Wallet wallet;
+                if (walletFile.exists()) {
+                    try (final FileInputStream walletStream = new FileInputStream(walletFile)) {
+                        final Stopwatch watch = Stopwatch.createStarted();
+                        wallet = new WalletProtobufSerializer().readWallet(walletStream);
+                        watch.stop();
 
-            Toast.makeText(this, R.string.toast_wallet_reset, Toast.LENGTH_LONG).show();
+                        if (!wallet.getParams().equals(Constants.NETWORK_PARAMETERS))
+                            throw new UnreadableWalletException(
+                                    "bad wallet network parameters: " + wallet.getParams().getId());
 
-            log.info("wallet restored from backup: '" + Constants.Files.WALLET_KEY_BACKUP_PROTOBUF + "'");
+                        log.info("wallet loaded from: '{}', took {}", walletFile, watch);
+                    } catch (final IOException | UnreadableWalletException x) {
+                        log.error("problem loading wallet", x);
+                        Toast.makeText(WalletApplication.this, x.getClass().getName(), Toast.LENGTH_LONG).show();
+                        wallet = restoreWalletFromBackup();
+                    }
 
-            return wallet;
-        } catch (final IOException | UnreadableWalletException x) {
-            throw new Error("cannot read backup", x);
-        }
+                    if (!wallet.isConsistent()) {
+                        Toast.makeText(WalletApplication.this, "inconsistent wallet: " + walletFile, Toast.LENGTH_LONG)
+                                .show();
+                        wallet = restoreWalletFromBackup();
+                    }
+
+                    if (!wallet.getParams().equals(Constants.NETWORK_PARAMETERS))
+                        throw new Error("bad wallet network parameters: " + wallet.getParams().getId());
+
+                    wallet.cleanup();
+                    walletFiles = wallet.autosaveToFile(walletFile, Constants.Files.WALLET_AUTOSAVE_DELAY_MS,
+                            TimeUnit.MILLISECONDS, null);
+                } else {
+                    final Stopwatch watch = Stopwatch.createStarted();
+                    wallet = new Wallet(Constants.NETWORK_PARAMETERS);
+                    walletFiles = wallet.autosaveToFile(walletFile, Constants.Files.WALLET_AUTOSAVE_DELAY_MS,
+                            TimeUnit.MILLISECONDS, null);
+                    autosaveWalletNow(); // persist...
+                    backupWallet(); // ...and backup asap
+                    watch.stop();
+                    log.info("fresh wallet created, took {}", watch);
+
+                    config.armBackupReminder();
+                }
+            }
+
+            private Wallet restoreWalletFromBackup() {
+                try (final InputStream is = openFileInput(Constants.Files.WALLET_KEY_BACKUP_PROTOBUF)) {
+                    final Wallet wallet = new WalletProtobufSerializer().readWallet(is, true, null);
+
+                    if (!wallet.isConsistent())
+                        throw new Error("inconsistent backup");
+
+                    BlockchainService.resetBlockchain(WalletApplication.this);
+
+                    Toast.makeText(WalletApplication.this, R.string.toast_wallet_reset, Toast.LENGTH_LONG).show();
+
+                    log.info("wallet restored from backup: '" + Constants.Files.WALLET_KEY_BACKUP_PROTOBUF + "'");
+
+                    return wallet;
+                } catch (final IOException | UnreadableWalletException x) {
+                    throw new Error("cannot read backup", x);
+                }
+            }
+
+            private void initMnemonicCode() {
+                if (MnemonicCode.INSTANCE == null) {
+                    try {
+                        final Stopwatch watch = Stopwatch.createStarted();
+                        MnemonicCode.INSTANCE = new MnemonicCode(getAssets().open(BIP39_WORDLIST_FILENAME), null);
+                        watch.stop();
+                        log.info("BIP39 wordlist loaded from: '{}', took {}", BIP39_WORDLIST_FILENAME, watch);
+                    } catch (final IOException x) {
+                        throw new Error(x);
+                    }
+                }
+            }
+        }.start();
+    }
+
+    public static interface OnWalletLoadedListener {
+        void onWalletLoaded(Wallet wallet);
     }
 
     public void autosaveWalletNow() {
@@ -248,6 +288,23 @@ public class WalletApplication extends Application {
         } catch (final IOException x) {
             log.error("problem writing wallet backup", x);
         }
+    }
+
+    public void replaceWallet(final Wallet newWallet) {
+        newWallet.cleanup();
+        BlockchainService.resetBlockchain(this);
+
+        final Wallet oldWallet = getWallet();
+        synchronized (getWalletLock) {
+            oldWallet.shutdownAutosaveAndWait(); // this will also prevent BlockchainService to save
+            walletFiles = newWallet.autosaveToFile(walletFile, Constants.Files.WALLET_AUTOSAVE_DELAY_MS,
+                    TimeUnit.MILLISECONDS, null);
+        }
+        config.maybeIncrementBestChainHeightEver(newWallet.getLastBlockSeenHeight());
+        backupWallet();
+
+        final Intent broadcast = new Intent(ACTION_WALLET_REFERENCE_CHANGED);
+        LocalBroadcastManager.getInstance(this).sendBroadcast(broadcast);
     }
 
     private void cleanupFiles() {
@@ -285,21 +342,6 @@ public class WalletApplication extends Application {
 
             log.info("created notification channels, took {}", watch);
         }
-    }
-
-    public void replaceWallet(final Wallet newWallet) {
-        newWallet.cleanup();
-
-        BlockchainService.resetBlockchain(this);
-        getWallet().shutdownAutosaveAndWait(); // this will also prevent BlockchainService to save
-
-        walletFiles = newWallet.autosaveToFile(walletFile, Constants.Files.WALLET_AUTOSAVE_DELAY_MS,
-                TimeUnit.MILLISECONDS, null);
-        config.maybeIncrementBestChainHeightEver(newWallet.getLastBlockSeenHeight());
-        backupWallet();
-
-        final Intent broadcast = new Intent(ACTION_WALLET_REFERENCE_CHANGED);
-        LocalBroadcastManager.getInstance(this).sendBroadcast(broadcast);
     }
 
     public void processDirectTransaction(final Transaction tx) throws VerificationException {

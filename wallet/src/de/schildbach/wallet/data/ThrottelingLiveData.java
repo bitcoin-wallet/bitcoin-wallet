@@ -62,5 +62,7 @@ public abstract class ThrottelingLiveData<T> extends LiveData<T> {
     }
 
     @MainThread
-    protected abstract void load();
+    protected void load() {
+        // do nothing by default
+    }
 }

@@ -63,6 +63,7 @@ import de.schildbach.wallet.data.ExchangeRate;
 import de.schildbach.wallet.data.ExchangeRateLiveData;
 import de.schildbach.wallet.data.PaymentIntent;
 import de.schildbach.wallet.data.PaymentIntent.Standard;
+import de.schildbach.wallet.data.WalletLiveData;
 import de.schildbach.wallet.integration.android.BitcoinIntegration;
 import de.schildbach.wallet.offline.DirectPaymentTask;
 import de.schildbach.wallet.service.BlockchainService;
@@ -137,7 +138,6 @@ public final class SendCoinsFragment extends Fragment {
     private AbstractWalletActivity activity;
     private WalletApplication application;
     private Configuration config;
-    private Wallet wallet;
     private ContentResolver contentResolver;
     private FragmentManager fragmentManager;
     @Nullable
@@ -186,6 +186,7 @@ public final class SendCoinsFragment extends Fragment {
 
     public static class ViewModel extends AndroidViewModel {
         private final WalletApplication application;
+        private WalletLiveData wallet;
         private ReceivingAddressesLiveData receivingAddresses;
         private AddressBookLiveData addressBook;
         private ExchangeRateLiveData exchangeRate;
@@ -211,6 +212,12 @@ public final class SendCoinsFragment extends Fragment {
         public ViewModel(final Application application) {
             super(application);
             this.application = (WalletApplication) application;
+        }
+
+        public WalletLiveData getWallet() {
+            if (wallet == null)
+                wallet = new WalletLiveData(application);
+            return wallet;
         }
 
         public ReceivingAddressesLiveData getReceivingAddresses() {
@@ -441,7 +448,6 @@ public final class SendCoinsFragment extends Fragment {
         this.activity = (AbstractWalletActivity) context;
         this.application = activity.getWalletApplication();
         this.config = application.getConfiguration();
-        this.wallet = application.getWallet();
         this.contentResolver = application.getContentResolver();
         this.fragmentManager = getFragmentManager();
     }
@@ -452,6 +458,12 @@ public final class SendCoinsFragment extends Fragment {
         setHasOptionsMenu(true);
 
         viewModel = ViewModelProviders.of(this).get(ViewModel.class);
+        viewModel.getWallet().observe(this, new Observer<Wallet>() {
+            @Override
+            public void onChanged(final Wallet wallet) {
+                updateView();
+            }
+        });
         viewModel.getReceivingAddresses().observe(this, new Observer<Cursor>() {
             @Override
             public void onChanged(final Cursor cursor) {
@@ -798,9 +810,11 @@ public final class SendCoinsFragment extends Fragment {
     }
 
     private boolean isPasswordPlausible() {
+        final Wallet wallet = viewModel.getWallet().getValue();
+        if (wallet == null)
+            return false;
         if (!wallet.isEncrypted())
             return true;
-
         return !privateKeyPasswordView.getText().toString().trim().isEmpty();
     }
 
@@ -824,6 +838,7 @@ public final class SendCoinsFragment extends Fragment {
     private void handleGo() {
         privateKeyBadPasswordView.setVisibility(View.INVISIBLE);
 
+        final Wallet wallet = viewModel.getWallet().getValue();
         if (wallet.isEncrypted()) {
             new DeriveKeyTask(backgroundHandler, application.scryptIterationsTarget()) {
                 @Override
@@ -851,6 +866,7 @@ public final class SendCoinsFragment extends Fragment {
 
         // prepare send request
         final Map<FeeCategory, Coin> fees = viewModel.getDynamicFees().getValue();
+        final Wallet wallet = viewModel.getWallet().getValue();
         final SendRequest sendRequest = finalPaymentIntent.toSendRequest();
         sendRequest.emptyWallet = viewModel.paymentIntent.mayEditAmount()
                 && finalAmount.equals(wallet.getBalance(BalanceType.AVAILABLE));
@@ -882,6 +898,7 @@ public final class SendCoinsFragment extends Fragment {
     }
 
     private void sendPayment(final SendRequest sendRequest, final Coin finalAmount) {
+        final Wallet wallet = viewModel.getWallet().getValue();
         new SendCoinsOfflineTask(wallet, backgroundHandler) {
             @Override
             protected void onSuccess(final Transaction transaction) {
@@ -1033,6 +1050,7 @@ public final class SendCoinsFragment extends Fragment {
     }
 
     private void handleEmpty() {
+        final Wallet wallet = viewModel.getWallet().getValue();
         final Coin available = wallet.getBalance(BalanceType.AVAILABLE);
         amountCalculatorLink.setBtcAmount(available);
 
@@ -1053,6 +1071,7 @@ public final class SendCoinsFragment extends Fragment {
             viewModel.dryrunTransaction = null;
             viewModel.dryrunException = null;
 
+            final Wallet wallet = viewModel.getWallet().getValue();
             final Map<FeeCategory, Coin> fees = viewModel.getDynamicFees().getValue();
             final Coin amount = amountCalculatorLink.getAmount();
             if (amount != null && fees != null) {
@@ -1082,6 +1101,7 @@ public final class SendCoinsFragment extends Fragment {
     }
 
     private void updateView() {
+        final Wallet wallet = viewModel.getWallet().getValue();
         final Map<FeeCategory, Coin> fees = viewModel.getDynamicFees().getValue();
         final BlockchainState blockchainState = viewModel.getBlockchainState().getValue();
         final Map<String, String> addressBook = viewModel.getAddressBook().getValue();
@@ -1206,14 +1226,14 @@ public final class SendCoinsFragment extends Fragment {
                     hintView.setTextColor(getResources().getColor(colorResId));
                     hintView.setText(getString(hintResId, btcFormat.format(viewModel.dryrunTransaction.getFee())));
                 } else if (viewModel.paymentIntent.mayEditAddress() && viewModel.validatedAddress != null
-                        && wallet.isPubKeyHashMine(viewModel.validatedAddress.address.getHash160())) {
+                        && wallet != null && wallet.isPubKeyHashMine(viewModel.validatedAddress.address.getHash160())) {
                     hintView.setTextColor(getResources().getColor(R.color.fg_insignificant));
                     hintView.setVisibility(View.VISIBLE);
                     hintView.setText(R.string.send_coins_fragment_receiving_address_own);
                 }
             }
 
-            if (viewModel.sentTransaction != null) {
+            if (viewModel.sentTransaction != null && wallet != null) {
                 sentTransactionView.setVisibility(View.VISIBLE);
                 sentTransactionAdapter.submitList(TransactionsAdapter.buildListItem(activity, viewModel.sentTransaction,
                         wallet, addressBook, btcFormat, application.maxConnectedPeers()));
@@ -1233,8 +1253,8 @@ public final class SendCoinsFragment extends Fragment {
 
             viewCancel.setEnabled(viewModel.state != State.REQUEST_PAYMENT_REQUEST
                     && viewModel.state != State.DECRYPTING && viewModel.state != State.SIGNING);
-            viewGo.setEnabled(everythingPlausible() && viewModel.dryrunTransaction != null && fees != null
-                    && (blockchainState == null || !blockchainState.replaying));
+            viewGo.setEnabled(everythingPlausible() && viewModel.dryrunTransaction != null && wallet != null
+                    && fees != null && (blockchainState == null || !blockchainState.replaying));
 
             if (viewModel.state == null || viewModel.state == State.REQUEST_PAYMENT_REQUEST) {
                 viewCancel.setText(R.string.button_cancel);
@@ -1260,7 +1280,7 @@ public final class SendCoinsFragment extends Fragment {
             }
 
             final boolean privateKeyPasswordViewVisible = (viewModel.state == State.INPUT
-                    || viewModel.state == State.DECRYPTING) && wallet.isEncrypted();
+                    || viewModel.state == State.DECRYPTING) && wallet != null && wallet.isEncrypted();
             privateKeyPasswordViewGroup.setVisibility(privateKeyPasswordViewVisible ? View.VISIBLE : View.GONE);
             privateKeyPasswordView.setEnabled(viewModel.state == State.INPUT);
 

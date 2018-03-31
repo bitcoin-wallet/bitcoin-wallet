@@ -223,7 +223,7 @@ public class WalletTransactionsFragment extends Fragment implements Transactions
 
     @Override
     public void onTransactionMenuClick(final View view, final Sha256Hash transactionHash) {
-        final Wallet wallet = application.getWallet();
+        final Wallet wallet = viewModel.getWallet();
         final Transaction tx = wallet.getTransaction(transactionHash);
         final boolean txSent = tx.getValue(wallet).signum() < 0;
         final Address txAddress = txSent ? WalletUtils.getToAddressOfSent(tx, wallet)

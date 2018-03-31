@@ -41,9 +41,10 @@ import org.bitcoinj.wallet.listeners.WalletReorganizeEventListener;
 
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.data.AbstractWalletLiveData;
 import de.schildbach.wallet.data.AddressBookLiveData;
 import de.schildbach.wallet.data.ConfigFormatLiveData;
-import de.schildbach.wallet.data.ThrottelingLiveData;
+import de.schildbach.wallet.data.WalletLiveData;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
@@ -51,12 +52,7 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MediatorLiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Observer;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.AsyncTask;
-import android.support.v4.content.LocalBroadcastManager;
 
 /**
  * @author Andreas Schildbach
@@ -68,6 +64,7 @@ public class WalletTransactionsViewModel extends AndroidViewModel {
 
     private final WalletApplication application;
     private final TransactionsLiveData transactions;
+    private final WalletLiveData wallet;
     private final TransactionsConfidenceLiveData transactionsConfidence;
     private final AddressBookLiveData addressBook;
     private final ConfigFormatLiveData configFormat;
@@ -80,12 +77,19 @@ public class WalletTransactionsViewModel extends AndroidViewModel {
         super(application);
         this.application = (WalletApplication) application;
         this.transactions = new TransactionsLiveData(this.application);
+        this.wallet = new WalletLiveData(this.application);
         this.transactionsConfidence = new TransactionsConfidenceLiveData(this.application);
         this.addressBook = new AddressBookLiveData(this.application);
         this.configFormat = new ConfigFormatLiveData(this.application);
         this.list.addSource(transactions, new Observer<Set<Transaction>>() {
             @Override
             public void onChanged(final Set<Transaction> transactions) {
+                maybePostList();
+            }
+        });
+        this.list.addSource(wallet, new Observer<Wallet>() {
+            @Override
+            public void onChanged(final Wallet wallet) {
                 maybePostList();
             }
         });
@@ -119,6 +123,10 @@ public class WalletTransactionsViewModel extends AndroidViewModel {
                 maybePostList();
             }
         });
+    }
+
+    public Wallet getWallet() {
+        return wallet.getValue();
     }
 
     public Direction getDirection() {
@@ -194,41 +202,32 @@ public class WalletTransactionsViewModel extends AndroidViewModel {
         }
     };
 
-    private static class TransactionsLiveData extends ThrottelingLiveData<Set<Transaction>> {
-        private final WalletApplication application;
-        private final LocalBroadcastManager broadcastManager;
-        private Wallet wallet;
+    private static class TransactionsLiveData extends AbstractWalletLiveData<Set<Transaction>> {
         private static final long THROTTLE_MS = 1000;
 
         public TransactionsLiveData(final WalletApplication application) {
-            super(THROTTLE_MS);
-            this.application = application;
-            this.broadcastManager = LocalBroadcastManager.getInstance(application);
+            super(application, THROTTLE_MS);
         }
 
         @Override
-        protected void onActive() {
-            broadcastManager.registerReceiver(walletChangeReceiver,
-                    new IntentFilter(WalletApplication.ACTION_WALLET_REFERENCE_CHANGED));
-            this.wallet = application.getWallet();
-            addWalletListener();
+        protected void onWalletActive(final Wallet wallet) {
+            addWalletListener(wallet);
             load();
         }
 
         @Override
-        protected void onInactive() {
-            removeWalletListener();
-            broadcastManager.unregisterReceiver(walletChangeReceiver);
+        protected void onWalletInactive(final Wallet wallet) {
+            removeWalletListener(wallet);
         }
 
-        private void addWalletListener() {
+        private void addWalletListener(final Wallet wallet) {
             wallet.addCoinsReceivedEventListener(Threading.SAME_THREAD, walletListener);
             wallet.addCoinsSentEventListener(Threading.SAME_THREAD, walletListener);
             wallet.addReorganizeEventListener(Threading.SAME_THREAD, walletListener);
             wallet.addChangeEventListener(Threading.SAME_THREAD, walletListener);
         }
 
-        private void removeWalletListener() {
+        private void removeWalletListener(final Wallet wallet) {
             wallet.removeChangeEventListener(walletListener);
             wallet.removeReorganizeEventListener(walletListener);
             wallet.removeCoinsSentEventListener(walletListener);
@@ -237,11 +236,13 @@ public class WalletTransactionsViewModel extends AndroidViewModel {
 
         @Override
         protected void load() {
+            final Wallet wallet = getWallet();
             AsyncTask.execute(new Runnable() {
                 @Override
                 public void run() {
                     org.bitcoinj.core.Context.propagate(Constants.CONTEXT);
-                    postValue(wallet.getTransactions(true));
+                    final Set<Transaction> transactions = wallet.getTransactions(true);
+                    postValue(transactions);
                 }
             });
         }
@@ -272,33 +273,21 @@ public class WalletTransactionsViewModel extends AndroidViewModel {
                 triggerLoad();
             }
         }
-
-        private final BroadcastReceiver walletChangeReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(final Context context, final Intent intent) {
-                removeWalletListener();
-                wallet = application.getWallet();
-                addWalletListener();
-                load();
-            }
-        };
     }
 
-    private static class TransactionsConfidenceLiveData extends ThrottelingLiveData<Void>
+    private static class TransactionsConfidenceLiveData extends AbstractWalletLiveData<Void>
             implements TransactionConfidenceEventListener {
-        private final Wallet wallet;
-
         public TransactionsConfidenceLiveData(final WalletApplication application) {
-            this.wallet = application.getWallet();
+            super(application);
         }
 
         @Override
-        protected void onActive() {
+        protected void onWalletActive(final Wallet wallet) {
             wallet.addTransactionConfidenceEventListener(Threading.SAME_THREAD, this);
         }
 
         @Override
-        protected void onInactive() {
+        protected void onWalletInactive(final Wallet wallet) {
             wallet.removeTransactionConfidenceEventListener(this);
         }
 

@@ -31,55 +31,43 @@ import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.AsyncTask;
-import android.support.v4.content.LocalBroadcastManager;
 
 /**
  * @author Andreas Schildbach
  */
-public final class WalletBalanceLiveData extends ThrottelingLiveData<Coin> implements OnSharedPreferenceChangeListener {
-    private final WalletApplication application;
-    private final LocalBroadcastManager broadcastManager;
+public final class WalletBalanceLiveData extends AbstractWalletLiveData<Coin>
+        implements OnSharedPreferenceChangeListener {
     private final Configuration config;
-    private Wallet wallet;
 
     public WalletBalanceLiveData(final WalletApplication application) {
-        this.application = application;
-        this.broadcastManager = LocalBroadcastManager.getInstance(application);
+        super(application);
         this.config = application.getConfiguration();
     }
 
     @Override
-    protected void onActive() {
-        broadcastManager.registerReceiver(walletChangeReceiver,
-                new IntentFilter(WalletApplication.ACTION_WALLET_REFERENCE_CHANGED));
-        this.wallet = application.getWallet();
-        addWalletListener();
+    protected void onWalletActive(final Wallet wallet) {
+        addWalletListener(wallet);
         config.registerOnSharedPreferenceChangeListener(this);
         load();
     }
 
     @Override
-    protected void onInactive() {
+    protected void onWalletInactive(final Wallet wallet) {
         config.unregisterOnSharedPreferenceChangeListener(this);
-        removeWalletListener();
-        broadcastManager.unregisterReceiver(walletChangeReceiver);
+        removeWalletListener(wallet);
     }
 
-    private void addWalletListener() {
+    private void addWalletListener(final Wallet wallet) {
         wallet.addCoinsReceivedEventListener(Threading.SAME_THREAD, walletListener);
         wallet.addCoinsSentEventListener(Threading.SAME_THREAD, walletListener);
         wallet.addReorganizeEventListener(Threading.SAME_THREAD, walletListener);
         wallet.addChangeEventListener(Threading.SAME_THREAD, walletListener);
     }
 
-    private void removeWalletListener() {
+    private void removeWalletListener(final Wallet wallet) {
         wallet.removeChangeEventListener(walletListener);
         wallet.removeReorganizeEventListener(walletListener);
         wallet.removeCoinsSentEventListener(walletListener);
@@ -88,11 +76,12 @@ public final class WalletBalanceLiveData extends ThrottelingLiveData<Coin> imple
 
     @Override
     protected void load() {
+        // TODO cancel loading
         AsyncTask.execute(new Runnable() {
             @Override
             public void run() {
                 org.bitcoinj.core.Context.propagate(Constants.CONTEXT);
-                final Coin balance = wallet.getBalance(BalanceType.ESTIMATED);
+                final Coin balance = getWallet().getBalance(BalanceType.ESTIMATED);
                 postValue(balance);
             }
         });
@@ -124,16 +113,6 @@ public final class WalletBalanceLiveData extends ThrottelingLiveData<Coin> imple
             triggerLoad();
         }
     }
-
-    private final BroadcastReceiver walletChangeReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(final Context context, final Intent intent) {
-            removeWalletListener();
-            wallet = application.getWallet();
-            addWalletListener();
-            load();
-        }
-    };
 
     @Override
     public void onSharedPreferenceChanged(final SharedPreferences sharedPreferences, final String key) {

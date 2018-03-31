@@ -59,7 +59,7 @@ import android.widget.TextView;
  */
 public class BlockListAdapter extends ListAdapter<BlockListAdapter.ListItem, BlockListAdapter.ViewHolder> {
     public static List<ListItem> buildListItems(final Context context, final List<StoredBlock> blocks, final Date time,
-            final MonetaryFormat format, final @Nullable Set<Transaction> transactions, final Wallet wallet) {
+            final MonetaryFormat format, final @Nullable Set<Transaction> transactions, final @Nullable Wallet wallet) {
         final List<ListItem> items = new ArrayList<>(blocks.size());
         for (final StoredBlock block : blocks)
             items.add(new ListItem(context, block, time, format, transactions, wallet));
@@ -76,7 +76,7 @@ public class BlockListAdapter extends ListAdapter<BlockListAdapter.ListItem, Blo
         public final List<ListTransaction> transactions;
 
         public ListItem(final Context context, final StoredBlock block, final Date time, final MonetaryFormat format,
-                final @Nullable Set<Transaction> transactions, final Wallet wallet) {
+                final @Nullable Set<Transaction> transactions, final @Nullable Wallet wallet) {
             this.blockHash = block.getHeader().getHash();
             this.height = block.getHeight();
             final long timeMs = block.getHeader().getTimeSeconds() * DateUtils.SECOND_IN_MILLIS;
@@ -89,7 +89,7 @@ public class BlockListAdapter extends ListAdapter<BlockListAdapter.ListItem, Blo
             this.isDifficultyTransitionPoint = isDifficultyTransitionPoint(block);
             this.format = format;
             this.transactions = new LinkedList<>();
-            if (transactions != null) {
+            if (transactions != null && wallet != null) {
                 for (final Transaction tx : transactions) {
                     final Map<Sha256Hash, Integer> appearsInHashes = tx.getAppearsInHashes();
                     if (appearsInHashes != null && appearsInHashes.containsKey(blockHash))
@@ -150,8 +150,7 @@ public class BlockListAdapter extends ListAdapter<BlockListAdapter.ListItem, Blo
     @Nullable
     private final OnClickListener onClickListener;
 
-    public BlockListAdapter(final Context context, final Wallet wallet,
-            final @Nullable OnClickListener onClickListener) {
+    public BlockListAdapter(final Context context, final @Nullable OnClickListener onClickListener) {
         super(new DiffUtil.ItemCallback<ListItem>() {
             @Override
             public boolean areItemsTheSame(final ListItem oldItem, final ListItem newItem) {

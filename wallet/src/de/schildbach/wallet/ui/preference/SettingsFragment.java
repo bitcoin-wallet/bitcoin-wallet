@@ -19,14 +19,12 @@ package de.schildbach.wallet.ui.preference;
 
 import java.net.InetAddress;
 
-import org.bitcoinj.wallet.Wallet.BalanceType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.R;
 import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.WalletBalanceWidgetProvider;
 import de.schildbach.wallet.service.BlockchainService;
 
 import android.app.Activity;
@@ -53,7 +51,6 @@ public final class SettingsFragment extends PreferenceFragment implements OnPref
     private HandlerThread backgroundThread;
     private Handler backgroundHandler;
 
-    private Preference btcPrecisionPreference;
     private Preference trustedPeerPreference;
     private Preference trustedPeerOnlyPreference;
 
@@ -79,9 +76,6 @@ public final class SettingsFragment extends PreferenceFragment implements OnPref
         backgroundThread.start();
         backgroundHandler = new Handler(backgroundThread.getLooper());
 
-        btcPrecisionPreference = findPreference(Configuration.PREFS_KEY_BTC_PRECISION);
-        btcPrecisionPreference.setOnPreferenceChangeListener(this);
-
         trustedPeerPreference = findPreference(Configuration.PREFS_KEY_TRUSTED_PEER);
         ((EditTextPreference) trustedPeerPreference).getEditText().setSingleLine();
         trustedPeerPreference.setOnPreferenceChangeListener(this);
@@ -99,7 +93,6 @@ public final class SettingsFragment extends PreferenceFragment implements OnPref
     public void onDestroy() {
         trustedPeerOnlyPreference.setOnPreferenceChangeListener(null);
         trustedPeerPreference.setOnPreferenceChangeListener(null);
-        btcPrecisionPreference.setOnPreferenceChangeListener(null);
 
         backgroundThread.getLooper().quit();
 
@@ -112,10 +105,7 @@ public final class SettingsFragment extends PreferenceFragment implements OnPref
         handler.post(new Runnable() {
             @Override
             public void run() {
-                if (preference.equals(btcPrecisionPreference)) {
-                    WalletBalanceWidgetProvider.updateWidgets(activity,
-                            application.getWallet().getBalance(BalanceType.ESTIMATED), config.getCachedExchangeRate());
-                } else if (preference.equals(trustedPeerPreference)) {
+                if (preference.equals(trustedPeerPreference)) {
                     BlockchainService.stop(activity);
                     updateTrustedPeer();
                 } else if (preference.equals(trustedPeerOnlyPreference)) {

@@ -72,6 +72,7 @@ import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.R;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.WalletBalanceWidgetProvider;
+import de.schildbach.wallet.data.AbstractWalletLiveData;
 import de.schildbach.wallet.data.AddressBookProvider;
 import de.schildbach.wallet.data.ExchangeRate;
 import de.schildbach.wallet.data.ExchangeRateLiveData;
@@ -209,21 +210,19 @@ public class BlockchainService extends LifecycleService {
         context.startService(intent);
     }
 
-    private static class NewTransactionLiveData extends LiveData<Transaction> {
-        private final Wallet wallet;
-
+    private static class NewTransactionLiveData extends AbstractWalletLiveData<Transaction> {
         public NewTransactionLiveData(final WalletApplication application) {
-            this.wallet = application.getWallet();
+            super(application);
         }
 
         @Override
-        protected void onActive() {
+        protected void onWalletActive(final Wallet wallet) {
             wallet.addCoinsReceivedEventListener(Threading.SAME_THREAD, walletListener);
             wallet.addCoinsSentEventListener(Threading.SAME_THREAD, walletListener);
         }
 
         @Override
-        protected void onInactive() {
+        protected void onWalletInactive(final Wallet wallet) {
             wallet.removeCoinsSentEventListener(walletListener);
             wallet.removeCoinsReceivedEventListener(walletListener);
         }
@@ -568,7 +567,6 @@ public class BlockchainService extends LifecycleService {
                 }
             });
         }
-
         final NewTransactionLiveData newTransaction = new NewTransactionLiveData(application);
         newTransaction.observe(this, new Observer<Transaction>() {
             @Override

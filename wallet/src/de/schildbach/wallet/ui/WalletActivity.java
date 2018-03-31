@@ -27,6 +27,7 @@ import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.R;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.data.PaymentIntent;
+import de.schildbach.wallet.data.WalletLiveData;
 import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.ui.InputParser.BinaryInputParser;
 import de.schildbach.wallet.ui.InputParser.StringInputParser;
@@ -40,6 +41,10 @@ import de.schildbach.wallet.util.CrashReporter;
 import de.schildbach.wallet.util.Nfc;
 
 import android.app.Activity;
+import android.app.Application;
+import android.arch.lifecycle.AndroidViewModel;
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.nfc.NdefMessage;
@@ -58,22 +63,42 @@ import android.view.animation.AnimationUtils;
  */
 public final class WalletActivity extends AbstractWalletActivity {
     private WalletApplication application;
-    private Configuration config;
-    private Wallet wallet;
-
     private Handler handler = new Handler();
+
+    private ViewModel viewModel;
+
+    public static class ViewModel extends AndroidViewModel {
+        private final WalletApplication application;
+        private WalletLiveData wallet;
+
+        public ViewModel(final Application application) {
+            super(application);
+            this.application = (WalletApplication) application;
+        }
+
+        public WalletLiveData getWallet() {
+            if (wallet == null)
+                wallet = new WalletLiveData(application);
+            return wallet;
+        }
+    }
 
     private static final int REQUEST_CODE_SCAN = 0;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         application = getWalletApplication();
-        config = application.getConfiguration();
-        wallet = application.getWallet();
+        final Configuration config = application.getConfiguration();
 
         setContentView(R.layout.wallet_content);
+        viewModel = ViewModelProviders.of(this).get(ViewModel.class);
+        viewModel.getWallet().observe(this, new Observer<Wallet>() {
+            @Override
+            public void onChanged(final Wallet wallet) {
+                invalidateOptionsMenu();
+            }
+        });
 
         final View exchangeRatesFragment = findViewById(R.id.wallet_main_twopanes_exchange_rates);
         if (exchangeRatesFragment != null)
@@ -214,9 +239,12 @@ public final class WalletActivity extends AbstractWalletActivity {
                         || Environment.MEDIA_MOUNTED_READ_ONLY.equals(externalStorageState));
         menu.findItem(R.id.wallet_options_backup_wallet)
                 .setEnabled(Environment.MEDIA_MOUNTED.equals(externalStorageState));
-        final MenuItem encryptKeysOption = menu.findItem(R.id.wallet_options_encrypt_keys);
-        encryptKeysOption.setTitle(wallet.isEncrypted() ? R.string.wallet_options_encrypt_keys_change
-                : R.string.wallet_options_encrypt_keys_set);
+        final Wallet wallet = viewModel.getWallet().getValue();
+        if (wallet != null) {
+            final MenuItem encryptKeysOption = menu.findItem(R.id.wallet_options_encrypt_keys);
+            encryptKeysOption.setTitle(wallet.isEncrypted() ? R.string.wallet_options_encrypt_keys_change
+                    : R.string.wallet_options_encrypt_keys_set);
+        }
 
         return true;
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 the original author or authors.
+ * Copyright the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -48,6 +48,8 @@ import de.schildbach.wallet.util.Iso8601Format;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnShowListener;
@@ -81,7 +83,6 @@ public class BackupWalletDialogFragment extends DialogFragment {
 
     private AbstractWalletActivity activity;
     private WalletApplication application;
-    private Wallet wallet;
 
     @Nullable
     private AlertDialog dialog;
@@ -90,7 +91,10 @@ public class BackupWalletDialogFragment extends DialogFragment {
     private TextView passwordStrengthView;
     private View passwordMismatchView;
     private CheckBox showView;
+    private TextView warningView;
     private Button positiveButton, negativeButton;
+
+    private BackupWalletViewModel viewModel;
 
     private static final int REQUEST_CODE_CREATE_DOCUMENT = 0;
 
@@ -117,7 +121,18 @@ public class BackupWalletDialogFragment extends DialogFragment {
         super.onAttach(context);
         this.activity = (AbstractWalletActivity) context;
         this.application = activity.getWalletApplication();
-        this.wallet = application.getWallet();
+    }
+
+    @Override
+    public void onCreate(final Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        viewModel = ViewModelProviders.of(this).get(BackupWalletViewModel.class);
+        viewModel.wallet.observe(this, new Observer<Wallet>() {
+            @Override
+            public void onChanged(final Wallet wallet) {
+                warningView.setVisibility(wallet.isEncrypted() ? View.VISIBLE : View.GONE);
+            }
+        });
     }
 
     @Override
@@ -136,8 +151,7 @@ public class BackupWalletDialogFragment extends DialogFragment {
 
         showView = (CheckBox) view.findViewById(R.id.backup_wallet_dialog_show);
 
-        final TextView warningView = (TextView) view.findViewById(R.id.backup_wallet_dialog_warning_encrypted);
-        warningView.setVisibility(wallet.isEncrypted() ? View.VISIBLE : View.GONE);
+        warningView = (TextView) view.findViewById(R.id.backup_wallet_dialog_warning_encrypted);
 
         final DialogBuilder builder = new DialogBuilder(activity);
         builder.setTitle(R.string.export_keys_dialog_title);
@@ -235,7 +249,7 @@ public class BackupWalletDialogFragment extends DialogFragment {
         final boolean hasPassword = !passwordView.getText().toString().trim().isEmpty();
         final boolean hasPasswordAgain = !passwordAgainView.getText().toString().trim().isEmpty();
 
-        positiveButton.setEnabled(hasPassword && hasPasswordAgain);
+        positiveButton.setEnabled(viewModel.wallet.getValue() != null && hasPassword && hasPasswordAgain);
     }
 
     private void backupWallet() {
@@ -266,6 +280,7 @@ public class BackupWalletDialogFragment extends DialogFragment {
                 wipePasswords();
                 dismiss();
 
+                final Wallet wallet = viewModel.wallet.getValue();
                 final Protos.Wallet walletProto = new WalletProtobufSerializer().walletToProto(wallet);
 
                 try (final Writer cipherOut = new OutputStreamWriter(

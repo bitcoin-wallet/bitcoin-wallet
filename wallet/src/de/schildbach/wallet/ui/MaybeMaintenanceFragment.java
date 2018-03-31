@@ -27,6 +27,7 @@ import com.google.common.util.concurrent.ListenableFuture;
 
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.data.BlockchainStateLiveData;
+import de.schildbach.wallet.data.WalletLiveData;
 import de.schildbach.wallet.service.BlockchainState;
 import de.schildbach.wallet.ui.send.MaintenanceDialogFragment;
 
@@ -34,7 +35,6 @@ import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -53,18 +53,23 @@ public class MaybeMaintenanceFragment extends Fragment {
         }
     }
 
-    private Wallet wallet;
-
     private ViewModel viewModel;
 
     public static class ViewModel extends AndroidViewModel {
         private final WalletApplication application;
+        private WalletLiveData wallet;
         private BlockchainStateLiveData blockchainState;
         private boolean dialogWasShown = false;
 
         public ViewModel(final Application application) {
             super(application);
             this.application = (WalletApplication) application;
+        }
+
+        public WalletLiveData getWallet() {
+            if (wallet == null)
+                wallet = new WalletLiveData(application);
+            return wallet;
         }
 
         public BlockchainStateLiveData getBlockchainState() {
@@ -83,29 +88,35 @@ public class MaybeMaintenanceFragment extends Fragment {
     }
 
     @Override
-    public void onAttach(final Context context) {
-        super.onAttach(context);
-        final AbstractWalletActivity activity = (AbstractWalletActivity) context;
-        final WalletApplication application = activity.getWalletApplication();
-        this.wallet = application.getWallet();
-    }
-
-    @Override
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         viewModel = ViewModelProviders.of(this).get(ViewModel.class);
+        viewModel.getWallet().observe(this, new Observer<Wallet>() {
+            @Override
+            public void onChanged(final Wallet wallet) {
+                maybeShowDialog();
+            }
+        });
         viewModel.getBlockchainState().observe(this, new Observer<BlockchainState>() {
             @Override
             public void onChanged(final BlockchainState blockchainState) {
-                if (!viewModel.getDialogWasShown() && !blockchainState.replaying && maintenanceRecommended()) {
-                    MaintenanceDialogFragment.show(getFragmentManager());
-                    viewModel.setDialogWasShown();
-                }
+                maybeShowDialog();
             }
         });
     }
 
-    private boolean maintenanceRecommended() {
+    private void maybeShowDialog() {
+        if (viewModel.getDialogWasShown())
+            return;
+        final Wallet wallet = viewModel.getWallet().getValue();
+        final BlockchainState blockchainState = viewModel.getBlockchainState().getValue();
+        if (blockchainState != null && !blockchainState.replaying && wallet != null && maintenanceRecommended(wallet)) {
+            MaintenanceDialogFragment.show(getFragmentManager());
+            viewModel.setDialogWasShown();
+        }
+    }
+
+    private boolean maintenanceRecommended(final Wallet wallet) {
         try {
             final ListenableFuture<List<Transaction>> result = wallet.doMaintenance(null, false);
             return !result.get().isEmpty();

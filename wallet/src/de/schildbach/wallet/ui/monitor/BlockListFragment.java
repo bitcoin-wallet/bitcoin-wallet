@@ -34,7 +34,9 @@ import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.R;
 import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.data.AbstractWalletLiveData;
 import de.schildbach.wallet.data.TimeLiveData;
+import de.schildbach.wallet.data.WalletLiveData;
 import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.ui.AbstractWalletActivity;
 import de.schildbach.wallet.ui.DividerItemDecoration;
@@ -73,7 +75,6 @@ public final class BlockListFragment extends Fragment implements BlockListAdapte
     private AbstractWalletActivity activity;
     private WalletApplication application;
     private Configuration config;
-    private Wallet wallet;
 
     private ViewAnimator viewGroup;
     private RecyclerView recyclerView;
@@ -89,6 +90,7 @@ public final class BlockListFragment extends Fragment implements BlockListAdapte
         private final WalletApplication application;
         private BlocksLiveData blocks;
         private TransactionsLiveData transactions;
+        private WalletLiveData wallet;
         private TimeLiveData time;
 
         public ViewModel(final Application application) {
@@ -108,6 +110,12 @@ public final class BlockListFragment extends Fragment implements BlockListAdapte
             return transactions;
         }
 
+        public WalletLiveData getWallet() {
+            if (wallet == null)
+                wallet = new WalletLiveData(application);
+            return wallet;
+        }
+
         public TimeLiveData getTime() {
             if (time == null)
                 time = new TimeLiveData(application);
@@ -121,7 +129,6 @@ public final class BlockListFragment extends Fragment implements BlockListAdapte
         this.activity = (AbstractWalletActivity) context;
         this.application = this.activity.getWalletApplication();
         this.config = application.getConfiguration();
-        this.wallet = application.getWallet();
     }
 
     @Override
@@ -133,12 +140,18 @@ public final class BlockListFragment extends Fragment implements BlockListAdapte
             public void onChanged(final List<StoredBlock> blocks) {
                 maybeSubmitList();
                 viewGroup.setDisplayedChild(1);
-                viewModel.getTransactions().forceLoad();
+                viewModel.getTransactions().loadTransactions();
             }
         });
         viewModel.getTransactions().observe(this, new Observer<Set<Transaction>>() {
             @Override
             public void onChanged(final Set<Transaction> transactions) {
+                maybeSubmitList();
+            }
+        });
+        viewModel.getWallet().observe(this, new Observer<Wallet>() {
+            @Override
+            public void onChanged(final Wallet wallet) {
                 maybeSubmitList();
             }
         });
@@ -149,7 +162,7 @@ public final class BlockListFragment extends Fragment implements BlockListAdapte
             }
         });
 
-        adapter = new BlockListAdapter(activity, wallet, this);
+        adapter = new BlockListAdapter(activity, this);
     }
 
     @Override
@@ -171,7 +184,7 @@ public final class BlockListFragment extends Fragment implements BlockListAdapte
         final List<StoredBlock> blocks = viewModel.getBlocks().getValue();
         if (blocks != null)
             adapter.submitList(BlockListAdapter.buildListItems(activity, blocks, viewModel.getTime().getValue(),
-                    config.getFormat(), viewModel.getTransactions().getValue(), wallet));
+                    config.getFormat(), viewModel.getTransactions().getValue(), viewModel.getWallet().getValue()));
     }
 
     @Override
@@ -239,25 +252,23 @@ public final class BlockListFragment extends Fragment implements BlockListAdapte
         };
     }
 
-    private static class TransactionsLiveData extends LiveData<Set<Transaction>> {
-        private final Wallet wallet;
-
+    private static class TransactionsLiveData extends AbstractWalletLiveData<Set<Transaction>> {
         private TransactionsLiveData(final WalletApplication application) {
-            this.wallet = application.getWallet();
+            super(application);
         }
 
         @Override
-        protected void onActive() {
-            forceLoad();
+        protected void onWalletActive(final Wallet wallet) {
+            loadTransactions();
         }
 
-        public void forceLoad() {
+        private void loadTransactions() {
             AsyncTask.execute(new Runnable() {
                 @Override
                 public void run() {
                     org.bitcoinj.core.Context.propagate(Constants.CONTEXT);
 
-                    final Set<Transaction> transactions = wallet.getTransactions(false);
+                    final Set<Transaction> transactions = getWallet().getTransactions(false);
                     final Set<Transaction> filteredTransactions = new HashSet<Transaction>(transactions.size());
                     for (final Transaction tx : transactions) {
                         final Map<Sha256Hash, Integer> appearsIn = tx.getAppearsInHashes();
