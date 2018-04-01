@@ -86,6 +86,27 @@ public class WalletUtils {
                 | ((bytes[25] & 0xFFl) << 48) | ((bytes[23] & 0xFFl) << 56);
     }
 
+    private static class MonospaceSpan extends TypefaceSpan {
+        public MonospaceSpan() {
+            super("monospace");
+        }
+
+        // TypefaceSpan doesn't implement this, and we need it so that Spanned.equals() works.
+        @Override
+        public boolean equals(final Object o) {
+            if (o == this)
+                return true;
+            if (o == null || o.getClass() != getClass())
+                return false;
+            return true;
+        }
+
+        @Override
+        public int hashCode() {
+            return 0;
+        }
+    }
+
     public static Spanned formatHash(@Nullable final String prefix, final String address, final int groupSize,
             final int lineSize, final char groupSeparator) {
         final SpannableStringBuilder builder = prefix != null ? new SpannableStringBuilder(prefix)
@@ -97,7 +118,7 @@ public class WalletUtils {
             final String part = address.substring(i, end < len ? end : len);
 
             builder.append(part);
-            builder.setSpan(new TypefaceSpan("monospace"), builder.length() - part.length(), builder.length(),
+            builder.setSpan(new MonospaceSpan(), builder.length() - part.length(), builder.length(),
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             if (end < len) {
                 final boolean endOfLine = lineSize > 0 && end % lineSize == 0;
