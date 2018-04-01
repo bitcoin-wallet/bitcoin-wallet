@@ -20,6 +20,7 @@ package de.schildbach.wallet.ui;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.ECKey;
@@ -34,7 +35,7 @@ import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.R;
 import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.data.AddressBookChangeLiveData;
+import de.schildbach.wallet.data.AddressBookLiveData;
 import de.schildbach.wallet.data.AddressBookProvider;
 import de.schildbach.wallet.util.BitmapFragment;
 import de.schildbach.wallet.util.Qr;
@@ -79,7 +80,7 @@ public final class WalletAddressesFragment extends FancyListFragment {
         private final WalletApplication application;
         private IssuedReceiveKeysLiveData issuedReceiveKeys;
         private ImportedKeysLiveData importedKeys;
-        private AddressBookChangeLiveData addressBookChange;
+        private AddressBookLiveData addressBook;
 
         public ViewModel(final Application application) {
             super(application);
@@ -98,10 +99,10 @@ public final class WalletAddressesFragment extends FancyListFragment {
             return importedKeys;
         }
 
-        public AddressBookChangeLiveData getAddressBookChange() {
-            if (addressBookChange == null)
-                addressBookChange = new AddressBookChangeLiveData(application);
-            return addressBookChange;
+        public AddressBookLiveData getAddressBook() {
+            if (addressBook == null)
+                addressBook = new AddressBookLiveData(application);
+            return addressBook;
         }
     }
 
@@ -133,9 +134,9 @@ public final class WalletAddressesFragment extends FancyListFragment {
                 adapter.replaceRandomKeys(importedKeys);
             }
         });
-        viewModel.getAddressBookChange().observe(this, new Observer<Void>() {
+        viewModel.getAddressBook().observe(this, new Observer<Map<String, String>>() {
             @Override
-            public void onChanged(final Void v) {
+            public void onChanged(final Map<String, String> addressBook) {
                 adapter.notifyDataSetChanged();
             }
         });

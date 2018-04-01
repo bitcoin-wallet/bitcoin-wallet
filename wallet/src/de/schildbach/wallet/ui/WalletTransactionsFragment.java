@@ -22,6 +22,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.Nullable;
@@ -46,7 +47,7 @@ import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.R;
 import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.data.AddressBookChangeLiveData;
+import de.schildbach.wallet.data.AddressBookLiveData;
 import de.schildbach.wallet.data.AddressBookProvider;
 import de.schildbach.wallet.data.ThrottelingLiveData;
 import de.schildbach.wallet.ui.TransactionsAdapter.Warning;
@@ -122,7 +123,7 @@ public class WalletTransactionsFragment extends Fragment
         private final WalletApplication application;
         private TransactionsLiveData transactions;
         private TransactionsConfidenceLiveData transactionsConfidence;
-        private AddressBookChangeLiveData addressBookChange;
+        private AddressBookLiveData addressBook;
 
         public ViewModel(final Application application) {
             super(application);
@@ -141,10 +142,10 @@ public class WalletTransactionsFragment extends Fragment
             return transactionsConfidence;
         }
 
-        public AddressBookChangeLiveData getAddressBookChange() {
-            if (addressBookChange == null)
-                addressBookChange = new AddressBookChangeLiveData(application);
-            return addressBookChange;
+        public AddressBookLiveData getAddressBook() {
+            if (addressBook == null)
+                addressBook = new AddressBookLiveData(application);
+            return addressBook;
         }
     }
 
@@ -194,9 +195,9 @@ public class WalletTransactionsFragment extends Fragment
                 adapter.notifyItemsChanged();
             }
         });
-        viewModel.getAddressBookChange().observe(this, new Observer<Void>() {
+        viewModel.getAddressBook().observe(this, new Observer<Map<String, String>>() {
             @Override
-            public void onChanged(final Void v) {
+            public void onChanged(final Map<String, String> addressBook) {
                 adapter.clearCacheAndNotifyItemsChanged();
             }
         });

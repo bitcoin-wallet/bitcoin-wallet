@@ -56,7 +56,7 @@ import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.R;
 import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.data.AddressBookChangeLiveData;
+import de.schildbach.wallet.data.AddressBookLiveData;
 import de.schildbach.wallet.data.AddressBookProvider;
 import de.schildbach.wallet.data.BlockchainStateLiveData;
 import de.schildbach.wallet.data.DynamicFeeLiveData;
@@ -201,7 +201,7 @@ public final class SendCoinsFragment extends Fragment {
     public static class ViewModel extends AndroidViewModel {
         private final WalletApplication application;
         private ReceivingAddressesLiveData receivingAddresses;
-        private AddressBookChangeLiveData addressBookChange;
+        private AddressBookLiveData addressBook;
         private ExchangeRateLiveData exchangeRate;
         private DynamicFeeLiveData dynamicFees;
         private BlockchainStateLiveData blockchainState;
@@ -217,10 +217,10 @@ public final class SendCoinsFragment extends Fragment {
             return receivingAddresses;
         }
 
-        public AddressBookChangeLiveData getAddressBookChange() {
-            if (addressBookChange == null)
-                addressBookChange = new AddressBookChangeLiveData(application);
-            return addressBookChange;
+        public AddressBookLiveData getAddressBook() {
+            if (addressBook == null)
+                addressBook = new AddressBookLiveData(application);
+            return addressBook;
         }
 
         public ExchangeRateLiveData getExchangeRate() {
@@ -456,9 +456,9 @@ public final class SendCoinsFragment extends Fragment {
                 receivingAddressViewAdapter.swapCursor(cursor);
             }
         });
-        viewModel.getAddressBookChange().observe(this, new Observer<Void>() {
+        viewModel.getAddressBook().observe(this, new Observer<Map<String, String>>() {
             @Override
-            public void onChanged(final Void v) {
+            public void onChanged(final Map<String, String> addressBook) {
                 updateView();
             }
         });
