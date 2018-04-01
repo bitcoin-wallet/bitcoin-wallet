@@ -38,17 +38,21 @@ import android.text.style.StyleSpan;
  * @author Andreas Schildbach
  */
 public final class MonetarySpannable extends SpannableString {
-    public MonetarySpannable(final MonetaryFormat format, final boolean signed, @Nullable final Monetary monetary) {
+    public MonetarySpannable(@Nullable final MonetaryFormat format, final boolean signed,
+            @Nullable final Monetary monetary) {
         super(format(format, signed, monetary));
     }
 
-    public MonetarySpannable(final MonetaryFormat format, @Nullable final Monetary monetary) {
+    public MonetarySpannable(@Nullable final MonetaryFormat format, @Nullable final Monetary monetary) {
         super(format(format, false, monetary));
     }
 
-    private static CharSequence format(final MonetaryFormat format, final boolean signed, final Monetary monetary) {
+    private static CharSequence format(@Nullable final MonetaryFormat format, final boolean signed,
+            final Monetary monetary) {
         if (monetary == null)
             return "";
+        if (format == null)
+            return monetary.toString();
 
         checkArgument(monetary.signum() >= 0 || signed);
 
