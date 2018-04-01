@@ -54,9 +54,10 @@ import org.bitcoinj.wallet.WalletProtobufSerializer;
 
 import de.schildbach.wallet.Constants;
 
-import android.text.Editable;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.SpannedString;
 import android.text.format.DateUtils;
 import android.text.style.TypefaceSpan;
 
@@ -64,16 +65,16 @@ import android.text.style.TypefaceSpan;
  * @author Andreas Schildbach
  */
 public class WalletUtils {
-    public static Editable formatAddress(final Address address, final int groupSize, final int lineSize) {
+    public static Spanned formatAddress(final Address address, final int groupSize, final int lineSize) {
         return formatHash(address.toBase58(), groupSize, lineSize);
     }
 
-    public static Editable formatAddress(@Nullable final String prefix, final Address address, final int groupSize,
+    public static Spanned formatAddress(@Nullable final String prefix, final Address address, final int groupSize,
             final int lineSize) {
         return formatHash(prefix, address.toBase58(), groupSize, lineSize, Constants.CHAR_THIN_SPACE);
     }
 
-    public static Editable formatHash(final String address, final int groupSize, final int lineSize) {
+    public static Spanned formatHash(final String address, final int groupSize, final int lineSize) {
         return formatHash(null, address, groupSize, lineSize, Constants.CHAR_THIN_SPACE);
     }
 
@@ -85,7 +86,7 @@ public class WalletUtils {
                 | ((bytes[25] & 0xFFl) << 48) | ((bytes[23] & 0xFFl) << 56);
     }
 
-    public static Editable formatHash(@Nullable final String prefix, final String address, final int groupSize,
+    public static Spanned formatHash(@Nullable final String prefix, final String address, final int groupSize,
             final int lineSize, final char groupSeparator) {
         final SpannableStringBuilder builder = prefix != null ? new SpannableStringBuilder(prefix)
                 : new SpannableStringBuilder();
@@ -104,7 +105,7 @@ public class WalletUtils {
             }
         }
 
-        return builder;
+        return SpannedString.valueOf(builder);
     }
 
     @Nullable
