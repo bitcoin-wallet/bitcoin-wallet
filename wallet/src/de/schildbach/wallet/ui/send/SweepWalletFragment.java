@@ -221,7 +221,6 @@ public class SweepWalletFragment extends Fragment {
 
         sweepTransactionView = (FrameLayout) view.findViewById(R.id.sweep_wallet_fragment_sent_transaction);
         sweepTransactionAdapter = new TransactionsAdapter(activity, false, application.maxConnectedPeers(), null);
-        sweepTransactionAdapter.setWallet(application.getWallet());
         sweepTransactionViewHolder = sweepTransactionAdapter.createTransactionViewHolder(sweepTransactionView);
         sweepTransactionView.addView(sweepTransactionViewHolder.itemView,
                 new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
@@ -591,8 +590,8 @@ public class SweepWalletFragment extends Fragment {
 
         if (sentTransaction != null) {
             sweepTransactionView.setVisibility(View.VISIBLE);
-            sweepTransactionAdapter.setFormat(btcFormat);
-            sweepTransactionAdapter.replace(sentTransaction);
+            sweepTransactionAdapter.submitList(TransactionsAdapter.buildListItem(activity, sentTransaction,
+                    application.getWallet(), null, btcFormat, application.maxConnectedPeers()));
             sweepTransactionAdapter.bindViewHolder(sweepTransactionViewHolder, 0);
         } else {
             sweepTransactionView.setVisibility(View.GONE);

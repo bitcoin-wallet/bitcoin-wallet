@@ -581,7 +581,6 @@ public final class SendCoinsFragment extends Fragment {
 
         sentTransactionView = (FrameLayout) view.findViewById(R.id.send_coins_sent_transaction);
         sentTransactionAdapter = new TransactionsAdapter(activity, false, application.maxConnectedPeers(), null);
-        sentTransactionAdapter.setWallet(application.getWallet());
         sentTransactionViewHolder = sentTransactionAdapter.createTransactionViewHolder(sentTransactionView);
         sentTransactionView.addView(sentTransactionViewHolder.itemView,
                 new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
@@ -1119,6 +1118,7 @@ public final class SendCoinsFragment extends Fragment {
     private void updateView() {
         final Map<FeeCategory, Coin> fees = viewModel.getDynamicFees().getValue();
         final BlockchainState blockchainState = viewModel.getBlockchainState().getValue();
+        final Map<String, String> addressBook = viewModel.getAddressBook().getValue();
 
         if (paymentIntent != null) {
             final MonetaryFormat btcFormat = config.getFormat();
@@ -1246,8 +1246,8 @@ public final class SendCoinsFragment extends Fragment {
 
             if (sentTransaction != null) {
                 sentTransactionView.setVisibility(View.VISIBLE);
-                sentTransactionAdapter.setFormat(btcFormat);
-                sentTransactionAdapter.replace(sentTransaction);
+                sentTransactionAdapter.submitList(TransactionsAdapter.buildListItem(activity, sentTransaction, wallet,
+                        addressBook, btcFormat, application.maxConnectedPeers()));
                 sentTransactionAdapter.bindViewHolder(sentTransactionViewHolder, 0);
             } else {
                 sentTransactionView.setVisibility(View.GONE);

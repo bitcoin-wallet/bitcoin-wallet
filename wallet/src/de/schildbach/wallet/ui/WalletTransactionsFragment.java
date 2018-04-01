@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2015 the original author or authors.
+ * Copyright the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -30,6 +30,7 @@ import javax.annotation.Nullable;
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.Coin;
 import org.bitcoinj.core.ScriptException;
+import org.bitcoinj.core.Sha256Hash;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.Transaction.Purpose;
 import org.bitcoinj.core.TransactionConfidence.ConfidenceType;
@@ -50,7 +51,6 @@ import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.data.AddressBookLiveData;
 import de.schildbach.wallet.data.AddressBookProvider;
 import de.schildbach.wallet.data.ThrottelingLiveData;
-import de.schildbach.wallet.ui.TransactionsAdapter.Warning;
 import de.schildbach.wallet.ui.send.RaiseFeeDialogFragment;
 import de.schildbach.wallet.util.BitmapFragment;
 import de.schildbach.wallet.util.Qr;
@@ -77,7 +77,6 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.SpannableStringBuilder;
 import android.text.style.StyleSpan;
@@ -124,6 +123,8 @@ public class WalletTransactionsFragment extends Fragment
         private TransactionsLiveData transactions;
         private TransactionsConfidenceLiveData transactionsConfidence;
         private AddressBookLiveData addressBook;
+        public Direction direction = null;
+        public Sha256Hash selectedTransaction = null;
 
         public ViewModel(final Application application) {
             super(application);
@@ -167,20 +168,18 @@ public class WalletTransactionsFragment extends Fragment
         viewModel.getTransactions().observe(this, new Observer<List<Transaction>>() {
             @Override
             public void onChanged(final List<Transaction> transactions) {
-                final Direction direction = viewModel.getTransactions().getDirection();
-
-                adapter.replace(transactions);
-                adapter.setWallet(application.getWallet());
+                maybeSubmitList();
 
                 if (transactions.isEmpty()) {
                     viewGroup.setDisplayedChild(1);
 
-                    final SpannableStringBuilder emptyText = new SpannableStringBuilder(getString(
-                            direction == Direction.SENT ? R.string.wallet_transactions_fragment_empty_text_sent
+                    final SpannableStringBuilder emptyText = new SpannableStringBuilder(
+                            getString(viewModel.direction == Direction.SENT
+                                    ? R.string.wallet_transactions_fragment_empty_text_sent
                                     : R.string.wallet_transactions_fragment_empty_text_received));
                     emptyText.setSpan(new StyleSpan(Typeface.BOLD), 0, emptyText.length(),
                             SpannableStringBuilder.SPAN_POINT_MARK);
-                    if (direction != Direction.SENT)
+                    if (viewModel.direction != Direction.SENT)
                         emptyText.append("\n\n")
                                 .append(getString(R.string.wallet_transactions_fragment_empty_text_howto));
                     emptyView.setText(emptyText);
@@ -192,13 +191,13 @@ public class WalletTransactionsFragment extends Fragment
         viewModel.getTransactionsConfidence().observe(this, new Observer<Void>() {
             @Override
             public void onChanged(final Void v) {
-                adapter.notifyItemsChanged();
+                maybeSubmitList();
             }
         });
         viewModel.getAddressBook().observe(this, new Observer<Map<String, String>>() {
             @Override
             public void onChanged(final Map<String, String> addressBook) {
-                adapter.clearCacheAndNotifyItemsChanged();
+                maybeSubmitList();
             }
         });
 
@@ -216,7 +215,7 @@ public class WalletTransactionsFragment extends Fragment
 
         recyclerView = (RecyclerView) view.findViewById(R.id.wallet_transactions_list);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(activity));
+        recyclerView.setLayoutManager(new StickToTopLinearLayoutManager(activity));
         recyclerView.setAdapter(adapter);
         recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
             private final int PADDING = 2
@@ -242,13 +241,20 @@ public class WalletTransactionsFragment extends Fragment
     public void onResume() {
         super.onResume();
         config.registerOnSharedPreferenceChangeListener(this);
-        updateView();
     }
 
     @Override
     public void onPause() {
         config.unregisterOnSharedPreferenceChangeListener(this);
         super.onPause();
+    }
+
+    private void maybeSubmitList() {
+        final List<Transaction> transactions = viewModel.getTransactions().getValue();
+        if (transactions != null)
+            adapter.submitList(TransactionsAdapter.buildListItems(activity, transactions, warning(),
+                    application.getWallet(), viewModel.getAddressBook().getValue(), config.getFormat(),
+                    application.maxConnectedPeers(), viewModel.selectedTransaction));
     }
 
     @Override
@@ -303,8 +309,9 @@ public class WalletTransactionsFragment extends Fragment
     }
 
     @Override
-    public void onTransactionMenuClick(final View view, final Transaction tx) {
+    public void onTransactionMenuClick(final View view, final Sha256Hash transactionHash) {
         final Wallet wallet = application.getWallet();
+        final Transaction tx = wallet.getTransaction(transactionHash);
         final boolean txSent = tx.getValue(wallet).signum() < 0;
         final Address txAddress = txSent ? WalletUtils.getToAddressOfSent(tx, wallet)
                 : WalletUtils.getWalletAddressOfReceived(tx, wallet);
@@ -401,7 +408,13 @@ public class WalletTransactionsFragment extends Fragment
     }
 
     @Override
-    public void onWarningClick() {
+    public void onTransactionClick(final View view, final Sha256Hash transactionHash) {
+        viewModel.selectedTransaction = transactionHash;
+        maybeSubmitList();
+    }
+
+    @Override
+    public void onWarningClick(final View view) {
         switch (warning()) {
         case BACKUP:
             ((WalletActivity) activity).handleBackupWallet();
@@ -579,22 +592,17 @@ public class WalletTransactionsFragment extends Fragment
     @Override
     public void onSharedPreferenceChanged(final SharedPreferences sharedPreferences, final String key) {
         if (Configuration.PREFS_KEY_BTC_PRECISION.equals(key) || Configuration.PREFS_KEY_REMIND_BACKUP.equals(key))
-            updateView();
+            maybeSubmitList();
     }
 
-    private void updateView() {
-        adapter.setFormat(config.getFormat());
-        adapter.setWarning(warning());
-    }
-
-    private Warning warning() {
+    private TransactionsAdapter.WarningType warning() {
         final int storageEncryptionStatus = devicePolicyManager.getStorageEncryptionStatus();
         if (config.remindBackup())
-            return Warning.BACKUP;
+            return TransactionsAdapter.WarningType.BACKUP;
         else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP
                 && (storageEncryptionStatus == DevicePolicyManager.ENCRYPTION_STATUS_INACTIVE
                         || storageEncryptionStatus == DevicePolicyManager.ENCRYPTION_STATUS_ACTIVE_DEFAULT_KEY))
-            return Warning.STORAGE_ENCRYPTION;
+            return TransactionsAdapter.WarningType.STORAGE_ENCRYPTION;
         else
             return null;
     }
