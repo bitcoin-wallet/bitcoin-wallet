@@ -96,16 +96,9 @@ public final class RequestCoinsFragment extends Fragment {
     private BitmapDrawable qrCodeBitmap;
     private CheckBox acceptBluetoothPaymentView;
     private TextView initiateRequestView;
-
-    @Nullable
-    private String bluetoothMac;
-    @Nullable
-    private Intent bluetoothServiceIntent;
+    private CurrencyCalculatorLink amountCalculatorLink;
 
     private static final int REQUEST_CODE_ENABLE_BLUETOOTH = 0;
-
-    private Address address;
-    private CurrencyCalculatorLink amountCalculatorLink;
 
     private ViewModel viewModel;
 
@@ -114,6 +107,12 @@ public final class RequestCoinsFragment extends Fragment {
     public static class ViewModel extends AndroidViewModel {
         private final WalletApplication application;
         private ExchangeRateLiveData exchangeRate;
+
+        private Address address = null;
+        @Nullable
+        private String bluetoothMac = null;
+        @Nullable
+        private Intent bluetoothServiceIntent = null;
 
         public ViewModel(final Application application) {
             super(application);
@@ -155,11 +154,9 @@ public final class RequestCoinsFragment extends Fragment {
             });
         }
 
-        if (savedInstanceState != null) {
-            restoreInstanceState(savedInstanceState);
-        } else {
-            address = wallet.freshReceiveAddress();
-            log.info("request coins started: {}", address);
+        if (savedInstanceState == null) {
+            viewModel.address = wallet.freshReceiveAddress();
+            log.info("request coins started: {}", viewModel.address);
         }
     }
 
@@ -264,21 +261,6 @@ public final class RequestCoinsFragment extends Fragment {
     }
 
     @Override
-    public void onSaveInstanceState(final Bundle outState) {
-        super.onSaveInstanceState(outState);
-
-        saveInstanceState(outState);
-    }
-
-    private void saveInstanceState(final Bundle outState) {
-        outState.putByteArray("receive_address", address.getHash160());
-    }
-
-    private void restoreInstanceState(final Bundle savedInstanceState) {
-        address = new Address(Constants.NETWORK_PARAMETERS, savedInstanceState.getByteArray("receive_address"));
-    }
-
-    @Override
     public void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
         if (requestCode == REQUEST_CODE_ENABLE_BLUETOOTH) {
             boolean started = false;
@@ -294,9 +276,9 @@ public final class RequestCoinsFragment extends Fragment {
     private boolean maybeStartBluetoothListening() {
         final String bluetoothAddress = Bluetooth.getAddress(bluetoothAdapter);
         if (bluetoothAddress != null) {
-            bluetoothMac = Bluetooth.compressMac(bluetoothAddress);
-            bluetoothServiceIntent = new Intent(activity, AcceptBluetoothService.class);
-            activity.startService(bluetoothServiceIntent);
+            viewModel.bluetoothMac = Bluetooth.compressMac(bluetoothAddress);
+            viewModel.bluetoothServiceIntent = new Intent(activity, AcceptBluetoothService.class);
+            activity.startService(viewModel.bluetoothServiceIntent);
             return true;
         } else {
             return false;
@@ -304,12 +286,12 @@ public final class RequestCoinsFragment extends Fragment {
     }
 
     private void stopBluetoothListening() {
-        if (bluetoothServiceIntent != null) {
-            activity.stopService(bluetoothServiceIntent);
-            bluetoothServiceIntent = null;
+        if (viewModel.bluetoothServiceIntent != null) {
+            activity.stopService(viewModel.bluetoothServiceIntent);
+            viewModel.bluetoothServiceIntent = null;
         }
 
-        bluetoothMac = null;
+        viewModel.bluetoothMac = null;
     }
 
     @Override
@@ -403,20 +385,22 @@ public final class RequestCoinsFragment extends Fragment {
         final Coin amount = amountCalculatorLink.getAmount();
         final String ownName = config.getOwnName();
 
-        final StringBuilder uri = new StringBuilder(BitcoinURI.convertToBitcoinURI(address, amount, ownName, null));
-        if (includeBluetoothMac && bluetoothMac != null) {
+        final StringBuilder uri = new StringBuilder(
+                BitcoinURI.convertToBitcoinURI(viewModel.address, amount, ownName, null));
+        if (includeBluetoothMac && viewModel.bluetoothMac != null) {
             uri.append(amount == null && ownName == null ? '?' : '&');
-            uri.append(Bluetooth.MAC_URI_PARAM).append('=').append(bluetoothMac);
+            uri.append(Bluetooth.MAC_URI_PARAM).append('=').append(viewModel.bluetoothMac);
         }
         return uri.toString();
     }
 
     private byte[] determinePaymentRequest(final boolean includeBluetoothMac) {
         final Coin amount = amountCalculatorLink.getAmount();
-        final String paymentUrl = includeBluetoothMac && bluetoothMac != null ? "bt:" + bluetoothMac : null;
+        final String paymentUrl = includeBluetoothMac && viewModel.bluetoothMac != null ? "bt:" + viewModel.bluetoothMac
+                : null;
 
-        return PaymentProtocol.createPaymentRequest(Constants.NETWORK_PARAMETERS, amount, address, config.getOwnName(),
-                paymentUrl, null).build().toByteArray();
+        return PaymentProtocol.createPaymentRequest(Constants.NETWORK_PARAMETERS, amount, viewModel.address,
+                config.getOwnName(), paymentUrl, null).build().toByteArray();
     }
 
     private static NdefMessage createNdefMessage(final byte[] paymentRequest) {
