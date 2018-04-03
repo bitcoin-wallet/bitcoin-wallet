@@ -17,6 +17,8 @@
 
 package de.schildbach.wallet.ui;
 
+import javax.annotation.Nullable;
+
 import org.bitcoinj.core.Coin;
 
 import com.google.common.base.Strings;
@@ -70,8 +72,6 @@ public final class ExchangeRatesFragment extends Fragment
     private RecyclerView recyclerView;
     private ExchangeRatesAdapter adapter;
 
-    private String query = null;
-
     private ViewModel viewModel;
 
     public static class ViewModel extends AndroidViewModel {
@@ -79,6 +79,9 @@ public final class ExchangeRatesFragment extends Fragment
         private ExchangeRatesLiveData exchangeRates;
         private WalletBalanceLiveData balance;
         private BlockchainStateLiveData blockchainState;
+
+        @Nullable
+        private String query = null;
 
         public ViewModel(final Application application) {
             super(application);
@@ -122,9 +125,9 @@ public final class ExchangeRatesFragment extends Fragment
             viewModel.getExchangeRates().observe(this, new Observer<Cursor>() {
                 @Override
                 public void onChanged(final Cursor cursor) {
-                    if (cursor.getCount() == 0 && query == null) {
+                    if (cursor.getCount() == 0 && viewModel.query == null) {
                         viewGroup.setDisplayedChild(1);
-                    } else if (cursor.getCount() == 0 && query != null) {
+                    } else if (cursor.getCount() == 0 && viewModel.query != null) {
                         viewGroup.setDisplayedChild(2);
                     } else {
                         viewGroup.setDisplayedChild(3);
@@ -225,8 +228,8 @@ public final class ExchangeRatesFragment extends Fragment
             searchView.setOnQueryTextListener(new OnQueryTextListener() {
                 @Override
                 public boolean onQueryTextChange(final String newText) {
-                    query = Strings.emptyToNull(newText.trim());
-                    viewModel.getExchangeRates().setQuery(query);
+                    viewModel.query = Strings.emptyToNull(newText.trim());
+                    viewModel.getExchangeRates().setQuery(viewModel.query);
                     return true;
                 }
 
