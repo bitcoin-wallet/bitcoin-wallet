@@ -54,7 +54,7 @@
 
         <fragment
             android:id="@+id/block_list_fragment"
-            android:name="de.schildbach.wallet.ui.monitor.BlockListFragmentFragment"
+            android:name="de.schildbach.wallet.ui.monitor.BlockListFragment"
             android:layout_width="match_parent"
             android:layout_height="0px"
             android:layout_weight="1"
