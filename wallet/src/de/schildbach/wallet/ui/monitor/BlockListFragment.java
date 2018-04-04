@@ -263,21 +263,23 @@ public final class BlockListFragment extends Fragment implements BlockListAdapte
         }
 
         private void loadTransactions() {
-            AsyncTask.execute(new Runnable() {
-                @Override
-                public void run() {
-                    org.bitcoinj.core.Context.propagate(Constants.CONTEXT);
-
-                    final Set<Transaction> transactions = getWallet().getTransactions(false);
-                    final Set<Transaction> filteredTransactions = new HashSet<Transaction>(transactions.size());
-                    for (final Transaction tx : transactions) {
-                        final Map<Sha256Hash, Integer> appearsIn = tx.getAppearsInHashes();
-                        if (appearsIn != null && !appearsIn.isEmpty()) // TODO filter by updateTime
-                            filteredTransactions.add(tx);
+            final Wallet wallet = getWallet();
+            if (wallet != null) {
+                AsyncTask.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        org.bitcoinj.core.Context.propagate(Constants.CONTEXT);
+                        final Set<Transaction> transactions = wallet.getTransactions(false);
+                        final Set<Transaction> filteredTransactions = new HashSet<Transaction>(transactions.size());
+                        for (final Transaction tx : transactions) {
+                            final Map<Sha256Hash, Integer> appearsIn = tx.getAppearsInHashes();
+                            if (appearsIn != null && !appearsIn.isEmpty()) // TODO filter by updateTime
+                                filteredTransactions.add(tx);
+                        }
+                        postValue(filteredTransactions);
                     }
-                    postValue(filteredTransactions);
-                }
-            });
+                });
+            }
         }
     }
 }
