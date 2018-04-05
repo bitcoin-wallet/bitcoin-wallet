@@ -38,6 +38,8 @@ import de.schildbach.wallet.camera.CameraManager;
 
 import android.Manifest;
 import android.app.Dialog;
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
@@ -57,6 +59,7 @@ import android.os.Vibrator;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.view.KeyEvent;
 import android.view.Surface;
@@ -85,13 +88,30 @@ public final class ScanActivity extends FragmentActivity
     private HandlerThread cameraThread;
     private volatile Handler cameraHandler;
 
+    private ScanViewModel viewModel;
+
     private static final Logger log = LoggerFactory.getLogger(ScanActivity.class);
 
     @Override
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+
+        viewModel = ViewModelProviders.of(this).get(ScanViewModel.class);
+        viewModel.showPermissionWarnDialog.observe(this, new Observer<Void>() {
+            @Override
+            public void onChanged(final Void v) {
+                WarnDialogFragment.show(getSupportFragmentManager(), R.string.scan_camera_permission_dialog_title,
+                        getString(R.string.scan_camera_permission_dialog_message));
+            }
+        });
+        viewModel.showProblemWarnDialog.observe(this, new Observer<Void>() {
+            @Override
+            public void onChanged(final Void v) {
+                WarnDialogFragment.show(getSupportFragmentManager(), R.string.scan_camera_problem_dialog_title,
+                        getString(R.string.scan_camera_problem_dialog_message));
+            }
+        });
 
         setContentView(R.layout.scan_activity);
         scannerView = (ScannerView) findViewById(R.id.scan_activity_mask);
@@ -134,21 +154,10 @@ public final class ScanActivity extends FragmentActivity
     @Override
     public void onRequestPermissionsResult(final int requestCode, final String[] permissions,
             final int[] grantResults) {
-        if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+        if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
             maybeOpenCamera();
-        } else {
-            new Handler().post(new Runnable() {
-                @Override
-                public void run() {
-                    if (isFinishing())
-                        return;
-                    WarnDialogFragment
-                            .newInstance(R.string.scan_camera_permission_dialog_title,
-                                    getString(R.string.scan_camera_permission_dialog_message))
-                            .show(getSupportFragmentManager(), "dialog");
-                }
-            });
-        }
+        else
+            viewModel.showPermissionWarnDialog.call();
     }
 
     private void maybeOpenCamera() {
@@ -260,17 +269,7 @@ public final class ScanActivity extends FragmentActivity
                 cameraHandler.post(fetchAndDecodeRunnable);
             } catch (final Exception x) {
                 log.info("problem opening camera", x);
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (isFinishing())
-                            return;
-                        WarnDialogFragment
-                                .newInstance(R.string.scan_camera_problem_dialog_title,
-                                        getString(R.string.scan_camera_problem_dialog_message))
-                                .show(getSupportFragmentManager(), "dialog");
-                    }
-                });
+                viewModel.showProblemWarnDialog.call();
             }
         }
 
@@ -370,13 +369,15 @@ public final class ScanActivity extends FragmentActivity
     };
 
     public static class WarnDialogFragment extends DialogFragment {
-        public static WarnDialogFragment newInstance(final int titleResId, final String message) {
-            final WarnDialogFragment fragment = new WarnDialogFragment();
+        private static final String FRAGMENT_TAG = WarnDialogFragment.class.getName();
+
+        public static void show(final FragmentManager fm, final int titleResId, final String message) {
+            final WarnDialogFragment newFragment = new WarnDialogFragment();
             final Bundle args = new Bundle();
             args.putInt("title", titleResId);
             args.putString("message", message);
-            fragment.setArguments(args);
-            return fragment;
+            newFragment.setArguments(args);
+            newFragment.show(fm, FRAGMENT_TAG);
         }
 
         @Override
