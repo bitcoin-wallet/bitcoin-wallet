@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2015 the original author or authors.
+ * Copyright the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,26 +17,20 @@
 
 package de.schildbach.wallet.ui;
 
-import java.util.Collections;
-import java.util.List;
+import java.util.Set;
 
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.AddressFormatException;
-import org.bitcoinj.core.ECKey;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.VerificationException;
-import org.bitcoinj.crypto.DeterministicKey;
 import org.bitcoinj.uri.BitcoinURI;
 import org.bitcoinj.uri.BitcoinURIParseException;
 import org.bitcoinj.wallet.Wallet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.common.collect.Iterables;
-
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.R;
-import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.data.AddressBookProvider;
 import de.schildbach.wallet.data.PaymentIntent;
 import de.schildbach.wallet.ui.InputParser.StringInputParser;
@@ -48,15 +42,10 @@ import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet.util.WholeStringBuilder;
 
 import android.app.Activity;
-import android.app.Application;
-import android.arch.lifecycle.AndroidViewModel;
-import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.ClipData;
 import android.content.ClipDescription;
-import android.content.ClipboardManager;
-import android.content.ClipboardManager.OnPrimaryClipChangedListener;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -64,7 +53,6 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.content.CursorLoader;
 import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -80,46 +68,20 @@ import android.widget.TextView;
  */
 public final class SendingAddressesFragment extends FancyListFragment {
     private AbstractWalletActivity activity;
-    private Wallet wallet;
     private final Handler handler = new Handler();
 
     private SimpleCursorAdapter adapter;
 
-    private ViewModel viewModel;
+    private SendingAddressesViewModel viewModel;
 
     private static final int REQUEST_CODE_SCAN = 0;
 
     private static final Logger log = LoggerFactory.getLogger(SendingAddressesFragment.class);
 
-    public static class ViewModel extends AndroidViewModel {
-        private final WalletApplication application;
-        private AddressBookLiveData addressBook;
-        private ClipLiveData clip;
-
-        public ViewModel(final Application application) {
-            super(application);
-            this.application = (WalletApplication) application;
-        }
-
-        public AddressBookLiveData getAddressBook() {
-            if (addressBook == null)
-                addressBook = new AddressBookLiveData(application);
-            return addressBook;
-        }
-
-        public ClipLiveData getClip() {
-            if (clip == null)
-                clip = new ClipLiveData(application);
-            return clip;
-        }
-    }
-
     @Override
     public void onAttach(final Context context) {
         super.onAttach(context);
         this.activity = (AbstractWalletActivity) context;
-        final WalletApplication application = activity.getWalletApplication();
-        this.wallet = application.getWallet();
     }
 
     @Override
@@ -127,15 +89,28 @@ public final class SendingAddressesFragment extends FancyListFragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
-        viewModel = ViewModelProviders.of(this).get(ViewModel.class);
-        viewModel.getAddressBook().observe(this, new Observer<Cursor>() {
+        viewModel = ViewModelProviders.of(this).get(SendingAddressesViewModel.class);
+        viewModel.wallet.observe(this, new Observer<Wallet>() {
+            @Override
+            public void onChanged(final Wallet wallet) {
+                activity.invalidateOptionsMenu();
+            }
+        });
+        viewModel.addressBook.observe(this, new Observer<Cursor>() {
             @Override
             public void onChanged(final Cursor addressBook) {
                 adapter.swapCursor(addressBook);
                 setEmptyText(WholeStringBuilder.bold(getString(R.string.address_book_empty_text)));
             }
         });
-        viewModel.getClip().observe(this, new Observer<ClipData>() {
+        viewModel.addressesToExclude.observe(this, new Observer<Set<Address>>() {
+            @Override
+            public void onChanged(final Set<Address> addressesToExclude) {
+                viewModel.addressBook.setWalletAddressesSelection(viewModel.addressesToExclude.commaSeparated());
+
+            }
+        });
+        viewModel.clip.observe(this, new Observer<ClipData>() {
             @Override
             public void onChanged(final ClipData clipData) {
                 activity.invalidateOptionsMenu();
@@ -150,28 +125,12 @@ public final class SendingAddressesFragment extends FancyListFragment {
             public boolean setViewValue(final View view, final Cursor cursor, final int columnIndex) {
                 if (!AddressBookProvider.KEY_ADDRESS.equals(cursor.getColumnName(columnIndex)))
                     return false;
-
                 ((TextView) view).setText(WalletUtils.formatHash(cursor.getString(columnIndex),
                         Constants.ADDRESS_FORMAT_GROUP_SIZE, Constants.ADDRESS_FORMAT_LINE_SIZE));
-
                 return true;
             }
         });
         setListAdapter(adapter);
-
-        final List<ECKey> derivedKeys = wallet.getIssuedReceiveKeys();
-        Collections.sort(derivedKeys, DeterministicKey.CHILDNUM_ORDER);
-        final List<ECKey> randomKeys = wallet.getImportedKeys();
-
-        final StringBuilder builder = new StringBuilder();
-        for (final ECKey key : Iterables.concat(derivedKeys, randomKeys)) {
-            final Address address = key.toAddress(Constants.NETWORK_PARAMETERS);
-            builder.append(address.toBase58()).append(",");
-        }
-        if (builder.length() > 0)
-            builder.setLength(builder.length() - 1);
-
-        viewModel.getAddressBook().setWalletAddressesSelection(builder.toString());
     }
 
     @Override
@@ -188,6 +147,7 @@ public final class SendingAddressesFragment extends FancyListFragment {
                         @Override
                         public void run() {
                             if (paymentIntent.hasAddress()) {
+                                final Wallet wallet = viewModel.wallet.getValue();
                                 final Address address = paymentIntent.getAddress();
                                 if (!wallet.isPubKeyHashMine(address.getHash160()))
                                     EditAddressBookEntryFragment.edit(getFragmentManager(), address);
@@ -228,8 +188,8 @@ public final class SendingAddressesFragment extends FancyListFragment {
 
     @Override
     public void onPrepareOptionsMenu(final Menu menu) {
-        menu.findItem(R.id.sending_addresses_options_paste).setEnabled(getAddressFromPrimaryClip() != null);
-
+        menu.findItem(R.id.sending_addresses_options_paste)
+                .setEnabled(viewModel.wallet.getValue() != null && getAddressFromPrimaryClip() != null);
         super.onPrepareOptionsMenu(menu);
     }
 
@@ -249,6 +209,7 @@ public final class SendingAddressesFragment extends FancyListFragment {
     }
 
     private void handlePasteClipboard() {
+        final Wallet wallet = viewModel.wallet.getValue();
         final Address address = getAddressFromPrimaryClip();
         if (address == null) {
             final DialogBuilder dialog = new DialogBuilder(activity);
@@ -359,71 +320,13 @@ public final class SendingAddressesFragment extends FancyListFragment {
     }
 
     private void handleCopyToClipboard(final String address) {
-        viewModel.getClip().setClipData(ClipData.newPlainText("Bitcoin address", address));
+        viewModel.clip.setClipData(ClipData.newPlainText("Bitcoin address", address));
         log.info("sending address copied to clipboard: {}", address.toString());
         new Toast(activity).toast(R.string.wallet_address_fragment_clipboard_msg);
     }
 
-    private static class AddressBookLiveData extends LiveData<Cursor> {
-        private final CursorLoader loader;
-
-        public AddressBookLiveData(final WalletApplication application) {
-            final Uri uri = AddressBookProvider.contentUri(application.getPackageName());
-            this.loader = new CursorLoader(application, uri, null, AddressBookProvider.SELECTION_NOTIN,
-                    new String[] { "" }, AddressBookProvider.KEY_LABEL + " COLLATE LOCALIZED ASC") {
-                @Override
-                public void deliverResult(final Cursor cursor) {
-                    setValue(cursor);
-                }
-            };
-        }
-
-        @Override
-        protected void onActive() {
-            loader.startLoading();
-        }
-
-        @Override
-        protected void onInactive() {
-            loader.stopLoading();
-        }
-
-        public void setWalletAddressesSelection(final String walletAddressesSelection) {
-            loader.setSelectionArgs(new String[] { walletAddressesSelection != null ? walletAddressesSelection : "" });
-            loader.forceLoad();
-        }
-    }
-
-    private static class ClipLiveData extends LiveData<ClipData> implements OnPrimaryClipChangedListener {
-        private final ClipboardManager clipboardManager;
-
-        public ClipLiveData(final WalletApplication application) {
-            clipboardManager = (ClipboardManager) application.getSystemService(Context.CLIPBOARD_SERVICE);
-        }
-
-        @Override
-        protected void onActive() {
-            clipboardManager.addPrimaryClipChangedListener(this);
-            onPrimaryClipChanged();
-        }
-
-        @Override
-        protected void onInactive() {
-            clipboardManager.removePrimaryClipChangedListener(this);
-        }
-
-        @Override
-        public void onPrimaryClipChanged() {
-            setValue(clipboardManager.getPrimaryClip());
-        }
-
-        public void setClipData(final ClipData clipData) {
-            clipboardManager.setPrimaryClip(clipData);
-        }
-    }
-
     private Address getAddressFromPrimaryClip() {
-        final ClipData clip = viewModel.getClip().getValue();
+        final ClipData clip = viewModel.clip.getValue();
         if (clip == null)
             return null;
         final ClipDescription clipDescription = clip.getDescription();
