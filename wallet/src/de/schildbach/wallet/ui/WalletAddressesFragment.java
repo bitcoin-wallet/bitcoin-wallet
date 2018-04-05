@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2015 the original author or authors.
+ * Copyright the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,25 +17,19 @@
 
 package de.schildbach.wallet.ui;
 
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.ECKey;
 import org.bitcoinj.uri.BitcoinURI;
-import org.bitcoinj.utils.Threading;
 import org.bitcoinj.wallet.Wallet;
-import org.bitcoinj.wallet.listeners.KeyChainEventListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.R;
 import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.data.AddressBookLiveData;
 import de.schildbach.wallet.data.AddressBookProvider;
 import de.schildbach.wallet.util.BitmapFragment;
 import de.schildbach.wallet.util.Qr;
@@ -43,9 +37,6 @@ import de.schildbach.wallet.util.Toast;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet.util.WholeStringBuilder;
 
-import android.app.Application;
-import android.arch.lifecycle.AndroidViewModel;
-import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.ClipData;
@@ -65,54 +56,21 @@ import android.widget.ListView;
  * @author Andreas Schildbach
  */
 public final class WalletAddressesFragment extends FancyListFragment {
+    private  WalletApplication application;
     private AbstractWalletActivity activity;
-    private Configuration config;
-    private Wallet wallet;
     private ClipboardManager clipboardManager;
 
     private WalletAddressesAdapter adapter;
 
-    private ViewModel viewModel;
+    private WalletAddressesViewModel viewModel;
 
     private static final Logger log = LoggerFactory.getLogger(WalletAddressesFragment.class);
-
-    public static class ViewModel extends AndroidViewModel {
-        private final WalletApplication application;
-        private IssuedReceiveKeysLiveData issuedReceiveKeys;
-        private ImportedKeysLiveData importedKeys;
-        private AddressBookLiveData addressBook;
-
-        public ViewModel(final Application application) {
-            super(application);
-            this.application = (WalletApplication) application;
-        }
-
-        public IssuedReceiveKeysLiveData getIssuedReceiveKeys() {
-            if (issuedReceiveKeys == null)
-                issuedReceiveKeys = new IssuedReceiveKeysLiveData(application);
-            return issuedReceiveKeys;
-        }
-
-        public ImportedKeysLiveData getImportedKeys() {
-            if (importedKeys == null)
-                importedKeys = new ImportedKeysLiveData(application);
-            return importedKeys;
-        }
-
-        public AddressBookLiveData getAddressBook() {
-            if (addressBook == null)
-                addressBook = new AddressBookLiveData(application);
-            return addressBook;
-        }
-    }
 
     @Override
     public void onAttach(final Context context) {
         super.onAttach(context);
         this.activity = (AbstractWalletActivity) context;
-        final WalletApplication application = activity.getWalletApplication();
-        this.config = application.getConfiguration();
-        this.wallet = application.getWallet();
+        this.application = activity.getWalletApplication();
         this.clipboardManager = (ClipboardManager) activity.getSystemService(Context.CLIPBOARD_SERVICE);
     }
 
@@ -121,27 +79,39 @@ public final class WalletAddressesFragment extends FancyListFragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
-        viewModel = ViewModelProviders.of(this).get(ViewModel.class);
-        viewModel.getIssuedReceiveKeys().observe(this, new Observer<List<ECKey>>() {
+        viewModel = ViewModelProviders.of(this).get(WalletAddressesViewModel.class);
+        viewModel.issuedReceiveKeys.observe(this, new Observer<List<ECKey>>() {
             @Override
             public void onChanged(final List<ECKey> issuedReceiveKeys) {
                 adapter.replaceDerivedKeys(issuedReceiveKeys);
             }
         });
-        viewModel.getImportedKeys().observe(this, new Observer<List<ECKey>>() {
+        viewModel.importedKeys.observe(this, new Observer<List<ECKey>>() {
             @Override
             public void onChanged(final List<ECKey> importedKeys) {
                 adapter.replaceRandomKeys(importedKeys);
             }
         });
-        viewModel.getAddressBook().observe(this, new Observer<Map<String, String>>() {
+        viewModel.wallet.observe(this, new Observer<Wallet>() {
+            @Override
+            public void onChanged(final Wallet wallet) {
+                adapter.setWallet(wallet);
+            }
+        });
+        viewModel.addressBook.observe(this, new Observer<Map<String, String>>() {
             @Override
             public void onChanged(final Map<String, String> addressBook) {
                 adapter.notifyDataSetChanged();
             }
         });
+        viewModel.ownName.observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(final String ownName) {
+                adapter.notifyDataSetChanged();
+            }
+        });
 
-        adapter = new WalletAddressesAdapter(activity, wallet);
+        adapter = new WalletAddressesAdapter(activity);
         setListAdapter(adapter);
     }
 
@@ -198,7 +168,7 @@ public final class WalletAddressesFragment extends FancyListFragment {
 
                 case R.id.wallet_addresses_context_browse:
                     final String address = getAddress(position).toBase58();
-                    final Uri blockExplorerUri = config.getBlockExplorer();
+                    final Uri blockExplorerUri = application.getConfiguration().getBlockExplorer();
                     log.info("Viewing address {} on {}", address, blockExplorerUri);
                     startActivity(new Intent(Intent.ACTION_VIEW,
                             Uri.withAppendedPath(blockExplorerUri, "address/" + address)));
@@ -226,7 +196,7 @@ public final class WalletAddressesFragment extends FancyListFragment {
             }
 
             private void handleShowQr(final Address address) {
-                final String uri = BitcoinURI.convertToBitcoinURI(address, null, config.getOwnName(), null);
+                final String uri = BitcoinURI.convertToBitcoinURI(address, null, viewModel.ownName.getValue(), null);
                 BitmapFragment.show(getFragmentManager(), Qr.bitmap(uri));
             }
 
@@ -236,76 +206,5 @@ public final class WalletAddressesFragment extends FancyListFragment {
                 new Toast(activity).toast(R.string.wallet_address_fragment_clipboard_msg);
             }
         });
-    }
-
-    private static class IssuedReceiveKeysLiveData extends LiveData<List<ECKey>> implements KeyChainEventListener {
-        private final Wallet wallet;
-
-        public IssuedReceiveKeysLiveData(final WalletApplication application) {
-            this.wallet = application.getWallet();
-        }
-
-        @Override
-        protected void onActive() {
-            wallet.addKeyChainEventListener(Threading.SAME_THREAD, this);
-            load();
-        }
-
-        @Override
-        protected void onInactive() {
-            wallet.removeKeyChainEventListener(this);
-        }
-
-        @Override
-        public void onKeysAdded(final List<ECKey> keys) {
-            load();
-        }
-
-        private void load() {
-            final List<ECKey> derivedKeys = wallet.getIssuedReceiveKeys();
-            setValue(derivedKeys);
-        }
-    }
-
-    private static class ImportedKeysLiveData extends LiveData<List<ECKey>> implements KeyChainEventListener {
-        private final Wallet wallet;
-
-        public ImportedKeysLiveData(final WalletApplication application) {
-            this.wallet = application.getWallet();
-        }
-
-        @Override
-        protected void onActive() {
-            wallet.addKeyChainEventListener(Threading.SAME_THREAD, this);
-            load();
-        }
-
-        @Override
-        protected void onInactive() {
-            wallet.removeKeyChainEventListener(this);
-        }
-
-        @Override
-        public void onKeysAdded(final List<ECKey> keys) {
-            load();
-        }
-
-        private void load() {
-            final List<ECKey> importedKeys = wallet.getImportedKeys();
-            Collections.sort(importedKeys, new Comparator<ECKey>() {
-                @Override
-                public int compare(final ECKey lhs, final ECKey rhs) {
-                    final boolean lhsRotating = wallet.isKeyRotating(lhs);
-                    final boolean rhsRotating = wallet.isKeyRotating(rhs);
-
-                    if (lhsRotating != rhsRotating)
-                        return lhsRotating ? 1 : -1;
-                    if (lhs.getCreationTimeSeconds() != rhs.getCreationTimeSeconds())
-                        return lhs.getCreationTimeSeconds() > rhs.getCreationTimeSeconds() ? 1 : -1;
-                    return 0;
-                }
-            });
-            setValue(importedKeys);
-        }
     }
 }

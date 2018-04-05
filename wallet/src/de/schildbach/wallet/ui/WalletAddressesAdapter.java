@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2015 the original author or authors.
+ * Copyright the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,6 +20,8 @@ package de.schildbach.wallet.ui;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
+import javax.annotation.Nullable;
 
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.ECKey;
@@ -43,7 +45,6 @@ import android.widget.TextView;
  */
 public class WalletAddressesAdapter extends BaseAdapter {
     private final Context context;
-    private final Wallet wallet;
     private final int colorSignificant;
     private final int colorInsignificant;
     private final int colorLessSignificant;
@@ -51,12 +52,12 @@ public class WalletAddressesAdapter extends BaseAdapter {
 
     private final List<ECKey> derivedKeys = new ArrayList<ECKey>();
     private final List<ECKey> randomKeys = new ArrayList<ECKey>();
+    @Nullable
+    private Wallet wallet = null;
 
-    public WalletAddressesAdapter(final Context context, final Wallet wallet) {
-        final Resources res = context.getResources();
-
+    public WalletAddressesAdapter(final Context context) {
         this.context = context;
-        this.wallet = wallet;
+        final Resources res = context.getResources();
         colorSignificant = res.getColor(R.color.fg_significant);
         colorInsignificant = res.getColor(R.color.fg_insignificant);
         colorLessSignificant = res.getColor(R.color.fg_less_significant);
@@ -66,14 +67,17 @@ public class WalletAddressesAdapter extends BaseAdapter {
     public void replaceDerivedKeys(final Collection<ECKey> keys) {
         this.derivedKeys.clear();
         this.derivedKeys.addAll(keys);
-
         notifyDataSetChanged();
     }
 
     public void replaceRandomKeys(final Collection<ECKey> keys) {
         this.randomKeys.clear();
         this.randomKeys.addAll(keys);
+        notifyDataSetChanged();
+    }
 
+    public void setWallet(final Wallet wallet) {
+        this.wallet = wallet;
         notifyDataSetChanged();
     }
 
@@ -134,7 +138,8 @@ public class WalletAddressesAdapter extends BaseAdapter {
     private View rowKey(final int position, View row) {
         final ECKey key = (ECKey) getItem(position);
         final Address address = key.toAddress(Constants.NETWORK_PARAMETERS);
-        final boolean isRotateKey = wallet.isKeyRotating(key);
+        final Wallet wallet = this.wallet;
+        final boolean isRotateKey = wallet != null && wallet.isKeyRotating(key);
 
         if (row == null)
             row = inflater.inflate(R.layout.address_book_row, null);
