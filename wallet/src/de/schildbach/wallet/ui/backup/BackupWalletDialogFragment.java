@@ -84,9 +84,6 @@ public class BackupWalletDialogFragment extends DialogFragment {
     private AbstractWalletActivity activity;
     private WalletApplication application;
 
-    @Nullable
-    private AlertDialog dialog;
-
     private EditText passwordView, passwordAgainView;
     private TextView passwordStrengthView;
     private View passwordMismatchView;
@@ -103,8 +100,7 @@ public class BackupWalletDialogFragment extends DialogFragment {
     private final TextWatcher textWatcher = new TextWatcher() {
         @Override
         public void onTextChanged(final CharSequence s, final int start, final int before, final int count) {
-            passwordMismatchView.setVisibility(View.INVISIBLE);
-            updateView();
+            viewModel.triggerPasswordChange.call();
         }
 
         @Override
@@ -131,6 +127,32 @@ public class BackupWalletDialogFragment extends DialogFragment {
             @Override
             public void onChanged(final Wallet wallet) {
                 warningView.setVisibility(wallet.isEncrypted() ? View.VISIBLE : View.GONE);
+            }
+        });
+        viewModel.triggerPasswordChange.observe(this, new Observer<Void>() {
+            @Override
+            public void onChanged(final Void v) {
+                passwordMismatchView.setVisibility(View.INVISIBLE);
+
+                final int passwordLength = passwordView.getText().length();
+                passwordStrengthView.setVisibility(passwordLength > 0 ? View.VISIBLE : View.INVISIBLE);
+                if (passwordLength < 6) {
+                    passwordStrengthView.setText(R.string.encrypt_keys_dialog_password_strength_weak);
+                    passwordStrengthView.setTextColor(getResources().getColor(R.color.fg_password_strength_weak));
+                } else if (passwordLength < 8) {
+                    passwordStrengthView.setText(R.string.encrypt_keys_dialog_password_strength_fair);
+                    passwordStrengthView.setTextColor(getResources().getColor(R.color.fg_password_strength_fair));
+                } else if (passwordLength < 10) {
+                    passwordStrengthView.setText(R.string.encrypt_keys_dialog_password_strength_good);
+                    passwordStrengthView.setTextColor(getResources().getColor(R.color.fg_less_significant));
+                } else {
+                    passwordStrengthView.setText(R.string.encrypt_keys_dialog_password_strength_strong);
+                    passwordStrengthView.setTextColor(getResources().getColor(R.color.fg_password_strength_strong));
+                }
+
+                final boolean hasPassword = !passwordView.getText().toString().trim().isEmpty();
+                final boolean hasPasswordAgain = !passwordAgainView.getText().toString().trim().isEmpty();
+                positiveButton.setEnabled(viewModel.wallet.getValue() != null && hasPassword && hasPasswordAgain);
             }
         });
     }
@@ -187,9 +209,6 @@ public class BackupWalletDialogFragment extends DialogFragment {
                 passwordAgainView.addTextChangedListener(textWatcher);
 
                 showView.setOnCheckedChangeListener(new ShowPasswordCheckListener(passwordView, passwordAgainView));
-
-                BackupWalletDialogFragment.this.dialog = dialog;
-                updateView();
             }
         });
 
@@ -198,8 +217,6 @@ public class BackupWalletDialogFragment extends DialogFragment {
 
     @Override
     public void onDismiss(final DialogInterface dialog) {
-        this.dialog = null;
-
         passwordView.removeTextChangedListener(textWatcher);
         passwordAgainView.removeTextChangedListener(textWatcher);
 
@@ -224,32 +241,6 @@ public class BackupWalletDialogFragment extends DialogFragment {
     private void wipePasswords() {
         passwordView.setText(null);
         passwordAgainView.setText(null);
-    }
-
-    private void updateView() {
-        if (dialog == null)
-            return;
-
-        final int passwordLength = passwordView.getText().length();
-        passwordStrengthView.setVisibility(passwordLength > 0 ? View.VISIBLE : View.INVISIBLE);
-        if (passwordLength < 6) {
-            passwordStrengthView.setText(R.string.encrypt_keys_dialog_password_strength_weak);
-            passwordStrengthView.setTextColor(getResources().getColor(R.color.fg_password_strength_weak));
-        } else if (passwordLength < 8) {
-            passwordStrengthView.setText(R.string.encrypt_keys_dialog_password_strength_fair);
-            passwordStrengthView.setTextColor(getResources().getColor(R.color.fg_password_strength_fair));
-        } else if (passwordLength < 10) {
-            passwordStrengthView.setText(R.string.encrypt_keys_dialog_password_strength_good);
-            passwordStrengthView.setTextColor(getResources().getColor(R.color.fg_less_significant));
-        } else {
-            passwordStrengthView.setText(R.string.encrypt_keys_dialog_password_strength_strong);
-            passwordStrengthView.setTextColor(getResources().getColor(R.color.fg_password_strength_strong));
-        }
-
-        final boolean hasPassword = !passwordView.getText().toString().trim().isEmpty();
-        final boolean hasPasswordAgain = !passwordAgainView.getText().toString().trim().isEmpty();
-
-        positiveButton.setEnabled(viewModel.wallet.getValue() != null && hasPassword && hasPasswordAgain);
     }
 
     private void backupWallet() {
@@ -292,25 +283,15 @@ public class BackupWalletDialogFragment extends DialogFragment {
 
                     cipherOut.write(Crypto.encrypt(plainBytes, password.toCharArray()));
                     cipherOut.flush();
+                    application.getConfiguration().disarmBackupReminder();
 
                     final String target = uriToTarget(targetUri);
-
                     log.info("backed up wallet to: '" + targetUri + "'" + (target != null ? " (" + target + ")" : ""));
-                    final DialogBuilder dialog = new DialogBuilder(activity);
-                    dialog.setTitle(R.string.export_keys_dialog_title);
-                    dialog.setMessage(Html.fromHtml(
-                            getString(R.string.export_keys_dialog_success, target != null ? target : targetUri)));
-                    dialog.singleDismissButton(null);
-                    dialog.show();
-
-                    application.getConfiguration().disarmBackupReminder();
+                    SuccessDialogFragment.showDialog(getFragmentManager(),
+                            target != null ? target : targetUri.toString());
                 } catch (final IOException x) {
                     log.error("problem backing up wallet", x);
-                    final DialogBuilder dialog = DialogBuilder.warn(activity,
-                            R.string.import_export_keys_dialog_failure_title);
-                    dialog.setMessage(getString(R.string.export_keys_dialog_failure, x.getMessage()));
-                    dialog.singleDismissButton(null);
-                    dialog.show();
+                    ErrorDialogFragment.showDialog(getFragmentManager(), x.toString());
                 }
             } else if (resultCode == Activity.RESULT_CANCELED) {
                 log.info("cancelled backing up wallet");
@@ -331,5 +312,51 @@ public class BackupWalletDialogFragment extends DialogFragment {
         if ("com.android.providers.downloads.documents".equals(host))
             return "internal storage";
         return null;
+    }
+
+    public static class SuccessDialogFragment extends DialogFragment {
+        private static final String FRAGMENT_TAG = SuccessDialogFragment.class.getName();
+        private static final String KEY_TARGET = "target";
+
+        public static void showDialog(final FragmentManager fm, final String target) {
+            final DialogFragment newFragment = new SuccessDialogFragment();
+            final Bundle args = new Bundle();
+            args.putString(KEY_TARGET, target);
+            newFragment.setArguments(args);
+            newFragment.show(fm, FRAGMENT_TAG);
+        }
+
+        @Override
+        public Dialog onCreateDialog(final Bundle savedInstanceState) {
+            final String target = getArguments().getString(KEY_TARGET);
+            final DialogBuilder dialog = new DialogBuilder(getContext());
+            dialog.setTitle(R.string.export_keys_dialog_title);
+            dialog.setMessage(Html.fromHtml(getString(R.string.export_keys_dialog_success, target)));
+            dialog.singleDismissButton(null);
+            return dialog.create();
+        }
+    }
+
+    public static class ErrorDialogFragment extends DialogFragment {
+        private static final String FRAGMENT_TAG = ErrorDialogFragment.class.getName();
+        private static final String KEY_EXCEPTION_MESSAGE = "exception_message";
+
+        public static void showDialog(final FragmentManager fm, final String exceptionMessage) {
+            final DialogFragment newFragment = new SuccessDialogFragment();
+            final Bundle args = new Bundle();
+            args.putString(KEY_EXCEPTION_MESSAGE, exceptionMessage);
+            newFragment.setArguments(args);
+            newFragment.show(fm, FRAGMENT_TAG);
+        }
+
+        @Override
+        public Dialog onCreateDialog(final Bundle savedInstanceState) {
+            final String exceptionMessage = getArguments().getString(KEY_EXCEPTION_MESSAGE);
+            final DialogBuilder dialog = DialogBuilder.warn(getContext(),
+                    R.string.import_export_keys_dialog_failure_title);
+            dialog.setMessage(getString(R.string.export_keys_dialog_failure, exceptionMessage));
+            dialog.singleDismissButton(null);
+            return dialog.create();
+        }
     }
 }
