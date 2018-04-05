@@ -72,12 +72,12 @@ import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.R;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.WalletBalanceWidgetProvider;
-import de.schildbach.wallet.data.AbstractWalletLiveData;
 import de.schildbach.wallet.data.AddressBookProvider;
 import de.schildbach.wallet.data.ExchangeRate;
 import de.schildbach.wallet.data.ExchangeRateLiveData;
 import de.schildbach.wallet.data.TimeLiveData;
 import de.schildbach.wallet.data.WalletBalanceLiveData;
+import de.schildbach.wallet.data.WalletLiveData;
 import de.schildbach.wallet.service.BlockchainState.Impediment;
 import de.schildbach.wallet.ui.WalletActivity;
 import de.schildbach.wallet.util.CrashReporter;
@@ -114,7 +114,7 @@ import android.text.format.DateUtils;
 public class BlockchainService extends LifecycleService {
     private WalletApplication application;
     private Configuration config;
-    private Wallet wallet;
+    private WalletLiveData wallet;
 
     private BlockStore blockStore;
     private File blockChainFile;
@@ -210,19 +210,21 @@ public class BlockchainService extends LifecycleService {
         context.startService(intent);
     }
 
-    private static class NewTransactionLiveData extends AbstractWalletLiveData<Transaction> {
-        public NewTransactionLiveData(final WalletApplication application) {
-            super(application);
+    private static class NewTransactionLiveData extends LiveData<Transaction> {
+        private final Wallet wallet;
+
+        public NewTransactionLiveData(final Wallet wallet) {
+            this.wallet = wallet;
         }
 
         @Override
-        protected void onWalletActive(final Wallet wallet) {
+        protected void onActive() {
             wallet.addCoinsReceivedEventListener(Threading.SAME_THREAD, walletListener);
             wallet.addCoinsSentEventListener(Threading.SAME_THREAD, walletListener);
         }
 
         @Override
-        protected void onWalletInactive(final Wallet wallet) {
+        protected void onInactive() {
             wallet.removeCoinsSentEventListener(walletListener);
             wallet.removeCoinsReceivedEventListener(walletListener);
         }
@@ -502,51 +504,11 @@ public class BlockchainService extends LifecycleService {
         wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, getClass().getName());
         application = (WalletApplication) getApplication();
         config = application.getConfiguration();
-        wallet = application.getWallet();
+        blockChainFile = new File(getDir("blockstore", Context.MODE_PRIVATE), Constants.Files.BLOCKCHAIN_FILENAME);
 
         peerConnectivityListener = new PeerConnectivityListener();
 
         broadcastPeerState(0);
-
-        blockChainFile = new File(getDir("blockstore", Context.MODE_PRIVATE), Constants.Files.BLOCKCHAIN_FILENAME);
-        final boolean blockChainFileExists = blockChainFile.exists();
-
-        if (!blockChainFileExists) {
-            log.info("blockchain does not exist, resetting wallet");
-            wallet.reset();
-        }
-
-        try {
-            blockStore = new SPVBlockStore(Constants.NETWORK_PARAMETERS, blockChainFile);
-            blockStore.getChainHead(); // detect corruptions as early as possible
-
-            final long earliestKeyCreationTime = wallet.getEarliestKeyCreationTime();
-
-            if (!blockChainFileExists && earliestKeyCreationTime > 0) {
-                try {
-                    final Stopwatch watch = Stopwatch.createStarted();
-                    final InputStream checkpointsInputStream = getAssets().open(Constants.Files.CHECKPOINTS_FILENAME);
-                    CheckpointManager.checkpoint(Constants.NETWORK_PARAMETERS, checkpointsInputStream, blockStore,
-                            earliestKeyCreationTime);
-                    watch.stop();
-                    log.info("checkpoints loaded from '{}', took {}", Constants.Files.CHECKPOINTS_FILENAME, watch);
-                } catch (final IOException x) {
-                    log.error("problem reading checkpoints, continuing without", x);
-                }
-            }
-        } catch (final BlockStoreException x) {
-            blockChainFile.delete();
-
-            final String msg = "blockstore cannot be created";
-            log.error(msg, x);
-            throw new Error(msg, x);
-        }
-
-        try {
-            blockChain = new BlockChain(Constants.NETWORK_PARAMETERS, wallet, blockStore);
-        } catch (final BlockStoreException x) {
-            throw new Error("blockchain cannot be created", x);
-        }
 
         final WalletBalanceLiveData walletBalance = new WalletBalanceLiveData(application);
         final ExchangeRateLiveData exchangeRate = new ExchangeRateLiveData(application);
@@ -567,10 +529,62 @@ public class BlockchainService extends LifecycleService {
                 }
             });
         }
-        final NewTransactionLiveData newTransaction = new NewTransactionLiveData(application);
+        wallet = new WalletLiveData(application);
+        wallet.observe(this, new Observer<Wallet>() {
+            @Override
+            public void onChanged(final Wallet wallet) {
+                BlockchainService.this.wallet.removeObserver(this);
+                final boolean blockChainFileExists = blockChainFile.exists();
+                if (!blockChainFileExists) {
+                    log.info("blockchain does not exist, resetting wallet");
+                    wallet.reset();
+                }
+
+                try {
+                    blockStore = new SPVBlockStore(Constants.NETWORK_PARAMETERS, blockChainFile);
+                    blockStore.getChainHead(); // detect corruptions as early as possible
+
+                    final long earliestKeyCreationTime = wallet.getEarliestKeyCreationTime();
+
+                    if (!blockChainFileExists && earliestKeyCreationTime > 0) {
+                        try {
+                            final Stopwatch watch = Stopwatch.createStarted();
+                            final InputStream checkpointsInputStream = getAssets()
+                                    .open(Constants.Files.CHECKPOINTS_FILENAME);
+                            CheckpointManager.checkpoint(Constants.NETWORK_PARAMETERS, checkpointsInputStream,
+                                    blockStore, earliestKeyCreationTime);
+                            watch.stop();
+                            log.info("checkpoints loaded from '{}', took {}", Constants.Files.CHECKPOINTS_FILENAME,
+                                    watch);
+                        } catch (final IOException x) {
+                            log.error("problem reading checkpoints, continuing without", x);
+                        }
+                    }
+                } catch (final BlockStoreException x) {
+                    blockChainFile.delete();
+
+                    final String msg = "blockstore cannot be created";
+                    log.error(msg, x);
+                    throw new Error(msg, x);
+                }
+
+                try {
+                    blockChain = new BlockChain(Constants.NETWORK_PARAMETERS, wallet, blockStore);
+                } catch (final BlockStoreException x) {
+                    throw new Error("blockchain cannot be created", x);
+                }
+
+                observeLiveDatasThatAreDependentOnWalletAndBlockchain();
+            }
+        });
+    }
+
+    private void observeLiveDatasThatAreDependentOnWalletAndBlockchain() {
+        final NewTransactionLiveData newTransaction = new NewTransactionLiveData(wallet.getValue());
         newTransaction.observe(this, new Observer<Transaction>() {
             @Override
             public void onChanged(final Transaction tx) {
+                final Wallet wallet = BlockchainService.this.wallet.getValue();
                 transactionsReceived.incrementAndGet();
                 final Coin amount = tx.getValue(wallet);
                 if (amount.isPositive()) {
@@ -669,6 +683,7 @@ public class BlockchainService extends LifecycleService {
             private void startup() {
                 log.debug("acquiring wakelock");
                 wakeLock.acquire();
+                final Wallet wallet = BlockchainService.this.wallet.getValue();
 
                 // consistency check
                 final int walletLastBlockSeenHeight = wallet.getLastBlockSeenHeight();
@@ -745,6 +760,8 @@ public class BlockchainService extends LifecycleService {
             }
 
             private void shutdown() {
+                final Wallet wallet = BlockchainService.this.wallet.getValue();
+
                 log.info("stopping peergroup");
                 peerGroup.removeDisconnectedEventListener(peerConnectivityListener);
                 peerGroup.removeConnectedEventListener(peerConnectivityListener);
@@ -782,7 +799,7 @@ public class BlockchainService extends LifecycleService {
             } else if (BlockchainService.ACTION_BROADCAST_TRANSACTION.equals(action)) {
                 final Sha256Hash hash = Sha256Hash
                         .wrap(intent.getByteArrayExtra(BlockchainService.ACTION_BROADCAST_TRANSACTION_HASH));
-                final Transaction tx = wallet.getTransaction(hash);
+                final Transaction tx = application.getWallet().getTransaction(hash);
 
                 if (peerGroup != null) {
                     log.info("broadcasting transaction " + tx.getHashAsString());
@@ -805,7 +822,7 @@ public class BlockchainService extends LifecycleService {
         if (peerGroup != null) {
             peerGroup.removeDisconnectedEventListener(peerConnectivityListener);
             peerGroup.removeConnectedEventListener(peerConnectivityListener);
-            peerGroup.removeWallet(wallet);
+            peerGroup.removeWallet(wallet.getValue());
             peerGroup.stop();
 
             log.info("peergroup stopped");
@@ -852,7 +869,11 @@ public class BlockchainService extends LifecycleService {
         }
     }
 
+    @Nullable
     public BlockchainState getBlockchainState() {
+        if (blockChain == null)
+            return null;
+
         final StoredBlock chainHead = blockChain.getChainHead();
         final Date bestChainDate = chainHead.getHeader().getTime();
         final int bestChainHeight = chainHead.getHeight();
@@ -861,32 +882,32 @@ public class BlockchainService extends LifecycleService {
         return new BlockchainState(bestChainDate, bestChainHeight, replaying, impediments.getValue());
     }
 
+    @Nullable
     public List<Peer> getConnectedPeers() {
-        if (peerGroup != null)
-            return peerGroup.getConnectedPeers();
-        else
+        if (peerGroup == null)
             return null;
+
+        return peerGroup.getConnectedPeers();
     }
 
+    @Nullable
     public List<StoredBlock> getRecentBlocks(final int maxBlocks) {
-        final List<StoredBlock> blocks = new ArrayList<StoredBlock>(maxBlocks);
+        if (blockChain == null)
+            return null;
 
+        final List<StoredBlock> blocks = new ArrayList<StoredBlock>(maxBlocks);
         try {
             StoredBlock block = blockChain.getChainHead();
-
             while (block != null) {
                 blocks.add(block);
-
                 if (blocks.size() >= maxBlocks)
                     break;
-
                 block = block.getPrev(blockStore);
             }
+            return blocks;
         } catch (final BlockStoreException x) {
-            // swallow
+            throw new RuntimeException(x);
         }
-
-        return blocks;
     }
 
     private void broadcastPeerState(final int numPeers) {
@@ -897,7 +918,9 @@ public class BlockchainService extends LifecycleService {
 
     private void broadcastBlockchainState() {
         final Intent broadcast = new Intent(ACTION_BLOCKCHAIN_STATE);
-        getBlockchainState().putExtras(broadcast);
+        final BlockchainState blockchainState = getBlockchainState();
+        if (blockchainState != null)
+            blockchainState.putExtras(broadcast);
         LocalBroadcastManager.getInstance(this).sendBroadcast(broadcast);
     }
 }

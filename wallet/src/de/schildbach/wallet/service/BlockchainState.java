@@ -55,8 +55,10 @@ public class BlockchainState {
         final boolean replaying = intent.getBooleanExtra(EXTRA_REPLAYING, false);
         @SuppressWarnings("unchecked")
         final Set<Impediment> impediments = (Set<Impediment>) intent.getSerializableExtra(EXTRA_IMPEDIMENTS);
-
-        return new BlockchainState(bestChainDate, bestChainHeight, replaying, impediments);
+        if (bestChainDate != null && bestChainHeight != -1 && impediments != null)
+            return new BlockchainState(bestChainDate, bestChainHeight, replaying, impediments);
+        else
+            return null;
     }
 
     public void putExtras(final Intent intent) {
