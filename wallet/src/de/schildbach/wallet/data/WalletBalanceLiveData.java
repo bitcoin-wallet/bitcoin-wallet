@@ -40,11 +40,17 @@ import android.os.AsyncTask;
  */
 public final class WalletBalanceLiveData extends AbstractWalletLiveData<Coin>
         implements OnSharedPreferenceChangeListener {
+    private final BalanceType balanceType;
     private final Configuration config;
 
-    public WalletBalanceLiveData(final WalletApplication application) {
+    public WalletBalanceLiveData(final WalletApplication application, final BalanceType balanceType) {
         super(application);
+        this.balanceType = balanceType;
         this.config = application.getConfiguration();
+    }
+
+    public WalletBalanceLiveData(final WalletApplication application) {
+        this(application, BalanceType.ESTIMATED);
     }
 
     @Override
@@ -81,7 +87,7 @@ public final class WalletBalanceLiveData extends AbstractWalletLiveData<Coin>
             @Override
             public void run() {
                 org.bitcoinj.core.Context.propagate(Constants.CONTEXT);
-                final Coin balance = getWallet().getBalance(BalanceType.ESTIMATED);
+                final Coin balance = getWallet().getBalance(balanceType);
                 postValue(balance);
             }
         });
