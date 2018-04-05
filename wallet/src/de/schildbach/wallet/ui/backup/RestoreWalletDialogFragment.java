@@ -30,10 +30,8 @@ import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.annotation.Nullable;
-
+import org.bitcoinj.core.Coin;
 import org.bitcoinj.wallet.Wallet;
-import org.bitcoinj.wallet.Wallet.BalanceType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -50,8 +48,11 @@ import de.schildbach.wallet.util.Io;
 import de.schildbach.wallet.util.WalletUtils;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
@@ -85,16 +86,14 @@ public class RestoreWalletDialogFragment extends DialogFragment {
     private AbstractWalletActivity activity;
     private WalletApplication application;
     private Configuration config;
-    private Wallet wallet;
-
-    @Nullable
-    private AlertDialog dialog;
 
     private TextView messageView;
     private Spinner fileView;
     private EditText passwordView;
     private CheckBox showView;
     private View replaceWarningView;
+
+    private RestoreWalletViewModel viewModel;
 
     private static final int REQUEST_CODE_RESTORE_WALLET = 1;
 
@@ -106,12 +105,19 @@ public class RestoreWalletDialogFragment extends DialogFragment {
         this.activity = (AbstractWalletActivity) context;
         this.application = activity.getWalletApplication();
         this.config = application.getConfiguration();
-        this.wallet = application.getWallet();
     }
 
     @Override
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        viewModel = ViewModelProviders.of(this).get(RestoreWalletViewModel.class);
+        viewModel.balance.observe(this, new Observer<Coin>() {
+            @Override
+            public void onChanged(final Coin balance) {
+                final boolean hasCoins = balance.signum() > 0;
+                replaceWarningView.setVisibility(hasCoins ? View.VISIBLE : View.GONE);
+            }
+        });
 
         if (ContextCompat.checkSelfPermission(activity,
                 Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
@@ -123,7 +129,7 @@ public class RestoreWalletDialogFragment extends DialogFragment {
             final int[] grantResults) {
         if (requestCode == REQUEST_CODE_RESTORE_WALLET) {
             if (!(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED))
-                showPermissionDeniedDialog();
+                PermissionDeniedDialogFragment.showDialog(getFragmentManager());
         }
     }
 
@@ -220,7 +226,6 @@ public class RestoreWalletDialogFragment extends DialogFragment {
                 passwordView.addTextChangedListener(dialogButtonEnabler);
                 fileView.setOnItemSelectedListener(dialogButtonEnabler);
 
-                RestoreWalletDialogFragment.this.dialog = dialog;
                 updateView();
             }
         });
@@ -234,16 +239,7 @@ public class RestoreWalletDialogFragment extends DialogFragment {
         updateView();
     }
 
-    @Override
-    public void onDismiss(final DialogInterface dialog) {
-        this.dialog = null;
-        super.onDismiss(dialog);
-    }
-
     private void updateView() {
-        if (dialog == null)
-            return;
-
         final String path;
         final String backupPath = Constants.Files.EXTERNAL_WALLET_BACKUP_DIR.getAbsolutePath();
         final String storagePath = Constants.Files.EXTERNAL_STORAGE_DIR.getAbsolutePath();
@@ -296,22 +292,6 @@ public class RestoreWalletDialogFragment extends DialogFragment {
 
         showView.setVisibility(!files.isEmpty() ? View.VISIBLE : View.GONE);
         showView.setOnCheckedChangeListener(new ShowPasswordCheckListener(passwordView));
-
-        final boolean hasCoins = wallet.getBalance(BalanceType.ESTIMATED).signum() > 0;
-        replaceWarningView.setVisibility(hasCoins ? View.VISIBLE : View.GONE);
-    }
-
-    private Dialog showPermissionDeniedDialog() {
-        final DialogBuilder dialog = new DialogBuilder(activity);
-        dialog.setTitle(R.string.restore_wallet_permission_dialog_title);
-        dialog.setMessage(getString(R.string.restore_wallet_permission_dialog_message));
-        dialog.singleDismissButton(new OnClickListener() {
-            @Override
-            public void onClick(final DialogInterface dialog, final int which) {
-                RestoreWalletDialogFragment.this.dismiss();
-            }
-        });
-        return dialog.show();
     }
 
     private void restoreWalletFromEncrypted(final File file, final String password) {
@@ -326,20 +306,9 @@ public class RestoreWalletDialogFragment extends DialogFragment {
             final InputStream is = new ByteArrayInputStream(plainText);
 
             restoreWallet(WalletUtils.restoreWalletFromProtobufOrBase58(is, Constants.NETWORK_PARAMETERS));
-
             log.info("successfully restored encrypted wallet: {}", file);
         } catch (final IOException x) {
-            final DialogBuilder dialog = DialogBuilder.warn(activity, R.string.import_export_keys_dialog_failure_title);
-            dialog.setMessage(getString(R.string.import_keys_dialog_failure, x.getMessage()));
-            dialog.setPositiveButton(R.string.button_dismiss, null);
-            dialog.setNegativeButton(R.string.button_retry, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(final DialogInterface dialog, final int id) {
-                    show(activity.getSupportFragmentManager());
-                }
-            });
-            dialog.show();
-
+            FailureDialogFragment.showDialog(getFragmentManager(), x.toString());
             log.info("problem restoring wallet: " + file, x);
         }
     }
@@ -347,20 +316,9 @@ public class RestoreWalletDialogFragment extends DialogFragment {
     private void restoreWalletFromProtobuf(final File file) {
         try (final FileInputStream is = new FileInputStream(file)) {
             restoreWallet(WalletUtils.restoreWalletFromProtobuf(is, Constants.NETWORK_PARAMETERS));
-
             log.info("successfully restored unencrypted wallet: {}", file);
         } catch (final IOException x) {
-            final DialogBuilder dialog = DialogBuilder.warn(activity, R.string.import_export_keys_dialog_failure_title);
-            dialog.setMessage(getString(R.string.import_keys_dialog_failure, x.getMessage()));
-            dialog.setPositiveButton(R.string.button_dismiss, null);
-            dialog.setNegativeButton(R.string.button_retry, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(final DialogInterface dialog, final int id) {
-                    show(activity.getSupportFragmentManager());
-                }
-            });
-            dialog.show();
-
+            FailureDialogFragment.showDialog(getFragmentManager(), x.toString());
             log.info("problem restoring unencrypted wallet: " + file, x);
         }
     }
@@ -368,46 +326,114 @@ public class RestoreWalletDialogFragment extends DialogFragment {
     private void restorePrivateKeysFromBase58(final File file) {
         try (final FileInputStream is = new FileInputStream(file)) {
             restoreWallet(WalletUtils.restorePrivateKeysFromBase58(is, Constants.NETWORK_PARAMETERS));
-
             log.info("successfully restored unencrypted private keys: {}", file);
         } catch (final IOException x) {
-            final DialogBuilder dialog = DialogBuilder.warn(activity, R.string.import_export_keys_dialog_failure_title);
-            dialog.setMessage(getString(R.string.import_keys_dialog_failure, x.getMessage()));
-            dialog.setPositiveButton(R.string.button_dismiss, null);
-            dialog.setNegativeButton(R.string.button_retry, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(final DialogInterface dialog, final int id) {
-                    show(activity.getSupportFragmentManager());
-                }
-            });
-            dialog.show();
-
+            FailureDialogFragment.showDialog(getFragmentManager(), x.toString());
             log.info("problem restoring private keys: " + file, x);
         }
     }
 
     private void restoreWallet(final Wallet wallet) throws IOException {
         application.replaceWallet(wallet);
-
         config.disarmBackupReminder();
+        SuccessDialogFragment.showDialog(getFragmentManager(), wallet.isEncrypted());
+    }
 
-        final DialogBuilder dialog = new DialogBuilder(activity);
-        final StringBuilder message = new StringBuilder();
-        message.append(getString(R.string.restore_wallet_dialog_success));
-        message.append("\n\n");
-        message.append(getString(R.string.restore_wallet_dialog_success_replay));
-        if (wallet.isEncrypted()) {
-            message.append("\n\n");
-            message.append(getString(R.string.restore_wallet_dialog_success_encrypted));
+    public static class SuccessDialogFragment extends DialogFragment {
+        private static final String FRAGMENT_TAG = SuccessDialogFragment.class.getName();
+        private static final String KEY_SHOW_ENCRYPTED_MESSAGE = "show_encrypted_message";
+
+        private Activity activity;
+
+        public static void showDialog(final FragmentManager fm, final boolean showEncryptedMessage) {
+            final DialogFragment newFragment = new SuccessDialogFragment();
+            final Bundle args = new Bundle();
+            args.putBoolean(KEY_SHOW_ENCRYPTED_MESSAGE, showEncryptedMessage);
+            newFragment.setArguments(args);
+            newFragment.show(fm, FRAGMENT_TAG);
         }
-        dialog.setMessage(message);
-        dialog.setNeutralButton(R.string.button_ok, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(final DialogInterface dialog, final int id) {
-                BlockchainService.resetBlockchain(activity);
-                activity.finish();
+
+        @Override
+        public void onAttach(final Context context) {
+            super.onAttach(context);
+            this.activity = (Activity) context;
+        }
+
+        @Override
+        public Dialog onCreateDialog(final Bundle savedInstanceState) {
+            final boolean showEncryptedMessage = getArguments().getBoolean(KEY_SHOW_ENCRYPTED_MESSAGE);
+            final DialogBuilder dialog = new DialogBuilder(getContext());
+            final StringBuilder message = new StringBuilder();
+            message.append(getString(R.string.restore_wallet_dialog_success));
+            message.append("\n\n");
+            message.append(getString(R.string.restore_wallet_dialog_success_replay));
+            if (showEncryptedMessage) {
+                message.append("\n\n");
+                message.append(getString(R.string.restore_wallet_dialog_success_encrypted));
             }
-        });
-        dialog.show();
+            dialog.setMessage(message);
+            dialog.setNeutralButton(R.string.button_ok, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(final DialogInterface dialog, final int id) {
+                    BlockchainService.resetBlockchain(getContext());
+                    activity.finish();
+                }
+            });
+            return dialog.create();
+        }
+    }
+
+    public static class FailureDialogFragment extends DialogFragment {
+        private static final String FRAGMENT_TAG = FailureDialogFragment.class.getName();
+        private static final String KEY_EXCEPTION_MESSAGE = "exception_message";
+
+        public static void showDialog(final FragmentManager fm, final String exceptionMessage) {
+            final DialogFragment newFragment = new FailureDialogFragment();
+            final Bundle args = new Bundle();
+            args.putString(KEY_EXCEPTION_MESSAGE, exceptionMessage);
+            newFragment.setArguments(args);
+            newFragment.show(fm, FRAGMENT_TAG);
+        }
+
+        @Override
+        public Dialog onCreateDialog(final Bundle savedInstanceState) {
+            final String exceptionMessage = getArguments().getString(KEY_EXCEPTION_MESSAGE);
+            final DialogBuilder dialog = DialogBuilder.warn(getContext(),
+                    R.string.import_export_keys_dialog_failure_title);
+            dialog.setMessage(getString(R.string.import_keys_dialog_failure, exceptionMessage));
+            dialog.setPositiveButton(R.string.button_dismiss, null);
+            dialog.setNegativeButton(R.string.button_retry, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(final DialogInterface dialog, final int id) {
+                    RestoreWalletDialogFragment.show(getFragmentManager());
+                }
+            });
+            return dialog.create();
+        }
+    }
+
+    public static class PermissionDeniedDialogFragment extends DialogFragment {
+        private static final String FRAGMENT_TAG = PermissionDeniedDialogFragment.class.getName();
+
+        public static void showDialog(final FragmentManager fm) {
+            final DialogFragment newFragment = new PermissionDeniedDialogFragment();
+            newFragment.show(fm, FRAGMENT_TAG);
+        }
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            final DialogBuilder dialog = new DialogBuilder(getContext());
+            dialog.setTitle(R.string.restore_wallet_permission_dialog_title);
+            dialog.setMessage(getString(R.string.restore_wallet_permission_dialog_message));
+            dialog.singleDismissButton(new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(final DialogInterface dialog, final int id) {
+                    final DialogFragment fragment = (DialogFragment) getFragmentManager()
+                            .findFragmentByTag(RestoreWalletDialogFragment.FRAGMENT_TAG);
+                    fragment.dismiss();
+                }
+            });
+            return dialog.create();
+        }
     }
 }
