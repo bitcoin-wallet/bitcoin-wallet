@@ -100,7 +100,7 @@ public class BackupWalletDialogFragment extends DialogFragment {
     private final TextWatcher textWatcher = new TextWatcher() {
         @Override
         public void onTextChanged(final CharSequence s, final int start, final int before, final int count) {
-            viewModel.triggerPasswordChange.call();
+            viewModel.password.postValue(s.toString().trim());
         }
 
         @Override
@@ -129,12 +129,12 @@ public class BackupWalletDialogFragment extends DialogFragment {
                 warningView.setVisibility(wallet.isEncrypted() ? View.VISIBLE : View.GONE);
             }
         });
-        viewModel.triggerPasswordChange.observe(this, new Observer<Void>() {
+        viewModel.password.observe(this, new Observer<String>() {
             @Override
-            public void onChanged(final Void v) {
+            public void onChanged(final String password) {
                 passwordMismatchView.setVisibility(View.INVISIBLE);
 
-                final int passwordLength = passwordView.getText().length();
+                final int passwordLength = password.length();
                 passwordStrengthView.setVisibility(passwordLength > 0 ? View.VISIBLE : View.INVISIBLE);
                 if (passwordLength < 6) {
                     passwordStrengthView.setText(R.string.encrypt_keys_dialog_password_strength_weak);
@@ -150,9 +150,10 @@ public class BackupWalletDialogFragment extends DialogFragment {
                     passwordStrengthView.setTextColor(getResources().getColor(R.color.fg_password_strength_strong));
                 }
 
-                final boolean hasPassword = !passwordView.getText().toString().trim().isEmpty();
+                final boolean hasPassword = !password.isEmpty();
                 final boolean hasPasswordAgain = !passwordAgainView.getText().toString().trim().isEmpty();
-                positiveButton.setEnabled(viewModel.wallet.getValue() != null && hasPassword && hasPasswordAgain);
+                if (positiveButton != null)
+                    positiveButton.setEnabled(viewModel.wallet.getValue() != null && hasPassword && hasPasswordAgain);
             }
         });
     }

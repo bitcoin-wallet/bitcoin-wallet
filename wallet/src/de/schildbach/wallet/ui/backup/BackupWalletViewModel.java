@@ -18,11 +18,11 @@
 package de.schildbach.wallet.ui.backup;
 
 import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.data.SingleLiveEvent;
 import de.schildbach.wallet.data.WalletLiveData;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
+import android.arch.lifecycle.MutableLiveData;
 
 /**
  * @author Andreas Schildbach
@@ -30,7 +30,7 @@ import android.arch.lifecycle.AndroidViewModel;
 public class BackupWalletViewModel extends AndroidViewModel {
     private final WalletApplication application;
     public final WalletLiveData wallet;
-    public final SingleLiveEvent<Void> triggerPasswordChange = new SingleLiveEvent<>();
+    public final MutableLiveData<String> password = new MutableLiveData<>();
 
     public BackupWalletViewModel(final Application application) {
         super(application);
