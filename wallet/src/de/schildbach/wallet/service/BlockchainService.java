@@ -832,10 +832,12 @@ public class BlockchainService extends LifecycleService {
 
         delayHandler.removeCallbacksAndMessages(null);
 
-        try {
-            blockStore.close();
-        } catch (final BlockStoreException x) {
-            throw new RuntimeException(x);
+        if (blockStore != null) {
+            try {
+                blockStore.close();
+            } catch (final BlockStoreException x) {
+                throw new RuntimeException(x);
+            }
         }
 
         application.autosaveWalletNow();
