@@ -148,6 +148,12 @@ public final class RequestCoinsFragment extends Fragment {
                 initiateRequestView.setText(initiateText);
             }
         });
+        viewModel.bitcoinUri.observe(this, new Observer<Uri>() {
+            @Override
+            public void onChanged(final Uri bitcoinUri) {
+                activity.invalidateOptionsMenu();
+            }
+        });
         if (Constants.ENABLE_EXCHANGE_RATES) {
             viewModel.exchangeRate.observe(this, new Observer<ExchangeRate>() {
                 @Override
@@ -307,8 +313,16 @@ public final class RequestCoinsFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
         inflater.inflate(R.menu.request_coins_fragment_options, menu);
-
         super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(final Menu menu) {
+        final boolean hasBitcoinUri = viewModel.bitcoinUri.getValue() != null;
+        menu.findItem(R.id.request_coins_options_copy).setEnabled(hasBitcoinUri);
+        menu.findItem(R.id.request_coins_options_share).setEnabled(hasBitcoinUri);
+        menu.findItem(R.id.request_coins_options_local_app).setEnabled(hasBitcoinUri);
+        super.onPrepareOptionsMenu(menu);
     }
 
     @Override
