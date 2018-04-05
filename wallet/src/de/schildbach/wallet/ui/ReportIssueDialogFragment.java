@@ -41,17 +41,22 @@ import de.schildbach.wallet.util.Bluetooth;
 import de.schildbach.wallet.util.CrashReporter;
 
 import android.app.ActivityManager;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.admin.DevicePolicyManager;
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnShowListener;
 import android.content.pm.PackageInfo;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
+import android.widget.Button;
 
 /**
  * @author Andreas Schildbach
@@ -79,14 +84,29 @@ public class ReportIssueDialogFragment extends DialogFragment {
 
     private AbstractWalletActivity activity;
     private WalletApplication application;
-    private Wallet wallet;
+
+    private Button positiveButton;
+
+    private ReportIssueViewModel viewModel;
 
     @Override
     public void onAttach(final Context context) {
         super.onAttach(context);
         this.activity = (AbstractWalletActivity) context;
         this.application = activity.getWalletApplication();
-        this.wallet = application.getWallet();
+    }
+
+    @Override
+    public void onCreate(final Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        viewModel = ViewModelProviders.of(this).get(ReportIssueViewModel.class);
+        viewModel.wallet.observe(this, new Observer<Wallet>() {
+            @Override
+            public void onChanged(final Wallet wallet) {
+                if (wallet != null)
+                    positiveButton.setEnabled(true);
+            }
+        });
     }
 
     @Override
@@ -97,7 +117,7 @@ public class ReportIssueDialogFragment extends DialogFragment {
         final String subject = args.getString(KEY_SUBJECT);
         final String contextualData = args.getString(KEY_CONTEXTUAL_DATA);
 
-        final ReportIssueDialogBuilder dialog = new ReportIssueDialogBuilder(activity, titleResId, messageResId) {
+        final ReportIssueDialogBuilder builder = new ReportIssueDialogBuilder(activity, titleResId, messageResId) {
             @Override
             protected String subject() {
                 return subject + ": " + WalletApplication.versionLine(application.packageInfo());
@@ -131,10 +151,20 @@ public class ReportIssueDialogFragment extends DialogFragment {
 
             @Override
             protected CharSequence collectWalletDump() {
-                return wallet.toString(false, true, true, null);
+                return viewModel.wallet.getValue().toString(false, true, true, null);
             }
         };
-        return dialog.create();
+        final AlertDialog dialog = builder.create();
+
+        dialog.setOnShowListener(new OnShowListener() {
+            @Override
+            public void onShow(final DialogInterface d) {
+                positiveButton = dialog.getButton(DialogInterface.BUTTON_POSITIVE);
+                positiveButton.setEnabled(false);
+            }
+        });
+
+        return dialog;
     }
 
     @Override
