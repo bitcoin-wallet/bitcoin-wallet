@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2015 the original author or authors.
+ * Copyright the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -29,11 +29,13 @@ import org.slf4j.LoggerFactory;
 
 import de.schildbach.wallet.R;
 import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.data.WalletLiveData;
 import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.util.CrashReporter;
 import de.schildbach.wallet.util.Toast;
 
-import android.app.Service;
+import android.arch.lifecycle.LifecycleService;
+import android.arch.lifecycle.Observer;
 import android.bluetooth.BluetoothAdapter;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -48,9 +50,9 @@ import android.text.format.DateUtils;
 /**
  * @author Andreas Schildbach
  */
-public final class AcceptBluetoothService extends Service {
+public final class AcceptBluetoothService extends LifecycleService {
     private WalletApplication application;
-    private Wallet wallet;
+    private WalletLiveData wallet;
     private WakeLock wakeLock;
     private AcceptBluetoothThread classicThread;
     private AcceptBluetoothThread paymentProtocolThread;
@@ -70,6 +72,8 @@ public final class AcceptBluetoothService extends Service {
 
     @Override
     public int onStartCommand(final Intent intent, final int flags, final int startId) {
+        super.onStartCommand(intent, flags, startId);
+
         handler.removeCallbacks(timeoutRunnable);
         handler.postDelayed(timeoutRunnable, TIMEOUT_MS);
 
@@ -82,13 +86,10 @@ public final class AcceptBluetoothService extends Service {
         log.debug(".onCreate()");
 
         super.onCreate();
-
         this.application = (WalletApplication) getApplication();
-        this.wallet = application.getWallet();
-
         final BluetoothAdapter bluetoothAdapter = checkNotNull(BluetoothAdapter.getDefaultAdapter());
-
         final PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+
         wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, getClass().getName());
         wakeLock.acquire();
 
@@ -107,18 +108,25 @@ public final class AcceptBluetoothService extends Service {
                     return AcceptBluetoothService.this.handleTx(tx);
                 }
             };
-
-            classicThread.start();
-            paymentProtocolThread.start();
         } catch (final IOException x) {
             new Toast(this).longToast(R.string.error_bluetooth, x.getMessage());
             CrashReporter.saveBackgroundTrace(x, application.packageInfo());
         }
+
+        wallet = new WalletLiveData(application);
+        wallet.observe(this, new Observer<Wallet>() {
+            @Override
+            public void onChanged(final Wallet wallet) {
+                classicThread.start();
+                paymentProtocolThread.start();
+            }
+        });
     }
 
     private boolean handleTx(final Transaction tx) {
         log.info("tx " + tx.getHashAsString() + " arrived via blueooth");
 
+        final Wallet wallet = this.wallet.getValue();
         try {
             if (wallet.isTransactionRelevant(tx)) {
                 wallet.receivePending(tx, null);
