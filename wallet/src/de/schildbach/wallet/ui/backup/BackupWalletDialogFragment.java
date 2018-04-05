@@ -343,7 +343,7 @@ public class BackupWalletDialogFragment extends DialogFragment {
         private static final String KEY_EXCEPTION_MESSAGE = "exception_message";
 
         public static void showDialog(final FragmentManager fm, final String exceptionMessage) {
-            final DialogFragment newFragment = new SuccessDialogFragment();
+            final DialogFragment newFragment = new ErrorDialogFragment();
             final Bundle args = new Bundle();
             args.putString(KEY_EXCEPTION_MESSAGE, exceptionMessage);
             newFragment.setArguments(args);
