@@ -260,13 +260,17 @@ public class WalletApplication extends Application {
     }
 
     public void autosaveWalletNow() {
-        try {
-            final Stopwatch watch = Stopwatch.createStarted();
-            walletFiles.saveNow();
-            watch.stop();
-            log.info("wallet saved to: '{}', took {}", walletFile, watch);
-        } catch (final IOException x) {
-            throw new RuntimeException(x);
+        final Stopwatch watch = Stopwatch.createStarted();
+        synchronized (getWalletLock) {
+            if (walletFiles != null) {
+                watch.stop();
+                log.info("wallet saved to: '{}', took {}", walletFile, watch);
+                try {
+                    walletFiles.saveNow();
+                } catch (final IOException x) {
+                    throw new RuntimeException(x);
+                }
+            }
         }
     }
 
