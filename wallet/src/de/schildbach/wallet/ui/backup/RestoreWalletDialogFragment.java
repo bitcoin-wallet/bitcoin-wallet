@@ -308,7 +308,7 @@ public class RestoreWalletDialogFragment extends DialogFragment {
             restoreWallet(WalletUtils.restoreWalletFromProtobufOrBase58(is, Constants.NETWORK_PARAMETERS));
             log.info("successfully restored encrypted wallet: {}", file);
         } catch (final IOException x) {
-            FailureDialogFragment.showDialog(getFragmentManager(), x.toString());
+            FailureDialogFragment.showDialog(getFragmentManager(), x.getMessage());
             log.info("problem restoring wallet: " + file, x);
         }
     }
@@ -318,7 +318,7 @@ public class RestoreWalletDialogFragment extends DialogFragment {
             restoreWallet(WalletUtils.restoreWalletFromProtobuf(is, Constants.NETWORK_PARAMETERS));
             log.info("successfully restored unencrypted wallet: {}", file);
         } catch (final IOException x) {
-            FailureDialogFragment.showDialog(getFragmentManager(), x.toString());
+            FailureDialogFragment.showDialog(getFragmentManager(), x.getMessage());
             log.info("problem restoring unencrypted wallet: " + file, x);
         }
     }
@@ -328,15 +328,15 @@ public class RestoreWalletDialogFragment extends DialogFragment {
             restoreWallet(WalletUtils.restorePrivateKeysFromBase58(is, Constants.NETWORK_PARAMETERS));
             log.info("successfully restored unencrypted private keys: {}", file);
         } catch (final IOException x) {
-            FailureDialogFragment.showDialog(getFragmentManager(), x.toString());
+            FailureDialogFragment.showDialog(getFragmentManager(), x.getMessage());
             log.info("problem restoring private keys: " + file, x);
         }
     }
 
-    private void restoreWallet(final Wallet wallet) throws IOException {
-        application.replaceWallet(wallet);
+    private void restoreWallet(final Wallet restoredWallet) throws IOException {
+        application.replaceWallet(restoredWallet);
         config.disarmBackupReminder();
-        SuccessDialogFragment.showDialog(getFragmentManager(), wallet.isEncrypted());
+        SuccessDialogFragment.showDialog(getFragmentManager(), restoredWallet.isEncrypted());
     }
 
     public static class SuccessDialogFragment extends DialogFragment {
