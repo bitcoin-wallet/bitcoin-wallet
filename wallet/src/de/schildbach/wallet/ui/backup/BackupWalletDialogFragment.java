@@ -123,39 +123,6 @@ public class BackupWalletDialogFragment extends DialogFragment {
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         viewModel = ViewModelProviders.of(this).get(BackupWalletViewModel.class);
-        viewModel.wallet.observe(this, new Observer<Wallet>() {
-            @Override
-            public void onChanged(final Wallet wallet) {
-                warningView.setVisibility(wallet.isEncrypted() ? View.VISIBLE : View.GONE);
-            }
-        });
-        viewModel.password.observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(final String password) {
-                passwordMismatchView.setVisibility(View.INVISIBLE);
-
-                final int passwordLength = password.length();
-                passwordStrengthView.setVisibility(passwordLength > 0 ? View.VISIBLE : View.INVISIBLE);
-                if (passwordLength < 6) {
-                    passwordStrengthView.setText(R.string.encrypt_keys_dialog_password_strength_weak);
-                    passwordStrengthView.setTextColor(getResources().getColor(R.color.fg_password_strength_weak));
-                } else if (passwordLength < 8) {
-                    passwordStrengthView.setText(R.string.encrypt_keys_dialog_password_strength_fair);
-                    passwordStrengthView.setTextColor(getResources().getColor(R.color.fg_password_strength_fair));
-                } else if (passwordLength < 10) {
-                    passwordStrengthView.setText(R.string.encrypt_keys_dialog_password_strength_good);
-                    passwordStrengthView.setTextColor(getResources().getColor(R.color.fg_less_significant));
-                } else {
-                    passwordStrengthView.setText(R.string.encrypt_keys_dialog_password_strength_strong);
-                    passwordStrengthView.setTextColor(getResources().getColor(R.color.fg_password_strength_strong));
-                }
-
-                final boolean hasPassword = !password.isEmpty();
-                final boolean hasPasswordAgain = !passwordAgainView.getText().toString().trim().isEmpty();
-                if (positiveButton != null)
-                    positiveButton.setEnabled(viewModel.wallet.getValue() != null && hasPassword && hasPasswordAgain);
-            }
-        });
     }
 
     @Override
@@ -210,6 +177,44 @@ public class BackupWalletDialogFragment extends DialogFragment {
                 passwordAgainView.addTextChangedListener(textWatcher);
 
                 showView.setOnCheckedChangeListener(new ShowPasswordCheckListener(passwordView, passwordAgainView));
+
+                viewModel.wallet.observe(BackupWalletDialogFragment.this, new Observer<Wallet>() {
+                    @Override
+                    public void onChanged(final Wallet wallet) {
+                        warningView.setVisibility(wallet.isEncrypted() ? View.VISIBLE : View.GONE);
+                    }
+                });
+                viewModel.password.observe(BackupWalletDialogFragment.this, new Observer<String>() {
+                    @Override
+                    public void onChanged(final String password) {
+                        passwordMismatchView.setVisibility(View.INVISIBLE);
+
+                        final int passwordLength = password.length();
+                        passwordStrengthView.setVisibility(passwordLength > 0 ? View.VISIBLE : View.INVISIBLE);
+                        if (passwordLength < 6) {
+                            passwordStrengthView.setText(R.string.encrypt_keys_dialog_password_strength_weak);
+                            passwordStrengthView
+                                    .setTextColor(getResources().getColor(R.color.fg_password_strength_weak));
+                        } else if (passwordLength < 8) {
+                            passwordStrengthView.setText(R.string.encrypt_keys_dialog_password_strength_fair);
+                            passwordStrengthView
+                                    .setTextColor(getResources().getColor(R.color.fg_password_strength_fair));
+                        } else if (passwordLength < 10) {
+                            passwordStrengthView.setText(R.string.encrypt_keys_dialog_password_strength_good);
+                            passwordStrengthView.setTextColor(getResources().getColor(R.color.fg_less_significant));
+                        } else {
+                            passwordStrengthView.setText(R.string.encrypt_keys_dialog_password_strength_strong);
+                            passwordStrengthView
+                                    .setTextColor(getResources().getColor(R.color.fg_password_strength_strong));
+                        }
+
+                        final boolean hasPassword = !password.isEmpty();
+                        final boolean hasPasswordAgain = !passwordAgainView.getText().toString().trim().isEmpty();
+                        if (positiveButton != null)
+                            positiveButton
+                                    .setEnabled(viewModel.wallet.getValue() != null && hasPassword && hasPasswordAgain);
+                    }
+                });
             }
         });
 
