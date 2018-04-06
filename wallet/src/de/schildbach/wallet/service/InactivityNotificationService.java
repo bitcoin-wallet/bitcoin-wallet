@@ -54,7 +54,6 @@ public final class InactivityNotificationService extends IntentService {
     private NotificationManager nm;
     private WalletApplication application;
     private Configuration config;
-    private Wallet wallet;
 
     private static final String ACTION_DISMISS = InactivityNotificationService.class.getPackage().getName()
             + ".dismiss";
@@ -77,7 +76,6 @@ public final class InactivityNotificationService extends IntentService {
         nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         application = (WalletApplication) getApplication();
         config = application.getConfiguration();
-        wallet = application.getWallet();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             final NotificationCompat.Builder notification = new NotificationCompat.Builder(this,
@@ -92,18 +90,19 @@ public final class InactivityNotificationService extends IntentService {
     @Override
     protected void onHandleIntent(final Intent intent) {
         org.bitcoinj.core.Context.propagate(Constants.CONTEXT);
+        final Wallet wallet = application.getWallet();
 
         if (ACTION_DISMISS.equals(intent.getAction()))
             handleDismiss();
         else if (ACTION_DISMISS_FOREVER.equals(intent.getAction()))
             handleDismissForever();
         else if (ACTION_DONATE.equals(intent.getAction()))
-            handleDonate();
+            handleDonate(wallet);
         else
-            handleMaybeShowNotification();
+            handleMaybeShowNotification(wallet);
     }
 
-    private void handleMaybeShowNotification() {
+    private void handleMaybeShowNotification(final Wallet wallet) {
         final Coin estimatedBalance = wallet.getBalance(BalanceType.ESTIMATED_SPENDABLE);
 
         if (estimatedBalance.isPositive()) {
@@ -161,7 +160,7 @@ public final class InactivityNotificationService extends IntentService {
         nm.cancel(Constants.NOTIFICATION_ID_INACTIVITY);
     }
 
-    private void handleDonate() {
+    private void handleDonate(final Wallet wallet) {
         final Coin balance = wallet.getBalance(BalanceType.AVAILABLE_SPENDABLE);
         SendCoinsActivity.startDonate(this, balance, FeeCategory.ECONOMIC,
                 Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
