@@ -24,10 +24,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 
-import javax.annotation.Nullable;
-
+import org.bitcoinj.core.Coin;
 import org.bitcoinj.wallet.Wallet;
-import org.bitcoinj.wallet.Wallet.BalanceType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -43,8 +41,11 @@ import de.schildbach.wallet.util.Crypto;
 import de.schildbach.wallet.util.Io;
 import de.schildbach.wallet.util.WalletUtils;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -79,15 +80,13 @@ public class RestoreWalletFromExternalDialogFragment extends DialogFragment {
     private WalletApplication application;
     private ContentResolver contentResolver;
     private Configuration config;
-    private Wallet wallet;
     private Uri backupUri;
 
     private EditText passwordView;
     private CheckBox showView;
     private View replaceWarningView;
 
-    @Nullable
-    private AlertDialog dialog;
+    private RestoreWalletViewModel viewModel;
 
     private static final Logger log = LoggerFactory.getLogger(RestoreWalletFromExternalDialogFragment.class);
 
@@ -98,13 +97,14 @@ public class RestoreWalletFromExternalDialogFragment extends DialogFragment {
         this.application = activity.getWalletApplication();
         this.contentResolver = application.getContentResolver();
         this.config = application.getConfiguration();
-        this.wallet = application.getWallet();
     }
 
     @Override
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.backupUri = (Uri) getArguments().getParcelable(KEY_BACKUP_URI);
+
+        viewModel = ViewModelProviders.of(this).get(RestoreWalletViewModel.class);
     }
 
     @Override
@@ -153,50 +153,76 @@ public class RestoreWalletFromExternalDialogFragment extends DialogFragment {
                     }
                 };
                 passwordView.addTextChangedListener(dialogButtonEnabler);
+                showView.setOnCheckedChangeListener(new ShowPasswordCheckListener(passwordView));
 
-                RestoreWalletFromExternalDialogFragment.this.dialog = dialog;
-                updateView();
+                viewModel.balance.observe(RestoreWalletFromExternalDialogFragment.this, new Observer<Coin>() {
+                    @Override
+                    public void onChanged(final Coin balance) {
+                        final boolean hasCoins = balance.signum() > 0;
+                        replaceWarningView.setVisibility(hasCoins ? View.VISIBLE : View.GONE);
+                    }
+                });
             }
         });
 
         return dialog;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        updateView();
-    }
-
-    @Override
-    public void onDismiss(final DialogInterface dialog) {
-        this.dialog = null;
-        super.onDismiss(dialog);
-    }
-
-    private void updateView() {
-        if (dialog == null)
-            return;
-
-        final boolean hasCoins = wallet.getBalance(BalanceType.ESTIMATED).signum() > 0;
-        replaceWarningView.setVisibility(hasCoins ? View.VISIBLE : View.GONE);
-
-        showView.setOnCheckedChangeListener(new ShowPasswordCheckListener(passwordView));
-    }
-
     private void handleRestore(final String password) {
         try {
             final InputStream is = contentResolver.openInputStream(backupUri);
-            restoreWalletFromEncrypted(is, password);
+            final Wallet restoredWallet = restoreWalletFromEncrypted(is, password);
+            application.replaceWallet(restoredWallet);
             config.disarmBackupReminder();
+            SuccessDialogFragment.showDialog(getFragmentManager(), restoredWallet.isEncrypted());
             log.info("successfully restored encrypted wallet from external source");
+        } catch (final IOException x) {
+            FailureDialogFragment.showDialog(getFragmentManager(), x.getMessage(), backupUri);
+            log.info("problem restoring wallet", x);
+        }
+    }
 
+    private Wallet restoreWalletFromEncrypted(final InputStream cipher, final String password) throws IOException {
+        final BufferedReader cipherIn = new BufferedReader(new InputStreamReader(cipher, StandardCharsets.UTF_8));
+        final StringBuilder cipherText = new StringBuilder();
+        Io.copy(cipherIn, cipherText, Constants.BACKUP_MAX_CHARS);
+        cipherIn.close();
+
+        final byte[] plainText = Crypto.decryptBytes(cipherText.toString(), password.toCharArray());
+        final InputStream is = new ByteArrayInputStream(plainText);
+
+        return WalletUtils.restoreWalletFromProtobufOrBase58(is, Constants.NETWORK_PARAMETERS);
+    }
+
+    public static class SuccessDialogFragment extends DialogFragment {
+        private static final String FRAGMENT_TAG = SuccessDialogFragment.class.getName();
+        private static final String KEY_SHOW_ENCRYPTED_MESSAGE = "show_encrypted_message";
+
+        private Activity activity;
+
+        public static void showDialog(final FragmentManager fm, final boolean showEncryptedMessage) {
+            final DialogFragment newFragment = new SuccessDialogFragment();
+            final Bundle args = new Bundle();
+            args.putBoolean(KEY_SHOW_ENCRYPTED_MESSAGE, showEncryptedMessage);
+            newFragment.setArguments(args);
+            newFragment.show(fm, FRAGMENT_TAG);
+        }
+
+        @Override
+        public void onAttach(final Context context) {
+            super.onAttach(context);
+            this.activity = (Activity) context;
+        }
+
+        @Override
+        public Dialog onCreateDialog(final Bundle savedInstanceState) {
+            final boolean showEncryptedMessage = getArguments().getBoolean(KEY_SHOW_ENCRYPTED_MESSAGE);
             final DialogBuilder dialog = new DialogBuilder(activity);
             final StringBuilder message = new StringBuilder();
             message.append(getString(R.string.restore_wallet_dialog_success));
             message.append("\n\n");
             message.append(getString(R.string.restore_wallet_dialog_success_replay));
-            if (application.getWallet().isEncrypted()) {
+            if (showEncryptedMessage) {
                 message.append("\n\n");
                 message.append(getString(R.string.restore_wallet_dialog_success_encrypted));
             }
@@ -208,46 +234,58 @@ public class RestoreWalletFromExternalDialogFragment extends DialogFragment {
                     activity.finish();
                 }
             });
-            dialog.show();
-        } catch (final IOException x) {
-            log.info("problem restoring wallet", x);
+            return dialog.create();
+        }
+    }
 
-            final DialogBuilder dialog = DialogBuilder.warn(activity, R.string.import_export_keys_dialog_failure_title);
-            dialog.setMessage(getString(R.string.import_keys_dialog_failure, x.getMessage()));
-            dialog.setPositiveButton(R.string.button_dismiss, finishListener).setOnCancelListener(finishListener);
+    public static class FailureDialogFragment extends DialogFragment {
+        private static final String FRAGMENT_TAG = FailureDialogFragment.class.getName();
+        private static final String KEY_EXCEPTION_MESSAGE = "exception_message";
+        private static final String KEY_BACKUP_URI = "backup_uri";
+
+        private Activity activity;
+
+        public static void showDialog(final FragmentManager fm, final String exceptionMessage, final Uri backupUri) {
+            final DialogFragment newFragment = new FailureDialogFragment();
+            final Bundle args = new Bundle();
+            args.putString(KEY_EXCEPTION_MESSAGE, exceptionMessage);
+            args.putParcelable(KEY_BACKUP_URI, backupUri);
+            newFragment.setArguments(args);
+            newFragment.show(fm, FRAGMENT_TAG);
+        }
+
+        @Override
+        public void onAttach(final Context context) {
+            super.onAttach(context);
+            this.activity = (Activity) context;
+        }
+
+        @Override
+        public Dialog onCreateDialog(final Bundle savedInstanceState) {
+            final String exceptionMessage = getArguments().getString(KEY_EXCEPTION_MESSAGE);
+            final Uri backupUri = getArguments().getParcelable(KEY_BACKUP_URI);
+            final DialogBuilder dialog = DialogBuilder.warn(getContext(),
+                    R.string.import_export_keys_dialog_failure_title);
+            dialog.setMessage(getString(R.string.import_keys_dialog_failure, exceptionMessage));
+            dialog.setPositiveButton(R.string.button_dismiss, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(final DialogInterface dialog, final int which) {
+                    activity.finish();
+                }
+            });
+            dialog.setOnCancelListener(new OnCancelListener() {
+                @Override
+                public void onCancel(final DialogInterface dialog) {
+                    activity.finish();
+                }
+            });
             dialog.setNegativeButton(R.string.button_retry, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(final DialogInterface dialog, final int id) {
-                    show(activity.getSupportFragmentManager(), backupUri);
+                    RestoreWalletFromExternalDialogFragment.show(getFragmentManager(), backupUri);
                 }
             });
-            dialog.show();
+            return dialog.create();
         }
     }
-
-    private void restoreWalletFromEncrypted(final InputStream cipher, final String password) throws IOException {
-        final BufferedReader cipherIn = new BufferedReader(new InputStreamReader(cipher, StandardCharsets.UTF_8));
-        final StringBuilder cipherText = new StringBuilder();
-        Io.copy(cipherIn, cipherText, Constants.BACKUP_MAX_CHARS);
-        cipherIn.close();
-
-        final byte[] plainText = Crypto.decryptBytes(cipherText.toString(), password.toCharArray());
-        final InputStream is = new ByteArrayInputStream(plainText);
-
-        application.replaceWallet(WalletUtils.restoreWalletFromProtobufOrBase58(is, Constants.NETWORK_PARAMETERS));
-    }
-
-    private class FinishListener implements DialogInterface.OnClickListener, DialogInterface.OnCancelListener {
-        @Override
-        public void onClick(final DialogInterface dialog, final int which) {
-            activity.finish();
-        }
-
-        @Override
-        public void onCancel(final DialogInterface dialog) {
-            activity.finish();
-        }
-    }
-
-    private final FinishListener finishListener = new FinishListener();
 }
