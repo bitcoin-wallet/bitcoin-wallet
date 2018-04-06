@@ -111,13 +111,6 @@ public class RestoreWalletDialogFragment extends DialogFragment {
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         viewModel = ViewModelProviders.of(this).get(RestoreWalletViewModel.class);
-        viewModel.balance.observe(this, new Observer<Coin>() {
-            @Override
-            public void onChanged(final Coin balance) {
-                final boolean hasCoins = balance.signum() > 0;
-                replaceWarningView.setVisibility(hasCoins ? View.VISIBLE : View.GONE);
-            }
-        });
 
         if (ContextCompat.checkSelfPermission(activity,
                 Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
@@ -227,6 +220,14 @@ public class RestoreWalletDialogFragment extends DialogFragment {
                 fileView.setOnItemSelectedListener(dialogButtonEnabler);
 
                 updateView();
+
+                viewModel.balance.observe(RestoreWalletDialogFragment.this, new Observer<Coin>() {
+                    @Override
+                    public void onChanged(final Coin balance) {
+                        final boolean hasCoins = balance.signum() > 0;
+                        replaceWarningView.setVisibility(hasCoins ? View.VISIBLE : View.GONE);
+                    }
+                });
             }
         });
 
