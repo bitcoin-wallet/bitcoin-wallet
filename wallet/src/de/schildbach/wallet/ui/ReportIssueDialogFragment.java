@@ -100,13 +100,6 @@ public class ReportIssueDialogFragment extends DialogFragment {
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         viewModel = ViewModelProviders.of(this).get(ReportIssueViewModel.class);
-        viewModel.wallet.observe(this, new Observer<Wallet>() {
-            @Override
-            public void onChanged(final Wallet wallet) {
-                if (wallet != null)
-                    positiveButton.setEnabled(true);
-            }
-        });
     }
 
     @Override
@@ -161,6 +154,13 @@ public class ReportIssueDialogFragment extends DialogFragment {
             public void onShow(final DialogInterface d) {
                 positiveButton = dialog.getButton(DialogInterface.BUTTON_POSITIVE);
                 positiveButton.setEnabled(false);
+
+                viewModel.wallet.observe(ReportIssueDialogFragment.this, new Observer<Wallet>() {
+                    @Override
+                    public void onChanged(final Wallet wallet) {
+                        positiveButton.setEnabled(true);
+                    }
+                });
             }
         });
 
