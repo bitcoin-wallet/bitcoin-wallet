@@ -150,6 +150,7 @@ public class RequestCoinsViewModel extends AndroidViewModel {
     private void maybeGeneratePaymentRequest() {
         final Address address = freshReceiveAddress.getValue();
         if (address != null) {
+            final String bluetoothMac = this.bluetoothMac.getValue();
             final String paymentUrl = bluetoothMac != null ? "bt:" + bluetoothMac : null;
             paymentRequest.setValue(PaymentProtocol.createPaymentRequest(Constants.NETWORK_PARAMETERS,
                     amount.getValue(), address, ownName.getValue(), paymentUrl, null).build().toByteArray());
