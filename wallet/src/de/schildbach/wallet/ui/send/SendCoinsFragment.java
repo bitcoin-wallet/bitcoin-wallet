@@ -771,7 +771,7 @@ public final class SendCoinsFragment extends Fragment {
                 @Override
                 protected void onSuccess(final KeyParameter encryptionKey, final boolean wasChanged) {
                     if (wasChanged)
-                        application.backupWallet(wallet);
+                        WalletUtils.autoBackupWallet(activity, wallet);
                     signAndSendPayment(encryptionKey);
                 }
             }.deriveKey(wallet, privateKeyPasswordView.getText().toString().trim());

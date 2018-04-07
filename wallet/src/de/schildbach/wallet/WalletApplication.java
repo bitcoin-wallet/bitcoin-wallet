@@ -20,8 +20,6 @@ package de.schildbach.wallet;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
@@ -31,7 +29,6 @@ import org.bitcoinj.core.VersionMessage;
 import org.bitcoinj.crypto.LinuxSecureRandom;
 import org.bitcoinj.crypto.MnemonicCode;
 import org.bitcoinj.utils.Threading;
-import org.bitcoinj.wallet.Protos;
 import org.bitcoinj.wallet.UnreadableWalletException;
 import org.bitcoinj.wallet.Wallet;
 import org.bitcoinj.wallet.WalletFiles;
@@ -47,6 +44,7 @@ import com.google.common.util.concurrent.SettableFuture;
 import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.util.Bluetooth;
 import de.schildbach.wallet.util.CrashReporter;
+import de.schildbach.wallet.util.WalletUtils;
 
 import android.app.ActivityManager;
 import android.app.Application;
@@ -192,13 +190,13 @@ public class WalletApplication extends Application {
                     } catch (final IOException | UnreadableWalletException x) {
                         log.error("problem loading wallet", x);
                         Toast.makeText(WalletApplication.this, x.getClass().getName(), Toast.LENGTH_LONG).show();
-                        wallet = restoreWalletFromBackup();
+                        wallet = WalletUtils.restoreWalletFromAutoBackup(WalletApplication.this);
                     }
 
                     if (!wallet.isConsistent()) {
                         Toast.makeText(WalletApplication.this, "inconsistent wallet: " + walletFile, Toast.LENGTH_LONG)
                                 .show();
-                        wallet = restoreWalletFromBackup();
+                        wallet = WalletUtils.restoreWalletFromAutoBackup(WalletApplication.this);
                     }
 
                     if (!wallet.getParams().equals(Constants.NETWORK_PARAMETERS))
@@ -213,30 +211,11 @@ public class WalletApplication extends Application {
                     walletFiles = wallet.autosaveToFile(walletFile, Constants.Files.WALLET_AUTOSAVE_DELAY_MS,
                             TimeUnit.MILLISECONDS, null);
                     autosaveWalletNow(); // persist...
-                    backupWallet(wallet); // ...and backup asap
+                    WalletUtils.autoBackupWallet(WalletApplication.this, wallet); // ...and backup asap
                     watch.stop();
                     log.info("fresh wallet created, took {}", watch);
 
                     config.armBackupReminder();
-                }
-            }
-
-            private Wallet restoreWalletFromBackup() {
-                try (final InputStream is = openFileInput(Constants.Files.WALLET_KEY_BACKUP_PROTOBUF)) {
-                    final Wallet wallet = new WalletProtobufSerializer().readWallet(is, true, null);
-
-                    if (!wallet.isConsistent())
-                        throw new Error("inconsistent backup");
-
-                    BlockchainService.resetBlockchain(WalletApplication.this);
-
-                    Toast.makeText(WalletApplication.this, R.string.toast_wallet_reset, Toast.LENGTH_LONG).show();
-
-                    log.info("wallet restored from backup: '" + Constants.Files.WALLET_KEY_BACKUP_PROTOBUF + "'");
-
-                    return wallet;
-                } catch (final IOException | UnreadableWalletException x) {
-                    throw new Error("cannot read backup", x);
                 }
             }
 
@@ -274,26 +253,6 @@ public class WalletApplication extends Application {
         }
     }
 
-    public void backupWallet(final Wallet wallet) {
-        final Stopwatch watch = Stopwatch.createStarted();
-        final Protos.Wallet.Builder builder = new WalletProtobufSerializer().walletToProto(wallet).toBuilder();
-
-        // strip redundant
-        builder.clearTransaction();
-        builder.clearLastSeenBlockHash();
-        builder.setLastSeenBlockHeight(-1);
-        builder.clearLastSeenBlockTimeSecs();
-        final Protos.Wallet walletProto = builder.build();
-
-        try (final OutputStream os = openFileOutput(Constants.Files.WALLET_KEY_BACKUP_PROTOBUF, Context.MODE_PRIVATE)) {
-            walletProto.writeTo(os);
-            watch.stop();
-            log.info("wallet backed up to: '{}', took {}", Constants.Files.WALLET_KEY_BACKUP_PROTOBUF, watch);
-        } catch (final IOException x) {
-            log.error("problem writing wallet backup", x);
-        }
-    }
-
     public void replaceWallet(final Wallet newWallet) {
         newWallet.cleanup();
         BlockchainService.resetBlockchain(this);
@@ -305,7 +264,7 @@ public class WalletApplication extends Application {
                     TimeUnit.MILLISECONDS, null);
         }
         config.maybeIncrementBestChainHeightEver(newWallet.getLastBlockSeenHeight());
-        backupWallet(newWallet);
+        WalletUtils.autoBackupWallet(this, newWallet);
 
         final Intent broadcast = new Intent(ACTION_WALLET_REFERENCE_CHANGED);
         LocalBroadcastManager.getInstance(this).sendBroadcast(broadcast);

@@ -26,6 +26,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
@@ -48,23 +49,34 @@ import org.bitcoinj.core.TransactionInput;
 import org.bitcoinj.core.TransactionOutput;
 import org.bitcoinj.script.Script;
 import org.bitcoinj.wallet.KeyChainGroup;
+import org.bitcoinj.wallet.Protos;
 import org.bitcoinj.wallet.UnreadableWalletException;
 import org.bitcoinj.wallet.Wallet;
 import org.bitcoinj.wallet.WalletProtobufSerializer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.google.common.base.Stopwatch;
 
 import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.R;
+import de.schildbach.wallet.service.BlockchainService;
 
+import android.content.Context;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.SpannedString;
 import android.text.format.DateUtils;
 import android.text.style.TypefaceSpan;
+import android.widget.Toast;
 
 /**
  * @author Andreas Schildbach
  */
 public class WalletUtils {
+    private static final Logger log = LoggerFactory.getLogger(WalletUtils.class);
+
     public static Spanned formatAddress(final Address address, final int groupSize, final int lineSize) {
         return formatHash(address.toBase58(), groupSize, lineSize);
     }
@@ -174,6 +186,42 @@ public class WalletUtils {
         }
 
         return true;
+    }
+
+    public static void autoBackupWallet(final Context context, final Wallet wallet) {
+        final Stopwatch watch = Stopwatch.createStarted();
+        final Protos.Wallet.Builder builder = new WalletProtobufSerializer().walletToProto(wallet).toBuilder();
+
+        // strip redundant
+        builder.clearTransaction();
+        builder.clearLastSeenBlockHash();
+        builder.setLastSeenBlockHeight(-1);
+        builder.clearLastSeenBlockTimeSecs();
+        final Protos.Wallet walletProto = builder.build();
+
+        try (final OutputStream os = context.openFileOutput(Constants.Files.WALLET_KEY_BACKUP_PROTOBUF,
+                Context.MODE_PRIVATE)) {
+            walletProto.writeTo(os);
+            watch.stop();
+            log.info("wallet backed up to: '{}', took {}", Constants.Files.WALLET_KEY_BACKUP_PROTOBUF, watch);
+        } catch (final IOException x) {
+            log.error("problem writing wallet backup", x);
+        }
+    }
+
+    public static Wallet restoreWalletFromAutoBackup(final Context context) {
+        try (final InputStream is = context.openFileInput(Constants.Files.WALLET_KEY_BACKUP_PROTOBUF)) {
+            final Wallet wallet = new WalletProtobufSerializer().readWallet(is, true, null);
+            if (!wallet.isConsistent())
+                throw new Error("inconsistent backup");
+
+            BlockchainService.resetBlockchain(context);
+            Toast.makeText(context, R.string.toast_wallet_reset, Toast.LENGTH_LONG).show();
+            log.info("wallet restored from backup: '" + Constants.Files.WALLET_KEY_BACKUP_PROTOBUF + "'");
+            return wallet;
+        } catch (final IOException | UnreadableWalletException x) {
+            throw new Error("cannot read backup", x);
+        }
     }
 
     public static Wallet restoreWalletFromProtobufOrBase58(final InputStream is,

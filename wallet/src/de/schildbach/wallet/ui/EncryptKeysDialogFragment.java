@@ -30,6 +30,7 @@ import com.google.common.base.Strings;
 
 import de.schildbach.wallet.R;
 import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.util.WalletUtils;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -278,7 +279,7 @@ public class EncryptKeysDialogFragment extends DialogFragment {
                         updateView();
 
                         if (state == State.DONE) {
-                            application.backupWallet(wallet);
+                            WalletUtils.autoBackupWallet(activity, wallet);
                             delayedDismiss();
                         }
                     }

@@ -39,6 +39,7 @@ import de.schildbach.wallet.R;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.ui.AbstractWalletActivity;
 import de.schildbach.wallet.ui.DialogBuilder;
+import de.schildbach.wallet.util.WalletUtils;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -215,7 +216,7 @@ public class MaintenanceDialogFragment extends DialogFragment {
                 @Override
                 protected void onSuccess(final KeyParameter encryptionKey, final boolean wasChanged) {
                     if (wasChanged)
-                        application.backupWallet(wallet);
+                        WalletUtils.autoBackupWallet(activity, wallet);
                     doMaintenance(encryptionKey);
                 }
             }.deriveKey(wallet, passwordView.getText().toString().trim());
