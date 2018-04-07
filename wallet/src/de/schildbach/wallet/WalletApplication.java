@@ -213,7 +213,7 @@ public class WalletApplication extends Application {
                     walletFiles = wallet.autosaveToFile(walletFile, Constants.Files.WALLET_AUTOSAVE_DELAY_MS,
                             TimeUnit.MILLISECONDS, null);
                     autosaveWalletNow(); // persist...
-                    backupWallet(); // ...and backup asap
+                    backupWallet(wallet); // ...and backup asap
                     watch.stop();
                     log.info("fresh wallet created, took {}", watch);
 
@@ -274,9 +274,9 @@ public class WalletApplication extends Application {
         }
     }
 
-    public void backupWallet() {
+    public void backupWallet(final Wallet wallet) {
         final Stopwatch watch = Stopwatch.createStarted();
-        final Protos.Wallet.Builder builder = new WalletProtobufSerializer().walletToProto(getWallet()).toBuilder();
+        final Protos.Wallet.Builder builder = new WalletProtobufSerializer().walletToProto(wallet).toBuilder();
 
         // strip redundant
         builder.clearTransaction();
@@ -305,7 +305,7 @@ public class WalletApplication extends Application {
                     TimeUnit.MILLISECONDS, null);
         }
         config.maybeIncrementBestChainHeightEver(newWallet.getLastBlockSeenHeight());
-        backupWallet();
+        backupWallet(newWallet);
 
         final Intent broadcast = new Intent(ACTION_WALLET_REFERENCE_CHANGED);
         LocalBroadcastManager.getInstance(this).sendBroadcast(broadcast);

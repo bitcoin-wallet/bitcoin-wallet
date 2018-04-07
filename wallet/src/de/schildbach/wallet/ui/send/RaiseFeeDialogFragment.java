@@ -252,7 +252,7 @@ public class RaiseFeeDialogFragment extends DialogFragment {
                 @Override
                 protected void onSuccess(final KeyParameter encryptionKey, final boolean wasChanged) {
                     if (wasChanged)
-                        application.backupWallet();
+                        application.backupWallet(wallet);
                     doRaiseFee(encryptionKey);
                 }
             }.deriveKey(wallet, passwordView.getText().toString().trim());

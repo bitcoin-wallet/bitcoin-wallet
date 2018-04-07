@@ -215,7 +215,7 @@ public class MaintenanceDialogFragment extends DialogFragment {
                 @Override
                 protected void onSuccess(final KeyParameter encryptionKey, final boolean wasChanged) {
                     if (wasChanged)
-                        application.backupWallet();
+                        application.backupWallet(wallet);
                     doMaintenance(encryptionKey);
                 }
             }.deriveKey(wallet, passwordView.getText().toString().trim());

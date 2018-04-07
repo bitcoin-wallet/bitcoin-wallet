@@ -278,7 +278,7 @@ public class EncryptKeysDialogFragment extends DialogFragment {
                         updateView();
 
                         if (state == State.DONE) {
-                            application.backupWallet();
+                            application.backupWallet(wallet);
                             delayedDismiss();
                         }
                     }
