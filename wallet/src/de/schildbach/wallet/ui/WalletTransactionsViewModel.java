@@ -48,7 +48,6 @@ import de.schildbach.wallet.data.WalletLiveData;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
-import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MediatorLiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Observer;
@@ -64,14 +63,14 @@ public class WalletTransactionsViewModel extends AndroidViewModel {
 
     private final WalletApplication application;
     private final TransactionsLiveData transactions;
-    private final WalletLiveData wallet;
+    public final WalletLiveData wallet;
     private final TransactionsConfidenceLiveData transactionsConfidence;
     private final AddressBookLiveData addressBook;
     private final ConfigFormatLiveData configFormat;
-    private final MutableLiveData<Direction> direction = new MutableLiveData<>();
+    public final MutableLiveData<Direction> direction = new MutableLiveData<>();
     private final MutableLiveData<Sha256Hash> selectedTransaction = new MutableLiveData<>();
     private final MutableLiveData<TransactionsAdapter.WarningType> warning = new MutableLiveData<>();
-    private final MediatorLiveData<List<TransactionsAdapter.ListItem>> list = new MediatorLiveData<>();
+    public final MediatorLiveData<List<TransactionsAdapter.ListItem>> list = new MediatorLiveData<>();
 
     public WalletTransactionsViewModel(final Application application) {
         super(application);
@@ -125,14 +124,6 @@ public class WalletTransactionsViewModel extends AndroidViewModel {
         });
     }
 
-    public Wallet getWallet() {
-        return wallet.getValue();
-    }
-
-    public Direction getDirection() {
-        return direction.getValue();
-    }
-
     public void setDirection(final Direction direction) {
         this.direction.setValue(direction);
     }
@@ -147,10 +138,6 @@ public class WalletTransactionsViewModel extends AndroidViewModel {
 
     public void setWarning(final TransactionsAdapter.WarningType warning) {
         this.warning.setValue(warning);
-    }
-
-    public LiveData<List<TransactionsAdapter.ListItem>> getList() {
-        return list;
     }
 
     private void maybePostList() {

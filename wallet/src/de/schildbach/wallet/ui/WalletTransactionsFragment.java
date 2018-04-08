@@ -103,7 +103,7 @@ public class WalletTransactionsFragment extends Fragment implements Transactions
         setHasOptionsMenu(true);
 
         viewModel = ViewModelProviders.of(this).get(WalletTransactionsViewModel.class);
-        viewModel.getList().observe(this, new Observer<List<ListItem>>() {
+        viewModel.list.observe(this, new Observer<List<ListItem>>() {
             @Override
             public void onChanged(final List<ListItem> listItems) {
                 adapter.submitList(listItems);
@@ -112,7 +112,7 @@ public class WalletTransactionsFragment extends Fragment implements Transactions
                 if (listItems.isEmpty()) {
                     viewGroup.setDisplayedChild(1);
 
-                    final WalletTransactionsViewModel.Direction direction = viewModel.getDirection();
+                    final WalletTransactionsViewModel.Direction direction = viewModel.direction.getValue();
                     final SpannableStringBuilder emptyText = new SpannableStringBuilder(
                             getString(direction == WalletTransactionsViewModel.Direction.SENT
                                     ? R.string.wallet_transactions_fragment_empty_text_sent
@@ -181,7 +181,7 @@ public class WalletTransactionsFragment extends Fragment implements Transactions
 
     @Override
     public void onPrepareOptionsMenu(final Menu menu) {
-        final WalletTransactionsViewModel.Direction direction = viewModel.getDirection();
+        final WalletTransactionsViewModel.Direction direction = viewModel.direction.getValue();
         if (direction == null) {
             menu.findItem(R.id.wallet_transactions_options_filter_all).setChecked(true);
             maybeSetFilterMenuItemIcon(R.drawable.ic_filter_list_white_24dp);
@@ -225,7 +225,7 @@ public class WalletTransactionsFragment extends Fragment implements Transactions
 
     @Override
     public void onTransactionMenuClick(final View view, final Sha256Hash transactionHash) {
-        final Wallet wallet = viewModel.getWallet();
+        final Wallet wallet = viewModel.wallet.getValue();
         final Transaction tx = wallet.getTransaction(transactionHash);
         final boolean txSent = tx.getValue(wallet).signum() < 0;
         final Address txAddress = txSent ? WalletUtils.getToAddressOfSent(tx, wallet)
