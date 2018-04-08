@@ -190,11 +190,12 @@ public class RequestCoinsViewModel extends AndroidViewModel {
 
         private void maybeLoad() {
             if (getValue() == null) {
+                final Wallet wallet = getWallet();
                 AsyncTask.execute(new Runnable() {
                     @Override
                     public void run() {
                         org.bitcoinj.core.Context.propagate(Constants.CONTEXT);
-                        postValue(getWallet().freshReceiveAddress());
+                        postValue(wallet.freshReceiveAddress());
                     }
                 });
             }

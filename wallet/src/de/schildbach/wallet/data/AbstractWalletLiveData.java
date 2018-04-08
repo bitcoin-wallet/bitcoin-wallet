@@ -92,10 +92,8 @@ public abstract class AbstractWalletLiveData<T> extends ThrottelingLiveData<T> {
     private final BroadcastReceiver walletReferenceChangeReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(final Context context, final Intent intent) {
-            if (wallet != null) {
+            if (wallet != null)
                 onWalletInactive(wallet);
-                wallet = null;
-            }
             loadWallet();
         }
     };

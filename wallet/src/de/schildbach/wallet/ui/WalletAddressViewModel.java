@@ -138,11 +138,12 @@ public class WalletAddressViewModel extends AndroidViewModel {
 
         @Override
         protected void load() {
+            final Wallet wallet = getWallet();
             AsyncTask.execute(new Runnable() {
                 @Override
                 public void run() {
                     org.bitcoinj.core.Context.propagate(Constants.CONTEXT);
-                    postValue(getWallet().currentReceiveAddress());
+                    postValue(wallet.currentReceiveAddress());
                 }
             });
         }

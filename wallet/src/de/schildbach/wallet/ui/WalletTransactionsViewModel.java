@@ -228,8 +228,7 @@ public class WalletTransactionsViewModel extends AndroidViewModel {
                 @Override
                 public void run() {
                     org.bitcoinj.core.Context.propagate(Constants.CONTEXT);
-                    final Set<Transaction> transactions = wallet.getTransactions(true);
-                    postValue(transactions);
+                    postValue(wallet.getTransactions(true));
                 }
             });
         }
