@@ -82,15 +82,6 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
         return items;
     }
 
-    public static List<ListItem> buildListItem(final Context context, final Transaction tx,
-            final @Nullable Wallet wallet, final @Nullable Map<String, String> addressBook, final MonetaryFormat format,
-            final int maxConnectedPeers) {
-        final List<ListItem> items = new ArrayList<>(1);
-        items.add(new ListItem.TransactionItem(context, tx, wallet, addressBook, format.noCode(), maxConnectedPeers,
-                false));
-        return items;
-    }
-
     public static class ListItem {
         public static class TransactionItem extends ListItem {
             public final Sha256Hash transactionHash;
@@ -383,9 +374,6 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
     @Nullable
     private final OnClickListener onClickListener;
 
-    private final int colorBackground;
-    private final int colorBackgroundSelected;
-
     private static final String CONFIDENCE_SYMBOL_IN_CONFLICT = "\u26A0"; // warning sign
     private static final String CONFIDENCE_SYMBOL_DEAD = "\u271D"; // latin cross
     private static final String CONFIDENCE_SYMBOL_UNKNOWN = "?";
@@ -552,8 +540,6 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
         });
         this.context = context;
         this.inflater = LayoutInflater.from(context);
-        this.colorBackground = context.getResources().getColor(R.color.bg_bright);
-        this.colorBackgroundSelected = context.getResources().getColor(R.color.bg_panel);
 
         this.useCards = useCards;
         this.onClickListener = onClickListener;
@@ -586,10 +572,6 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
         } else {
             throw new IllegalStateException("unknown type: " + viewType);
         }
-    }
-
-    public RecyclerView.ViewHolder createTransactionViewHolder(final ViewGroup parent) {
-        return createViewHolder(parent, VIEW_TYPE_TRANSACTION);
     }
 
     @Override
@@ -694,7 +676,10 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
         void onWarningClick(View view);
     }
 
-    private class TransactionViewHolder extends RecyclerView.ViewHolder {
+    public static class TransactionViewHolder extends RecyclerView.ViewHolder {
+        private final int colorBackground;
+        private final int colorBackgroundSelected;
+
         private final View extendTimeView;
         private final TextView fullTimeView;
         private final View extendAddressView;
@@ -710,30 +695,35 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
         private final TextView messageView;
         private final ImageButton menuView;
 
-        private TransactionViewHolder(final View itemView) {
+        public TransactionViewHolder(final View itemView) {
             super(itemView);
-            extendTimeView = itemView.findViewById(R.id.transaction_row_extend_time);
-            fullTimeView = (TextView) itemView.findViewById(R.id.transaction_row_full_time);
-            extendAddressView = itemView.findViewById(R.id.transaction_row_extend_address);
-            confidenceCircularNormalView = (CircularProgressView) itemView
+            final Resources res = itemView.getResources();
+            this.colorBackground = res.getColor(R.color.bg_bright);
+            this.colorBackgroundSelected = res.getColor(R.color.bg_panel);
+
+            this.extendTimeView = itemView.findViewById(R.id.transaction_row_extend_time);
+            this.fullTimeView = (TextView) itemView.findViewById(R.id.transaction_row_full_time);
+            this.extendAddressView = itemView.findViewById(R.id.transaction_row_extend_address);
+            this.confidenceCircularNormalView = (CircularProgressView) itemView
                     .findViewById(R.id.transaction_row_confidence_circular);
-            confidenceCircularSelectedView = (CircularProgressView) itemView
+            this.confidenceCircularSelectedView = (CircularProgressView) itemView
                     .findViewById(R.id.transaction_row_confidence_circular_selected);
-            confidenceTextualNormalView = (TextView) itemView.findViewById(R.id.transaction_row_confidence_textual);
-            confidenceTextualSelectedView = (TextView) itemView
+            this.confidenceTextualNormalView = (TextView) itemView
+                    .findViewById(R.id.transaction_row_confidence_textual);
+            this.confidenceTextualSelectedView = (TextView) itemView
                     .findViewById(R.id.transaction_row_confidence_textual_selected);
-            timeView = (TextView) itemView.findViewById(R.id.transaction_row_time);
-            addressView = (TextView) itemView.findViewById(R.id.transaction_row_address);
-            valueView = (CurrencyTextView) itemView.findViewById(R.id.transaction_row_value);
-            fiatView = (CurrencyTextView) itemView.findViewById(R.id.transaction_row_fiat);
-            extendFeeView = itemView.findViewById(R.id.transaction_row_extend_fee);
-            feeView = (CurrencyTextView) itemView.findViewById(R.id.transaction_row_fee);
-            extendMessageView = itemView.findViewById(R.id.transaction_row_extend_message);
-            messageView = (TextView) itemView.findViewById(R.id.transaction_row_message);
-            menuView = (ImageButton) itemView.findViewById(R.id.transaction_row_menu);
+            this.timeView = (TextView) itemView.findViewById(R.id.transaction_row_time);
+            this.addressView = (TextView) itemView.findViewById(R.id.transaction_row_address);
+            this.valueView = (CurrencyTextView) itemView.findViewById(R.id.transaction_row_value);
+            this.fiatView = (CurrencyTextView) itemView.findViewById(R.id.transaction_row_fiat);
+            this.extendFeeView = itemView.findViewById(R.id.transaction_row_extend_fee);
+            this.feeView = (CurrencyTextView) itemView.findViewById(R.id.transaction_row_fee);
+            this.extendMessageView = itemView.findViewById(R.id.transaction_row_extend_message);
+            this.messageView = (TextView) itemView.findViewById(R.id.transaction_row_message);
+            this.menuView = (ImageButton) itemView.findViewById(R.id.transaction_row_menu);
         }
 
-        private void bind(final TransactionItem item) {
+        public void bind(final TransactionItem item) {
             bindConfidence(item);
             bindTime(item);
             bindAddress(item);
@@ -822,7 +812,7 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
         }
     }
 
-    private class WarningViewHolder extends RecyclerView.ViewHolder {
+    public static class WarningViewHolder extends RecyclerView.ViewHolder {
         private final TextView messageView;
 
         private WarningViewHolder(final View itemView) {

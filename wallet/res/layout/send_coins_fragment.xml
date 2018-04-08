@@ -189,11 +189,8 @@
             android:layout_marginBottom="@dimen/list_entry_padding_vertical"
             android:visibility="gone" />
 
-        <FrameLayout
-            android:id="@+id/send_coins_sent_transaction"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layoutAnimation="@anim/transaction_layout_anim"
+        <include
+            layout="@layout/transaction_row"
             android:visibility="gone" />
     </LinearLayout>
 

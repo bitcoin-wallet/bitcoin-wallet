@@ -102,7 +102,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
-import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -113,6 +112,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -154,9 +154,8 @@ public final class SendCoinsFragment extends Fragment {
 
     private TextView hintView;
     private TextView directPaymentMessageView;
-    private FrameLayout sentTransactionView;
-    private TransactionsAdapter sentTransactionAdapter;
-    private RecyclerView.ViewHolder sentTransactionViewHolder;
+    private ViewGroup sentTransactionViewGroup;
+    private TransactionsAdapter.TransactionViewHolder sentTransactionViewHolder;
     private View privateKeyPasswordViewGroup;
     private EditText privateKeyPasswordView;
     private View privateKeyBadPasswordView;
@@ -516,11 +515,10 @@ public final class SendCoinsFragment extends Fragment {
 
         directPaymentMessageView = (TextView) view.findViewById(R.id.send_coins_direct_payment_message);
 
-        sentTransactionView = (FrameLayout) view.findViewById(R.id.send_coins_sent_transaction);
-        sentTransactionAdapter = new TransactionsAdapter(activity, false, application.maxConnectedPeers(), null);
-        sentTransactionViewHolder = sentTransactionAdapter.createTransactionViewHolder(sentTransactionView);
-        sentTransactionView.addView(sentTransactionViewHolder.itemView,
-                new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        sentTransactionViewGroup = (FrameLayout) view.findViewById(R.id.transaction_row);
+        sentTransactionViewGroup
+                .setLayoutAnimation(AnimationUtils.loadLayoutAnimation(activity, R.anim.transaction_layout_anim));
+        sentTransactionViewHolder = new TransactionsAdapter.TransactionViewHolder(view);
 
         privateKeyPasswordViewGroup = view.findViewById(R.id.send_coins_private_key_password_group);
         privateKeyPasswordView = (EditText) view.findViewById(R.id.send_coins_private_key_password);
@@ -1161,12 +1159,12 @@ public final class SendCoinsFragment extends Fragment {
             }
 
             if (viewModel.sentTransaction != null && wallet != null) {
-                sentTransactionView.setVisibility(View.VISIBLE);
-                sentTransactionAdapter.submitList(TransactionsAdapter.buildListItem(activity, viewModel.sentTransaction,
-                        wallet, addressBook, btcFormat, application.maxConnectedPeers()));
-                sentTransactionAdapter.bindViewHolder(sentTransactionViewHolder, 0);
+                sentTransactionViewGroup.setVisibility(View.VISIBLE);
+                sentTransactionViewHolder
+                        .bind(new TransactionsAdapter.ListItem.TransactionItem(activity, viewModel.sentTransaction,
+                                wallet, addressBook, btcFormat, application.maxConnectedPeers(), false));
             } else {
-                sentTransactionView.setVisibility(View.GONE);
+                sentTransactionViewGroup.setVisibility(View.GONE);
             }
 
             if (viewModel.directPaymentAck != null) {

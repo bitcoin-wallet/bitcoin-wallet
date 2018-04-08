@@ -85,7 +85,6 @@ import android.os.HandlerThread;
 import android.os.Process;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.SpannableStringBuilder;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -93,6 +92,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -117,9 +117,8 @@ public class SweepWalletFragment extends Fragment {
     private View badPasswordView;
     private TextView balanceView;
     private View hintView;
-    private FrameLayout sweepTransactionView;
-    private TransactionsAdapter sweepTransactionAdapter;
-    private RecyclerView.ViewHolder sweepTransactionViewHolder;
+    private ViewGroup sweepTransactionViewGroup;
+    private TransactionsAdapter.TransactionViewHolder sweepTransactionViewHolder;
     private Button viewGo;
     private Button viewCancel;
 
@@ -219,11 +218,10 @@ public class SweepWalletFragment extends Fragment {
 
         hintView = view.findViewById(R.id.sweep_wallet_fragment_hint);
 
-        sweepTransactionView = (FrameLayout) view.findViewById(R.id.sweep_wallet_fragment_sent_transaction);
-        sweepTransactionAdapter = new TransactionsAdapter(activity, false, application.maxConnectedPeers(), null);
-        sweepTransactionViewHolder = sweepTransactionAdapter.createTransactionViewHolder(sweepTransactionView);
-        sweepTransactionView.addView(sweepTransactionViewHolder.itemView,
-                new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        sweepTransactionViewGroup = (FrameLayout) view.findViewById(R.id.transaction_row);
+        sweepTransactionViewGroup
+                .setLayoutAnimation(AnimationUtils.loadLayoutAnimation(activity, R.anim.transaction_layout_anim));
+        sweepTransactionViewHolder = new TransactionsAdapter.TransactionViewHolder(view);
 
         viewGo = (Button) view.findViewById(R.id.send_coins_go);
         viewGo.setOnClickListener(new View.OnClickListener() {
@@ -565,12 +563,12 @@ public class SweepWalletFragment extends Fragment {
                 viewModel.state == State.DECODE_KEY && viewModel.privateKeyToSweep == null ? View.VISIBLE : View.GONE);
 
         if (viewModel.sentTransaction != null) {
-            sweepTransactionView.setVisibility(View.VISIBLE);
-            sweepTransactionAdapter.submitList(TransactionsAdapter.buildListItem(activity, viewModel.sentTransaction,
-                    application.getWallet(), null, btcFormat, application.maxConnectedPeers()));
-            sweepTransactionAdapter.bindViewHolder(sweepTransactionViewHolder, 0);
+            sweepTransactionViewGroup.setVisibility(View.VISIBLE);
+            sweepTransactionViewHolder
+                    .bind(new TransactionsAdapter.ListItem.TransactionItem(activity, viewModel.sentTransaction,
+                            application.getWallet(), null, btcFormat, application.maxConnectedPeers(), false));
         } else {
-            sweepTransactionView.setVisibility(View.GONE);
+            sweepTransactionViewGroup.setVisibility(View.GONE);
         }
 
         if (viewModel.state == State.DECODE_KEY) {
