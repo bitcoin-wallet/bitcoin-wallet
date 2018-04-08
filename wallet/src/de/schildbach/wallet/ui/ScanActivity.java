@@ -269,7 +269,7 @@ public final class ScanActivity extends FragmentActivity
                 cameraHandler.post(fetchAndDecodeRunnable);
             } catch (final Exception x) {
                 log.info("problem opening camera", x);
-                viewModel.showProblemWarnDialog.call();
+                viewModel.showProblemWarnDialog.postCall();
             }
         }
 

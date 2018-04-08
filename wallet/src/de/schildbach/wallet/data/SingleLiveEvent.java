@@ -24,6 +24,7 @@ import org.slf4j.LoggerFactory;
 import android.arch.lifecycle.LifecycleOwner;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Observer;
+import android.support.annotation.AnyThread;
 import android.support.annotation.MainThread;
 import android.support.annotation.Nullable;
 
@@ -76,5 +77,13 @@ public class SingleLiveEvent<T> extends MutableLiveData<T> {
     @MainThread
     public void call() {
         setValue(null);
+    }
+
+    /**
+     * Used for cases where T is Void, to make calls cleaner.
+     */
+    @AnyThread
+    public void postCall() {
+        postValue(null);
     }
 }
