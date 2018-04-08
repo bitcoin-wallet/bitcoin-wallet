@@ -65,7 +65,6 @@ import android.preference.PreferenceManager;
 import android.support.annotation.MainThread;
 import android.support.annotation.WorkerThread;
 import android.support.v4.content.LocalBroadcastManager;
-import android.widget.Toast;
 
 /**
  * @author Andreas Schildbach
@@ -188,14 +187,11 @@ public class WalletApplication extends Application {
 
                         log.info("wallet loaded from: '{}', took {}", walletFile, watch);
                     } catch (final IOException | UnreadableWalletException x) {
-                        log.error("problem loading wallet", x);
-                        Toast.makeText(WalletApplication.this, x.getClass().getName(), Toast.LENGTH_LONG).show();
+                        log.warn("problem loading wallet, auto-restoring: " + walletFile, x);
                         wallet = WalletUtils.restoreWalletFromAutoBackup(WalletApplication.this);
                     }
-
                     if (!wallet.isConsistent()) {
-                        Toast.makeText(WalletApplication.this, "inconsistent wallet: " + walletFile, Toast.LENGTH_LONG)
-                                .show();
+                        log.warn("inconsistent wallet, auto-restoring: " + walletFile);
                         wallet = WalletUtils.restoreWalletFromAutoBackup(WalletApplication.this);
                     }
 
