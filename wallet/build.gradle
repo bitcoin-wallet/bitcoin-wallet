@@ -18,7 +18,7 @@ dependencies {
     compile 'android.arch.lifecycle:extensions:1.1.0'
     compile 'org.bitcoinj:bitcoinj-core:0.14.7'
     compile 'com.google.protobuf:protobuf-java:2.6.1'
-    compile 'com.google.guava:guava:24.0-android'
+    compile 'com.google.guava:guava:24.1-android'
     compile 'com.google.zxing:core:3.3.2'
     compile 'com.squareup.okhttp3:okhttp:3.10.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.10.0'
