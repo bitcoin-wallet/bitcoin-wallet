@@ -62,7 +62,7 @@ public class WalletTransactionsViewModel extends AndroidViewModel {
     }
 
     private final WalletApplication application;
-    private final TransactionsLiveData transactions;
+    public final TransactionsLiveData transactions;
     public final WalletLiveData wallet;
     private final TransactionsConfidenceLiveData transactionsConfidence;
     private final AddressBookLiveData addressBook;
@@ -189,7 +189,7 @@ public class WalletTransactionsViewModel extends AndroidViewModel {
         }
     };
 
-    private static class TransactionsLiveData extends AbstractWalletLiveData<Set<Transaction>> {
+    public static class TransactionsLiveData extends AbstractWalletLiveData<Set<Transaction>> {
         private static final long THROTTLE_MS = 1000;
 
         public TransactionsLiveData(final WalletApplication application) {

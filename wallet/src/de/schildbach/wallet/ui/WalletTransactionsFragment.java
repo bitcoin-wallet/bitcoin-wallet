@@ -18,6 +18,7 @@
 package de.schildbach.wallet.ui;
 
 import java.util.List;
+import java.util.Set;
 
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.ScriptException;
@@ -103,13 +104,10 @@ public class WalletTransactionsFragment extends Fragment implements Transactions
         setHasOptionsMenu(true);
 
         viewModel = ViewModelProviders.of(this).get(WalletTransactionsViewModel.class);
-        viewModel.list.observe(this, new Observer<List<ListItem>>() {
+        viewModel.transactions.observe(this, new Observer<Set<Transaction>>() {
             @Override
-            public void onChanged(final List<ListItem> listItems) {
-                adapter.submitList(listItems);
-                ViewModelProviders.of(activity).get(WalletActivity.ViewModel.class).transactionsLoadingFinished();
-
-                if (listItems.isEmpty()) {
+            public void onChanged(final Set<Transaction> transactions) {
+                if (transactions.isEmpty()) {
                     viewGroup.setDisplayedChild(1);
 
                     final WalletTransactionsViewModel.Direction direction = viewModel.direction.getValue();
@@ -126,6 +124,13 @@ public class WalletTransactionsFragment extends Fragment implements Transactions
                 } else {
                     viewGroup.setDisplayedChild(2);
                 }
+            }
+        });
+        viewModel.list.observe(this, new Observer<List<ListItem>>() {
+            @Override
+            public void onChanged(final List<ListItem> listItems) {
+                adapter.submitList(listItems);
+                ViewModelProviders.of(activity).get(WalletActivity.ViewModel.class).transactionsLoadingFinished();
             }
         });
 
