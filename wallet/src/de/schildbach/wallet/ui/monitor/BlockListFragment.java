@@ -264,6 +264,8 @@ public final class BlockListFragment extends Fragment implements BlockListAdapte
 
         private void loadTransactions() {
             final Wallet wallet = getWallet();
+            if (wallet == null)
+                return;
             AsyncTask.execute(new Runnable() {
                 @Override
                 public void run() {
