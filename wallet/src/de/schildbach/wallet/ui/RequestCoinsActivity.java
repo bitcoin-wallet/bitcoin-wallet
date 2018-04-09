@@ -50,10 +50,6 @@ public final class RequestCoinsActivity extends AbstractWalletActivity {
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
         switch (item.getItemId()) {
-        case android.R.id.home:
-            finish();
-            return true;
-
         case R.id.request_coins_options_help:
             HelpDialogFragment.page(getSupportFragmentManager(), R.string.help_request_coins);
             return true;

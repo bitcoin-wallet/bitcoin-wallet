@@ -26,7 +26,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.view.MenuItem;
 
 /**
  * @author Andreas Schildbach
@@ -62,17 +61,6 @@ public final class NetworkMonitorActivity extends AbstractWalletActivity {
             peerListFragment = (PeerListFragment) fm.findFragmentById(R.id.peer_list_fragment);
             blockListFragment = (BlockListFragment) fm.findFragmentById(R.id.block_list_fragment);
         }
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(final MenuItem item) {
-        switch (item.getItemId()) {
-        case android.R.id.home:
-            finish();
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     private class PagerAdapter extends FragmentStatePagerAdapter {

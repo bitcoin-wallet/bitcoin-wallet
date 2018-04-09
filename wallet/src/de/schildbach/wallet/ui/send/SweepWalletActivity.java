@@ -26,7 +26,6 @@ import de.schildbach.wallet.ui.AbstractWalletActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 
 /**
  * @author Andreas Schildbach
@@ -51,16 +50,5 @@ public final class SweepWalletActivity extends AbstractWalletActivity {
         setContentView(R.layout.sweep_wallet_content);
 
         BlockchainService.start(this, false);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(final MenuItem item) {
-        switch (item.getItemId()) {
-        case android.R.id.home:
-            finish();
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 }

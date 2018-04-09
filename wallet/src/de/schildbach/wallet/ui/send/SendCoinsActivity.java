@@ -81,10 +81,6 @@ public final class SendCoinsActivity extends AbstractWalletActivity {
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
         switch (item.getItemId()) {
-        case android.R.id.home:
-            finish();
-            return true;
-
         case R.id.send_coins_options_help:
             HelpDialogFragment.page(getSupportFragmentManager(), R.string.help_send_coins);
             return true;

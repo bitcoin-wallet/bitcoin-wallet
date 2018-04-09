@@ -36,7 +36,7 @@ public final class PreferenceActivity extends android.preference.PreferenceActiv
     public boolean onOptionsItemSelected(final MenuItem item) {
         switch (item.getItemId()) {
         case android.R.id.home:
-            finish();
+            onBackPressed();
             return true;
         }
 
