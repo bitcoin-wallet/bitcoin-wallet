@@ -58,7 +58,6 @@ import android.os.Process;
 import android.os.Vibrator;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.view.KeyEvent;
@@ -66,13 +65,12 @@ import android.view.Surface;
 import android.view.TextureView;
 import android.view.TextureView.SurfaceTextureListener;
 import android.view.View;
-import android.view.WindowManager;
 
 /**
  * @author Andreas Schildbach
  */
 @SuppressWarnings("deprecation")
-public final class ScanActivity extends FragmentActivity
+public final class ScanActivity extends AbstractWalletActivity
         implements SurfaceTextureListener, ActivityCompat.OnRequestPermissionsResultCallback {
     public static final String INTENT_EXTRA_RESULT = "result";
 
@@ -188,7 +186,7 @@ public final class ScanActivity extends FragmentActivity
 
     @Override
     public void onAttachedToWindow() {
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
+        setShowWhenLocked(true);
     }
 
     @Override

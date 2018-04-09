@@ -28,6 +28,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.MenuItem;
+import android.view.WindowManager;
 
 /**
  * @author Andreas Schildbach
@@ -74,5 +75,16 @@ public abstract class AbstractWalletActivity extends FragmentActivity {
                 // swallow
             }
         }
+    }
+
+    @SuppressWarnings("deprecation")
+    @Override
+    public void setShowWhenLocked(final boolean showWhenLocked) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1)
+            super.setShowWhenLocked(showWhenLocked);
+        else if (showWhenLocked)
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
+        else
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
     }
 }

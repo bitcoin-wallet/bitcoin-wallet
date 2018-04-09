@@ -22,7 +22,6 @@ import de.schildbach.wallet.R;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.WindowManager;
 
 /**
  * @author Andreas Schildbach
@@ -37,7 +36,7 @@ public final class RequestCoinsActivity extends AbstractWalletActivity {
 
     @Override
     public void onAttachedToWindow() {
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
+        setShowWhenLocked(true);
     }
 
     @Override
