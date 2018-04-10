@@ -243,7 +243,8 @@ public class WalletApplication extends Application {
                 try {
                     walletFiles.saveNow();
                 } catch (final IOException x) {
-                    throw new RuntimeException(x);
+                    log.warn("problem with forced autosaving of wallet", x);
+                    CrashReporter.saveBackgroundTrace(x, packageInfo);
                 }
             }
         }
