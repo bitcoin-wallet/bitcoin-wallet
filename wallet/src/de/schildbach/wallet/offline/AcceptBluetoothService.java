@@ -110,7 +110,9 @@ public final class AcceptBluetoothService extends LifecycleService {
             };
         } catch (final IOException x) {
             new Toast(this).longToast(R.string.error_bluetooth, x.getMessage());
+            log.warn("problem with listening, stopping service", x);
             CrashReporter.saveBackgroundTrace(x, application.packageInfo());
+            stopSelf();
         }
 
         wallet = new WalletLiveData(application);
