@@ -102,9 +102,15 @@ public final class CameraManager {
         final int leftOffset = (width - frameSize) / 2;
         final int topOffset = (height - frameSize) / 2;
         frame = new Rect(leftOffset, topOffset, leftOffset + frameSize, topOffset + frameSize);
-        framePreview = new RectF(frame.left * cameraResolution.width / width,
-                frame.top * cameraResolution.height / height, frame.right * cameraResolution.width / width,
-                frame.bottom * cameraResolution.height / height);
+        if (width > height) { // landscape
+            framePreview = new RectF(frame.left * cameraResolution.width / width,
+                    frame.top * cameraResolution.height / height, frame.right * cameraResolution.width / width,
+                    frame.bottom * cameraResolution.height / height);
+        } else { // portrait
+            framePreview = new RectF(frame.top * cameraResolution.width / height,
+                    frame.left * cameraResolution.height / width, frame.bottom * cameraResolution.width / height,
+                    frame.right * cameraResolution.height / width);
+        }
 
         final String savedParameters = parameters == null ? null : parameters.flatten();
 
