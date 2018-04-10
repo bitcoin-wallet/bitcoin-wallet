@@ -270,7 +270,8 @@ public final class ExchangeRatesFragment extends Fragment
                     ExchangeRatesProvider.QUERY_PARAM_Q, new String[] { "" }, null) {
                 @Override
                 public void deliverResult(final Cursor cursor) {
-                    setValue(cursor);
+                    if (cursor != null)
+                        setValue(cursor);
                 }
             };
         }
