@@ -21,6 +21,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 import org.bitcoinj.core.Transaction;
@@ -156,11 +158,12 @@ public class WalletApplication extends Application {
         }
     }
 
+    private final Executor getWalletExecutor = Executors.newSingleThreadExecutor();
     private final Object getWalletLock = new Object();
 
     @MainThread
     public void getWalletAsync(final OnWalletLoadedListener listener) {
-        new Thread() {
+        getWalletExecutor.execute(new Runnable() {
             @Override
             public void run() {
                 org.bitcoinj.core.Context.propagate(Constants.CONTEXT);
@@ -227,7 +230,7 @@ public class WalletApplication extends Application {
                     }
                 }
             }
-        }.start();
+        });
     }
 
     public static interface OnWalletLoadedListener {
