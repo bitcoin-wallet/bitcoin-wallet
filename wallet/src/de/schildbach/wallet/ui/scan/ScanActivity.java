@@ -38,6 +38,7 @@ import de.schildbach.wallet.ui.AbstractWalletActivity;
 import de.schildbach.wallet.ui.DialogBuilder;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.Dialog;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
@@ -74,6 +75,10 @@ import android.view.View;
 public final class ScanActivity extends AbstractWalletActivity
         implements SurfaceTextureListener, ActivityCompat.OnRequestPermissionsResultCallback {
     public static final String INTENT_EXTRA_RESULT = "result";
+
+    public static void startForResult(final Activity activity, final int resultCode) {
+        activity.startActivityForResult(new Intent(activity, ScanActivity.class), resultCode);
+    }
 
     private static final long VIBRATE_DURATION = 50L;
     private static final long AUTO_FOCUS_INTERVAL_MS = 2500L;

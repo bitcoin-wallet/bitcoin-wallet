@@ -201,7 +201,7 @@ public final class SendingAddressesFragment extends FancyListFragment {
             return true;
 
         case R.id.sending_addresses_options_scan:
-            handleScan();
+            ScanActivity.startForResult(activity, REQUEST_CODE_SCAN);
             return true;
         }
 
@@ -226,10 +226,6 @@ public final class SendingAddressesFragment extends FancyListFragment {
             dialog.singleDismissButton(null);
             dialog.show();
         }
-    }
-
-    private void handleScan() {
-        startActivityForResult(new Intent(activity, ScanActivity.class), REQUEST_CODE_SCAN);
     }
 
     @Override

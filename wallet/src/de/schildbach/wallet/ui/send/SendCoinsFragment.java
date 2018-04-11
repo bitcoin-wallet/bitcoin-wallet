@@ -671,7 +671,7 @@ public final class SendCoinsFragment extends Fragment {
     public boolean onOptionsItemSelected(final MenuItem item) {
         switch (item.getItemId()) {
         case R.id.send_coins_options_scan:
-            handleScan();
+            ScanActivity.startForResult(activity, REQUEST_CODE_SCAN);
             return true;
 
         case R.id.send_coins_options_fee_category_economic:
@@ -960,10 +960,6 @@ public final class SendCoinsFragment extends Fragment {
                 dialog.show();
             }
         }.sendCoinsOffline(sendRequest); // send asynchronously
-    }
-
-    private void handleScan() {
-        startActivityForResult(new Intent(activity, ScanActivity.class), REQUEST_CODE_SCAN);
     }
 
     private void handleFeeCategory(final FeeCategory feeCategory) {

@@ -512,7 +512,7 @@ public final class WalletActivity extends AbstractWalletActivity {
     }
 
     public void handleScan() {
-        startActivityForResult(new Intent(this, ScanActivity.class), REQUEST_CODE_SCAN);
+        ScanActivity.startForResult(this, REQUEST_CODE_SCAN);
     }
 
     public void handleBackupWallet() {

@@ -310,7 +310,7 @@ public class SweepWalletFragment extends Fragment {
             return true;
 
         case R.id.sweep_wallet_options_scan:
-            handleScan();
+            ScanActivity.startForResult(activity, REQUEST_CODE_SCAN);
             return true;
         }
 
@@ -322,10 +322,6 @@ public class SweepWalletFragment extends Fragment {
             return;
 
         requestWalletBalance();
-    }
-
-    private void handleScan() {
-        startActivityForResult(new Intent(activity, ScanActivity.class), REQUEST_CODE_SCAN);
     }
 
     private final TransactionConfidence.Listener sentTransactionConfidenceListener = new TransactionConfidence.Listener() {
