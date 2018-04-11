@@ -437,6 +437,7 @@ public final class WalletActivity extends AbstractWalletActivity {
             final MenuItem encryptKeysOption = menu.findItem(R.id.wallet_options_encrypt_keys);
             encryptKeysOption.setTitle(wallet.isEncrypted() ? R.string.wallet_options_encrypt_keys_change
                     : R.string.wallet_options_encrypt_keys_set);
+            encryptKeysOption.setVisible(true);
         }
 
         return true;
