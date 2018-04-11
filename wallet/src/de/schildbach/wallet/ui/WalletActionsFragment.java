@@ -67,7 +67,7 @@ public final class WalletActionsFragment extends Fragment {
         sendQrButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(final View v) {
-                activity.handleScan();
+                activity.handleScan(v);
             }
         });
         CheatSheet.setup(sendQrButton);

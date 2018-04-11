@@ -20,6 +20,8 @@ package de.schildbach.wallet.ui.scan;
 import java.util.EnumMap;
 import java.util.Map;
 
+import javax.annotation.Nullable;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,9 +38,12 @@ import com.google.zxing.qrcode.QRCodeReader;
 import de.schildbach.wallet.R;
 import de.schildbach.wallet.ui.AbstractWalletActivity;
 import de.schildbach.wallet.ui.DialogBuilder;
+import de.schildbach.wallet.util.OnFirstGlobalLayout;
 
 import android.Manifest;
+import android.animation.Animator;
 import android.app.Activity;
+import android.app.ActivityOptions;
 import android.app.Dialog;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
@@ -53,6 +58,7 @@ import android.graphics.SurfaceTexture;
 import android.hardware.Camera;
 import android.hardware.Camera.CameraInfo;
 import android.hardware.Camera.PreviewCallback;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -67,6 +73,9 @@ import android.view.Surface;
 import android.view.TextureView;
 import android.view.TextureView.SurfaceTextureListener;
 import android.view.View;
+import android.view.ViewAnimationUtils;
+import android.view.WindowManager;
+import android.view.animation.AccelerateInterpolator;
 
 /**
  * @author Andreas Schildbach
@@ -74,7 +83,26 @@ import android.view.View;
 @SuppressWarnings("deprecation")
 public final class ScanActivity extends AbstractWalletActivity
         implements SurfaceTextureListener, ActivityCompat.OnRequestPermissionsResultCallback {
+    private static final String INTENT_EXTRA_SCENE_TRANSITION_X = "scene_transition_x";
+    private static final String INTENT_EXTRA_SCENE_TRANSITION_Y = "scene_transition_y";
     public static final String INTENT_EXTRA_RESULT = "result";
+
+    public static void startForResult(final Activity activity, @Nullable final View clickView, final int requestCode) {
+        if (clickView != null) {
+            final int[] clickViewLocation = new int[2];
+            clickView.getLocationOnScreen(clickViewLocation);
+            final Intent intent = new Intent(activity, ScanActivity.class);
+            intent.putExtra(ScanActivity.INTENT_EXTRA_SCENE_TRANSITION_X,
+                    (int) (clickViewLocation[0] + clickView.getWidth() / 2));
+            intent.putExtra(ScanActivity.INTENT_EXTRA_SCENE_TRANSITION_Y,
+                    (int) (clickViewLocation[1] + clickView.getHeight() / 2));
+            final ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(activity, clickView,
+                    "transition");
+            activity.startActivityForResult(intent, requestCode, options.toBundle());
+        } else {
+            startForResult(activity, requestCode);
+        }
+    }
 
     public static void startForResult(final Activity activity, final int resultCode) {
         activity.startActivityForResult(new Intent(activity, ScanActivity.class), resultCode);
@@ -84,9 +112,13 @@ public final class ScanActivity extends AbstractWalletActivity
     private static final long AUTO_FOCUS_INTERVAL_MS = 2500L;
 
     private final CameraManager cameraManager = new CameraManager();
+
+    private View contentView;
     private ScannerView scannerView;
     private TextureView previewView;
+
     private volatile boolean surfaceCreated = false;
+    private Animator sceneTransition = null;
 
     private Vibrator vibrator;
     private HandlerThread cameraThread;
@@ -118,6 +150,7 @@ public final class ScanActivity extends AbstractWalletActivity
         });
 
         setContentView(R.layout.scan_activity);
+        contentView = findViewById(android.R.id.content);
         scannerView = (ScannerView) findViewById(R.id.scan_activity_mask);
         previewView = (TextureView) findViewById(R.id.scan_activity_preview);
         previewView.setSurfaceTextureListener(this);
@@ -128,6 +161,36 @@ public final class ScanActivity extends AbstractWalletActivity
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)
             ActivityCompat.requestPermissions(this, new String[] { Manifest.permission.CAMERA }, 0);
+
+        if (savedInstanceState == null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            final Intent intent = getIntent();
+            final int x = intent.getIntExtra(INTENT_EXTRA_SCENE_TRANSITION_X, -1);
+            final int y = intent.getIntExtra(INTENT_EXTRA_SCENE_TRANSITION_Y, -1);
+            if (x != -1 || y != -1) {
+                getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+                        WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+                OnFirstGlobalLayout.listen(contentView, new OnFirstGlobalLayout.Callback() {
+                    @Override
+                    public void onFirstGlobalLayout() {
+                        float finalRadius = (float) (Math.max(contentView.getWidth(), contentView.getHeight()));
+                        final int duration = getResources().getInteger(android.R.integer.config_mediumAnimTime);
+                        sceneTransition = ViewAnimationUtils.createCircularReveal(contentView, x, y, 0, finalRadius);
+                        sceneTransition.setDuration(duration);
+                        sceneTransition.setInterpolator(new AccelerateInterpolator());
+                        // TODO Here, the transition should start in a paused state, showing the first frame
+                        // of the animation. Sadly, RevealAnimator doesn't seem to support this, unlike
+                        // (subclasses of) ValueAnimator.
+                    }
+                });
+            }
+        }
+    }
+
+    private void maybeTriggerSceneTransition() {
+        if (sceneTransition != null) {
+            sceneTransition.start();
+            sceneTransition = null;
+        }
     }
 
     @Override
@@ -270,6 +333,7 @@ public final class ScanActivity extends AbstractWalletActivity
                 if (nonContinuousAutoFocus)
                     cameraHandler.post(new AutoFocusRunnable(camera));
 
+                maybeTriggerSceneTransition();
                 cameraHandler.post(fetchAndDecodeRunnable);
             } catch (final Exception x) {
                 log.info("problem opening camera", x);

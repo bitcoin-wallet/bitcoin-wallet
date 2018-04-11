@@ -78,6 +78,7 @@ public final class WalletActivity extends AbstractWalletActivity {
     private Handler handler = new Handler();
 
     private ViewModel viewModel;
+    private AnimatorSet enterAnimation;
     private View contentView;
 
     public static enum EnterAnimationState {
@@ -163,7 +164,7 @@ public final class WalletActivity extends AbstractWalletActivity {
         setContentView(R.layout.wallet_content);
         contentView = findViewById(android.R.id.content);
         OnFirstGlobalLayout.listen(contentView, viewModel);
-        final AnimatorSet enterAnimation = buildEnterAnimation(contentView);
+        enterAnimation = buildEnterAnimation(contentView);
 
         viewModel.getWallet().observe(this, new Observer<Wallet>() {
             @Override
@@ -448,7 +449,7 @@ public final class WalletActivity extends AbstractWalletActivity {
             return true;
 
         case R.id.wallet_options_scan:
-            handleScan();
+            handleScan(null);
             return true;
 
         case R.id.wallet_options_address_book:
@@ -511,8 +512,11 @@ public final class WalletActivity extends AbstractWalletActivity {
         startActivity(new Intent(this, SendCoinsActivity.class));
     }
 
-    public void handleScan() {
-        ScanActivity.startForResult(this, REQUEST_CODE_SCAN);
+    public void handleScan(final View clickView) {
+        // The animation must be ended because of several graphical glitching that happens when the
+        // Camera/SurfaceView is used while the animation is running.
+        enterAnimation.end();
+        ScanActivity.startForResult(this, clickView, WalletActivity.REQUEST_CODE_SCAN);
     }
 
     public void handleBackupWallet() {
