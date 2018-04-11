@@ -22,7 +22,7 @@
             android:paddingBottom="2dp"
             android:visibility="gone" >
 
-            <de.schildbach.wallet.util.CircularProgressView
+            <de.schildbach.wallet.ui.CircularProgressView
                 android:id="@+id/transaction_row_confidence_circular_selected"
                 android:layout_width="@dimen/symbol_size_normal"
                 android:layout_height="@dimen/symbol_size_normal"
@@ -51,7 +51,7 @@
             android:baselineAligned="true"
             android:orientation="horizontal" >
 
-            <de.schildbach.wallet.util.CircularProgressView
+            <de.schildbach.wallet.ui.CircularProgressView
                 android:id="@+id/transaction_row_confidence_circular"
                 android:layout_width="@dimen/symbol_size_normal"
                 android:layout_height="@dimen/symbol_size_normal"
