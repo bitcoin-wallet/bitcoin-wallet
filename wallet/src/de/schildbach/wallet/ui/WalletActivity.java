@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2015 the original author or authors.
+ * Copyright the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -40,6 +40,7 @@ import de.schildbach.wallet.ui.send.SendCoinsActivity;
 import de.schildbach.wallet.ui.send.SweepWalletActivity;
 import de.schildbach.wallet.util.CrashReporter;
 import de.schildbach.wallet.util.Nfc;
+import de.schildbach.wallet.util.OnFirstGlobalLayout;
 
 import android.animation.Animator;
 import android.animation.AnimatorInflater;
@@ -67,7 +68,6 @@ import android.support.v4.app.FragmentManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewTreeObserver;
 import android.view.animation.DecelerateInterpolator;
 
 /**
@@ -84,7 +84,7 @@ public final class WalletActivity extends AbstractWalletActivity {
         WAITING, ANIMATING, FINISHED
     }
 
-    public static class ViewModel extends AndroidViewModel implements ViewTreeObserver.OnGlobalLayoutListener {
+    public static class ViewModel extends AndroidViewModel implements OnFirstGlobalLayout.Callback {
         private final WalletApplication application;
         private WalletLiveData wallet;
         private MutableLiveData<EnterAnimationState> enterAnimation;
@@ -114,7 +114,7 @@ public final class WalletActivity extends AbstractWalletActivity {
         }
 
         @Override
-        public void onGlobalLayout() {
+        public void onFirstGlobalLayout() {
             globalLayoutFinished = true;
             maybeToggleState();
         }
@@ -162,7 +162,7 @@ public final class WalletActivity extends AbstractWalletActivity {
 
         setContentView(R.layout.wallet_content);
         contentView = findViewById(android.R.id.content);
-        contentView.getViewTreeObserver().addOnGlobalLayoutListener(viewModel);
+        OnFirstGlobalLayout.listen(contentView, viewModel);
         final AnimatorSet enterAnimation = buildEnterAnimation(contentView);
 
         viewModel.getWallet().observe(this, new Observer<Wallet>() {
@@ -231,13 +231,6 @@ public final class WalletActivity extends AbstractWalletActivity {
         handler.removeCallbacksAndMessages(null);
 
         super.onPause();
-    }
-
-    @Override
-    protected void onDestroy() {
-        contentView.getViewTreeObserver().removeOnGlobalLayoutListener(viewModel);
-
-        super.onDestroy();
     }
 
     private AnimatorSet buildEnterAnimation(final View contentView) {
