@@ -369,7 +369,6 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
     private final Context context;
     private final LayoutInflater inflater;
 
-    private final boolean useCards;
     @Nullable
     private final OnClickListener onClickListener;
 
@@ -384,7 +383,7 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
         CONFIDENCE, TIME, ADDRESS, FEE, VALUE, FIAT, MESSAGE, IS_SELECTED
     }
 
-    public TransactionsAdapter(final Context context, final boolean useCards, final int maxConnectedPeers,
+    public TransactionsAdapter(final Context context, final int maxConnectedPeers,
             final @Nullable OnClickListener onClickListener) {
         super(new DiffUtil.ItemCallback<ListItem>() {
             @Override
@@ -540,7 +539,6 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
         this.context = context;
         this.inflater = LayoutInflater.from(context);
 
-        this.useCards = useCards;
         this.onClickListener = onClickListener;
     }
 
@@ -558,15 +556,11 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
         if (viewType == VIEW_TYPE_TRANSACTION) {
-            if (useCards) {
-                final CardView cardView = (CardView) inflater.inflate(R.layout.transaction_row_card, parent, false);
-                cardView.setPreventCornerOverlap(false);
-                cardView.setUseCompatPadding(false);
-                cardView.setMaxCardElevation(0); // we're using Lollipop elevation
-                return new TransactionViewHolder(cardView);
-            } else {
-                return new TransactionViewHolder(inflater.inflate(R.layout.transaction_row, parent, false));
-            }
+            final CardView cardView = (CardView) inflater.inflate(R.layout.transaction_row_card, parent, false);
+            cardView.setPreventCornerOverlap(false);
+            cardView.setUseCompatPadding(false);
+            cardView.setMaxCardElevation(0); // we're using Lollipop elevation
+            return new TransactionViewHolder(cardView);
         } else if (viewType == VIEW_TYPE_WARNING) {
             return new WarningViewHolder(inflater.inflate(R.layout.transaction_row_warning, parent, false));
         } else {
