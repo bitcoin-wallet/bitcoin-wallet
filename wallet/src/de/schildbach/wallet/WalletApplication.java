@@ -156,7 +156,7 @@ public class WalletApplication extends Application {
         }
     }
 
-    private Object getWalletLock = new Object();
+    private final Object getWalletLock = new Object();
 
     @MainThread
     public void getWalletAsync(final OnWalletLoadedListener listener) {
