@@ -169,7 +169,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="de.schildbach.wallet.ui.ScanActivity"
+            android:name="de.schildbach.wallet.ui.scan.ScanActivity"
             android:configChanges="keyboard|keyboardHidden"
             android:screenOrientation="locked"
             android:stateNotNeeded="true"
