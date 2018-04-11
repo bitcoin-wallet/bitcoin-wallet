@@ -149,6 +149,7 @@ public class WalletTransactionsFragment extends Fragment implements Transactions
         recyclerView = (RecyclerView) view.findViewById(R.id.wallet_transactions_list);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new StickToTopLinearLayoutManager(activity));
+        recyclerView.setItemAnimator(new TransactionsAdapter.ItemAnimator());
         recyclerView.setAdapter(adapter);
         recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
             private final int PADDING = 2

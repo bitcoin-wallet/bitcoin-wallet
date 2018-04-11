@@ -53,7 +53,9 @@ import android.graphics.Typeface;
 import android.support.v7.recyclerview.extensions.ListAdapter;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.text.Html;
 import android.text.Spanned;
 import android.text.SpannedString;
@@ -659,6 +661,18 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
                         transactionHolder.bindIsSelected(transactionItem);
                 }
             }
+        }
+    }
+
+    public static class ItemAnimator extends DefaultItemAnimator {
+        @Override
+        public boolean canReuseUpdatedViewHolder(final ViewHolder viewHolder, final List<Object> payloads) {
+            for (final Object payload : payloads) {
+                final EnumSet<TransactionsAdapter.ChangeType> changes = (EnumSet<TransactionsAdapter.ChangeType>) payload;
+                if (changes.contains(TransactionsAdapter.ChangeType.IS_SELECTED))
+                    return false;
+            }
+            return super.canReuseUpdatedViewHolder(viewHolder, payloads);
         }
     }
 
