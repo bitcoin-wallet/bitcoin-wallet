@@ -561,7 +561,8 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
             if (useCards) {
                 final CardView cardView = (CardView) inflater.inflate(R.layout.transaction_row_card, parent, false);
                 cardView.setPreventCornerOverlap(false);
-                cardView.setUseCompatPadding(true);
+                cardView.setUseCompatPadding(false);
+                cardView.setMaxCardElevation(0); // we're using Lollipop elevation
                 return new TransactionViewHolder(cardView);
             } else {
                 return new TransactionViewHolder(inflater.inflate(R.layout.transaction_row, parent, false));

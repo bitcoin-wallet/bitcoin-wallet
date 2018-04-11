@@ -32,6 +32,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="@dimen/list_entry_padding_vertical"
                 android:layout_marginTop="@dimen/list_entry_padding_vertical"
+                android:elevation="2dp"
                 android:foreground="?android:attr/selectableItemBackground" >
 
                 <ImageView

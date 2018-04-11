@@ -106,6 +106,8 @@ public final class WalletAddressFragment extends Fragment {
         currentAddressQrCardView = (CardView) view.findViewById(R.id.bitcoin_address_qr_card);
         currentAddressQrCardView.setCardBackgroundColor(Color.WHITE);
         currentAddressQrCardView.setPreventCornerOverlap(false);
+        currentAddressQrCardView.setUseCompatPadding(false);
+        currentAddressQrCardView.setMaxCardElevation(0); // we're using Lollipop elevation
 
         return view;
     }

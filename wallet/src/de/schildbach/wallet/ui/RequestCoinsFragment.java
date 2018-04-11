@@ -177,6 +177,8 @@ public final class RequestCoinsFragment extends Fragment {
         qrCardView = (CardView) view.findViewById(R.id.request_coins_qr_card);
         qrCardView.setCardBackgroundColor(Color.WHITE);
         qrCardView.setPreventCornerOverlap(false);
+        qrCardView.setUseCompatPadding(false);
+        qrCardView.setMaxCardElevation(0); // we're using Lollipop elevation
 
         final CurrencyAmountView btcAmountView = (CurrencyAmountView) view.findViewById(R.id.request_coins_amount_btc);
         btcAmountView.setCurrencySymbol(config.getFormat().code());
