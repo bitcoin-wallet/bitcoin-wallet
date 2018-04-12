@@ -38,7 +38,7 @@ import com.google.zxing.qrcode.QRCodeReader;
 import de.schildbach.wallet.R;
 import de.schildbach.wallet.ui.AbstractWalletActivity;
 import de.schildbach.wallet.ui.DialogBuilder;
-import de.schildbach.wallet.util.OnFirstGlobalLayout;
+import de.schildbach.wallet.util.OnFirstPreDraw;
 
 import android.Manifest;
 import android.animation.Animator;
@@ -169,9 +169,9 @@ public final class ScanActivity extends AbstractWalletActivity
             if (x != -1 || y != -1) {
                 getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
                         WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-                OnFirstGlobalLayout.listen(contentView, new OnFirstGlobalLayout.Callback() {
+                OnFirstPreDraw.listen(contentView, new OnFirstPreDraw.Callback() {
                     @Override
-                    public void onFirstGlobalLayout() {
+                    public boolean onFirstPreDraw() {
                         float finalRadius = (float) (Math.max(contentView.getWidth(), contentView.getHeight()));
                         final int duration = getResources().getInteger(android.R.integer.config_mediumAnimTime);
                         sceneTransition = ViewAnimationUtils.createCircularReveal(contentView, x, y, 0, finalRadius);
@@ -180,6 +180,7 @@ public final class ScanActivity extends AbstractWalletActivity
                         // TODO Here, the transition should start in a paused state, showing the first frame
                         // of the animation. Sadly, RevealAnimator doesn't seem to support this, unlike
                         // (subclasses of) ValueAnimator.
+                        return false;
                     }
                 });
             }

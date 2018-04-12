@@ -40,7 +40,7 @@ import de.schildbach.wallet.ui.send.SendCoinsActivity;
 import de.schildbach.wallet.ui.send.SweepWalletActivity;
 import de.schildbach.wallet.util.CrashReporter;
 import de.schildbach.wallet.util.Nfc;
-import de.schildbach.wallet.util.OnFirstGlobalLayout;
+import de.schildbach.wallet.util.OnFirstPreDraw;
 
 import android.animation.Animator;
 import android.animation.AnimatorInflater;
@@ -85,7 +85,7 @@ public final class WalletActivity extends AbstractWalletActivity {
         WAITING, ANIMATING, FINISHED
     }
 
-    public static class ViewModel extends AndroidViewModel implements OnFirstGlobalLayout.Callback {
+    public static class ViewModel extends AndroidViewModel implements OnFirstPreDraw.Callback {
         private final WalletApplication application;
         private WalletLiveData wallet;
         private MutableLiveData<EnterAnimationState> enterAnimation;
@@ -115,9 +115,10 @@ public final class WalletActivity extends AbstractWalletActivity {
         }
 
         @Override
-        public void onFirstGlobalLayout() {
+        public boolean onFirstPreDraw() {
             globalLayoutFinished = true;
             maybeToggleState();
+            return true;
         }
 
         public void balanceLoadingFinished() {
@@ -163,7 +164,7 @@ public final class WalletActivity extends AbstractWalletActivity {
 
         setContentView(R.layout.wallet_content);
         contentView = findViewById(android.R.id.content);
-        OnFirstGlobalLayout.listen(contentView, viewModel);
+        OnFirstPreDraw.listen(contentView, viewModel);
         enterAnimation = buildEnterAnimation(contentView);
 
         viewModel.getWallet().observe(this, new Observer<Wallet>() {

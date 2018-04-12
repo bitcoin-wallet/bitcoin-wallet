@@ -30,35 +30,35 @@ import android.view.ViewTreeObserver;
 /**
  * @author Andreas Schildbach
  */
-public class OnFirstGlobalLayout implements ViewTreeObserver.OnGlobalLayoutListener {
+public class OnFirstPreDraw implements ViewTreeObserver.OnPreDrawListener {
     public static interface Callback {
-        void onFirstGlobalLayout();
+        boolean onFirstPreDraw();
     }
 
     public static void listen(final View view, final Callback callback) {
-        new OnFirstGlobalLayout(view.getViewTreeObserver(), callback);
+        new OnFirstPreDraw(view.getViewTreeObserver(), callback);
     }
 
     private final ViewTreeObserver viewTreeObserver;
     private final Callback callback;
     private final AtomicBoolean fired = new AtomicBoolean(false);
 
-    private static final Logger log = LoggerFactory.getLogger(OnFirstGlobalLayout.class);
+    private static final Logger log = LoggerFactory.getLogger(OnFirstPreDraw.class);
 
-    private OnFirstGlobalLayout(final ViewTreeObserver viewTreeObserver, final Callback callback) {
+    private OnFirstPreDraw(final ViewTreeObserver viewTreeObserver, final Callback callback) {
         this.viewTreeObserver = viewTreeObserver;
         this.callback = checkNotNull(callback);
-        viewTreeObserver.addOnGlobalLayoutListener(this);
+        viewTreeObserver.addOnPreDrawListener(this);
     }
 
     @Override
-    public void onGlobalLayout() {
+    public boolean onPreDraw() {
         if (viewTreeObserver.isAlive())
-            viewTreeObserver.removeOnGlobalLayoutListener(this);
+            viewTreeObserver.removeOnPreDrawListener(this);
         else
             log.debug("ViewTreeObserver has died, cannot remove listener");
-        if (fired.getAndSet(true))
-            return;
-        callback.onFirstGlobalLayout();
+        if (!fired.getAndSet(true))
+            return callback.onFirstPreDraw();
+        return true;
     }
 }
