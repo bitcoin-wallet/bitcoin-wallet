@@ -171,7 +171,6 @@
         <activity
             android:name="de.schildbach.wallet.ui.scan.ScanActivity"
             android:configChanges="keyboard|keyboardHidden"
-            android:screenOrientation="locked"
             android:stateNotNeeded="true"
             android:theme="@style/My.Theme.Fullscreen"
             android:windowSoftInputMode="stateAlwaysHidden" />
