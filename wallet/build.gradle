@@ -45,8 +45,19 @@ android {
     defaultConfig {
         applicationId 'de.schildbach.wallet_test'
         generatedDensities = ['hdpi', 'xhdpi']
+
         dexOptions {
             preDexLibraries false
+        }
+
+        ndk {
+            abiFilters 'armeabi', 'armeabi-v7a', 'x86'
+        }
+
+        externalNativeBuild {
+            cmake {
+                cFlags '-DHAVE_CONFIG_H'
+            }
         }
     }
 
@@ -71,6 +82,12 @@ android {
         test {
             java.srcDirs = ['test']
             resources.srcDirs = ['test']
+        }
+    }
+
+    externalNativeBuild {
+        cmake {
+            path 'cpp/CMakeLists.txt'
         }
     }
 
