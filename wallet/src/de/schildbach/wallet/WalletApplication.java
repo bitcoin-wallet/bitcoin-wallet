@@ -46,6 +46,7 @@ import com.google.common.util.concurrent.SettableFuture;
 import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.util.Bluetooth;
 import de.schildbach.wallet.util.CrashReporter;
+import de.schildbach.wallet.util.Toast;
 import de.schildbach.wallet.util.WalletUtils;
 
 import android.app.ActivityManager;
@@ -192,10 +193,14 @@ public class WalletApplication extends Application {
                     } catch (final IOException | UnreadableWalletException x) {
                         log.warn("problem loading wallet, auto-restoring: " + walletFile, x);
                         wallet = WalletUtils.restoreWalletFromAutoBackup(WalletApplication.this);
+                        if (wallet != null)
+                            new Toast(WalletApplication.this).postLongToast(R.string.toast_wallet_reset);
                     }
                     if (!wallet.isConsistent()) {
                         log.warn("inconsistent wallet, auto-restoring: " + walletFile);
                         wallet = WalletUtils.restoreWalletFromAutoBackup(WalletApplication.this);
+                        if (wallet != null)
+                            new Toast(WalletApplication.this).postLongToast(R.string.toast_wallet_reset);
                     }
 
                     if (!wallet.getParams().equals(Constants.NETWORK_PARAMETERS))

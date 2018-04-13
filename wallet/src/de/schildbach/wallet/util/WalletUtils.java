@@ -59,7 +59,6 @@ import org.slf4j.LoggerFactory;
 import com.google.common.base.Stopwatch;
 
 import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.R;
 import de.schildbach.wallet.service.BlockchainService;
 
 import android.content.Context;
@@ -69,7 +68,6 @@ import android.text.Spanned;
 import android.text.SpannedString;
 import android.text.format.DateUtils;
 import android.text.style.TypefaceSpan;
-import android.widget.Toast;
 
 /**
  * @author Andreas Schildbach
@@ -216,7 +214,6 @@ public class WalletUtils {
                 throw new Error("inconsistent backup");
 
             BlockchainService.resetBlockchain(context);
-            Toast.makeText(context, R.string.toast_wallet_reset, Toast.LENGTH_LONG).show();
             log.info("wallet restored from backup: '" + Constants.Files.WALLET_KEY_BACKUP_PROTOBUF + "'");
             return wallet;
         } catch (final IOException | UnreadableWalletException x) {
