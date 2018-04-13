@@ -92,6 +92,7 @@ android {
     }
 
     packagingOptions {
+        exclude 'META-INF/*.version'
         exclude 'lib/x86_64/darwin/libscrypt.dylib'
         exclude 'okhttp3/internal/publicsuffix/publicsuffixes.gz'
         exclude 'org/bitcoinj/crypto/mnemonic/wordlist/english.txt'
