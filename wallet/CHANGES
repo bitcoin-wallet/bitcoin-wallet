@@ -1,3 +1,7 @@
+v6.20
+
+* Bugfixes.
+
 v6.19
 
 * Run circular reveal transition if QR code scanner is started via lower action bar.
