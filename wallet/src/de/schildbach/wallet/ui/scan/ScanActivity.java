@@ -149,6 +149,10 @@ public final class ScanActivity extends AbstractWalletActivity
             }
         });
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+                    WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+
         setContentView(R.layout.scan_activity);
         contentView = findViewById(android.R.id.content);
         scannerView = (ScannerView) findViewById(R.id.scan_activity_mask);
@@ -167,8 +171,6 @@ public final class ScanActivity extends AbstractWalletActivity
             final int x = intent.getIntExtra(INTENT_EXTRA_SCENE_TRANSITION_X, -1);
             final int y = intent.getIntExtra(INTENT_EXTRA_SCENE_TRANSITION_Y, -1);
             if (x != -1 || y != -1) {
-                getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-                        WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
                 OnFirstPreDraw.listen(contentView, new OnFirstPreDraw.Callback() {
                     @Override
                     public boolean onFirstPreDraw() {
