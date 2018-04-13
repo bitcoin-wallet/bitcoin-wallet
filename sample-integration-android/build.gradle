@@ -24,8 +24,6 @@ android {
 
     packagingOptions {
         exclude 'lib/x86_64/darwin/libscrypt.dylib'
-        exclude 'lib/x86_64/freebsd/libscrypt.so'
-        exclude 'lib/x86_64/linux/libscrypt.so'
         exclude 'com/google/thirdparty/publicsuffix/PublicSuffixPatterns.gwt.xml'
         exclude 'com/google/thirdparty/publicsuffix/PublicSuffixType.gwt.xml'
         exclude 'org/bitcoinj/crypto/mnemonic/wordlist/english.txt'
