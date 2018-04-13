@@ -52,6 +52,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Rect;
 import android.graphics.RectF;
@@ -151,6 +152,11 @@ public final class ScanActivity extends AbstractWalletActivity
             }
         });
 
+        // Stick to the orientation the activity was started with. We cannot declare this in the
+        // AndroidManifest.xml, because it's not allowed in combination with the windowIsTranslucent=true
+        // theme attribute.
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
+        // Draw under navigation and status bars.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
                     WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
@@ -233,6 +239,9 @@ public final class ScanActivity extends AbstractWalletActivity
 
         previewView.setSurfaceTextureListener(null);
 
+        // We're removing the requested orientation because if we don't, somehow the requested orientation is
+        // bleeding through to the calling activity, forcing it into a locked state until it is restarted.
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
         super.onDestroy();
     }
 
