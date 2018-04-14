@@ -15,6 +15,12 @@ android {
 
     lintOptions { abortOnError false }
 
+    defaultConfig {
+        dexOptions {
+            preDexLibraries false
+        }
+    }
+
     sourceSets {
         main {
             manifest.srcFile 'AndroidManifest.xml'
