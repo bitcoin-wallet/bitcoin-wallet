@@ -289,7 +289,7 @@ public final class ScanActivity extends AbstractWalletActivity
     public void onBackPressed() {
         scannerView.setVisibility(View.GONE);
         setResult(RESULT_CANCELED);
-        postFinish();
+        finish();
     }
 
     @Override
