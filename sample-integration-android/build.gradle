@@ -1,9 +1,11 @@
 apply plugin: 'com.android.application'
 
+configurations {
+    all*.exclude group: 'com.google.android', module: 'android'
+}
+
 dependencies {
-    compile(project(':integration-android')) {
-        exclude(group: 'com.google.android', module: 'android')
-    }
+    compile project(':integration-android')
     compile 'org.bitcoinj:bitcoinj-core:0.12.3'
 }
 
