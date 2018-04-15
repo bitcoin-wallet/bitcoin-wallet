@@ -69,6 +69,7 @@ import android.os.Process;
 import android.os.Vibrator;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.view.KeyEvent;
@@ -109,6 +110,10 @@ public final class ScanActivity extends AbstractWalletActivity
 
     public static void startForResult(final Activity activity, final int resultCode) {
         activity.startActivityForResult(new Intent(activity, ScanActivity.class), resultCode);
+    }
+
+    public static void startForResult(final Fragment fragment, final Activity activity, final int resultCode) {
+        fragment.startActivityForResult(new Intent(activity, ScanActivity.class), resultCode);
     }
 
     private static final long VIBRATE_DURATION = 50L;

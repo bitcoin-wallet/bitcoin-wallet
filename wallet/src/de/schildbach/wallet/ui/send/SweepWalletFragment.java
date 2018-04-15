@@ -310,7 +310,7 @@ public class SweepWalletFragment extends Fragment {
             return true;
 
         case R.id.sweep_wallet_options_scan:
-            ScanActivity.startForResult(activity, REQUEST_CODE_SCAN);
+            ScanActivity.startForResult(this, activity, REQUEST_CODE_SCAN);
             return true;
         }
 

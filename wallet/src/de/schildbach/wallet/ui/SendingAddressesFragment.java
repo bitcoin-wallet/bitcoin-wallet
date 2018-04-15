@@ -201,7 +201,7 @@ public final class SendingAddressesFragment extends FancyListFragment {
             return true;
 
         case R.id.sending_addresses_options_scan:
-            ScanActivity.startForResult(activity, REQUEST_CODE_SCAN);
+            ScanActivity.startForResult(this, activity, REQUEST_CODE_SCAN);
             return true;
         }
 

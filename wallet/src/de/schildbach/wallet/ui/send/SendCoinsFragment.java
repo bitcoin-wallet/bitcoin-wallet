@@ -671,7 +671,7 @@ public final class SendCoinsFragment extends Fragment {
     public boolean onOptionsItemSelected(final MenuItem item) {
         switch (item.getItemId()) {
         case R.id.send_coins_options_scan:
-            ScanActivity.startForResult(activity, REQUEST_CODE_SCAN);
+            ScanActivity.startForResult(this, activity, REQUEST_CODE_SCAN);
             return true;
 
         case R.id.send_coins_options_fee_category_economic:
