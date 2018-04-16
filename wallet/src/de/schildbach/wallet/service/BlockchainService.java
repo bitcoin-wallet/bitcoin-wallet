@@ -695,8 +695,8 @@ public class BlockchainService extends LifecycleService {
                     CrashReporter.saveBackgroundTrace(new RuntimeException(message), application.packageInfo());
                 }
 
-                log.info("starting peergroup");
                 peerGroup = new PeerGroup(Constants.NETWORK_PARAMETERS, blockChain);
+                log.info("creating {}", peerGroup);
                 peerGroup.setDownloadTxDependencies(0); // recursive implementation causes StackOverflowError
                 peerGroup.addWallet(wallet);
                 peerGroup.setUserAgent(Constants.USER_AGENT, application.packageInfo().versionName);
@@ -755,6 +755,7 @@ public class BlockchainService extends LifecycleService {
                 });
 
                 // start peergroup
+                log.info("starting {} asynchronously", peerGroup);
                 peerGroup.startAsync();
                 peerGroup.startBlockChainDownload(blockchainDownloadListener);
             }
@@ -762,10 +763,10 @@ public class BlockchainService extends LifecycleService {
             private void shutdown() {
                 final Wallet wallet = BlockchainService.this.wallet.getValue();
 
-                log.info("stopping peergroup");
                 peerGroup.removeDisconnectedEventListener(peerConnectivityListener);
                 peerGroup.removeConnectedEventListener(peerConnectivityListener);
                 peerGroup.removeWallet(wallet);
+                log.info("stopping {} asynchronously", peerGroup);
                 peerGroup.stopAsync();
                 peerGroup = null;
 
@@ -823,9 +824,9 @@ public class BlockchainService extends LifecycleService {
             peerGroup.removeDisconnectedEventListener(peerConnectivityListener);
             peerGroup.removeConnectedEventListener(peerConnectivityListener);
             peerGroup.removeWallet(wallet.getValue());
+            final Stopwatch watch = Stopwatch.createStarted();
             peerGroup.stop();
-
-            log.info("peergroup stopped");
+            log.info("stopped {} synchronously, blocked UI thread for {}", peerGroup, watch);
         }
 
         peerConnectivityListener.stop();
