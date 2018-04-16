@@ -824,9 +824,8 @@ public class BlockchainService extends LifecycleService {
             peerGroup.removeDisconnectedEventListener(peerConnectivityListener);
             peerGroup.removeConnectedEventListener(peerConnectivityListener);
             peerGroup.removeWallet(wallet.getValue());
-            final Stopwatch watch = Stopwatch.createStarted();
-            peerGroup.stop();
-            log.info("stopped {} synchronously, blocked UI thread for {}", peerGroup, watch);
+            peerGroup.stopAsync();
+            log.info("stopping {} asynchronously", peerGroup);
         }
 
         peerConnectivityListener.stop();
