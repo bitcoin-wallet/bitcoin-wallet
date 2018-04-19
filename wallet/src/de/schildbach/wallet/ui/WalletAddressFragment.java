@@ -92,7 +92,7 @@ public final class WalletAddressFragment extends Fragment {
                 final NfcAdapter nfcAdapter = WalletAddressFragment.this.nfcAdapter;
                 if (nfcAdapter != null)
                     nfcAdapter.setNdefPushMessage(createNdefMessage(bitcoinUri.toString()), activity);
-                ViewModelProviders.of(activity).get(WalletActivity.ViewModel.class).addressLoadingFinished();
+                ViewModelProviders.of(activity).get(WalletViewModel.class).addressLoadingFinished();
             }
         });
     }

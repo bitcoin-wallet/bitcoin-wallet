@@ -27,7 +27,6 @@ import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.R;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.data.PaymentIntent;
-import de.schildbach.wallet.data.WalletLiveData;
 import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.ui.InputParser.BinaryInputParser;
 import de.schildbach.wallet.ui.InputParser.StringInputParser;
@@ -49,9 +48,6 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.app.Activity;
-import android.app.Application;
-import android.arch.lifecycle.AndroidViewModel;
-import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
@@ -77,80 +73,9 @@ public final class WalletActivity extends AbstractWalletActivity {
     private WalletApplication application;
     private Handler handler = new Handler();
 
-    private ViewModel viewModel;
+    private WalletViewModel viewModel;
     private AnimatorSet enterAnimation;
     private View contentView;
-
-    public static enum EnterAnimationState {
-        WAITING, ANIMATING, FINISHED
-    }
-
-    public static class ViewModel extends AndroidViewModel implements OnFirstPreDraw.Callback {
-        private final WalletApplication application;
-        private WalletLiveData wallet;
-        private MutableLiveData<EnterAnimationState> enterAnimation;
-        private boolean doAnimation, globalLayoutFinished, balanceLoadingFinished, addressLoadingFinished,
-                transactionsLoadingFinished;
-
-        public ViewModel(final Application application) {
-            super(application);
-            this.application = (WalletApplication) application;
-        }
-
-        public WalletLiveData getWallet() {
-            if (wallet == null)
-                wallet = new WalletLiveData(application);
-            return wallet;
-        }
-
-        public MutableLiveData<EnterAnimationState> getEnterAnimation() {
-            if (enterAnimation == null)
-                enterAnimation = new MutableLiveData<>();
-            return enterAnimation;
-        }
-
-        public void animateWhenLoadingFinished() {
-            doAnimation = true;
-            maybeToggleState();
-        }
-
-        @Override
-        public boolean onFirstPreDraw() {
-            globalLayoutFinished = true;
-            maybeToggleState();
-            return true;
-        }
-
-        public void balanceLoadingFinished() {
-            balanceLoadingFinished = true;
-            maybeToggleState();
-        }
-
-        public void addressLoadingFinished() {
-            addressLoadingFinished = true;
-            maybeToggleState();
-        }
-
-        public void transactionsLoadingFinished() {
-            transactionsLoadingFinished = true;
-            maybeToggleState();
-        }
-
-        public void animationFinished() {
-            enterAnimation.setValue(EnterAnimationState.FINISHED);
-        }
-
-        private void maybeToggleState() {
-            final MutableLiveData<EnterAnimationState> enterAnimation = getEnterAnimation();
-            if (enterAnimation.getValue() == null) {
-                if (doAnimation && globalLayoutFinished)
-                    enterAnimation.setValue(EnterAnimationState.WAITING);
-            } else if (enterAnimation.getValue() == EnterAnimationState.WAITING) {
-                if (balanceLoadingFinished && addressLoadingFinished && transactionsLoadingFinished)
-                    enterAnimation.setValue(EnterAnimationState.ANIMATING);
-            }
-        }
-    }
 
     private static final int REQUEST_CODE_SCAN = 0;
 
@@ -160,27 +85,27 @@ public final class WalletActivity extends AbstractWalletActivity {
         application = getWalletApplication();
         final Configuration config = application.getConfiguration();
 
-        viewModel = ViewModelProviders.of(this).get(ViewModel.class);
+        viewModel = ViewModelProviders.of(this).get(WalletViewModel.class);
 
         setContentView(R.layout.wallet_content);
         contentView = findViewById(android.R.id.content);
         OnFirstPreDraw.listen(contentView, viewModel);
         enterAnimation = buildEnterAnimation(contentView);
 
-        viewModel.getWallet().observe(this, new Observer<Wallet>() {
+        viewModel.wallet.observe(this, new Observer<Wallet>() {
             @Override
             public void onChanged(final Wallet wallet) {
                 invalidateOptionsMenu();
             }
         });
-        viewModel.getEnterAnimation().observe(this, new Observer<EnterAnimationState>() {
+        viewModel.enterAnimation.observe(this, new Observer<WalletViewModel.EnterAnimationState>() {
             @Override
-            public void onChanged(final EnterAnimationState state) {
-                if (state == EnterAnimationState.WAITING) {
+            public void onChanged(final WalletViewModel.EnterAnimationState state) {
+                if (state == WalletViewModel.EnterAnimationState.WAITING) {
                     // API level 26: enterAnimation.setCurrentPlayTime(0);
                     for (final Animator animation : enterAnimation.getChildAnimations())
                         ((ValueAnimator) animation).setCurrentPlayTime(0);
-                } else if (state == EnterAnimationState.ANIMATING) {
+                } else if (state == WalletViewModel.EnterAnimationState.ANIMATING) {
                     reportFullyDrawn();
                     enterAnimation.start();
                     enterAnimation.addListener(new AnimatorListenerAdapter() {
@@ -189,7 +114,7 @@ public final class WalletActivity extends AbstractWalletActivity {
                             viewModel.animationFinished();
                         }
                     });
-                } else if (state == EnterAnimationState.FINISHED) {
+                } else if (state == WalletViewModel.EnterAnimationState.FINISHED) {
                     getWindow().getDecorView().setBackground(null);
                 }
             }
@@ -427,7 +352,7 @@ public final class WalletActivity extends AbstractWalletActivity {
                         || Environment.MEDIA_MOUNTED_READ_ONLY.equals(externalStorageState));
         menu.findItem(R.id.wallet_options_backup_wallet)
                 .setEnabled(Environment.MEDIA_MOUNTED.equals(externalStorageState));
-        final Wallet wallet = viewModel.getWallet().getValue();
+        final Wallet wallet = viewModel.wallet.getValue();
         if (wallet != null) {
             final MenuItem encryptKeysOption = menu.findItem(R.id.wallet_options_encrypt_keys);
             encryptKeysOption.setTitle(wallet.isEncrypted() ? R.string.wallet_options_encrypt_keys_change
