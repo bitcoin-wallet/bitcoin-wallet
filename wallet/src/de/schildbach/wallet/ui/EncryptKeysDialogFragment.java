@@ -34,6 +34,7 @@ import de.schildbach.wallet.util.WalletUtils;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnShowListener;
@@ -280,6 +281,8 @@ public class EncryptKeysDialogFragment extends DialogFragment {
 
                         if (state == State.DONE) {
                             WalletUtils.autoBackupWallet(activity, wallet);
+                            // trigger load manually because of missing callbacks for encryption state
+                            ViewModelProviders.of(activity).get(WalletViewModel.class).walletEncrypted.load();
                             delayedDismiss();
                         }
                     }

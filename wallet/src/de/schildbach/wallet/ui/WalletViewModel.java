@@ -17,13 +17,17 @@
 
 package de.schildbach.wallet.ui;
 
+import org.bitcoinj.wallet.Wallet;
+
+import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.data.WalletLiveData;
+import de.schildbach.wallet.data.AbstractWalletLiveData;
 import de.schildbach.wallet.util.OnFirstPreDraw;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.MutableLiveData;
+import android.os.AsyncTask;
 
 /**
  * @author Andreas Schildbach
@@ -34,7 +38,7 @@ public class WalletViewModel extends AndroidViewModel implements OnFirstPreDraw.
     }
 
     private final WalletApplication application;
-    public final WalletLiveData wallet;
+    public final WalletEncryptedLiveData walletEncrypted;
     public final MutableLiveData<EnterAnimationState> enterAnimation = new MutableLiveData<>();
     private boolean doAnimation, globalLayoutFinished, balanceLoadingFinished, addressLoadingFinished,
             transactionsLoadingFinished;
@@ -42,7 +46,7 @@ public class WalletViewModel extends AndroidViewModel implements OnFirstPreDraw.
     public WalletViewModel(final Application application) {
         super(application);
         this.application = (WalletApplication) application;
-        this.wallet = new WalletLiveData(this.application);
+        this.walletEncrypted = new WalletEncryptedLiveData(this.application);
     }
 
     public void animateWhenLoadingFinished() {
@@ -83,6 +87,29 @@ public class WalletViewModel extends AndroidViewModel implements OnFirstPreDraw.
         } else if (enterAnimation.getValue() == EnterAnimationState.WAITING) {
             if (balanceLoadingFinished && addressLoadingFinished && transactionsLoadingFinished)
                 enterAnimation.setValue(EnterAnimationState.ANIMATING);
+        }
+    }
+
+    public static class WalletEncryptedLiveData extends AbstractWalletLiveData<Boolean> {
+        public WalletEncryptedLiveData(final WalletApplication application) {
+            super(application);
+        }
+
+        @Override
+        protected void onWalletActive(final Wallet wallet) {
+            load();
+        }
+
+        @Override
+        protected void load() {
+            final Wallet wallet = getWallet();
+            AsyncTask.execute(new Runnable() {
+                @Override
+                public void run() {
+                    org.bitcoinj.core.Context.propagate(Constants.CONTEXT);
+                    postValue(wallet.isEncrypted());
+                }
+            });
         }
     }
 }

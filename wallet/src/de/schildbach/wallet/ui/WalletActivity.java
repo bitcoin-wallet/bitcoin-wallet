@@ -20,7 +20,6 @@ package de.schildbach.wallet.ui;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.VerificationException;
 import org.bitcoinj.core.VersionedChecksummedBytes;
-import org.bitcoinj.wallet.Wallet;
 
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
@@ -92,9 +91,9 @@ public final class WalletActivity extends AbstractWalletActivity {
         OnFirstPreDraw.listen(contentView, viewModel);
         enterAnimation = buildEnterAnimation(contentView);
 
-        viewModel.wallet.observe(this, new Observer<Wallet>() {
+        viewModel.walletEncrypted.observe(this, new Observer<Boolean>() {
             @Override
-            public void onChanged(final Wallet wallet) {
+            public void onChanged(final Boolean isEncrypted) {
                 invalidateOptionsMenu();
             }
         });
@@ -352,10 +351,10 @@ public final class WalletActivity extends AbstractWalletActivity {
                         || Environment.MEDIA_MOUNTED_READ_ONLY.equals(externalStorageState));
         menu.findItem(R.id.wallet_options_backup_wallet)
                 .setEnabled(Environment.MEDIA_MOUNTED.equals(externalStorageState));
-        final Wallet wallet = viewModel.wallet.getValue();
-        if (wallet != null) {
+        final Boolean isEncrypted = viewModel.walletEncrypted.getValue();
+        if (isEncrypted != null) {
             final MenuItem encryptKeysOption = menu.findItem(R.id.wallet_options_encrypt_keys);
-            encryptKeysOption.setTitle(wallet.isEncrypted() ? R.string.wallet_options_encrypt_keys_change
+            encryptKeysOption.setTitle(isEncrypted ? R.string.wallet_options_encrypt_keys_change
                     : R.string.wallet_options_encrypt_keys_set);
             encryptKeysOption.setVisible(true);
         }
