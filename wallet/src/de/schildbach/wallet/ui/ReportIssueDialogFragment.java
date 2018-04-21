@@ -40,6 +40,7 @@ import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.util.Bluetooth;
 import de.schildbach.wallet.util.CrashReporter;
 
+import android.annotation.TargetApi;
 import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -261,8 +262,10 @@ public class ReportIssueDialogFragment extends DialogFragment {
         report.append("Android Version: " + Build.VERSION.RELEASE + "\n");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
             report.append("Android security patch level: ").append(Build.VERSION.SECURITY_PATCH).append("\n");
-        report.append("ABIs: ").append(Joiner.on(", ").skipNulls().join(Strings.emptyToNull(Build.CPU_ABI),
-                Strings.emptyToNull(Build.CPU_ABI2))).append("\n");
+        report.append("ABIs: ")
+                .append(Joiner.on(", ").skipNulls().join(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP
+                        ? supportedAbisLollipop() : supportedAbisKitKat()))
+                .append("\n");
         report.append("Board: " + Build.BOARD + "\n");
         report.append("Brand: " + Build.BRAND + "\n");
         report.append("Device: " + Build.DEVICE + "\n");
@@ -294,5 +297,15 @@ public class ReportIssueDialogFragment extends DialogFragment {
         } catch (final Exception x) {
             return x.getMessage();
         }
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private static String[] supportedAbisLollipop() {
+        return Build.SUPPORTED_ABIS;
+    }
+
+    @SuppressWarnings("deprecation")
+    private static String[] supportedAbisKitKat() {
+        return new String[] { Strings.emptyToNull(Build.CPU_ABI), Strings.emptyToNull(Build.CPU_ABI2) };
     }
 }
