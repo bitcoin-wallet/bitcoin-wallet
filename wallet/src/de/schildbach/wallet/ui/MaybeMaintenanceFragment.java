@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2015 the original author or authors.
+ * Copyright the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,22 +17,8 @@
 
 package de.schildbach.wallet.ui;
 
-import java.util.List;
-
-import org.bitcoinj.core.Transaction;
-import org.bitcoinj.wallet.DeterministicUpgradeRequiresPassword;
-import org.bitcoinj.wallet.Wallet;
-
-import com.google.common.util.concurrent.ListenableFuture;
-
-import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.data.BlockchainStateLiveData;
-import de.schildbach.wallet.data.WalletLiveData;
-import de.schildbach.wallet.service.BlockchainState;
 import de.schildbach.wallet.ui.send.MaintenanceDialogFragment;
 
-import android.app.Application;
-import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
@@ -53,77 +39,20 @@ public class MaybeMaintenanceFragment extends Fragment {
         }
     }
 
-    private ViewModel viewModel;
-
-    public static class ViewModel extends AndroidViewModel {
-        private final WalletApplication application;
-        private WalletLiveData wallet;
-        private BlockchainStateLiveData blockchainState;
-        private boolean dialogWasShown = false;
-
-        public ViewModel(final Application application) {
-            super(application);
-            this.application = (WalletApplication) application;
-        }
-
-        public WalletLiveData getWallet() {
-            if (wallet == null)
-                wallet = new WalletLiveData(application);
-            return wallet;
-        }
-
-        public BlockchainStateLiveData getBlockchainState() {
-            if (blockchainState == null)
-                blockchainState = new BlockchainStateLiveData(application);
-            return blockchainState;
-        }
-
-        public void setDialogWasShown() {
-            dialogWasShown = true;
-        }
-
-        public boolean getDialogWasShown() {
-            return dialogWasShown;
-        }
-    }
+    private MaybeMaintenanceViewModel viewModel;
 
     @Override
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        viewModel = ViewModelProviders.of(this).get(ViewModel.class);
-        viewModel.getWallet().observe(this, new Observer<Wallet>() {
+        viewModel = ViewModelProviders.of(this).get(MaybeMaintenanceViewModel.class);
+        viewModel.showDialog.observe(this, new Observer<Void>() {
             @Override
-            public void onChanged(final Wallet wallet) {
-                maybeShowDialog();
+            public void onChanged(final Void v) {
+                if (!viewModel.getDialogWasShown()) {
+                    MaintenanceDialogFragment.show(getFragmentManager());
+                    viewModel.setDialogWasShown();
+                }
             }
         });
-        viewModel.getBlockchainState().observe(this, new Observer<BlockchainState>() {
-            @Override
-            public void onChanged(final BlockchainState blockchainState) {
-                maybeShowDialog();
-            }
-        });
-    }
-
-    private void maybeShowDialog() {
-        if (viewModel.getDialogWasShown())
-            return;
-        final Wallet wallet = viewModel.getWallet().getValue();
-        final BlockchainState blockchainState = viewModel.getBlockchainState().getValue();
-        if (blockchainState != null && !blockchainState.replaying && wallet != null && maintenanceRecommended(wallet)) {
-            MaintenanceDialogFragment.show(getFragmentManager());
-            viewModel.setDialogWasShown();
-        }
-    }
-
-    private boolean maintenanceRecommended(final Wallet wallet) {
-        try {
-            final ListenableFuture<List<Transaction>> result = wallet.doMaintenance(null, false);
-            return !result.get().isEmpty();
-        } catch (final DeterministicUpgradeRequiresPassword x) {
-            return true;
-        } catch (final Exception x) {
-            throw new RuntimeException(x);
-        }
     }
 }
