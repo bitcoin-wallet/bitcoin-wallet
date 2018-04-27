@@ -1,3 +1,7 @@
+v6.23
+
+* Update build to Gradle 3.3+ and Android Plugin for Gradle 2.3.3.
+
 v6.20-v6.22
 
 * Bugfixes.
