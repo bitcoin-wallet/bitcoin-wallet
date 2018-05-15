@@ -72,7 +72,8 @@ import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.R;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.WalletBalanceWidgetProvider;
-import de.schildbach.wallet.data.AddressBookProvider;
+import de.schildbach.wallet.data.AddressBookDao;
+import de.schildbach.wallet.data.AppDatabase;
 import de.schildbach.wallet.data.ExchangeRate;
 import de.schildbach.wallet.data.ExchangeRateLiveData;
 import de.schildbach.wallet.data.TimeLiveData;
@@ -114,6 +115,7 @@ import android.text.format.DateUtils;
 public class BlockchainService extends LifecycleService {
     private WalletApplication application;
     private Configuration config;
+    private AddressBookDao addressBookDao;
     private WalletLiveData wallet;
 
     private BlockStore blockStore;
@@ -274,7 +276,7 @@ public class BlockchainService extends LifecycleService {
                 if (text.length() > 0)
                     text.append(", ");
                 final String addressStr = notificationAddress.toBase58();
-                final String label = AddressBookProvider.resolveLabel(getApplicationContext(), addressStr);
+                final String label = addressBookDao.resolveLabel(addressStr);
                 text.append(label != null ? label : addressStr);
             }
             summaryNotification.setContentText(text);
@@ -295,7 +297,7 @@ public class BlockchainService extends LifecycleService {
         childNotification.setContentTitle(msg);
         if (address != null) {
             final String addressStr = address.toBase58();
-            final String addressLabel = AddressBookProvider.resolveLabel(getApplicationContext(), addressStr);
+            final String addressLabel = addressBookDao.resolveLabel(addressStr);
             if (addressLabel != null)
                 childNotification.setContentText(addressLabel);
             else
@@ -504,6 +506,7 @@ public class BlockchainService extends LifecycleService {
         wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, getClass().getName());
         application = (WalletApplication) getApplication();
         config = application.getConfiguration();
+        addressBookDao = AppDatabase.getDatabase(application).addressBookDao();
         blockChainFile = new File(getDir("blockstore", Context.MODE_PRIVATE), Constants.Files.BLOCKCHAIN_FILENAME);
 
         peerConnectivityListener = new PeerConnectivityListener();

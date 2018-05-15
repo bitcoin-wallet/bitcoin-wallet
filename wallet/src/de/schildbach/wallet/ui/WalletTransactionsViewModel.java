@@ -42,12 +42,14 @@ import org.bitcoinj.wallet.listeners.WalletReorganizeEventListener;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.data.AbstractWalletLiveData;
-import de.schildbach.wallet.data.AddressBookLiveData;
+import de.schildbach.wallet.data.AddressBookEntry;
+import de.schildbach.wallet.data.AppDatabase;
 import de.schildbach.wallet.data.ConfigFormatLiveData;
 import de.schildbach.wallet.data.WalletLiveData;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
+import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MediatorLiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Observer;
@@ -65,7 +67,7 @@ public class WalletTransactionsViewModel extends AndroidViewModel {
     public final TransactionsLiveData transactions;
     public final WalletLiveData wallet;
     private final TransactionsConfidenceLiveData transactionsConfidence;
-    private final AddressBookLiveData addressBook;
+    private final LiveData<List<AddressBookEntry>> addressBook;
     private final ConfigFormatLiveData configFormat;
     public final MutableLiveData<Direction> direction = new MutableLiveData<>();
     private final MutableLiveData<Sha256Hash> selectedTransaction = new MutableLiveData<>();
@@ -78,7 +80,7 @@ public class WalletTransactionsViewModel extends AndroidViewModel {
         this.transactions = new TransactionsLiveData(this.application);
         this.wallet = new WalletLiveData(this.application);
         this.transactionsConfidence = new TransactionsConfidenceLiveData(this.application);
-        this.addressBook = new AddressBookLiveData(this.application);
+        this.addressBook = AppDatabase.getDatabase(this.application).addressBookDao().getAll();
         this.configFormat = new ConfigFormatLiveData(this.application);
         this.list.addSource(transactions, new Observer<Set<Transaction>>() {
             @Override
@@ -98,9 +100,9 @@ public class WalletTransactionsViewModel extends AndroidViewModel {
                 maybePostList();
             }
         });
-        this.list.addSource(addressBook, new Observer<Map<String, String>>() {
+        this.list.addSource(addressBook, new Observer<List<AddressBookEntry>>() {
             @Override
-            public void onChanged(final Map<String, String> addressBook) {
+            public void onChanged(final List<AddressBookEntry> addressBook) {
                 maybePostList();
             }
         });
@@ -147,7 +149,8 @@ public class WalletTransactionsViewModel extends AndroidViewModel {
                 org.bitcoinj.core.Context.propagate(Constants.CONTEXT);
                 final Set<Transaction> transactions = WalletTransactionsViewModel.this.transactions.getValue();
                 final MonetaryFormat format = configFormat.getValue();
-                final Map<String, String> addressBook = WalletTransactionsViewModel.this.addressBook.getValue();
+                final Map<String, AddressBookEntry> addressBook = AddressBookEntry
+                        .asMap(WalletTransactionsViewModel.this.addressBook.getValue());
                 if (transactions != null && format != null && addressBook != null) {
                     final List<Transaction> filteredTransactions = new ArrayList<Transaction>(transactions.size());
                     final Wallet wallet = application.getWallet();

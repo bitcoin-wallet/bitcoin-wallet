@@ -17,6 +17,7 @@
 
 package de.schildbach.wallet.ui;
 
+import java.util.List;
 import java.util.Set;
 
 import org.bitcoinj.core.Address;
@@ -31,7 +32,9 @@ import org.slf4j.LoggerFactory;
 
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.R;
-import de.schildbach.wallet.data.AddressBookProvider;
+import de.schildbach.wallet.data.AddressBookDao;
+import de.schildbach.wallet.data.AddressBookEntry;
+import de.schildbach.wallet.data.AppDatabase;
 import de.schildbach.wallet.data.PaymentIntent;
 import de.schildbach.wallet.ui.InputParser.StringInputParser;
 import de.schildbach.wallet.ui.scan.ScanActivity;
@@ -49,18 +52,18 @@ import android.content.ClipDescription;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.ActionMode;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
-import android.widget.SimpleCursorAdapter.ViewBinder;
 import android.widget.TextView;
 
 /**
@@ -68,9 +71,10 @@ import android.widget.TextView;
  */
 public final class SendingAddressesFragment extends FancyListFragment {
     private AbstractWalletActivity activity;
+    private AddressBookDao addressBookDao;
     private final Handler handler = new Handler();
 
-    private SimpleCursorAdapter adapter;
+    private ArrayAdapter<AddressBookEntry> adapter;
 
     private SendingAddressesViewModel viewModel;
 
@@ -82,6 +86,7 @@ public final class SendingAddressesFragment extends FancyListFragment {
     public void onAttach(final Context context) {
         super.onAttach(context);
         this.activity = (AbstractWalletActivity) context;
+        this.addressBookDao = AppDatabase.getDatabase(context).addressBookDao();
     }
 
     @Override
@@ -96,18 +101,20 @@ public final class SendingAddressesFragment extends FancyListFragment {
                 activity.invalidateOptionsMenu();
             }
         });
-        viewModel.addressBook.observe(this, new Observer<Cursor>() {
+        viewModel.addressesToExclude.observe(this, new Observer<Set<String>>() {
             @Override
-            public void onChanged(final Cursor addressBook) {
-                adapter.swapCursor(addressBook);
-                setEmptyText(WholeStringBuilder.bold(getString(R.string.address_book_empty_text)));
-            }
-        });
-        viewModel.addressesToExclude.observe(this, new Observer<Set<Address>>() {
-            @Override
-            public void onChanged(final Set<Address> addressesToExclude) {
-                viewModel.addressBook.setWalletAddressesSelection(viewModel.addressesToExclude.commaSeparated());
-
+            public void onChanged(final Set<String> addressesToExclude) {
+                viewModel.addressBook = addressBookDao.getAllExcept(addressesToExclude);
+                viewModel.addressBook.observe(SendingAddressesFragment.this, new Observer<List<AddressBookEntry>>() {
+                    @Override
+                    public void onChanged(final List<AddressBookEntry> addressBook) {
+                        adapter.setNotifyOnChange(false);
+                        adapter.clear();
+                        adapter.addAll(addressBook);
+                        adapter.notifyDataSetChanged();
+                        setEmptyText(WholeStringBuilder.bold(getString(R.string.address_book_empty_text)));
+                    }
+                });
             }
         });
         viewModel.clip.observe(this, new Observer<ClipData>() {
@@ -117,19 +124,18 @@ public final class SendingAddressesFragment extends FancyListFragment {
             }
         });
 
-        adapter = new SimpleCursorAdapter(activity, R.layout.address_book_row, null,
-                new String[] { AddressBookProvider.KEY_LABEL, AddressBookProvider.KEY_ADDRESS },
-                new int[] { R.id.address_book_row_label, R.id.address_book_row_address }, 0);
-        adapter.setViewBinder(new ViewBinder() {
+        adapter = new ArrayAdapter<AddressBookEntry>(activity, 0) {
             @Override
-            public boolean setViewValue(final View view, final Cursor cursor, final int columnIndex) {
-                if (!AddressBookProvider.KEY_ADDRESS.equals(cursor.getColumnName(columnIndex)))
-                    return false;
-                ((TextView) view).setText(WalletUtils.formatHash(cursor.getString(columnIndex),
-                        Constants.ADDRESS_FORMAT_GROUP_SIZE, Constants.ADDRESS_FORMAT_LINE_SIZE));
-                return true;
+            public View getView(final int position, View view, final ViewGroup parent) {
+                if (view == null)
+                    view = LayoutInflater.from(activity).inflate(R.layout.address_book_row, parent, false);
+                final AddressBookEntry entry = getItem(position);
+                ((TextView) view.findViewById(R.id.address_book_row_label)).setText(entry.getLabel());
+                ((TextView) view.findViewById(R.id.address_book_row_address)).setText(WalletUtils.formatHash(
+                        entry.getAddress(), Constants.ADDRESS_FORMAT_GROUP_SIZE, Constants.ADDRESS_FORMAT_LINE_SIZE));
+                return view;
             }
-        });
+        };
         setListAdapter(adapter);
     }
 
@@ -289,13 +295,11 @@ public final class SendingAddressesFragment extends FancyListFragment {
             }
 
             private String getAddress(final int position) {
-                final Cursor cursor = (Cursor) adapter.getItem(position);
-                return cursor.getString(cursor.getColumnIndexOrThrow(AddressBookProvider.KEY_ADDRESS));
+                return adapter.getItem(position).getAddress();
             }
 
             private String getLabel(final int position) {
-                final Cursor cursor = (Cursor) adapter.getItem(position);
-                return cursor.getString(cursor.getColumnIndexOrThrow(AddressBookProvider.KEY_LABEL));
+                return adapter.getItem(position).getLabel();
             }
         });
     }
@@ -305,9 +309,7 @@ public final class SendingAddressesFragment extends FancyListFragment {
     }
 
     private void handleRemove(final String address) {
-        final Uri uri = AddressBookProvider.contentUri(activity.getPackageName()).buildUpon().appendPath(address)
-                .build();
-        activity.getContentResolver().delete(uri, null, null);
+        addressBookDao.delete(address);
     }
 
     private void handleShowQr(final String address, final String label) {

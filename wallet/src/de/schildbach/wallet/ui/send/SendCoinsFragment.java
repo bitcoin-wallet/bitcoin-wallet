@@ -20,6 +20,7 @@ package de.schildbach.wallet.ui.send;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -49,13 +50,14 @@ import org.slf4j.LoggerFactory;
 import org.spongycastle.crypto.params.KeyParameter;
 
 import com.google.common.base.Joiner;
-import com.google.common.base.Strings;
 
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.R;
 import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.data.AddressBookProvider;
+import de.schildbach.wallet.data.AddressBookDao;
+import de.schildbach.wallet.data.AddressBookEntry;
+import de.schildbach.wallet.data.AppDatabase;
 import de.schildbach.wallet.data.ExchangeRate;
 import de.schildbach.wallet.data.PaymentIntent;
 import de.schildbach.wallet.data.PaymentIntent.Standard;
@@ -79,7 +81,6 @@ import de.schildbach.wallet.util.Nfc;
 import de.schildbach.wallet.util.WalletUtils;
 
 import android.app.Activity;
-import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.bluetooth.BluetoothAdapter;
@@ -89,7 +90,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.nfc.NdefMessage;
@@ -100,8 +100,6 @@ import android.os.HandlerThread;
 import android.os.Process;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.content.CursorLoader;
-import android.support.v4.content.Loader;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -114,13 +112,14 @@ import android.view.View.OnFocusChangeListener;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
-import android.widget.CursorAdapter;
 import android.widget.EditText;
+import android.widget.Filter;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
@@ -131,6 +130,7 @@ public final class SendCoinsFragment extends Fragment {
     private AbstractWalletActivity activity;
     private WalletApplication application;
     private Configuration config;
+    private AddressBookDao addressBookDao;
     private ContentResolver contentResolver;
     private FragmentManager fragmentManager;
     @Nullable
@@ -182,11 +182,11 @@ public final class SendCoinsFragment extends Fragment {
 
         @Override
         public void afterTextChanged(final Editable s) {
-            if (s.length() > 0)
+            final String constraint = s.toString().trim();
+            if (!constraint.isEmpty())
                 validateReceivingAddress();
             else
                 updateView();
-            viewModel.receivingAddresses.setConstraint(s.toString());
         }
 
         @Override
@@ -199,12 +199,10 @@ public final class SendCoinsFragment extends Fragment {
 
         @Override
         public void onItemClick(final AdapterView<?> parent, final View view, final int position, final long id) {
-            final Cursor cursor = receivingAddressViewAdapter.getCursor();
-            cursor.moveToPosition(position);
-            final String address = cursor.getString(cursor.getColumnIndexOrThrow(AddressBookProvider.KEY_ADDRESS));
-            final String label = cursor.getString(cursor.getColumnIndexOrThrow(AddressBookProvider.KEY_LABEL));
+            final AddressBookEntry entry = receivingAddressViewAdapter.getItem(position);
             try {
-                viewModel.validatedAddress = new AddressAndLabel(Constants.NETWORK_PARAMETERS, address, label);
+                viewModel.validatedAddress = new AddressAndLabel(Constants.NETWORK_PARAMETERS, entry.getAddress(),
+                        entry.getLabel());
                 receivingAddressView.setText(null);
                 log.info("Picked valid address from suggestions: {}", viewModel.validatedAddress);
             } catch (final AddressFormatException x) {
@@ -292,64 +290,52 @@ public final class SendCoinsFragment extends Fragment {
         }
     };
 
-    static class ReceivingAddressesLiveData extends LiveData<Cursor> implements Loader.OnLoadCompleteListener<Cursor> {
-        private final CursorLoader loader;
+    private final class ReceivingAddressViewAdapter extends ArrayAdapter<AddressBookEntry> {
+        private final LayoutInflater inflater;
 
-        public ReceivingAddressesLiveData(final WalletApplication application) {
-            this.loader = new CursorLoader(application, AddressBookProvider.contentUri(application.getPackageName()),
-                    null, AddressBookProvider.SELECTION_QUERY, new String[] { "" }, null);
-        }
-
-        @Override
-        protected void onActive() {
-            loader.registerListener(0, this);
-            loader.startLoading();
-        }
-
-        @Override
-        protected void onInactive() {
-            loader.stopLoading();
-            loader.unregisterListener(this);
-        }
-
-        @Override
-        public void onLoadComplete(final Loader<Cursor> loader, final Cursor cursor) {
-            setValue(cursor);
-        }
-
-        public void setConstraint(final String constraint) {
-            loader.setSelectionArgs(new String[] { Strings.nullToEmpty(constraint) });
-            loader.forceLoad();
-        }
-    }
-
-    private final class ReceivingAddressViewAdapter extends CursorAdapter {
         public ReceivingAddressViewAdapter(final Context context) {
-            super(context, null, false);
+            super(context, 0);
+            this.inflater = LayoutInflater.from(context);
         }
 
         @Override
-        public View newView(final Context context, final Cursor cursor, final ViewGroup parent) {
-            final LayoutInflater inflater = LayoutInflater.from(context);
-            return inflater.inflate(R.layout.address_book_row, parent, false);
+        public View getView(final int position, View view, final ViewGroup parent) {
+            if (view == null)
+                view = inflater.inflate(R.layout.address_book_row, parent, false);
+            final AddressBookEntry entry = getItem(position);
+            ((TextView) view.findViewById(R.id.address_book_row_label)).setText(entry.getLabel());
+            ((TextView) view.findViewById(R.id.address_book_row_address)).setText(WalletUtils.formatHash(
+                    entry.getAddress(), Constants.ADDRESS_FORMAT_GROUP_SIZE, Constants.ADDRESS_FORMAT_LINE_SIZE));
+            return view;
         }
 
         @Override
-        public void bindView(final View view, final Context context, final Cursor cursor) {
-            final String label = cursor.getString(cursor.getColumnIndexOrThrow(AddressBookProvider.KEY_LABEL));
-            final String address = cursor.getString(cursor.getColumnIndexOrThrow(AddressBookProvider.KEY_ADDRESS));
+        public Filter getFilter() {
+            return new Filter() {
+                @Override
+                protected FilterResults performFiltering(final CharSequence constraint) {
+                    final String trimmedConstraint = constraint.toString().trim();
+                    final FilterResults results = new FilterResults();
+                    if (viewModel.validatedAddress == null && !trimmedConstraint.isEmpty()) {
+                        final List<AddressBookEntry> entries = addressBookDao.get(trimmedConstraint);
+                        results.values = entries;
+                        results.count = entries.size();
+                    } else {
+                        results.values = Collections.emptyList();
+                        results.count = 0;
+                    }
+                    return results;
+                }
 
-            final ViewGroup viewGroup = (ViewGroup) view;
-            final TextView labelView = (TextView) viewGroup.findViewById(R.id.address_book_row_label);
-            labelView.setText(label);
-            final TextView addressView = (TextView) viewGroup.findViewById(R.id.address_book_row_address);
-            addressView.setText(WalletUtils.formatHash(address, Constants.ADDRESS_FORMAT_GROUP_SIZE,
-                    Constants.ADDRESS_FORMAT_LINE_SIZE));
-        }
-
-        @Override
-        public CharSequence convertToString(final Cursor cursor) {
-            return cursor.getString(cursor.getColumnIndexOrThrow(AddressBookProvider.KEY_ADDRESS));
+                @Override
+                protected void publishResults(final CharSequence constraint, final FilterResults results) {
+                    setNotifyOnChange(false);
+                    clear();
+                    if (results.count > 0)
+                        addAll((List<AddressBookEntry>) results.values);
+                    notifyDataSetChanged();
+                }
+            };
         }
     }
 
@@ -366,6 +352,7 @@ public final class SendCoinsFragment extends Fragment {
         this.activity = (AbstractWalletActivity) context;
         this.application = activity.getWalletApplication();
         this.config = application.getConfiguration();
+        this.addressBookDao = AppDatabase.getDatabase(context).addressBookDao();
         this.contentResolver = application.getContentResolver();
         this.fragmentManager = getFragmentManager();
     }
@@ -382,15 +369,9 @@ public final class SendCoinsFragment extends Fragment {
                 updateView();
             }
         });
-        viewModel.receivingAddresses.observe(this, new Observer<Cursor>() {
+        viewModel.addressBook.observe(this, new Observer<List<AddressBookEntry>>() {
             @Override
-            public void onChanged(final Cursor cursor) {
-                receivingAddressViewAdapter.swapCursor(cursor);
-            }
-        });
-        viewModel.addressBook.observe(this, new Observer<Map<String, String>>() {
-            @Override
-            public void onChanged(final Map<String, String> addressBook) {
+            public void onChanged(final List<AddressBookEntry> addressBook) {
                 updateView();
             }
         });
@@ -697,7 +678,7 @@ public final class SendCoinsFragment extends Fragment {
             final String addressStr = receivingAddressView.getText().toString().trim();
             if (!addressStr.isEmpty()
                     && Constants.NETWORK_PARAMETERS.equals(Address.getParametersFromAddress(addressStr))) {
-                final String label = AddressBookProvider.resolveLabel(activity, addressStr);
+                final String label = addressBookDao.resolveLabel(addressStr);
                 viewModel.validatedAddress = new AddressAndLabel(Constants.NETWORK_PARAMETERS, addressStr, label);
                 receivingAddressView.setText(null);
                 log.info("Locked to valid address: {}", viewModel.validatedAddress);
@@ -1024,7 +1005,7 @@ public final class SendCoinsFragment extends Fragment {
         final Wallet wallet = viewModel.wallet.getValue();
         final Map<FeeCategory, Coin> fees = viewModel.dynamicFees.getValue();
         final BlockchainState blockchainState = viewModel.blockchainState.getValue();
-        final Map<String, String> addressBook = viewModel.addressBook.getValue();
+        final Map<String, AddressBookEntry> addressBook = AddressBookEntry.asMap(viewModel.addressBook.getValue());
 
         if (viewModel.paymentIntent != null) {
             final MonetaryFormat btcFormat = config.getFormat();
@@ -1067,8 +1048,8 @@ public final class SendCoinsFragment extends Fragment {
 
                 receivingStaticAddressView.setText(WalletUtils.formatAddress(viewModel.validatedAddress.address,
                         Constants.ADDRESS_FORMAT_GROUP_SIZE, Constants.ADDRESS_FORMAT_LINE_SIZE));
-                final String addressBookLabel = AddressBookProvider.resolveLabel(activity,
-                        viewModel.validatedAddress.address.toBase58());
+                final String addressBookLabel = addressBookDao
+                        .resolveLabel(viewModel.validatedAddress.address.toBase58());
                 final String staticLabel;
                 if (addressBookLabel != null)
                     staticLabel = addressBookLabel;

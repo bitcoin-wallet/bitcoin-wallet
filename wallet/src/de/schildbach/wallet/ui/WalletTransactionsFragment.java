@@ -33,7 +33,8 @@ import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.R;
 import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.data.AddressBookProvider;
+import de.schildbach.wallet.data.AddressBookDao;
+import de.schildbach.wallet.data.AppDatabase;
 import de.schildbach.wallet.ui.TransactionsAdapter.ListItem;
 import de.schildbach.wallet.ui.send.RaiseFeeDialogFragment;
 import de.schildbach.wallet.util.Qr;
@@ -73,6 +74,7 @@ public class WalletTransactionsFragment extends Fragment implements Transactions
     private AbstractWalletActivity activity;
     private WalletApplication application;
     private Configuration config;
+    private AddressBookDao addressBookDao;
     private DevicePolicyManager devicePolicyManager;
 
     private ViewAnimator viewGroup;
@@ -94,6 +96,7 @@ public class WalletTransactionsFragment extends Fragment implements Transactions
         this.activity = (AbstractWalletActivity) context;
         this.application = activity.getWalletApplication();
         this.config = application.getConfiguration();
+        this.addressBookDao = AppDatabase.getDatabase(context).addressBookDao();
         this.devicePolicyManager = (DevicePolicyManager) application.getSystemService(Context.DEVICE_POLICY_SERVICE);
     }
 
@@ -244,7 +247,7 @@ public class WalletTransactionsFragment extends Fragment implements Transactions
                 .findItem(R.id.wallet_transactions_context_edit_address);
         if (!txRotation && txAddress != null) {
             editAddressMenuItem.setVisible(true);
-            final boolean isAdd = AddressBookProvider.resolveLabel(activity, txAddress.toBase58()) == null;
+            final boolean isAdd = addressBookDao.resolveLabel(txAddress.toBase58()) == null;
             final boolean isOwn = wallet.isPubKeyHashMine(txAddress.getHash160());
 
             if (isOwn)

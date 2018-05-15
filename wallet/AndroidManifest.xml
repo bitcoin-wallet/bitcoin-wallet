@@ -182,10 +182,6 @@
             android:windowSoftInputMode="adjustResize" />
 
         <provider
-            android:name="de.schildbach.wallet.data.AddressBookProvider"
-            android:authorities="de.schildbach.wallet_test.address_book"
-            android:exported="false" />
-        <provider
             android:name="de.schildbach.wallet.data.ExchangeRatesProvider"
             android:authorities="de.schildbach.wallet_test.exchange_rates"
             android:exported="false" />

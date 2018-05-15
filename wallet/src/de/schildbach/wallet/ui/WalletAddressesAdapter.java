@@ -20,6 +20,7 @@ package de.schildbach.wallet.ui;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Nullable;
 
@@ -29,7 +30,7 @@ import org.bitcoinj.wallet.Wallet;
 
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.R;
-import de.schildbach.wallet.data.AddressBookProvider;
+import de.schildbach.wallet.data.AddressBookEntry;
 import de.schildbach.wallet.util.WalletUtils;
 
 import android.content.Context;
@@ -44,7 +45,6 @@ import android.widget.TextView;
  * @author Andreas Schildbach
  */
 public class WalletAddressesAdapter extends BaseAdapter {
-    private final Context context;
     private final int colorSignificant;
     private final int colorInsignificant;
     private final int colorLessSignificant;
@@ -54,9 +54,10 @@ public class WalletAddressesAdapter extends BaseAdapter {
     private final List<ECKey> randomKeys = new ArrayList<ECKey>();
     @Nullable
     private Wallet wallet = null;
+    @Nullable
+    private Map<String, AddressBookEntry> addressBook = null;
 
     public WalletAddressesAdapter(final Context context) {
-        this.context = context;
         final Resources res = context.getResources();
         colorSignificant = res.getColor(R.color.fg_significant);
         colorInsignificant = res.getColor(R.color.fg_insignificant);
@@ -78,6 +79,11 @@ public class WalletAddressesAdapter extends BaseAdapter {
 
     public void setWallet(final Wallet wallet) {
         this.wallet = wallet;
+        notifyDataSetChanged();
+    }
+
+    public void setAddressBook(final Map<String, AddressBookEntry> addressBook) {
+        this.addressBook = addressBook;
         notifyDataSetChanged();
     }
 
@@ -150,10 +156,16 @@ public class WalletAddressesAdapter extends BaseAdapter {
         addressView.setTextColor(isRotateKey ? colorInsignificant : colorSignificant);
 
         final TextView labelView = (TextView) row.findViewById(R.id.address_book_row_label);
-        final String label = AddressBookProvider.resolveLabel(context, address.toBase58());
-        if (label != null) {
-            labelView.setText(label);
-            labelView.setTextColor(isRotateKey ? colorInsignificant : colorLessSignificant);
+        final Map<String, AddressBookEntry> addressBook = this.addressBook;
+        if (addressBook != null) {
+            final AddressBookEntry entry = addressBook.get(address.toString());
+            if (entry != null) {
+                labelView.setText(entry.getLabel());
+                labelView.setTextColor(isRotateKey ? colorInsignificant : colorLessSignificant);
+            } else {
+                labelView.setText(R.string.address_unlabeled);
+                labelView.setTextColor(colorInsignificant);
+            }
         } else {
             labelView.setText(R.string.address_unlabeled);
             labelView.setTextColor(colorInsignificant);

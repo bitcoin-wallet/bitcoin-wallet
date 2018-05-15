@@ -38,7 +38,7 @@ import org.bitcoinj.wallet.Wallet;
 
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.R;
-import de.schildbach.wallet.data.AddressBookProvider;
+import de.schildbach.wallet.data.AddressBookEntry;
 import de.schildbach.wallet.ui.CurrencyTextView;
 import de.schildbach.wallet.util.WalletUtils;
 
@@ -59,10 +59,11 @@ import android.widget.TextView;
  */
 public class BlockListAdapter extends ListAdapter<BlockListAdapter.ListItem, BlockListAdapter.ViewHolder> {
     public static List<ListItem> buildListItems(final Context context, final List<StoredBlock> blocks, final Date time,
-            final MonetaryFormat format, final @Nullable Set<Transaction> transactions, final @Nullable Wallet wallet) {
+            final MonetaryFormat format, final @Nullable Set<Transaction> transactions, final @Nullable Wallet wallet,
+            final @Nullable Map<String, AddressBookEntry> addressBook) {
         final List<ListItem> items = new ArrayList<>(blocks.size());
         for (final StoredBlock block : blocks)
-            items.add(new ListItem(context, block, time, format, transactions, wallet));
+            items.add(new ListItem(context, block, time, format, transactions, wallet, addressBook));
         return items;
     }
 
@@ -76,7 +77,8 @@ public class BlockListAdapter extends ListAdapter<BlockListAdapter.ListItem, Blo
         public final List<ListTransaction> transactions;
 
         public ListItem(final Context context, final StoredBlock block, final Date time, final MonetaryFormat format,
-                final @Nullable Set<Transaction> transactions, final @Nullable Wallet wallet) {
+                final @Nullable Set<Transaction> transactions, final @Nullable Wallet wallet,
+                final @Nullable Map<String, AddressBookEntry> addressBook) {
             this.blockHash = block.getHeader().getHash();
             this.height = block.getHeight();
             final long timeMs = block.getHeader().getTimeSeconds() * DateUtils.SECOND_IN_MILLIS;
@@ -93,7 +95,7 @@ public class BlockListAdapter extends ListAdapter<BlockListAdapter.ListItem, Blo
                 for (final Transaction tx : transactions) {
                     final Map<Sha256Hash, Integer> appearsInHashes = tx.getAppearsInHashes();
                     if (appearsInHashes != null && appearsInHashes.containsKey(blockHash))
-                        this.transactions.add(new ListTransaction(context, tx, wallet));
+                        this.transactions.add(new ListTransaction(context, tx, wallet, addressBook));
                 }
             }
         }
@@ -112,7 +114,8 @@ public class BlockListAdapter extends ListAdapter<BlockListAdapter.ListItem, Blo
             public final String label;
             public final Coin value;
 
-            public ListTransaction(final Context context, final Transaction tx, final Wallet wallet) {
+            public ListTransaction(final Context context, final Transaction tx, final Wallet wallet,
+                    final @Nullable Map<String, AddressBookEntry> addressBook) {
                 final boolean isCoinBase = tx.isCoinBase();
                 final boolean isInternal = tx.getPurpose() == Purpose.KEY_ROTATION;
 
@@ -131,14 +134,19 @@ public class BlockListAdapter extends ListAdapter<BlockListAdapter.ListItem, Blo
                 else
                     this.fromTo = context.getString(R.string.symbol_from);
 
-                if (isCoinBase)
+                if (isCoinBase) {
                     this.label = context.getString(R.string.wallet_transactions_fragment_coinbase);
-                else if (isInternal || self)
+                } else if (isInternal || self) {
                     this.label = context.getString(R.string.wallet_transactions_fragment_internal);
-                else if (address != null)
-                    this.label = AddressBookProvider.resolveLabel(context, address.toBase58());
-                else
+                } else if (address != null && addressBook != null) {
+                    final AddressBookEntry entry = addressBook.get(address.toString());
+                    if (entry != null)
+                        this.label = entry.getLabel();
+                    else
+                        this.label = "?";
+                } else {
                     this.label = "?";
+                }
             }
         }
     }

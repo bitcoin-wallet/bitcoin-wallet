@@ -25,15 +25,14 @@ import org.bitcoinj.wallet.Wallet;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.R;
 import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.data.AddressBookProvider;
+import de.schildbach.wallet.data.AddressBookDao;
+import de.schildbach.wallet.data.AddressBookEntry;
+import de.schildbach.wallet.data.AppDatabase;
 import de.schildbach.wallet.util.WalletUtils;
 
 import android.app.Dialog;
-import android.content.ContentResolver;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
@@ -77,16 +76,16 @@ public final class EditAddressBookEntryFragment extends DialogFragment {
     }
 
     private AbstractWalletActivity activity;
+    private AddressBookDao addressBookDao;
     private Wallet wallet;
-    private ContentResolver contentResolver;
 
     @Override
     public void onAttach(final Context context) {
         super.onAttach(context);
         this.activity = (AbstractWalletActivity) context;
         final WalletApplication application = activity.getWalletApplication();
+        this.addressBookDao = AppDatabase.getDatabase(context).addressBookDao();
         this.wallet = application.getWallet();
-        this.contentResolver = activity.getContentResolver();
     }
 
     @Override
@@ -97,10 +96,7 @@ public final class EditAddressBookEntryFragment extends DialogFragment {
 
         final LayoutInflater inflater = LayoutInflater.from(activity);
 
-        final Uri uri = AddressBookProvider.contentUri(activity.getPackageName()).buildUpon()
-                .appendPath(address.toBase58()).build();
-
-        final String label = AddressBookProvider.resolveLabel(activity, address.toBase58());
+        final String label = addressBookDao.resolveLabel(address.toBase58());
 
         final boolean isAdd = label == null;
         final boolean isOwn = wallet.isPubKeyHashMine(address.getHash160());
@@ -130,20 +126,12 @@ public final class EditAddressBookEntryFragment extends DialogFragment {
             public void onClick(final DialogInterface dialog, final int which) {
                 if (which == DialogInterface.BUTTON_POSITIVE) {
                     final String newLabel = viewLabel.getText().toString().trim();
-
-                    if (!newLabel.isEmpty()) {
-                        final ContentValues values = new ContentValues();
-                        values.put(AddressBookProvider.KEY_LABEL, newLabel);
-
-                        if (isAdd)
-                            contentResolver.insert(uri, values);
-                        else
-                            contentResolver.update(uri, values, null, null);
-                    } else if (!isAdd) {
-                        contentResolver.delete(uri, null, null);
-                    }
+                    if (!newLabel.isEmpty())
+                        addressBookDao.insertOrUpdate(new AddressBookEntry(address.toBase58(), newLabel));
+                    else if (!isAdd)
+                        addressBookDao.delete(address.toBase58());
                 } else if (which == DialogInterface.BUTTON_NEUTRAL) {
-                    contentResolver.delete(uri, null, null);
+                    addressBookDao.delete(address.toBase58());
                 }
 
                 dismiss();

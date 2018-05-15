@@ -28,12 +28,14 @@ import org.bitcoinj.wallet.listeners.KeyChainEventListener;
 
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.data.AbstractWalletLiveData;
-import de.schildbach.wallet.data.AddressBookLiveData;
+import de.schildbach.wallet.data.AddressBookEntry;
+import de.schildbach.wallet.data.AppDatabase;
 import de.schildbach.wallet.data.ConfigOwnNameLiveData;
 import de.schildbach.wallet.data.WalletLiveData;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
+import android.arch.lifecycle.LiveData;
 import android.os.AsyncTask;
 
 /**
@@ -43,7 +45,7 @@ public class WalletAddressesViewModel extends AndroidViewModel {
     private final WalletApplication application;
     public final IssuedReceiveKeysLiveData issuedReceiveKeys;
     public final ImportedKeysLiveData importedKeys;
-    public final AddressBookLiveData addressBook;
+    public final LiveData<List<AddressBookEntry>> addressBook;
     public final WalletLiveData wallet;
     public final ConfigOwnNameLiveData ownName;
 
@@ -52,7 +54,7 @@ public class WalletAddressesViewModel extends AndroidViewModel {
         this.application = (WalletApplication) application;
         this.issuedReceiveKeys = new IssuedReceiveKeysLiveData(this.application);
         this.importedKeys = new ImportedKeysLiveData(this.application);
-        this.addressBook = new AddressBookLiveData(this.application);
+        this.addressBook = AppDatabase.getDatabase(this.application).addressBookDao().getAll();
         this.wallet = new WalletLiveData(this.application);
         this.ownName = new ConfigOwnNameLiveData(this.application);
     }

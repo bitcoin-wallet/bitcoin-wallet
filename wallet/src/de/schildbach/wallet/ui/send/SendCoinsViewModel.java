@@ -17,13 +17,16 @@
 
 package de.schildbach.wallet.ui.send;
 
+import java.util.List;
+
 import javax.annotation.Nullable;
 
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.wallet.Wallet.BalanceType;
 
 import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.data.AddressBookLiveData;
+import de.schildbach.wallet.data.AddressBookEntry;
+import de.schildbach.wallet.data.AppDatabase;
 import de.schildbach.wallet.data.BlockchainStateLiveData;
 import de.schildbach.wallet.data.DynamicFeeLiveData;
 import de.schildbach.wallet.data.ExchangeRateLiveData;
@@ -31,10 +34,10 @@ import de.schildbach.wallet.data.PaymentIntent;
 import de.schildbach.wallet.data.WalletBalanceLiveData;
 import de.schildbach.wallet.data.WalletLiveData;
 import de.schildbach.wallet.ui.AddressAndLabel;
-import de.schildbach.wallet.ui.send.SendCoinsFragment.ReceivingAddressesLiveData;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
+import android.arch.lifecycle.LiveData;
 
 /**
  * @author Andreas Schildbach
@@ -48,8 +51,7 @@ public class SendCoinsViewModel extends AndroidViewModel {
 
     private final WalletApplication application;
     public final WalletLiveData wallet;
-    public final ReceivingAddressesLiveData receivingAddresses;
-    public final AddressBookLiveData addressBook;
+    public final LiveData<List<AddressBookEntry>> addressBook;
     public final ExchangeRateLiveData exchangeRate;
     public final DynamicFeeLiveData dynamicFees;
     public final BlockchainStateLiveData blockchainState;
@@ -75,8 +77,7 @@ public class SendCoinsViewModel extends AndroidViewModel {
         super(application);
         this.application = (WalletApplication) application;
         this.wallet = new WalletLiveData(this.application);
-        this.receivingAddresses = new ReceivingAddressesLiveData(this.application);
-        this.addressBook = new AddressBookLiveData(this.application);
+        this.addressBook = AppDatabase.getDatabase(this.application).addressBookDao().getAll();
         this.exchangeRate = new ExchangeRateLiveData(this.application);
         this.dynamicFees = new DynamicFeeLiveData(this.application);
         this.blockchainState = new BlockchainStateLiveData(this.application);

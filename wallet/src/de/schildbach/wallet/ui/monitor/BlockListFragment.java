@@ -35,6 +35,8 @@ import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.R;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.data.AbstractWalletLiveData;
+import de.schildbach.wallet.data.AddressBookEntry;
+import de.schildbach.wallet.data.AppDatabase;
 import de.schildbach.wallet.data.TimeLiveData;
 import de.schildbach.wallet.data.WalletLiveData;
 import de.schildbach.wallet.service.BlockchainService;
@@ -96,6 +98,7 @@ public final class BlockListFragment extends Fragment implements BlockListAdapte
         public ViewModel(final Application application) {
             super(application);
             this.application = (WalletApplication) application;
+            this.addressBook = AppDatabase.getDatabase(this.application).addressBookDao().getAll();
         }
 
         public BlocksLiveData getBlocks() {
@@ -115,6 +118,8 @@ public final class BlockListFragment extends Fragment implements BlockListAdapte
                 wallet = new WalletLiveData(application);
             return wallet;
         }
+
+        public final LiveData<List<AddressBookEntry>> addressBook;
 
         public TimeLiveData getTime() {
             if (time == null)
@@ -182,9 +187,12 @@ public final class BlockListFragment extends Fragment implements BlockListAdapte
 
     private void maybeSubmitList() {
         final List<StoredBlock> blocks = viewModel.getBlocks().getValue();
-        if (blocks != null)
+        if (blocks != null) {
+            final Map<String, AddressBookEntry> addressBook = AddressBookEntry.asMap(viewModel.addressBook.getValue());
             adapter.submitList(BlockListAdapter.buildListItems(activity, blocks, viewModel.getTime().getValue(),
-                    config.getFormat(), viewModel.getTransactions().getValue(), viewModel.getWallet().getValue()));
+                    config.getFormat(), viewModel.getTransactions().getValue(), viewModel.getWallet().getValue(),
+                    addressBook));
+        }
     }
 
     @Override

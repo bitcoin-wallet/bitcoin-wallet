@@ -18,7 +18,6 @@
 package de.schildbach.wallet.ui;
 
 import java.util.List;
-import java.util.Map;
 
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.ECKey;
@@ -30,7 +29,9 @@ import org.slf4j.LoggerFactory;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.R;
 import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.data.AddressBookProvider;
+import de.schildbach.wallet.data.AddressBookDao;
+import de.schildbach.wallet.data.AddressBookEntry;
+import de.schildbach.wallet.data.AppDatabase;
 import de.schildbach.wallet.util.Qr;
 import de.schildbach.wallet.util.Toast;
 import de.schildbach.wallet.util.WalletUtils;
@@ -55,8 +56,9 @@ import android.widget.ListView;
  * @author Andreas Schildbach
  */
 public final class WalletAddressesFragment extends FancyListFragment {
-    private  WalletApplication application;
+    private WalletApplication application;
     private AbstractWalletActivity activity;
+    private AddressBookDao addressBookDao;
     private ClipboardManager clipboardManager;
 
     private WalletAddressesAdapter adapter;
@@ -70,6 +72,7 @@ public final class WalletAddressesFragment extends FancyListFragment {
         super.onAttach(context);
         this.activity = (AbstractWalletActivity) context;
         this.application = activity.getWalletApplication();
+        this.addressBookDao = AppDatabase.getDatabase(context).addressBookDao();
         this.clipboardManager = (ClipboardManager) activity.getSystemService(Context.CLIPBOARD_SERVICE);
     }
 
@@ -97,10 +100,10 @@ public final class WalletAddressesFragment extends FancyListFragment {
                 adapter.setWallet(wallet);
             }
         });
-        viewModel.addressBook.observe(this, new Observer<Map<String, String>>() {
+        viewModel.addressBook.observe(this, new Observer<List<AddressBookEntry>>() {
             @Override
-            public void onChanged(final Map<String, String> addressBook) {
-                adapter.notifyDataSetChanged();
+            public void onChanged(final List<AddressBookEntry> addressBook) {
+                adapter.setAddressBook(AddressBookEntry.asMap(addressBook));
             }
         });
         viewModel.ownName.observe(this, new Observer<String>() {
@@ -141,7 +144,7 @@ public final class WalletAddressesFragment extends FancyListFragment {
             public boolean onPrepareActionMode(final ActionMode mode, final Menu menu) {
                 final ECKey key = getKey(position);
                 final String address = key.toAddress(Constants.NETWORK_PARAMETERS).toBase58();
-                final String label = AddressBookProvider.resolveLabel(activity, address);
+                final String label = addressBookDao.resolveLabel(address);
                 mode.setTitle(label != null ? label
                         : WalletUtils.formatHash(address, Constants.ADDRESS_FORMAT_GROUP_SIZE, 0));
                 return true;

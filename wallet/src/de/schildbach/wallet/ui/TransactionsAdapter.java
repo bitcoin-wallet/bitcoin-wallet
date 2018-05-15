@@ -41,6 +41,7 @@ import org.bitcoinj.wallet.Wallet;
 
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.R;
+import de.schildbach.wallet.data.AddressBookEntry;
 import de.schildbach.wallet.ui.TransactionsAdapter.ListItem.TransactionItem;
 import de.schildbach.wallet.ui.TransactionsAdapter.ListItem.WarningItem;
 import de.schildbach.wallet.util.Formats;
@@ -71,8 +72,9 @@ import android.widget.TextView;
  */
 public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListItem, RecyclerView.ViewHolder> {
     public static List<ListItem> buildListItems(final Context context, final List<Transaction> transactions,
-            final WarningType warning, final @Nullable Wallet wallet, final @Nullable Map<String, String> addressBook,
-            final MonetaryFormat format, final int maxConnectedPeers, final @Nullable Sha256Hash selectedTransaction) {
+            final WarningType warning, final @Nullable Wallet wallet,
+            final @Nullable Map<String, AddressBookEntry> addressBook, final MonetaryFormat format,
+            final int maxConnectedPeers, final @Nullable Sha256Hash selectedTransaction) {
         final MonetaryFormat noCodeFormat = format.noCode();
         final List<ListItem> items = new ArrayList<>(transactions.size() + 1);
         if (warning != null)
@@ -118,7 +120,7 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
             public final boolean isSelected;
 
             public TransactionItem(final Context context, final Transaction tx, final @Nullable Wallet wallet,
-                    final @Nullable Map<String, String> addressBook, final MonetaryFormat format,
+                    final @Nullable Map<String, AddressBookEntry> addressBook, final MonetaryFormat format,
                     final int maxConnectedPeers, final boolean isSelected) {
                 this.transactionHash = tx.getHash();
                 this.isSelected = isSelected;
@@ -217,8 +219,16 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
                 // address
                 final Address address = sent ? WalletUtils.getToAddressOfSent(tx, wallet)
                         : WalletUtils.getWalletAddressOfReceived(tx, wallet);
-                final String addressLabel = addressBook != null && address != null ? addressBook.get(address.toString())
-                        : null;
+                final String addressLabel;
+                if (addressBook == null || address == null) {
+                    addressLabel = null;
+                } else {
+                    final AddressBookEntry entry = addressBook.get(address.toString());
+                    if (entry != null)
+                        addressLabel = entry.getLabel();
+                    else
+                        addressLabel = null;
+                }
                 if (tx.isCoinBase()) {
                     this.address = SpannedString
                             .valueOf(context.getString(R.string.wallet_transactions_fragment_coinbase));
