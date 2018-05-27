@@ -1,3 +1,7 @@
+v6.24
+
+* Use live exchange rates, rather than 24h-averages.
+
 v6.23
 
 * Update build to Gradle 3.3+ and Android Plugin for Gradle 2.3.3.
