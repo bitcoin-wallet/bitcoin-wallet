@@ -174,8 +174,8 @@ Bitcoin Wallet reads this feed from "BitcoinAverage" for getting exchange rates:
 
     https://apiv2.bitcoinaverage.com/indices/global/ticker/short?crypto=BTC
 
-We chose this feed because it is not dependent on a single exchange. However, you should keep in
-mind it's always a 24h average. This feature can be disabled with the compile-time flag
+We chose this feed because it is not dependent on a single exchange. This feature can be disabled
+with the compile-time flag
 
     Constants.ENABLE_EXCHANGE_RATES
 
