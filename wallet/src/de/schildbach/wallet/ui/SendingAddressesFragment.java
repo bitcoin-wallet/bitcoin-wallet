@@ -251,7 +251,7 @@ public final class SendingAddressesFragment extends FancyListFragment {
             public boolean onActionItemClicked(final ActionMode mode, final MenuItem item) {
                 switch (item.getItemId()) {
                 case R.id.sending_addresses_context_send:
-                    handleSend(getAddress(position));
+                    handleSend(getAddress(position), getLabel(position));
 
                     mode.finish();
                     return true;
@@ -300,8 +300,8 @@ public final class SendingAddressesFragment extends FancyListFragment {
         });
     }
 
-    private void handleSend(final String address) {
-        SendCoinsActivity.start(activity, PaymentIntent.fromAddress(address, null));
+    private void handleSend(final String address, final String label) {
+        SendCoinsActivity.start(activity, PaymentIntent.fromAddress(address, label));
     }
 
     private void handleRemove(final String address) {
