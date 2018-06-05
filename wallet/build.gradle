@@ -117,6 +117,14 @@ task svgToPngMipmap(type: fr.avianey.androidsvgdrawable.gradle.SvgDrawableTask) 
     outputType = 'mipmap'
 }
 
+task svgToPngMipmapTestnet(type: fr.avianey.androidsvgdrawable.gradle.SvgDrawableTask) {
+    from = files('graphics/mipmap-testnet')
+    to = file('testNet3/res')
+    targetedDensities = ['hdpi', 'xhdpi', 'xxhdpi', 'xxxhdpi']
+    outputFormat = 'PNG'
+    outputType = 'mipmap'
+}
+
 task buildNativeScrypt(type: GradleBuild) {
     buildFile = '../native-scrypt/build.gradle'
     tasks = ['copy']
