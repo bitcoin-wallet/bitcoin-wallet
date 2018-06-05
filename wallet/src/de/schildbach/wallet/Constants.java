@@ -20,6 +20,7 @@ package de.schildbach.wallet;
 import java.io.File;
 import java.util.concurrent.TimeUnit;
 
+import org.bitcoinj.core.Coin;
 import org.bitcoinj.core.Context;
 import org.bitcoinj.core.NetworkParameters;
 import org.bitcoinj.params.MainNetParams;
@@ -167,6 +168,11 @@ public final class Constants {
     public static final long LAST_USAGE_THRESHOLD_INACTIVE_MS = 4 * DateUtils.WEEK_IN_MILLIS;
 
     public static final long DELAYED_TRANSACTION_THRESHOLD_MS = 2 * DateUtils.HOUR_IN_MILLIS;
+
+    /** A balance above this amount will show a warning */
+    public static final Coin TOO_MUCH_BALANCE_THRESHOLD = Coin.COIN.divide(16);
+    /** A balance above this amount will cause the donate option to be shown */
+    public static final Coin SOME_BALANCE_THRESHOLD = Coin.COIN.divide(800);
 
     public static final int SDK_DEPRECATED_BELOW = Build.VERSION_CODES.KITKAT;
 

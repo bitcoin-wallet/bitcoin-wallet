@@ -71,8 +71,6 @@ public final class WalletBalanceFragment extends Fragment {
     private ViewModel viewModel;
 
     private static final long BLOCKCHAIN_UPTODATE_THRESHOLD_MS = DateUtils.HOUR_IN_MILLIS;
-    private static final Coin SOME_BALANCE_THRESHOLD = Coin.COIN.divide(800);
-    private static final Coin TOO_MUCH_BALANCE_THRESHOLD = Coin.COIN.divide(16);
 
     public static class ViewModel extends AndroidViewModel {
         private final WalletApplication application;
@@ -192,7 +190,7 @@ public final class WalletBalanceFragment extends Fragment {
     @Override
     public void onPrepareOptionsMenu(final Menu menu) {
         final Coin balance = viewModel.getBalance().getValue();
-        final boolean hasSomeBalance = balance != null && !balance.isLessThan(SOME_BALANCE_THRESHOLD);
+        final boolean hasSomeBalance = balance != null && !balance.isLessThan(Constants.SOME_BALANCE_THRESHOLD);
         menu.findItem(R.id.wallet_balance_options_donate)
                 .setVisible(Constants.DONATION_ADDRESS != null && (!installedFromGooglePlay || hasSomeBalance));
         super.onPrepareOptionsMenu(menu);
@@ -274,7 +272,7 @@ public final class WalletBalanceFragment extends Fragment {
                 viewBalanceBtc.setVisibility(View.INVISIBLE);
             }
 
-            if (balance != null && balance.isGreaterThan(TOO_MUCH_BALANCE_THRESHOLD)) {
+            if (balance != null && balance.isGreaterThan(Constants.TOO_MUCH_BALANCE_THRESHOLD)) {
                 viewBalanceWarning.setVisibility(View.VISIBLE);
                 viewBalanceWarning.setText(R.string.wallet_balance_fragment_too_much);
             } else if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
