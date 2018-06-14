@@ -60,7 +60,8 @@
   <string name="alert_dialogs_fragment_settings_failed_title">設定を開けませんでした</string>
   <string name="send_coins_activity_title">ビットコインの送金</string>
   <string name="send_coins_fragment_request_payment_request_progress">%s から署名の取得中……</string>
-  <string name="send_coins_fragment_request_payment_request_failed_title">署名の取得に失敗しました</string>
+  <string name="send_coins_fragment_request_payment_request_failed_title">支払いリクエストの取得に失敗しました</string>
+  <string name="send_coins_fragment_request_payment_request_failed_message">受取人 (%1$s) は互換性がない支払いプロトコルを使用しています (原因: %2$s)。</string>
   <string name="send_coins_fragment_request_payment_request_wrong_signature">不正な署名です!</string>
   <string name="send_coins_fragment_payee_verified_by">認証者: %s</string>
   <string name="send_coins_fragment_payee_verified_by_unknown">不明</string>
@@ -206,7 +207,7 @@
   <string name="backup_wallet_dialog_message">バックアップはあなたが決めたパスワードで暗号化され、外部ストレージに書き込まれます。</string>
   <string name="backup_wallet_dialog_warning_encrypted">あなたのウォレットは送金用PINで保護されています。バックアップ用パスワードに加えてPINも忘れないようにしてください。</string>
   <string name="export_keys_dialog_button_export">バックアップ</string>
-  <string name="export_keys_dialog_success"><![CDATA[<p>あなたのウォレットは<tt>%s</tt>にバックアップされました。</p><p>どのような場合であれ、バックアップパスワードは覚えておいてください。</p>]]></string>
+  <string name="export_keys_dialog_success"><![CDATA[<p>あなたのウォレットは<tt>%s</tt>にバックアップされました。</p><p><b>バックアップがこのデバイスにしか無い場合、両方を同時に紛失する危険があります!</b></p><p>どちらにしろ、バックアップパスワードは忘れないようにしてください。</p>]]></string>
   <string name="export_keys_dialog_failure">ウォレットをバックアップできませんでした:\n%s</string>
   <string name="import_export_keys_dialog_password">パスワード</string>
   <string name="backup_wallet_dialog_password_again">もう一度</string>
