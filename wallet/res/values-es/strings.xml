@@ -60,7 +60,8 @@
   <string name="alert_dialogs_fragment_settings_failed_title">Problema abriendo los ajustes</string>
   <string name="send_coins_activity_title">Enviar Bitcoins</string>
   <string name="send_coins_fragment_request_payment_request_progress">Adquiriendo firma de %s…</string>
-  <string name="send_coins_fragment_request_payment_request_failed_title">Ha fallado la adquisición de firma</string>
+  <string name="send_coins_fragment_request_payment_request_failed_title">No se ha podido recuperar la solicitud de pago</string>
+  <string name="send_coins_fragment_request_payment_request_failed_message">El beneficiario (%1$s) está usando un protocolo de pago incompatible (Motivo: %2$s)</string>
   <string name="send_coins_fragment_request_payment_request_wrong_signature">¡Firma incorrecta!</string>
   <string name="send_coins_fragment_payee_verified_by">verificado por: %s</string>
   <string name="send_coins_fragment_payee_verified_by_unknown">desconocido</string>
@@ -206,7 +207,7 @@
   <string name="backup_wallet_dialog_message">Su copia de seguridad será encriptada con la contraseña que elija y guardada en una unidad de almacenamiento externo.</string>
   <string name="backup_wallet_dialog_warning_encrypted">Su cartera está protegida con un PIN de pagos. ¡Asegúrese de recordar el PIN, además de hacer una copia de seguridad de su contraseña!</string>
   <string name="export_keys_dialog_button_export">Copia de seguridad</string>
-  <string name="export_keys_dialog_success"><![CDATA[<p>Su cartera ha sido copiada en <tt>%s</tt></p><p><b>Si el único sitio en el que existe una copia es en su dispositivo, ¡corre el riesgo de perder las dos al mismo tiempo!</b></p><p>En cualquier caso, asegúrese de recordar la contraseña de la copia.</p>]]></string>
+  <string name="export_keys_dialog_success"><![CDATA[<p>Su billetera ha sido respaldada en <tt>%s</tt></p><p><b>Si el único lugar donde existe su respaldo es en su dispositivo, ¡corre el riesgo de perder ambos a la vez!</b></p><p>En cualquier caso, asegúrese de recordar la contraseña de respaldo</p>]]></string>
   <string name="export_keys_dialog_failure">No se pudo realizar la copia de seguridad de su cartera:\n%s</string>
   <string name="import_export_keys_dialog_password">Contraseña</string>
   <string name="backup_wallet_dialog_password_again">otra vez</string>
