@@ -60,7 +60,8 @@
   <string name="alert_dialogs_fragment_settings_failed_title">Problem under åbning af indstillinger</string>
   <string name="send_coins_activity_title">Send Bitcoins</string>
   <string name="send_coins_fragment_request_payment_request_progress">Henter signatur fra %s…</string>
-  <string name="send_coins_fragment_request_payment_request_failed_title">Hentning af signatur mislykkedes</string>
+  <string name="send_coins_fragment_request_payment_request_failed_title">Hentning af betalingsanmodning mislykkedes</string>
+  <string name="send_coins_fragment_request_payment_request_failed_message">Betalingsmodtageren (%1$s) bruger en inkompatibel betalingsprotokol (begrundelse: %2$s).</string>
   <string name="send_coins_fragment_request_payment_request_wrong_signature">Forkert signatur!</string>
   <string name="send_coins_fragment_payee_verified_by">verificeret af: %s</string>
   <string name="send_coins_fragment_payee_verified_by_unknown">ukendt</string>
@@ -85,6 +86,8 @@
   <string name="send_coins_fragment_direct_payment_failed_msg">Din betaling vil stadig blive sendt ud på P2P-netværket.</string>
   <string name="send_coins_fragment_button_send">Send</string>
   <string name="send_coins_fragment_button_back">Tilbage</string>
+  <string name="send_coins_fragment_significant_fee_title">Betydeligt netværksgebyr</string>
+  <string name="send_coins_fragment_significant_fee_message">Netværksgebyret for denne betaling (%1$s) er højt i forhold til beløbet (%2$s). Vil du sende alligevel?</string>
   <string name="send_coins_fragment_insufficient_money_title">Ikke nok tilgængelig bitcoin</string>
   <string name="send_coins_fragment_insufficient_money_msg1">Du mangler %s.</string>
   <string name="send_coins_fragment_insufficient_money_msg2">Vil du betale alt hvad du har?</string>
@@ -204,7 +207,7 @@
   <string name="backup_wallet_dialog_message">Din sikkerhedskopi vil blive krypteret med det valgte kodeord og skrevet til ekstern lagerenhed.</string>
   <string name="backup_wallet_dialog_warning_encrypted">Din tegnebog beskyttes af en spenderings-PIN. Vær sikker på, at du kan huske din PIN udover dit kodeord til sikkerhedskopien!</string>
   <string name="export_keys_dialog_button_export">Sikkerskopiér</string>
-  <string name="export_keys_dialog_success"><![CDATA[<p>Din tegnebog er blevet sikkerhedskopieret til <tt>%s</tt></p><p><b>Hvis din sikkerhedskopi kun findes på din enhed, løber du risikoen at miste begge dele på én gang!</b></p><p>Uanset hvad, så vær sikker på, at du kan huske dit kodeord til sikkerhedskopien.</p>]]></string>
+  <string name="export_keys_dialog_success"><![CDATA[<p>Din tegnebog er sikkerhedskopieret til <tt>%s</tt></p><p><b>Hvis det eneste sted, hvor din sikkerhedskopi er gemt, er din enhed, risikerer du at miste begge dele på én gang!</b></p><p>Uanset hvad, så vær sikker på, at du kan huske kodeordet til din sikkerhedskopi.</p>]]></string>
   <string name="export_keys_dialog_failure">Din tegnebog kunne ikke sikkerhedskopieres:\n%s</string>
   <string name="import_export_keys_dialog_password">kodeord</string>
   <string name="backup_wallet_dialog_password_again">igen</string>
