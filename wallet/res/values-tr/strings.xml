@@ -43,6 +43,8 @@
   <string name="wallet_options_technical_notes_title">Teknik notlar</string>
   <string name="wallet_options_donate">Bağış</string>
   <string name="wallet_donate_address_label">Bu yazılıma bağış yap</string>
+  <string name="alert_dialogs_fragment_insecure_bluetooth_title">Güvenlik uyarısı</string>
+  <string name="alert_dialogs_fragment_insecure_bluetooth_message">Cihazınızın Bluetooth bileşeni savunmasızdır. Bu cihazdaki Bitcoins\'leriniz, onları saklamak için kullandığınız uygulamadan bağımsız olarak tehlikededir!\n\nBluetooth\'u derhal kapatın ve güvenlik düzeltme eki seviyesi \'%s\' veya üstünü destekleyen bir Android veya OS güncellemesi için cihazınızın üreticisine danışın.</string>
   <string name="wallet_low_storage_dialog_title">Dahili depolama alanı düşük!</string>
   <string name="wallet_low_storage_dialog_msg">Bitcoin cüzdanı muameleleri ve blokları hatırlamak için dahili depolama alanını kullanır. Bu alan yetersiz kalırsa cüzdan çalışmayı durduracak ve Bitcoinleriniz risk altında kalacaktır!\n\nKullanılmayan uygulamaları kaldırmak için Uygulama Yöneticisini başlatmak ister misiniz?</string>
   <string name="wallet_low_storage_dialog_button_apps">Uygulamaları yönet</string>
@@ -55,9 +57,11 @@
   <string name="wallet_version_dialog_button_binary">İndir</string>
   <string name="wallet_old_sdk_dialog_title">Android sürümü eski</string>
   <string name="wallet_old_sdk_dialog_message">Gelecek Bitcoin Wallet sürümünün cihazınızı desteklememesi mümkündür. Bazı durumlarda bu cihazla bitcoin harcamak zor olabilir.\n\nBitcoinlerinizi güvenli bir yere aktarmanız tavsiye edilir.</string>
+  <string name="alert_dialogs_fragment_settings_failed_title">Ayarları açarken bir sorun oluştu</string>
   <string name="send_coins_activity_title">Bitcoin gönder</string>
   <string name="send_coins_fragment_request_payment_request_progress">%s unsurundan imza alınıyor…</string>
-  <string name="send_coins_fragment_request_payment_request_failed_title">İmza alımı başarısız oldu</string>
+  <string name="send_coins_fragment_request_payment_request_failed_title">Ödeme talebi getirilemedi</string>
+  <string name="send_coins_fragment_request_payment_request_failed_message">Alacaklı (%1$s) uyumsuz bir ödeme protokolü kullanıyor (neden: %2$s).</string>
   <string name="send_coins_fragment_request_payment_request_wrong_signature">Yanlış imza!</string>
   <string name="send_coins_fragment_payee_verified_by">şunun tarafından denetlenmiştir: %s</string>
   <string name="send_coins_fragment_payee_verified_by_unknown">bilinmiyor</string>
@@ -72,7 +76,7 @@
   <string name="send_coins_fragment_hint_fee">%s değerinde ağ ücreti ödenecektir.</string>
   <string name="send_coins_fragment_hint_fee_priority">%s değerinde öncelik ücreti ödenecektir. Eğer düşük bir ücret sizin için önemliyse, \'öncelik\' seçeneğini sadece teyidi mümkün olduğu kadar çabuk almak için kullanın.</string>
   <string name="send_coins_fragment_hint_dusty_send">Bu meblağ göndermek için çok düşüktür.</string>
-  <string name="send_coins_fragment_hint_insufficient_money">Kafi derecede bitcoininiz yoktur. %s eksiktir.</string>
+  <string name="send_coins_fragment_hint_insufficient_money">Mevcut paralar yeterli değil. Kaçırıyorsun %s. Bu aynı zamanda şebeke ücretinden de olabilir.</string>
   <string name="send_coins_fragment_hint_empty_wallet_failed">Cüzdanınızdaki düşük ödemelerin miktarı gönderilebilir değere erişmiyor.</string>
   <string name="send_coins_fragment_hint_replaying">Şu anda ödeme yapmak mümkün değildir çünkü bir tekrar oynatma sürmektedir.</string>
   <string name="send_coins_fragment_direct_payment_enable">Ödemeyi doğrudan alacaklıya gönder.</string>
@@ -82,6 +86,8 @@
   <string name="send_coins_fragment_direct_payment_failed_msg">Ödemeniz yine de P2P ağı üzerinden yayınlanacaktır.</string>
   <string name="send_coins_fragment_button_send">Gönder</string>
   <string name="send_coins_fragment_button_back">Geri</string>
+  <string name="send_coins_fragment_significant_fee_title">Önemli şebeke ücreti</string>
+  <string name="send_coins_fragment_significant_fee_message">Bu ödemeye ilişkin şebeke ücreti (%1$s) miktarı ile (%2$s). ilişkili olarak yüksektir. Yine de göndermek istiyor musun ?</string>
   <string name="send_coins_fragment_insufficient_money_title">Mevcut para yeterli değil</string>
   <string name="send_coins_fragment_insufficient_money_msg1">%s eksik.</string>
   <string name="send_coins_fragment_insufficient_money_msg2">Mevcut bütün paranızla ödeme yapmak istiyor musunuz?</string>
