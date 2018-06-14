@@ -9,9 +9,9 @@
   <string name="blockchain_state_progress_months">%1$s, %2$d maanden achter</string>
   <string name="blockchain_state_progress_downloading">Synchroniseren met netwerk</string>
   <string name="blockchain_state_progress_stalled">Synchronisatie gestremd</string>
-  <string name="blockchain_state_progress_problem_storage">Synchronisatie: Opslag probleem</string>
-  <string name="blockchain_state_progress_problem_network">Synchroniseren: Netwerk probleem</string>
-  <string name="wallet_address_fragment_clipboard_msg">Bitcoin adres gekopieërd naar klembord</string>
+  <string name="blockchain_state_progress_problem_storage">Synchronisatie: Opslagprobleem</string>
+  <string name="blockchain_state_progress_problem_network">Synchroniseren: Netwerkprobleem</string>
+  <string name="wallet_address_fragment_clipboard_msg">Bitcoinadres gekopieërd naar klembord</string>
   <string name="wallet_address_dialog_fragment_hint">Om je privacy te beschermen zal het adres wijzigen zodra een betaling ontvangen is.</string>
   <string name="wallet_balance_fragment_insecure_device">Je apparaat is oud en onveilig. Gebruik aub alleen voor kleine hoeveelheden.</string>
   <string name="wallet_balance_fragment_too_much">Dit is relatief veel om op zak te hebben. Verplaats iets naar een veiligere plek.</string>
@@ -26,7 +26,7 @@
   <string name="exchange_rates_options_search">Zoek wisselkoers</string>
   <string name="wallet_transactions_fragment_empty_text_received">Nog geen Bitcoins ontvangen</string>
   <string name="wallet_transactions_fragment_empty_text_sent">Nog geen Bitcoins verzonden</string>
-  <string name="wallet_transactions_fragment_empty_text_howto">Hoe verkrijg je bitcoins?\n\nVerhandel voor traditioneel geld,\nverkoop goederen of diensten of\nverdien ze met uw werk.</string>
+  <string name="wallet_transactions_fragment_empty_text_howto">Hoe verkrijg je Bitcoins?\n\nVerhandel voor traditioneel geld,\nverkoop goederen of diensten of\nverdien ze met uw werk.</string>
   <string name="wallet_transactions_row_warning_backup">Gefeliciteerd, u heeft uw eerste betaling ontvangen! Heeft u al een &lt;u&gt;back-up gemaakt van uw portemonnee&lt;/u&gt;, om verlies tegen te gaan?</string>
   <string name="wallet_transactions_row_warning_storage_encryption">Tip: om de veiligheid van je portemonnee te vergroten, kun je &lt;u&gt;je apparaat versleutelen&lt;/u&gt;. Dit beschermt ook de gegevens van andere apps.</string>
   <string name="wallet_transactions_row_warning_chain_forking">Het netwerk van Bitcoin is in onderhoud. Je wordt geadviseerd om geen coins te versturen of the ontvangen totdat het onderhoud is afgerond. &lt;u&gt;Voor meer informatie.&lt;/u&gt;</string>
@@ -37,16 +37,16 @@
   <string name="wallet_transactions_options_filter_received">Ontvangen betalingen</string>
   <string name="wallet_transactions_options_filter_sent">Verzonden betalingen</string>
   <string name="wallet_options_safety_menu">Veiligheid</string>
-  <string name="wallet_options_encrypt_keys_set">Betaal PIN instellen.</string>
-  <string name="wallet_options_encrypt_keys_change">Wijzig PIN code voor betalen</string>
+  <string name="wallet_options_encrypt_keys_set">Betaalpincode instellen.</string>
+  <string name="wallet_options_encrypt_keys_change">Wijzig pincode voor betalen</string>
   <string name="wallet_options_safety">Veiligheidsvoorschriften</string>
   <string name="wallet_options_technical_notes_title">Technische aantekeningen</string>
   <string name="wallet_options_donate">Geef fooi / Doneer</string>
   <string name="wallet_donate_address_label">Donatie aan Bitcoin Wallet</string>
   <string name="alert_dialogs_fragment_insecure_bluetooth_title">Beveiligings alarm</string>
-  <string name="alert_dialogs_fragment_insecure_bluetooth_message">De Bluetooth optie op je apparaat is kwetsbaar. Je Bitcoins op je apparaat  lopen hierdoor risico ongeacht de app die je  gebruikt om ze te bewaren!\n\nWe raden aan om Bluetooth direct uit te schakelen en contact op te nemen met de fabrikant van je apparaat voor een Android OS update dat beveiligingsniveau patch level \'%s\' of hoger heeft.</string>
+  <string name="alert_dialogs_fragment_insecure_bluetooth_message">Bluetooth op je apparaat is kwetsbaar. Je Bitcoins op je apparaat lopen hierdoor risico ongeacht de app die je gebruikt om ze te bewaren!\n\nWe raden aan om Bluetooth direct uit te schakelen en contact op te nemen met de fabrikant van je apparaat voor een Android OS update dat beveiligingsniveau patch level \'%s\' of hoger heeft.</string>
   <string name="wallet_low_storage_dialog_title">Interne opslag bijna vol!</string>
-  <string name="wallet_low_storage_dialog_msg">Bitcoin Wallet gebruikt interne opslag voor transacties en blocks. Wanneer er te weinig opslag beschikbaar is zal het stoppen met werken en lopen uw bitcoins gevaar!\n\nWilt u de Applicatie beheer instellingen openen om ongebruikte apps te verwijderen?</string>
+  <string name="wallet_low_storage_dialog_msg">Bitcoin Wallet gebruikt interne opslag voor transacties en blokken. Wanneer er te weinig opslag beschikbaar is zal het stoppen met werken en lopen uw bitcoins gevaar!\n\nWilt u de Applicatie beheer instellingen openen om ongebruikte apps te verwijderen?</string>
   <string name="wallet_low_storage_dialog_button_apps">Beheer apps</string>
   <string name="wallet_timeskew_dialog_title">Check je datum- en tijdsinstellingen</string>
   <string name="wallet_timeskew_dialog_msg">De tijd van je apparaat wijkt af met %d minuten. Hierdoor kun je waarschijnlijk geen Bitcoins verzenden of ontvangen.\n\nCheck je instellingen voor datum, tijd en tijdzone en pas die indien nodig aan.</string>
@@ -55,18 +55,19 @@
   <string name="wallet_version_dialog_msg_deprecated">Wanneer je geen update ziet wordt jouw Android-versie waarschijnlijk niet meer ondersteund.</string>
   <string name="wallet_version_dialog_button_market">Google Play</string>
   <string name="wallet_version_dialog_button_binary">Download</string>
-  <string name="wallet_old_sdk_dialog_title">Android versie is verouderd</string>
+  <string name="wallet_old_sdk_dialog_title">Android-versie is verouderd</string>
   <string name="wallet_old_sdk_dialog_message">De kans bestaat dat één van de volgende versies van Bitcoin Wallet uw apparaat niet langer ondersteunen zal. In sommige gevallen kan het lastig worden nog met bitcoins te kunnen betalen vanaf dit apparaat.\n\nTenzij u weet wat u doet wordt u aanbevolen om coins elders onder te brengen.</string>
   <string name="alert_dialogs_fragment_settings_failed_title">Probleem met het openen van de instellingen</string>
   <string name="send_coins_activity_title">Verzend BTC</string>
   <string name="send_coins_fragment_request_payment_request_progress">Handtekening van %s ophalen…</string>
-  <string name="send_coins_fragment_request_payment_request_failed_title">Handtekening ophalen mislukt</string>
+  <string name="send_coins_fragment_request_payment_request_failed_title">Ophalen betalingsverzoek is gefaald</string>
+  <string name="send_coins_fragment_request_payment_request_failed_message">De betaler (%1$s) gebruikt een incompatibel betalingsprotocol (reden: %2$s).</string>
   <string name="send_coins_fragment_request_payment_request_wrong_signature">Verkeerde handtekening!</string>
   <string name="send_coins_fragment_payee_verified_by">geverifieerd door: %s</string>
   <string name="send_coins_fragment_payee_verified_by_unknown">onbekend</string>
   <string name="send_coins_fragment_receiving_address_label">Betaal aan</string>
   <string name="send_coins_fragment_receiving_address_hint">typ adres of naam</string>
-  <string name="send_coins_fragment_receiving_address_error">Ongeldig Bitcoin adres!</string>
+  <string name="send_coins_fragment_receiving_address_error">Ongeldig Bitcoinadres!</string>
   <string name="send_coins_fragment_receiving_address_own">Je probeert naar jezelf te sturen!</string>
   <string name="send_coins_fragment_receiving_address_complex">complex\nadres</string>
   <string name="send_coins_fragment_pending">(%s wachten op bevestiging)</string>
@@ -75,7 +76,7 @@
   <string name="send_coins_fragment_hint_fee">%s aan netwerkkosten zullen worden betaald.</string>
   <string name="send_coins_fragment_hint_fee_priority">Prioriteitskosten van %s zullen betaald worden. Als je lage kosten belangrijk vindt, gebruik \'prioriteit\' alleen als je zo snel mogelijk bevestiging nodig hebt.</string>
   <string name="send_coins_fragment_hint_dusty_send">Het bedrag is te laag om te verzenden.</string>
-  <string name="send_coins_fragment_hint_insufficient_money">Niet genoeg saldo. Je mist %s. Dit kan eventueel komen door de netwerk fee.</string>
+  <string name="send_coins_fragment_hint_insufficient_money">Niet genoeg saldo. Je mist %s. Dit kan eventueel komen door de netwerkkosten.</string>
   <string name="send_coins_fragment_hint_empty_wallet_failed">Het totaal van kleine betalingen in uw portemonnee is bij elkaar niet genoeg om te kunnen verzenden.</string>
   <string name="send_coins_fragment_hint_replaying">Betalingen zijn op het moment niet mogelijk vanwege herladen.</string>
   <string name="send_coins_fragment_direct_payment_enable">Betaal direct aan begunstigde.</string>
@@ -86,7 +87,7 @@
   <string name="send_coins_fragment_button_send">Verzenden</string>
   <string name="send_coins_fragment_button_back">Terug</string>
   <string name="send_coins_fragment_significant_fee_title">Aanzienlijke netwerkkosten</string>
-  <string name="send_coins_fragment_significant_fee_message">De netwerk fee voor deze betaling (%1$s) is hoog in verhouding tot het bedrag (%2$s). Wil je de betaling toch verzenden?</string>
+  <string name="send_coins_fragment_significant_fee_message">De netwerkkosten voor deze betaling (%1$s) is hoog in verhouding tot het bedrag (%2$s). Wil je de betaling toch verzenden?</string>
   <string name="send_coins_fragment_insufficient_money_title">Niet genoeg beschikbare munten</string>
   <string name="send_coins_fragment_insufficient_money_msg1">Je mist %s.</string>
   <string name="send_coins_fragment_insufficient_money_msg2">Wilt uw betalen met alles wat uw heeft?</string>
@@ -126,7 +127,7 @@
   <string name="sweep_wallet_fragment_insufficient_money_msg">De hoeveelheid bitcoins in de wallet is te laag om te kunnen overdragen.</string>
   <string name="sweep_wallet_options_reload">Saldo verversen</string>
   <string name="maintenance_dialog_title">Onderhoud aanbevolen</string>
-  <string name="maintenance_dialog_message">U ontving %1$s op onveilige adressen. Wilt U deze bitcoins overbrengen naar veilige adressen? Een kleine netwerkonkostenvergoeding ter grootte van %2$s zal worden afgedragen.</string>
+  <string name="maintenance_dialog_message">U ontving %1$s op onveilige adressen. Wilt U deze Bitcoins overbrengen naar veilige adressen? Kleine netwerkkosten ter grootte van %2$s zal worden afgedragen.</string>
   <string name="maintenance_dialog_state_decrypting">Decoderen…</string>
   <string name="maintenance_dialog_state_done">Klaar.</string>
   <string name="maintenance_dialog_button_move">Verplaats</string>
@@ -165,7 +166,7 @@
   <string name="edit_address_book_entry_dialog_button_edit">Opslaan</string>
   <string name="transaction_row_fee">Netwerkkosten</string>
   <string name="transaction_row_message_purpose_key_rotation">Deze transactie maakt je wallet sterker tegen diefstal. &lt;u&gt;Meer info.&lt;/u&gt;</string>
-  <string name="transaction_row_message_purpose_raise_fee">Deze transactie verhoogt de transactiekosten van een eerder verstuurde betaling.</string>
+  <string name="transaction_row_message_purpose_raise_fee">Deze transactie verhoogt de netwerkkosten van een eerder verstuurde betaling.</string>
   <string name="transaction_row_message_own_unbroadcasted">Deze betaling is nog niet verzonden.</string>
   <string name="transaction_row_message_received_direct">Deze betaling is direct ontvangen. Het risico bestaat dat het nooit uitgegeven kan worden.</string>
   <string name="transaction_row_message_received_unconfirmed_delayed">De bevestiging van deze transactie is vertraagd, waarschijnlijk door een overbelasting van het Bitcoin netwerk.</string>
@@ -174,7 +175,7 @@
   <string name="transaction_row_message_received_in_conflict">Deze transactie heeft het risico om teruggedraaid te worden door de verzender! Wacht indien mogelijk op bevestiging.</string>
   <string name="transaction_row_message_received_dead">Deze betaling is omgekeerd door de verzender.</string>
   <string name="transaction_row_message_received_dust">Dit kleine beetje kan waarschijnlijk nooit economisch worden besteed.</string>
-  <string name="transaction_row_message_received_pay_to_many">Deze betaling wordt naar veel wallets -naast die van U zelf- tegelijkertijd gedaan, waardoor uw app af en toe traag kan worden. Indien mogelijk, ontvang dan bij voorkeur alleen transacties die uitsluitend aan u zelf gericht zijn.</string>
+  <string name="transaction_row_message_received_pay_to_many">Deze betaling wordt naar veel wallets - naast die van U zelf - tegelijkertijd gedaan, waardoor uw app af en toe traag kan worden. Indien mogelijk, ontvang dan bij voorkeur alleen transacties die uitsluitend aan u zelf gericht zijn.</string>
   <string name="transaction_row_message_received_rbf">Deze betaling is vertraagd omdat de verzender een onveilige transactiemethode heeft gebruikt.</string>
   <string name="network_monitor_activity_title">Netwerkmonitor</string>
   <string name="network_monitor_peer_list_title">Peers</string>
@@ -200,13 +201,13 @@
   <string name="import_keys_dialog_button_import">Herstellen</string>
   <string name="restore_wallet_dialog_success">Portemonnee is hersteld.</string>
   <string name="restore_wallet_dialog_success_replay">Uw wallet is met succes hersteld. Nu zal het saldo worden vastgesteld. Dit kan enige tijd duren.</string>
-  <string name="restore_wallet_dialog_success_encrypted">Waarschuwing: betalen vanuit je portemonnee is beveiligd met een PIN. Onthoud deze goed voordat je in deze portemonnee wat ontvangt.</string>
+  <string name="restore_wallet_dialog_success_encrypted">Waarschuwing: betalen vanuit je portemonnee is beveiligd met een pincode. Onthoud deze goed voordat je in deze portemonnee wat ontvangt.</string>
   <string name="import_keys_dialog_failure">Portemonnee kon niet hersteld worden:\n\n%s\n\nVerkeerd wachtwoord?</string>
   <string name="export_keys_dialog_title">Backup portemonnee</string>
   <string name="backup_wallet_dialog_message">Uw back-up zal worden versleuteld met het gekozen wachtwoord en worden opgeslagen naar externe opslag.</string>
-  <string name="backup_wallet_dialog_warning_encrypted">Uw wallet is beveiligd met een PIN code om te kunnen betalen. Onthoud deze PIN code net als uw back-up wachtwoord! </string>
+  <string name="backup_wallet_dialog_warning_encrypted">Uw wallet is beveiligd met een pincode om te kunnen betalen. Onthoud deze pincode net als uw back-up wachtwoord! </string>
   <string name="export_keys_dialog_button_export">Backup</string>
-  <string name="export_keys_dialog_success"><![CDATA[<p>Er is een backup van uw wallet gemaakt op <tt>%s</tt></p><p><b>Als de backup zich uitsluitend op uw apparaat bevindt, riskeert U het verlies van uw wallet en backup tezamen !</b></p><p>Zorg er altijd voor dat U uw backup wachtwoord goed onthoudt.</p>]]></string>
+  <string name="export_keys_dialog_success"><![CDATA[<p>Er is een backup van je portemonnee gemaakt naar <tt>%s</tt></p><p><b>Als je backup alleen op het zelfde apparaat bestaat loop je de kans beide tegelijkertijd kwijt te raken!</b></p><p>Zorg in ieder geval dat je een backup maakt van je wachtwoord.</p>]]></string>
   <string name="export_keys_dialog_failure">Uw portemonnee kan niet gebackupt worden:\n%s</string>
   <string name="import_export_keys_dialog_password">wachtwoord</string>
   <string name="backup_wallet_dialog_password_again">opnieuw</string>
@@ -214,15 +215,15 @@
   <string name="import_export_keys_dialog_show">Toon wachtwoord</string>
   <string name="import_export_keys_dialog_failure_title">Fout</string>
   <string name="import_keys_intent_filter_action">Herstel portemonnee</string>
-  <string name="encrypt_keys_dialog_title">PIN code voor betalen</string>
-  <string name="encrypt_keys_dialog_message">Om te kunnen betalen met uw wallet zal als extra bescherming om uw gekozen PIN code gevraagd worden.</string>
-  <string name="encrypt_keys_dialog_warning">Belangrijk: Onthoud je PIN! Gebruik geen makkelijke nummers (zoals verjaardagen).</string>
-  <string name="encrypt_keys_dialog_password_old">Oude PIN</string>
+  <string name="encrypt_keys_dialog_title">Pincode voor betalen</string>
+  <string name="encrypt_keys_dialog_message">Om te kunnen betalen met uw wallet zal als extra bescherming om uw gekozen pincode gevraagd worden.</string>
+  <string name="encrypt_keys_dialog_warning">Belangrijk: Onthoud je pincode! Gebruik geen makkelijke nummers (zoals verjaardagen).</string>
+  <string name="encrypt_keys_dialog_password_old">Oude pincode</string>
   <string name="encrypt_keys_dialog_password_strength_weak">zwak</string>
   <string name="encrypt_keys_dialog_password_strength_fair">redelijk</string>
   <string name="encrypt_keys_dialog_password_strength_good">goed</string>
   <string name="encrypt_keys_dialog_password_strength_strong">sterk</string>
-  <string name="encrypt_keys_dialog_show">Toon PIN</string>
+  <string name="encrypt_keys_dialog_show">Toon pincode</string>
   <string name="encrypt_keys_dialog_state_encrypting">Versleutelen…</string>
   <string name="encrypt_keys_dialog_state_decrypting">Decoderen…</string>
   <string name="encrypt_keys_dialog_state_done">Klaar.</string>
@@ -248,7 +249,7 @@
   <string name="preferences_precision_labels_2_3">mBTC, 2 decimale getallen</string>
   <string name="preferences_precision_labels_0_6">µBTC, geen decimalen</string>
   <string name="preferences_own_name_title">Je naam</string>
-  <string name="preferences_own_name_summary">Je naam, voor toevoegen aan betaal verzoek. Probeer het kort te houden.</string>
+  <string name="preferences_own_name_summary">Je naam, voor om toe te voegen aan betalingsverzoeken. Probeer het kort te houden.</string>
   <string name="preferences_send_coins_autoclose_title">Dialoog voor verzonden coins automatisch sluiten.</string>
   <string name="preferences_send_coins_autoclose_summary">Als de betaling is voltooid zal de verzend dialoog automatisch sluiten.</string>
   <string name="preferences_connectivity_notification_title">Connectiviteitsindicator</string>
@@ -259,7 +260,7 @@
   <string name="preferences_trusted_peer_resolve_unknown_host">Hostname onbekend!</string>
   <string name="preferences_trusted_peer_only_title">Sla opsporen vertrouwde contacten over</string>
   <string name="preferences_trusted_peer_only_summary">Voorkomt elke verbinding behalve met de vertrouwde peer.</string>
-  <string name="preferences_block_explorer_title">Block verkenner</string>
+  <string name="preferences_block_explorer_title">Blokverkenner</string>
   <string name="preferences_block_explorer_summary">Externe blokverkenner voor het browsen van transacties, adressen en blokken.</string>
   <string name="preferences_data_usage_title">Datagebruik</string>
   <string name="preferences_data_usage_summary">Toon opties om bandbreedte op mobiele netwerken te beperken.</string>
@@ -268,9 +269,9 @@
   <string name="preferences_show_disclaimer_title">Toon disclaimer</string>
   <string name="preferences_show_disclaimer_summary">Heb je echt de veiligheidsaanwijzingen gelezen? Heb je al op een veilige plek een backup gemaakt van je portemonnee?</string>
   <string name="preferences_report_issue_title">Meld probleem</string>
-  <string name="preferences_initiate_reset_title">Reset blockchain</string>
-  <string name="preferences_initiate_reset_summary">Reset block-chain, transacties en wallet inhoud. Herstel kan enige tijd duren dus doe dit alleen als je weet waarom.</string>
-  <string name="preferences_initiate_reset_dialog_message">Wil je de blockchain resetten en opnieuw laden?\n\nDit zal tijdelijk de wallet inhoud en transacties laten verbergen. Beiden zullen terugkomen tijdens het synchronisatieproces. Zorg dat je een betrouwbare verbinding hebt met het internet.</string>
+  <string name="preferences_initiate_reset_title">Reset blokketen</string>
+  <string name="preferences_initiate_reset_summary">Reset blokketen, transacties en wallet-inhoud. Herstel kan enige tijd duren dus doe dit alleen als je weet waarom.</string>
+  <string name="preferences_initiate_reset_dialog_message">Wil je de blokketen resetten en opnieuw laden?\n\nDit zal tijdelijk de wallet-inhoud en transacties laten verbergen. Beiden zullen terugkomen tijdens het synchronisatieproces. Zorg dat je een betrouwbare verbinding hebt met het internet.</string>
   <string name="preferences_initiate_reset_dialog_positive">Reset</string>
   <string name="preferences_extended_public_key_title">Toon xpub</string>
   <string name="preferences_extended_public_key_summary">Toon de uitgebreide public key van je portemonnee zodat het geïmporteerd kan worden in andere apps en services. Wees voorzichtig: hiermee geef je je monetaire privacy prijs aan die app.</string>
@@ -281,7 +282,7 @@
   <string name="report_issue_dialog_title_crash">Vorige crash gedetecteerd</string>
   <string name="report_issue_dialog_title_transaction">Probleem melden met geselecteerde betaling.</string>
   <string name="report_issue_dialog_message_issue">Omschrijf het probleem nauwkeurig zodat het reproduceerbaar is. Gebruik Engelse taal indien mogelijk.</string>
-  <string name="report_issue_dialog_message_crash">Wilt u een crash rapport sturen om ons te helpen dit probleem op te lossen in de toekomst?</string>
+  <string name="report_issue_dialog_message_crash">Wilt u een crashrapport sturen om ons te helpen dit probleem op te lossen in de toekomst?</string>
   <string name="report_issue_dialog_description">probleem beschrijving</string>
   <string name="report_issue_dialog_report">Verslag</string>
   <string name="report_issue_dialog_collect_device_info">Apparaat informatie toevoegen</string>
@@ -314,9 +315,9 @@
   <string name="notification_channel_received_name">Ontvangen betalingen</string>
   <string name="notification_channel_ongoing_name">Achtergrondactiviteit</string>
   <string name="notification_channel_important_name">Belangrijke meldingen</string>
-  <string name="appwidget_wallet_balance_title">Bitcoin saldo</string>
+  <string name="appwidget_wallet_balance_title">Bitcoinsaldo</string>
   <!--generic buttons-->
-  <string name="button_ok">OK</string>
+  <string name="button_ok">Oké</string>
   <string name="button_dismiss">Annuleren</string>
   <string name="button_cancel">Annuleren</string>
   <string name="button_retry">Opnieuw</string>
@@ -339,11 +340,11 @@
   <!--generic strings-->
   <string name="time_today">vandaag</string>
   <string name="address_unlabeled">(niet-gemerkt)</string>
-  <string name="private_key_password">PIN</string>
-  <string name="private_key_bad_password">foutieve PIN!</string>
+  <string name="private_key_password">Pincode</string>
+  <string name="private_key_bad_password">foutieve pincode!</string>
   <!--generic error messages-->
-  <string name="error_io">I/O fout: %s</string>
+  <string name="error_io">I/O-fout: %s</string>
   <string name="error_parse">Parseerfout: %s</string>
-  <string name="error_http">HTTP fout %1$s:\n%2$s</string>
-  <string name="error_bluetooth">Bluetooth fout: %1$s</string>
+  <string name="error_http">HTTP-fout %1$s:\n%2$s</string>
+  <string name="error_bluetooth">Bluetooth-fout: %1$s</string>
 </resources>

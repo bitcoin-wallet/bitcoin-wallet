@@ -5,13 +5,13 @@
 
 <![CDATA[
 		<p>
-			Bovenin wordt uw huidige saldo in bitcoin en nationale valuta weergegeven.
+			Bovenin wordt uw huidige saldo in Bitcoin en nationale valuta weergegeven.
 			Raak aan om naar de lijst van nationale valuta\'s te gaan en raak één van deze valuta\'s aan om deze als standaard te selecteren.
 		</p>
 
 		<p>
-			De QR code aan de rechterkant bevat een bitcoin adres en kan door anderen gebruikt worden om te scannen.
-			Raak de QR code aan om deze groter weer te geven.
+			De QR code aan de rechterkant bevat een Bitcoinadres en kan door anderen gebruikt worden om te scannen.
+			Raak de QR-code aan om deze groter weer te geven.
 		</p>
 
 		<p>
@@ -21,23 +21,23 @@
 		</p>
 
 		<p>
-			U kunt bitcoin verzenden of verzoeken door op de knoppen van de actiebalk te drukken.
-			Meer opties zijn aanwezig in het opties menu.
+			U kunt Bitcoin verzenden of verzoeken door op de knoppen van de actiebalk te drukken.
+			Meer opties zijn aanwezig in het optiesmenu.
 		</p>
 	]]>
 	</string>
   <string name="help_request_coins">
 <![CDATA[
 		<p>
-			Deze dialoog kunt u gebruiken om bitcoins te verzoeken van iemand (die ook Bitcoin Wallet of een andere Bitcoin client geinstalleerd heeft).
+			Deze dialoog kunt u gebruiken om Bitcoins te verzoeken van iemand (die ook Bitcoin Wallet of een andere Bitcoin-client geïnstalleerd heeft).
 		</p>
 		<p>
-			Eerst vul je een hoeveelheid bitcoin in die je wilt ontvangen.
+			Eerst vul je een hoeveelheid Bitcoin in die je wilt ontvangen.
 		</p>
 		<p>
 			Daarna kan de andere persoon de QR-code scannen.
 			Of u kunt uw verzoek met de \'delen\'-knop versturen.
-			De andere persoon dient op de Bitcoin URL te klikken.
+			Als beide apparaten NFC aan hebben staan, kun je ze ook tegen elkaar aanhouden.
 		</p>
 		<p>
 			De andere persoon zal nu de dialoog te zien krijgen voor het verzenden van Bitcoins waarin alle velden ingevuld zijn.
@@ -49,12 +49,12 @@
 <![CDATA[
 		<p>
 			U heeft het dialoog gestart om Bitcoins te verzenden.
-			U bent hier terecht gekomen via het hoofd scherm of door het klikken op een Bitcoin URL in uw browser.
+			U bent hier terecht gekomen via het hoofd scherm of door het klikken op een Bitcoin-URL in uw browser.
 		</p>
 		<p>
 			Als eerste geeft u het Bitcoin adres in waar naar u wilt betalen.
 			Het adres zal automatisch aangevuld worden als deze bekend is in het adresboek.
-			U kan ook QR-codes scannen met een Bitcoin adres of verzoek door op de QR knop in de actie-balk te klikken.
+			U kan ook QR-codes scannen met een Bitcoin adres of verzoek door op de cameraknop te klikken.
 		</p>
 		<p>
 			Vervolgens kunt u zien hoe veel Bitcoins op dit moment beschikbaar zijn voor besteding.
@@ -66,12 +66,12 @@
 		<p>
 			U kunt ook transacties ingeven terwijl u offline bent.
 			Deze transacties zullen verzonden worden zodra Bitcoin Wallet de volgende keer gestart wordt en online is.
-			Als u wenst dat uw transacties zo snel mogelijk verwerkt worden is het verstandig om verbonden te zijn met een zo goed mogelijke internet verbinding (d.w.z. op WLAN).
+			Als u wenst dat uw transacties zo snel mogelijk verwerkt worden is het verstandig om verbonden te zijn met een zo goed mogelijke internet verbinding (d.w.z. op een WLAN).
 		</p>
 		<p>
 			Opmerking:
-			Transcaties kunnen niet ongedaan gemaakt worden!
-			Controleer altijd het ontvangst adres.
+			Transacties kunnen niet ongedaan gemaakt worden!
+			Controleer altijd het ontvangstadres.
 		</p>
 	]]>
 	</string>
@@ -86,7 +86,7 @@
 			Vergelijkbaar met het verlies van uw portemonnee.
 		</p>
 		<p>
-			<b>Voor het verwijderen van Bitcoin Wallet</b> (of verschonen van app data of wipe van het apparaat), <b>dient u de bitcoins over te zetten naar een andere wallet.</b>.
+			<b>Voor het verwijderen van Bitcoin Wallet</b> (of verschonen van appdata of wipe van het apparaat), <b>dient u de Bitcoins over te zetten naar een andere wallet.</b>.
 			Overblijvende Bitcoins zullen verloren gaan.
 		</p>
 		<p>
