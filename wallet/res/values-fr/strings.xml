@@ -60,7 +60,8 @@
   <string name="alert_dialogs_fragment_settings_failed_title">Problème d\'ouverture des paramètres</string>
   <string name="send_coins_activity_title">Envoyer des bitcoins</string>
   <string name="send_coins_fragment_request_payment_request_progress">Récupération de la signature de %s…</string>
-  <string name="send_coins_fragment_request_payment_request_failed_title">Échec de récupération de la signature</string>
+  <string name="send_coins_fragment_request_payment_request_failed_title">Échec de récupération de la demande de paiement</string>
+  <string name="send_coins_fragment_request_payment_request_failed_message">Le bénéficiaire (%1$s) utilise un protocole de paiement incompatible (raison : %2$s).</string>
   <string name="send_coins_fragment_request_payment_request_wrong_signature">Signature erronée !</string>
   <string name="send_coins_fragment_payee_verified_by">vérifié par : %s</string>
   <string name="send_coins_fragment_payee_verified_by_unknown">inconnu</string>
@@ -75,7 +76,7 @@
   <string name="send_coins_fragment_hint_fee">Des frais de réseau de %s seront acquittés.</string>
   <string name="send_coins_fragment_hint_fee_priority">Des frais de priorité de %s seront acquittés. Si vous préférez des frais moindres, n\'utilisez Prioritaire que s\'il vous faut la confirmation la plus rapide possible.</string>
   <string name="send_coins_fragment_hint_dusty_send">Le montant est trop petit pour être envoyé.</string>
-  <string name="send_coins_fragment_hint_insufficient_money">Vous n’avez pas assez de pièces disponibles. Il vous manque %s. Cela peut aussi être causé par les frais de réseau.</string>
+  <string name="send_coins_fragment_hint_insufficient_money">Vous n\'avez pas assez de pièces disponibles. Il vous manque %s. Cela peut aussi être causé par les frais de réseau.</string>
   <string name="send_coins_fragment_hint_empty_wallet_failed">La somme des petits paiements dans votre porte-monnaie ne donne pas une valeur pouvant être envoyée.</string>
   <string name="send_coins_fragment_hint_replaying">Les paiements ne sont pas possibles actuellement, car une relecture est en cours.</string>
   <string name="send_coins_fragment_direct_payment_enable">Envoyer le paiement directement au bénéficiaire.</string>
