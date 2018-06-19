@@ -1,3 +1,7 @@
+v6.27
+
+* Use the Room Persistence Library for access to the address book database.
+
 v6.25-v6.26
 
 * Update translations from Transifex.
