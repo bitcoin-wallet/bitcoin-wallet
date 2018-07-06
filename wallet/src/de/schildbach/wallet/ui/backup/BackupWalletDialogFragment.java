@@ -157,6 +157,7 @@ public class BackupWalletDialogFragment extends DialogFragment {
             @Override
             public void onShow(final DialogInterface d) {
                 positiveButton = dialog.getButton(DialogInterface.BUTTON_POSITIVE);
+                positiveButton.setEnabled(false);
                 positiveButton.setTypeface(Typeface.DEFAULT_BOLD);
                 positiveButton.setOnClickListener(new OnClickListener() {
                     @Override
