@@ -1,4 +1,4 @@
-v6.27
+v6.27-v6.28
 
 * Use the Room Persistence Library for access to the address book database.
 
