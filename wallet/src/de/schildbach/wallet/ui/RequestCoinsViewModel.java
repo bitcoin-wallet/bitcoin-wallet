@@ -29,7 +29,7 @@ import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.data.AbstractWalletLiveData;
 import de.schildbach.wallet.data.ConfigOwnNameLiveData;
-import de.schildbach.wallet.data.ExchangeRateLiveData;
+import de.schildbach.wallet.data.SelectedExchangeRateLiveData;
 import de.schildbach.wallet.util.Bluetooth;
 import de.schildbach.wallet.util.Qr;
 
@@ -50,7 +50,7 @@ public class RequestCoinsViewModel extends AndroidViewModel {
     private final WalletApplication application;
     public final FreshReceiveAddressLiveData freshReceiveAddress;
     private final ConfigOwnNameLiveData ownName;
-    public final ExchangeRateLiveData exchangeRate;
+    public final SelectedExchangeRateLiveData exchangeRate;
     public final MutableLiveData<Coin> amount = new MutableLiveData<>();
     public final MutableLiveData<String> bluetoothMac = new MutableLiveData<>();
     public final MediatorLiveData<Bitmap> qrCode = new MediatorLiveData<>();
@@ -65,7 +65,7 @@ public class RequestCoinsViewModel extends AndroidViewModel {
         this.application = (WalletApplication) application;
         this.freshReceiveAddress = new FreshReceiveAddressLiveData(this.application);
         this.ownName = new ConfigOwnNameLiveData(this.application);
-        this.exchangeRate = new ExchangeRateLiveData(this.application);
+        this.exchangeRate = new SelectedExchangeRateLiveData(this.application);
         this.qrCode.addSource(freshReceiveAddress, new Observer<Address>() {
             @Override
             public void onChanged(final Address receiveAddress) {

@@ -75,7 +75,7 @@ import de.schildbach.wallet.WalletBalanceWidgetProvider;
 import de.schildbach.wallet.data.AddressBookDao;
 import de.schildbach.wallet.data.AppDatabase;
 import de.schildbach.wallet.data.ExchangeRate;
-import de.schildbach.wallet.data.ExchangeRateLiveData;
+import de.schildbach.wallet.data.SelectedExchangeRateLiveData;
 import de.schildbach.wallet.data.TimeLiveData;
 import de.schildbach.wallet.data.WalletBalanceLiveData;
 import de.schildbach.wallet.data.WalletLiveData;
@@ -514,7 +514,7 @@ public class BlockchainService extends LifecycleService {
         broadcastPeerState(0);
 
         final WalletBalanceLiveData walletBalance = new WalletBalanceLiveData(application);
-        final ExchangeRateLiveData exchangeRate = new ExchangeRateLiveData(application);
+        final SelectedExchangeRateLiveData exchangeRate = new SelectedExchangeRateLiveData(application);
         walletBalance.observe(this, new Observer<Coin>() {
             @Override
             public void onChanged(final Coin walletBalance) {

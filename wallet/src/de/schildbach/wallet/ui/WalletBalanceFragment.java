@@ -26,7 +26,7 @@ import de.schildbach.wallet.R;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.data.BlockchainStateLiveData;
 import de.schildbach.wallet.data.ExchangeRate;
-import de.schildbach.wallet.data.ExchangeRateLiveData;
+import de.schildbach.wallet.data.SelectedExchangeRateLiveData;
 import de.schildbach.wallet.data.WalletBalanceLiveData;
 import de.schildbach.wallet.service.BlockchainState;
 import de.schildbach.wallet.ui.send.FeeCategory;
@@ -76,7 +76,7 @@ public final class WalletBalanceFragment extends Fragment {
         private final WalletApplication application;
         private BlockchainStateLiveData blockchainState;
         private WalletBalanceLiveData balance;
-        private ExchangeRateLiveData exchangeRate;
+        private SelectedExchangeRateLiveData exchangeRate;
 
         public ViewModel(final Application application) {
             super(application);
@@ -95,9 +95,9 @@ public final class WalletBalanceFragment extends Fragment {
             return balance;
         }
 
-        public ExchangeRateLiveData getExchangeRate() {
+        public SelectedExchangeRateLiveData getExchangeRate() {
             if (exchangeRate == null)
-                exchangeRate = new ExchangeRateLiveData(application);
+                exchangeRate = new SelectedExchangeRateLiveData(application);
             return exchangeRate;
         }
     }

@@ -29,11 +29,11 @@ import android.support.v4.content.CursorLoader;
 /**
  * @author Andreas Schildbach
  */
-public class ExchangeRateLiveData extends LiveData<ExchangeRate> implements OnSharedPreferenceChangeListener {
+public class SelectedExchangeRateLiveData extends LiveData<ExchangeRate> implements OnSharedPreferenceChangeListener {
     private final Configuration config;
     private final CursorLoader loader;
 
-    public ExchangeRateLiveData(final WalletApplication application) {
+    public SelectedExchangeRateLiveData(final WalletApplication application) {
         this.config = application.getConfiguration();
         this.loader = new CursorLoader(application,
                 ExchangeRatesProvider.contentUri(application.getPackageName(), false), null,
