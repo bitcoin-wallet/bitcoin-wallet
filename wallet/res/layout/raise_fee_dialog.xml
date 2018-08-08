@@ -37,6 +37,7 @@
                 android:hint="@string/private_key_password"
                 android:imeOptions="flagNoExtractUi"
                 android:inputType="numberPassword"
+                android:importantForAccessibility="no"
                 android:singleLine="true" />
 
             <TextView

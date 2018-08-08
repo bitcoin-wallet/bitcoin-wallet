@@ -51,6 +51,7 @@
                 android:layout_weight="1"
                 android:hint="@string/sweep_wallet_fragment_password"
                 android:inputType="textPassword"
+                android:importantForAccessibility="no"
                 android:singleLine="true" />
 
             <TextView
