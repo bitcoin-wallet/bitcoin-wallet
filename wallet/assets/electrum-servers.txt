@@ -1,2 +1,3 @@
-tcp:electrum.akinbo.org
-tls:testnet.hsmiths.com::d1741a0ddecba02713a13bc8aa858d30eaf0a6c9068c2857346b21ef9f105feb
+tls:testnet.hsmiths.com:53012:d1741a0ddecba02713a13bc8aa858d30eaf0a6c9068c2857346b21ef9f105feb
+tls:testnet.qtornado.com::688366b14f60fd4e460a10ebaebab7768c6a0433ef5b8d4f2d09ce853fec41bf
+tls:electrum-testnet-unlimited.criptolayer.net:50102:e24dee274f8b4c46d86eb5721f350981d3c850e595a2a9e757e8d71c0b35c563
