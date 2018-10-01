@@ -170,9 +170,9 @@ public final class Constants {
     public static final long DELAYED_TRANSACTION_THRESHOLD_MS = 2 * DateUtils.HOUR_IN_MILLIS;
 
     /** A balance above this amount will show a warning */
-    public static final Coin TOO_MUCH_BALANCE_THRESHOLD = Coin.COIN.divide(8);
+    public static final Coin TOO_MUCH_BALANCE_THRESHOLD = Coin.COIN.divide(4);
     /** A balance above this amount will cause the donate option to be shown */
-    public static final Coin SOME_BALANCE_THRESHOLD = Coin.COIN.divide(400);
+    public static final Coin SOME_BALANCE_THRESHOLD = Coin.COIN.divide(200);
 
     public static final int SDK_DEPRECATED_BELOW = Build.VERSION_CODES.KITKAT;
 
