@@ -109,7 +109,8 @@ public final class InactivityNotificationService extends IntentService {
             log.info("detected balance, showing inactivity notification");
 
             final Coin availableBalance = wallet.getBalance(BalanceType.AVAILABLE_SPENDABLE);
-            final boolean canDonate = Constants.DONATION_ADDRESS != null && availableBalance.isPositive();
+            final boolean canDonate = Constants.DONATION_ADDRESS != null
+                    && !availableBalance.isLessThan(Constants.SOME_BALANCE_THRESHOLD);
 
             final MonetaryFormat btcFormat = config.getFormat();
             final String title = getString(R.string.notification_inactivity_title);
