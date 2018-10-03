@@ -105,8 +105,9 @@ public class AlertDialogsFragment extends Fragment {
                         + (versionNameSplit >= 0 ? packageInfo.versionName.substring(versionNameSplit) : ""))
                 .newBuilder();
         url.addEncodedQueryParameter("package", packageInfo.packageName);
-        url.addEncodedQueryParameter("installer",
-                Strings.nullToEmpty(packageManager.getInstallerPackageName(packageInfo.packageName)));
+        final String installerPackageName = packageManager.getInstallerPackageName(packageInfo.packageName);
+        if (installerPackageName != null)
+            url.addEncodedQueryParameter("installer", installerPackageName);
         url.addQueryParameter("current", Integer.toString(packageInfo.versionCode));
         versionUrl = url.build();
     }
