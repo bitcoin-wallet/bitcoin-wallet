@@ -243,8 +243,6 @@
   <string name="about_market_app_summary">إعداد تقرير أو تقييم للتطبيق</string>
   <string name="about_faq_title">الأسئلة الشائعة</string>
   <string name="about_faq_summary">الأسئلة الشائعة عن التطبيق</string>
-  <string name="about_community_googleplus_title">مجتمع غوغل+</string>
-  <string name="about_community_googleplus_summary">إنضم إلى المناقشة حول التطبيق</string>
   <string name="notification_coins_received_msg">تم إستلام %s</string>
   <string name="notification_peers_connected_msg">الأقران المتصلة peers %d </string>
   <string name="notification_inactivity_title">لا يزال عندك بعضا من البيتكوين على هذا الجهاز !</string>

@@ -303,8 +303,6 @@
   <string name="about_market_app_summary">Beoordeel app</string>
   <string name="about_faq_title">FAQ</string>
   <string name="about_faq_summary">Vaakgestelde vragen over de app</string>
-  <string name="about_community_googleplus_title">Google+ community</string>
-  <string name="about_community_googleplus_summary">Discussieer over de app</string>
   <string name="notification_coins_received_msg">Ontvangen %s</string>
   <string name="notification_peers_connected_msg">%d actieve verbindingen</string>
   <string name="notification_inactivity_title">Je hebt nog steeds Bitcoins op dit apparaat!</string>

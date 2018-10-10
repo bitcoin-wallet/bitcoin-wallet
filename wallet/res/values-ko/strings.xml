@@ -295,8 +295,6 @@
   <string name="about_market_app_summary">앱 리뷰 또는 등급 점수 매기러 가기</string>
   <string name="about_faq_title">FAQ</string>
   <string name="about_faq_summary">이 앱에 대한 묻고 답하기(FAQ) 내용</string>
-  <string name="about_community_googleplus_title">Google+의 앱 커뮤니티</string>
-  <string name="about_community_googleplus_summary">이 앱에 대한 토론장</string>
   <string name="notification_coins_received_msg">비트코인 수취 알림 : %s</string>
   <string name="notification_peers_connected_msg">피어 연결 개수 알림 : %d</string>
   <string name="notification_inactivity_title">아직 이 장치 기기에 비트코인이 남아 있습니다.</string>

@@ -279,8 +279,6 @@
   <string name="about_credits_bitcoinj_title">bitcoinj %s, en implementation av Bitcoin-protokollet</string>
   <string name="about_credits_zxing_title">ZXing, ett bibliotek för bearbetning av QR-koder</string>
   <string name="about_credits_scrypt_title">Scrypt, implementerad av Will Glozer och Colin Percival</string>
-  <string name="about_community_googleplus_title">Google+-community</string>
-  <string name="about_community_googleplus_summary">Diskussioner om appen</string>
   <string name="about_market_app_title">Google Play-sida</string>
   <string name="about_market_app_summary">Recensera eller betygsätt appen</string>
   <string name="notification_coins_received_msg">Mottagit %s</string>

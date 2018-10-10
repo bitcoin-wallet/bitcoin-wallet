@@ -303,8 +303,6 @@
   <string name="about_market_app_summary">アプリのレビューや評価をしてください</string>
   <string name="about_faq_title">よくある質問</string>
   <string name="about_faq_summary">このアプリに関するよくある質問</string>
-  <string name="about_community_googleplus_title">Google+ コミュニティ</string>
-  <string name="about_community_googleplus_summary">このアプリについて議論する</string>
   <string name="notification_coins_received_msg">%sを受け取りました</string>
   <string name="notification_peers_connected_msg">%dピアが接続済</string>
   <string name="notification_inactivity_title">まだこの端末にビットコインが残っています!</string>

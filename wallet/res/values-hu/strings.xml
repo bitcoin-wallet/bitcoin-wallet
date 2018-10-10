@@ -272,8 +272,6 @@
   <string name="about_source_title">Forráskód</string>
   <string name="about_credits_bitcoinj_title">Az applikáció bitcoinj %s-t használ</string>
   <string name="about_credits_zxing_title">ZXing, egy QR-kód feldolgozó könyvtár</string>
-  <string name="about_community_googleplus_title">Google+ közösség</string>
-  <string name="about_community_googleplus_summary">Fórumok az applikációról</string>
   <string name="about_market_app_title">Google Play oldal</string>
   <string name="about_market_app_summary">Értékelések</string>
   <string name="notification_coins_received_msg">Fogadott mennyiség: %s</string>

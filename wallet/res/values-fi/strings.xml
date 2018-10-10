@@ -297,8 +297,6 @@
   <string name="about_market_app_summary">Arvostele tai arvioi sovellus</string>
   <string name="about_faq_title">UKK</string>
   <string name="about_faq_summary">Usein kysyttyjä kysymyksiä sovelluksesta</string>
-  <string name="about_community_googleplus_title">Google+-yhteisö</string>
-  <string name="about_community_googleplus_summary">Keskustele sovelluksesta</string>
   <string name="notification_coins_received_msg">Vastaanotettiin %s</string>
   <string name="notification_peers_connected_msg">%d vertaiseen yhdistetty</string>
   <string name="notification_inactivity_title">Sinulla on vielä Bitcoineja tässä laitteessa!</string>

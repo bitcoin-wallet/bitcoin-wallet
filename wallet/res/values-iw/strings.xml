@@ -173,8 +173,6 @@
 	<string name="about_category_credits">אפליקציה זו משתמשת ב</string>
 	<string name="about_credits_bitcoinj_title">bitcoinj %s</string>
 	<string name="about_credits_zxing_title">ZXing</string>
-	<string name="about_community_googleplus_title">קהילת גוגל+</string>
-	<string name="about_community_googleplus_summary">דיונים על אודות האפליקציה</string>
 	<string name="about_market_app_title">Google Play App Page</string>
 	<string name="about_market_app_summary">כתוב ביקורת או דרג את האפליקציה</string>
 	<string name="notification_coins_received_msg">נתקבלו %s</string>

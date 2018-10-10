@@ -304,8 +304,6 @@
     <string name="about_market_app_summary">Review or rate the app</string>
     <string name="about_faq_title">FAQ</string>
     <string name="about_faq_summary">Frequently asked questions about the app</string>
-    <string name="about_community_googleplus_title">Google+ community</string>
-    <string name="about_community_googleplus_summary">Discuss about the app</string>
     <string name="notification_coins_received_msg">Received %s</string>
     <string name="notification_peers_connected_msg">%d peers connected</string>
     <string name="notification_inactivity_title">You\'ve still got Bitcoins on this device!</string>

@@ -300,8 +300,6 @@
   <string name="about_market_app_summary">Напишите отзыв или оцените приложение</string>
   <string name="about_faq_title">ЧаВо</string>
   <string name="about_faq_summary">Частые вопросы по приложению</string>
-  <string name="about_community_googleplus_title">Сообщество Google+</string>
-  <string name="about_community_googleplus_summary">Обсуждение приложения</string>
   <string name="notification_coins_received_msg">Получено %s</string>
   <string name="notification_peers_connected_msg">подключено %d участников</string>
   <string name="notification_inactivity_title">У вас всё ещё есть биткоины на этом устройстве!</string>

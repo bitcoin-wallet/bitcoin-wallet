@@ -297,8 +297,6 @@
   <string name="about_market_app_summary">Comente ou classifique o aplicativo</string>
   <string name="about_faq_title">FAQ</string>
   <string name="about_faq_summary">Perguntas frequentes sobre o app</string>
-  <string name="about_community_googleplus_title">Comunidade Google+</string>
-  <string name="about_community_googleplus_summary">Discutir sobre o app</string>
   <string name="notification_coins_received_msg">Recebido %s</string>
   <string name="notification_peers_connected_msg">%d pontos conectados</string>
   <string name="notification_inactivity_title">Você ainda tem Bitcoins nesse dispositivo!</string>

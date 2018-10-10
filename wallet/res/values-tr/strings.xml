@@ -303,8 +303,6 @@
   <string name="about_market_app_summary">Uygulamayı değerlendir veya not ver</string>
   <string name="about_faq_title">SSS</string>
   <string name="about_faq_summary">Uygulama hakkında sıkça sorulan sorular</string>
-  <string name="about_community_googleplus_title">Google+ topluluğu</string>
-  <string name="about_community_googleplus_summary">Uygulama hakkında tartışma</string>
   <string name="notification_coins_received_msg">%s alındı</string>
   <string name="notification_peers_connected_msg">%d eş bağlı</string>
   <string name="notification_inactivity_title">Bu cihazda hâlâ Bitcoinleriniz bulunmaktadır!</string>

@@ -150,8 +150,6 @@
 	<string name="about_category_credits">Ta aplikacja korzysta z…</string>
 	<string name="about_credits_bitcoinj_title">bitcoinj %s</string>
 	<string name="about_credits_zxing_title">ZXing</string>
-	<string name="about_community_googleplus_title">Społeczność Google+</string>
-	<string name="about_community_googleplus_summary">Dyskusje dotyczące aplikacji</string>
 	<string name="about_market_app_title">Strona Google Play</string>
 	<string name="about_market_app_summary">Wyraź swoją opinię o Aplikacji lub ją oceń</string>
 	<string name="notification_coins_received_msg">Otrzymano %s </string>

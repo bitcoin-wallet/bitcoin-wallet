@@ -300,8 +300,6 @@
   <string name="about_market_app_summary">Anmeld eller bedøm appen</string>
   <string name="about_faq_title">FAQ</string>
   <string name="about_faq_summary">Ofte stilte spørsmål om appen</string>
-  <string name="about_community_googleplus_title">Google+ samfunnet</string>
-  <string name="about_community_googleplus_summary">Diskuter om appen</string>
   <string name="notification_coins_received_msg">Mottok %s</string>
   <string name="notification_peers_connected_msg">%d peers tilkoblet</string>
   <string name="notification_inactivity_title">Du har fortsatt bitcoins på denne enheten!</string>

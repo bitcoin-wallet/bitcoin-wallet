@@ -300,8 +300,6 @@
   <string name="about_market_app_summary">Recensire o votare l\'app</string>
   <string name="about_faq_title">FAQ</string>
   <string name="about_faq_summary">Domande richieste frequentemente riguardo all\'app</string>
-  <string name="about_community_googleplus_title">Comunità Google+</string>
-  <string name="about_community_googleplus_summary">Discuti riguardo l\'app</string>
   <string name="notification_coins_received_msg">Ricevuti %s</string>
   <string name="notification_peers_connected_msg">Connesso a %d peers</string>
   <string name="notification_inactivity_title">Hai ancora dei Bitcoin su questo dispositivo!</string>

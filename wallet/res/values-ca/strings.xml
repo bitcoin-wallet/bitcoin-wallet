@@ -303,8 +303,6 @@
   <string name="about_market_app_summary">Analitza o puntua l\'aplicació</string>
   <string name="about_faq_title">Preguntes freqüents</string>
   <string name="about_faq_summary">Preguntes freqüents sobre l\'aplicació</string>
-  <string name="about_community_googleplus_title">Comunitat Google+</string>
-  <string name="about_community_googleplus_summary">Debat sobre l\'aplicació</string>
   <string name="notification_coins_received_msg">Rebuts%s</string>
   <string name="notification_peers_connected_msg">%d parells connectats</string>
   <string name="notification_inactivity_title">Encara tens Bitcoins en aquest dispositiu!</string>
