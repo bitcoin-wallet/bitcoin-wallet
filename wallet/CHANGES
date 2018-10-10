@@ -1,3 +1,8 @@
+v6.32
+
+* Remove link to Google+ community.
+* Update link to direct APK download.
+
 v6.31
 
 * For Android 9.0 (Pie) and above, the FOREGROUND_SERVICE permission is now being requested.
