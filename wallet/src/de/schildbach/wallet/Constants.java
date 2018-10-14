@@ -156,7 +156,7 @@ public final class Constants {
     public static final BaseEncoding HEX = BaseEncoding.base16().lowerCase();
 
     public static final String SOURCE_URL = "https://github.com/bitcoin-wallet/bitcoin-wallet";
-    public static final String BINARY_URL = "https://github.com/bitcoin-wallet/bitcoin-wallet/releases";
+    public static final String BINARY_URL = "https://wallet.schildbach.de/";
     public static final String MARKET_APP_URL = "market://details?id=%s";
     public static final String WEBMARKET_APP_URL = "https://play.google.com/store/apps/details?id=%s";
 
