@@ -66,7 +66,6 @@ public final class WalletBalanceFragment extends Fragment {
     private TextView viewProgress;
 
     private boolean showLocalBalance;
-    private boolean installedFromGooglePlay;
 
     private ViewModel viewModel;
 
@@ -110,8 +109,6 @@ public final class WalletBalanceFragment extends Fragment {
         this.config = application.getConfiguration();
 
         showLocalBalance = getResources().getBoolean(R.bool.show_local_balance);
-        installedFromGooglePlay = "com.android.vending"
-                .equals(application.getPackageManager().getInstallerPackageName(application.getPackageName()));
     }
 
     @Override
@@ -192,7 +189,7 @@ public final class WalletBalanceFragment extends Fragment {
         final Coin balance = viewModel.getBalance().getValue();
         final boolean hasSomeBalance = balance != null && !balance.isLessThan(Constants.SOME_BALANCE_THRESHOLD);
         menu.findItem(R.id.wallet_balance_options_donate)
-                .setVisible(Constants.DONATION_ADDRESS != null && (!installedFromGooglePlay || hasSomeBalance));
+                .setVisible(Constants.DONATION_ADDRESS != null && hasSomeBalance);
         super.onPrepareOptionsMenu(menu);
     }
 
