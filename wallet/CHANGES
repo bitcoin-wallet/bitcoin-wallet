@@ -1,3 +1,7 @@
+v6.33
+
+* Fix rarely occurring crash when backing up the wallet.
+
 v6.32
 
 * Remove link to Google+ community.
