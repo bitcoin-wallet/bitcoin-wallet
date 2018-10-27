@@ -272,34 +272,41 @@ public class BackupWalletDialogFragment extends DialogFragment {
     public void onActivityResult(final int requestCode, final int resultCode, final Intent intent) {
         if (requestCode == REQUEST_CODE_CREATE_DOCUMENT) {
             if (resultCode == Activity.RESULT_OK) {
-                final Uri targetUri = intent.getData();
-                final String password = passwordView.getText().toString().trim();
-                checkState(!password.isEmpty());
-                wipePasswords();
-                dismiss();
+                viewModel.wallet.observe(BackupWalletDialogFragment.this, new Observer<Wallet>() {
+                    @Override
+                    public void onChanged(final Wallet wallet) {
+                        viewModel.wallet.removeObserver(this);
 
-                final Wallet wallet = viewModel.wallet.getValue();
-                final Protos.Wallet walletProto = new WalletProtobufSerializer().walletToProto(wallet);
+                        final Uri targetUri = intent.getData();
+                        final String password = passwordView.getText().toString().trim();
+                        checkState(!password.isEmpty());
+                        wipePasswords();
+                        dismiss();
 
-                try (final Writer cipherOut = new OutputStreamWriter(
-                        activity.getContentResolver().openOutputStream(targetUri), StandardCharsets.UTF_8)) {
-                    final ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                    walletProto.writeTo(baos);
-                    baos.close();
-                    final byte[] plainBytes = baos.toByteArray();
+                        final Protos.Wallet walletProto = new WalletProtobufSerializer().walletToProto(wallet);
 
-                    cipherOut.write(Crypto.encrypt(plainBytes, password.toCharArray()));
-                    cipherOut.flush();
-                    application.getConfiguration().disarmBackupReminder();
+                        try (final Writer cipherOut = new OutputStreamWriter(
+                                activity.getContentResolver().openOutputStream(targetUri), StandardCharsets.UTF_8)) {
+                            final ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                            walletProto.writeTo(baos);
+                            baos.close();
+                            final byte[] plainBytes = baos.toByteArray();
 
-                    final String target = uriToTarget(targetUri);
-                    log.info("backed up wallet to: '" + targetUri + "'" + (target != null ? " (" + target + ")" : ""));
-                    SuccessDialogFragment.showDialog(getFragmentManager(),
-                            target != null ? target : targetUri.toString());
-                } catch (final IOException x) {
-                    log.error("problem backing up wallet", x);
-                    ErrorDialogFragment.showDialog(getFragmentManager(), x.toString());
-                }
+                            cipherOut.write(Crypto.encrypt(plainBytes, password.toCharArray()));
+                            cipherOut.flush();
+                            application.getConfiguration().disarmBackupReminder();
+
+                            final String target = uriToTarget(targetUri);
+                            log.info("backed up wallet to: '" + targetUri + "'"
+                                    + (target != null ? " (" + target + ")" : ""));
+                            SuccessDialogFragment.showDialog(getFragmentManager(),
+                                    target != null ? target : targetUri.toString());
+                        } catch (final IOException x) {
+                            log.error("problem backing up wallet", x);
+                            ErrorDialogFragment.showDialog(getFragmentManager(), x.toString());
+                        }
+                    }
+                });
             } else if (resultCode == Activity.RESULT_CANCELED) {
                 log.info("cancelled backing up wallet");
                 passwordView.setEnabled(true);
