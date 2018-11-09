@@ -17,8 +17,8 @@
 
 package de.schildbach.wallet.ui.send;
 
-import static android.support.v4.util.Preconditions.checkNotNull;
-import static android.support.v4.util.Preconditions.checkState;
+import static androidx.core.util.Preconditions.checkNotNull;
+import static androidx.core.util.Preconditions.checkState;
 
 import org.bitcoinj.crypto.KeyCrypter;
 import org.bitcoinj.crypto.KeyCrypterException;

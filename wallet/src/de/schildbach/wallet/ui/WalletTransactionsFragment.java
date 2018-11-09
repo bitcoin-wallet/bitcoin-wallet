@@ -41,8 +41,6 @@ import de.schildbach.wallet.util.Qr;
 import de.schildbach.wallet.util.WalletUtils;
 
 import android.app.admin.DevicePolicyManager;
-import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -52,8 +50,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.RecyclerView;
 import android.text.SpannableStringBuilder;
 import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
@@ -66,6 +62,10 @@ import android.widget.PopupMenu;
 import android.widget.PopupMenu.OnMenuItemClickListener;
 import android.widget.TextView;
 import android.widget.ViewAnimator;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * @author Andreas Schildbach

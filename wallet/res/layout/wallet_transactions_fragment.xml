@@ -17,7 +17,7 @@
         android:gravity="center"
         android:textSize="@dimen/font_size_small" />
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/wallet_transactions_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

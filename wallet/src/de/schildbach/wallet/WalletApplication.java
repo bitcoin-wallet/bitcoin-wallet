@@ -65,9 +65,9 @@ import android.os.Build;
 import android.os.Looper;
 import android.os.StrictMode;
 import android.preference.PreferenceManager;
-import android.support.annotation.MainThread;
-import android.support.annotation.WorkerThread;
-import android.support.v4.content.LocalBroadcastManager;
+import androidx.annotation.MainThread;
+import androidx.annotation.WorkerThread;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 /**
  * @author Andreas Schildbach

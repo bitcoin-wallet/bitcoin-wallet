@@ -30,9 +30,9 @@ import android.graphics.Path;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.AttributeSet;
 import android.view.View;
+import androidx.viewpager.widget.ViewPager.OnPageChangeListener;
 
 /**
  * @author Andreas Schildbach

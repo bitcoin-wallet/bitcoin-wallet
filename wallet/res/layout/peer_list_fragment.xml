@@ -18,7 +18,7 @@
         android:text="@string/peer_list_fragment_empty"
         android:textSize="@dimen/font_size_small" />
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/peer_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

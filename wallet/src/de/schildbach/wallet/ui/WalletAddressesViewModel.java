@@ -34,9 +34,9 @@ import de.schildbach.wallet.data.ConfigOwnNameLiveData;
 import de.schildbach.wallet.data.WalletLiveData;
 
 import android.app.Application;
-import android.arch.lifecycle.AndroidViewModel;
-import android.arch.lifecycle.LiveData;
 import android.os.AsyncTask;
+import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
 
 /**
  * @author Andreas Schildbach

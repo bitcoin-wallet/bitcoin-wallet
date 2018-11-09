@@ -20,11 +20,11 @@ package de.schildbach.wallet.data;
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.WalletApplication;
 
-import android.arch.lifecycle.LiveData;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.database.Cursor;
-import android.support.v4.content.CursorLoader;
+import androidx.lifecycle.LiveData;
+import androidx.loader.content.CursorLoader;
 
 /**
  * @author Andreas Schildbach

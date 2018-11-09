@@ -21,7 +21,7 @@ import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.data.WalletLiveData;
 
 import android.app.Application;
-import android.arch.lifecycle.AndroidViewModel;
+import androidx.lifecycle.AndroidViewModel;
 
 /**
  * @author Andreas Schildbach

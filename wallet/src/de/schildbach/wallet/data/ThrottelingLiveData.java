@@ -17,9 +17,9 @@
 
 package de.schildbach.wallet.data;
 
-import android.arch.lifecycle.LiveData;
 import android.os.Handler;
-import android.support.annotation.MainThread;
+import androidx.annotation.MainThread;
+import androidx.lifecycle.LiveData;
 
 /**
  * @author Andreas Schildbach

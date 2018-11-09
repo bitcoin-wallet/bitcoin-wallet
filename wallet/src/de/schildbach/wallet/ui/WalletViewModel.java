@@ -25,9 +25,9 @@ import de.schildbach.wallet.data.AbstractWalletLiveData;
 import de.schildbach.wallet.util.OnFirstPreDraw;
 
 import android.app.Application;
-import android.arch.lifecycle.AndroidViewModel;
-import android.arch.lifecycle.MutableLiveData;
 import android.os.AsyncTask;
+import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.MutableLiveData;
 
 /**
  * @author Andreas Schildbach

@@ -19,7 +19,7 @@ package de.schildbach.wallet.ui.scan;
 
 import de.schildbach.wallet.data.SingleLiveEvent;
 
-import android.arch.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModel;
 
 /**
  * @author Andreas Schildbach

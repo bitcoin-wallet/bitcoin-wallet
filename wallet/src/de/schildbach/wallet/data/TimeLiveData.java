@@ -21,11 +21,11 @@ import java.util.Date;
 
 import de.schildbach.wallet.WalletApplication;
 
-import android.arch.lifecycle.LiveData;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import androidx.lifecycle.LiveData;
 
 /**
  * @author Andreas Schildbach

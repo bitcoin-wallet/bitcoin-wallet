@@ -36,8 +36,6 @@ import de.schildbach.wallet.util.Nfc;
 import de.schildbach.wallet.util.Toast;
 
 import android.app.Activity;
-import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModelProviders;
 import android.bluetooth.BluetoothAdapter;
 import android.content.ActivityNotFoundException;
 import android.content.ClipData;
@@ -54,9 +52,6 @@ import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.ShareCompat;
-import android.support.v7.widget.CardView;
 import android.text.SpannableStringBuilder;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -70,6 +65,11 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
 import android.widget.TextView;
+import androidx.cardview.widget.CardView;
+import androidx.core.app.ShareCompat;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
 /**
  * @author Andreas Schildbach

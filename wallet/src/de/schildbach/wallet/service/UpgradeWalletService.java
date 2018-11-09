@@ -29,8 +29,8 @@ import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.content.ContextCompat;
+import androidx.core.app.NotificationCompat;
+import androidx.core.content.ContextCompat;
 
 /**
  * This service upgrades the wallet to an HD wallet. Use {@link #startUpgrade(Context)} to start the process.

@@ -188,7 +188,7 @@
             android:authorities="de.schildbach.wallet_test.exchange_rates"
             android:exported="false" />
         <provider
-            android:name="android.support.v4.content.FileProvider"
+            android:name="androidx.core.content.FileProvider"
             android:authorities="de.schildbach.wallet_test.file_attachment"
             android:exported="false"
             android:grantUriPermissions="true" >

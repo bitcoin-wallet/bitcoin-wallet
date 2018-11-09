@@ -17,7 +17,7 @@
 
 package de.schildbach.wallet.util;
 
-import static android.support.v4.util.Preconditions.checkNotNull;
+import static androidx.core.util.Preconditions.checkNotNull;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 

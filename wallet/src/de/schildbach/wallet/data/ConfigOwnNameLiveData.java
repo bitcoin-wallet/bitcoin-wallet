@@ -20,8 +20,8 @@ package de.schildbach.wallet.data;
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.WalletApplication;
 
-import android.arch.lifecycle.LiveData;
 import android.content.SharedPreferences;
+import androidx.lifecycle.LiveData;
 
 /**
  * @author Andreas Schildbach

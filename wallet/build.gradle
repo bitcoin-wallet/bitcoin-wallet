@@ -3,21 +3,24 @@ apply plugin: 'androidsvgdrawable'
 
 configurations {
     all*.exclude group: 'com.google.android', module: 'android'
-    all*.exclude group: 'com.android.support', module: 'support-media-compat'
+    all*.exclude group: 'androidx.legacy', module: 'legacy-support-core-ui'
+    all*.exclude group: 'androidx.legacy', module: 'legacy-support-core-utils'
 }
 
 dependencies {
     compile project(':integration-android')
-    compile 'com.android.support:support-annotations:28.0.0'
-    compile 'com.android.support:support-compat:28.0.0'
-    compile 'com.android.support:support-fragment:28.0.0'
-    compile 'com.android.support:support-core-utils:28.0.0'
-    compile 'com.android.support:recyclerview-v7:28.0.0'
-    compile 'com.android.support:cardview-v7:28.0.0'
-    compile 'android.arch.lifecycle:extensions:1.1.1'
-    compile "android.arch.persistence:db:1.1.1"
-    compile "android.arch.persistence.room:runtime:1.1.1"
-    annotationProcessor "android.arch.persistence.room:compiler:1.1.1"
+    compile 'androidx.annotation:annotation:1.0.0'
+    compile 'androidx.core:core:1.0.0'
+    compile 'androidx.fragment:fragment:1.0.0'
+    compile 'androidx.legacy:legacy-support-core-utils:1.0.0'
+    compile 'androidx.recyclerview:recyclerview:1.0.0'
+    compile 'androidx.cardview:cardview:1.0.0'
+    compile 'androidx.viewpager:viewpager:1.0.0'
+    compile 'androidx.localbroadcastmanager:localbroadcastmanager:1.0.0'
+    compile 'androidx.lifecycle:lifecycle-extensions:2.0.0'
+    compile "androidx.sqlite:sqlite:2.0.0"
+    compile "androidx.room:room-runtime:2.0.0"
+    annotationProcessor "androidx.room:room-compiler:2.0.0"
     compile 'org.bitcoinj:bitcoinj-core:0.14.7'
     compile 'com.google.protobuf:protobuf-java:2.6.1'
     compile 'com.google.guava:guava:25.1-android'

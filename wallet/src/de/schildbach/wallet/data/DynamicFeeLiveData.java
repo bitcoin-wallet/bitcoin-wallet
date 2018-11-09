@@ -42,10 +42,10 @@ import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.ui.send.FeeCategory;
 import de.schildbach.wallet.util.Io;
 
-import android.arch.lifecycle.LiveData;
 import android.content.pm.PackageInfo;
 import android.content.res.AssetManager;
 import android.os.AsyncTask;
+import androidx.lifecycle.LiveData;
 import okhttp3.Call;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;

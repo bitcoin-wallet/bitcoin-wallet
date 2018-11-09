@@ -36,8 +36,8 @@ import de.schildbach.wallet.data.WalletLiveData;
 import de.schildbach.wallet.ui.AddressAndLabel;
 
 import android.app.Application;
-import android.arch.lifecycle.AndroidViewModel;
-import android.arch.lifecycle.LiveData;
+import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
 
 /**
  * @author Andreas Schildbach

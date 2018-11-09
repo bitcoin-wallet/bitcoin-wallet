@@ -17,7 +17,7 @@
 
 package de.schildbach.wallet.offline;
 
-import static android.support.v4.util.Preconditions.checkNotNull;
+import static androidx.core.util.Preconditions.checkNotNull;
 
 import java.io.IOException;
 
@@ -34,8 +34,6 @@ import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.util.CrashReporter;
 import de.schildbach.wallet.util.Toast;
 
-import android.arch.lifecycle.LifecycleService;
-import android.arch.lifecycle.Observer;
 import android.bluetooth.BluetoothAdapter;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -46,6 +44,8 @@ import android.os.IBinder;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
 import android.text.format.DateUtils;
+import androidx.lifecycle.LifecycleService;
+import androidx.lifecycle.Observer;
 
 /**
  * @author Andreas Schildbach

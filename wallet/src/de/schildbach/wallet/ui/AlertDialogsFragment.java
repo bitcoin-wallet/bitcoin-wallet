@@ -27,7 +27,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Splitter;
-import com.google.common.base.Strings;
 
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.R;
@@ -48,9 +47,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Process;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.text.format.DateUtils;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import okhttp3.Call;
 import okhttp3.HttpUrl;
 import okhttp3.Request;

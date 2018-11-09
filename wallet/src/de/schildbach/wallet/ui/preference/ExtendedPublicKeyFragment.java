@@ -31,10 +31,10 @@ import android.app.FragmentManager;
 import android.content.DialogInterface;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-import android.support.v4.app.ShareCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import androidx.core.app.ShareCompat;
 
 /**
  * @author Andreas Schildbach

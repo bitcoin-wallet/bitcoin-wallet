@@ -21,7 +21,6 @@ import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.service.BlockchainState;
 
-import android.arch.lifecycle.LiveData;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -29,7 +28,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.os.IBinder;
-import android.support.v4.content.LocalBroadcastManager;
+import androidx.lifecycle.LiveData;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 /**
  * @author Andreas Schildbach
