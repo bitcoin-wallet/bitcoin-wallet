@@ -36,6 +36,7 @@ import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.data.AddressBookDao;
 import de.schildbach.wallet.data.AppDatabase;
 import de.schildbach.wallet.ui.TransactionsAdapter.ListItem;
+import de.schildbach.wallet.ui.TransactionsAdapter.WarningType;
 import de.schildbach.wallet.ui.send.RaiseFeeDialogFragment;
 import de.schildbach.wallet.util.Qr;
 import de.schildbach.wallet.util.WalletUtils;
@@ -113,6 +114,7 @@ public class WalletTransactionsFragment extends Fragment implements Transactions
                     viewGroup.setDisplayedChild(1);
 
                     final WalletTransactionsViewModel.Direction direction = viewModel.direction.getValue();
+                    final WarningType warning = viewModel.warning.getValue();
                     final SpannableStringBuilder emptyText = new SpannableStringBuilder(
                             getString(direction == WalletTransactionsViewModel.Direction.SENT
                                     ? R.string.wallet_transactions_fragment_empty_text_sent
@@ -122,6 +124,13 @@ public class WalletTransactionsFragment extends Fragment implements Transactions
                     if (direction != WalletTransactionsViewModel.Direction.SENT)
                         emptyText.append("\n\n")
                                 .append(getString(R.string.wallet_transactions_fragment_empty_text_howto));
+                    if (warning == WarningType.BACKUP) {
+                        final int start = emptyText.length();
+                        emptyText.append("\n\n")
+                                .append(getString(R.string.wallet_transactions_fragment_empty_remind_backup));
+                        emptyText.setSpan(new StyleSpan(Typeface.BOLD), start, emptyText.length(),
+                                SpannableStringBuilder.SPAN_POINT_MARK);
+                    }
                     emptyView.setText(emptyText);
                 } else {
                     viewGroup.setDisplayedChild(2);

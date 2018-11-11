@@ -71,7 +71,7 @@ public class WalletTransactionsViewModel extends AndroidViewModel {
     private final ConfigFormatLiveData configFormat;
     public final MutableLiveData<Direction> direction = new MutableLiveData<>();
     private final MutableLiveData<Sha256Hash> selectedTransaction = new MutableLiveData<>();
-    private final MutableLiveData<TransactionsAdapter.WarningType> warning = new MutableLiveData<>();
+    public final MutableLiveData<TransactionsAdapter.WarningType> warning = new MutableLiveData<>();
     public final MediatorLiveData<List<TransactionsAdapter.ListItem>> list = new MediatorLiveData<>();
 
     public WalletTransactionsViewModel(final Application application) {
