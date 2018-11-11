@@ -23,7 +23,7 @@
   <string name="exchange_rates_options_search">Poišči menjalni tečaj</string>
   <string name="wallet_transactions_fragment_empty_text_received">Prejeli niste še nobenih novcev.</string>
   <string name="wallet_transactions_fragment_empty_text_sent">Poslali niste še nobenih novcev.</string>
-  <string name="wallet_transactions_fragment_empty_text_howto">Kako dobim bitcoine?\n\nLahko jih kupite,\nprodate kaj za bitcoin\nali pa zaslužite z delom.</string>
+  <string name="wallet_transactions_fragment_empty_text_howto">Kako dobim bitcoine?\nLahko jih kupite,\nprodate kaj za bitcoin\nali pa zaslužite z delom.</string>
   <string name="wallet_transactions_row_warning_backup">Čestitke, prejeli ste prvo plačilo! Ste že napravili &lt;u&gt;rezervno kopijo ključev&lt;/u&gt; za zaščito pred izgubo novcev?</string>
   <string name="wallet_transactions_fragment_coinbase">narudarjeno</string>
   <string name="wallet_transactions_fragment_internal">notranji</string>

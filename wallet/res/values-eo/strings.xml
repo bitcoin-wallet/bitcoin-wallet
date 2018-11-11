@@ -25,7 +25,7 @@
 	<string name="wallet_transactions_options_filter_sent">Sendita</string>
 	<string name="wallet_transactions_fragment_empty_text_received">Neniom da Bitmonoj tamen ricevitaj.</string>
 	<string name="wallet_transactions_fragment_empty_text_sent">Neniom da Bitmonoj tamen senditaj.</string>
-	<string name="wallet_transactions_fragment_empty_text_howto">Kiel obteni Bitmonojn?\n\nNegocu por tradicia mono,\nvendu varojn aŭ servojn aŭ\ngajnu per laborado.</string>
+	<string name="wallet_transactions_fragment_empty_text_howto">Kiel obteni Bitmonojn?\nNegocu por tradicia mono,\nvendu varojn aŭ servojn aŭ\ngajnu per laborado.</string>
 	<string name="wallet_transactions_row_warning_backup">Gratulon, vi ricevis vian unuan pagon! Ĉu vi jam &lt;u&gt;savkopiis vian monujon&lt;/u&gt;, por protekti kontraŭ perdo?</string>
 	<string name="wallet_transactions_fragment_coinbase">minita</string>
 	<string name="wallet_transactions_fragment_internal">interna</string>

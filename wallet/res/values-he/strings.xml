@@ -26,7 +26,7 @@
   <string name="wallet_transactions_options_filter_sent">נשלח</string>
   <string name="wallet_transactions_fragment_empty_text_received">לא נתקבלו ביטקוינים עד כה.</string>
   <string name="wallet_transactions_fragment_empty_text_sent">לא נשלחו ביטקוינים עד כה.</string>
-  <string name="wallet_transactions_fragment_empty_text_howto">איך להשיג ביטקוין ?\n\nהמר תמורת כסף פיאט,\nמכור סחורות או שירותים או\nהשג על ידי עבודה.</string>
+  <string name="wallet_transactions_fragment_empty_text_howto">איך להשיג ביטקוין ?\nהמר תמורת כסף פיאט,\nמכור סחורות או שירותים או\nהשג על ידי עבודה.</string>
   <string name="wallet_transactions_row_warning_backup">ברכותי, קיבלת את התשלום הראשון! האם כבר &lt;u&gt;גיבית את הארנק&lt;/u&gt; כדי להגן מפני אבדן?</string>
   <string name="wallet_transactions_fragment_coinbase">נכרו</string>
   <string name="wallet_transactions_fragment_internal">פנימי</string>

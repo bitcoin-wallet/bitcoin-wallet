@@ -25,7 +25,7 @@
 	<string name="wallet_transactions_options_filter_sent">Odoslané</string>
 	<string name="wallet_transactions_fragment_empty_text_received">Zatiaľ neboli prijaté žiadne Bitcoiny</string>
 	<string name="wallet_transactions_fragment_empty_text_sent">Zatiaľ neboli odoslané žiadne Bitcoiny</string>
-	<string name="wallet_transactions_fragment_empty_text_howto">Ako získať Bitcoiny?\n\nVýmenou za tradičné peniaze,\npredajom tovarov a služieb,\nalebo prácou.</string>
+	<string name="wallet_transactions_fragment_empty_text_howto">Ako získať Bitcoiny?\nVýmenou za tradičné peniaze,\npredajom tovarov a služieb,\nalebo prácou.</string>
 	<string name="wallet_transactions_row_warning_backup">Gratulujeme, obdržali ste svoju prvú platbu! Urobili ste &lt;u&gt;zálohu peňaženky&lt;/u&gt;, aby ste ju ochránili pred stratou?</string>
 	<string name="wallet_transactions_fragment_coinbase">vyťažené</string>
 	<string name="wallet_transactions_fragment_internal">vnútorné</string>

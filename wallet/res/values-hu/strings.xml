@@ -25,7 +25,7 @@
   <string name="exchange_rates_options_search">Árfolyam keresése</string>
   <string name="wallet_transactions_fragment_empty_text_received">Eddig nem érkezett Bitcoin.</string>
   <string name="wallet_transactions_fragment_empty_text_sent">Eddig nem lett küldve Bitcoin.</string>
-  <string name="wallet_transactions_fragment_empty_text_howto">Hogyan szerezz Bitcoin-t?\n\nVásárolj hagyományos pénzért,\nadj el termékeket vagy szolgáltatásokat, vagy\nkeress munkával.</string>
+  <string name="wallet_transactions_fragment_empty_text_howto">Hogyan szerezz Bitcoin-t?\nVásárolj hagyományos pénzért,\nadj el termékeket vagy szolgáltatásokat, vagy\nkeress munkával.</string>
   <string name="wallet_transactions_row_warning_backup">Gratulálunk, megérkezett az első kifizetésed! Már készítettél &lt;u&gt;biztonsági mentést a tárcádról&lt;/u&gt;, hogy megóvd a veszteségtől?</string>
   <string name="wallet_transactions_row_warning_storage_encryption">Tipp: a tárcád biztonságának növeléséhez &lt;u&gt;titkosíthatod a készüléked&lt;/u&gt;. Ez más alkalmazások adatait is védi.</string>
   <string name="wallet_transactions_fragment_coinbase">bányászott</string>

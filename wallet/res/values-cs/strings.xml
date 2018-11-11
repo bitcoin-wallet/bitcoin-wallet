@@ -25,7 +25,7 @@
   <string name="exchange_rates_options_search">Vyhledat směnný kurz</string>
   <string name="wallet_transactions_fragment_empty_text_received">Zatím nebyly žádné bitcoiny obdrženy.</string>
   <string name="wallet_transactions_fragment_empty_text_sent">Zatím nebyly žádné bitcoiny odeslány.</string>
-  <string name="wallet_transactions_fragment_empty_text_howto">Jak získat Bitcoiny?\n\nSměnou za klasické peníze,\nprodejem zboží nebo služeb\nnebo vyděláním prací.</string>
+  <string name="wallet_transactions_fragment_empty_text_howto">Jak získat Bitcoiny?\nSměnou za klasické peníze,\nprodejem zboží nebo služeb\nnebo vyděláním prací.</string>
   <string name="wallet_transactions_row_warning_backup">Gratulujeme, přijal jste svou první platbu! Už jste si &lt;u&gt;zazálohovali tuto peněženku&lt;/u&gt;, abyste se ochránil proti ztrátě?</string>
   <string name="wallet_transactions_row_warning_storage_encryption">Tip: pokud chcete zvýšit bezpečnost své peněženky, můžete &lt;u&gt;šifrovat data svého přístroje&lt;/u&gt;. Toto také chrání data ostatních aplikací.</string>
   <string name="wallet_transactions_fragment_coinbase">vytěženo</string>

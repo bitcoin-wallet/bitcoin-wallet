@@ -25,7 +25,7 @@
 	<string name="wallet_transactions_options_filter_sent">Wysłane</string>
 	<string name="wallet_transactions_fragment_empty_text_received">Nie otrzymano jeszcze żadnych Bitcoinów.</string>
 	<string name="wallet_transactions_fragment_empty_text_sent">Nie wysłano jeszcze żadnych Bitcoinów.</string>
-	<string name="wallet_transactions_fragment_empty_text_howto">Jak zdobyć Bitcoiny?\n\nWymień za tradycyjną walutę,\nsprzedawaj dobra bądź usługi lub\nzarabiaj pracując.</string>
+	<string name="wallet_transactions_fragment_empty_text_howto">Jak zdobyć Bitcoiny?\nWymień za tradycyjną walutę,\nsprzedawaj dobra bądź usługi lub\nzarabiaj pracując.</string>
 	<string name="wallet_transactions_row_warning_backup">Gratulacje, otrzymałeś swoją pierwszą płatność! Czy już &lt;u&gt;wykonałeś kopię zapasową swojego portfela&lt;/u&gt;, by ochronić się przed jej utratą?</string>
 	<string name="wallet_transactions_fragment_coinbase">wykopany</string>
 	<string name="wallet_transactions_fragment_internal">wewnętrzny</string>

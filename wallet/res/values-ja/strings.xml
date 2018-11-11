@@ -26,7 +26,7 @@
   <string name="exchange_rates_options_search">為替レートの検索</string>
   <string name="wallet_transactions_fragment_empty_text_received">まだビットコインを受け取っていません。</string>
   <string name="wallet_transactions_fragment_empty_text_sent">まだビットコインを送っていません。</string>
-  <string name="wallet_transactions_fragment_empty_text_howto">ビットコインを入手するには?\n\n通常通貨と交換するか、\nグッズやサービスを販売するか\nまたは働いて稼ぎましょう</string>
+  <string name="wallet_transactions_fragment_empty_text_howto">ビットコインを入手するには?\n通常通貨と交換するか、\nグッズやサービスを販売するか\nまたは働いて稼ぎましょう</string>
   <string name="wallet_transactions_row_warning_backup">おめでとうございます、初めて支払いを受け取りました。遺失を防ぐために&lt;u&gt;ウォレットをバックアップ&lt;/u&gt;していますか?</string>
   <string name="wallet_transactions_row_warning_storage_encryption">ヒント: ウォレットの安全性を向上させる方法として、&lt;u&gt;デバイスの暗号化&lt;/u&gt;もあります。その場合、他のアプリのデータも保護されます。</string>
   <string name="wallet_transactions_row_warning_chain_forking">ビットコインネットワークはメンテナンス中です。メンテナンスが終わるまではコインの送受信を一切しないようお勧めします。&lt;u&gt;詳細情報&lt;/u&gt;。</string>

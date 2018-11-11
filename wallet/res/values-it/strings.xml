@@ -26,7 +26,7 @@
   <string name="exchange_rates_options_search">Ricerca tasso di cambio</string>
   <string name="wallet_transactions_fragment_empty_text_received">Nessun Bitcoin ancora ricevuto</string>
   <string name="wallet_transactions_fragment_empty_text_sent">Nessun Bitcoin ancora inviato</string>
-  <string name="wallet_transactions_fragment_empty_text_howto">Come ottenere Bitcoins?\n\nBarattali per soldi reali,\nvendi beni o servizi oppure\nricavali lavorando.</string>
+  <string name="wallet_transactions_fragment_empty_text_howto">Come ottenere Bitcoins?\nBarattali per soldi reali,\nvendi beni o servizi oppure\nricavali lavorando.</string>
   <string name="wallet_transactions_row_warning_backup">Congratulazioni, hai ricevuto i tuoi primi pagamenti! Hai già &lt;u&gt;eseguito un backup del tuo portafoglio &lt;/u&gt;, per proteggerlo dai danni?</string>
   <string name="wallet_transactions_row_warning_storage_encryption">Suggerimento: per incrementare la sicurezza del tuo portafoglio, puoi &lt;u&gt;criptare il tuo dispositivo&lt;/u&gt;. Questo protegge i dati anche delle altre applicazioni.</string>
   <string name="wallet_transactions_row_warning_chain_forking">Il network di Bitcoin è attualmente in manutenzione. Sei pregato di non inviare e non ricevere coins fino alla fine della manutenzione.</string>

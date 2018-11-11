@@ -25,7 +25,7 @@
 	<string name="wallet_transactions_options_filter_sent">Испратено</string>
 	<string name="wallet_transactions_fragment_empty_text_received">Нема примени Биткоини досега.</string>
 	<string name="wallet_transactions_fragment_empty_text_sent">Нема испратени Биткоини досега.</string>
-	<string name="wallet_transactions_fragment_empty_text_howto">Како да дојдеш до Биткоини?\n\nРазмени за традиционални пари,\nпродавај продукти или сервиси, или \nзаработи со работење.</string>
+	<string name="wallet_transactions_fragment_empty_text_howto">Како да дојдеш до Биткоини?\nРазмени за традиционални пари,\nпродавај продукти или сервиси, или \nзаработи со работење.</string>
 	<string name="wallet_transactions_row_warning_backup">Честитки, ја доби твојата прва исплата! Дали веќе направи &lt;u&gt;резервна копија од паричникот&lt;/u&gt;, во случај да го загубиш?</string>
 	<string name="wallet_transactions_fragment_coinbase">ископани</string>
 	<string name="wallet_transactions_fragment_internal">внатрешен</string>

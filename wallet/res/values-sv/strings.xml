@@ -25,7 +25,7 @@
   <string name="exchange_rates_options_search">Sök växlingskurs</string>
   <string name="wallet_transactions_fragment_empty_text_received">Inga bitcoin har mottagits hittills</string>
   <string name="wallet_transactions_fragment_empty_text_sent">Inga bitcoin har skickats hittills</string>
-  <string name="wallet_transactions_fragment_empty_text_howto">Hur får man tag i bitcoin?\n\nKöp för svenska kronor,\nsälj varor eller tjänster eller\ntjäna genom att arbeta.</string>
+  <string name="wallet_transactions_fragment_empty_text_howto">Hur får man tag i bitcoin?\nKöp för svenska kronor,\nsälj varor eller tjänster eller\ntjäna genom att arbeta.</string>
   <string name="wallet_transactions_row_warning_backup">Grattis, du fick din första betalning! Har du redan &lt;u&gt;säkerhetskopierat din plånbok&lt;/u&gt;, för att skydda mot förlust?</string>
   <string name="wallet_transactions_row_warning_storage_encryption">Tips: för att öka säkerheten på din plånbok kan du &lt;u&gt;kryptera din enhet&lt;/u&gt;. Det skyddar också dina andra appar.</string>
   <string name="wallet_transactions_fragment_coinbase">genererade</string>

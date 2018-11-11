@@ -26,7 +26,7 @@
   <string name="exchange_rates_options_search">Değişim kuru ara</string>
   <string name="wallet_transactions_fragment_empty_text_received">Şimdiye kadar hiçbir Bitcoin alınmadı</string>
   <string name="wallet_transactions_fragment_empty_text_sent">Şimdiye kadar hiçbir Bitcoin gönderilmedi</string>
-  <string name="wallet_transactions_fragment_empty_text_howto">Nasıl Bitcoin elde edilir?\n\nGeleneksel para ile satın alabilir,\nhizmet veya mal satabilir ya da\nçalışarak kazanabilirsiniz.</string>
+  <string name="wallet_transactions_fragment_empty_text_howto">Nasıl Bitcoin elde edilir?\nGeleneksel para ile satın alabilir,\nhizmet veya mal satabilir ya da\nçalışarak kazanabilirsiniz.</string>
   <string name="wallet_transactions_row_warning_backup">Tebrikler, ilk ödemenizi almış bulunuyorsunuz! Kayba karşı korunmak için &lt;u&gt;cüzdanınızı yedeklediniz mi&lt;/u&gt;?</string>
   <string name="wallet_transactions_row_warning_storage_encryption">İpucu: cüzdanınızın güvenliğini arttırmak için &lt;u&gt;cihazınızı şifreleyebilirsiniz&lt;/u&gt;. Bu aynı zamanda diğer uygulamaları da koruyacaktır.</string>
   <string name="wallet_transactions_row_warning_chain_forking">Bitcoin ağı bakımdadır. Bakım bitene kadar bitcoin gönderip almanızı tavsiye etmiyoruz. &lt;u&gt;Daha fazla bilgi.&lt;/u&gt;</string>

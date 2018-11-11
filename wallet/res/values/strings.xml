@@ -27,7 +27,7 @@
     <string name="exchange_rates_options_search">Search exchange rate</string>
     <string name="wallet_transactions_fragment_empty_text_received">No Bitcoins received so far.</string>
     <string name="wallet_transactions_fragment_empty_text_sent">No Bitcoins sent so far.</string>
-    <string name="wallet_transactions_fragment_empty_text_howto">How to get Bitcoins?\n\nTrade for traditional money,\nsell goods or services or\nearn by working.</string>
+    <string name="wallet_transactions_fragment_empty_text_howto">How to get Bitcoins?\nTrade for traditional money,\nsell goods or services or\nearn by working.</string>
     <string name="wallet_transactions_fragment_empty_remind_backup">Please back up your wallet\nbefore receiving any Bitcoins!</string>
     <string name="wallet_transactions_row_warning_backup">Congratulations, you received your first payment! Have you already &lt;u&gt;backed up your wallet&lt;/u&gt;, to protect against loss?</string>
     <string name="wallet_transactions_row_warning_storage_encryption">Hint: to increase the safety of your wallet, you can &lt;u&gt;encrypt your device&lt;/u&gt;. This also protects data of other apps.</string>

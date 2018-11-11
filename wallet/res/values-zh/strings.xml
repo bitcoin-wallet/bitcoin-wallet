@@ -25,7 +25,7 @@
   <string name="exchange_rates_options_search">搜索汇率</string>
   <string name="wallet_transactions_fragment_empty_text_received">尚未收到比特币。</string>
   <string name="wallet_transactions_fragment_empty_text_sent">尚未发送比特币。</string>
-  <string name="wallet_transactions_fragment_empty_text_howto">如何获得比特币？\n\n用传统货币进行交易，\n出售商品或服务，或者\n通过劳动赚取。</string>
+  <string name="wallet_transactions_fragment_empty_text_howto">如何获得比特币？\n用传统货币进行交易，\n出售商品或服务，或者\n通过劳动赚取。</string>
   <string name="wallet_transactions_row_warning_backup">恭喜，您收到了第一笔付款！您是否已经 &lt;u&gt;备份了您的钱包&lt;/u&gt;，以避免损失？</string>
   <string name="wallet_transactions_row_warning_storage_encryption">提示: 为增加钱包的安全性, 你可以&lt;u&gt;加密你的设备&lt;/u&gt;. 这同样能保护其他应用的数据.</string>
   <string name="wallet_transactions_fragment_coinbase">挖矿所的</string>

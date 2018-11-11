@@ -25,7 +25,7 @@
   <string name="exchange_rates_options_search">Kërko kursin e këmbimit</string>
   <string name="wallet_transactions_fragment_empty_text_received">Nuk keni pranuar asnjë Bitcoin deri më tani</string>
   <string name="wallet_transactions_fragment_empty_text_sent">Nuk keni dërguar asnjë Bitcoin deri me tani</string>
-  <string name="wallet_transactions_fragment_empty_text_howto">Si të merrni Bitcoins?\n\nKëmbeni me para tradicionale,\shitni gjëra apo shërbime ose\nfito duke punuar.</string>
+  <string name="wallet_transactions_fragment_empty_text_howto">Si të merrni Bitcoins?\nKëmbeni me para tradicionale,\shitni gjëra apo shërbime ose\nfito duke punuar.</string>
   <string name="wallet_transactions_row_warning_backup">Urime, ju sapo keni pranuar pagesën e parë! E keni &lt;u&gt;ruajtur një kopje rezervë të kuletës suaj tashmë, për ta mbrojutur ne rast humbjeje? </string>
   <string name="wallet_transactions_fragment_coinbase">të minuara</string>
   <string name="wallet_transactions_fragment_internal">interne</string>

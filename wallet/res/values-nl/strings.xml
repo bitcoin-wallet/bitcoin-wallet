@@ -26,7 +26,7 @@
   <string name="exchange_rates_options_search">Zoek wisselkoers</string>
   <string name="wallet_transactions_fragment_empty_text_received">Nog geen Bitcoins ontvangen</string>
   <string name="wallet_transactions_fragment_empty_text_sent">Nog geen Bitcoins verzonden</string>
-  <string name="wallet_transactions_fragment_empty_text_howto">Hoe verkrijg je Bitcoins?\n\nVerhandel voor traditioneel geld,\nverkoop goederen of diensten of\nverdien ze met uw werk.</string>
+  <string name="wallet_transactions_fragment_empty_text_howto">Hoe verkrijg je Bitcoins?\nVerhandel voor traditioneel geld,\nverkoop goederen of diensten of\nverdien ze met uw werk.</string>
   <string name="wallet_transactions_row_warning_backup">Gefeliciteerd, u heeft uw eerste betaling ontvangen! Heeft u al een &lt;u&gt;back-up gemaakt van uw portemonnee&lt;/u&gt;, om verlies tegen te gaan?</string>
   <string name="wallet_transactions_row_warning_storage_encryption">Tip: om de veiligheid van je portemonnee te vergroten, kun je &lt;u&gt;je apparaat versleutelen&lt;/u&gt;. Dit beschermt ook de gegevens van andere apps.</string>
   <string name="wallet_transactions_row_warning_chain_forking">Het netwerk van Bitcoin is in onderhoud. Je wordt geadviseerd om geen coins te versturen of the ontvangen totdat het onderhoud is afgerond. &lt;u&gt;Voor meer informatie.&lt;/u&gt;</string>

@@ -24,7 +24,7 @@
 	<string name="wallet_transactions_options_filter_sent">Đã gửi</string>
 	<string name="wallet_transactions_fragment_empty_text_received">Hiện vẫn chưa nhận được Bitcoin nào.</string>
 	<string name="wallet_transactions_fragment_empty_text_sent">Hiện vẫn chưa gửi Bitcoin nào.</string>
-	<string name="wallet_transactions_fragment_empty_text_howto">Làm cách nào để nhận được Bitcoins?\n\nSử dụng cho các giao dịch bằng tiền như truyền thống,\nbán các sản phẩm hoặc dịch vụ hoặc\ndùng cho việc nhận thanh toán.</string>
+	<string name="wallet_transactions_fragment_empty_text_howto">Làm cách nào để nhận được Bitcoins?\nSử dụng cho các giao dịch bằng tiền như truyền thống,\nbán các sản phẩm hoặc dịch vụ hoặc\ndùng cho việc nhận thanh toán.</string>
 	<string name="wallet_transactions_row_warning_backup">Chúc mừng, bạn đã nhận được phần thanh toán đầu tiên của mình! Bạn đã &lt;u&gt;sao lưu ví tiền của mình&lt;/u&gt;, để tránh việc thất thoát hay chưa?</string>
 	<string name="wallet_transactions_fragment_coinbase">đã khai thác</string>
 	<string name="wallet_options_safety">Ghi chú an toàn</string>

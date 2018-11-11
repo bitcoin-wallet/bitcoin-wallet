@@ -26,7 +26,7 @@
   <string name="exchange_rates_options_search">Buscar tasa de cambio</string>
   <string name="wallet_transactions_fragment_empty_text_received">Aún no se han recibido bitcoins.</string>
   <string name="wallet_transactions_fragment_empty_text_sent">Aún no se han enviado bitcoins.</string>
-  <string name="wallet_transactions_fragment_empty_text_howto">¿Cómo obtener Bitcoins?\n\nCámbialos por dinero tradicional,\nvende bienes o servicios o\ngánalos trabajando</string>
+  <string name="wallet_transactions_fragment_empty_text_howto">¿Cómo obtener Bitcoins?\nCámbialos por dinero tradicional,\nvende bienes o servicios o\ngánalos trabajando</string>
   <string name="wallet_transactions_row_warning_backup">Enhorabuena. ¡Has recibido tu primer pago! ¿Has hecho ya una &lt;u&gt;copia de seguridad de tu cartera&lt;/u&gt; como protección frente a pérdidas?</string>
   <string name="wallet_transactions_row_warning_storage_encryption">Consejo: para incrementar la seguridad de su wallet, usted puede escriptar su dispositivo. Esto permite la protección de sus datos con otras aplicaciones.</string>
   <string name="wallet_transactions_row_warning_chain_forking">la red de Bitcoin esta bajo mantenimiento. has sido avisado de no mandar o recibir Bitcoins hasta que finalice el mantenimiento. &lt;u&gt;Mas información.&lt;/u&gt;</string>

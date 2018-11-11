@@ -26,7 +26,7 @@
   <string name="exchange_rates_options_search">Cercar preu de canvi</string>
   <string name="wallet_transactions_fragment_empty_text_received">Cap bitcoin rebut fins ara.</string>
   <string name="wallet_transactions_fragment_empty_text_sent">Cap Bitcoin enviat fins ara.</string>
-  <string name="wallet_transactions_fragment_empty_text_howto">Com aconseguir bitcoins?\n\nCanvia\'ls per diner tradicional,\nven béns o serveis o bé\nguanyen treballant.</string>
+  <string name="wallet_transactions_fragment_empty_text_howto">Com aconseguir bitcoins?\nCanvia\'ls per diner tradicional,\nven béns o serveis o bé\nguanyen treballant.</string>
   <string name="wallet_transactions_row_warning_backup">Enhorabona, has rebut el teu primer pagament! Tens a punt &lt;u&gt;una còpia de seguretat de la teva cartera&lt;/u&gt;, per protegir-te contra la pèrdua?</string>
   <string name="wallet_transactions_row_warning_storage_encryption">Consell: per augmentar la seguretat de la teva cartera, pots&lt;u&gt;xifrar el teu dispositiu&lt;/u&gt;. Això també protegeix les dades d\'altres aplicacions.</string>
   <string name="wallet_transactions_row_warning_chain_forking">La xarxa de Bitcoin està en manteniment. És aconsellable no enviar ni rebre cap moneda fins que finalitzi el manteniment. &lt;u&gt;Més informació.&lt;/u&gt;</string>

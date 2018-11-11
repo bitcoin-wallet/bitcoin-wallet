@@ -26,7 +26,7 @@
   <string name="exchange_rates_options_search">Søk i valutakurser</string>
   <string name="wallet_transactions_fragment_empty_text_received">Ingen bitcoins mottatt ennå.</string>
   <string name="wallet_transactions_fragment_empty_text_sent">Ingen bitcoins sendt ennå.</string>
-  <string name="wallet_transactions_fragment_empty_text_howto">Hvordan får man bitcoins?\n\nKjøp for tradisjonelle penger,\nselg varer eller tjenester eller\ntjen dem ved å arbeide.</string>
+  <string name="wallet_transactions_fragment_empty_text_howto">Hvordan får man bitcoins?\nKjøp for tradisjonelle penger,\nselg varer eller tjenester eller\ntjen dem ved å arbeide.</string>
   <string name="wallet_transactions_row_warning_backup">Gratulerer, du har mottatt din første betaling! Har du &lt;u&gt;tatt en sikkerhetskopi av din lommebok&lt;/u&gt;, for å beskytte deg mot tap?</string>
   <string name="wallet_transactions_row_warning_storage_encryption">Tips: For å øke sikkerheten for lommeboka, kan du &lt;u&gt;kryptere enheten&lt;/u&gt;. Dette beskytter også andre apper sine data.</string>
   <string name="wallet_transactions_row_warning_chain_forking">Bitcoin-nettverket er under vedlikehold. Du rådes til å ikke sende eller motta mynter inntil vedlikeholdet er ferdig. &lt;u&gt;Mer informasjon.&lt;/u&gt;</string>

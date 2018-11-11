@@ -26,7 +26,7 @@
   <string name="wallet_transactions_options_filter_sent">Відправлено</string>
   <string name="wallet_transactions_fragment_empty_text_received">Ще не отримано Bitcoin-монет</string>
   <string name="wallet_transactions_fragment_empty_text_sent">Ще не відправлено Bitcoin-монет</string>
-  <string name="wallet_transactions_fragment_empty_text_howto">Як отримати Bitcoin?\n\nКупуйте за звичайні гроші,\nпродавайте товари і послуги\nабо заробляйте.</string>
+  <string name="wallet_transactions_fragment_empty_text_howto">Як отримати Bitcoin?\nКупуйте за звичайні гроші,\nпродавайте товари і послуги\nабо заробляйте.</string>
   <string name="wallet_transactions_row_warning_backup">Вітаємо, ви отримали перший платіж! Ви вже &lt;u&gt;зробили резервну копію гаманця&lt;/u&gt;, щоб убезпечитись від втрат?</string>
   <string name="wallet_transactions_fragment_coinbase">добуто</string>
   <string name="wallet_transactions_fragment_internal">внутрішній</string>
