@@ -176,8 +176,10 @@ public final class ScanActivity extends AbstractWalletActivity
         cameraThread.start();
         cameraHandler = new Handler(cameraThread.getLooper());
 
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            log.info("missing {}, requesting", Manifest.permission.CAMERA);
             ActivityCompat.requestPermissions(this, new String[] { Manifest.permission.CAMERA }, 0);
+        }
 
         if (savedInstanceState == null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             final Intent intent = getIntent();
@@ -253,10 +255,12 @@ public final class ScanActivity extends AbstractWalletActivity
     @Override
     public void onRequestPermissionsResult(final int requestCode, final String[] permissions,
             final int[] grantResults) {
-        if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+        if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             maybeOpenCamera();
-        else
+        } else {
+            log.info("missing {}, showing error", Manifest.permission.CAMERA);
             viewModel.showPermissionWarnDialog.call();
+        }
     }
 
     private void maybeOpenCamera() {

@@ -115,16 +115,20 @@ public class RestoreWalletDialogFragment extends DialogFragment {
         viewModel = ViewModelProviders.of(this).get(RestoreWalletViewModel.class);
 
         if (ContextCompat.checkSelfPermission(activity,
-                Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
+                Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            log.info("missing {}, requesting", Manifest.permission.READ_EXTERNAL_STORAGE);
             requestPermissions(new String[] { Manifest.permission.READ_EXTERNAL_STORAGE }, REQUEST_CODE_RESTORE_WALLET);
+        }
     }
 
     @Override
     public void onRequestPermissionsResult(final int requestCode, final String[] permissions,
             final int[] grantResults) {
         if (requestCode == REQUEST_CODE_RESTORE_WALLET) {
-            if (!(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED))
+            if (!(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                log.info("missing {}, showing error", Manifest.permission.READ_EXTERNAL_STORAGE);
                 PermissionDeniedDialogFragment.showDialog(getFragmentManager());
+            }
         }
     }
 
