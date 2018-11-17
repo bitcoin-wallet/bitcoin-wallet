@@ -110,6 +110,8 @@ public class RestoreWalletDialogFragment extends DialogFragment {
     @Override
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        log.info("opening dialog {}", getClass().getName());
+
         viewModel = ViewModelProviders.of(this).get(RestoreWalletViewModel.class);
 
         if (ContextCompat.checkSelfPermission(activity,

@@ -21,6 +21,8 @@ import javax.annotation.Nullable;
 
 import org.bitcoinj.core.Address;
 import org.bitcoinj.wallet.Wallet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.R;
@@ -79,6 +81,8 @@ public final class EditAddressBookEntryFragment extends DialogFragment {
     private AddressBookDao addressBookDao;
     private Wallet wallet;
 
+    private static final Logger log = LoggerFactory.getLogger(EditAddressBookEntryFragment.class);
+
     @Override
     public void onAttach(final Context context) {
         super.onAttach(context);
@@ -86,6 +90,12 @@ public final class EditAddressBookEntryFragment extends DialogFragment {
         final WalletApplication application = activity.getWalletApplication();
         this.addressBookDao = AppDatabase.getDatabase(context).addressBookDao();
         this.wallet = application.getWallet();
+    }
+
+    @Override
+    public void onCreate(final Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        log.info("opening dialog {}", getClass().getName());
     }
 
     @Override

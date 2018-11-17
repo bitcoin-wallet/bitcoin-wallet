@@ -17,6 +17,9 @@
 
 package de.schildbach.wallet.ui;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import de.schildbach.wallet.R;
 
 import android.app.Activity;
@@ -54,10 +57,18 @@ public class BitmapFragment extends DialogFragment {
 
     private Activity activity;
 
+    private static final Logger log = LoggerFactory.getLogger(BitmapFragment.class);
+
     @Override
     public void onAttach(final Context context) {
         super.onAttach(context);
         this.activity = (AbstractWalletActivity) context;
+    }
+
+    @Override
+    public void onCreate(final Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        log.info("opening dialog {}", getClass().getName());
     }
 
     @Override

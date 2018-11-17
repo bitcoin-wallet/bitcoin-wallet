@@ -30,6 +30,8 @@ import java.util.TimeZone;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.TransactionOutput;
 import org.bitcoinj.wallet.Wallet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Joiner;
 import com.google.common.base.Strings;
@@ -90,6 +92,8 @@ public class ReportIssueDialogFragment extends DialogFragment {
 
     private ReportIssueViewModel viewModel;
 
+    private static final Logger log = LoggerFactory.getLogger(ReportIssueDialogFragment.class);
+
     @Override
     public void onAttach(final Context context) {
         super.onAttach(context);
@@ -100,6 +104,8 @@ public class ReportIssueDialogFragment extends DialogFragment {
     @Override
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        log.info("opening dialog {}", getClass().getName());
+
         viewModel = ViewModelProviders.of(this).get(ReportIssueViewModel.class);
     }
 

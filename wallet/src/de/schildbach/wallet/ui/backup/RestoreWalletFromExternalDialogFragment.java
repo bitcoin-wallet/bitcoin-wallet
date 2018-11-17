@@ -102,6 +102,8 @@ public class RestoreWalletFromExternalDialogFragment extends DialogFragment {
     @Override
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        log.info("opening dialog {}", getClass().getName());
+
         this.backupUri = (Uri) getArguments().getParcelable(KEY_BACKUP_URI);
 
         viewModel = ViewModelProviders.of(this).get(RestoreWalletViewModel.class);

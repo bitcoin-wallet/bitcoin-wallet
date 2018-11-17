@@ -78,6 +78,12 @@ public class WalletAddressDialogFragment extends DialogFragment {
     }
 
     @Override
+    public void onCreate(final Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        log.info("opening dialog {}", getClass().getName());
+    }
+
+    @Override
     public Dialog onCreateDialog(final Bundle savedInstanceState) {
         final Bundle args = getArguments();
         final Address address = (Address) args.getSerializable(KEY_ADDRESS);
