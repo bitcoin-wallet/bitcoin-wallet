@@ -107,6 +107,12 @@ public class WalletTransactionsFragment extends Fragment implements Transactions
         setHasOptionsMenu(true);
 
         viewModel = ViewModelProviders.of(this).get(WalletTransactionsViewModel.class);
+        viewModel.direction.observe(this, new Observer<WalletTransactionsViewModel.Direction>() {
+            @Override
+            public void onChanged(final WalletTransactionsViewModel.Direction direction) {
+                activity.invalidateOptionsMenu();
+            }
+        });
         viewModel.transactions.observe(this, new Observer<Set<Transaction>>() {
             @Override
             public void onChanged(final Set<Transaction> transactions) {
@@ -228,7 +234,6 @@ public class WalletTransactionsFragment extends Fragment implements Transactions
         } else {
             return false;
         }
-        item.setChecked(true);
 
         viewModel.setDirection(direction);
         return true;
