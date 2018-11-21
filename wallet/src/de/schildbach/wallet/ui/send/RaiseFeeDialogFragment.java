@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 the original author or authors.
+ * Copyright the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -39,14 +39,12 @@ import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.R;
 import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.data.DynamicFeeLiveData;
 import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.ui.AbstractWalletActivity;
 import de.schildbach.wallet.ui.DialogBuilder;
 import de.schildbach.wallet.util.WalletUtils;
 
 import android.app.AlertDialog;
-import android.app.Application;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -66,7 +64,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -109,7 +106,7 @@ public class RaiseFeeDialogFragment extends DialogFragment {
     private View badPasswordView;
     private Button positiveButton, negativeButton;
 
-    private ViewModel viewModel;
+    private RaiseFeeViewModel viewModel;
 
     private HandlerThread backgroundThread;
     private Handler backgroundHandler;
@@ -121,22 +118,6 @@ public class RaiseFeeDialogFragment extends DialogFragment {
     private State state = State.INPUT;
 
     private static final Logger log = LoggerFactory.getLogger(RaiseFeeDialogFragment.class);
-
-    public static class ViewModel extends AndroidViewModel {
-        private final WalletApplication application;
-        private DynamicFeeLiveData dynamicFees;
-
-        public ViewModel(final Application application) {
-            super(application);
-            this.application = (WalletApplication) application;
-        }
-
-        public DynamicFeeLiveData getDynamicFees() {
-            if (dynamicFees == null)
-                dynamicFees = new DynamicFeeLiveData(application);
-            return dynamicFees;
-        }
-    }
 
     @Override
     public void onAttach(final Context context) {
@@ -152,7 +133,7 @@ public class RaiseFeeDialogFragment extends DialogFragment {
         super.onCreate(savedInstanceState);
         log.info("opening dialog {}", getClass().getName());
 
-        viewModel = ViewModelProviders.of(this).get(ViewModel.class);
+        viewModel = ViewModelProviders.of(this).get(RaiseFeeViewModel.class);
         viewModel.getDynamicFees().observe(this, new Observer<Map<FeeCategory, Coin>>() {
             @Override
             public void onChanged(final Map<FeeCategory, Coin> dynamicFees) {
