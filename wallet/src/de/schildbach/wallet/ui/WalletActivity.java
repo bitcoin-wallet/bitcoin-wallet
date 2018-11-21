@@ -115,6 +115,12 @@ public final class WalletActivity extends AbstractWalletActivity {
                 RestoreWalletDialogFragment.show(getSupportFragmentManager());
             }
         });
+        viewModel.showEncryptKeysDialog.observe(this, new Event.Observer<Void>() {
+            @Override
+            public void onEvent(final Void v) {
+                EncryptKeysDialogFragment.show(getSupportFragmentManager());
+            }
+        });
         viewModel.enterAnimation.observe(this, new Observer<WalletActivityViewModel.EnterAnimationState>() {
             @Override
             public void onChanged(final WalletActivityViewModel.EnterAnimationState state) {
@@ -420,7 +426,7 @@ public final class WalletActivity extends AbstractWalletActivity {
             return true;
 
         case R.id.wallet_options_encrypt_keys:
-            handleEncryptKeys();
+            viewModel.showEncryptKeysDialog.setValue(Event.simple());
             return true;
 
         case R.id.wallet_options_preferences:
@@ -460,10 +466,6 @@ public final class WalletActivity extends AbstractWalletActivity {
         // Camera/SurfaceView is used while the animation is running.
         enterAnimation.end();
         ScanActivity.startForResult(this, clickView, WalletActivity.REQUEST_CODE_SCAN);
-    }
-
-    public void handleEncryptKeys() {
-        EncryptKeysDialogFragment.show(getSupportFragmentManager());
     }
 
     private void handleReportIssue() {
