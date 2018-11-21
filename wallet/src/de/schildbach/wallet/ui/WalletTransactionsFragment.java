@@ -353,7 +353,9 @@ public class WalletTransactionsFragment extends Fragment implements Transactions
     public void onWarningClick(final View view) {
         switch (warning()) {
         case BACKUP:
-            ((WalletActivity) activity).handleBackupWallet();
+            final WalletActivityViewModel viewModel = ViewModelProviders.of(getActivity())
+                    .get(WalletActivityViewModel.class);
+            viewModel.showBackupWalletDialog.setValue(Event.simple());
             break;
 
         case STORAGE_ENCRYPTION:

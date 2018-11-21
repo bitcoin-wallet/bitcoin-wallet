@@ -103,6 +103,12 @@ public final class WalletActivity extends AbstractWalletActivity {
                 HelpDialogFragment.page(getSupportFragmentManager(), messageResId);
             }
         });
+        viewModel.showBackupWalletDialog.observe(this, new Event.Observer<Void>() {
+            @Override
+            public void onEvent(final Void v) {
+                BackupWalletDialogFragment.show(getSupportFragmentManager());
+            }
+        });
         viewModel.enterAnimation.observe(this, new Observer<WalletActivityViewModel.EnterAnimationState>() {
             @Override
             public void onChanged(final WalletActivityViewModel.EnterAnimationState state) {
@@ -404,7 +410,7 @@ public final class WalletActivity extends AbstractWalletActivity {
             return true;
 
         case R.id.wallet_options_backup_wallet:
-            handleBackupWallet();
+            viewModel.showBackupWalletDialog.setValue(Event.simple());
             return true;
 
         case R.id.wallet_options_encrypt_keys:
@@ -448,10 +454,6 @@ public final class WalletActivity extends AbstractWalletActivity {
         // Camera/SurfaceView is used while the animation is running.
         enterAnimation.end();
         ScanActivity.startForResult(this, clickView, WalletActivity.REQUEST_CODE_SCAN);
-    }
-
-    public void handleBackupWallet() {
-        BackupWalletDialogFragment.show(getSupportFragmentManager());
     }
 
     public void handleRestoreWallet() {

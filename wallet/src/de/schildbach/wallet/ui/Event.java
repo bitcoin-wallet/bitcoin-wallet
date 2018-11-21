@@ -26,6 +26,10 @@ public class Event<T> {
     private final T content;
     private boolean hasBeenHandled = false;
 
+    public static Event<Void> simple() {
+        return new Event<>(null);
+    }
+
     public Event(final T content) {
         this.content = content;
     }
