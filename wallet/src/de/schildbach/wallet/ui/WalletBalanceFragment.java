@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2015 the original author or authors.
+ * Copyright the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,15 +24,11 @@ import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.R;
 import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.data.BlockchainStateLiveData;
 import de.schildbach.wallet.data.ExchangeRate;
-import de.schildbach.wallet.data.SelectedExchangeRateLiveData;
-import de.schildbach.wallet.data.WalletBalanceLiveData;
 import de.schildbach.wallet.service.BlockchainState;
 import de.schildbach.wallet.ui.send.FeeCategory;
 import de.schildbach.wallet.ui.send.SendCoinsActivity;
 
-import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -47,7 +43,6 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -67,39 +62,9 @@ public final class WalletBalanceFragment extends Fragment {
 
     private boolean showLocalBalance;
 
-    private ViewModel viewModel;
+    private WalletBalanceViewModel viewModel;
 
     private static final long BLOCKCHAIN_UPTODATE_THRESHOLD_MS = DateUtils.HOUR_IN_MILLIS;
-
-    public static class ViewModel extends AndroidViewModel {
-        private final WalletApplication application;
-        private BlockchainStateLiveData blockchainState;
-        private WalletBalanceLiveData balance;
-        private SelectedExchangeRateLiveData exchangeRate;
-
-        public ViewModel(final Application application) {
-            super(application);
-            this.application = (WalletApplication) application;
-        }
-
-        public BlockchainStateLiveData getBlockchainState() {
-            if (blockchainState == null)
-                blockchainState = new BlockchainStateLiveData(application);
-            return blockchainState;
-        }
-
-        public WalletBalanceLiveData getBalance() {
-            if (balance == null)
-                balance = new WalletBalanceLiveData(application);
-            return balance;
-        }
-
-        public SelectedExchangeRateLiveData getExchangeRate() {
-            if (exchangeRate == null)
-                exchangeRate = new SelectedExchangeRateLiveData(application);
-            return exchangeRate;
-        }
-    }
 
     @Override
     public void onAttach(final Context context) {
@@ -116,7 +81,7 @@ public final class WalletBalanceFragment extends Fragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
-        viewModel = ViewModelProviders.of(this).get(ViewModel.class);
+        viewModel = ViewModelProviders.of(this).get(WalletBalanceViewModel.class);
         viewModel.getBlockchainState().observe(this, new Observer<BlockchainState>() {
             @Override
             public void onChanged(final BlockchainState blockchainState) {
