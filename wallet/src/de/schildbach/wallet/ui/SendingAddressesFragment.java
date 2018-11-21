@@ -130,6 +130,12 @@ public final class SendingAddressesFragment extends FancyListFragment {
                 BitmapFragment.show(getFragmentManager(), bitmap);
             }
         });
+        viewModel.showEditAddressBookEntryDialog.observe(this, new Event.Observer<Address>() {
+            @Override
+            public void onEvent(final Address address) {
+                EditAddressBookEntryFragment.edit(getFragmentManager(), address);
+            }
+        });
 
         adapter = new ArrayAdapter<AddressBookEntry>(activity, 0) {
             @Override
@@ -163,7 +169,7 @@ public final class SendingAddressesFragment extends FancyListFragment {
                                 final Wallet wallet = viewModel.wallet.getValue();
                                 final Address address = paymentIntent.getAddress();
                                 if (!wallet.isPubKeyHashMine(address.getHash160()))
-                                    EditAddressBookEntryFragment.edit(getFragmentManager(), address);
+                                    viewModel.showEditAddressBookEntryDialog.setValue(new Event<>(address));
                                 else
                                     dialog(activity, null, R.string.address_book_options_scan_title,
                                             R.string.address_book_options_scan_own_address);
@@ -231,7 +237,7 @@ public final class SendingAddressesFragment extends FancyListFragment {
             dialog.singleDismissButton(null);
             dialog.show();
         } else if (!wallet.isPubKeyHashMine(address.getHash160())) {
-            EditAddressBookEntryFragment.edit(getFragmentManager(), address);
+            viewModel.showEditAddressBookEntryDialog.setValue(new Event<>(address));
         } else {
             final DialogBuilder dialog = new DialogBuilder(activity);
             dialog.setTitle(R.string.address_book_options_paste_from_clipboard_title);
@@ -270,7 +276,8 @@ public final class SendingAddressesFragment extends FancyListFragment {
                     return true;
 
                 case R.id.sending_addresses_context_edit:
-                    EditAddressBookEntryFragment.edit(getFragmentManager(), getAddress(position));
+                    final Address address = Address.fromBase58(Constants.NETWORK_PARAMETERS, getAddress(position));
+                    viewModel.showEditAddressBookEntryDialog.setValue(new Event<>(address));
 
                     mode.finish();
                     return true;

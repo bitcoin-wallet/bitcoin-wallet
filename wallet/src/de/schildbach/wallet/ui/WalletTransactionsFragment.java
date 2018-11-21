@@ -156,6 +156,12 @@ public class WalletTransactionsFragment extends Fragment implements Transactions
                 BitmapFragment.show(getFragmentManager(), bitmap);
             }
         });
+        viewModel.showEditAddressBookEntryDialog.observe(this, new Event.Observer<Address>() {
+            @Override
+            public void onEvent(final Address address) {
+                EditAddressBookEntryFragment.edit(getFragmentManager(), address);
+            }
+        });
 
         adapter = new TransactionsAdapter(activity, application.maxConnectedPeers(), this);
     }
@@ -290,7 +296,7 @@ public class WalletTransactionsFragment extends Fragment implements Transactions
             public boolean onMenuItemClick(final MenuItem item) {
                 switch (item.getItemId()) {
                 case R.id.wallet_transactions_context_edit_address:
-                    handleEditAddress(tx);
+                    viewModel.showEditAddressBookEntryDialog.setValue(new Event<>(txAddress));
                     return true;
 
                 case R.id.wallet_transactions_context_show_qr:
@@ -320,10 +326,6 @@ public class WalletTransactionsFragment extends Fragment implements Transactions
                 }
 
                 return false;
-            }
-
-            private void handleEditAddress(final Transaction tx) {
-                EditAddressBookEntryFragment.edit(getFragmentManager(), txAddress);
             }
 
             private void handleReportIssue(final Transaction tx) {

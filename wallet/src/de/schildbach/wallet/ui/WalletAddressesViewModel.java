@@ -21,6 +21,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import org.bitcoinj.core.Address;
 import org.bitcoinj.core.ECKey;
 import org.bitcoinj.utils.Threading;
 import org.bitcoinj.wallet.Wallet;
@@ -51,6 +52,7 @@ public class WalletAddressesViewModel extends AndroidViewModel {
     public final WalletLiveData wallet;
     public final ConfigOwnNameLiveData ownName;
     public final MutableLiveData<Event<Bitmap>> showBitmapDialog = new MutableLiveData<>();
+    public final MutableLiveData<Event<Address>> showEditAddressBookEntryDialog = new MutableLiveData<>();
 
     public WalletAddressesViewModel(final Application application) {
         super(application);

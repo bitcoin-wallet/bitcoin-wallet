@@ -22,6 +22,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.bitcoinj.core.Address;
 import org.bitcoinj.core.ECKey;
 import org.bitcoinj.crypto.DeterministicKey;
 import org.bitcoinj.wallet.Wallet;
@@ -55,6 +56,7 @@ public class SendingAddressesViewModel extends AndroidViewModel {
     public final AddressesToExcludeLiveData addressesToExclude;
     public final ClipLiveData clip;
     public final MutableLiveData<Event<Bitmap>> showBitmapDialog = new MutableLiveData<>();
+    public final MutableLiveData<Event<Address>> showEditAddressBookEntryDialog = new MutableLiveData<>();
 
     public SendingAddressesViewModel(final Application application) {
         super(application);

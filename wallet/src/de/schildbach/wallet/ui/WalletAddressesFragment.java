@@ -119,6 +119,12 @@ public final class WalletAddressesFragment extends FancyListFragment {
                 BitmapFragment.show(getFragmentManager(), bitmap);
             }
         });
+        viewModel.showEditAddressBookEntryDialog.observe(this, new Event.Observer<Address>() {
+            @Override
+            public void onEvent(final Address address) {
+                EditAddressBookEntryFragment.edit(getFragmentManager(), address);
+            }
+        });
 
         adapter = new WalletAddressesAdapter(activity);
         setListAdapter(adapter);
@@ -161,7 +167,7 @@ public final class WalletAddressesFragment extends FancyListFragment {
             public boolean onActionItemClicked(final ActionMode mode, final MenuItem item) {
                 switch (item.getItemId()) {
                 case R.id.wallet_addresses_context_edit:
-                    handleEdit(getAddress(position));
+                    viewModel.showEditAddressBookEntryDialog.setValue(new Event<>(getAddress(position)));
                     mode.finish();
                     return true;
 
@@ -201,10 +207,6 @@ public final class WalletAddressesFragment extends FancyListFragment {
 
             private Address getAddress(final int position) {
                 return getKey(position).toAddress(Constants.NETWORK_PARAMETERS);
-            }
-
-            private void handleEdit(final Address address) {
-                EditAddressBookEntryFragment.edit(getFragmentManager(), address);
             }
 
             private void handleCopyToClipboard(final Address address) {

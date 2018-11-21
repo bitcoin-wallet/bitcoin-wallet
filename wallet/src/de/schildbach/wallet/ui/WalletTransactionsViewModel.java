@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.bitcoinj.core.Address;
 import org.bitcoinj.core.Coin;
 import org.bitcoinj.core.Sha256Hash;
 import org.bitcoinj.core.Transaction;
@@ -75,6 +76,7 @@ public class WalletTransactionsViewModel extends AndroidViewModel {
     public final MutableLiveData<TransactionsAdapter.WarningType> warning = new MutableLiveData<>();
     public final MediatorLiveData<List<TransactionsAdapter.ListItem>> list = new MediatorLiveData<>();
     public final MutableLiveData<Event<Bitmap>> showBitmapDialog = new MutableLiveData<>();
+    public final MutableLiveData<Event<Address>> showEditAddressBookEntryDialog = new MutableLiveData<>();
 
     public WalletTransactionsViewModel(final Application application) {
         super(application);

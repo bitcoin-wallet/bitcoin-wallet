@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2015 the original author or authors.
+ * Copyright the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -51,15 +51,11 @@ public final class EditAddressBookEntryFragment extends DialogFragment {
     private static final String KEY_ADDRESS = "address";
     private static final String KEY_SUGGESTED_ADDRESS_LABEL = "suggested_address_label";
 
-    public static void edit(final FragmentManager fm, final String address) {
-        edit(fm, Address.fromBase58(Constants.NETWORK_PARAMETERS, address), null);
-    }
-
     public static void edit(final FragmentManager fm, final Address address) {
         edit(fm, address, null);
     }
 
-    public static void edit(final FragmentManager fm, final Address address,
+    private static void edit(final FragmentManager fm, final Address address,
             @Nullable final String suggestedAddressLabel) {
         final DialogFragment newFragment = EditAddressBookEntryFragment.instance(address, suggestedAddressLabel);
         newFragment.show(fm, FRAGMENT_TAG);
