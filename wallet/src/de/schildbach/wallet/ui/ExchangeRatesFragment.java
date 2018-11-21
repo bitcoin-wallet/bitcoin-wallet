@@ -17,8 +17,6 @@
 
 package de.schildbach.wallet.ui;
 
-import javax.annotation.Nullable;
-
 import org.bitcoinj.core.Coin;
 
 import com.google.common.base.Strings;
@@ -27,12 +25,9 @@ import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.R;
 import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.data.BlockchainStateLiveData;
 import de.schildbach.wallet.data.ExchangeRatesProvider;
-import de.schildbach.wallet.data.WalletBalanceLiveData;
 import de.schildbach.wallet.service.BlockchainState;
 
-import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
@@ -51,11 +46,8 @@ import android.widget.SearchView;
 import android.widget.SearchView.OnQueryTextListener;
 import android.widget.ViewAnimator;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.loader.content.CursorLoader;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -72,40 +64,7 @@ public final class ExchangeRatesFragment extends Fragment
     private RecyclerView recyclerView;
     private ExchangeRatesAdapter adapter;
 
-    private ViewModel viewModel;
-
-    public static class ViewModel extends AndroidViewModel {
-        private final WalletApplication application;
-        private ExchangeRatesLiveData exchangeRates;
-        private WalletBalanceLiveData balance;
-        private BlockchainStateLiveData blockchainState;
-
-        @Nullable
-        private String query = null;
-
-        public ViewModel(final Application application) {
-            super(application);
-            this.application = (WalletApplication) application;
-        }
-
-        public ExchangeRatesLiveData getExchangeRates() {
-            if (exchangeRates == null)
-                exchangeRates = new ExchangeRatesLiveData(application);
-            return exchangeRates;
-        }
-
-        public WalletBalanceLiveData getBalance() {
-            if (balance == null)
-                balance = new WalletBalanceLiveData(application);
-            return balance;
-        }
-
-        public BlockchainStateLiveData getBlockchainState() {
-            if (blockchainState == null)
-                blockchainState = new BlockchainStateLiveData(application);
-            return blockchainState;
-        }
-    }
+    private ExchangeRatesViewModel viewModel;
 
     @Override
     public void onAttach(final Context context) {
@@ -120,7 +79,7 @@ public final class ExchangeRatesFragment extends Fragment
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
-        viewModel = ViewModelProviders.of(this).get(ViewModel.class);
+        viewModel = ViewModelProviders.of(this).get(ExchangeRatesViewModel.class);
         if (Constants.ENABLE_EXCHANGE_RATES) {
             viewModel.getExchangeRates().observe(this, new Observer<Cursor>() {
                 @Override
@@ -259,36 +218,5 @@ public final class ExchangeRatesFragment extends Fragment
             maybeSubmitList();
         else if (Configuration.PREFS_KEY_BTC_PRECISION.equals(key))
             maybeSubmitList();
-    }
-
-    private static class ExchangeRatesLiveData extends LiveData<Cursor> {
-        private final CursorLoader loader;
-
-        public ExchangeRatesLiveData(final WalletApplication application) {
-            this.loader = new CursorLoader(application,
-                    ExchangeRatesProvider.contentUri(application.getPackageName(), false), null,
-                    ExchangeRatesProvider.QUERY_PARAM_Q, new String[] { "" }, null) {
-                @Override
-                public void deliverResult(final Cursor cursor) {
-                    if (cursor != null)
-                        setValue(cursor);
-                }
-            };
-        }
-
-        @Override
-        protected void onActive() {
-            loader.startLoading();
-        }
-
-        @Override
-        protected void onInactive() {
-            loader.stopLoading();
-        }
-
-        public void setQuery(final String query) {
-            loader.setSelectionArgs(new String[] { Strings.nullToEmpty(query) });
-            loader.forceLoad();
-        }
     }
 }
