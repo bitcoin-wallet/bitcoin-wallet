@@ -97,6 +97,12 @@ public final class WalletActivity extends AbstractWalletActivity {
                 invalidateOptionsMenu();
             }
         });
+        viewModel.showHelpDialog.observe(this, new Event.Observer<Integer>() {
+            @Override
+            public void onEvent(final Integer messageResId) {
+                HelpDialogFragment.page(getSupportFragmentManager(), messageResId);
+            }
+        });
         viewModel.enterAnimation.observe(this, new Observer<WalletActivityViewModel.EnterAnimationState>() {
             @Override
             public void onChanged(final WalletActivityViewModel.EnterAnimationState state) {
@@ -410,11 +416,11 @@ public final class WalletActivity extends AbstractWalletActivity {
             return true;
 
         case R.id.wallet_options_safety:
-            HelpDialogFragment.page(getSupportFragmentManager(), R.string.help_safety);
+            viewModel.showHelpDialog.setValue(new Event<>(R.string.help_safety));
             return true;
 
         case R.id.wallet_options_technical_notes:
-            HelpDialogFragment.page(getSupportFragmentManager(), R.string.help_technical_notes);
+            viewModel.showHelpDialog.setValue(new Event<>(R.string.help_technical_notes));
             return true;
 
         case R.id.wallet_options_report_issue:
@@ -422,7 +428,7 @@ public final class WalletActivity extends AbstractWalletActivity {
             return true;
 
         case R.id.wallet_options_help:
-            HelpDialogFragment.page(getSupportFragmentManager(), R.string.help_wallet);
+            viewModel.showHelpDialog.setValue(new Event<>(R.string.help_wallet));
             return true;
         }
 

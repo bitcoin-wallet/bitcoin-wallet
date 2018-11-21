@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2015 the original author or authors.
+ * Copyright the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,6 +26,7 @@ import de.schildbach.wallet.R;
 import de.schildbach.wallet.data.PaymentIntent;
 import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.ui.AbstractWalletActivity;
+import de.schildbach.wallet.ui.Event;
 import de.schildbach.wallet.ui.HelpDialogFragment;
 
 import android.content.Context;
@@ -33,6 +34,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import androidx.lifecycle.ViewModelProviders;
 
 /**
  * @author Andreas Schildbach
@@ -62,11 +64,20 @@ public final class SendCoinsActivity extends AbstractWalletActivity {
                 context.getString(R.string.wallet_donate_address_label), amount), feeCategory, intentFlags);
     }
 
+    private SendCoinsActivityViewModel viewModel;
+
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.send_coins_content);
+
+        viewModel = ViewModelProviders.of(this).get(SendCoinsActivityViewModel.class);
+        viewModel.showHelpDialog.observe(this, new Event.Observer<Integer>() {
+            @Override
+            public void onEvent(final Integer messageResId) {
+                HelpDialogFragment.page(getSupportFragmentManager(), messageResId);
+            }
+        });
 
         BlockchainService.start(this, false);
     }
@@ -82,7 +93,7 @@ public final class SendCoinsActivity extends AbstractWalletActivity {
     public boolean onOptionsItemSelected(final MenuItem item) {
         switch (item.getItemId()) {
         case R.id.send_coins_options_help:
-            HelpDialogFragment.page(getSupportFragmentManager(), R.string.help_send_coins);
+            viewModel.showHelpDialog.setValue(new Event<>(R.string.help_send_coins));
             return true;
         }
 

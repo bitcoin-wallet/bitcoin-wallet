@@ -70,7 +70,9 @@ public final class WalletDisclaimerFragment extends Fragment {
         messageView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(final View v) {
-                HelpDialogFragment.page(getFragmentManager(), R.string.help_safety);
+                final WalletActivityViewModel viewModel = ViewModelProviders.of(getActivity())
+                        .get(WalletActivityViewModel.class);
+                viewModel.showHelpDialog.setValue(new Event<>(R.string.help_safety));
             }
         });
         return messageView;
