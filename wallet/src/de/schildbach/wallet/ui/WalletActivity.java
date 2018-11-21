@@ -72,7 +72,7 @@ public final class WalletActivity extends AbstractWalletActivity {
     private WalletApplication application;
     private Handler handler = new Handler();
 
-    private WalletViewModel viewModel;
+    private WalletActivityViewModel viewModel;
     private AnimatorSet enterAnimation;
     private View contentView;
 
@@ -84,7 +84,7 @@ public final class WalletActivity extends AbstractWalletActivity {
         application = getWalletApplication();
         final Configuration config = application.getConfiguration();
 
-        viewModel = ViewModelProviders.of(this).get(WalletViewModel.class);
+        viewModel = ViewModelProviders.of(this).get(WalletActivityViewModel.class);
 
         setContentView(R.layout.wallet_content);
         contentView = findViewById(android.R.id.content);
@@ -97,14 +97,14 @@ public final class WalletActivity extends AbstractWalletActivity {
                 invalidateOptionsMenu();
             }
         });
-        viewModel.enterAnimation.observe(this, new Observer<WalletViewModel.EnterAnimationState>() {
+        viewModel.enterAnimation.observe(this, new Observer<WalletActivityViewModel.EnterAnimationState>() {
             @Override
-            public void onChanged(final WalletViewModel.EnterAnimationState state) {
-                if (state == WalletViewModel.EnterAnimationState.WAITING) {
+            public void onChanged(final WalletActivityViewModel.EnterAnimationState state) {
+                if (state == WalletActivityViewModel.EnterAnimationState.WAITING) {
                     // API level 26: enterAnimation.setCurrentPlayTime(0);
                     for (final Animator animation : enterAnimation.getChildAnimations())
                         ((ValueAnimator) animation).setCurrentPlayTime(0);
-                } else if (state == WalletViewModel.EnterAnimationState.ANIMATING) {
+                } else if (state == WalletActivityViewModel.EnterAnimationState.ANIMATING) {
                     reportFullyDrawn();
                     enterAnimation.start();
                     enterAnimation.addListener(new AnimatorListenerAdapter() {
@@ -113,7 +113,7 @@ public final class WalletActivity extends AbstractWalletActivity {
                             viewModel.animationFinished();
                         }
                     });
-                } else if (state == WalletViewModel.EnterAnimationState.FINISHED) {
+                } else if (state == WalletActivityViewModel.EnterAnimationState.FINISHED) {
                     getWindow().getDecorView().setBackground(null);
                 }
             }

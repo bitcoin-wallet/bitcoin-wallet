@@ -283,7 +283,7 @@ public class EncryptKeysDialogFragment extends DialogFragment {
                         if (state == State.DONE) {
                             WalletUtils.autoBackupWallet(activity, wallet);
                             // trigger load manually because of missing callbacks for encryption state
-                            ViewModelProviders.of(activity).get(WalletViewModel.class).walletEncrypted.load();
+                            ViewModelProviders.of(activity).get(WalletActivityViewModel.class).walletEncrypted.load();
                             delayedDismiss();
                         }
                     }

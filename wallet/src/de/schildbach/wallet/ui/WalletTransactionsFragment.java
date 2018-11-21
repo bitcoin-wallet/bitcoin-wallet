@@ -147,7 +147,7 @@ public class WalletTransactionsFragment extends Fragment implements Transactions
             @Override
             public void onChanged(final List<ListItem> listItems) {
                 adapter.submitList(listItems);
-                ViewModelProviders.of(activity).get(WalletViewModel.class).transactionsLoadingFinished();
+                ViewModelProviders.of(activity).get(WalletActivityViewModel.class).transactionsLoadingFinished();
             }
         });
 

@@ -93,7 +93,7 @@ public final class WalletBalanceFragment extends Fragment {
             public void onChanged(final Coin balance) {
                 activity.invalidateOptionsMenu();
                 updateView();
-                ViewModelProviders.of(activity).get(WalletViewModel.class).balanceLoadingFinished();
+                ViewModelProviders.of(activity).get(WalletActivityViewModel.class).balanceLoadingFinished();
             }
         });
         if (Constants.ENABLE_EXCHANGE_RATES) {

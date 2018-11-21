@@ -32,7 +32,7 @@ import androidx.lifecycle.MutableLiveData;
 /**
  * @author Andreas Schildbach
  */
-public class WalletViewModel extends AndroidViewModel implements OnFirstPreDraw.Callback {
+public class WalletActivityViewModel extends AndroidViewModel implements OnFirstPreDraw.Callback {
     public static enum EnterAnimationState {
         WAITING, ANIMATING, FINISHED
     }
@@ -43,7 +43,7 @@ public class WalletViewModel extends AndroidViewModel implements OnFirstPreDraw.
     private boolean doAnimation, globalLayoutFinished, balanceLoadingFinished, addressLoadingFinished,
             transactionsLoadingFinished;
 
-    public WalletViewModel(final Application application) {
+    public WalletActivityViewModel(final Application application) {
         super(application);
         this.application = (WalletApplication) application;
         this.walletEncrypted = new WalletEncryptedLiveData(this.application);
