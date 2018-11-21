@@ -50,6 +50,7 @@ import android.content.ClipDescription;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -121,6 +122,12 @@ public final class SendingAddressesFragment extends FancyListFragment {
             @Override
             public void onChanged(final ClipData clipData) {
                 activity.invalidateOptionsMenu();
+            }
+        });
+        viewModel.showBitmapDialog.observe(this, new Event.Observer<Bitmap>() {
+            @Override
+            public void onEvent(final Bitmap bitmap) {
+                BitmapFragment.show(getFragmentManager(), bitmap);
             }
         });
 
@@ -275,7 +282,9 @@ public final class SendingAddressesFragment extends FancyListFragment {
                     return true;
 
                 case R.id.sending_addresses_context_show_qr:
-                    handleShowQr(getAddress(position), getLabel(position));
+                    final String uri = BitcoinURI.convertToBitcoinURI(Constants.NETWORK_PARAMETERS,
+                            getAddress(position), null, getLabel(position), null);
+                    viewModel.showBitmapDialog.setValue(new Event<>(Qr.bitmap(uri)));
 
                     mode.finish();
                     return true;
@@ -310,11 +319,6 @@ public final class SendingAddressesFragment extends FancyListFragment {
 
     private void handleRemove(final String address) {
         addressBookDao.delete(address);
-    }
-
-    private void handleShowQr(final String address, final String label) {
-        final String uri = BitcoinURI.convertToBitcoinURI(Constants.NETWORK_PARAMETERS, address, null, label, null);
-        BitmapFragment.show(getFragmentManager(), Qr.bitmap(uri));
     }
 
     private void handleCopyToClipboard(final String address) {

@@ -48,6 +48,7 @@ import de.schildbach.wallet.data.ConfigFormatLiveData;
 import de.schildbach.wallet.data.WalletLiveData;
 
 import android.app.Application;
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
@@ -73,6 +74,7 @@ public class WalletTransactionsViewModel extends AndroidViewModel {
     private final MutableLiveData<Sha256Hash> selectedTransaction = new MutableLiveData<>();
     public final MutableLiveData<TransactionsAdapter.WarningType> warning = new MutableLiveData<>();
     public final MediatorLiveData<List<TransactionsAdapter.ListItem>> list = new MediatorLiveData<>();
+    public final MutableLiveData<Event<Bitmap>> showBitmapDialog = new MutableLiveData<>();
 
     public WalletTransactionsViewModel(final Application application) {
         super(application);

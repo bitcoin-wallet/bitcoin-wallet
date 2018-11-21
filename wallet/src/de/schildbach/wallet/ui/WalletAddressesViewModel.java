@@ -34,9 +34,11 @@ import de.schildbach.wallet.data.ConfigOwnNameLiveData;
 import de.schildbach.wallet.data.WalletLiveData;
 
 import android.app.Application;
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 /**
  * @author Andreas Schildbach
@@ -48,6 +50,7 @@ public class WalletAddressesViewModel extends AndroidViewModel {
     public final LiveData<List<AddressBookEntry>> addressBook;
     public final WalletLiveData wallet;
     public final ConfigOwnNameLiveData ownName;
+    public final MutableLiveData<Event<Bitmap>> showBitmapDialog = new MutableLiveData<>();
 
     public WalletAddressesViewModel(final Application application) {
         super(application);

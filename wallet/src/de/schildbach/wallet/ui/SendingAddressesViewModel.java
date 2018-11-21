@@ -39,9 +39,11 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.ClipboardManager.OnPrimaryClipChangedListener;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 /**
  * @author Andreas Schildbach
@@ -52,6 +54,7 @@ public class SendingAddressesViewModel extends AndroidViewModel {
     public LiveData<List<AddressBookEntry>> addressBook;
     public final AddressesToExcludeLiveData addressesToExclude;
     public final ClipLiveData clip;
+    public final MutableLiveData<Event<Bitmap>> showBitmapDialog = new MutableLiveData<>();
 
     public SendingAddressesViewModel(final Application application) {
         super(application);

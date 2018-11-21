@@ -150,6 +150,12 @@ public class WalletTransactionsFragment extends Fragment implements Transactions
                 ViewModelProviders.of(activity).get(WalletActivityViewModel.class).transactionsLoadingFinished();
             }
         });
+        viewModel.showBitmapDialog.observe(this, new Event.Observer<Bitmap>() {
+            @Override
+            public void onEvent(final Bitmap bitmap) {
+                BitmapFragment.show(getFragmentManager(), bitmap);
+            }
+        });
 
         adapter = new TransactionsAdapter(activity, application.maxConnectedPeers(), this);
     }
@@ -288,7 +294,8 @@ public class WalletTransactionsFragment extends Fragment implements Transactions
                     return true;
 
                 case R.id.wallet_transactions_context_show_qr:
-                    handleShowQr();
+                    final Bitmap qrCodeBitmap = Qr.bitmap(Qr.encodeCompressBinary(txSerialized));
+                    viewModel.showBitmapDialog.setValue(new Event<>(qrCodeBitmap));
                     return true;
 
                 case R.id.wallet_transactions_context_raise_fee:
@@ -317,11 +324,6 @@ public class WalletTransactionsFragment extends Fragment implements Transactions
 
             private void handleEditAddress(final Transaction tx) {
                 EditAddressBookEntryFragment.edit(getFragmentManager(), txAddress);
-            }
-
-            private void handleShowQr() {
-                final Bitmap qrCodeBitmap = Qr.bitmap(Qr.encodeCompressBinary(txSerialized));
-                BitmapFragment.show(getFragmentManager(), qrCodeBitmap);
             }
 
             private void handleReportIssue(final Transaction tx) {

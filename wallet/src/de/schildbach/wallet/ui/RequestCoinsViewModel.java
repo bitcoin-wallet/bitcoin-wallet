@@ -56,6 +56,7 @@ public class RequestCoinsViewModel extends AndroidViewModel {
     public final MediatorLiveData<Bitmap> qrCode = new MediatorLiveData<>();
     public final MediatorLiveData<byte[]> paymentRequest = new MediatorLiveData<>();
     public final MediatorLiveData<Uri> bitcoinUri = new MediatorLiveData<>();
+    public final MutableLiveData<Event<Bitmap>> showBitmapDialog = new MutableLiveData<>();
 
     @Nullable
     public Intent bluetoothServiceIntent = null;

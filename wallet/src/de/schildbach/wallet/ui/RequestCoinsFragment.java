@@ -129,7 +129,7 @@ public final class RequestCoinsFragment extends Fragment {
                 qrCardView.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(final View v) {
-                        BitmapFragment.show(getFragmentManager(), viewModel.qrCode.getValue());
+                        viewModel.showBitmapDialog.setValue(new Event<>(viewModel.qrCode.getValue()));
                     }
                 });
             }
@@ -161,6 +161,12 @@ public final class RequestCoinsFragment extends Fragment {
                 }
             });
         }
+        viewModel.showBitmapDialog.observe(this, new Event.Observer<Bitmap>() {
+            @Override
+            public void onEvent(final Bitmap bitmap) {
+                BitmapFragment.show(getFragmentManager(), bitmap);
+            }
+        });
 
         if (savedInstanceState != null) {
             restoreInstanceState(savedInstanceState);

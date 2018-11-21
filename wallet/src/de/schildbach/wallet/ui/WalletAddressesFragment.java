@@ -41,6 +41,7 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.ActionMode;
@@ -112,6 +113,12 @@ public final class WalletAddressesFragment extends FancyListFragment {
                 adapter.notifyDataSetChanged();
             }
         });
+        viewModel.showBitmapDialog.observe(this, new Event.Observer<Bitmap>() {
+            @Override
+            public void onEvent(final Bitmap bitmap) {
+                BitmapFragment.show(getFragmentManager(), bitmap);
+            }
+        });
 
         adapter = new WalletAddressesAdapter(activity);
         setListAdapter(adapter);
@@ -159,7 +166,10 @@ public final class WalletAddressesFragment extends FancyListFragment {
                     return true;
 
                 case R.id.wallet_addresses_context_show_qr:
-                    handleShowQr(getAddress(position));
+                    final String uri = BitcoinURI.convertToBitcoinURI(getAddress(position), null,
+                            viewModel.ownName.getValue(), null);
+                    viewModel.showBitmapDialog.setValue(new Event<>(Qr.bitmap(uri)));
+
                     mode.finish();
                     return true;
 
@@ -195,11 +205,6 @@ public final class WalletAddressesFragment extends FancyListFragment {
 
             private void handleEdit(final Address address) {
                 EditAddressBookEntryFragment.edit(getFragmentManager(), address);
-            }
-
-            private void handleShowQr(final Address address) {
-                final String uri = BitcoinURI.convertToBitcoinURI(address, null, viewModel.ownName.getValue(), null);
-                BitmapFragment.show(getFragmentManager(), Qr.bitmap(uri));
             }
 
             private void handleCopyToClipboard(final Address address) {
