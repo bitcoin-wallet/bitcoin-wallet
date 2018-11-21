@@ -162,6 +162,13 @@ public class WalletTransactionsFragment extends Fragment implements Transactions
                 EditAddressBookEntryFragment.edit(getFragmentManager(), address);
             }
         });
+        viewModel.showReportIssueDialog.observe(this, new Event.Observer<String>() {
+            @Override
+            public void onEvent(final String contextualData) {
+                ReportIssueDialogFragment.show(getFragmentManager(), R.string.report_issue_dialog_title_transaction,
+                        R.string.report_issue_dialog_message_issue, Constants.REPORT_SUBJECT_ISSUE, contextualData);
+            }
+        });
 
         adapter = new TransactionsAdapter(activity, application.maxConnectedPeers(), this);
     }
@@ -340,9 +347,7 @@ public class WalletTransactionsFragment extends Fragment implements Transactions
                     contextualData.append("  confidence: ").append(tx.getConfidence()).append('\n');
                 contextualData.append(tx.toString());
 
-                ReportIssueDialogFragment.show(getFragmentManager(), R.string.report_issue_dialog_title_transaction,
-                        R.string.report_issue_dialog_message_issue, Constants.REPORT_SUBJECT_ISSUE,
-                        contextualData.toString());
+                viewModel.showReportIssueDialog.setValue(new Event<>(contextualData.toString()));
             }
         });
         popupMenu.show();

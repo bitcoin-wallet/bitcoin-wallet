@@ -121,6 +121,20 @@ public final class WalletActivity extends AbstractWalletActivity {
                 EncryptKeysDialogFragment.show(getSupportFragmentManager());
             }
         });
+        viewModel.showReportIssueDialog.observe(this, new Event.Observer<Void>() {
+            @Override
+            public void onEvent(final Void v) {
+                ReportIssueDialogFragment.show(getSupportFragmentManager(), R.string.report_issue_dialog_title_issue,
+                        R.string.report_issue_dialog_message_issue, Constants.REPORT_SUBJECT_ISSUE, null);
+            }
+        });
+        viewModel.showReportCrashDialog.observe(this, new Event.Observer<Void>() {
+            @Override
+            public void onEvent(final Void v) {
+                ReportIssueDialogFragment.show(getSupportFragmentManager(), R.string.report_issue_dialog_title_crash,
+                        R.string.report_issue_dialog_message_crash, Constants.REPORT_SUBJECT_CRASH, null);
+            }
+        });
         viewModel.enterAnimation.observe(this, new Observer<WalletActivityViewModel.EnterAnimationState>() {
             @Override
             public void onChanged(final WalletActivityViewModel.EnterAnimationState state) {
@@ -151,8 +165,8 @@ public final class WalletActivity extends AbstractWalletActivity {
         if (exchangeRatesFragment != null)
             exchangeRatesFragment.setVisibility(Constants.ENABLE_EXCHANGE_RATES ? View.VISIBLE : View.GONE);
 
-        if (savedInstanceState == null)
-            checkSavedCrashTrace();
+        if (savedInstanceState == null && CrashReporter.hasSavedCrashTrace())
+            viewModel.showReportCrashDialog.setValue(Event.simple());
 
         config.touchLastUsed();
 
@@ -442,7 +456,7 @@ public final class WalletActivity extends AbstractWalletActivity {
             return true;
 
         case R.id.wallet_options_report_issue:
-            handleReportIssue();
+            viewModel.showReportIssueDialog.setValue(Event.simple());
             return true;
 
         case R.id.wallet_options_help:
@@ -466,16 +480,5 @@ public final class WalletActivity extends AbstractWalletActivity {
         // Camera/SurfaceView is used while the animation is running.
         enterAnimation.end();
         ScanActivity.startForResult(this, clickView, WalletActivity.REQUEST_CODE_SCAN);
-    }
-
-    private void handleReportIssue() {
-        ReportIssueDialogFragment.show(getSupportFragmentManager(), R.string.report_issue_dialog_title_issue,
-                R.string.report_issue_dialog_message_issue, Constants.REPORT_SUBJECT_ISSUE, null);
-    }
-
-    private void checkSavedCrashTrace() {
-        if (CrashReporter.hasSavedCrashTrace())
-            ReportIssueDialogFragment.show(getSupportFragmentManager(), R.string.report_issue_dialog_title_crash,
-                    R.string.report_issue_dialog_message_crash, Constants.REPORT_SUBJECT_CRASH, null);
     }
 }

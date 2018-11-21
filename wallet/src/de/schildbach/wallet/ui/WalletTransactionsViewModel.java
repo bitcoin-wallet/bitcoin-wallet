@@ -77,6 +77,7 @@ public class WalletTransactionsViewModel extends AndroidViewModel {
     public final MediatorLiveData<List<TransactionsAdapter.ListItem>> list = new MediatorLiveData<>();
     public final MutableLiveData<Event<Bitmap>> showBitmapDialog = new MutableLiveData<>();
     public final MutableLiveData<Event<Address>> showEditAddressBookEntryDialog = new MutableLiveData<>();
+    public final MutableLiveData<Event<String>> showReportIssueDialog = new MutableLiveData<>();
 
     public WalletTransactionsViewModel(final Application application) {
         super(application);

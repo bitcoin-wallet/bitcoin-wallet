@@ -43,6 +43,8 @@ public class WalletActivityViewModel extends AndroidViewModel implements OnFirst
     public final MutableLiveData<Event<Void>> showBackupWalletDialog = new MutableLiveData<>();
     public final MutableLiveData<Event<Void>> showRestoreWalletDialog = new MutableLiveData<>();
     public final MutableLiveData<Event<Void>> showEncryptKeysDialog = new MutableLiveData<>();
+    public final MutableLiveData<Event<Void>> showReportIssueDialog = new MutableLiveData<>();
+    public final MutableLiveData<Event<Void>> showReportCrashDialog = new MutableLiveData<>();
     public final MutableLiveData<EnterAnimationState> enterAnimation = new MutableLiveData<>();
     private boolean doAnimation, globalLayoutFinished, balanceLoadingFinished, addressLoadingFinished,
             transactionsLoadingFinished;
