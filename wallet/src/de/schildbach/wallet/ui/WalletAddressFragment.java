@@ -79,9 +79,7 @@ public final class WalletAddressFragment extends Fragment {
                 currentAddressQrCardView.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(final View v) {
-                        final Address address = viewModel.currentAddress.getValue();
-                        WalletAddressDialogFragment.show(getFragmentManager(), address, viewModel.ownName.getValue());
-                        log.info("Current address enlarged: {}", address);
+                        viewModel.showWalletAddressDialog.setValue(Event.simple());
                     }
                 });
             }
@@ -93,6 +91,14 @@ public final class WalletAddressFragment extends Fragment {
                 if (nfcAdapter != null)
                     nfcAdapter.setNdefPushMessage(createNdefMessage(bitcoinUri.toString()), activity);
                 ViewModelProviders.of(activity).get(WalletActivityViewModel.class).addressLoadingFinished();
+            }
+        });
+        viewModel.showWalletAddressDialog.observe(this, new Event.Observer<Void>() {
+            @Override
+            public void onEvent(final Void v) {
+                final Address address = viewModel.currentAddress.getValue();
+                WalletAddressDialogFragment.show(getFragmentManager(), address, viewModel.ownName.getValue());
+                log.info("Current address enlarged: {}", address);
             }
         });
     }

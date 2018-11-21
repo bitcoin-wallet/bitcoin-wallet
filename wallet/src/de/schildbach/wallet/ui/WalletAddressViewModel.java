@@ -40,6 +40,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MediatorLiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 
 /**
@@ -51,6 +52,7 @@ public class WalletAddressViewModel extends AndroidViewModel {
     public final ConfigOwnNameLiveData ownName;
     public final MediatorLiveData<Bitmap> qrCode = new MediatorLiveData<>();
     public final MediatorLiveData<Uri> bitcoinUri = new MediatorLiveData<>();
+    public final MutableLiveData<Event<Void>> showWalletAddressDialog = new MutableLiveData<>();
 
     public WalletAddressViewModel(final Application application) {
         super(application);
