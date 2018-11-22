@@ -1,3 +1,7 @@
+v6.35
+
+* Fix crashes when opening dialogs at the wrong time.
+
 v6.34
 
 * Migrate support libraries and architecture components to AndroidX.
