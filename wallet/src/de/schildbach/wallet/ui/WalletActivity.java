@@ -379,14 +379,15 @@ public final class WalletActivity extends AbstractWalletActivity {
         super.onPrepareOptionsMenu(menu);
 
         final Resources res = getResources();
-        final String externalStorageState = Environment.getExternalStorageState();
 
-        menu.findItem(R.id.wallet_options_exchange_rates)
-                .setVisible(Constants.ENABLE_EXCHANGE_RATES && res.getBoolean(R.bool.show_exchange_rates_option));
+        final boolean showExchangeRatesOption = Constants.ENABLE_EXCHANGE_RATES
+                && res.getBoolean(R.bool.show_exchange_rates_option);
+        menu.findItem(R.id.wallet_options_exchange_rates).setVisible(showExchangeRatesOption);
         menu.findItem(R.id.wallet_options_sweep_wallet).setVisible(Constants.ENABLE_SWEEP_WALLET);
-        menu.findItem(R.id.wallet_options_restore_wallet)
-                .setEnabled(Environment.MEDIA_MOUNTED.equals(externalStorageState)
-                        || Environment.MEDIA_MOUNTED_READ_ONLY.equals(externalStorageState));
+        final String externalStorageState = Environment.getExternalStorageState();
+        final boolean enableRestoreWalletOption = Environment.MEDIA_MOUNTED.equals(externalStorageState)
+                || Environment.MEDIA_MOUNTED_READ_ONLY.equals(externalStorageState);
+        menu.findItem(R.id.wallet_options_restore_wallet).setEnabled(enableRestoreWalletOption);
         final Boolean isEncrypted = viewModel.walletEncrypted.getValue();
         if (isEncrypted != null) {
             final MenuItem encryptKeysOption = menu.findItem(R.id.wallet_options_encrypt_keys);
