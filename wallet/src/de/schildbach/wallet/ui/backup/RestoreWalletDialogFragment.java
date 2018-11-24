@@ -153,8 +153,6 @@ public class RestoreWalletDialogFragment extends DialogFragment {
 
                 if (WalletUtils.BACKUP_FILE_FILTER.accept(file))
                     restoreWalletFromProtobuf(file);
-                else if (WalletUtils.KEYS_FILE_FILTER.accept(file))
-                    restorePrivateKeysFromBase58(file);
                 else if (Crypto.OPENSSL_FILE_FILTER.accept(file))
                     restoreWalletFromEncrypted(file, password);
             }
@@ -312,7 +310,7 @@ public class RestoreWalletDialogFragment extends DialogFragment {
             final byte[] plainText = Crypto.decryptBytes(cipherText.toString(), password.toCharArray());
             final InputStream is = new ByteArrayInputStream(plainText);
 
-            restoreWallet(WalletUtils.restoreWalletFromProtobufOrBase58(is, Constants.NETWORK_PARAMETERS));
+            restoreWallet(WalletUtils.restoreWalletFromProtobuf(is, Constants.NETWORK_PARAMETERS));
             log.info("successfully restored encrypted wallet: {}", file);
         } catch (final IOException x) {
             FailureDialogFragment.showDialog(getFragmentManager(), x.getMessage());
@@ -327,16 +325,6 @@ public class RestoreWalletDialogFragment extends DialogFragment {
         } catch (final IOException x) {
             FailureDialogFragment.showDialog(getFragmentManager(), x.getMessage());
             log.info("problem restoring unencrypted wallet: " + file, x);
-        }
-    }
-
-    private void restorePrivateKeysFromBase58(final File file) {
-        try (final FileInputStream is = new FileInputStream(file)) {
-            restoreWallet(WalletUtils.restorePrivateKeysFromBase58(is, Constants.NETWORK_PARAMETERS));
-            log.info("successfully restored unencrypted private keys: {}", file);
-        } catch (final IOException x) {
-            FailureDialogFragment.showDialog(getFragmentManager(), x.getMessage());
-            log.info("problem restoring private keys: " + file, x);
         }
     }
 

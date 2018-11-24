@@ -17,7 +17,6 @@
 
 package de.schildbach.wallet.util;
 
-import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -25,22 +24,11 @@ import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.io.Writer;
-import java.nio.charset.StandardCharsets;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
 
 import javax.annotation.Nullable;
 
 import org.bitcoinj.core.Address;
-import org.bitcoinj.core.AddressFormatException;
-import org.bitcoinj.core.DumpedPrivateKey;
-import org.bitcoinj.core.ECKey;
 import org.bitcoinj.core.NetworkParameters;
 import org.bitcoinj.core.ScriptException;
 import org.bitcoinj.core.Sha256Hash;
@@ -48,7 +36,6 @@ import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.TransactionInput;
 import org.bitcoinj.core.TransactionOutput;
 import org.bitcoinj.script.Script;
-import org.bitcoinj.wallet.KeyChainGroup;
 import org.bitcoinj.wallet.Protos;
 import org.bitcoinj.wallet.UnreadableWalletException;
 import org.bitcoinj.wallet.Wallet;
@@ -66,7 +53,6 @@ import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.SpannedString;
-import android.text.format.DateUtils;
 import android.text.style.TypefaceSpan;
 
 /**
@@ -221,23 +207,6 @@ public class WalletUtils {
         }
     }
 
-    public static Wallet restoreWalletFromProtobufOrBase58(final InputStream is,
-            final NetworkParameters expectedNetworkParameters) throws IOException {
-        is.mark((int) Constants.BACKUP_MAX_CHARS);
-
-        try {
-            return restoreWalletFromProtobuf(is, expectedNetworkParameters);
-        } catch (final IOException x) {
-            try {
-                is.reset();
-                return restorePrivateKeysFromBase58(is, expectedNetworkParameters);
-            } catch (final IOException x2) {
-                throw new IOException(
-                        "cannot read protobuf (" + x.getMessage() + ") or base58 (" + x2.getMessage() + ")", x);
-            }
-        }
-    }
-
     public static Wallet restoreWalletFromProtobuf(final InputStream is,
             final NetworkParameters expectedNetworkParameters) throws IOException {
         try {
@@ -253,78 +222,6 @@ public class WalletUtils {
             throw new IOException("unreadable wallet", x);
         }
     }
-
-    public static Wallet restorePrivateKeysFromBase58(final InputStream is,
-            final NetworkParameters expectedNetworkParameters) throws IOException {
-        final BufferedReader keyReader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
-
-        // create non-HD wallet
-        final KeyChainGroup group = new KeyChainGroup(expectedNetworkParameters);
-        group.importKeys(WalletUtils.readKeys(keyReader, expectedNetworkParameters));
-        return new Wallet(expectedNetworkParameters, group);
-    }
-
-    public static void writeKeys(final Writer out, final List<ECKey> keys) throws IOException {
-        final DateFormat format = Iso8601Format.newDateTimeFormatT();
-
-        out.write("# KEEP YOUR PRIVATE KEYS SAFE! Anyone who can read this can spend your Bitcoins.\n");
-
-        for (final ECKey key : keys) {
-            out.write(key.getPrivateKeyEncoded(Constants.NETWORK_PARAMETERS).toBase58());
-            if (key.getCreationTimeSeconds() != 0) {
-                out.write(' ');
-                out.write(format.format(new Date(key.getCreationTimeSeconds() * DateUtils.SECOND_IN_MILLIS)));
-            }
-            out.write('\n');
-        }
-    }
-
-    public static List<ECKey> readKeys(final BufferedReader in, final NetworkParameters expectedNetworkParameters)
-            throws IOException {
-        try {
-            final DateFormat format = Iso8601Format.newDateTimeFormatT();
-
-            final List<ECKey> keys = new LinkedList<ECKey>();
-
-            long charCount = 0;
-            while (true) {
-                final String line = in.readLine();
-                if (line == null)
-                    break; // eof
-                charCount += line.length();
-                if (charCount > Constants.BACKUP_MAX_CHARS)
-                    throw new IOException("read more than the limit of " + Constants.BACKUP_MAX_CHARS + " characters");
-                if (line.trim().isEmpty() || line.charAt(0) == '#')
-                    continue; // skip comment
-
-                final String[] parts = line.split(" ");
-
-                final ECKey key = DumpedPrivateKey.fromBase58(expectedNetworkParameters, parts[0]).getKey();
-                key.setCreationTimeSeconds(
-                        parts.length >= 2 ? format.parse(parts[1]).getTime() / DateUtils.SECOND_IN_MILLIS : 0);
-
-                keys.add(key);
-            }
-
-            return keys;
-        } catch (final AddressFormatException | ParseException x) {
-            throw new IOException("cannot read keys", x);
-        }
-    }
-
-    public static final FileFilter KEYS_FILE_FILTER = new FileFilter() {
-        @Override
-        public boolean accept(final File file) {
-            try (final BufferedReader reader = new BufferedReader(
-                    new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8))) {
-                WalletUtils.readKeys(reader, Constants.NETWORK_PARAMETERS);
-
-                return true;
-            } catch (final IOException x) {
-                return false;
-            }
-        }
-    };
 
     public static final FileFilter BACKUP_FILE_FILTER = new FileFilter() {
         @Override

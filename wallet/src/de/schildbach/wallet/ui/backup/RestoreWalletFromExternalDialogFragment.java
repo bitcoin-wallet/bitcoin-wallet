@@ -193,7 +193,7 @@ public class RestoreWalletFromExternalDialogFragment extends DialogFragment {
         final byte[] plainText = Crypto.decryptBytes(cipherText.toString(), password.toCharArray());
         final InputStream is = new ByteArrayInputStream(plainText);
 
-        return WalletUtils.restoreWalletFromProtobufOrBase58(is, Constants.NETWORK_PARAMETERS);
+        return WalletUtils.restoreWalletFromProtobuf(is, Constants.NETWORK_PARAMETERS);
     }
 
     public static class SuccessDialogFragment extends DialogFragment {
