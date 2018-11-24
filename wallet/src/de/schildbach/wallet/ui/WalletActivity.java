@@ -387,8 +387,6 @@ public final class WalletActivity extends AbstractWalletActivity {
         menu.findItem(R.id.wallet_options_restore_wallet)
                 .setEnabled(Environment.MEDIA_MOUNTED.equals(externalStorageState)
                         || Environment.MEDIA_MOUNTED_READ_ONLY.equals(externalStorageState));
-        menu.findItem(R.id.wallet_options_backup_wallet)
-                .setEnabled(Environment.MEDIA_MOUNTED.equals(externalStorageState));
         final Boolean isEncrypted = viewModel.walletEncrypted.getValue();
         if (isEncrypted != null) {
             final MenuItem encryptKeysOption = menu.findItem(R.id.wallet_options_encrypt_keys);
