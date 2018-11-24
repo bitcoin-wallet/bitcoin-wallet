@@ -17,8 +17,6 @@
 
 package de.schildbach.wallet.util;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileInputStream;
@@ -233,24 +231,6 @@ public class WalletUtils {
             }
         }
     };
-
-    public static byte[] walletToByteArray(final Wallet wallet) {
-        try (final ByteArrayOutputStream os = new ByteArrayOutputStream()) {
-            new WalletProtobufSerializer().writeWallet(wallet, os);
-            return os.toByteArray();
-        } catch (final IOException x) {
-            throw new RuntimeException(x);
-        }
-    }
-
-    public static Wallet walletFromByteArray(final byte[] walletBytes) {
-        try (final ByteArrayInputStream is = new ByteArrayInputStream(walletBytes)) {
-            final Wallet wallet = new WalletProtobufSerializer().readWallet(is);
-            return wallet;
-        } catch (final UnreadableWalletException | IOException x) {
-            throw new RuntimeException(x);
-        }
-    }
 
     public static boolean isPayToManyTransaction(final Transaction transaction) {
         return transaction.getOutputs().size() > 20;
