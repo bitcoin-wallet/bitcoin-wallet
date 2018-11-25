@@ -38,6 +38,7 @@ import com.google.zxing.qrcode.QRCodeReader;
 import de.schildbach.wallet.R;
 import de.schildbach.wallet.ui.AbstractWalletActivity;
 import de.schildbach.wallet.ui.DialogBuilder;
+import de.schildbach.wallet.ui.Event;
 import de.schildbach.wallet.util.OnFirstPreDraw;
 
 import android.Manifest;
@@ -78,7 +79,6 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 /**
@@ -142,16 +142,16 @@ public final class ScanActivity extends AbstractWalletActivity
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
         viewModel = ViewModelProviders.of(this).get(ScanViewModel.class);
-        viewModel.showPermissionWarnDialog.observe(this, new Observer<Void>() {
+        viewModel.showPermissionWarnDialog.observe(this, new Event.Observer<Void>() {
             @Override
-            public void onChanged(final Void v) {
+            public void onEvent(final Void v) {
                 WarnDialogFragment.show(getSupportFragmentManager(), R.string.scan_camera_permission_dialog_title,
                         getString(R.string.scan_camera_permission_dialog_message));
             }
         });
-        viewModel.showProblemWarnDialog.observe(this, new Observer<Void>() {
+        viewModel.showProblemWarnDialog.observe(this, new Event.Observer<Void>() {
             @Override
-            public void onChanged(final Void v) {
+            public void onEvent(final Void v) {
                 WarnDialogFragment.show(getSupportFragmentManager(), R.string.scan_camera_problem_dialog_title,
                         getString(R.string.scan_camera_problem_dialog_message));
             }
@@ -259,7 +259,7 @@ public final class ScanActivity extends AbstractWalletActivity
             maybeOpenCamera();
         } else {
             log.info("missing {}, showing error", Manifest.permission.CAMERA);
-            viewModel.showPermissionWarnDialog.call();
+            viewModel.showPermissionWarnDialog.setValue(Event.simple());
         }
     }
 
@@ -373,7 +373,7 @@ public final class ScanActivity extends AbstractWalletActivity
                 cameraHandler.post(fetchAndDecodeRunnable);
             } catch (final Exception x) {
                 log.info("problem opening camera", x);
-                viewModel.showProblemWarnDialog.postCall();
+                viewModel.showProblemWarnDialog.postValue(Event.simple());
             }
         }
 

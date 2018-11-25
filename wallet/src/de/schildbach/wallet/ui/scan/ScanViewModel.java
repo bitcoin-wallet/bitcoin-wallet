@@ -17,14 +17,15 @@
 
 package de.schildbach.wallet.ui.scan;
 
-import de.schildbach.wallet.data.SingleLiveEvent;
+import de.schildbach.wallet.ui.Event;
 
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 /**
  * @author Andreas Schildbach
  */
 public class ScanViewModel extends ViewModel {
-    public final SingleLiveEvent<Void> showPermissionWarnDialog = new SingleLiveEvent<>();
-    public final SingleLiveEvent<Void> showProblemWarnDialog = new SingleLiveEvent<>();
+    public final MutableLiveData<Event<Void>> showPermissionWarnDialog = new MutableLiveData<>();
+    public final MutableLiveData<Event<Void>> showProblemWarnDialog = new MutableLiveData<>();
 }
