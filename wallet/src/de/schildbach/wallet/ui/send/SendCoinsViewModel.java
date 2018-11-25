@@ -38,6 +38,7 @@ import de.schildbach.wallet.ui.AddressAndLabel;
 import android.app.Application;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 /**
  * @author Andreas Schildbach
@@ -56,6 +57,7 @@ public class SendCoinsViewModel extends AndroidViewModel {
     public final DynamicFeeLiveData dynamicFees;
     public final BlockchainStateLiveData blockchainState;
     public final WalletBalanceLiveData balance;
+    public final MutableLiveData<String> progress = new MutableLiveData<>();
 
     @Nullable
     public State state = null;

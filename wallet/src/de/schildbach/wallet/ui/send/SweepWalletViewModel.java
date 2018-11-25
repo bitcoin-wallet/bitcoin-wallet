@@ -28,6 +28,7 @@ import de.schildbach.wallet.data.DynamicFeeLiveData;
 
 import android.app.Application;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.MutableLiveData;
 
 /**
  * @author Andreas Schildbach
@@ -41,6 +42,7 @@ public class SweepWalletViewModel extends AndroidViewModel {
 
     private final WalletApplication application;
     private DynamicFeeLiveData dynamicFees;
+    public final MutableLiveData<String> progress = new MutableLiveData<>();
 
     public State state = State.DECODE_KEY;
     public @Nullable VersionedChecksummedBytes privateKeyToSweep = null;

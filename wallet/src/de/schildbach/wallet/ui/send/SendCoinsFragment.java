@@ -404,6 +404,7 @@ public final class SendCoinsFragment extends Fragment {
                 activity.invalidateOptionsMenu();
             }
         });
+        viewModel.progress.observe(this, new ProgressDialogFragment.Observer(fragmentManager));
 
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
@@ -1325,14 +1326,14 @@ public final class SendCoinsFragment extends Fragment {
             paymentRequestHost = Bluetooth
                     .decompressMac(Bluetooth.getBluetoothMac(viewModel.paymentIntent.paymentRequestUrl));
 
-        ProgressDialogFragment.showProgress(fragmentManager,
-                getString(R.string.send_coins_fragment_request_payment_request_progress, paymentRequestHost));
+        viewModel.progress
+                .setValue(getString(R.string.send_coins_fragment_request_payment_request_progress, paymentRequestHost));
         setState(SendCoinsViewModel.State.REQUEST_PAYMENT_REQUEST);
 
         final RequestPaymentRequestTask.ResultCallback callback = new RequestPaymentRequestTask.ResultCallback() {
             @Override
             public void onPaymentIntent(final PaymentIntent paymentIntent) {
-                ProgressDialogFragment.dismissProgress(fragmentManager);
+                viewModel.progress.setValue(null);
 
                 if (viewModel.paymentIntent.isExtendedBy(paymentIntent)) {
                     // success
@@ -1367,7 +1368,7 @@ public final class SendCoinsFragment extends Fragment {
 
             @Override
             public void onFail(final int messageResId, final Object... messageArgs) {
-                ProgressDialogFragment.dismissProgress(fragmentManager);
+                viewModel.progress.setValue(null);
 
                 final DialogBuilder dialog = DialogBuilder.warn(activity,
                         R.string.send_coins_fragment_request_payment_request_failed_title);

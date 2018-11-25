@@ -152,6 +152,7 @@ public class SweepWalletFragment extends Fragment {
                 updateView();
             }
         });
+        viewModel.progress.observe(this, new ProgressDialogFragment.Observer(fragmentManager));
 
         backgroundThread = new HandlerThread("backgroundThread", Process.THREAD_PRIORITY_BACKGROUND);
         backgroundThread.start();
@@ -352,15 +353,14 @@ public class SweepWalletFragment extends Fragment {
             passwordView.setText(null); // get rid of it asap
 
             if (!password.isEmpty()) {
-                ProgressDialogFragment.showProgress(fragmentManager,
-                        getString(R.string.sweep_wallet_fragment_decrypt_progress));
+                viewModel.progress.setValue(getString(R.string.sweep_wallet_fragment_decrypt_progress));
 
                 new DecodePrivateKeyTask(backgroundHandler) {
                     @Override
                     protected void onSuccess(ECKey decryptedKey) {
                         log.info("successfully decoded BIP38 private key");
 
-                        ProgressDialogFragment.dismissProgress(fragmentManager);
+                        viewModel.progress.setValue(null);
 
                         askConfirmSweep(decryptedKey);
                     }
@@ -369,7 +369,7 @@ public class SweepWalletFragment extends Fragment {
                     protected void onBadPassphrase() {
                         log.info("failed decoding BIP38 private key (bad password)");
 
-                        ProgressDialogFragment.dismissProgress(fragmentManager);
+                        viewModel.progress.setValue(null);
 
                         badPasswordView.setVisibility(View.VISIBLE);
                         passwordView.requestFocus();
@@ -409,13 +409,12 @@ public class SweepWalletFragment extends Fragment {
     };
 
     private void requestWalletBalance() {
-        ProgressDialogFragment.showProgress(fragmentManager,
-                getString(R.string.sweep_wallet_fragment_request_wallet_balance_progress));
+        viewModel.progress.setValue(getString(R.string.sweep_wallet_fragment_request_wallet_balance_progress));
 
         final RequestWalletBalanceTask.ResultCallback callback = new RequestWalletBalanceTask.ResultCallback() {
             @Override
             public void onResult(final Set<UTXO> utxos) {
-                ProgressDialogFragment.dismissProgress(fragmentManager);
+                viewModel.progress.setValue(null);
 
                 // Filter UTXOs we've already spent and sort the rest.
                 final Set<Transaction> walletTxns = application.getWallet().getTransactions(false);
@@ -465,7 +464,7 @@ public class SweepWalletFragment extends Fragment {
 
             @Override
             public void onFail(final int messageResId, final Object... messageArgs) {
-                ProgressDialogFragment.dismissProgress(fragmentManager);
+                viewModel.progress.setValue(null);
 
                 final DialogBuilder dialog = DialogBuilder.warn(activity,
                         R.string.sweep_wallet_fragment_request_wallet_balance_failed_title);
