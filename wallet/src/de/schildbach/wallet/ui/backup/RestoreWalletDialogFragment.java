@@ -35,6 +35,8 @@ import org.bitcoinj.wallet.Wallet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.io.CharStreams;
+
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.R;
@@ -45,7 +47,6 @@ import de.schildbach.wallet.ui.DialogBuilder;
 import de.schildbach.wallet.ui.Event;
 import de.schildbach.wallet.ui.ShowPasswordCheckListener;
 import de.schildbach.wallet.util.Crypto;
-import de.schildbach.wallet.util.Io;
 import de.schildbach.wallet.util.WalletUtils;
 
 import android.Manifest;
@@ -319,7 +320,7 @@ public class RestoreWalletDialogFragment extends DialogFragment {
             final BufferedReader cipherIn = new BufferedReader(
                     new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8));
             final StringBuilder cipherText = new StringBuilder();
-            Io.copy(cipherIn, cipherText, Constants.BACKUP_MAX_CHARS);
+            CharStreams.copy(cipherIn, cipherText);
             cipherIn.close();
 
             final byte[] plainText = Crypto.decryptBytes(cipherText.toString(), password.toCharArray());

@@ -101,9 +101,6 @@ public final class Constants {
         public static final String ELECTRUM_SERVERS_FILENAME = "electrum-servers.txt";
     }
 
-    /** Maximum size of backups. Files larger will be rejected. */
-    public static final long BACKUP_MAX_CHARS = 10000000;
-
     /** Currency code for the wallet name resolver. */
     public static final String WALLET_NAME_CURRENCY_CODE = NETWORK_PARAMETERS.getId()
             .equals(NetworkParameters.ID_MAINNET) ? "btc" : "tbtc";

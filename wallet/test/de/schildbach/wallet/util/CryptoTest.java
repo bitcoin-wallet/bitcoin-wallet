@@ -31,6 +31,8 @@ import java.nio.charset.StandardCharsets;
 import org.bitcoinj.wallet.WalletProtobufSerializer;
 import org.junit.Test;
 
+import com.google.common.io.CharStreams;
+
 /**
  * @author Andreas Schildbach
  */
@@ -102,7 +104,7 @@ public class CryptoTest {
         final BufferedReader reader = new BufferedReader(
                 new InputStreamReader(getClass().getResourceAsStream(filename), StandardCharsets.UTF_8));
         final StringBuilder backup = new StringBuilder();
-        Io.copy(reader, backup);
+        CharStreams.copy(reader, backup);
         reader.close();
 
         return backup.toString();
