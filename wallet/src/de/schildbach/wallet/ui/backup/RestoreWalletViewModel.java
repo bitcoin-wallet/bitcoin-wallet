@@ -19,9 +19,11 @@ package de.schildbach.wallet.ui.backup;
 
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.data.WalletBalanceLiveData;
+import de.schildbach.wallet.ui.Event;
 
 import android.app.Application;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.MutableLiveData;
 
 /**
  * @author Andreas Schildbach
@@ -29,6 +31,8 @@ import androidx.lifecycle.AndroidViewModel;
 public class RestoreWalletViewModel extends AndroidViewModel {
     private final WalletApplication application;
     public final WalletBalanceLiveData balance;
+    public final MutableLiveData<Event<Boolean>> showSuccessDialog = new MutableLiveData<>();
+    public final MutableLiveData<Event<String>> showFailureDialog = new MutableLiveData<>();
 
     public RestoreWalletViewModel(final Application application) {
         super(application);

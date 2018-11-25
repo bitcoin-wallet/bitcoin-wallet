@@ -42,6 +42,7 @@ import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.ui.AbstractWalletActivity;
 import de.schildbach.wallet.ui.DialogBuilder;
+import de.schildbach.wallet.ui.Event;
 import de.schildbach.wallet.ui.ShowPasswordCheckListener;
 import de.schildbach.wallet.util.Crypto;
 import de.schildbach.wallet.util.Io;
@@ -86,6 +87,7 @@ public class RestoreWalletDialogFragment extends DialogFragment {
     private AbstractWalletActivity activity;
     private WalletApplication application;
     private Configuration config;
+    private FragmentManager fragmentManager;
 
     private TextView messageView;
     private Spinner fileView;
@@ -105,6 +107,7 @@ public class RestoreWalletDialogFragment extends DialogFragment {
         this.activity = (AbstractWalletActivity) context;
         this.application = activity.getWalletApplication();
         this.config = application.getConfiguration();
+        this.fragmentManager = getFragmentManager();
     }
 
     @Override
@@ -113,6 +116,18 @@ public class RestoreWalletDialogFragment extends DialogFragment {
         log.info("opening dialog {}", getClass().getName());
 
         viewModel = ViewModelProviders.of(this).get(RestoreWalletViewModel.class);
+        viewModel.showSuccessDialog.observe(this, new Event.Observer<Boolean>() {
+            @Override
+            public void onEvent(final Boolean showEncryptedMessage) {
+                SuccessDialogFragment.showDialog(fragmentManager, showEncryptedMessage);
+            }
+        });
+        viewModel.showFailureDialog.observe(this, new Event.Observer<String>() {
+            @Override
+            public void onEvent(final String message) {
+                FailureDialogFragment.showDialog(fragmentManager, message);
+            }
+        });
 
         if (ContextCompat.checkSelfPermission(activity,
                 Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
@@ -127,7 +142,7 @@ public class RestoreWalletDialogFragment extends DialogFragment {
         if (requestCode == REQUEST_CODE_RESTORE_WALLET) {
             if (!(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
                 log.info("missing {}, showing error", Manifest.permission.READ_EXTERNAL_STORAGE);
-                PermissionDeniedDialogFragment.showDialog(getFragmentManager());
+                PermissionDeniedDialogFragment.showDialog(fragmentManager);
             }
         }
     }
@@ -313,7 +328,7 @@ public class RestoreWalletDialogFragment extends DialogFragment {
             restoreWallet(WalletUtils.restoreWalletFromProtobuf(is, Constants.NETWORK_PARAMETERS));
             log.info("successfully restored encrypted wallet: {}", file);
         } catch (final IOException x) {
-            FailureDialogFragment.showDialog(getFragmentManager(), x.getMessage());
+            viewModel.showFailureDialog.setValue(new Event<>(x.getMessage()));
             log.info("problem restoring wallet: " + file, x);
         }
     }
@@ -323,7 +338,7 @@ public class RestoreWalletDialogFragment extends DialogFragment {
             restoreWallet(WalletUtils.restoreWalletFromProtobuf(is, Constants.NETWORK_PARAMETERS));
             log.info("successfully restored unencrypted wallet: {}", file);
         } catch (final IOException x) {
-            FailureDialogFragment.showDialog(getFragmentManager(), x.getMessage());
+            viewModel.showFailureDialog.setValue(new Event<>(x.getMessage()));
             log.info("problem restoring unencrypted wallet: " + file, x);
         }
     }
@@ -331,7 +346,7 @@ public class RestoreWalletDialogFragment extends DialogFragment {
     private void restoreWallet(final Wallet restoredWallet) throws IOException {
         application.replaceWallet(restoredWallet);
         config.disarmBackupReminder();
-        SuccessDialogFragment.showDialog(getFragmentManager(), restoredWallet.isEncrypted());
+        viewModel.showSuccessDialog.setValue(new Event<>(restoredWallet.isEncrypted()));
     }
 
     public static class SuccessDialogFragment extends DialogFragment {
