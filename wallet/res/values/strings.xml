@@ -302,6 +302,7 @@
     <string name="about_credits_zxing_title">ZXing, a QR-code processing library</string>
     <string name="about_credits_spongycastle_title">Spongy Castle, a cryptography library</string>
     <string name="about_credits_scrypt_title">Scrypt, implemented by Will Glozer and Colin Percival</string>
+    <string name="about_credits_okhttp_title">OkHttp, an HTTP client library</string>
     <string name="about_credits_guava_title">Guava, a collection of useful helpers</string>
     <string name="about_market_app_title">Google Play page</string>
     <string name="about_market_app_summary">Review or rate the app</string>
