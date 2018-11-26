@@ -300,6 +300,7 @@
     <string name="about_category_credits">This app is using…</string>
     <string name="about_credits_bitcoinj_title">bitcoinj %s, a Bitcoin protocol implementation</string>
     <string name="about_credits_zxing_title">ZXing, a QR-code processing library</string>
+    <string name="about_credits_spongycastle_title">Spongy Castle, a cryptography library</string>
     <string name="about_credits_scrypt_title">Scrypt, implemented by Will Glozer and Colin Percival</string>
     <string name="about_market_app_title">Google Play page</string>
     <string name="about_market_app_summary">Review or rate the app</string>

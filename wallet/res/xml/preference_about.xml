@@ -61,6 +61,14 @@
                 android:data="https://github.com/zxing/zxing" />
         </Preference>
         <Preference
+            android:key="about_credits_spongycastle"
+            android:summary="https://github.com/rtyley/spongycastle"
+            android:title="@string/about_credits_spongycastle_title" >
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://github.com/rtyley/spongycastle" />
+        </Preference>
+        <Preference
             android:key="about_credits_scrypt"
             android:summary="https://github.com/wg/scrypt"
             android:title="@string/about_credits_scrypt_title" >
