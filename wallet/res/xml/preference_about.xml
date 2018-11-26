@@ -92,6 +92,14 @@
                 android:action="android.intent.action.VIEW"
                 android:data="https://github.com/google/guava" />
         </Preference>
+        <Preference
+            android:key="about_credits_slf4j"
+            android:summary="https://github.com/qos-ch/slf4j"
+            android:title="@string/about_credits_slf4j_title" >
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://github.com/qos-ch/slf4j" />
+        </Preference>
     </PreferenceCategory>
 
 </PreferenceScreen>
