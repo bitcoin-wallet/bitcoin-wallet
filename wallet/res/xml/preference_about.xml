@@ -85,6 +85,14 @@
                 android:data="https://github.com/square/okhttp" />
         </Preference>
         <Preference
+            android:key="about_credits_moshi"
+            android:summary="https://github.com/square/moshi"
+            android:title="@string/about_credits_moshi_title" >
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://github.com/square/moshi" />
+        </Preference>
+        <Preference
             android:key="about_credits_guava"
             android:summary="https://github.com/google/guava"
             android:title="@string/about_credits_guava_title" >
