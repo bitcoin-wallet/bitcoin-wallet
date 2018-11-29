@@ -17,7 +17,7 @@
 
 package de.schildbach.wallet.ui;
 
-import static com.google.common.base.Preconditions.checkState;
+import static androidx.core.util.Preconditions.checkState;
 
 /**
  * @author Andreas Schildbach
