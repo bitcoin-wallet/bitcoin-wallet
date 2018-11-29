@@ -280,6 +280,7 @@ public class ReportIssueDialogFragment extends DialogFragment {
         final DevicePolicyManager devicePolicyManager = (DevicePolicyManager) context
                 .getSystemService(Context.DEVICE_POLICY_SERVICE);
 
+        report.append("Manufacturer: " + Build.MANUFACTURER + "\n");
         report.append("Device Model: " + Build.MODEL + "\n");
         report.append("Android Version: " + Build.VERSION.RELEASE + "\n");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
@@ -291,19 +292,13 @@ public class ReportIssueDialogFragment extends DialogFragment {
         report.append("Board: " + Build.BOARD + "\n");
         report.append("Brand: " + Build.BRAND + "\n");
         report.append("Device: " + Build.DEVICE + "\n");
-        report.append("Display: " + Build.DISPLAY + "\n");
-        report.append("Finger Print: " + Build.FINGERPRINT + "\n");
-        report.append("Host: " + Build.HOST + "\n");
-        report.append("ID: " + Build.ID + "\n");
         report.append("Product: " + Build.PRODUCT + "\n");
-        report.append("Tags: " + Build.TAGS + "\n");
-        report.append("Time: " + Build.TIME + "\n");
-        report.append("Type: " + Build.TYPE + "\n");
-        report.append("User: " + Build.USER + "\n");
         report.append("Configuration: " + config + "\n");
-        report.append("Screen Layout: size "
-                + (config.screenLayout & android.content.res.Configuration.SCREENLAYOUT_SIZE_MASK) + " long "
-                + (config.screenLayout & android.content.res.Configuration.SCREENLAYOUT_LONG_MASK) + "\n");
+        report.append("Screen Layout:" //
+                + " size " + (config.screenLayout & android.content.res.Configuration.SCREENLAYOUT_SIZE_MASK) //
+                + " long " + (config.screenLayout & android.content.res.Configuration.SCREENLAYOUT_LONG_MASK) //
+                + " layoutdir " + (config.screenLayout & android.content.res.Configuration.SCREENLAYOUT_LAYOUTDIR_MASK) //
+                + " round " + (config.screenLayout & android.content.res.Configuration.SCREENLAYOUT_ROUND_MASK) + "\n");
         report.append("Display Metrics: " + res.getDisplayMetrics() + "\n");
         report.append("Memory Class: " + activityManager.getMemoryClass() + "/" + activityManager.getLargeMemoryClass()
                 + (activityManager.isLowRamDevice() ? " (low RAM device)" : "") + "\n");
