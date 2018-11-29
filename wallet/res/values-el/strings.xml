@@ -36,8 +36,7 @@
   <string name="wallet_donate_address_label">Δωρεά προς το Bitcoin Wallet</string>
   <string name="wallet_timeskew_dialog_title">Ελέγξτε τις ρυθμίσεις ώρας!</string>
   <string name="wallet_version_dialog_title">Μία νέα έκδοση είναι διαθέσιμη!</string>
-  <string name="wallet_version_dialog_msg">Αυτή η έκδοση διορθώνει σημαντικά προβλήματα. Για λεπτομέρειες, δείτε το σύνολο των αλλαγών στο Google Play.</string>
-  <string name="wallet_version_dialog_button_market">Google Play</string>
+  <string name="wallet_version_dialog_msg">Αυτή η έκδοση διορθώνει σημαντικά προβλήματα. Για λεπτομέρειες, δείτε το σύνολο των αλλαγών στο %s.</string>
   <string name="wallet_version_dialog_button_binary">Λήψη</string>
   <string name="wallet_old_sdk_dialog_title">Η έκδοση για Android είναι παρωχημένη</string>
   <string name="send_coins_activity_title">Αποστολή Bitcoins</string>
@@ -198,7 +197,7 @@
   <string name="about_category_credits">Αυτή η εφαρμογή χρησιμοποιεί…</string>
   <string name="about_credits_bitcoinj_title">bitcoinj %s</string>
   <string name="about_credits_zxing_title">ZXing</string>
-  <string name="about_market_app_title">Σελίδα Google Play</string>
+  <string name="about_market_app_title">Σελίδα %s</string>
   <string name="about_market_app_summary">Κάνετε κριτική ή βαθμολογήστε την εφαρμογή</string>
   <string name="notification_coins_received_msg">Ληφθέντα %s</string>
   <string name="notification_peers_connected_msg">%d χρήστες συνδεμένοι</string>

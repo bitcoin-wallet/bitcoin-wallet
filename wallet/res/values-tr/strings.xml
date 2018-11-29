@@ -51,9 +51,8 @@
   <string name="wallet_timeskew_dialog_title">Tarih &amp; zaman ayarlarını kontrol ediniz</string>
   <string name="wallet_timeskew_dialog_msg">Cihazınızın saati %d dakika gecikmiş ya da ileridedir. Bu sorun sebebiyle muhtemelen Bitcoin alamayacak ve gönderemeyeceksiniz.\n\nSaat, tarih ve zaman dilimi ayarlarını kontrol edip gerekliyse değiştirmeniz gereklidir.</string>
   <string name="wallet_version_dialog_title">Yeni bir sürüm mevcuttur!</string>
-  <string name="wallet_version_dialog_msg">Bu sürüm önemli hata düzeltmeleri içerir. Detaylar için Google Play\'de değişikliklere bakınız.</string>
+  <string name="wallet_version_dialog_msg">Bu sürüm önemli hata düzeltmeleri içerir. Detaylar için %s\'de değişikliklere bakınız.</string>
   <string name="wallet_version_dialog_msg_deprecated">Eğer bir güncelleme görmüyorsanız, bu muhtemelen sizin Android sürümünüzün artık desteklenmediği anlamına gelir.</string>
-  <string name="wallet_version_dialog_button_market">Google Play</string>
   <string name="wallet_version_dialog_button_binary">İndir</string>
   <string name="wallet_old_sdk_dialog_title">Android sürümü eski</string>
   <string name="wallet_old_sdk_dialog_message">Gelecek Bitcoin Wallet sürümünün cihazınızı desteklememesi mümkündür. Bazı durumlarda bu cihazla bitcoin harcamak zor olabilir.\n\nBitcoinlerinizi güvenli bir yere aktarmanız tavsiye edilir.</string>
@@ -299,7 +298,7 @@
   <string name="about_credits_bitcoinj_title">bitcoinj %s, Bitcoin protokolü uygulaması</string>
   <string name="about_credits_zxing_title">ZXing, QR kodlarını işleme kütüphanesi</string>
   <string name="about_credits_scrypt_title">Scrypt, Will Glozer ve Colin Percival tarafından sağlanmıştır</string>
-  <string name="about_market_app_title">Google Play sayfası</string>
+  <string name="about_market_app_title">%s sayfası</string>
   <string name="about_market_app_summary">Uygulamayı değerlendir veya not ver</string>
   <string name="about_faq_title">SSS</string>
   <string name="about_faq_summary">Uygulama hakkında sıkça sorulan sorular</string>

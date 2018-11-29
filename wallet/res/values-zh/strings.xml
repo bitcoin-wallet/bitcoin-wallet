@@ -46,9 +46,8 @@
   <string name="wallet_timeskew_dialog_title">检查日期 &amp; 时间设置</string>
   <string name="wallet_timeskew_dialog_msg">您的设备时间已关闭 %d 分钟。由于这个问题您可能无法发送或接收比特币。\n\n您应检查，如果必须更正您的日期、时间和时区设置。</string>
   <string name="wallet_version_dialog_title">有新的版本可用！</string>
-  <string name="wallet_version_dialog_msg">该版本修复了重要的bug，详情请详见 Google Play 上的更改日志。</string>
+  <string name="wallet_version_dialog_msg">该版本修复了重要的bug，详情请详见 %s 上的更改日志。</string>
   <string name="wallet_version_dialog_msg_deprecated">如果你没有看到更新，这可能意味您的 Android 版本已经不被支持了。</string>
-  <string name="wallet_version_dialog_button_market">Google Play</string>
   <string name="wallet_version_dialog_button_binary">下载</string>
   <string name="wallet_old_sdk_dialog_title">您的 Android 版本已过时</string>
   <string name="wallet_old_sdk_dialog_message">下一个版本的比特币钱包程序很有可能不再支持您当前的设备。这将导致在某些情况下您无法在该设备上支付比特币。\n除非您知道自己在做什么，否则强烈建议您尽快转移您存储在该设备上的比特币。</string>
@@ -282,7 +281,7 @@
   <string name="about_credits_bitcoinj_title">bitcoinj %s, 一个比特币协议库</string>
   <string name="about_credits_zxing_title">ZXing，一个QR码处理库</string>
   <string name="about_credits_scrypt_title">Scrypt，由Will Glozer和Colin Percival执行</string>
-  <string name="about_market_app_title">Google Play 页面</string>
+  <string name="about_market_app_title">%s 页面</string>
   <string name="about_market_app_summary">评价这个应用</string>
   <string name="notification_coins_received_msg">收到了 %s</string>
   <string name="notification_peers_connected_msg">%d 个已连接的peer </string>

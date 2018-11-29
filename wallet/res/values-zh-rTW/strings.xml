@@ -49,9 +49,8 @@
   <string name="wallet_timeskew_dialog_title">檢查時間日期設定</string>
   <string name="wallet_timeskew_dialog_msg">設備的時間差了約 %d 分鐘，可能會因此沒辦法付或是收 Bitcoin。\n\n請檢查並修正時間、日期、以及時區的設定。</string>
   <string name="wallet_version_dialog_title">有新版程式了！</string>
-  <string name="wallet_version_dialog_msg">這個版本修正了重大錯誤。詳情請見 Google Play 上的改版紀錄。</string>
+  <string name="wallet_version_dialog_msg">這個版本修正了重大錯誤。詳情請見 %s 上的改版紀錄。</string>
   <string name="wallet_version_dialog_msg_deprecated">如果看不到任何程式更新，有可能你的 Android 版本已經不再支援了。</string>
-  <string name="wallet_version_dialog_button_market">Google Play</string>
   <string name="wallet_version_dialog_button_binary">下載</string>
   <string name="wallet_old_sdk_dialog_title">Android 版本太舊</string>
   <string name="wallet_old_sdk_dialog_message">接下來某個版本的 Bitcoin Wallet 可能就開始不再支援你的設備了。在這個設備上付款可能會變得很困難。\n\n建議你馬上把錢轉到其他地方去，除非你還知道其他處理方式。</string>
@@ -293,7 +292,7 @@
   <string name="about_credits_bitcoinj_title">bitcoinj %s, 一個 Bitcoin 通訊協定的實作</string>
   <string name="about_credits_zxing_title">ZXing, 一個處理 QR 代碼的程式庫</string>
   <string name="about_credits_scrypt_title">Scrypt 演算法, Will Glozer 與 Colin Percival 的實作</string>
-  <string name="about_market_app_title">Google Play 商店頁面</string>
+  <string name="about_market_app_title">%s 商店頁面</string>
   <string name="about_market_app_summary">給這個應用程式評論或評分</string>
   <string name="about_faq_title">常見問答</string>
   <string name="about_faq_summary">關於這個應用程式的常見問題</string>

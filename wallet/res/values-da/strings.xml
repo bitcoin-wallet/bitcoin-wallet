@@ -51,9 +51,8 @@
   <string name="wallet_timeskew_dialog_title">Tjek dato- og tidsindstillinger</string>
   <string name="wallet_timeskew_dialog_msg">Din enheds tid går %d minutter skævt. Du kan sandsynligvis ikke sende eller modtage bitcoin på grund af dette.\n\nDu bør tjekke, og om nødvendigt rette, dine dato-, tids- og tidszoneindstillinger.</string>
   <string name="wallet_version_dialog_title">En ny version er tilgængelig!</string>
-  <string name="wallet_version_dialog_msg">Denne version retter vigtige fejl. For detaljer, se ændringsloggen på Google Play.</string>
+  <string name="wallet_version_dialog_msg">Denne version retter vigtige fejl. For detaljer, se ændringsloggen på %s.</string>
   <string name="wallet_version_dialog_msg_deprecated">Hvis du ikke ser en opdatering, betyder dette formodentlig, at din version af Android ikke understøttes længere.</string>
-  <string name="wallet_version_dialog_button_market">Google Play</string>
   <string name="wallet_version_dialog_button_binary">Download</string>
   <string name="wallet_old_sdk_dialog_title">Android-version er uddateret</string>
   <string name="wallet_old_sdk_dialog_message">Der er risiko for, at en af de næste udgivelser af Bitcoin Wallet ikke vil understøtte din enhed længere. I nogle tilfælde kan det være svært at bruge mønter på denne enhed.\n\nMed mindre du ved hvad du gør, anbefales det snart at flytte dine mønter væk.</string>
@@ -299,7 +298,7 @@
   <string name="about_credits_bitcoinj_title">bitcoinj %s, en implementation af Bitcoin-protokollen</string>
   <string name="about_credits_zxing_title">ZXing, et bibliotek til processering af QR-koder</string>
   <string name="about_credits_scrypt_title">Scrypt, implementeret af Will Glozer og Colin Percival</string>
-  <string name="about_market_app_title">Google Play-side</string>
+  <string name="about_market_app_title">%s-side</string>
   <string name="about_market_app_summary">Anmeld eller bedøm appen</string>
   <string name="about_faq_title">FAQ</string>
   <string name="about_faq_summary">Ofte stillede spørgsmål om app\'en</string>

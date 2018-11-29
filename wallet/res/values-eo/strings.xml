@@ -38,8 +38,7 @@
 	<string name="wallet_timeskew_dialog_title">Kontrolu vian tempojn agordojn!</string>
 	<string name="wallet_timeskew_dialog_msg">Via aparata tempo estas ekstere de %d minutoj. Vi probable ne povas sendi aŭ ricevi Bitmonoj pro tiu problemo.\n\nVi devus kontroli kaj korekti vian tempon kaj horzonojn agordojn.</string>
 	<string name="wallet_version_dialog_title">Nova versio estas disponebla!</string>
-	<string name="wallet_version_dialog_msg">Tiu versio korektas gravajn cimojn. Por detaloj, vidu la ŝanĝan loglibron ĉe Google Play.</string>
-	<string name="wallet_version_dialog_button_market">Google Play</string>
+	<string name="wallet_version_dialog_msg">Tiu versio korektas gravajn cimojn. Por detaloj, vidu la ŝanĝan loglibron ĉe %s.</string>
 	<string name="wallet_version_dialog_button_binary">Elŝuti</string>
 	<string name="wallet_old_sdk_dialog_title">Androida versio eksdatas</string>
 	<string name="wallet_old_sdk_dialog_message">Estas verŝajne, ke unu de la sekvantaj versioj de BitmonMonujo ne subtenos vian aparaton. En iuj kazoj, ĝi povas esti malfacile elspezi monoj sur tiu aparato. \n\nSe vi ne scias kion vi faras, ĝi estas rekomendita movi viajn monojn frue.</string>
@@ -150,7 +149,7 @@
 	<string name="about_category_credits">Ĉi tiu aplikaĵo uzas…</string>
 	<string name="about_credits_bitcoinj_title">bitcoinj %s</string>
 	<string name="about_credits_zxing_title">ZXing</string>
-	<string name="about_market_app_title">\"Google Play\" Paĝo</string>
+	<string name="about_market_app_title">%s Paĝo</string>
 	<string name="about_market_app_summary">Revui aŭ gradi l\'aplikaĵon</string>
 	<string name="notification_coins_received_msg">Ricevita %s</string>
 	<string name="notification_peers_connected_msg">%d pajroj konektitaj</string>

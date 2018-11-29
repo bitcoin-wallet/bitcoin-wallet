@@ -51,9 +51,8 @@
   <string name="wallet_timeskew_dialog_title">Controlla data e ora!</string>
   <string name="wallet_timeskew_dialog_msg">Il tuo dispositivo è spento da %d minuti. Probabilmente non puoi inviare ne ricevere Bitcoins per via di questo problema.\n\nDevi controllare e correggere l\'ora e il fuso orario del tuo dispositivo.</string>
   <string name="wallet_version_dialog_title">Una nuova versione è disponibile!</string>
-  <string name="wallet_version_dialog_msg">Questa versione ha corretto bug importanti. Per dettagli, guarda il change log su Google Play.</string>
+  <string name="wallet_version_dialog_msg">Questa versione ha corretto bug importanti. Per dettagli, guarda il change log su %s.</string>
   <string name="wallet_version_dialog_msg_deprecated">Se non si vede un aggiornamento, questo probabilmente significa che la vostra versione di Android non è più supportata.</string>
-  <string name="wallet_version_dialog_button_market">Google Play</string>
   <string name="wallet_version_dialog_button_binary">Scarica</string>
   <string name="wallet_old_sdk_dialog_title">La versione Android non è aggiornata</string>
   <string name="wallet_old_sdk_dialog_message">Potrebbe essere che le prossime versioni di Bitcoin Wallet non supporterà più il tuo dispositivo. In questi casi, potrebbe essere difficile spendere i Bitcoin su questo dispositivo.\n\nA meno che tu non sappia quello che stai facendo, ti raccomandiamo di spostare il tuo denaro al più presto.</string>
@@ -296,7 +295,7 @@
   <string name="about_credits_bitcoinj_title">bitcoinj %s, un\'implementazione del protocollo Bitcoin</string>
   <string name="about_credits_zxing_title">ZXing, una libreria di elaborazione di QR-code</string>
   <string name="about_credits_scrypt_title">Scrypt, implementato da Will Glozer e Colin Percival</string>
-  <string name="about_market_app_title">Pagina su Google Play</string>
+  <string name="about_market_app_title">Pagina su %s</string>
   <string name="about_market_app_summary">Recensire o votare l\'app</string>
   <string name="about_faq_title">FAQ</string>
   <string name="about_faq_summary">Domande richieste frequentemente riguardo all\'app</string>

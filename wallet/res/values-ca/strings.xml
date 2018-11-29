@@ -51,9 +51,8 @@
   <string name="wallet_timeskew_dialog_title">Comprova la teva configuració horària</string>
   <string name="wallet_timeskew_dialog_msg">El teu dispositiu està en deshora per %d minuts. Probablement no podràs enviar o rebre bitcoins degut a aquest problema.\n\nCal comprovar i corregir tant l\'hora com la configuració de la zona horària.</string>
   <string name="wallet_version_dialog_title">Hi ha una nova versió disponible!</string>
-  <string name="wallet_version_dialog_msg">Aquesta versió corregeix errors importants. Per a més detalls, consulta l\'informe de canvis a Google Play.</string>
+  <string name="wallet_version_dialog_msg">Aquesta versió corregeix errors importants. Per a més detalls, consulta l\'informe de canvis a %s.</string>
   <string name="wallet_version_dialog_msg_deprecated">Si no veus cap actualització, segurament voldrà dir que la teva versió Android ha deixat de ser suportada.</string>
-  <string name="wallet_version_dialog_button_market">Google Play</string>
   <string name="wallet_version_dialog_button_binary">Descarrega</string>
   <string name="wallet_old_sdk_dialog_title">La versió Android està des-actualitzada.</string>
   <string name="wallet_old_sdk_dialog_message">El risc és que algun dels següents llançaments de la Cartera Bitcoin no siguin compatibles amb el teu dispositiu. En alguns casos, et pot ser difícil gastar les monedes en aquest dispositiu.\n\nA no ser que sàpigues el que estàs fent, es recomana treure aviat les teves monedes.</string>
@@ -299,7 +298,7 @@
   <string name="about_credits_bitcoinj_title">bitcoinj %s</string>
   <string name="about_credits_zxing_title">ZXing</string>
   <string name="about_credits_scrypt_title">Scrypt, implementat per Will Glozer i Colin Percival</string>
-  <string name="about_market_app_title">Pàgina de Google Play</string>
+  <string name="about_market_app_title">Pàgina de %s</string>
   <string name="about_market_app_summary">Analitza o puntua l\'aplicació</string>
   <string name="about_faq_title">Preguntes freqüents</string>
   <string name="about_faq_summary">Preguntes freqüents sobre l\'aplicació</string>

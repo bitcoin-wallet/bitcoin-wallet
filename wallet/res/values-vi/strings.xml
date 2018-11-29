@@ -36,8 +36,7 @@
 	<string name="wallet_timeskew_dialog_title">Kiểm tra thiết lập về múi giờ của bạn!</string>
 	<string name="wallet_timeskew_dialog_msg">Thiết bị của bạn đã tắt trong %d phút. Có thể đây là lý do bạn không thể gửi hoặc nhận Bitcoin.\n\nXin vui lòng kiểm tra lại thời gian của bạn và các thiết lập liên quan đến múi giờ.</string>
 	<string name="wallet_version_dialog_title">Hiện đã có một phiên bản mới!</string>
-	<string name="wallet_version_dialog_msg">Phiên bản này sửa các lỗi quan trọng mà chương trình gặp phải. Để biết thêm chi tiết, xem phần nhật trình thay đổi trên Google Play.</string>
-	<string name="wallet_version_dialog_button_market">Google Play</string>
+	<string name="wallet_version_dialog_msg">Phiên bản này sửa các lỗi quan trọng mà chương trình gặp phải. Để biết thêm chi tiết, xem phần nhật trình thay đổi trên %s.</string>
 	<string name="wallet_version_dialog_button_binary">Tải về</string>
 	<string name="wallet_old_sdk_dialog_title">Phiên bản Android này đã quá cũ</string>
 	<string name="wallet_old_sdk_dialog_message">Các thay đổi được áp dụng trong phiên bản phát hành sắp tới của Bitcoin Wallet sẽ không hỗ trợ thiết bị có dạng như của bạn nữa, bạn sẽ gặp phải khó khăn khi gửi các coin trên thiết bị này.\n\nTrừ khi bạn biết chắc việc mình đang làm, chúng tôi khuyên bạn nên rút hết toàn bộ các coin của mình càng nhanh càng tốt.</string>
@@ -137,7 +136,7 @@
 	<string name="about_license_title">Giấy phép</string>
 	<string name="about_credits_bitcoinj_title">Ứng dụng này đang sử dụng bitcoinj %s</string>
 	<string name="about_credits_zxing_title">Ứng dụng này sử dụng ZXing</string>
-	<string name="about_market_app_title">Trang web của ứng dụng trên Google Play</string>
+	<string name="about_market_app_title">Trang web của ứng dụng trên %s</string>
 	<string name="notification_coins_received_msg">đã nhận %s</string>
 	<string name="notification_peers_connected_msg">%d mạng ngang hàng đã kết nối</string>
 	<!-- generic buttons -->

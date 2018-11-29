@@ -51,9 +51,8 @@
   <string name="wallet_timeskew_dialog_title">Vérifier les paramètres de date et heure</string>
   <string name="wallet_timeskew_dialog_msg">L\'heure de votre appareil est décalée de %d minutes. Vous ne pouvez probablement pas envoyer ou recevoir de bitcoins à cause de ce problème.\n\nVous devriez vérifier vos paramètres de date, heure et de fuseau horaire et si nécessaire les corriger.</string>
   <string name="wallet_version_dialog_title">Une nouvelle version est proposée !</string>
-  <string name="wallet_version_dialog_msg">Cette version corrige des bogues importants. Pour plus de détails, voir le journal des changements sur Google Play Store.</string>
+  <string name="wallet_version_dialog_msg">Cette version corrige des bogues importants. Pour plus de détails, voir le journal des changements sur %s.</string>
   <string name="wallet_version_dialog_msg_deprecated">Si vous ne voyez pas de mise à jour, cela signifie probablement que votre version d\'Android n\'est plus prise en charge.</string>
-  <string name="wallet_version_dialog_button_market">Google Play</string>
   <string name="wallet_version_dialog_button_binary">Télécharger</string>
   <string name="wallet_old_sdk_dialog_title">La version d\'Android est obsolète</string>
   <string name="wallet_old_sdk_dialog_message">Il est probable qu\'une prochaine version de Bitcoin Wallet ne prendra plus en charge votre appareil. Dans certains cas, il peut être difficile de dépenser des bitcoins avec cet appareil.\n\nÀ moins de savoir ce que vous faites, il est recommandé de bientôt déplacer vos bitcoins.</string>
@@ -299,7 +298,7 @@
   <string name="about_credits_bitcoinj_title">bitcoinj %s, une application du protocole Bitcoin</string>
   <string name="about_credits_zxing_title">ZXing, un bibliothèque de traitement de codes QR</string>
   <string name="about_credits_scrypt_title">Scrypt, implémenté par Will Glozer et Colin Percival</string>
-  <string name="about_market_app_title">Page Google Play</string>
+  <string name="about_market_app_title">Page %s</string>
   <string name="about_market_app_summary">Critiquer ou évaluer l\'appli</string>
   <string name="about_faq_title">FAQ</string>
   <string name="about_faq_summary">Foire aux questions au sujet de l\'appli</string>

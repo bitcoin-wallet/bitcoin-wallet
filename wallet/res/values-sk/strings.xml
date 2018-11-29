@@ -38,8 +38,7 @@
 	<string name="wallet_timeskew_dialog_title">Skontrolujte nastavenie času!</string>
 	<string name="wallet_timeskew_dialog_msg">Vaše zariadenie má posunutý čas o %d minúť. Pravdepodobne nemôže posielať a prijímať Bitcoiny kvôli tomuto problému.\n\nMali by ste skontrolovať a upraviť nastavenie času alebo časovej zóny.</string>
 	<string name="wallet_version_dialog_title">Je dostupná nová verzia!</string>
-	<string name="wallet_version_dialog_msg">Táto verzia opravuje kritické chyby. Pre viac informácií navštívte Google Play.</string>
-	<string name="wallet_version_dialog_button_market">Google Play</string>
+	<string name="wallet_version_dialog_msg">Táto verzia opravuje kritické chyby. Pre viac informácií navštívte %s.</string>
 	<string name="wallet_version_dialog_button_binary">Stiahnuť</string>
 	<string name="wallet_old_sdk_dialog_title">Verzia vášho Androidu je zastaralá</string>
 	<string name="wallet_old_sdk_dialog_message">Je možné, že v novších verziách Bitcoin Wallet už nebude podporované vaše zariadenie. V určitých prípadoch môže byť obtiažne minúť Bitcoiny z tohto zariadenia.\n\nJe odporúčané presunúť Bitcoiny z tohto zariadenia.</string>
@@ -169,7 +168,7 @@
 	<string name="about_category_credits">Táto aplikácia používa…</string>
 	<string name="about_credits_bitcoinj_title">bitcoinj %s</string>
 	<string name="about_credits_zxing_title">ZXing</string>
-	<string name="about_market_app_title">Google Play stránka</string>
+	<string name="about_market_app_title">%s stránka</string>
 	<string name="about_market_app_summary">Ohodnotiť aplikáciu</string>
 	<string name="notification_coins_received_msg">Prijaté %s</string>
 	<string name="notification_peers_connected_msg">%d pripojených uzlov</string>

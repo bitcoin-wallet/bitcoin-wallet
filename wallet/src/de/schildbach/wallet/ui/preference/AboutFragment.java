@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2015 the original author or authors.
+ * Copyright the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,9 +19,9 @@ package de.schildbach.wallet.ui.preference;
 
 import org.bitcoinj.core.VersionMessage;
 
-import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.R;
 import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.util.Installer;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -29,6 +29,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.Preference;
 import android.preference.PreferenceFragment;
 
 /**
@@ -58,12 +59,17 @@ public final class AboutFragment extends PreferenceFragment {
 
         final PackageInfo packageInfo = application.packageInfo();
         findPreference(KEY_ABOUT_VERSION).setSummary(WalletApplication.versionLine(packageInfo));
-        Intent marketIntent = new Intent(Intent.ACTION_VIEW,
-                Uri.parse(String.format(Constants.MARKET_APP_URL, packageInfo.packageName)));
-        if (packageManager.resolveActivity(marketIntent, 0) == null)
-            marketIntent = new Intent(Intent.ACTION_VIEW,
-                    Uri.parse(String.format(Constants.WEBMARKET_APP_URL, packageInfo.packageName)));
-        findPreference(KEY_ABOUT_MARKET_APP).setIntent(marketIntent);
+        Installer installer = Installer.from(application);
+        if (installer == null)
+            installer = Installer.F_DROID;
+        final Preference marketPref = findPreference(KEY_ABOUT_MARKET_APP);
+        marketPref.setTitle(getString(R.string.about_market_app_title, installer.displayName));
+        final Intent marketIntent = new Intent(Intent.ACTION_VIEW,
+                Uri.parse(installer.appStorePageFor(application).toString()));
+        if (packageManager.resolveActivity(marketIntent, 0) != null) {
+            marketPref.setIntent(marketIntent);
+            marketPref.setEnabled(true);
+        }
         findPreference(KEY_ABOUT_CREDITS_BITCOINJ)
                 .setTitle(getString(R.string.about_credits_bitcoinj_title, VersionMessage.BITCOINJ_VERSION));
     }

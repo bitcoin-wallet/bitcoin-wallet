@@ -38,8 +38,7 @@
 	<string name="wallet_timeskew_dialog_title">Periksa pengaturan waktu!</string>
 	<string name="wallet_timeskew_dialog_msg">Waktu perangkat Anda tertinggal %d menit. Anda mungkin tidak dapat mengirim atau menerima Bitcoin karena hal ini.\n\nAnda seharusnya memeriksa dan atur kembali pengaturan waktu dan zona waktu Anda.</string>
 	<string name="wallet_version_dialog_title">Versi baru tersedia!</string>
-	<string name="wallet_version_dialog_msg">Versi ini perbaikan bug penting. Untuk rincian, lihatlah catatan perubahan di Google Play.</string>
-	<string name="wallet_version_dialog_button_market">Google Play</string>
+	<string name="wallet_version_dialog_msg">Versi ini perbaikan bug penting. Untuk rincian, lihatlah catatan perubahan di %s.</string>
 	<string name="wallet_version_dialog_button_binary">Unduh</string>
 	<string name="wallet_old_sdk_dialog_title">Versi Android kedaluwarsa</string>
 	<string name="wallet_old_sdk_dialog_message">Salah satu kemungkinan Bitcoin Wallet versi akan datang tidak akan mendukung ponsel Anda lagi. Dalam beberapa kasus, akan sulit untuk menggunakan koin di ponsel ini.\n\nKecuali Anda tahu apa yang Anda lakukan, sangat direkomendasikan untuk segera memindahkan koin Anda.</string>
@@ -145,7 +144,7 @@
 	<string name="about_category_credits">Apl ini menggunakan…</string>
 	<string name="about_credits_bitcoinj_title">bitcoinj %s</string>
 	<string name="about_credits_zxing_title">ZXing</string>
-	<string name="about_market_app_title">Halaman Apl Google Play</string>
+	<string name="about_market_app_title">Halaman Apl %s</string>
 	<string name="notification_coins_received_msg">Diterima %s</string>
 	<string name="notification_peers_connected_msg">%d peer terhubung</string>
 	<!-- generic buttons -->

@@ -26,8 +26,7 @@
   <string name="wallet_donate_address_label">Donacije za Bitcoin Novčanik</string>
   <string name="wallet_timeskew_dialog_title">Provjerite svoje vremenske postavke!</string>
   <string name="wallet_version_dialog_title">Nova verzija je dobavljiva!</string>
-  <string name="wallet_version_dialog_msg">U ovoj verziji su uklonjene greške. Za detalje posjetite Google Play</string>
-  <string name="wallet_version_dialog_button_market">Google Play</string>
+  <string name="wallet_version_dialog_msg">U ovoj verziji su uklonjene greške. Za detalje posjetite %s</string>
   <string name="wallet_version_dialog_button_binary">Preuzmi</string>
   <string name="wallet_old_sdk_dialog_title">Android verzija je zastarjela</string>
   <string name="send_coins_activity_title">Pošalji Bitcoin-ove</string>

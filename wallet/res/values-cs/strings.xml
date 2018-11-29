@@ -46,9 +46,8 @@
   <string name="wallet_timeskew_dialog_title">Ověřit nastavení data &amp; času</string>
   <string name="wallet_timeskew_dialog_msg">Čas na tomto přístroji se rozchází o %d minut. Kvůli tomuto problému pravděpodobně nemůžete posílat a přijímat Bitcoiny.\n\nZkontrolujte a pokud třeba opravte nastavení data, času a časové zóny.</string>
   <string name="wallet_version_dialog_title">Je k dispozici nová verze!</string>
-  <string name="wallet_version_dialog_msg">Tato verze opravuje důležité chyby. Podrobnosti naleznete v seznamu změn na Google Play.</string>
+  <string name="wallet_version_dialog_msg">Tato verze opravuje důležité chyby. Podrobnosti naleznete v seznamu změn na %s.</string>
   <string name="wallet_version_dialog_msg_deprecated">Pokud nevidíte aktualizaci, znamená to, že verze vašeho operačního systému Android již není podporována.</string>
-  <string name="wallet_version_dialog_button_market">Google Play</string>
   <string name="wallet_version_dialog_button_binary">Stáhnout</string>
   <string name="wallet_old_sdk_dialog_title">Verze systému Android je příliš stará</string>
   <string name="wallet_old_sdk_dialog_message">Je pravděpodobné, že jedna z následujících verzí Bitcoin Wallet nebude podporovat vaše zařízení. V některých případech může být v takové situaci komplikované utratit Bitcoiny na tomto zařízení.\n\nPokud si nejste jistí co dělat, tak doporučujeme tyto Bitcoiny přemístit brzy do jiného zařízení.</string>
@@ -281,7 +280,7 @@
   <string name="about_credits_bitcoinj_title">bitcoinj %s, implementace Bitcoin protokolu</string>
   <string name="about_credits_zxing_title">ZXing, knihovna pro zpracování QR-kódů</string>
   <string name="about_credits_scrypt_title">Scrypt, implementovali Will Glozer a Colin Percival</string>
-  <string name="about_market_app_title">Stránka Google Play</string>
+  <string name="about_market_app_title">Stránka %s</string>
   <string name="about_market_app_summary">Zrecenzujte aplikaci nebo ji ohodnoťte</string>
   <string name="notification_coins_received_msg">Obdrženo %s</string>
   <string name="notification_peers_connected_msg">%d peerů připojeno</string>

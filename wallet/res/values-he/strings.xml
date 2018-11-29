@@ -40,9 +40,8 @@
   <string name="wallet_timeskew_dialog_title">בדוק את הגדרות הזמנים שלך</string>
   <string name="wallet_timeskew_dialog_msg">זמן המכשיר מאחר ב %d דקות. אתה כנראה לא יכול לקבל או לשלוח ביטקוינים בגלל בעיה זהו.\n\nכדאי שתבדוק את הגדרות הזמן ואיזור הזמן שלך.</string>
   <string name="wallet_version_dialog_title">גירסה חדשה זמינה!</string>
-  <string name="wallet_version_dialog_msg">גירסה זו מתקנת באגים חשובים, לפרטים גש לדף העדכון בGoogle Play.</string>
+  <string name="wallet_version_dialog_msg">גירסה זו מתקנת באגים חשובים, לפרטים גש לדף העדכון ב%s.</string>
   <string name="wallet_version_dialog_msg_deprecated">אם אתה לא רואה עדכון, זה כנראה אומר שגרסאת האנדרואיד שלך אינה נתמכת יותר.</string>
-  <string name="wallet_version_dialog_button_market">Google Play</string>
   <string name="wallet_version_dialog_button_binary">הורדה</string>
   <string name="wallet_old_sdk_dialog_title">גירסת אנדרויד לא מעודכנת</string>
   <string name="wallet_old_sdk_dialog_message">יש סיכוי כי מהגרסאות הקרובות של ארנק ביטקוין לא נתמוך במכשירך יותר. במקרים מסוימים יהיה קשה להשתמש במטבעות על המכשיר.\n\nאלא אם אתה יודע מה אתה עושה, מומלץ שתעביר את המטבעות בקרוב.</string>
@@ -189,7 +188,6 @@
   <string name="about_category_credits">אפליקציה זו משתמשת ב</string>
   <string name="about_credits_bitcoinj_title">bitcoinj %s</string>
   <string name="about_credits_zxing_title">ZXing</string>
-  <string name="about_market_app_title">עמוד גוגל פליי</string>
   <string name="about_market_app_summary">כתוב ביקורת או דרג את האפליקציה</string>
   <string name="notification_coins_received_msg">נתקבלו %s</string>
   <string name="notification_peers_connected_msg">%d עמיתים מחוברים</string>

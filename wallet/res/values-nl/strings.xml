@@ -51,9 +51,8 @@
   <string name="wallet_timeskew_dialog_title">Check je datum- en tijdsinstellingen</string>
   <string name="wallet_timeskew_dialog_msg">De tijd van je apparaat wijkt af met %d minuten. Hierdoor kun je waarschijnlijk geen Bitcoins verzenden of ontvangen.\n\nCheck je instellingen voor datum, tijd en tijdzone en pas die indien nodig aan.</string>
   <string name="wallet_version_dialog_title">Een nieuwe versie is beschikbaar!</string>
-  <string name="wallet_version_dialog_msg">Deze versie lost belangrijke problemen op. Kijk voor een overzicht van de aanpassingen in Google Play.</string>
+  <string name="wallet_version_dialog_msg">Deze versie lost belangrijke problemen op. Kijk voor een overzicht van de aanpassingen in %s.</string>
   <string name="wallet_version_dialog_msg_deprecated">Wanneer je geen update ziet wordt jouw Android-versie waarschijnlijk niet meer ondersteund.</string>
-  <string name="wallet_version_dialog_button_market">Google Play</string>
   <string name="wallet_version_dialog_button_binary">Download</string>
   <string name="wallet_old_sdk_dialog_title">Android-versie is verouderd</string>
   <string name="wallet_old_sdk_dialog_message">De kans bestaat dat één van de volgende versies van Bitcoin Wallet uw apparaat niet langer ondersteunen zal. In sommige gevallen kan het lastig worden nog met bitcoins te kunnen betalen vanaf dit apparaat.\n\nTenzij u weet wat u doet wordt u aanbevolen om coins elders onder te brengen.</string>
@@ -299,7 +298,7 @@
   <string name="about_credits_bitcoinj_title">bitcoinj %s, een Bitcoin protocol implementatie</string>
   <string name="about_credits_zxing_title">ZXing, een QR-code processing bibliotheek</string>
   <string name="about_credits_scrypt_title">Scrypt, geïmplementeerd door Will Glozer en Colin Percival</string>
-  <string name="about_market_app_title">Google Play Pagina</string>
+  <string name="about_market_app_title">%s Pagina</string>
   <string name="about_market_app_summary">Beoordeel app</string>
   <string name="about_faq_title">FAQ</string>
   <string name="about_faq_summary">Vaakgestelde vragen over de app</string>

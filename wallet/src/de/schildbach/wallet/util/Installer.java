@@ -17,8 +17,10 @@
 
 package de.schildbach.wallet.util;
 
+import android.app.Application;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import okhttp3.HttpUrl;
 
 /**
  * @author Andreas Schildbach
@@ -50,5 +52,22 @@ public enum Installer {
 
     public static Installer from(final Context context) {
         return from(installerPackageName(context));
+    }
+
+    public HttpUrl appStorePageFor(final Application application) {
+        final HttpUrl.Builder url;
+        if (this == F_DROID) {
+            url = HttpUrl.parse("https://f-droid.org/de/packages/").newBuilder();
+            url.addPathSegment(application.getPackageName());
+        } else if (this == GOOGLE_PLAY) {
+            url = HttpUrl.parse("https://play.google.com/store/apps/details").newBuilder();
+            url.addQueryParameter("id", application.getPackageName());
+        } else if (this == AMAZON_APPSTORE) {
+            url = HttpUrl.parse("https://www.amazon.com/gp/mas/dl/android").newBuilder();
+            url.addQueryParameter("p", application.getPackageName());
+        } else {
+            throw new IllegalStateException(this.toString());
+        }
+        return url.build();
     }
 }

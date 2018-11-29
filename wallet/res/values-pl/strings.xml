@@ -38,8 +38,7 @@
 	<string name="wallet_timeskew_dialog_title">Sprawdź ustawienia czasu!</string>
 	<string name="wallet_timeskew_dialog_msg">Czas na twoim urządzeniu jest przesunięty o %d minut. Prawdopodobnie w wyniku tego problemu nie możesz otrzymywać ani wysyłać Bitcoinów.\n\nSprawdź i skoryguj ustawienia czasu i strefy czasowej.</string>
 	<string name="wallet_version_dialog_title">Nowa wersja jest dostępna!</string>
-	<string name="wallet_version_dialog_msg">W tej wersji poprawiono ważne błędy. Więcej szczegółów znajdziesz w dzienniku zmian na Google Play.</string>
-	<string name="wallet_version_dialog_button_market">Google Play</string>
+	<string name="wallet_version_dialog_msg">W tej wersji poprawiono ważne błędy. Więcej szczegółów znajdziesz w dzienniku zmian na %s.</string>
 	<string name="wallet_version_dialog_button_binary">Pobierz</string>
 	<string name="wallet_old_sdk_dialog_title">Wersja Androida jest przestarzała</string>
 	<string name="wallet_old_sdk_dialog_message">Istnieje szansa że wraz z kolejnymi wydaniami Bitcoin Wallet zakończy wsparcie dla twojego urządzenia. W niektórych przypadkach wydawanie monet z tego urządzenia może ulec utrudnieniu.\n\nZalecane jest przeniesienie swoich monet w najbliższym czasie, chyba że wiesz co robisz.</string>
@@ -150,7 +149,7 @@
 	<string name="about_category_credits">Ta aplikacja korzysta z…</string>
 	<string name="about_credits_bitcoinj_title">bitcoinj %s</string>
 	<string name="about_credits_zxing_title">ZXing</string>
-	<string name="about_market_app_title">Strona Google Play</string>
+	<string name="about_market_app_title">Strona %s</string>
 	<string name="about_market_app_summary">Wyraź swoją opinię o Aplikacji lub ją oceń</string>
 	<string name="notification_coins_received_msg">Otrzymano %s </string>
 	<string name="notification_peers_connected_msg">%d połączonych partnerów</string>

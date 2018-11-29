@@ -49,9 +49,8 @@
   <string name="wallet_timeskew_dialog_title">تحقق من صحة تاريخ اليوم و إعدادت الوقت</string>
   <string name="wallet_timeskew_dialog_msg">إن إعدادت الوقت لجهازك منحرفة ب%d دقائق، لا يمكنك ارسال ولا استلام مبالغ بيتكوين بسبب هذه المشكلة.\nيجب أن تتأكد وتصحح إعدادات الوقت توقيت timezone.</string>
   <string name="wallet_version_dialog_title">يوجد إصدار جديد الآن!</string>
-  <string name="wallet_version_dialog_msg">يقوم هذ الإصدار بإصلاح أعطال مهمة. للمزيد من التفاصيل، يرجى مراجعة سجل التغييرات في متجر جوجل بلاي Google Play.</string>
+  <string name="wallet_version_dialog_msg">يقوم هذ الإصدار بإصلاح أعطال مهمة. للمزيد من التفاصيل، يرجى مراجعة سجل التغييرات في متجر جوجل بلاي %s.</string>
   <string name="wallet_version_dialog_msg_deprecated">إن لم تتلقى أي إشعار بالتحديث فمِن المحتمل أنّ نسخة نظام الأندرويد الخاصة بك لم تعد مدعومة قط.</string>
-  <string name="wallet_version_dialog_button_market">متجر جوجل بلاي Google Play.</string>
   <string name="wallet_version_dialog_button_binary">تنزيل</string>
   <string name="wallet_old_sdk_dialog_title">إصدار نظام الأندرويد الخاص بك قديم أو غير محدث</string>
   <string name="alert_dialogs_fragment_settings_failed_title">هناك مشكلة عند فتح الإعدادات</string>
@@ -239,7 +238,6 @@
   <string name="about_category_credits">هذا التطبيق يَستخدم ...</string>
   <string name="about_credits_bitcoinj_title">bitcoinj %s، هو إدخال و دعم لبروتوكول بتكوين</string>
   <string name="about_credits_zxing_title">ZXing</string>
-  <string name="about_market_app_title">صفحة متجر غوغل للتطبيقات</string>
   <string name="about_market_app_summary">إعداد تقرير أو تقييم للتطبيق</string>
   <string name="about_faq_title">الأسئلة الشائعة</string>
   <string name="about_faq_summary">الأسئلة الشائعة عن التطبيق</string>

@@ -49,9 +49,8 @@
   <string name="wallet_timeskew_dialog_title">Tarkista päivämäärän &amp; ajan asetukset</string>
   <string name="wallet_timeskew_dialog_msg">Laitteesi aika on jäljessä %d minuuttia. Et ehkä voi lähettää tai vastaanottaa Bitcoineja tämän ongelman takia.\n\nSinun tulisi tarkistaa ja tarvittaessa oikaista päivämäärän, ajan ja aikavyöhykkeen asetukset.</string>
   <string name="wallet_version_dialog_title">Uusi versio on saatavilla!</string>
-  <string name="wallet_version_dialog_msg">Tämä versio korjaa tärkeitä ongelmia. Lisätietoja saadaksesi katso muutosloki Google Play:ssa.</string>
+  <string name="wallet_version_dialog_msg">Tämä versio korjaa tärkeitä ongelmia. Lisätietoja saadaksesi katso muutosloki %s:ssa.</string>
   <string name="wallet_version_dialog_msg_deprecated">Jos et näe päivitystä, se ehkä tarkoittaa että laitteesi Androidin versio ei ole enää tuettu.</string>
-  <string name="wallet_version_dialog_button_market">Google Play</string>
   <string name="wallet_version_dialog_button_binary">Lataa</string>
   <string name="wallet_old_sdk_dialog_title">Android-järjestelmä ei ole ajan tasalla</string>
   <string name="wallet_old_sdk_dialog_message">On mahdollisuus että Bitcoin Walletin seuraava versio ei enää tue laitettasi. Joissakin tapauksissa kolikoiden käyttäö voi hankaloitua tässä laitteessa.\n\nMikäli et tiedä mitä teet, on suositeltavaa siirtää kolikkosi muualle pian.</string>
@@ -293,7 +292,7 @@
   <string name="about_credits_bitcoinj_title">bitcoinj %s, implementaatio Bitcoin-protokollasta</string>
   <string name="about_credits_zxing_title">ZXing, QR-koodien prosessointikirjasto</string>
   <string name="about_credits_scrypt_title">Scrypt, Will Glozerin ja Colin Percivalin toteutus</string>
-  <string name="about_market_app_title">Google Play-sivusto</string>
+  <string name="about_market_app_title">%s-sivusto</string>
   <string name="about_market_app_summary">Arvostele tai arvioi sovellus</string>
   <string name="about_faq_title">UKK</string>
   <string name="about_faq_summary">Usein kysyttyjä kysymyksiä sovelluksesta</string>

@@ -46,9 +46,8 @@
   <string name="wallet_timeskew_dialog_title">Dátum &amp; időbeállítások ellenőrzése</string>
   <string name="wallet_timeskew_dialog_msg">A készülék időd késik %d percet. Valószínűleg nem tudsz küldeni és fogadni Bitcoin-okat ezen probléma miatt.\n\nLe kellene ellenőrizned, és ha szükséges, akkor javítanod a dátum, idő és időzóna beállításaidat.</string>
   <string name="wallet_version_dialog_title">Egy új verzió elérhető!</string>
-  <string name="wallet_version_dialog_msg">Ez a verzió fontos hibákat javít. A részletekért nézd meg a változásokat a Google Play-en.</string>
+  <string name="wallet_version_dialog_msg">Ez a verzió fontos hibákat javít. A részletekért nézd meg a változásokat a %s-en.</string>
   <string name="wallet_version_dialog_msg_deprecated">Ha nem látsz egy frissítést, az valószínűleg azt jelenti, hogy az Androidod verziója többé nem támogatott.</string>
-  <string name="wallet_version_dialog_button_market">Google Play</string>
   <string name="wallet_version_dialog_button_binary">Letöltés</string>
   <string name="wallet_old_sdk_dialog_title">Ez az Android verzió elavult</string>
   <string name="wallet_old_sdk_dialog_message">Van esély arra, hogy a Bitcoin Wallet következő kiadásaiból egy már nem fogja többé támogatni a készüléked. Egyes esetekben bonyolult lehet érméket küldeni ezen a készüléken.\n\nHacsak nem vagy tisztában vele, hogy mit csinálsz, akkor minél előbb ajánlott az érméid átmozgatása.</string>
@@ -272,7 +271,7 @@
   <string name="about_source_title">Forráskód</string>
   <string name="about_credits_bitcoinj_title">Az applikáció bitcoinj %s-t használ</string>
   <string name="about_credits_zxing_title">ZXing, egy QR-kód feldolgozó könyvtár</string>
-  <string name="about_market_app_title">Google Play oldal</string>
+  <string name="about_market_app_title">%s oldal</string>
   <string name="about_market_app_summary">Értékelések</string>
   <string name="notification_coins_received_msg">Fogadott mennyiség: %s</string>
   <string name="notification_peers_connected_msg">%d peer kapcsolódva</string>

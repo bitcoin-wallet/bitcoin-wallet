@@ -51,9 +51,8 @@
   <string name="wallet_timeskew_dialog_title">Configure la hora</string>
   <string name="wallet_timeskew_dialog_msg">El horario de su dispositivo está retrasado por %d minutos. Probablemente no podrá enviar o recibir Bitcoins debido a este problema.\n\nPara corregirlo configure la fecha, hora y zona horaria correctamente.</string>
   <string name="wallet_version_dialog_title">¡Hay una nueva versión disponible!</string>
-  <string name="wallet_version_dialog_msg">Esta versión corrige fallos importantes. Más detalles en el historial de cambios de Google Play.</string>
+  <string name="wallet_version_dialog_msg">Esta versión corrige fallos importantes. Más detalles en el historial de cambios de %s.</string>
   <string name="wallet_version_dialog_msg_deprecated">Si no ve una actualización, es probable que su versión de Android ya no sea compatible.</string>
-  <string name="wallet_version_dialog_button_market">Google Play</string>
   <string name="wallet_version_dialog_button_binary">Descargar</string>
   <string name="wallet_old_sdk_dialog_title">Versión de Android desactualizada</string>
   <string name="wallet_old_sdk_dialog_message">Es posible que una de las próximas versiones de Bitcoin Wallet no soporte tu dispositivo. En algunos casos, puede ser difícil hacer pagos con este dispositivo.\n\nA menos que sepas lo que estás haciendo, se recomienda que saques tus Bitcoins lo más pronto posible.</string>
@@ -299,7 +298,7 @@
   <string name="about_credits_bitcoinj_title">bitcoinj %s</string>
   <string name="about_credits_zxing_title">ZXing</string>
   <string name="about_credits_scrypt_title">Scrypt, implementado por Will Glozer y Colin Percival</string>
-  <string name="about_market_app_title">Página en Google Play</string>
+  <string name="about_market_app_title">Página en %s</string>
   <string name="about_market_app_summary">Critica o evalúa la aplicación</string>
   <string name="about_faq_title">Prefuntas Frecuentes</string>
   <string name="about_faq_summary">Preguntas frecuentes sobre la aplicación</string>

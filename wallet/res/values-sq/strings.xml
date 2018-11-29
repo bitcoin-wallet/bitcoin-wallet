@@ -45,9 +45,8 @@
   <string name="wallet_timeskew_dialog_title">Kontrolloni kohën tuaj!</string>
   <string name="wallet_timeskew_dialog_msg">Ora juaj është gabim për %d minuta. Ju ndoshta nuk mund të pranoni apo dërgoni Bitcoins për shkak të këtij problemi.\n\nJu duhet të kontrolloni dhe korrigjoni orën dhe kohën zonale.</string>
   <string name="wallet_version_dialog_title">Një verzion i ri është në dispozicion!</string>
-  <string name="wallet_version_dialog_msg">Në këtë verzion janë përmirësuar disa gabime. Për më shumë hollësira kyçuni në Google Play.</string>
+  <string name="wallet_version_dialog_msg">Në këtë verzion janë përmirësuar disa gabime. Për më shumë hollësira kyçuni në %s.</string>
   <string name="wallet_version_dialog_msg_deprecated">Nëse nuk e shiheni ndonjë aktualizim, shkaku është se versioni juaj i Androidit nuk është më aktual.</string>
-  <string name="wallet_version_dialog_button_market">Google Play</string>
   <string name="wallet_version_dialog_button_binary">Shkarkoni</string>
   <string name="wallet_old_sdk_dialog_title">Versioni i Androidit nuk është aktual</string>
   <string name="wallet_old_sdk_dialog_message">Mundësit janë që në verzionet e ardhshme të Bitcoin Wallet nuk do të mbështes paisjen tuaj. Në disa raste, mund të jetë e vështir që të shpenzohen monedhat në këtë paisje.\n\nVetëm në rast se dini cfarë po bëni, është e rekomanduar që të zhvendosni monedhat tuaja në një kulet tjetër.</string>
@@ -242,7 +241,7 @@
   <string name="about_category_credits">Ky program përdor…</string>
   <string name="about_credits_bitcoinj_title">bitcoinj %s</string>
   <string name="about_credits_zxing_title">ZXing</string>
-  <string name="about_market_app_title">Faqja ne Google Play</string>
+  <string name="about_market_app_title">Faqja ne %s</string>
   <string name="about_market_app_summary">Shqyrtoni apo vlersoni aplikacionin</string>
   <string name="notification_coins_received_msg">Pranuar %s</string>
   <string name="notification_peers_connected_msg">%d përdorues të lidhur</string>

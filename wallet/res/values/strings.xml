@@ -53,9 +53,8 @@
     <string name="wallet_timeskew_dialog_title">Check date &amp; time settings</string>
     <string name="wallet_timeskew_dialog_msg">Your device time is off by %d minutes. You probably cannot send or receive Bitcoins due to this problem.\n\nYou should check and if necessary correct your date, time and timezone settings.</string>
     <string name="wallet_version_dialog_title">A new version is available!</string>
-    <string name="wallet_version_dialog_msg">This version fixes important bugs. For details, see the change log on Google Play.</string>
+    <string name="wallet_version_dialog_msg">This version fixes important bugs. For details, see the change log on %s.</string>
     <string name="wallet_version_dialog_msg_deprecated">If you don\'t see an update, this probably means your version of Android isn\'t supported any more.</string>
-    <string name="wallet_version_dialog_button_market">Google Play</string>
     <string name="wallet_version_dialog_button_binary">Download</string>
     <string name="wallet_old_sdk_dialog_title">Android version is out of date</string>
     <string name="wallet_old_sdk_dialog_message">Chances are that one of the next releases of Bitcoin Wallet will not support your device any more. In some cases, it can get difficult to spend coins on this device.\n\nUnless you know what you are doing, it is recommended to move out your coins soon.</string>
@@ -306,7 +305,7 @@
     <string name="about_credits_moshi_title">Moshi, a JSON library</string>
     <string name="about_credits_guava_title">Guava, a collection of useful helpers</string>
     <string name="about_credits_slf4j_title">SLF4J, a logging framework</string>
-    <string name="about_market_app_title">Google Play page</string>
+    <string name="about_market_app_title">%s page</string>
     <string name="about_market_app_summary">Review or rate the app</string>
     <string name="about_faq_title">FAQ</string>
     <string name="about_faq_summary">Frequently asked questions about the app</string>

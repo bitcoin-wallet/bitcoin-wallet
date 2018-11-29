@@ -43,9 +43,8 @@
   <string name="wallet_timeskew_dialog_title">Cheki wazingira wakati yako!</string>
   <string name="wallet_timeskew_dialog_msg">Simu yako wakati ni makosa %d minuti. Pengine hawezi kutuma Bitcoin kwa sababu ya tatizo hili. Angalia mipangilio yako majira ya saa.</string>
   <string name="wallet_version_dialog_title">Toleo jipya ni hapa kwa shusha!</string>
-  <string name="wallet_version_dialog_msg">Hii toleo kunasa makosa makubwa. Kwa maelezo, kuona changelog juu ya Google Play.</string>
+  <string name="wallet_version_dialog_msg">Hii toleo kunasa makosa makubwa. Kwa maelezo, kuona changelog juu ya %s.</string>
   <string name="wallet_version_dialog_msg_deprecated">Kama huwezi kupata toleo jipya, Android yako ni mzee, sana!</string>
-  <string name="wallet_version_dialog_button_market">Google Play</string>
   <string name="wallet_version_dialog_button_binary">Shusha</string>
   <string name="wallet_old_sdk_dialog_title">Android yako ni mzee, sana!</string>
   <string name="wallet_old_sdk_dialog_message">Matoleo ya pili ya pochi hii si msaada Android yako yoyote zaidi. Katika baadhi ya matukio, matumizi ya pesa itakuwa vigumu. Kama wewe ni uhakika, tafadhali kuchukua pesa yako hivi karibuni.</string>
@@ -231,7 +230,7 @@
   <string name="about_category_credits">Hii programu anatumia…</string>
   <string name="about_credits_bitcoinj_title">bitcoinj %s</string>
   <string name="about_credits_zxing_title">ZXing</string>
-  <string name="about_market_app_title">Tovuti ya Google Play</string>
+  <string name="about_market_app_title">Tovuti ya %s</string>
   <string name="about_market_app_summary">Mapitio na kiwango programu hii</string>
   <string name="notification_coins_received_msg">Kupokea %s</string>
   <string name="notification_peers_connected_msg">%d rika kushikamana</string>

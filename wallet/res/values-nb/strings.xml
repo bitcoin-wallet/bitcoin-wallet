@@ -51,9 +51,8 @@
   <string name="wallet_timeskew_dialog_title">Sjekk dato- og tidsinnstillinger</string>
   <string name="wallet_timeskew_dialog_msg">Din enhets tid fraviker med %d minutter. Du kan sannsynligvis ikke sende eller motta bitcoin på grunn av dette problemet.\n\nDu bør sjekke og eventuelt korrigere innstillingene for dato, klokkeslett og tidssone.</string>
   <string name="wallet_version_dialog_title">En ny versjon er tilgjengelig!</string>
-  <string name="wallet_version_dialog_msg">Denne versjonen retter viktige feil. For detaljer, se endringsloggen på Google Play.</string>
+  <string name="wallet_version_dialog_msg">Denne versjonen retter viktige feil. For detaljer, se endringsloggen på %s.</string>
   <string name="wallet_version_dialog_msg_deprecated">Hvis du ikke ser en oppdatering, betyr dette sannsynligvis at din versjon av Android ikke støttes lenger.</string>
-  <string name="wallet_version_dialog_button_market">Google Play</string>
   <string name="wallet_version_dialog_button_binary">Last ned</string>
   <string name="wallet_old_sdk_dialog_title">Android-versjon er utdatert</string>
   <string name="wallet_old_sdk_dialog_message">Der er risiko for at en av de neste utgivelsene av Bitcoin Wallet ikke vil støtte din enhet lenger. I noen tilfeller kan det være vanskelig å bruke mynter på denne enheten.\n\nMed mindre du vet hva du gjør, anbefales det å straks flytte dine mynter vekk.</string>
@@ -296,7 +295,7 @@
   <string name="about_credits_bitcoinj_title">bitcoinj %s</string>
   <string name="about_credits_zxing_title">ZXing</string>
   <string name="about_credits_scrypt_title">Scrypt, implementert av Will Glozer og Colin Percival</string>
-  <string name="about_market_app_title">Google Play-siden</string>
+  <string name="about_market_app_title">%s-siden</string>
   <string name="about_market_app_summary">Anmeld eller bedøm appen</string>
   <string name="about_faq_title">FAQ</string>
   <string name="about_faq_summary">Ofte stilte spørsmål om appen</string>

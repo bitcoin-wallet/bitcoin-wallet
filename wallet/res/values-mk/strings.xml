@@ -38,8 +38,7 @@
 	<string name="wallet_timeskew_dialog_title">Провери ги поставувањата за време!</string>
 	<string name="wallet_timeskew_dialog_msg">Времето на твојот уред е неточно за %d минути. Најверојатно не можеш да праќаш или примаш Биткоини поради овој проблем.\n\nТреба да ги провериш и коригираш поставувањата за твоето време и временската зона.</string>
 	<string name="wallet_version_dialog_title">Достапна е нова верзија!</string>
-	<string name="wallet_version_dialog_msg">Оваа верзија поправа важни софтверски грешки. За детали, види го дневникот со грешки на Google Play.</string>
-	<string name="wallet_version_dialog_button_market">Google Play</string>
+	<string name="wallet_version_dialog_msg">Оваа верзија поправа важни софтверски грешки. За детали, види го дневникот со грешки на %s.</string>
 	<string name="wallet_version_dialog_button_binary">Преземи</string>
 	<string name="wallet_old_sdk_dialog_title">Андроид верзијата не е ажурирана</string>
 	<string name="wallet_old_sdk_dialog_message">Постојат големи шанси дека во некоја од следните верзии на Биткоин Паричник твојот уред нема да биде поддржан повеќе. Во некои случаи, може да биде тешко да трошиш биткоини од овој уред.\n\nОсвен ако знаеш што правиш, препорачуваме да ги преместиш твоите биткоини наскоро.</string>
@@ -150,7 +149,7 @@
 	<string name="about_category_credits">Оваа апликација користи…</string>
 	<string name="about_credits_bitcoinj_title">bitcoinj %s</string>
 	<string name="about_credits_zxing_title">ZXing</string>
-	<string name="about_market_app_title">Google Play страница</string>
+	<string name="about_market_app_title">%s страница</string>
 	<string name="about_market_app_summary">Напиши мислење или оцени ја апликацијата</string>
 	<string name="notification_coins_received_msg">Примени %s</string>
 	<string name="notification_peers_connected_msg">%d поврзани точки</string>
