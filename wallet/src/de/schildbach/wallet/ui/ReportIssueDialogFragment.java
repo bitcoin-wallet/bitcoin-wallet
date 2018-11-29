@@ -41,6 +41,7 @@ import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.util.Bluetooth;
 import de.schildbach.wallet.util.CrashReporter;
+import de.schildbach.wallet.util.Installer;
 
 import android.annotation.TargetApi;
 import android.app.ActivityManager;
@@ -123,10 +124,9 @@ public class ReportIssueDialogFragment extends DialogFragment {
                 final StringBuilder builder = new StringBuilder(subject).append(": ");
                 final PackageInfo pi = application.packageInfo();
                 builder.append(WalletApplication.versionLine(pi));
-                final String installerPackageName = application.getPackageManager()
-                        .getInstallerPackageName(pi.packageName);
-                if (installerPackageName != null)
-                    builder.append(", installer ").append(installerPackageName);
+                final Installer installer = Installer.from(application);
+                if (installer != null)
+                    builder.append(", installer ").append(installer.displayName);
                 builder.append(", android ").append(Build.VERSION.RELEASE);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
                     builder.append(" (").append(Build.VERSION.SECURITY_PATCH).append(")");
@@ -199,7 +199,12 @@ public class ReportIssueDialogFragment extends DialogFragment {
 
         report.append("Version: " + pi.versionName + " (" + pi.versionCode + ")\n");
         report.append("Package: " + pi.packageName + "\n");
-        report.append("Installer: " + application.getPackageManager().getInstallerPackageName(pi.packageName) + "\n");
+        final String installerPackageName = Installer.installerPackageName(application);
+        final Installer installer = Installer.from(installerPackageName);
+        if (installer != null)
+            report.append("Installer: " + installer.displayName + " (" + installerPackageName + ")\n");
+        else
+            report.append("Installer: unknown\n");
         report.append("Test/Prod: " + (Constants.TEST ? "test" : "prod") + "\n");
         report.append("Timezone: " + TimeZone.getDefault().getID() + "\n");
         calendar.setTimeInMillis(System.currentTimeMillis());

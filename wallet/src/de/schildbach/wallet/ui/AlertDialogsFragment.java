@@ -32,6 +32,7 @@ import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.R;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.util.CrashReporter;
+import de.schildbach.wallet.util.Installer;
 
 import android.app.Dialog;
 import android.bluetooth.BluetoothAdapter;
@@ -104,7 +105,7 @@ public class AlertDialogsFragment extends Fragment {
                         + (versionNameSplit >= 0 ? packageInfo.versionName.substring(versionNameSplit) : ""))
                 .newBuilder();
         url.addEncodedQueryParameter("package", packageInfo.packageName);
-        final String installerPackageName = packageManager.getInstallerPackageName(packageInfo.packageName);
+        final String installerPackageName = Installer.installerPackageName(application);
         if (installerPackageName != null)
             url.addEncodedQueryParameter("installer", installerPackageName);
         url.addQueryParameter("sdk", Integer.toString(Build.VERSION.SDK_INT));
