@@ -1,4 +1,4 @@
-v6.36
+v6.36-v6.37
 
 * Remove ability to restore backups from list of base58-encoded private keys.
 
