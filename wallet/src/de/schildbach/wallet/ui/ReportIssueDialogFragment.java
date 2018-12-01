@@ -124,9 +124,9 @@ public class ReportIssueDialogFragment extends DialogFragment {
                 final StringBuilder builder = new StringBuilder(subject).append(": ");
                 final PackageInfo pi = application.packageInfo();
                 builder.append(WalletApplication.versionLine(pi));
-                final Installer installer = Installer.from(application);
+                final String installer = Installer.installerPackageName(application);
                 if (installer != null)
-                    builder.append(", installer ").append(installer.displayName);
+                    builder.append(", installer ").append(installer);
                 builder.append(", android ").append(Build.VERSION.RELEASE);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
                     builder.append(" (").append(Build.VERSION.SECURITY_PATCH).append(")");
