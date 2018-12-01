@@ -17,8 +17,6 @@
 
 package de.schildbach.wallet.ui.send;
 
-import javax.annotation.Nullable;
-
 import org.bitcoinj.core.Coin;
 
 import de.schildbach.wallet.Constants;
@@ -34,6 +32,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProviders;
 
 /**

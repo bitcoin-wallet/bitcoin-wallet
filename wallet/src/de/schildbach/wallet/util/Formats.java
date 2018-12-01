@@ -20,9 +20,9 @@ package de.schildbach.wallet.util;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.annotation.Nullable;
-
 import de.schildbach.wallet.Constants;
+
+import androidx.annotation.Nullable;
 
 /**
  * @author Andreas Schildbach

@@ -28,8 +28,6 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.TimeZone;
 
-import javax.annotation.Nullable;
-
 import org.bitcoinj.wallet.Protos;
 import org.bitcoinj.wallet.Wallet;
 import org.bitcoinj.wallet.WalletProtobufSerializer;
@@ -65,6 +63,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;

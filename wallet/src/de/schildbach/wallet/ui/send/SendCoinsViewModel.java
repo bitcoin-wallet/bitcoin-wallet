@@ -19,8 +19,6 @@ package de.schildbach.wallet.ui.send;
 
 import java.util.List;
 
-import javax.annotation.Nullable;
-
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.wallet.Wallet.BalanceType;
 
@@ -36,6 +34,7 @@ import de.schildbach.wallet.data.WalletLiveData;
 import de.schildbach.wallet.ui.AddressAndLabel;
 
 import android.app.Application;
+import androidx.annotation.Nullable;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

@@ -27,8 +27,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.regex.Pattern;
 
-import javax.annotation.Nullable;
-
 import org.bitcoin.protocols.payments.Protos;
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.AddressFormatException;
@@ -61,6 +59,7 @@ import de.schildbach.wallet.util.Qr;
 
 import android.content.Context;
 import android.content.DialogInterface.OnClickListener;
+import androidx.annotation.Nullable;
 
 /**
  * @author Andreas Schildbach

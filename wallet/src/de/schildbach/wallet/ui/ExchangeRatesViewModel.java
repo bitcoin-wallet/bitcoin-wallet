@@ -17,8 +17,6 @@
 
 package de.schildbach.wallet.ui;
 
-import javax.annotation.Nullable;
-
 import com.google.common.base.Strings;
 
 import de.schildbach.wallet.WalletApplication;
@@ -28,6 +26,7 @@ import de.schildbach.wallet.data.WalletBalanceLiveData;
 
 import android.app.Application;
 import android.database.Cursor;
+import androidx.annotation.Nullable;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.loader.content.CursorLoader;

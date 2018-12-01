@@ -17,8 +17,6 @@
 
 package de.schildbach.wallet.ui.send;
 
-import javax.annotation.Nullable;
-
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.VersionedChecksummedBytes;
 import org.bitcoinj.wallet.Wallet;
@@ -27,6 +25,7 @@ import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.data.DynamicFeeLiveData;
 
 import android.app.Application;
+import androidx.annotation.Nullable;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 

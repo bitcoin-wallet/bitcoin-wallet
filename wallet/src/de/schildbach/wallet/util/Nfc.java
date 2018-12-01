@@ -20,10 +20,9 @@ package de.schildbach.wallet.util;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 
-import javax.annotation.Nullable;
-
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
+import androidx.annotation.Nullable;
 
 /**
  * @author Andreas Schildbach

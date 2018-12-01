@@ -21,12 +21,11 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.UUID;
 
-import javax.annotation.Nullable;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import android.bluetooth.BluetoothAdapter;
+import androidx.annotation.Nullable;
 
 /**
  * @author Andreas Schildbach

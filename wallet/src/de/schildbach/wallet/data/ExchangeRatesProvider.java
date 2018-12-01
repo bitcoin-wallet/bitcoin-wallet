@@ -24,8 +24,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.TreeMap;
 
-import javax.annotation.Nullable;
-
 import org.bitcoinj.core.Coin;
 import org.bitcoinj.utils.Fiat;
 import org.bitcoinj.utils.MonetaryFormat;
@@ -49,6 +47,7 @@ import android.database.MatrixCursor;
 import android.net.Uri;
 import android.provider.BaseColumns;
 import android.text.format.DateUtils;
+import androidx.annotation.Nullable;
 import okhttp3.Call;
 import okhttp3.HttpUrl;
 import okhttp3.Request;

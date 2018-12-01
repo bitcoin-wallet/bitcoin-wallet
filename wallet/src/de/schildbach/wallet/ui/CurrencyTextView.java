@@ -17,8 +17,6 @@
 
 package de.schildbach.wallet.ui;
 
-import javax.annotation.Nullable;
-
 import org.bitcoinj.core.Monetary;
 import org.bitcoinj.utils.MonetaryFormat;
 
@@ -33,6 +31,7 @@ import android.text.style.RelativeSizeSpan;
 import android.text.style.ScaleXSpan;
 import android.util.AttributeSet;
 import android.widget.TextView;
+import androidx.annotation.Nullable;
 
 /**
  * @author Andreas Schildbach

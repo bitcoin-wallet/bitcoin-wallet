@@ -17,8 +17,6 @@
 
 package de.schildbach.wallet.ui;
 
-import javax.annotation.Nullable;
-
 import org.bitcoinj.core.Coin;
 import org.bitcoinj.utils.ExchangeRate;
 import org.bitcoinj.utils.Fiat;
@@ -27,6 +25,7 @@ import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.ui.CurrencyAmountView.Listener;
 
 import android.view.View;
+import androidx.annotation.Nullable;
 
 /**
  * @author Andreas Schildbach
