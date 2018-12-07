@@ -130,7 +130,10 @@ public class ReportIssueDialogFragment extends DialogFragment {
                 builder.append(", android ").append(Build.VERSION.RELEASE);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
                     builder.append(" (").append(Build.VERSION.SECURITY_PATCH).append(")");
-                builder.append(", ").append(Build.BRAND).append(' ').append(Build.MODEL);
+                builder.append(", ").append(Build.MANUFACTURER);
+                if (!Build.BRAND.equalsIgnoreCase(Build.MANUFACTURER))
+                    builder.append(' ').append(Build.BRAND);
+                builder.append(' ').append(Build.MODEL);
                 return builder.toString();
             }
 
