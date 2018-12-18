@@ -27,6 +27,7 @@
   <string name="wallet_transactions_fragment_empty_text_received">Ingen Bitcoins modtaget endnu.</string>
   <string name="wallet_transactions_fragment_empty_text_sent">Ingen Bitcoins sendt endnu.</string>
   <string name="wallet_transactions_fragment_empty_text_howto">Hvordan får man Bitcoins?\nKøb for traditionelle penge,\nsælg varer eller ydelser eller\ntjen dem ved at arbejde.</string>
+  <string name="wallet_transactions_fragment_empty_remind_backup">Sikkerhedskopiér din tegnebog\nfør du modtager Bitcoins!</string>
   <string name="wallet_transactions_row_warning_backup">Tillykke, du har modtaget din første betaling! Har du &lt;u&gt;taget en sikkerhedskopi af din tegnebog&lt;/u&gt;, for at beskytte dig mod tab?</string>
   <string name="wallet_transactions_row_warning_storage_encryption">Tip: For at øge din tegnebogs sikkerhed kan du &lt;u&gt;kryptere din enhed&lt;/u&gt;. Dette beskytter også data fra andre apps.</string>
   <string name="wallet_transactions_row_warning_chain_forking">Bitcoin-netværket er under vedligeholdelse. Du anbefales ikke at sende eller modtage midler, indtil vedligeholdelsen er færdig. &lt;u&gt;Mere information&lt;/u&gt;.</string>
@@ -51,7 +52,7 @@
   <string name="wallet_timeskew_dialog_title">Tjek dato- og tidsindstillinger</string>
   <string name="wallet_timeskew_dialog_msg">Din enheds tid går %d minutter skævt. Du kan sandsynligvis ikke sende eller modtage bitcoin på grund af dette.\n\nDu bør tjekke, og om nødvendigt rette, dine dato-, tids- og tidszoneindstillinger.</string>
   <string name="wallet_version_dialog_title">En ny version er tilgængelig!</string>
-  <string name="wallet_version_dialog_msg">Denne version retter vigtige fejl. For detaljer, se ændringsloggen på %s.</string>
+  <string name="wallet_version_dialog_msg">Denne version retter vigtige fejl. Se ændringsloggen på  %s for flere detaljer.</string>
   <string name="wallet_version_dialog_msg_deprecated">Hvis du ikke ser en opdatering, betyder dette formodentlig, at din version af Android ikke understøttes længere.</string>
   <string name="wallet_version_dialog_button_binary">Download</string>
   <string name="wallet_old_sdk_dialog_title">Android-version er uddateret</string>
@@ -297,7 +298,12 @@
   <string name="about_category_credits">Denne app bruger…</string>
   <string name="about_credits_bitcoinj_title">bitcoinj %s, en implementation af Bitcoin-protokollen</string>
   <string name="about_credits_zxing_title">ZXing, et bibliotek til processering af QR-koder</string>
-  <string name="about_credits_scrypt_title">Scrypt, implementeret af Will Glozer og Colin Percival</string>
+  <string name="about_credits_spongycastle_title">Spongy Castle, et kryptografi-bibliotek</string>
+  <string name="about_credits_scrypt_title">Scrypt, en implementering af nøglederivationsfunktionen</string>
+  <string name="about_credits_okhttp_title">OkHttp, et HTTP-klientbibliotek</string>
+  <string name="about_credits_moshi_title">Moshi, et JSON-bibliotek</string>
+  <string name="about_credits_guava_title">Guava, en samling af nyttige hjælpere</string>
+  <string name="about_credits_slf4j_title">SLF4J, et framework til logning</string>
   <string name="about_market_app_title">%s-side</string>
   <string name="about_market_app_summary">Anmeld eller bedøm appen</string>
   <string name="about_faq_title">FAQ</string>
