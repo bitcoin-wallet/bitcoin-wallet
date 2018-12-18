@@ -26,7 +26,8 @@
   <string name="exchange_rates_options_search">為替レートの検索</string>
   <string name="wallet_transactions_fragment_empty_text_received">まだビットコインを受け取っていません。</string>
   <string name="wallet_transactions_fragment_empty_text_sent">まだビットコインを送っていません。</string>
-  <string name="wallet_transactions_fragment_empty_text_howto">ビットコインを入手するには?\n通常通貨と交換するか、\nグッズやサービスを販売するか\nまたは働いて稼ぎましょう</string>
+  <string name="wallet_transactions_fragment_empty_text_howto">ビットコインを受け取る方法ですか?\n従来の通貨と交換するか、物やサービスを売るか、\n仕事をして得ましょう。</string>
+  <string name="wallet_transactions_fragment_empty_remind_backup">ビットコインを受け取り始める前に\nウォレットをバックアップしてください!</string>
   <string name="wallet_transactions_row_warning_backup">おめでとうございます、初めて支払いを受け取りました。遺失を防ぐために&lt;u&gt;ウォレットをバックアップ&lt;/u&gt;していますか?</string>
   <string name="wallet_transactions_row_warning_storage_encryption">ヒント: ウォレットの安全性を向上させる方法として、&lt;u&gt;デバイスの暗号化&lt;/u&gt;もあります。その場合、他のアプリのデータも保護されます。</string>
   <string name="wallet_transactions_row_warning_chain_forking">ビットコインネットワークはメンテナンス中です。メンテナンスが終わるまではコインの送受信を一切しないようお勧めします。&lt;u&gt;詳細情報&lt;/u&gt;。</string>
@@ -51,7 +52,7 @@
   <string name="wallet_timeskew_dialog_title">日付と時刻の設定を確認してください</string>
   <string name="wallet_timeskew_dialog_msg">デバイスの時刻が%d分ずれています。この問題のためビットコインのやり取りができなくなる可能性があります。\n\n日付と時刻とタイムゾーンの設定を確認し、必要であれば修正してください。</string>
   <string name="wallet_version_dialog_title">新バージョンが利用可能です!</string>
-  <string name="wallet_version_dialog_msg">このバージョンには重要なバグフィックスがあります。詳細を見るには、%sの最新情報を見てください。</string>
+  <string name="wallet_version_dialog_msg">このバージョンでは重大なバグを修正しました。詳細については%sをご覧ください。</string>
   <string name="wallet_version_dialog_msg_deprecated">アップデートが表示されない場合、それはおそらくあなたのバージョンのAndroidはもうサポートされないということです。</string>
   <string name="wallet_version_dialog_button_binary">ダウンロード</string>
   <string name="wallet_old_sdk_dialog_title">Androidのバージョンが古すぎます</string>
@@ -297,7 +298,12 @@
   <string name="about_category_credits">このアプリは以下のソフトウェアを利用しています。</string>
   <string name="about_credits_bitcoinj_title">Bitcoinプロトコルの実装、bitcoinj %s</string>
   <string name="about_credits_zxing_title">QRコード処理ライブラリ、ZXing</string>
-  <string name="about_credits_scrypt_title">Will GlozerとColin Percivalによって実装されたScrypt</string>
+  <string name="about_credits_spongycastle_title">Spongy Castle, 暗号ライブラリ</string>
+  <string name="about_credits_scrypt_title">Scrypt, 鍵導出関数の実装</string>
+  <string name="about_credits_okhttp_title">OkHttp, HTTPクライアントライブラリ</string>
+  <string name="about_credits_moshi_title">Moshi, JSONライブラリ</string>
+  <string name="about_credits_guava_title">Guava, 便利なヘルパーの集まり</string>
+  <string name="about_credits_slf4j_title">SLF4J, ロギングフレームワーク</string>
   <string name="about_market_app_title">%sのページ</string>
   <string name="about_market_app_summary">アプリのレビューや評価をしてください</string>
   <string name="about_faq_title">よくある質問</string>
