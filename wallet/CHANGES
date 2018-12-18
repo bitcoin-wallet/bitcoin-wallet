@@ -1,3 +1,7 @@
+v6.38
+
+* Update translations from Transifex.
+
 v6.36-v6.37
 
 * Remove ability to restore backups from list of base58-encoded private keys.
