@@ -17,6 +17,7 @@
 
 package de.schildbach.wallet.ui;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -27,6 +28,7 @@ import org.bitcoinj.utils.Threading;
 import org.bitcoinj.wallet.Wallet;
 import org.bitcoinj.wallet.listeners.KeyChainEventListener;
 
+import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.data.AbstractWalletLiveData;
 import de.schildbach.wallet.data.AddressBookEntry;
@@ -46,8 +48,8 @@ import androidx.lifecycle.MutableLiveData;
  */
 public class WalletAddressesViewModel extends AndroidViewModel {
     private final WalletApplication application;
-    public final IssuedReceiveKeysLiveData issuedReceiveKeys;
-    public final ImportedKeysLiveData importedKeys;
+    public final IssuedReceiveAddressesLiveData issuedReceiveAddresses;
+    public final ImportedAddressesLiveData importedAddresses;
     public final LiveData<List<AddressBookEntry>> addressBook;
     public final WalletLiveData wallet;
     public final ConfigOwnNameLiveData ownName;
@@ -57,23 +59,23 @@ public class WalletAddressesViewModel extends AndroidViewModel {
     public WalletAddressesViewModel(final Application application) {
         super(application);
         this.application = (WalletApplication) application;
-        this.issuedReceiveKeys = new IssuedReceiveKeysLiveData(this.application);
-        this.importedKeys = new ImportedKeysLiveData(this.application);
+        this.issuedReceiveAddresses = new IssuedReceiveAddressesLiveData(this.application);
+        this.importedAddresses = new ImportedAddressesLiveData(this.application);
         this.addressBook = AppDatabase.getDatabase(this.application).addressBookDao().getAll();
         this.wallet = new WalletLiveData(this.application);
         this.ownName = new ConfigOwnNameLiveData(this.application);
     }
 
-    public static class IssuedReceiveKeysLiveData extends AbstractWalletLiveData<List<ECKey>>
+    public static class IssuedReceiveAddressesLiveData extends AbstractWalletLiveData<List<Address>>
             implements KeyChainEventListener {
-        public IssuedReceiveKeysLiveData(final WalletApplication application) {
+        public IssuedReceiveAddressesLiveData(final WalletApplication application) {
             super(application);
         }
 
         @Override
         protected void onWalletActive(final Wallet wallet) {
             wallet.addKeyChainEventListener(Threading.SAME_THREAD, this);
-            loadKeys();
+            loadAddresses();
         }
 
         @Override
@@ -83,30 +85,30 @@ public class WalletAddressesViewModel extends AndroidViewModel {
 
         @Override
         public void onKeysAdded(final List<ECKey> keys) {
-            loadKeys();
+            loadAddresses();
         }
 
-        private void loadKeys() {
+        private void loadAddresses() {
             final Wallet wallet = getWallet();
             AsyncTask.execute(new Runnable() {
                 @Override
                 public void run() {
-                    postValue(wallet.getIssuedReceiveKeys());
+                    postValue(wallet.getIssuedReceiveAddresses());
                 }
             });
         }
     }
 
-    public static class ImportedKeysLiveData extends AbstractWalletLiveData<List<ECKey>>
+    public static class ImportedAddressesLiveData extends AbstractWalletLiveData<List<Address>>
             implements KeyChainEventListener {
-        public ImportedKeysLiveData(final WalletApplication application) {
+        public ImportedAddressesLiveData(final WalletApplication application) {
             super(application);
         }
 
         @Override
         protected void onWalletActive(final Wallet wallet) {
             wallet.addKeyChainEventListener(Threading.SAME_THREAD, this);
-            loadKeys();
+            loadAddresses();
         }
 
         @Override
@@ -116,10 +118,10 @@ public class WalletAddressesViewModel extends AndroidViewModel {
 
         @Override
         public void onKeysAdded(final List<ECKey> keys) {
-            loadKeys();
+            loadAddresses();
         }
 
-        private void loadKeys() {
+        private void loadAddresses() {
             final Wallet wallet = getWallet();
             AsyncTask.execute(new Runnable() {
                 @Override
@@ -138,7 +140,10 @@ public class WalletAddressesViewModel extends AndroidViewModel {
                             return 0;
                         }
                     });
-                    postValue(importedKeys);
+                    final List<Address> importedAddresses = new ArrayList<>();
+                    for (final ECKey key : importedKeys)
+                        importedAddresses.add(key.toAddress(Constants.NETWORK_PARAMETERS));
+                    postValue(importedAddresses);
                 }
             });
         }

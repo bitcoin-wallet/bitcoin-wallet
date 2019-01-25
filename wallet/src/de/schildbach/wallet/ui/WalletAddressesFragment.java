@@ -20,7 +20,6 @@ package de.schildbach.wallet.ui;
 import java.util.List;
 
 import org.bitcoinj.core.Address;
-import org.bitcoinj.core.ECKey;
 import org.bitcoinj.uri.BitcoinURI;
 import org.bitcoinj.wallet.Wallet;
 import org.slf4j.Logger;
@@ -83,16 +82,16 @@ public final class WalletAddressesFragment extends FancyListFragment {
         setHasOptionsMenu(true);
 
         viewModel = ViewModelProviders.of(this).get(WalletAddressesViewModel.class);
-        viewModel.issuedReceiveKeys.observe(this, new Observer<List<ECKey>>() {
+        viewModel.issuedReceiveAddresses.observe(this, new Observer<List<Address>>() {
             @Override
-            public void onChanged(final List<ECKey> issuedReceiveKeys) {
-                adapter.replaceDerivedKeys(issuedReceiveKeys);
+            public void onChanged(final List<Address> issuedReceiveAddresses) {
+                adapter.replaceDerivedAddresses(issuedReceiveAddresses);
             }
         });
-        viewModel.importedKeys.observe(this, new Observer<List<ECKey>>() {
+        viewModel.importedAddresses.observe(this, new Observer<List<Address>>() {
             @Override
-            public void onChanged(final List<ECKey> importedKeys) {
-                adapter.replaceRandomKeys(importedKeys);
+            public void onChanged(final List<Address> importedAddresses) {
+                adapter.replaceRandomAddresses(importedAddresses);
             }
         });
         viewModel.wallet.observe(this, new Observer<Wallet>() {
@@ -155,8 +154,7 @@ public final class WalletAddressesFragment extends FancyListFragment {
 
             @Override
             public boolean onPrepareActionMode(final ActionMode mode, final Menu menu) {
-                final ECKey key = getKey(position);
-                final String address = key.toAddress(Constants.NETWORK_PARAMETERS).toBase58();
+                final String address = getAddress(position).toBase58();
                 final String label = addressBookDao.resolveLabel(address);
                 mode.setTitle(label != null ? label
                         : WalletUtils.formatHash(address, Constants.ADDRESS_FORMAT_GROUP_SIZE, 0));
@@ -201,12 +199,8 @@ public final class WalletAddressesFragment extends FancyListFragment {
             public void onDestroyActionMode(final ActionMode mode) {
             }
 
-            private ECKey getKey(final int position) {
-                return (ECKey) getListAdapter().getItem(position);
-            }
-
             private Address getAddress(final int position) {
-                return getKey(position).toAddress(Constants.NETWORK_PARAMETERS);
+                return (Address) getListAdapter().getItem(position);
             }
 
             private void handleCopyToClipboard(final Address address) {

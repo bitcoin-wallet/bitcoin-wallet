@@ -49,8 +49,8 @@ public class WalletAddressesAdapter extends BaseAdapter {
     private final int colorLessSignificant;
     private final LayoutInflater inflater;
 
-    private final List<ECKey> derivedKeys = new ArrayList<ECKey>();
-    private final List<ECKey> randomKeys = new ArrayList<ECKey>();
+    private final List<Address> derivedAddresses = new ArrayList<>();
+    private final List<Address> randomAddresses = new ArrayList<>();
     @Nullable
     private Wallet wallet = null;
     @Nullable
@@ -64,15 +64,15 @@ public class WalletAddressesAdapter extends BaseAdapter {
         inflater = LayoutInflater.from(context);
     }
 
-    public void replaceDerivedKeys(final Collection<ECKey> keys) {
-        this.derivedKeys.clear();
-        this.derivedKeys.addAll(keys);
+    public void replaceDerivedAddresses(final Collection<Address> addresses) {
+        this.derivedAddresses.clear();
+        this.derivedAddresses.addAll(addresses);
         notifyDataSetChanged();
     }
 
-    public void replaceRandomKeys(final Collection<ECKey> keys) {
-        this.randomKeys.clear();
-        this.randomKeys.addAll(keys);
+    public void replaceRandomAddresses(final Collection<Address> addresses) {
+        this.randomAddresses.clear();
+        this.randomAddresses.addAll(addresses);
         notifyDataSetChanged();
     }
 
@@ -88,21 +88,21 @@ public class WalletAddressesAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        int count = derivedKeys.size();
-        if (!randomKeys.isEmpty())
-            count += randomKeys.size() + 1;
+        int count = derivedAddresses.size();
+        if (!randomAddresses.isEmpty())
+            count += randomAddresses.size() + 1;
         return count;
     }
 
     @Override
     public Object getItem(final int position) {
-        final int numDerivedKeys = derivedKeys.size();
-        if (position < numDerivedKeys)
-            return derivedKeys.get(position);
-        else if (position == numDerivedKeys)
+        final int numDerived = derivedAddresses.size();
+        if (position < numDerived)
+            return derivedAddresses.get(position);
+        else if (position == numDerived)
             return null;
         else
-            return randomKeys.get(position - numDerivedKeys - 1);
+            return randomAddresses.get(position - numDerived - 1);
     }
 
     @Override
@@ -118,10 +118,10 @@ public class WalletAddressesAdapter extends BaseAdapter {
 
     @Override
     public int getItemViewType(final int position) {
-        final int numDerivedKeys = derivedKeys.size();
-        if (position < numDerivedKeys)
+        final int numDerived = derivedAddresses.size();
+        if (position < numDerived)
             return 0;
-        else if (position == numDerivedKeys)
+        else if (position == numDerived)
             return 1;
         else
             return 0;
@@ -141,10 +141,15 @@ public class WalletAddressesAdapter extends BaseAdapter {
     }
 
     private View rowKey(final int position, View row) {
-        final ECKey key = (ECKey) getItem(position);
-        final Address address = key.toAddress(Constants.NETWORK_PARAMETERS);
+        final Address address = (Address) getItem(position);
         final Wallet wallet = this.wallet;
-        final boolean isRotateKey = wallet != null && wallet.isKeyRotating(key);
+        final boolean isRotateKey;
+        if (wallet != null) {
+            final ECKey key = wallet.findKeyFromPubHash(address.getHash160());
+            isRotateKey = wallet != null && wallet.isKeyRotating(key);
+        } else {
+            isRotateKey = false;
+        }
 
         if (row == null)
             row = inflater.inflate(R.layout.address_book_row, null);
