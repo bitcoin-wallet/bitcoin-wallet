@@ -266,11 +266,11 @@
   <string name="preferences_initiate_reset_summary">Nollaa lohkoketju, rahansiirrot ja lompakon saldo. Uudelleenlataaminen vie hetken, joten tee tämä vain jos tiedät miksi.</string>
   <string name="preferences_initiate_reset_dialog_message">Haluatko nollata ja uudelleenladata lohkoketjun?\n\nTämä piilottaa väliaikaisesti lompakon saldosi ja poistaa rahansiirrot. Molemmat palautuvat kun lohkoketjun synkronointi edistyy. Varmista, että sinulla on luotettava internet-yhteys.</string>
   <string name="preferences_initiate_reset_dialog_positive">Nollaa</string>
-  <string name="preferences_extended_public_key_title">Näytä xpub</string>
+  <string name="preferences_extended_public_key_title">Näytä extended public key</string>
   <string name="preferences_extended_public_key_summary">Näytä lompakkosi laajennettu julkinen avain, jotta se voidaan tuoda toisiin sovelluksiin ja palveluihin. Ole varovainen: tekemällä näin, luovutat rahallisen yksityisyytesi tälle sovellukselle.</string>
   <string name="bitmap_fragment_share">Jaa…</string>
   <string name="extended_public_key_fragment_title">Laajennettu Public Key</string>
-  <string name="extended_public_key_fragment_share">Jaa xpub…</string>
+  <string name="extended_public_key_fragment_share">Jaa extended public key…</string>
   <string name="report_issue_dialog_title_issue">Ilmoita ongelma</string>
   <string name="report_issue_dialog_title_crash">Havaittiin viimekertainen kaaatuminen</string>
   <string name="report_issue_dialog_title_transaction">Raportoi ongelma valitun rahansiirron kohdalla</string>

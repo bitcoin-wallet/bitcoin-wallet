@@ -272,11 +272,11 @@
   <string name="preferences_initiate_reset_summary">Blok zincirini, muameleleri ve cüzdan bakiyesini sıfırla. Yeniden işler olması zaman alacaktır, dolayısıyla sadece neden yaptığınızı biliyorsanız bunu yapın.</string>
   <string name="preferences_initiate_reset_dialog_message">Blok zincirini sıfırlayıp tekrar eşleştirmek istiyor musunuz? \n\nBu geçici olarak bakiyenizin saklayacak ve muameleleri kaldıracaktır. Bu iki unsur blok zincirinin eşleşmesi ilerledikçe normale dönecektir. İnternet\'e sağlam bir bağlantınız olduğundan emin olun.</string>
   <string name="preferences_initiate_reset_dialog_positive">Sıfırla</string>
-  <string name="preferences_extended_public_key_title">xpub\'ı göster</string>
+  <string name="preferences_extended_public_key_title">extended public key\'ı göster</string>
   <string name="preferences_extended_public_key_summary">Cüzdanınızın genişletilmiş kamu anahtarını başka uygulama ve servislere aktarılabilmesi için göster. Dikkatli olun: bunu yapmanız parasal gizliliğinizi o uygulamaya ifşa edecektir.</string>
   <string name="bitmap_fragment_share">Paylaş…</string>
   <string name="extended_public_key_fragment_title">Genişletilmiş Kamu Anahtarı</string>
-  <string name="extended_public_key_fragment_share">xpub\'ı paylaş…</string>
+  <string name="extended_public_key_fragment_share">extended public key\'ı paylaş…</string>
   <string name="report_issue_dialog_title_issue">Sorun rapor et</string>
   <string name="report_issue_dialog_title_crash">Önceki çökme tespit edildi</string>
   <string name="report_issue_dialog_title_transaction">Seçili ödeme ile ilgili bir problem rapor edin</string>

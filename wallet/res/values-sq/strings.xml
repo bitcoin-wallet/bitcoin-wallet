@@ -217,11 +217,11 @@
   <string name="preferences_initiate_reset_summary">Resetoni blockchain, transaksionet dhe bilancin e kuletës. Ky proces merr pak kohë.</string>
   <string name="preferences_initiate_reset_dialog_message">Deshironi të resetoni dhe ri-shkarkoni blockchain-in?\n\nKy proces përkohësisht do të fsheh bilancin e kuletës dhe heq transaksionet. Të dyjat rikthehen gjatë sinkronizimit të blocchain-it.</string>
   <string name="preferences_initiate_reset_dialog_positive">Reseto</string>
-  <string name="preferences_extended_public_key_title">Trego xpub</string>
+  <string name="preferences_extended_public_key_title">Trego extended public key</string>
   <string name="preferences_extended_public_key_summary">Shfaq çelësin privat të zgjeruar të kuletës suaj, kështu që mund të importohet në aplikacionet dhe shërbime tjera. Jeni të kujdesshëm: nëse vazhdoni aplikacioni mund të ju rrezikoj privaticitetin.</string>
   <string name="bitmap_fragment_share">Ndaje…</string>
   <string name="extended_public_key_fragment_title">Çelësi publik i zgjeruar</string>
-  <string name="extended_public_key_fragment_share">Ndaje xpub…</string>
+  <string name="extended_public_key_fragment_share">Ndaje extended public key…</string>
   <string name="report_issue_dialog_title_issue">Raporto problem</string>
   <string name="report_issue_dialog_title_crash">Është detektuar një dështim i mëhershëm</string>
   <string name="report_issue_dialog_message_issue">Ju lutem përshkruani problemin saktësisht që të kuptohet mirë.</string>

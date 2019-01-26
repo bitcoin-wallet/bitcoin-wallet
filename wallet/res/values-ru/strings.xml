@@ -269,11 +269,11 @@
   <string name="preferences_initiate_reset_summary">Обнуление цепочки блоков, транзакций и баланса кошелька. Восстановление займет некоторое время. Делайте, если знаете для чего Вы это делаете.</string>
   <string name="preferences_initiate_reset_dialog_message">Желаете сбросить и загрузить снова цепочку блоков?\n\nБаланс кошелька и транзакции будут временно скрыты и восстановлены только в процессе синхронизации цепочки блоков. Убедитесь что Вы имеете надежное Интернет-соединение.</string>
   <string name="preferences_initiate_reset_dialog_positive">Сброс</string>
-  <string name="preferences_extended_public_key_title">Показать xpub</string>
+  <string name="preferences_extended_public_key_title">Показать extended public key</string>
   <string name="preferences_extended_public_key_summary">Просмотр расширенного открытого ключа вашего кошелька может быть полезен для импортирования в другие приложения и услуги. Будьте осторожны: делая так вы раскрываете ваш приватный счет.</string>
   <string name="bitmap_fragment_share">Рассказать…</string>
   <string name="extended_public_key_fragment_title">Расширенный  публичный ключ</string>
-  <string name="extended_public_key_fragment_share">Поделиться xpub…</string>
+  <string name="extended_public_key_fragment_share">Поделиться extended public key…</string>
   <string name="report_issue_dialog_title_issue">Сообщить о проблеме</string>
   <string name="report_issue_dialog_title_crash">Обнаружено аварийное завершение</string>
   <string name="report_issue_dialog_title_transaction">Отчет по выбранному платежу</string>

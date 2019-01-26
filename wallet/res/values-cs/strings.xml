@@ -255,11 +255,11 @@
   <string name="preferences_initiate_reset_summary">Obnovit blokchain, transakce a stav peněženky. Nové nahrání bude chvíli trvat.</string>
   <string name="preferences_initiate_reset_dialog_message">Opravdu chcete obnovit a znovu nahrát blokchain?\n\nToto dočasně skryje stav peněženky a odstraní transakce. Obojí bude obnoveno, jakmile se blokchain synchronizuje.</string>
   <string name="preferences_initiate_reset_dialog_positive">Obnovit</string>
-  <string name="preferences_extended_public_key_title">Zobrazit xpub</string>
+  <string name="preferences_extended_public_key_title">Zobrazit extended public key</string>
   <string name="preferences_extended_public_key_summary">Zobrazit rozšířený veřejný klíč této peněženky za účelem jejího importu do dalších aplikací a služeb. Buďte opatrní: nové aplikace budou mít přístup k vašim platebním informacím.</string>
   <string name="bitmap_fragment_share">Sdílet…</string>
   <string name="extended_public_key_fragment_title">Rozšířený veřejný klíč</string>
-  <string name="extended_public_key_fragment_share">Sdílet xpub…</string>
+  <string name="extended_public_key_fragment_share">Sdílet extended public key…</string>
   <string name="report_issue_dialog_title_issue">Nahlásit problém</string>
   <string name="report_issue_dialog_title_crash">Detekován předchozí pád aplikace</string>
   <string name="report_issue_dialog_message_issue">Popište prosím svůj problém dostatečně detailně, aby ho bylo možno reprodukovat.</string>

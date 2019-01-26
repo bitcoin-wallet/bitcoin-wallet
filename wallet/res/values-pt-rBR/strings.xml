@@ -266,11 +266,11 @@
   <string name="preferences_initiate_reset_summary">Reseta a blockchain, as transações e o saldo da carteira. O replay irá demorar um pouco, então faça isso somente se você tiver certeza.</string>
   <string name="preferences_initiate_reset_dialog_message">Você gostaria de resetar e replay a blockchain?\n\nIsso irá esconder temporariamente o saldo da sua carteira e remover as suas transações. Eles irão retornar assim que a sincronização da blockchain progredir. Certifique-se que você tem uma conexão de internet confiável.</string>
   <string name="preferences_initiate_reset_dialog_positive">Reiniciar</string>
-  <string name="preferences_extended_public_key_title">Mostrar xpub</string>
+  <string name="preferences_extended_public_key_title">Mostrar extended public key</string>
   <string name="preferences_extended_public_key_summary">Ver a chave pública estendida de sua carteira, para que possa ser importada para outros aplicativos e serviços. Tenha cuidado: isso irá divulgar a sua privacidade monetária para o app.</string>
   <string name="bitmap_fragment_share">Compartilhar…</string>
   <string name="extended_public_key_fragment_title">Chave Pública Estendida</string>
-  <string name="extended_public_key_fragment_share">Compartilhar xpub…</string>
+  <string name="extended_public_key_fragment_share">Compartilhar extended public key…</string>
   <string name="report_issue_dialog_title_issue">Informar problema</string>
   <string name="report_issue_dialog_title_crash">Detectado problema grave anteriormente</string>
   <string name="report_issue_dialog_title_transaction">Informe o problema com a forma de pagamento selecionado</string>

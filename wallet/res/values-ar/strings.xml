@@ -215,9 +215,9 @@
   <string name="preferences_initiate_reset_summary">إعادة تعيين Blockchain و المعاملات و رصيد المحفظة. الرد سيستغرق بعض الوقت.</string>
   <string name="preferences_initiate_reset_dialog_message">هل تود إعادة تعيين وإعادة تشغيل blockchain؟\n\nسيتم إخفاء رصيد محفظتك  مؤقتا وإزالة المعاملات. كلاهما سوف يسترجعان مع دم مزامنة بيانات blockchain.</string>
   <string name="preferences_initiate_reset_dialog_positive">إعادة تعيين</string>
-  <string name="preferences_extended_public_key_title">إظهار xpub</string>
+  <string name="preferences_extended_public_key_title">إظهار extended public key</string>
   <string name="bitmap_fragment_share">شارك ...</string>
-  <string name="extended_public_key_fragment_share">شارك xpub ...</string>
+  <string name="extended_public_key_fragment_share">شارك extended public key ...</string>
   <string name="report_issue_dialog_title_issue">الإبلاغ عن مشكلة</string>
   <string name="report_issue_dialog_title_crash">تم الكشف عن  حصول عطل للنظام مؤخرا</string>
   <string name="report_issue_dialog_title_transaction">الإبلاغ عن خلل في المعاملة التي تم تحديدها</string>

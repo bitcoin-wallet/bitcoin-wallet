@@ -248,11 +248,11 @@
   <string name="preferences_initiate_reset_summary">Blokklánc, tranzakciók és tárcaegyenleg visszaállítása. A visszajátszás eltarthat egy ideig.</string>
   <string name="preferences_initiate_reset_dialog_message">Szeretnéd visszaállítani és visszajátszani a blokkláncot?\n\nEz átmenetileg elrejti a tárca egyenleged és eltávolítja a tranzakciókat. Mindkettő visszaáll a blokklánc szinkronizálás előrehaladtával.</string>
   <string name="preferences_initiate_reset_dialog_positive">Visszaállítás</string>
-  <string name="preferences_extended_public_key_title">Xpub megjelenítése</string>
+  <string name="preferences_extended_public_key_title">extended public key megjelenítése</string>
   <string name="preferences_extended_public_key_summary">Nézd meg a tárcád kiterjesztett nyilvános kulcsát, így tudod importálni másik alkalmazásokba és szolgáltatásokba. Legyél óvatos: ezt téve felfeded a pénzügyi magánéletedet annak az alkalmazásnak.</string>
   <string name="bitmap_fragment_share">Megosztás…</string>
   <string name="extended_public_key_fragment_title">Kiterjesztett nyilvános kulcs</string>
-  <string name="extended_public_key_fragment_share">Xpub megosztása…</string>
+  <string name="extended_public_key_fragment_share">extended public key megosztása…</string>
   <string name="report_issue_dialog_title_issue">Hiba jelentése</string>
   <string name="report_issue_dialog_title_crash">Az előző alkalommal a program összeomlott.</string>
   <string name="report_issue_dialog_message_issue">Kérlek elég precízen fejtsd ki a hibádat, hogy reprodukálni lehessen.</string>

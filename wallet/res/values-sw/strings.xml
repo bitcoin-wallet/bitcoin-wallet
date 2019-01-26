@@ -207,10 +207,10 @@
   <string name="preferences_initiate_reset_summary">Upya Blockchain, shughuli, na usalama ya pochi. Bambika itachukua muda mfupi.</string>
   <string name="preferences_initiate_reset_dialog_message">Je, ungependa upya na bambika na Blockchain?\n\nHii muda kujificha pochi mizani yako na kuondoa shughuli. Wote itarejea kama Blockchain kubamba ikiendelea.</string>
   <string name="preferences_initiate_reset_dialog_positive">Upya</string>
-  <string name="preferences_extended_public_key_title">Soma xpub</string>
+  <string name="preferences_extended_public_key_title">Soma extended public key</string>
   <string name="preferences_extended_public_key_summary">Mwambie kupanuliwa umma muhimu ya pochi yako, hivyo inaweza kuwa nje katika programu na huduma nyingine. Kuwa makini: kufanya hivyo itakuwa wazi siri yako ya fedha kwa programu hiyo.</string>
   <string name="extended_public_key_fragment_title">Mwambie kupanuliwa umma muhimu ya pochi yako</string>
-  <string name="extended_public_key_fragment_share">Shiriki xpub…</string>
+  <string name="extended_public_key_fragment_share">Shiriki extended public key…</string>
   <string name="report_issue_dialog_title_issue">Ripoti tatizo</string>
   <string name="report_issue_dialog_title_crash">Kupatikana ajali uliopita</string>
   <string name="report_issue_dialog_message_issue">Tafadhali eleza tatizo lako kama just kama unaweza.</string>

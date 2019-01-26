@@ -264,11 +264,11 @@
   <string name="preferences_initiate_reset_summary">블럭 체인과 거래 내역, 비트코인 잔액을 다시 읽어들입니다. 이 리셋 과정에 상당히 많은 시간이 소요되므로 이 기능이 무엇인지 정확히 이해하고 있는 경우에만 적용하십시오.</string>
   <string name="preferences_initiate_reset_dialog_message">블럭체인을 초기화한 후 다시 불러오겠습니까?\n\n이 작업을 진행하면 지갑의 잔액과 거래 내역이 일시적으로 표시되지 않습니다. 블럭체인 동기화 완료 시, 다시 정상적으로 표시됩니다.</string>
   <string name="preferences_initiate_reset_dialog_positive">재동기화</string>
-  <string name="preferences_extended_public_key_title">xpub 보이기</string>
+  <string name="preferences_extended_public_key_title">extended public key 보이기</string>
   <string name="preferences_extended_public_key_summary">전자지갑의 확장 공개키를 표시해서 다른 앱과 서비스로 내보낼 수 있습니다. 지갑의 잔액과 거래 내역이 다른 사람에게 공개될 수 있으므로 주의해야 합니다.</string>
   <string name="bitmap_fragment_share">공유</string>
   <string name="extended_public_key_fragment_title">확장 개인키</string>
-  <string name="extended_public_key_fragment_share">xpub 공유</string>
+  <string name="extended_public_key_fragment_share">extended public key 공유</string>
   <string name="report_issue_dialog_title_issue">오류 보고</string>
   <string name="report_issue_dialog_title_crash">로드 중 에러 발생</string>
   <string name="report_issue_dialog_title_transaction">선택된 거래에 대한 이슈 사항 보고</string>

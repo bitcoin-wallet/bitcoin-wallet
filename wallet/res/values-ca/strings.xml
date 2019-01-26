@@ -272,11 +272,11 @@
   <string name="preferences_initiate_reset_summary">Restablir la cadena de blocs, les transaccions i el balanç de la cartera. Aquesta repetició prendrà un temps, per tant fes-ho només si saps perquè.</string>
   <string name="preferences_initiate_reset_dialog_message">Vols reiniciar i tornar a reproduir la cadena de blocs?\n\nAixò amagarà temporalment el balanç de la teva cartera i eliminarà les transaccions. Tots dos es recuperaran a mesura que la sincronització de la cadena de blocs avanci. Assegura\'t que tens una connexió a Internet fiable.</string>
   <string name="preferences_initiate_reset_dialog_positive">Reinicia</string>
-  <string name="preferences_extended_public_key_title">Mostra xpub</string>
+  <string name="preferences_extended_public_key_title">Mostra extended public key</string>
   <string name="preferences_extended_public_key_summary">Visualitza la clau pública extesa de la teva butxaca, per poder ser importades per altes aplicacions o serveis. Tingues compte: Si ho fa, revelar la seva privacitat monetària per a aquesta aplicació.</string>
   <string name="bitmap_fragment_share">Compartir…</string>
   <string name="extended_public_key_fragment_title">Clau pública extesa</string>
-  <string name="extended_public_key_fragment_share">Comparteix xpub</string>
+  <string name="extended_public_key_fragment_share">Comparteix extended public key</string>
   <string name="report_issue_dialog_title_issue">Reportar problema</string>
   <string name="report_issue_dialog_title_crash">Bloqueig previ detectat.</string>
   <string name="report_issue_dialog_title_transaction">Informa d\'un problema amb el pagament sel·leccionat</string>

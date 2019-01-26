@@ -273,11 +273,11 @@
   <string name="preferences_initiate_reset_summary">Nulstil blokkæde, overførsler og saldo for tegnebogen. Gennemløb af blokkæden vil tage et stykke tid, så gør kun dette hvis du ved hvorfor.</string>
   <string name="preferences_initiate_reset_dialog_message">Vil du nulstille og gennemløbe blokkæden igen?\n\nDette vil midlertidigt skjule din saldo og fjerne overførsler. Begge dele vil dukke op igen, efterhånden som der synkroniseres med blokkæden. Sørg for at du har en stabil forbindelse til Internet.</string>
   <string name="preferences_initiate_reset_dialog_positive">Nulstil</string>
-  <string name="preferences_extended_public_key_title">Vis xpub</string>
+  <string name="preferences_extended_public_key_title">Vis extended public key</string>
   <string name="preferences_extended_public_key_summary">Vis din tegnebogs udvidede offentlige nøgle så den kan importeres til andre apps og tjenester. Vær forsigtig: Du vil afsløre dit økonomiske privatliv til pågældende app, hvis du gør dette.</string>
   <string name="bitmap_fragment_share">Del…</string>
   <string name="extended_public_key_fragment_title">Udvidet offentlig nøgle</string>
-  <string name="extended_public_key_fragment_share">Del xpub…</string>
+  <string name="extended_public_key_fragment_share">Del extended public key…</string>
   <string name="report_issue_dialog_title_issue">Rapportér problem</string>
   <string name="report_issue_dialog_title_crash">Tidligere programnedbrud opfanget</string>
   <string name="report_issue_dialog_title_transaction">Rapportér problem med valgt betaling</string>

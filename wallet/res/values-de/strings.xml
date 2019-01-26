@@ -276,11 +276,11 @@
     <string name="preferences_initiate_reset_summary">Blockchain, Transaktionen und Guthaben werden zurückgesetzt. Das Wiedereinspielen wird eine Weile dauern, also mach das nur wenn du weisst warum.</string>
     <string name="preferences_initiate_reset_dialog_message">Möchtest du die Blockchain zurücksetzen und wiedereinspielen?\n\nDies wird verübergehend dein Guthaben ausblenden und deine Transaktionen leeren. Beides wird sich während des Vorgangs erholen. Achte auf eine zuverlässige Internet-Verbindung.</string>
     <string name="preferences_initiate_reset_dialog_positive">Zurücksetzen</string>
-    <string name="preferences_extended_public_key_title">Xpub anzeigen</string>
+    <string name="preferences_extended_public_key_title">extended public key anzeigen</string>
     <string name="preferences_extended_public_key_summary">Zeigt den Extended Public Key deiner Wallet, so daß er in andere Apps oder Dienste importiert werden kann. Pass aber auf, denn das wird deine finanziellen Umstände gegenüber der App offenlegen.</string>
     <string name="bitmap_fragment_share">Teilen…</string>
     <string name="extended_public_key_fragment_title">Extended Public Key</string>
-    <string name="extended_public_key_fragment_share">Xpub teilen…</string>
+    <string name="extended_public_key_fragment_share">extended public key teilen…</string>
     <string name="report_issue_dialog_title_issue">Problem melden</string>
     <string name="report_issue_dialog_title_crash">Absturz erkannt</string>
     <string name="report_issue_dialog_title_transaction">Problem mit markierter Zahlung melden</string>

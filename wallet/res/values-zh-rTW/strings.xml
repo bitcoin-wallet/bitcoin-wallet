@@ -266,11 +266,11 @@
   <string name="preferences_initiate_reset_summary">重置區塊鏈、交易資料、以及錢包餘額。重算會花一點時間，所以只有在你知道為什麼要做時才做。</string>
   <string name="preferences_initiate_reset_dialog_message">確定要重置且重算區塊鏈嗎？\n\n錢包餘額會暫時隱藏起來，交易也會不見。但是都會隨著區塊鏈同步的進展漸漸恢復。請先確認有穩定的網際網路連線。</string>
   <string name="preferences_initiate_reset_dialog_positive">重設</string>
-  <string name="preferences_extended_public_key_title">顯示 xpub</string>
+  <string name="preferences_extended_public_key_title">顯示 extended public key</string>
   <string name="preferences_extended_public_key_summary">顯示錢包的延伸公鑰，來匯入到其他的應用程式或網路服務去。請小心: 這會暴露你的財務隱私給該程式或服務。</string>
   <string name="bitmap_fragment_share">分享...</string>
   <string name="extended_public_key_fragment_title">延伸公鑰</string>
-  <string name="extended_public_key_fragment_share">分享 xpub…</string>
+  <string name="extended_public_key_fragment_share">分享 extended public key…</string>
   <string name="report_issue_dialog_title_issue">問題回報</string>
   <string name="report_issue_dialog_title_crash">發現前次當機</string>
   <string name="report_issue_dialog_title_transaction">回報關於選定付款交易的問題</string>

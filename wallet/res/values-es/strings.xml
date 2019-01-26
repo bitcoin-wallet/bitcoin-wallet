@@ -272,11 +272,11 @@
   <string name="preferences_initiate_reset_summary">Cambiar cadena de bloque, las transacciones y el equilibrio billetera. Replay tomará un tiempo.</string>
   <string name="preferences_initiate_reset_dialog_message">¿Te gustaría reiniciar y repetir la cadena de bloque?\n\nEste ocultará temporalmente su saldo cartera y eliminar transacciones. Ambos se recuperará con la sincronización de la cadena de bloque avanzada.</string>
   <string name="preferences_initiate_reset_dialog_positive">Reiniciar</string>
-  <string name="preferences_extended_public_key_title">Mostrar xpub</string>
+  <string name="preferences_extended_public_key_title">Mostrar extended public key</string>
   <string name="preferences_extended_public_key_summary">Ve la llave publica extendida de tu billetera, para que pueda ser importada hacia otras apps y servicios ten cuidado: hacer esto dara a conocer tu privacidad monetaria a esa app.</string>
   <string name="bitmap_fragment_share">Comparte…</string>
   <string name="extended_public_key_fragment_title">Extender llave publica</string>
-  <string name="extended_public_key_fragment_share">Comparte xpub…</string>
+  <string name="extended_public_key_fragment_share">Comparte extended public key…</string>
   <string name="report_issue_dialog_title_issue">Informar de incidencia</string>
   <string name="report_issue_dialog_title_crash">Detectado error grave anterior</string>
   <string name="report_issue_dialog_title_transaction">Informar del problema con el pago seleccionado</string>

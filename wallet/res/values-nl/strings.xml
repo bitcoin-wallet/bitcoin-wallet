@@ -272,11 +272,11 @@
   <string name="preferences_initiate_reset_summary">Reset blokketen, transacties en wallet-inhoud. Herstel kan enige tijd duren dus doe dit alleen als je weet waarom.</string>
   <string name="preferences_initiate_reset_dialog_message">Wil je de blokketen resetten en opnieuw laden?\n\nDit zal tijdelijk de wallet-inhoud en transacties laten verbergen. Beiden zullen terugkomen tijdens het synchronisatieproces. Zorg dat je een betrouwbare verbinding hebt met het internet.</string>
   <string name="preferences_initiate_reset_dialog_positive">Reset</string>
-  <string name="preferences_extended_public_key_title">Toon xpub</string>
+  <string name="preferences_extended_public_key_title">Toon extended public key</string>
   <string name="preferences_extended_public_key_summary">Toon de uitgebreide public key van je portemonnee zodat het geïmporteerd kan worden in andere apps en services. Wees voorzichtig: hiermee geef je je monetaire privacy prijs aan die app.</string>
   <string name="bitmap_fragment_share">Deel…</string>
   <string name="extended_public_key_fragment_title">Uitgebreide Public Key</string>
-  <string name="extended_public_key_fragment_share">Deel xpub…</string>
+  <string name="extended_public_key_fragment_share">Deel extended public key…</string>
   <string name="report_issue_dialog_title_issue">Meld probleem</string>
   <string name="report_issue_dialog_title_crash">Vorige crash gedetecteerd</string>
   <string name="report_issue_dialog_title_transaction">Probleem melden met geselecteerde betaling.</string>

@@ -42,19 +42,19 @@ import androidx.core.app.ShareCompat;
 public class ExtendedPublicKeyFragment extends DialogFragment {
     private static final String FRAGMENT_TAG = ExtendedPublicKeyFragment.class.getName();
 
-    private static final String KEY_XPUB = "xpub";
+    private static final String KEY_EXTENDED_PUBLIC_KEY = "extended_public_key";
 
     private static final Logger log = LoggerFactory.getLogger(ExtendedPublicKeyFragment.class);
 
-    public static void show(final FragmentManager fm, final CharSequence xpub) {
-        instance(xpub).show(fm, FRAGMENT_TAG);
+    public static void show(final FragmentManager fm, final CharSequence base58) {
+        instance(base58).show(fm, FRAGMENT_TAG);
     }
 
-    private static ExtendedPublicKeyFragment instance(final CharSequence xpub) {
+    private static ExtendedPublicKeyFragment instance(final CharSequence base58) {
         final ExtendedPublicKeyFragment fragment = new ExtendedPublicKeyFragment();
 
         final Bundle args = new Bundle();
-        args.putCharSequence(KEY_XPUB, xpub);
+        args.putCharSequence(KEY_EXTENDED_PUBLIC_KEY, base58);
         fragment.setArguments(args);
 
         return fragment;
@@ -71,11 +71,11 @@ public class ExtendedPublicKeyFragment extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(final Bundle savedInstanceState) {
-        final String xpub = getArguments().getCharSequence(KEY_XPUB).toString();
+        final String base58 = getArguments().getCharSequence(KEY_EXTENDED_PUBLIC_KEY).toString();
 
         final View view = LayoutInflater.from(activity).inflate(R.layout.extended_public_key_dialog, null);
 
-        final BitmapDrawable bitmap = new BitmapDrawable(getResources(), Qr.bitmap(xpub));
+        final BitmapDrawable bitmap = new BitmapDrawable(getResources(), Qr.bitmap(base58));
         bitmap.setFilterBitmap(false);
         final ImageView imageView = (ImageView) view.findViewById(R.id.extended_public_key_dialog_image);
         imageView.setImageDrawable(bitmap);
@@ -93,11 +93,11 @@ public class ExtendedPublicKeyFragment extends DialogFragment {
             public void onClick(final DialogInterface dialog, final int which) {
                 final ShareCompat.IntentBuilder builder = ShareCompat.IntentBuilder.from(activity);
                 builder.setType("text/plain");
-                builder.setText(xpub);
+                builder.setText(base58);
                 builder.setSubject(getString(R.string.extended_public_key_fragment_title));
                 builder.setChooserTitle(R.string.extended_public_key_fragment_share);
                 builder.startChooser();
-                log.info("xpub shared via intent: {}", xpub);
+                log.info("extended public key shared via intent: {}", base58);
             }
         });
 

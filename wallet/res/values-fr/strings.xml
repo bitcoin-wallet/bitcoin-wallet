@@ -274,11 +274,11 @@ avant de recevoir des bitcoins !</string>
   <string name="preferences_initiate_reset_summary">Réinitialiser la chaîne de blocs et le solde du porte-monnaie. La relecture prendra du temps, ne le faites que si vous savez pourquoi.</string>
   <string name="preferences_initiate_reset_dialog_message">Souhaitez-vous réinitialiser et relire la chaîne de blocs ?\n\nLe solde de votre porte-monnaie sera caché et les transactions retirées temporairement. Les deux seront récupérés alors que la synchronisation de la chaîne de blocs progressera. Assurez-vous d’avoir une connexion Internet fiable.</string>
   <string name="preferences_initiate_reset_dialog_positive">Réinitialiser</string>
-  <string name="preferences_extended_public_key_title">Montrer la xpub</string>
+  <string name="preferences_extended_public_key_title">Montrer la extended public key</string>
   <string name="preferences_extended_public_key_summary">Visualisez la clé privée étendue de votre porte-monnaie afin qu’elle puisse être importée dans d’autres applis et services. Attention : ceci divulguera à cette appli vos informations monétaires.</string>
   <string name="bitmap_fragment_share">Partager…</string>
   <string name="extended_public_key_fragment_title">Clé privée étendue</string>
-  <string name="extended_public_key_fragment_share">Partager la xpub…</string>
+  <string name="extended_public_key_fragment_share">Partager la extended public key…</string>
   <string name="report_issue_dialog_title_issue">Signaler un problème</string>
   <string name="report_issue_dialog_title_crash">Un plantage précédent a été détecté</string>
   <string name="report_issue_dialog_title_transaction">Signaler un problème avec le paiement sélectionné</string>

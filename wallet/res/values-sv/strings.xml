@@ -253,11 +253,11 @@
   <string name="preferences_initiate_reset_summary">Återställer blockkedjan, transaktioner och plånboksbalansen, det tar en stund.</string>
   <string name="preferences_initiate_reset_dialog_message">Vill du återställa och återsynkronisera blockkedjan? Detta kommer att tillfälligt dölja plånbokens saldo och radera genomförda transaktioner. Båda dessa kommer att återställas när blockkedjans synkronisering fortsätter.</string>
   <string name="preferences_initiate_reset_dialog_positive">Återställ</string>
-  <string name="preferences_extended_public_key_title">Visa xpub</string>
+  <string name="preferences_extended_public_key_title">Visa extended public key</string>
   <string name="preferences_extended_public_key_summary">Visa din plånboks publika huvudnyckel så den kan importeras till andra program och tjänster. Men var försiktig: Detta kommer att avslöja dina kontouppgifter för det program som importerar nyckeln.</string>
   <string name="bitmap_fragment_share">Dela…</string>
   <string name="extended_public_key_fragment_title">Publik huvudnyckel</string>
-  <string name="extended_public_key_fragment_share">Dela xpub…</string>
+  <string name="extended_public_key_fragment_share">Dela extended public key…</string>
   <string name="report_issue_dialog_title_issue">Rapportera problem</string>
   <string name="report_issue_dialog_title_crash">Tidigare krasch upptäckt</string>
   <string name="report_issue_dialog_message_issue">Beskriv felet så utförligt som möjligt så att det går att återskapa händelsen.</string>
