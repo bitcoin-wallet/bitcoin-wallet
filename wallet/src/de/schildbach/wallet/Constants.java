@@ -25,6 +25,7 @@ import org.bitcoinj.core.Context;
 import org.bitcoinj.core.NetworkParameters;
 import org.bitcoinj.params.MainNetParams;
 import org.bitcoinj.params.TestNet3Params;
+import org.bitcoinj.script.Script;
 import org.bitcoinj.utils.MonetaryFormat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,6 +50,18 @@ public final class Constants {
 
     /** Bitcoinj global context. */
     public static final Context CONTEXT = new Context(NETWORK_PARAMETERS);
+
+    /**
+     * The type of Bitcoin addresses used for the initial wallet: {@link Script.ScriptType#P2PKH} for classic
+     * Base58, {@link Script.ScriptType#P2WPKH} for segwit Bech32.
+     */
+    public static final Script.ScriptType DEFAULT_OUTPUT_SCRIPT_TYPE = Script.ScriptType.P2PKH;
+
+    /**
+     * The type of Bitcoin addresses to upgrade the current wallet to: {@link Script.ScriptType#P2PKH} for classic
+     * Base58, {@link Script.ScriptType#P2WPKH} for segwit Bech32.
+     */
+    public static final Script.ScriptType UPGRADE_OUTPUT_SCRIPT_TYPE = Script.ScriptType.P2PKH;
 
     /** Enable switch for synching of the blockchain */
     public static final boolean ENABLE_BLOCKCHAIN_SYNC = true;

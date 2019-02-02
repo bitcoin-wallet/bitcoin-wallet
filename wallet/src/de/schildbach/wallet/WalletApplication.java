@@ -30,7 +30,6 @@ import org.bitcoinj.core.VerificationException;
 import org.bitcoinj.core.VersionMessage;
 import org.bitcoinj.crypto.LinuxSecureRandom;
 import org.bitcoinj.crypto.MnemonicCode;
-import org.bitcoinj.script.Script;
 import org.bitcoinj.utils.Threading;
 import org.bitcoinj.wallet.UnreadableWalletException;
 import org.bitcoinj.wallet.Wallet;
@@ -212,7 +211,8 @@ public class WalletApplication extends Application {
                             TimeUnit.MILLISECONDS, null);
                 } else {
                     final Stopwatch watch = Stopwatch.createStarted();
-                    wallet = Wallet.createDeterministic(Constants.NETWORK_PARAMETERS, Script.ScriptType.P2PKH);
+                    wallet = Wallet.createDeterministic(Constants.NETWORK_PARAMETERS,
+                            Constants.DEFAULT_OUTPUT_SCRIPT_TYPE);
                     walletFiles = wallet.autosaveToFile(walletFile, Constants.Files.WALLET_AUTOSAVE_DELAY_MS,
                             TimeUnit.MILLISECONDS, null);
                     autosaveWalletNow(); // persist...
