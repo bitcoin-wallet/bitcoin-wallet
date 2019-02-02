@@ -169,7 +169,7 @@ public final class Constants {
     /** A balance above this amount will cause the donate option to be shown */
     public static final Coin SOME_BALANCE_THRESHOLD = Coin.COIN.divide(200);
 
-    public static final int SDK_DEPRECATED_BELOW = Build.VERSION_CODES.KITKAT;
+    public static final int SDK_DEPRECATED_BELOW = Build.VERSION_CODES.LOLLIPOP;
 
     public static final int NOTIFICATION_ID_CONNECTED = 1;
     public static final int NOTIFICATION_ID_COINS_RECEIVED = 2;
