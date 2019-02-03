@@ -25,7 +25,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.bitcoinj.core.Address;
 import org.bitcoinj.core.Coin;
 import org.bitcoinj.core.DumpedPrivateKey;
 import org.bitcoinj.core.ECKey;
@@ -479,9 +478,8 @@ public class SweepWalletFragment extends Fragment {
             }
         };
 
-        final Address address = viewModel.walletToSweep.getImportedKeys().iterator().next()
-                .toAddress(Constants.NETWORK_PARAMETERS);
-        new RequestWalletBalanceTask(backgroundHandler, callback).requestWalletBalance(activity.getAssets(), address);
+        final ECKey key = viewModel.walletToSweep.getImportedKeys().iterator().next();
+        new RequestWalletBalanceTask(backgroundHandler, callback).requestWalletBalance(activity.getAssets(), key);
     }
 
     private void setState(final SweepWalletViewModel.State state) {

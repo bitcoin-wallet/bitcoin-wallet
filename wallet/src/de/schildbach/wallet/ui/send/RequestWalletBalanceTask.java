@@ -47,6 +47,7 @@ import javax.net.ssl.X509TrustManager;
 
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.Coin;
+import org.bitcoinj.core.ECKey;
 import org.bitcoinj.core.Sha256Hash;
 import org.bitcoinj.core.UTXO;
 import org.bitcoinj.script.Script;
@@ -119,7 +120,7 @@ public final class RequestWalletBalanceTask {
         }
     }
 
-    public void requestWalletBalance(final AssetManager assets, final Address address) {
+    public void requestWalletBalance(final AssetManager assets, final ECKey key) {
         backgroundHandler.post(new Runnable() {
             @Override
             public void run() {
@@ -129,6 +130,7 @@ public final class RequestWalletBalanceTask {
                     final List<ElectrumServer> servers = loadElectrumServers(
                             assets.open(Constants.Files.ELECTRUM_SERVERS_FILENAME));
                     final ElectrumServer server = servers.get(new Random().nextInt(servers.size()));
+                    final Address address = key.toAddress(Constants.NETWORK_PARAMETERS);
                     log.info("trying to request wallet balance from {}: {}", server.socketAddress, address);
                     final Socket socket;
                     if (server.type == ElectrumServer.Type.TLS) {
