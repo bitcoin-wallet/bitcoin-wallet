@@ -49,6 +49,7 @@ import org.bitcoinj.core.Address;
 import org.bitcoinj.core.Coin;
 import org.bitcoinj.core.ECKey;
 import org.bitcoinj.core.LegacyAddress;
+import org.bitcoinj.core.SegwitAddress;
 import org.bitcoinj.core.Sha256Hash;
 import org.bitcoinj.core.UTXO;
 import org.bitcoinj.script.Script;
@@ -103,7 +104,11 @@ public final class RequestWalletBalanceTask {
         private static transient int idCounter = 0;
 
         public JsonRpcRequest(final String method, final String[] params) {
-            this.id = idCounter++;
+            this(idCounter++, method, params);
+        }
+
+        public JsonRpcRequest(final int id, final String method, final String[] params) {
+            this.id = id;
             this.method = method;
             this.params = params;
         }
@@ -131,9 +136,19 @@ public final class RequestWalletBalanceTask {
                     final List<ElectrumServer> servers = loadElectrumServers(
                             assets.open(Constants.Files.ELECTRUM_SERVERS_FILENAME));
                     final ElectrumServer server = servers.get(new Random().nextInt(servers.size()));
-                    final Address address = LegacyAddress.fromKey(Constants.NETWORK_PARAMETERS, key);
-                    final Script outputScript = ScriptBuilder.createOutputScript(address);
-                    log.info("trying to request wallet balance from {}: {}", server.socketAddress, address);
+                    final Address legacyAddress = LegacyAddress.fromKey(Constants.NETWORK_PARAMETERS, key);
+                    final Script[] outputScripts;
+                    final String addressesStr;
+                    if (key.isCompressed()) {
+                        final Address segwitAddress = SegwitAddress.fromKey(Constants.NETWORK_PARAMETERS, key);
+                        outputScripts = new Script[] { ScriptBuilder.createP2PKHOutputScript(legacyAddress.getHash()),
+                                ScriptBuilder.createP2WPKHOutputScript(segwitAddress.getHash()) };
+                        addressesStr = legacyAddress.toString() + "," + segwitAddress.toString();
+                    } else {
+                        outputScripts = new Script[] { ScriptBuilder.createP2PKHOutputScript(legacyAddress.getHash()) };
+                        addressesStr = legacyAddress.toString();
+                    }
+                    log.info("trying to request wallet balance for {} from {}", addressesStr, server.socketAddress);
                     final Socket socket;
                     if (server.type == ElectrumServer.Type.TLS) {
                         final SocketFactory sf = sslTrustAllCertificates();
@@ -165,32 +180,35 @@ public final class RequestWalletBalanceTask {
                     source.timeout().timeout(5000, TimeUnit.MILLISECONDS);
                     final Moshi moshi = new Moshi.Builder().build();
                     final JsonAdapter<JsonRpcRequest> requestAdapter = moshi.adapter(JsonRpcRequest.class);
-                    final JsonRpcRequest request = new JsonRpcRequest("blockchain.scripthash.listunspent",
-                            new String[] { Constants.HEX
-                                    .encode(Sha256Hash.of(outputScript.getProgram()).getReversedBytes()) });
-                    requestAdapter.toJson(sink, request);
-                    sink.writeUtf8("\n").flush();
-                    final JsonAdapter<JsonRpcResponse> responseAdapter = moshi.adapter(JsonRpcResponse.class);
-                    final JsonRpcResponse response = responseAdapter.fromJson(source);
-                    if (response.id == request.id) {
-                        if (response.result == null)
-                            throw new JsonDataException("empty response");
-                        final Set<UTXO> utxos = new HashSet<>();
-                        for (final JsonRpcResponse.Utxo responseUtxo : response.result) {
-                            final Sha256Hash utxoHash = Sha256Hash.wrap(responseUtxo.tx_hash);
-                            final int utxoIndex = responseUtxo.tx_pos;
-                            final Coin utxoValue = Coin.valueOf(responseUtxo.value);
-                            final UTXO utxo = new UTXO(utxoHash, utxoIndex, utxoValue, responseUtxo.height, false,
-                                    outputScript);
-                            utxos.add(utxo);
-                        }
-
-                        log.info("fetched {} unspent outputs from {}", response.result.length, server.socketAddress);
-                        onResult(utxos);
-                    } else {
-                        log.info("id mismatch response:{} vs request:{}", response.id, request.id);
-                        onFail(R.string.error_parse, server.socketAddress.toString());
+                    for (final Script outputScript : outputScripts) {
+                        requestAdapter.toJson(sink, new JsonRpcRequest(outputScript.getScriptType().ordinal(),
+                                "blockchain.scripthash.listunspent", new String[] { Constants.HEX
+                                        .encode(Sha256Hash.of(outputScript.getProgram()).getReversedBytes()) }));
+                        sink.writeUtf8("\n").flush();
                     }
+                    final JsonAdapter<JsonRpcResponse> responseAdapter = moshi.adapter(JsonRpcResponse.class);
+                    final Set<UTXO> utxos = new HashSet<>();
+                    for (final Script outputScript : outputScripts) {
+                        final JsonRpcResponse response = responseAdapter.fromJson(source);
+                        final int expectedResponseId = outputScript.getScriptType().ordinal();
+                        if (response.id == expectedResponseId) {
+                            for (final JsonRpcResponse.Utxo responseUtxo : response.result) {
+                                final Sha256Hash utxoHash = Sha256Hash.wrap(responseUtxo.tx_hash);
+                                final int utxoIndex = responseUtxo.tx_pos;
+                                final Coin utxoValue = Coin.valueOf(responseUtxo.value);
+                                final UTXO utxo = new UTXO(utxoHash, utxoIndex, utxoValue, responseUtxo.height, false,
+                                        outputScript);
+                                log.info("utxo: {}", utxo);
+                                utxos.add(utxo);
+                            }
+                        } else {
+                            log.info("id mismatch response:{} vs request:{}", response.id, expectedResponseId);
+                            onFail(R.string.error_parse, server.socketAddress.toString());
+                            return;
+                        }
+                    }
+                    log.info("fetched {} unspent outputs from {}", utxos.size(), server.socketAddress);
+                    onResult(utxos);
                 } catch (final JsonDataException x) {
                     log.info("problem parsing json", x);
                     onFail(R.string.error_parse, x.getMessage());
