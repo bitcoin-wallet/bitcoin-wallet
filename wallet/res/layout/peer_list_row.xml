@@ -49,4 +49,9 @@
             android:layout_height="wrap_content" />
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/peer_list_row_services"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
 </LinearLayout>

@@ -20,6 +20,7 @@ package de.schildbach.wallet.ui.monitor;
 import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 
@@ -58,6 +59,7 @@ public class PeerListAdapter extends ListAdapter<PeerListAdapter.ListItem, PeerL
             final VersionMessage versionMessage = peer.getPeerVersionMessage();
             this.version = versionMessage.subVer;
             this.protocol = "protocol: " + versionMessage.clientVersion;
+            this.services = peer.toStringServices(versionMessage.localServices).toLowerCase(Locale.US);
             final long pingTime = peer.getPingTime();
             this.ping = pingTime < Long.MAX_VALUE ? context.getString(R.string.peer_list_row_ping_time, pingTime)
                     : null;
@@ -69,6 +71,7 @@ public class PeerListAdapter extends ListAdapter<PeerListAdapter.ListItem, PeerL
         public final long height;
         public final String version;
         public final String protocol;
+        public final String services;
         public final String ping;
         public final boolean isDownloading;
     }
@@ -112,6 +115,8 @@ public class PeerListAdapter extends ListAdapter<PeerListAdapter.ListItem, PeerL
         holder.versionView.setTypeface(listItem.isDownloading ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);
         holder.protocolView.setText(listItem.protocol);
         holder.protocolView.setTypeface(listItem.isDownloading ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);
+        holder.servicesView.setText(listItem.services);
+        holder.servicesView.setTypeface(listItem.isDownloading ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);
         holder.pingView.setText(listItem.ping);
         holder.pingView.setTypeface(listItem.isDownloading ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);
     }
@@ -121,6 +126,7 @@ public class PeerListAdapter extends ListAdapter<PeerListAdapter.ListItem, PeerL
         private final TextView heightView;
         private final TextView versionView;
         private final TextView protocolView;
+        private final TextView servicesView;
         private final TextView pingView;
 
         private ViewHolder(final View itemView) {
@@ -129,6 +135,7 @@ public class PeerListAdapter extends ListAdapter<PeerListAdapter.ListItem, PeerL
             heightView = (TextView) itemView.findViewById(R.id.peer_list_row_height);
             versionView = (TextView) itemView.findViewById(R.id.peer_list_row_version);
             protocolView = (TextView) itemView.findViewById(R.id.peer_list_row_protocol);
+            servicesView = (TextView) itemView.findViewById(R.id.peer_list_row_services);
             pingView = (TextView) itemView.findViewById(R.id.peer_list_row_ping);
         }
     }
