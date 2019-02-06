@@ -9,11 +9,23 @@
     android:paddingRight="@dimen/list_entry_padding_horizontal"
     android:paddingTop="@dimen/list_entry_padding_vertical" >
 
-    <TextView
-        android:id="@+id/peer_list_row_ip"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textStyle="bold" />
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/peer_list_row_ip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/peer_list_row_ping"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -32,22 +44,10 @@
             android:layout_height="wrap_content" />
     </LinearLayout>
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/peer_list_row_protocol"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
-
-        <TextView
-            android:id="@+id/peer_list_row_protocol"
-            android:layout_width="0px"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-
-        <TextView
-            android:id="@+id/peer_list_row_ping"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
+        android:layout_height="wrap_content" />
 
     <TextView
         android:id="@+id/peer_list_row_services"
