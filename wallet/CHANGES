@@ -1,3 +1,7 @@
+v6.40
+
+* Fix transaction fee is shown as a positive amount in the history.
+
 v6.39
 
 * Update the API used for sweeping paper wallets.
