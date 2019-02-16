@@ -82,7 +82,7 @@ public class RaiseFeeDialogFragment extends DialogFragment {
         final RaiseFeeDialogFragment fragment = new RaiseFeeDialogFragment();
 
         final Bundle args = new Bundle();
-        args.putSerializable(KEY_TRANSACTION, tx.getHash().getBytes());
+        args.putByteArray(KEY_TRANSACTION, tx.getHash().getBytes());
         fragment.setArguments(args);
 
         return fragment;
@@ -145,8 +145,7 @@ public class RaiseFeeDialogFragment extends DialogFragment {
         });
 
         final Bundle args = getArguments();
-        final byte[] txHash = (byte[]) args.getSerializable(KEY_TRANSACTION);
-        transaction = checkNotNull(wallet.getTransaction(Sha256Hash.wrap(txHash)));
+        transaction = checkNotNull(wallet.getTransaction(Sha256Hash.wrap(args.getByteArray(KEY_TRANSACTION))));
 
         backgroundThread = new HandlerThread("backgroundThread", Process.THREAD_PRIORITY_BACKGROUND);
         backgroundThread.start();
