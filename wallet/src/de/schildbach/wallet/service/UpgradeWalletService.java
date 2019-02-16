@@ -17,6 +17,7 @@
 
 package de.schildbach.wallet.service;
 
+import org.bitcoinj.script.Script;
 import org.bitcoinj.wallet.Wallet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -76,11 +77,9 @@ public final class UpgradeWalletService extends IntentService {
 
         final Wallet wallet = application.getWallet();
 
-        if (wallet.isDeterministicUpgradeRequired()) {
-            log.info("detected non-HD wallet, upgrading");
-
-            // upgrade wallet to HD
-            wallet.upgradeToDeterministic(null);
+        if (wallet.isDeterministicUpgradeRequired(Script.ScriptType.P2PKH)) {
+            // upgrade wallet to a specific deterministic chain
+            wallet.upgradeToDeterministic(Script.ScriptType.P2PKH, null);
 
             // let other service pre-generate look-ahead keys
             BlockchainService.start(this, false);
