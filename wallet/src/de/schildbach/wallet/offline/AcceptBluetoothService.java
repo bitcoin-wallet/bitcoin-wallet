@@ -126,7 +126,7 @@ public final class AcceptBluetoothService extends LifecycleService {
     }
 
     private boolean handleTx(final Transaction tx) {
-        log.info("tx " + tx.getHashAsString() + " arrived via blueooth");
+        log.info("tx {} arrived via blueooth", tx.getTxId());
 
         final Wallet wallet = this.wallet.getValue();
         try {
@@ -140,12 +140,12 @@ public final class AcceptBluetoothService extends LifecycleService {
                     }
                 });
             } else {
-                log.info("tx " + tx.getHashAsString() + " irrelevant");
+                log.info("tx {} irrelevant", tx.getTxId());
             }
 
             return true;
         } catch (final VerificationException x) {
-            log.info("cannot verify tx " + tx.getHashAsString() + " received via bluetooth", x);
+            log.info("cannot verify tx " + tx.getTxId() + " received via bluetooth", x);
         }
 
         return false;

@@ -321,11 +321,10 @@ public class WalletTransactionsFragment extends Fragment implements Transactions
 
                 case R.id.wallet_transactions_context_browse:
                     if (!txRotation) {
-                        final String txHash = tx.getHashAsString();
                         final Uri blockExplorerUri = config.getBlockExplorer();
-                        log.info("Viewing transaction {} on {}", txHash, blockExplorerUri);
-                        startActivity(
-                                new Intent(Intent.ACTION_VIEW, Uri.withAppendedPath(blockExplorerUri, "tx/" + txHash)));
+                        log.info("Viewing transaction {} on {}", tx.getTxId(), blockExplorerUri);
+                        startActivity(new Intent(Intent.ACTION_VIEW,
+                                Uri.withAppendedPath(blockExplorerUri, "tx/" + tx.getTxId().toString())));
                     } else {
                         startActivity(new Intent(Intent.ACTION_VIEW, KEY_ROTATION_URI));
                     }

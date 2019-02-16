@@ -82,7 +82,7 @@ public class RaiseFeeDialogFragment extends DialogFragment {
         final RaiseFeeDialogFragment fragment = new RaiseFeeDialogFragment();
 
         final Bundle args = new Bundle();
-        args.putByteArray(KEY_TRANSACTION, tx.getHash().getBytes());
+        args.putByteArray(KEY_TRANSACTION, tx.getTxId().getBytes());
         fragment.setArguments(args);
 
         return fragment;

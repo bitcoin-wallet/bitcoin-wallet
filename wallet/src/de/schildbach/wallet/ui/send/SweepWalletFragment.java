@@ -425,7 +425,7 @@ public class SweepWalletFragment extends Fragment {
                     if (fakeTx == null) {
                         fakeTx = new FakeTransaction(Constants.NETWORK_PARAMETERS, utxo.getHash());
                         fakeTx.getConfidence().setConfidenceType(ConfidenceType.BUILDING);
-                        fakeTxns.put(fakeTx.getHash(), fakeTx);
+                        fakeTxns.put(fakeTx.getTxId(), fakeTx);
                     }
                     final TransactionOutput fakeOutput = new TransactionOutput(Constants.NETWORK_PARAMETERS, fakeTx,
                             utxo.getValue(), utxo.getScript().getProgram());

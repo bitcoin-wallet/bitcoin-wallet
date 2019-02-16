@@ -831,7 +831,7 @@ public final class SendCoinsFragment extends Fragment {
                     log.info("returning result to calling activity: {}", callingActivity.flattenToString());
 
                     final Intent result = new Intent();
-                    BitcoinIntegration.transactionHashToResult(result, viewModel.sentTransaction.getHashAsString());
+                    BitcoinIntegration.transactionHashToResult(result, viewModel.sentTransaction.getTxId().toString());
                     if (viewModel.paymentIntent.standard == Standard.BIP70)
                         BitcoinIntegration.paymentToResult(result, payment.toByteArray());
                     activity.setResult(Activity.RESULT_OK, result);

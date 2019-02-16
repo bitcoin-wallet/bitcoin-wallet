@@ -193,7 +193,7 @@ public class WalletTransactionsViewModel extends AndroidViewModel {
             if (time1 != time2)
                 return time1 > time2 ? -1 : 1;
 
-            return tx1.getHash().compareTo(tx2.getHash());
+            return tx1.getTxId().compareTo(tx2.getTxId());
         }
     };
 

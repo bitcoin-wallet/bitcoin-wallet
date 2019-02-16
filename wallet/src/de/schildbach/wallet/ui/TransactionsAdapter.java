@@ -80,7 +80,7 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
             items.add(new ListItem.WarningItem(warning));
         for (final Transaction tx : transactions)
             items.add(new ListItem.TransactionItem(context, tx, wallet, addressBook, noCodeFormat, maxConnectedPeers,
-                    tx.getHash().equals(selectedTransaction)));
+                    tx.getTxId().equals(selectedTransaction)));
         return items;
     }
 
@@ -121,7 +121,7 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
             public TransactionItem(final Context context, final Transaction tx, final @Nullable Wallet wallet,
                     final @Nullable Map<String, AddressBookEntry> addressBook, final MonetaryFormat format,
                     final int maxConnectedPeers, final boolean isSelected) {
-                this.transactionHash = tx.getHash();
+                this.transactionHash = tx.getTxId();
                 this.isSelected = isSelected;
 
                 final Resources res = context.getResources();

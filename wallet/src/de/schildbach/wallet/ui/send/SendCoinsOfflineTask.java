@@ -59,7 +59,7 @@ public abstract class SendCoinsOfflineTask {
                 try {
                     log.info("sending: {}", sendRequest);
                     final Transaction transaction = wallet.sendCoinsOffline(sendRequest); // can take long
-                    log.info("send successful, transaction committed: {}", transaction.getHashAsString());
+                    log.info("send successful, transaction committed: {}", transaction.getTxId());
 
                     callbackHandler.post(new Runnable() {
                         @Override

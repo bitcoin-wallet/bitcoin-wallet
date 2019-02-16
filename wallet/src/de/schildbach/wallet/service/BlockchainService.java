@@ -207,7 +207,7 @@ public class BlockchainService extends LifecycleService {
     public static void broadcastTransaction(final Context context, final Transaction tx) {
         final Intent intent = new Intent(BlockchainService.ACTION_BROADCAST_TRANSACTION, null, context,
                 BlockchainService.class);
-        intent.putExtra(BlockchainService.ACTION_BROADCAST_TRANSACTION_HASH, tx.getHash().getBytes());
+        intent.putExtra(BlockchainService.ACTION_BROADCAST_TRANSACTION_HASH, tx.getTxId().getBytes());
         context.startService(intent);
     }
 
@@ -592,11 +592,10 @@ public class BlockchainService extends LifecycleService {
                 if (amount.isPositive()) {
                     final Address address = WalletUtils.getWalletAddressOfReceived(tx, wallet);
                     final ConfidenceType confidenceType = tx.getConfidence().getConfidenceType();
-                    final Sha256Hash hash = tx.getHash();
                     final boolean replaying = blockChain.getBestChainHeight() < config.getBestChainHeightEver();
                     final boolean isReplayedTx = confidenceType == ConfidenceType.BUILDING && replaying;
                     if (!isReplayedTx)
-                        notifyCoinsReceived(address, amount, hash);
+                        notifyCoinsReceived(address, amount, tx.getTxId());
                 }
             }
         });
@@ -805,10 +804,10 @@ public class BlockchainService extends LifecycleService {
                 final Transaction tx = application.getWallet().getTransaction(hash);
 
                 if (peerGroup != null) {
-                    log.info("broadcasting transaction " + tx.getHashAsString());
+                    log.info("broadcasting transaction {}", tx.getTxId());
                     peerGroup.broadcastTransaction(tx);
                 } else {
-                    log.info("peergroup not available, not broadcasting transaction " + tx.getHashAsString());
+                    log.info("peergroup not available, not broadcasting transaction {}", tx.getTxId());
                 }
             }
         } else {
