@@ -441,7 +441,8 @@ public class SweepWalletFragment extends Fragment {
                 for (final Transaction tx : fakeTxns.values())
                     viewModel.walletToSweep
                             .addWalletTransaction(new WalletTransaction(WalletTransaction.Pool.UNSPENT, tx));
-                log.info("built wallet to sweep:\n{}", viewModel.walletToSweep.toString(false, true, false, null));
+                log.info("built wallet to sweep:\n{}",
+                        viewModel.walletToSweep.toString(false, false, null, true, false, null));
 
                 updateView();
             }

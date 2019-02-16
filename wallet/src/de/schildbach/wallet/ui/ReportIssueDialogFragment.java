@@ -165,7 +165,7 @@ public class ReportIssueDialogFragment extends DialogFragment {
 
             @Override
             protected CharSequence collectWalletDump() {
-                return viewModel.wallet.getValue().toString(false, true, true, null);
+                return viewModel.wallet.getValue().toString(false, false, null, true, true, null);
             }
         };
         final AlertDialog dialog = builder.create();
