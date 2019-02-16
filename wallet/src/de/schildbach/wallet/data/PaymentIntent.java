@@ -86,11 +86,12 @@ public final class PaymentIntent implements Parcelable {
             builder.append('[');
             builder.append(hasAmount() ? amount.toPlainString() : "null");
             builder.append(',');
-            if (script.isSentToAddress() || script.isPayToScriptHash())
+            if (ScriptPattern.isP2PKH(script) || ScriptPattern.isP2SH(script)
+                    || ScriptPattern.isP2WH(script))
                 builder.append(script.getToAddress(Constants.NETWORK_PARAMETERS));
-            else if (script.isSentToRawPubKey())
+            else if (ScriptPattern.isP2PK(script))
                 builder.append(Constants.HEX.encode(ScriptPattern.extractKeyFromP2PK(script)));
-            else if (script.isSentToMultiSig())
+            else if (ScriptPattern.isSentToMultisig(script))
                 builder.append("multisig");
             else
                 builder.append("unknown");
@@ -275,7 +276,8 @@ public final class PaymentIntent implements Parcelable {
             return false;
 
         final Script script = outputs[0].script;
-        return script.isSentToAddress() || script.isPayToScriptHash() || script.isSentToRawPubKey();
+        return ScriptPattern.isP2PKH(script) || ScriptPattern.isP2SH(script)
+                || ScriptPattern.isP2PK(script) || ScriptPattern.isP2WH(script);
     }
 
     public Address getAddress() {
