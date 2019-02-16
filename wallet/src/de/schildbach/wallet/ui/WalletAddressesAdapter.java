@@ -145,7 +145,7 @@ public class WalletAddressesAdapter extends BaseAdapter {
         final Wallet wallet = this.wallet;
         final boolean isRotateKey;
         if (wallet != null) {
-            final ECKey key = wallet.findKeyFromPubHash(address.getHash());
+            final ECKey key = wallet.findKeyFromAddress(address);
             isRotateKey = wallet != null && wallet.isKeyRotating(key);
         } else {
             isRotateKey = false;
