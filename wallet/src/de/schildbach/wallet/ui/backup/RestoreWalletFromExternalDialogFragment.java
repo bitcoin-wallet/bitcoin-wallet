@@ -17,6 +17,8 @@
 
 package de.schildbach.wallet.ui.backup;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -72,7 +74,7 @@ public class RestoreWalletFromExternalDialogFragment extends DialogFragment {
     public static void show(final FragmentManager fm, final Uri backupUri) {
         final DialogFragment newFragment = new RestoreWalletFromExternalDialogFragment();
         final Bundle args = new Bundle();
-        args.putParcelable(KEY_BACKUP_URI, backupUri);
+        args.putParcelable(KEY_BACKUP_URI, checkNotNull(backupUri));
         newFragment.setArguments(args);
         newFragment.show(fm, FRAGMENT_TAG);
     }
@@ -105,7 +107,7 @@ public class RestoreWalletFromExternalDialogFragment extends DialogFragment {
         super.onCreate(savedInstanceState);
         log.info("opening dialog {}", getClass().getName());
 
-        this.backupUri = (Uri) getArguments().getParcelable(KEY_BACKUP_URI);
+        this.backupUri = checkNotNull((Uri) getArguments().getParcelable(KEY_BACKUP_URI));
 
         viewModel = ViewModelProviders.of(this).get(RestoreWalletViewModel.class);
     }
@@ -252,7 +254,7 @@ public class RestoreWalletFromExternalDialogFragment extends DialogFragment {
             final DialogFragment newFragment = new FailureDialogFragment();
             final Bundle args = new Bundle();
             args.putString(KEY_EXCEPTION_MESSAGE, exceptionMessage);
-            args.putParcelable(KEY_BACKUP_URI, backupUri);
+            args.putParcelable(KEY_BACKUP_URI, checkNotNull(backupUri));
             newFragment.setArguments(args);
             newFragment.show(fm, FRAGMENT_TAG);
         }
@@ -266,7 +268,7 @@ public class RestoreWalletFromExternalDialogFragment extends DialogFragment {
         @Override
         public Dialog onCreateDialog(final Bundle savedInstanceState) {
             final String exceptionMessage = getArguments().getString(KEY_EXCEPTION_MESSAGE);
-            final Uri backupUri = getArguments().getParcelable(KEY_BACKUP_URI);
+            final Uri backupUri = checkNotNull((Uri) getArguments().getParcelable(KEY_BACKUP_URI));
             final DialogBuilder dialog = DialogBuilder.warn(getContext(),
                     R.string.import_export_keys_dialog_failure_title);
             dialog.setMessage(getString(R.string.import_keys_dialog_failure, exceptionMessage));
