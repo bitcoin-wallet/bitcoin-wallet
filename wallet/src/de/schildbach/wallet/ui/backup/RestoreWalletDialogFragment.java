@@ -277,7 +277,6 @@ public class RestoreWalletDialogFragment extends DialogFragment {
         if (externalFiles != null) {
             for (final File file : externalFiles) {
                 final boolean looksLikeBackup = Crypto.OPENSSL_FILE_FILTER.accept(file);
-                log.info("  {}{}", file.getName(), looksLikeBackup ? " -- looks like backup file" : "");
                 if (looksLikeBackup)
                     files.add(file);
             }
@@ -287,7 +286,6 @@ public class RestoreWalletDialogFragment extends DialogFragment {
         log.info("adding backup files from app-private storage");
         for (final String filename : activity.fileList()) {
             if (filename.startsWith(Constants.Files.WALLET_KEY_BACKUP_PROTOBUF + '.')) {
-                log.info("  {}", filename);
                 files.add(new File(activity.getFilesDir(), filename));
             }
         }
