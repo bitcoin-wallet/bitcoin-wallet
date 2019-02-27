@@ -156,7 +156,7 @@ public final class WalletActivity extends AbstractWalletActivity {
                 }
             }
         });
-        if (savedInstanceState == null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+        if (savedInstanceState == null)
             viewModel.animateWhenLoadingFinished();
         else
             viewModel.animationFinished();
@@ -286,12 +286,9 @@ public final class WalletActivity extends AbstractWalletActivity {
 
         final View levitate = contentView.findViewWithTag("levitate");
         if (levitate != null) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                final ObjectAnimator elevate = ObjectAnimator.ofFloat(levitate, "elevation", 0.0f,
-                        levitate.getElevation());
-                elevate.setDuration(duration);
-                fragmentEnterAnimationBuilder.before(elevate);
-            }
+            final ObjectAnimator elevate = ObjectAnimator.ofFloat(levitate, "elevation", 0.0f, levitate.getElevation());
+            elevate.setDuration(duration);
+            fragmentEnterAnimationBuilder.before(elevate);
             final Drawable levitateBackground = levitate.getBackground();
             final Animator fadeIn = AnimatorInflater.loadAnimator(WalletActivity.this, R.animator.fade_in_drawable);
             fadeIn.setTarget(levitateBackground);

@@ -41,10 +41,7 @@ public abstract class AbstractWalletActivity extends FragmentActivity {
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         application = (WalletApplication) getApplication();
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-            setTaskDescription(new TaskDescription(null, null, getResources().getColor(R.color.bg_action_bar)));
-
+        setTaskDescription(new TaskDescription(null, null, getResources().getColor(R.color.bg_action_bar)));
         super.onCreate(savedInstanceState);
     }
 
@@ -61,20 +58,6 @@ public abstract class AbstractWalletActivity extends FragmentActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void reportFullyDrawn() {
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
-            super.reportFullyDrawn();
-        } else {
-            // work around bug in KitKat
-            try {
-                super.reportFullyDrawn();
-            } catch (final SecurityException x) {
-                // swallow
-            }
-        }
     }
 
     @SuppressWarnings("deprecation")

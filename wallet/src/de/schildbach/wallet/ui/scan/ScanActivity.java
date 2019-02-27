@@ -58,7 +58,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.hardware.Camera;
 import android.hardware.Camera.CameraInfo;
 import android.hardware.Camera.PreviewCallback;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -91,7 +90,7 @@ public final class ScanActivity extends AbstractWalletActivity
     public static final String INTENT_EXTRA_RESULT = "result";
 
     public static void startForResult(final Activity activity, @Nullable final View clickView, final int requestCode) {
-        if (clickView != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        if (clickView != null) {
             final int[] clickViewLocation = new int[2];
             clickView.getLocationOnScreen(clickViewLocation);
             final Intent intent = new Intent(activity, ScanActivity.class);
@@ -161,9 +160,8 @@ public final class ScanActivity extends AbstractWalletActivity
         // theme attribute.
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
         // Draw under navigation and status bars.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-            getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-                    WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
 
         setContentView(R.layout.scan_activity);
         contentView = findViewById(android.R.id.content);
@@ -180,7 +178,7 @@ public final class ScanActivity extends AbstractWalletActivity
             ActivityCompat.requestPermissions(this, new String[] { Manifest.permission.CAMERA }, 0);
         }
 
-        if (savedInstanceState == null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        if (savedInstanceState == null) {
             final Intent intent = getIntent();
             final int x = intent.getIntExtra(INTENT_EXTRA_SCENE_TRANSITION_X, -1);
             final int y = intent.getIntExtra(INTENT_EXTRA_SCENE_TRANSITION_Y, -1);
