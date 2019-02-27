@@ -18,6 +18,8 @@
 package de.schildbach.wallet.ui.send;
 
 import org.bitcoinj.core.Coin;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.R;
@@ -33,6 +35,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
 import androidx.lifecycle.ViewModelProviders;
 
 /**
@@ -41,6 +44,8 @@ import androidx.lifecycle.ViewModelProviders;
 public final class SendCoinsActivity extends AbstractWalletActivity {
     public static final String INTENT_EXTRA_PAYMENT_INTENT = "payment_intent";
     public static final String INTENT_EXTRA_FEE_CATEGORY = "fee_category";
+
+    private static final Logger log = LoggerFactory.getLogger(SendCoinsActivity.class);
 
     public static void start(final Context context, final PaymentIntent paymentIntent,
             final @Nullable FeeCategory feeCategory, final int intentFlags) {
@@ -68,6 +73,7 @@ public final class SendCoinsActivity extends AbstractWalletActivity {
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        log.info("Referrer: {}", ActivityCompat.getReferrer(this));
         setContentView(R.layout.send_coins_content);
 
         viewModel = ViewModelProviders.of(this).get(SendCoinsActivityViewModel.class);

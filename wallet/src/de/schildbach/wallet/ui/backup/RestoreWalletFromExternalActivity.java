@@ -17,17 +17,25 @@
 
 package de.schildbach.wallet.ui.backup;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import de.schildbach.wallet.ui.AbstractWalletActivity;
 
 import android.os.Bundle;
+import androidx.core.app.ActivityCompat;
 
 /**
  * @author Andreas Schildbach
  */
 public final class RestoreWalletFromExternalActivity extends AbstractWalletActivity {
+
+    private static final Logger log = LoggerFactory.getLogger(RestoreWalletFromExternalActivity.class);
+
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        log.info("Referrer: {}", ActivityCompat.getReferrer(this));
         RestoreWalletFromExternalDialogFragment.show(getSupportFragmentManager(), getIntent().getData());
     }
 }

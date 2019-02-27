@@ -17,11 +17,15 @@
 
 package de.schildbach.wallet.ui;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import de.schildbach.wallet.R;
 
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import androidx.core.app.ActivityCompat;
 import androidx.lifecycle.ViewModelProviders;
 
 /**
@@ -30,9 +34,12 @@ import androidx.lifecycle.ViewModelProviders;
 public final class RequestCoinsActivity extends AbstractWalletActivity {
     private RequestCoinsActivityViewModel viewModel;
 
+    private static final Logger log = LoggerFactory.getLogger(RequestCoinsActivity.class);
+
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        log.info("Referrer: {}", ActivityCompat.getReferrer(this));
         setContentView(R.layout.request_coins_content);
 
         viewModel = ViewModelProviders.of(this).get(RequestCoinsActivityViewModel.class);
