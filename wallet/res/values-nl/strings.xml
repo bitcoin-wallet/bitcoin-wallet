@@ -26,7 +26,8 @@
   <string name="exchange_rates_options_search">Zoek wisselkoers</string>
   <string name="wallet_transactions_fragment_empty_text_received">Nog geen Bitcoins ontvangen</string>
   <string name="wallet_transactions_fragment_empty_text_sent">Nog geen Bitcoins verzonden</string>
-  <string name="wallet_transactions_fragment_empty_text_howto">Hoe verkrijg je Bitcoins?\nVerhandel voor traditioneel geld,\nverkoop goederen of diensten of\nverdien ze met uw werk.</string>
+  <string name="wallet_transactions_fragment_empty_text_howto">Hoe kom ik aan Bitcoins?\nKoop voor regulier geld,\nverkoop goedreen of diensen of\nverdien door te werken.</string>
+  <string name="wallet_transactions_fragment_empty_remind_backup">Maak a.u.b. een backup van je portemonnee\nvoordat er Bitcoins worden ontvangen!</string>
   <string name="wallet_transactions_row_warning_backup">Gefeliciteerd, u heeft uw eerste betaling ontvangen! Heeft u al een &lt;u&gt;back-up gemaakt van uw portemonnee&lt;/u&gt;, om verlies tegen te gaan?</string>
   <string name="wallet_transactions_row_warning_storage_encryption">Tip: om de veiligheid van je portemonnee te vergroten, kun je &lt;u&gt;je apparaat versleutelen&lt;/u&gt;. Dit beschermt ook de gegevens van andere apps.</string>
   <string name="wallet_transactions_row_warning_chain_forking">Het netwerk van Bitcoin is in onderhoud. Je wordt geadviseerd om geen coins te versturen of the ontvangen totdat het onderhoud is afgerond. &lt;u&gt;Voor meer informatie.&lt;/u&gt;</string>
@@ -51,7 +52,7 @@
   <string name="wallet_timeskew_dialog_title">Check je datum- en tijdsinstellingen</string>
   <string name="wallet_timeskew_dialog_msg">De tijd van je apparaat wijkt af met %d minuten. Hierdoor kun je waarschijnlijk geen Bitcoins verzenden of ontvangen.\n\nCheck je instellingen voor datum, tijd en tijdzone en pas die indien nodig aan.</string>
   <string name="wallet_version_dialog_title">Een nieuwe versie is beschikbaar!</string>
-  <string name="wallet_version_dialog_msg">Deze versie lost belangrijke problemen op. Kijk voor een overzicht van de aanpassingen in %s.</string>
+  <string name="wallet_version_dialog_msg">Deze versie fikst belangrijke bugs. Voor details, zie het wijzigingslogboek op %s.</string>
   <string name="wallet_version_dialog_msg_deprecated">Wanneer je geen update ziet wordt jouw Android-versie waarschijnlijk niet meer ondersteund.</string>
   <string name="wallet_version_dialog_button_binary">Download</string>
   <string name="wallet_old_sdk_dialog_title">Android-versie is verouderd</string>
@@ -275,7 +276,7 @@
   <string name="preferences_extended_public_key_title">Toon extended public key</string>
   <string name="preferences_extended_public_key_summary">Toon de uitgebreide public key van je portemonnee zodat het geïmporteerd kan worden in andere apps en services. Wees voorzichtig: hiermee geef je je monetaire privacy prijs aan die app.</string>
   <string name="bitmap_fragment_share">Deel…</string>
-  <string name="extended_public_key_fragment_title">Uitgebreide Public Key</string>
+  <string name="extended_public_key_fragment_title">Extended Public Key</string>
   <string name="extended_public_key_fragment_share">Deel extended public key…</string>
   <string name="report_issue_dialog_title_issue">Meld probleem</string>
   <string name="report_issue_dialog_title_crash">Vorige crash gedetecteerd</string>
@@ -297,8 +298,13 @@
   <string name="about_category_credits">Deze app gebruikt…</string>
   <string name="about_credits_bitcoinj_title">bitcoinj %s, een Bitcoin protocol implementatie</string>
   <string name="about_credits_zxing_title">ZXing, een QR-code processing bibliotheek</string>
-  <string name="about_credits_scrypt_title">Scrypt, geïmplementeerd door Will Glozer en Colin Percival</string>
-  <string name="about_market_app_title">%s Pagina</string>
+  <string name="about_credits_spongycastle_title">Spongy Castle, een cryptografische bibliotheek</string>
+  <string name="about_credits_scrypt_title">Scrypt, een implementatie van de sleutelafleidfunctie</string>
+  <string name="about_credits_okhttp_title">OkHttp, een HTTP-client-bibliotheek</string>
+  <string name="about_credits_moshi_title">Moshi, een JSON-bibliotheek</string>
+  <string name="about_credits_guava_title">Guava, een verzameling van nuttige helpers</string>
+  <string name="about_credits_slf4j_title">SLF4J, een loggingframework</string>
+  <string name="about_market_app_title">%s pagina</string>
   <string name="about_market_app_summary">Beoordeel app</string>
   <string name="about_faq_title">FAQ</string>
   <string name="about_faq_summary">Vaakgestelde vragen over de app</string>
