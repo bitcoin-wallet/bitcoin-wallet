@@ -4,11 +4,11 @@
 <![CDATA[
 		<p>
 			La partie supérieure gauche de l’écran affiche votre solde en bitcoins ainsi qu’une monnaie nationale choisie.
-			Toquez pour atteindre la liste des monnaies nationales et toquez sur l’une d’elles pour la choisir par défaut.
+			Touchez-la pour atteindre la liste des monnaies nationales et touchez l’une d’elles pour la choisir par défaut.
 		</p>
 		<p>
-			Le code QR en haut à droite contient votre adresse Bitcoin actuelle et peut être lu par un payeur.
-			Toquez sur le code QR pour l’agrandir.
+			Le code QR en haut à droite contient votre adresse Bitcoin actuelle et peut être balayé par un payeur.
+			Touchez le code QR pour l’agrandir.
 		</p>
 		<p>
 			Le bas de l’écran est couvert par votre liste de transactions.
@@ -16,7 +16,7 @@
 			Les paiements reçus seront marqués en vert et les paiements envoyés en rouge.
 		</p>
 		<p>
-			Vous pouvez envoyer ou recevoir des pièces en toquant sur les boutons dans la barre de menus.
+			Vous pouvez envoyer ou recevoir des pièces en touchant les boutons dans la barre de menus.
 			Plus d’options sont offertes dans le menu des options.
 		</p>
 	]]>
@@ -30,7 +30,7 @@
 			Vous pouvez d’abord un montant de bitcoins à demander.
 		</p>
 		<p>
-			Ensuite, le payeur devra lire le code QR généré.
+			Ensuite, le payeur devra balayé le code QR généré.
 			Ou vous pourrez envoyer votre demande à une personne éloignée grâce au bouton Partager de la barre de menus.
 			Si la CCP (NFC) est activée sur les deux téléphones, vous pouvez aussi les faire se toucher.
 		</p>
@@ -48,7 +48,7 @@
 		<p>
 			Saisissez d’abord l’adresse Bitcoin de destination.
 			L’adresse sera saisie automatiquement pour les entrées connues de votre carnet d’adresses.
-			Vous pouvez aussi lire un code QR présenté par le bénéficiaire du paiement en touchant le bouton de l’appareil photo.
+			Vous pouvez aussi balayer un code QR présenté par le bénéficiaire du paiement en touchant le bouton de l’appareil photo.
 		</p>
 		<p>
 			Saisissez ensuite le montant à payer.
@@ -71,14 +71,14 @@
   <string name="help_safety">
 <![CDATA[
 		<p>
-			<b>Notes de sécurité importantes :</b>
+			<b>Notes de sécurité importantes :</b>
 		</p>
 		<p>
 			Les bitcoins sont stockés sur l’appareil.
 			<b>Si vous le perdez, vous perdrez vos bitcoins.</b>
 		</p>
 		<p>
-			Cela signifie que vous devez <b>sauvegarder votre porte-monnaie</b> !
+			Cela signifie que vous devez <b>sauvegarder votre porte-monnaie</b> !
 			Utilisez la fonction de sauvegarde de l’appli plutôt qu’une appli de sauvegarde tierce.
 			Conservez votre sauvegarde en lieu sûr et souvenez-vous du mot de passe.
 		</p>
@@ -91,13 +91,13 @@
 			Si vous envoyez vos bitcoins dans le vide, il n’y a presque aucun moyen de les récupérer.
 		</p>
 		<p>
-			<b>Assurez la sécurité de votre appareil mobile !</b>
+			<b>Assurez la sécurité de votre appareil mobile !</b>
 			Ne prenez pas le contrôle de la racine (root) de votre appareil.
 			N’installez que des applications de confiance.
 			Des applications malveillantes pourraient essayer de voler votre porte-monnaie.
 		</p>
 		<p>
-			Minimisez les risques !
+			Minimisez les risques !
 			<b>Ne gardez qu’un montant raisonnable,</b> pour la journée.
 		</p>
 	]]>
@@ -105,7 +105,7 @@
   <string name="help_technical_notes">
 <![CDATA[
 		<p>
-			<b>Notes techniques :</b>
+			<b>Notes techniques :</b>
 		</p>
 		<p>
 			En tant que porte-monnaie VPS (vérification de paiement simplifiée), léger, le porte-monnaie Bitcoin Wallet suit la chaîne de la plus grande preuve de travail (parfois aussi appelé « la chaîne à la plus longue », « la chaîne gagnante », ou la « chaîne de blocs Bitcoin »).

@@ -1,9 +1,9 @@
-<b>Ayez vos bitcoins toujours avec vous dans votre poche !<b> Payez rapidement en lisant un code QR. En tant que marchand, vous recevez les paiements de manière fiable et instantanée. Bitcoin Wallet est la première appli Bitcoin mobile et sans doute aussi la plus sûre !
+<b>Ayez vos bitcoins toujours avec vous dans votre poche !</b> Payez rapidement en balayant un code QR. En tant que marchand, vous recevez les paiements de manière fiable et instantanée. Bitcoin Wallet est la première appli Bitcoin mobile et sans doute aussi la plus sûre !
 
 
 <b>CARACTÉRISTIQUES</b>
 
-• Aucune inscription, service Web ou nuage requis ! Ce porte-monnaie est décentralisé et de pair-à-pair.
+• Aucun inscription, service Web ou nuage n’est requis ! Ce porte-monnaie est décentralisé et pair à pair.
 • Affichage du montant de bitcoins en BTC, mBTC et µBTC.
 • Conversion vers et à partir de monnaies nationales.
 • Envoi et réception de bitcoins par NFC, codes QR ou URL Bitcoin.
@@ -16,20 +16,20 @@
 
 <b>CONTRIBUER</b>
 
-Bitcoin Wallet est un <b>logiciel à code source ouvert</b> et <b>libre</b>. Licence : GPLv3
+Bitcoin Wallet est un <b>logiciel à code source ouvert</b> et <b>libre</b>. Licence : GPLv3
 https://www.gnu.org/licenses/gpl-3.0.fr.html
 
-Notre code source est proposé sur GitHub :
+Notre code source se trouve sur GitHub :
 https://github.com/bitcoin-wallet/bitcoin-wallet
 
-Toutes les traductions sont gérées sur Transifex :
+Toutes les traductions sont gérées sur Transifex :
 https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
 
 
 <b>TÉMOIGNAGES</b>
 
-• De nombreux porte-monnaie mobiles fondent leur code sur Bitcoin Wallet. Par exemples : blockchain.info et BTCX.
+• De nombreux porte-monnaie mobiles fondent leur code sur Bitcoin Wallet. Par exemples : blockchain.info et BTCX.
 • Recommandé par BitPay.
 
 
-<i>Utilisez à vos propres risques !</i>
+<i>Utilisez à vos propres risques !</i>
