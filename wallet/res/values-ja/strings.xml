@@ -273,11 +273,11 @@
   <string name="preferences_initiate_reset_summary">ブロックチェーン・トランザクション・ウォレットの残高をリセットします。再生にしばらくかかるため、必要な理由がわかる場合のみ実行してください。</string>
   <string name="preferences_initiate_reset_dialog_message">ブロックチェーンのリセットと再生を実行しますか?\n\n一時的にウォレットの残高が見られなくなり、トランザクションも削除されます。ブロックチェーンが同期するにつれ、両方とも復元されます。インターネットとの信頼できる接続があることを確認してください。</string>
   <string name="preferences_initiate_reset_dialog_positive">リセット</string>
-  <string name="preferences_extended_public_key_title">extended public keyを表示</string>
+  <string name="preferences_extended_public_key_title">extended public key を表示</string>
   <string name="preferences_extended_public_key_summary">他のアプリやサービスにインポートできるように、ウォレットの拡張公開鍵を表示します。注意: その場合そのアプリに金銭的なプライバシー情報を公開することになります。</string>
   <string name="bitmap_fragment_share">共有…</string>
   <string name="extended_public_key_fragment_title">拡張公開鍵</string>
-  <string name="extended_public_key_fragment_share">extended public keyを共有……</string>
+  <string name="extended_public_key_fragment_share">extended public key を共有……</string>
   <string name="report_issue_dialog_title_issue">問題を報告</string>
   <string name="report_issue_dialog_title_crash">直前のクラッシュを検知しました</string>
   <string name="report_issue_dialog_title_transaction">選択した支払いについて問題を報告する</string>
