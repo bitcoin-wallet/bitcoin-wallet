@@ -1,3 +1,9 @@
+v6.41
+
+* Use the Unicode Bitcoin symbol if available.
+* Backup verification, just to be safe.
+* Update translations from Transifex.
+
 v6.40
 
 * Fix transaction fee is shown as a positive amount in the history.
