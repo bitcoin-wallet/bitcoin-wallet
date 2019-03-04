@@ -1,3 +1,9 @@
+v7.0
+
+* Segregated Witness - Phase I: Send to native segwit (Bech32) addresses.
+* The app now requires Android 5.0 (Lollipop) or higher.
+* Based on bitcoinj 0.15.
+
 v6.41
 
 * Use the Unicode Bitcoin symbol if available.
