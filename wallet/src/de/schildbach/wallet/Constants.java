@@ -114,10 +114,6 @@ public final class Constants {
         public static final String ELECTRUM_SERVERS_FILENAME = "electrum-servers.txt";
     }
 
-    /** Currency code for the wallet name resolver. */
-    public static final String WALLET_NAME_CURRENCY_CODE = NETWORK_PARAMETERS.getId()
-            .equals(NetworkParameters.ID_MAINNET) ? "btc" : "tbtc";
-
     /** URL to fetch version alerts from. */
     public static final HttpUrl VERSION_URL = HttpUrl.parse("https://wallet.schildbach.de/version");
     /** URL to fetch dynamic fees from. */
