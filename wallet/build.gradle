@@ -1,10 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'androidsvgdrawable'
 
-repositories {
-    mavenLocal()
-}
-
 configurations {
     all*.exclude group: 'com.google.android', module: 'android'
     all*.exclude group: 'androidx.legacy', module: 'legacy-support-core-ui'
