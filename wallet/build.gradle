@@ -21,7 +21,7 @@ dependencies {
     compile "androidx.sqlite:sqlite:2.0.0"
     compile "androidx.room:room-runtime:2.0.0"
     annotationProcessor "androidx.room:room-compiler:2.0.0"
-    compile 'org.bitcoinj:bitcoinj-core:0.15'
+    compile 'org.bitcoinj:bitcoinj-core:0.15.1'
     compile 'com.google.protobuf:protobuf-java:3.6.1'
     compile 'com.google.guava:guava:27.0.1-android'
     compile 'com.google.zxing:core:3.3.3'
