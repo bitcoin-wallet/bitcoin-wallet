@@ -1,4 +1,4 @@
-v7.0
+v7.0-v7.01
 
 * Segregated Witness - Phase I: Send to native segwit (Bech32) addresses.
 * The app now requires Android 5.0 (Lollipop) or higher.
