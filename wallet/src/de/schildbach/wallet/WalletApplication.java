@@ -218,7 +218,7 @@ public class WalletApplication extends Application {
                     autosaveWalletNow(); // persist...
                     WalletUtils.autoBackupWallet(WalletApplication.this, wallet); // ...and backup asap
                     watch.stop();
-                    log.info("fresh wallet created, took {}", watch);
+                    log.info("fresh {} wallet created, took {}", Constants.DEFAULT_OUTPUT_SCRIPT_TYPE, watch);
 
                     config.armBackupReminder();
                 }
