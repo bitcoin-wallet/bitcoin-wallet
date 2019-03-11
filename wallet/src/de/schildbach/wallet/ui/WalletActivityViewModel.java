@@ -17,6 +17,7 @@
 
 package de.schildbach.wallet.ui;
 
+import org.bitcoinj.script.Script;
 import org.bitcoinj.wallet.Wallet;
 
 import de.schildbach.wallet.Constants;
@@ -39,6 +40,7 @@ public class WalletActivityViewModel extends AndroidViewModel implements OnFirst
 
     private final WalletApplication application;
     public final WalletEncryptedLiveData walletEncrypted;
+    public final WalletLegacyFallbackLiveData walletLegacyFallback;
     public final MutableLiveData<Event<Integer>> showHelpDialog = new MutableLiveData<>();
     public final MutableLiveData<Event<Void>> showBackupWalletDialog = new MutableLiveData<>();
     public final MutableLiveData<Event<Void>> showRestoreWalletDialog = new MutableLiveData<>();
@@ -53,6 +55,7 @@ public class WalletActivityViewModel extends AndroidViewModel implements OnFirst
         super(application);
         this.application = (WalletApplication) application;
         this.walletEncrypted = new WalletEncryptedLiveData(this.application);
+        this.walletLegacyFallback = new WalletLegacyFallbackLiveData(this.application);
     }
 
     public void animateWhenLoadingFinished() {
@@ -114,6 +117,30 @@ public class WalletActivityViewModel extends AndroidViewModel implements OnFirst
                 public void run() {
                     org.bitcoinj.core.Context.propagate(Constants.CONTEXT);
                     postValue(wallet.isEncrypted());
+                }
+            });
+        }
+    }
+
+    public static class WalletLegacyFallbackLiveData extends AbstractWalletLiveData<Boolean> {
+        public WalletLegacyFallbackLiveData(final WalletApplication application) {
+            super(application);
+        }
+
+        @Override
+        protected void onWalletActive(final Wallet wallet) {
+            load();
+        }
+
+        @Override
+        protected void load() {
+            final Wallet wallet = getWallet();
+            AsyncTask.execute(new Runnable() {
+                @Override
+                public void run() {
+                    org.bitcoinj.core.Context.propagate(Constants.CONTEXT);
+                    postValue(wallet.getActiveKeyChain().getOutputScriptType() == Script.ScriptType.P2WPKH
+                            && wallet.getActiveKeyChains().get(0).getOutputScriptType() != Script.ScriptType.P2WPKH);
                 }
             });
         }

@@ -38,6 +38,7 @@
     <string name="wallet_transactions_options_filter_all">All payments</string>
     <string name="wallet_transactions_options_filter_received">Received payments</string>
     <string name="wallet_transactions_options_filter_sent">Sent payments</string>
+    <string name="wallet_options_request_legacy">Request to legacy address</string>
     <string name="wallet_options_safety_menu">Safety</string>
     <string name="wallet_options_encrypt_keys_set">Set spending PIN</string>
     <string name="wallet_options_encrypt_keys_change">Change spending PIN</string>

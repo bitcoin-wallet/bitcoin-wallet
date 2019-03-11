@@ -20,6 +20,7 @@ package de.schildbach.wallet.ui;
 import org.bitcoinj.core.PrefixedChecksummedBytes;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.VerificationException;
+import org.bitcoinj.script.Script;
 
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
@@ -94,6 +95,12 @@ public final class WalletActivity extends AbstractWalletActivity {
         viewModel.walletEncrypted.observe(this, new Observer<Boolean>() {
             @Override
             public void onChanged(final Boolean isEncrypted) {
+                invalidateOptionsMenu();
+            }
+        });
+        viewModel.walletLegacyFallback.observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(final Boolean isLegacyFallback) {
                 invalidateOptionsMenu();
             }
         });
@@ -392,6 +399,11 @@ public final class WalletActivity extends AbstractWalletActivity {
                     : R.string.wallet_options_encrypt_keys_set);
             encryptKeysOption.setVisible(true);
         }
+        final Boolean isLegacyFallback = viewModel.walletLegacyFallback.getValue();
+        if (isLegacyFallback != null) {
+            final MenuItem requestLegacyOption = menu.findItem(R.id.wallet_options_request_legacy);
+            requestLegacyOption.setVisible(isLegacyFallback);
+        }
 
         return true;
     }
@@ -401,6 +413,10 @@ public final class WalletActivity extends AbstractWalletActivity {
         switch (item.getItemId()) {
         case R.id.wallet_options_request:
             handleRequestCoins();
+            return true;
+
+        case R.id.wallet_options_request_legacy:
+            RequestCoinsActivity.start(this, Script.ScriptType.P2PKH);
             return true;
 
         case R.id.wallet_options_send:
@@ -464,7 +480,7 @@ public final class WalletActivity extends AbstractWalletActivity {
     }
 
     public void handleRequestCoins() {
-        startActivity(new Intent(this, RequestCoinsActivity.class));
+        RequestCoinsActivity.start(this);
     }
 
     public void handleSendCoins() {

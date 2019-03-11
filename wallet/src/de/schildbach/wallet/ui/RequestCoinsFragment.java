@@ -19,6 +19,7 @@ package de.schildbach.wallet.ui;
 
 import org.bitcoinj.core.Address;
 import org.bitcoinj.protocols.payments.PaymentProtocol;
+import org.bitcoinj.script.Script;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -113,6 +114,10 @@ public final class RequestCoinsFragment extends Fragment {
         setHasOptionsMenu(true);
 
         viewModel = ViewModelProviders.of(this).get(RequestCoinsViewModel.class);
+        final Intent intent = activity.getIntent();
+        if (intent.hasExtra(RequestCoinsActivity.INTENT_EXTRA_OUTPUT_SCRIPT_TYPE))
+            viewModel.freshReceiveAddress.overrideOutputScriptType((Script.ScriptType) intent
+                    .getSerializableExtra(RequestCoinsActivity.INTENT_EXTRA_OUTPUT_SCRIPT_TYPE));
         viewModel.freshReceiveAddress.observe(this, new Observer<Address>() {
             @Override
             public void onChanged(final Address address) {

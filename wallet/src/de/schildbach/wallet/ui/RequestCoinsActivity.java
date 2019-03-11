@@ -17,14 +17,18 @@
 
 package de.schildbach.wallet.ui;
 
+import org.bitcoinj.script.Script;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import de.schildbach.wallet.R;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -32,6 +36,19 @@ import androidx.lifecycle.ViewModelProviders;
  * @author Andreas Schildbach
  */
 public final class RequestCoinsActivity extends AbstractWalletActivity {
+    public static final String INTENT_EXTRA_OUTPUT_SCRIPT_TYPE = "output_script_type";
+
+    public static void start(final Context context) {
+        start(context, null);
+    }
+
+    public static void start(final Context context, final @Nullable Script.ScriptType outputScriptType) {
+        final Intent intent = new Intent(context, RequestCoinsActivity.class);
+        if (outputScriptType != null)
+            intent.putExtra(INTENT_EXTRA_OUTPUT_SCRIPT_TYPE, outputScriptType);
+        context.startActivity(intent);
+    }
+
     private RequestCoinsActivityViewModel viewModel;
 
     private static final Logger log = LoggerFactory.getLogger(RequestCoinsActivity.class);
