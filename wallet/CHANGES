@@ -1,3 +1,8 @@
+v7.02
+
+* Segregated Witness - Phase II: Receive to and spend from native segwit (Bech32) addresses.
+* Option to request coins to a legacy address (in case a sender doesn't support Bech32).
+
 v7.0-v7.01
 
 * Segregated Witness - Phase I: Send to native segwit (Bech32) addresses.
