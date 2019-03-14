@@ -12,7 +12,6 @@ dependencies {
     compile 'androidx.annotation:annotation:1.0.2'
     compile 'androidx.core:core:1.0.1'
     compile 'androidx.fragment:fragment:1.0.0'
-    compile 'androidx.legacy:legacy-support-core-utils:1.0.0'
     compile 'androidx.recyclerview:recyclerview:1.0.0'
     compile 'androidx.cardview:cardview:1.0.0'
     compile 'androidx.viewpager:viewpager:1.0.0'
