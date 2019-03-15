@@ -1,3 +1,7 @@
+v7.03
+
+* Double the capacity of the block store.
+
 v7.02
 
 * Segregated Witness - Phase II: Receive to and spend from native segwit (Bech32) addresses.
