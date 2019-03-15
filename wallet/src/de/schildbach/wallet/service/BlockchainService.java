@@ -543,7 +543,8 @@ public class BlockchainService extends LifecycleService {
                 }
 
                 try {
-                    blockStore = new SPVBlockStore(Constants.NETWORK_PARAMETERS, blockChainFile);
+                    blockStore = new SPVBlockStore(Constants.NETWORK_PARAMETERS, blockChainFile,
+                            Constants.Files.BLOCKCHAIN_STORE_CAPACITY, true);
                     blockStore.getChainHead(); // detect corruptions as early as possible
 
                     final long earliestKeyCreationTime = wallet.getEarliestKeyCreationTime();
