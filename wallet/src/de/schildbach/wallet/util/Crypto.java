@@ -209,6 +209,9 @@ public class Crypto {
      * @throws IOException
      */
     public static byte[] decryptBytes(final String textToDecode, final char[] password) throws IOException {
+        if (textToDecode.isEmpty())
+            throw new IOException("empty ciphertext");
+
         final byte[] decodeTextAsBytes;
         try {
             decodeTextAsBytes = BASE64_DECRYPT.decode(textToDecode);
