@@ -32,7 +32,7 @@ import android.annotation.SuppressLint;
 public class Iso8601Format extends SimpleDateFormat {
     private static final TimeZone UTC = TimeZone.getTimeZone("UTC");
 
-    private Iso8601Format(final String formatString) {
+    public Iso8601Format(final String formatString) {
         super(formatString);
 
         setTimeZone(UTC);

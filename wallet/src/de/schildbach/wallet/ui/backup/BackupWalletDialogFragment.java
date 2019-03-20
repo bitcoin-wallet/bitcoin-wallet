@@ -260,7 +260,7 @@ public class BackupWalletDialogFragment extends DialogFragment {
         passwordView.setEnabled(false);
         passwordAgainView.setEnabled(false);
 
-        final DateFormat dateFormat = Iso8601Format.newDateFormat();
+        final DateFormat dateFormat = new Iso8601Format("yyyy-MM-dd-HH-mm");
         dateFormat.setTimeZone(TimeZone.getDefault());
 
         final StringBuilder filename = new StringBuilder(Constants.Files.EXTERNAL_WALLET_BACKUP);
