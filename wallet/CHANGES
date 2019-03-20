@@ -1,3 +1,7 @@
+v7.04
+
+* Fix issue with sweeping paper wallets.
+
 v7.03
 
 * Double the capacity of the block store.
