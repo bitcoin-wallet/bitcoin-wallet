@@ -308,6 +308,7 @@ public class BackupWalletDialogFragment extends DialogFragment {
                         } catch (final IOException x) {
                             log.error("problem backing up wallet", x);
                             ErrorDialogFragment.showDialog(getFragmentManager(), x.toString());
+                            return;
                         }
 
                         try (final Reader cipherIn = new InputStreamReader(
@@ -328,6 +329,7 @@ public class BackupWalletDialogFragment extends DialogFragment {
                         } catch (final IOException x) {
                             log.error("problem verifying backup", x);
                             ErrorDialogFragment.showDialog(getFragmentManager(), x.toString());
+                            return;
                         }
                     }
                 });
