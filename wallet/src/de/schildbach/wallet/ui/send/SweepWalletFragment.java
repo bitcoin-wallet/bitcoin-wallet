@@ -423,7 +423,7 @@ public class SweepWalletFragment extends Fragment {
                 for (final UTXO utxo : sortedUtxos) {
                     Transaction fakeTx = fakeTxns.get(utxo.getHash());
                     if (fakeTx == null) {
-                        fakeTx = new FakeTransaction(Constants.NETWORK_PARAMETERS, utxo.getHash());
+                        fakeTx = new FakeTransaction(Constants.NETWORK_PARAMETERS, utxo.getHash(), utxo.getHash());
                         fakeTx.getConfidence().setConfidenceType(ConfidenceType.BUILDING);
                         fakeTxns.put(fakeTx.getTxId(), fakeTx);
                     }
@@ -631,16 +631,22 @@ public class SweepWalletFragment extends Fragment {
     }
 
     private static class FakeTransaction extends Transaction {
-        private final Sha256Hash hash;
+        private final Sha256Hash txId, wTxId;
 
-        public FakeTransaction(final NetworkParameters params, final Sha256Hash hash) {
+        public FakeTransaction(final NetworkParameters params, final Sha256Hash txId, final Sha256Hash wTxId) {
             super(params);
-            this.hash = hash;
+            this.txId = txId;
+            this.wTxId = wTxId;
         }
 
         @Override
-        public Sha256Hash getHash() {
-            return hash;
+        public Sha256Hash getTxId() {
+            return txId;
+        }
+
+        @Override
+        public Sha256Hash getWTxId() {
+            return wTxId;
         }
     }
 }
