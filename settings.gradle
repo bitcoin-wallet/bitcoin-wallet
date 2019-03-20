@@ -1,3 +1,12 @@
+import org.gradle.util.GradleVersion
+import org.gradle.api.GradleScriptException
+
+// required Gradle version
+def minGradleVersion = GradleVersion.version("4.4")
+
+if (GradleVersion.current().compareTo(minGradleVersion) < 0)
+    throw new GradleScriptException("build requires Gradle ${minGradleVersion} or later", null)
+
 include 'wallet'
 include 'integration-android'
 include 'sample-integration-android'
