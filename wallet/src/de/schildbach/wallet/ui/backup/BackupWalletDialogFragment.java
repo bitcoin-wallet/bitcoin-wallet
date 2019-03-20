@@ -299,11 +299,12 @@ public class BackupWalletDialogFragment extends DialogFragment {
                             baos.close();
                             plainBytes = baos.toByteArray();
 
-                            cipherOut.write(Crypto.encrypt(plainBytes, password.toCharArray()));
+                            final String cipherText = Crypto.encrypt(plainBytes, password.toCharArray());
+                            cipherOut.write(cipherText);
                             cipherOut.flush();
 
-                            log.info("backed up wallet to: '" + targetUri + "'"
-                                    + (target != null ? " (" + target + ")" : ""));
+                            log.info("backed up wallet to: '{}'{}, {} characters written", targetUri,
+                                    target != null ? " (" + target + ")" : "", cipherText.length());
                         } catch (final IOException x) {
                             log.error("problem backing up wallet", x);
                             ErrorDialogFragment.showDialog(getFragmentManager(), x.toString());
