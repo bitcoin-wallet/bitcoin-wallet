@@ -155,10 +155,9 @@ public class BackupWalletDialogFragment extends DialogFragment {
         // dummies, just to make buttons show
         builder.setPositiveButton(R.string.button_ok, null);
         builder.setNegativeButton(R.string.button_cancel, null);
-        builder.setCancelable(false);
 
         final AlertDialog dialog = builder.create();
-
+        dialog.setCanceledOnTouchOutside(false);
         dialog.setOnShowListener(new OnShowListener() {
             @Override
             public void onShow(final DialogInterface d) {
@@ -177,6 +176,7 @@ public class BackupWalletDialogFragment extends DialogFragment {
                     @Override
                     public void onClick(final View v) {
                         dismissAllowingStateLoss();
+                        activity.finish();
                     }
                 });
 
@@ -238,6 +238,12 @@ public class BackupWalletDialogFragment extends DialogFragment {
         wipePasswords();
 
         super.onDismiss(dialog);
+    }
+
+    @Override
+    public void onCancel(final DialogInterface dialog) {
+        activity.finish();
+        super.onCancel(dialog);
     }
 
     private void handleGo() {
@@ -337,6 +343,7 @@ public class BackupWalletDialogFragment extends DialogFragment {
                 log.info("cancelled backing up wallet");
                 passwordView.setEnabled(true);
                 passwordAgainView.setEnabled(true);
+                activity.finish();
             }
         } else {
             super.onActivityResult(requestCode, resultCode, intent);
@@ -358,6 +365,8 @@ public class BackupWalletDialogFragment extends DialogFragment {
         private static final String FRAGMENT_TAG = SuccessDialogFragment.class.getName();
         private static final String KEY_TARGET = "target";
 
+        private Activity activity;
+
         public static void showDialog(final FragmentManager fm, final String target) {
             final DialogFragment newFragment = new SuccessDialogFragment();
             final Bundle args = new Bundle();
@@ -367,12 +376,23 @@ public class BackupWalletDialogFragment extends DialogFragment {
         }
 
         @Override
+        public void onAttach(final Context context) {
+            super.onAttach(context);
+            this.activity = (Activity) context;
+        }
+
+        @Override
         public Dialog onCreateDialog(final Bundle savedInstanceState) {
             final String target = getArguments().getString(KEY_TARGET);
             final DialogBuilder dialog = new DialogBuilder(getContext());
             dialog.setTitle(R.string.export_keys_dialog_title);
             dialog.setMessage(Html.fromHtml(getString(R.string.export_keys_dialog_success, target)));
-            dialog.singleDismissButton(null);
+            dialog.singleDismissButton(new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(final DialogInterface dialog, final int id) {
+                    activity.finish();
+                }
+            });
             return dialog.create();
         }
     }
@@ -380,6 +400,8 @@ public class BackupWalletDialogFragment extends DialogFragment {
     public static class ErrorDialogFragment extends DialogFragment {
         private static final String FRAGMENT_TAG = ErrorDialogFragment.class.getName();
         private static final String KEY_EXCEPTION_MESSAGE = "exception_message";
+
+        private Activity activity;
 
         public static void showDialog(final FragmentManager fm, final String exceptionMessage) {
             final DialogFragment newFragment = new ErrorDialogFragment();
@@ -390,12 +412,23 @@ public class BackupWalletDialogFragment extends DialogFragment {
         }
 
         @Override
+        public void onAttach(final Context context) {
+            super.onAttach(context);
+            this.activity = (Activity) context;
+        }
+
+        @Override
         public Dialog onCreateDialog(final Bundle savedInstanceState) {
             final String exceptionMessage = getArguments().getString(KEY_EXCEPTION_MESSAGE);
             final DialogBuilder dialog = DialogBuilder.warn(getContext(),
                     R.string.import_export_keys_dialog_failure_title);
             dialog.setMessage(getString(R.string.export_keys_dialog_failure, exceptionMessage));
-            dialog.singleDismissButton(null);
+            dialog.singleDismissButton(new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(final DialogInterface dialog, final int id) {
+                    activity.finish();
+                }
+            });
             return dialog.create();
         }
     }

@@ -30,7 +30,7 @@ import de.schildbach.wallet.data.PaymentIntent;
 import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.ui.InputParser.BinaryInputParser;
 import de.schildbach.wallet.ui.InputParser.StringInputParser;
-import de.schildbach.wallet.ui.backup.BackupWalletDialogFragment;
+import de.schildbach.wallet.ui.backup.BackupWalletActivity;
 import de.schildbach.wallet.ui.backup.RestoreWalletDialogFragment;
 import de.schildbach.wallet.ui.monitor.NetworkMonitorActivity;
 import de.schildbach.wallet.ui.preference.PreferenceActivity;
@@ -113,7 +113,7 @@ public final class WalletActivity extends AbstractWalletActivity {
         viewModel.showBackupWalletDialog.observe(this, new Event.Observer<Void>() {
             @Override
             public void onEvent(final Void v) {
-                BackupWalletDialogFragment.show(getSupportFragmentManager());
+                BackupWalletActivity.start(WalletActivity.this);
             }
         });
         viewModel.showRestoreWalletDialog.observe(this, new Event.Observer<Void>() {
