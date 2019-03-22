@@ -94,9 +94,9 @@ public abstract class InputParser {
 
                     error(R.string.input_parser_invalid_paymentrequest, x.getMessage());
                 }
-            } else if (input.startsWith("bitcoin:")) {
+            } else if (input.startsWith("bitcoin:") || input.startsWith("BITCOIN:")) {
                 try {
-                    final BitcoinURI bitcoinUri = new BitcoinURI(null, input);
+                    final BitcoinURI bitcoinUri = new BitcoinURI(null, "bitcoin:" + input.substring(8));
                     final Address address = bitcoinUri.getAddress();
                     if (address != null && !Constants.NETWORK_PARAMETERS.equals(address.getParameters()))
                         throw new BitcoinURIParseException("mismatched network");
