@@ -40,7 +40,7 @@ accepted.
 1. Supply an address and optionally an `amount` parameter, with their values exactly matching the
    respective values from the linked payment request message. This means there can be only one
    output in `PaymentDetails.outputs` and that output can only contain an `Output.script` of type
-   `pay-to-pubkey`, `pay-to-pubkey-hash` or `pay-to-script-hash`. Note you should add these parameters
+   `pay-to-pubkey`, `pay-to-pubkey-hash`, `pay-to-witness-pubkey-hash` or `pay-to-script-hash`. Note you should add these parameters
    anyway for backwards compatibility to wallets that don't support the payment protocol.
 2. Supply an `h` parameter, which contains the unpadded base64url-encoded SHA-256 hash of the
    linked payment request bytes.
