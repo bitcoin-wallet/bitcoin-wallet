@@ -96,9 +96,6 @@ public final class Constants {
         public static final File EXTERNAL_WALLET_BACKUP_DIR = Environment
                 .getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
 
-        /** Filename of the manual key backup (old format, can only be read). */
-        public static final String EXTERNAL_WALLET_KEY_BACKUP = "bitcoin-wallet-keys" + FILENAME_NETWORK_SUFFIX;
-
         /** Filename of the manual wallet backup. */
         public static final String EXTERNAL_WALLET_BACKUP = "bitcoin-wallet-backup" + FILENAME_NETWORK_SUFFIX;
 
