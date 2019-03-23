@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2015 the original author or authors.
+ * Copyright the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,7 +33,8 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 
 /**
- * This service upgrades the wallet to an HD wallet. Use {@link #startUpgrade(Context)} to start the process.
+ * This service upgrades the wallet to a deterministic wallet. Use {@link #startUpgrade(Context)} to start the
+ * process.
  * 
  * It will upgrade and then hand over to {@Link BlockchainService} to pre-generate the look-ahead keys. If the
  * wallet is already upgraded, it will do nothing.
@@ -51,7 +52,6 @@ public final class UpgradeWalletService extends IntentService {
 
     public UpgradeWalletService() {
         super(UpgradeWalletService.class.getName());
-
         setIntentRedelivery(true);
     }
 
@@ -73,28 +73,20 @@ public final class UpgradeWalletService extends IntentService {
     @Override
     protected void onHandleIntent(final Intent intent) {
         org.bitcoinj.core.Context.propagate(Constants.CONTEXT);
-
         final Wallet wallet = application.getWallet();
 
-        if (wallet.isDeterministicUpgradeRequired(Constants.UPGRADE_OUTPUT_SCRIPT_TYPE)) {
-            // upgrade wallet to a specific deterministic chain
+        // Maybe upgrade wallet from basic to deterministic
+        if (wallet.isDeterministicUpgradeRequired(Constants.UPGRADE_OUTPUT_SCRIPT_TYPE))
             wallet.upgradeToDeterministic(Constants.UPGRADE_OUTPUT_SCRIPT_TYPE, null);
 
-            // let other service pre-generate look-ahead keys
-            BlockchainService.start(this, false);
-        }
-
-        maybeUpgradeToSecureChain(wallet);
-    }
-
-    private void maybeUpgradeToSecureChain(final Wallet wallet) {
+        // Maybe upgrade wallet to secure chain
         try {
             wallet.doMaintenance(null, false);
-
-            // let other service pre-generate look-ahead keys
-            BlockchainService.start(this, false);
         } catch (final Exception x) {
             log.error("failed doing wallet maintenance", x);
         }
+
+        // Let other service pre-generate look-ahead keys
+        BlockchainService.start(this, false);
     }
 }
