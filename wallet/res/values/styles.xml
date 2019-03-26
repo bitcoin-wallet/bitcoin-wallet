@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <style name="My.Theme" parent="@android:style/Theme.Material.Light.DarkActionBar">
         <item name="android:actionBarStyle">@style/My.Widget.ActionBar</item>
