@@ -22,6 +22,8 @@ import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.VerificationException;
 import org.bitcoinj.script.Script;
 
+import com.google.common.primitives.Floats;
+
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.R;
@@ -62,6 +64,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.core.view.ViewCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -76,6 +80,7 @@ public final class WalletActivity extends AbstractWalletActivity {
     private WalletActivityViewModel viewModel;
     private AnimatorSet enterAnimation;
     private View contentView;
+    private View levitateView;
 
     private static final int REQUEST_CODE_SCAN = 0;
 
@@ -89,6 +94,30 @@ public final class WalletActivity extends AbstractWalletActivity {
 
         setContentView(R.layout.wallet_content);
         contentView = findViewById(android.R.id.content);
+        levitateView = contentView.findViewWithTag("levitate");
+
+        // Make view tagged with 'levitate' scroll away and quickly return.
+        final View targetList = findViewById(R.id.wallet_transactions_list);
+        final View targetEmpty = findViewById(R.id.wallet_transactions_empty);
+        if (levitateView != null && targetList != null && targetEmpty != null) {
+            final CoordinatorLayout.LayoutParams layoutParams = new CoordinatorLayout.LayoutParams(
+                    levitateView.getLayoutParams().width, levitateView.getLayoutParams().height);
+            layoutParams.setBehavior(new QuickReturnBehavior());
+            levitateView.setLayoutParams(layoutParams);
+            levitateView.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+                @Override
+                public void onLayoutChange(final View v, final int left, final int top, final int right,
+                        final int bottom, final int oldLeft, final int oldTop, final int oldRight,
+                        final int oldBottom) {
+                    final int height = bottom - top;
+                    targetList.setPadding(targetList.getPaddingLeft(), height, targetList.getPaddingRight(),
+                            targetList.getPaddingBottom());
+                    targetEmpty.setPadding(targetEmpty.getPaddingLeft(), height, targetEmpty.getPaddingRight(),
+                            targetEmpty.getPaddingBottom());
+                }
+            });
+        }
+
         OnFirstPreDraw.listen(contentView, viewModel);
         enterAnimation = buildEnterAnimation(contentView);
 
@@ -291,12 +320,12 @@ public final class WalletActivity extends AbstractWalletActivity {
             fragmentEnterAnimationBuilder.before(slide).before(fadeIn);
         }
 
-        final View levitate = contentView.findViewWithTag("levitate");
-        if (levitate != null) {
-            final ObjectAnimator elevate = ObjectAnimator.ofFloat(levitate, "elevation", 0.0f, levitate.getElevation());
+        if (levitateView != null) {
+            final ObjectAnimator elevate = ObjectAnimator.ofFloat(levitateView, "elevation", 0.0f,
+                    levitateView.getElevation());
             elevate.setDuration(duration);
             fragmentEnterAnimationBuilder.before(elevate);
-            final Drawable levitateBackground = levitate.getBackground();
+            final Drawable levitateBackground = levitateView.getBackground();
             final Animator fadeIn = AnimatorInflater.loadAnimator(WalletActivity.this, R.animator.fade_in_drawable);
             fadeIn.setTarget(levitateBackground);
             fragmentEnterAnimationBuilder.before(fadeIn);
@@ -492,5 +521,20 @@ public final class WalletActivity extends AbstractWalletActivity {
         // Camera/SurfaceView is used while the animation is running.
         enterAnimation.end();
         ScanActivity.startForResult(this, clickView, WalletActivity.REQUEST_CODE_SCAN);
+    }
+
+    private static final class QuickReturnBehavior extends CoordinatorLayout.Behavior<View> {
+        @Override
+        public boolean onStartNestedScroll(final CoordinatorLayout coordinatorLayout, final View child,
+                final View directTargetChild, final View target, final int nestedScrollAxes, final int type) {
+            return (nestedScrollAxes & ViewCompat.SCROLL_AXIS_VERTICAL) != 0;
+        }
+
+        @Override
+        public void onNestedScroll(final CoordinatorLayout coordinatorLayout, final View child, final View target,
+                final int dxConsumed, final int dyConsumed, final int dxUnconsumed, final int dyUnconsumed,
+                final int type) {
+            child.setTranslationY(Floats.constrainToRange(child.getTranslationY() - dyConsumed, -child.getHeight(), 0));
+        }
     }
 }
