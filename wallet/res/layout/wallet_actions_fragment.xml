@@ -8,18 +8,9 @@
 
     <Button
         android:id="@+id/wallet_actions_request"
-        style="@style/My.Widget.ActionButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:background="?android:attr/selectableItemBackground"
+        style="@style/My.Widget.ActionButton.Wallet"
         android:drawableLeft="@drawable/ic_send_flipped_white_24dp"
-        android:singleLine="true"
-        android:text="@string/button_request_coins"
-        android:textAllCaps="true"
-        android:textColor="@color/fg_network"
-        android:textSize="@dimen/font_size_tiny"
-        android:textStyle="bold" />
+        android:text="@string/button_request_coins" />
 
     <Space
         android:layout_width="0px"
@@ -28,18 +19,9 @@
 
     <Button
         android:id="@+id/wallet_actions_send"
-        style="@style/My.Widget.ActionButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:background="?android:attr/selectableItemBackground"
+        style="@style/My.Widget.ActionButton.Wallet"
         android:drawableRight="@drawable/ic_send_white_24dp"
-        android:singleLine="true"
-        android:text="@string/button_send_coins"
-        android:textAllCaps="true"
-        android:textColor="@color/fg_network"
-        android:textSize="@dimen/font_size_tiny"
-        android:textStyle="bold" />
+        android:text="@string/button_send_coins" />
 
     <ImageButton
         android:id="@+id/wallet_actions_send_qr"

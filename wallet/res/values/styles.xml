@@ -61,6 +61,18 @@
         <item name="android:drawablePadding">4dp</item>
     </style>
 
+    <style name="My.Widget.ActionButton.Wallet">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/fg_network</item>
+        <item name="android:textSize">@dimen/font_size_tiny</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="My.Widget.ActionButton.Overflow" parent="@android:style/Widget.Material.ActionButton.Overflow">
         <item name="android:minHeight">?android:attr/actionBarSize</item>
         <item name="android:minWidth">48dp</item>
