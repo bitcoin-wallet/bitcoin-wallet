@@ -62,6 +62,11 @@
         <item name="android:minWidth">48dp</item>
         <item name="android:drawablePadding">4dp</item>
         <item name="android:drawableTint">@color/fg_network_significant</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/fg_network</item>
+        <item name="android:textSize">@dimen/font_size_tiny</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="My.Widget.ActionButton.Overflow" parent="@android:style/Widget.Material.ActionButton.Overflow">
