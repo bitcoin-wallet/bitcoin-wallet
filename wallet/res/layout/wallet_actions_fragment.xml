@@ -31,10 +31,12 @@
 
     <ImageButton
         android:id="@+id/wallet_actions_send_qr"
-        style="@style/My.Widget.ActionButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/My.Widget.ActionButton.Floating"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
         android:layout_gravity="center_vertical"
+        android:layout_marginLeft="@dimen/list_entry_padding_horizontal_cram"
+        android:layout_marginRight="@dimen/list_entry_padding_horizontal_cram"
         android:contentDescription="@string/button_scan"
         android:src="@drawable/ic_photo_camera_white_24dp" />
 
