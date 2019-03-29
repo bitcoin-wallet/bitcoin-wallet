@@ -5,11 +5,6 @@
     android:layout_height="match_parent"
     android:background="@color/bg_less_bright" >
 
-    <ProgressBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center" />
-
     <TextView
         android:id="@+id/wallet_transactions_empty"
         android:layout_width="match_parent"
