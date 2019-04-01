@@ -99,25 +99,24 @@ shell prompt if its finished syncing. Have a look at the wallet:
     ./wallet-tool dump --wallet=/tmp/bitcoin-wallet-decrypted-backup
 
 Does the balance look right? You can see all transactions that ever touched your wallet. Now empty
-your entire wallet to the desired destination wallet:
+your entire wallet to the desired destination wallet if that's what you want:
 
     ./wallet-tool send --wallet=/tmp/bitcoin-wallet-decrypted-backup --output=<receiving address of destination wallet>:ALL
 
-If your wallet was protected by a spending PIN, you need to supply that PIN using the
-`--password=<PIN>` option. Be extra careful with this command to get all parameters right. If it
+If your wallet was protected by a spending PIN, you need to supply that PIN using the `--password=<PIN>` option.
+
+Be extra careful with this command to get all parameters right. If it
 succeeds, it will print the transaction hash of the created transaction. You can use that on
 a block explorer to watch, or just open the destination wallet and watch from there. If your coins
 are confirmed, you're done and you can skip the next paragraph to EPILOGUE.
 
-You can also get a list of the private keys. If your wallet has a spending PIN set you need to decrypt it first, otherwise the private keys won't appear. Note that when you decrypt the wallet *the private keys can be accessed (and your Bitcoins stolen) by anyone with access to the system*, including malware or other users. Unless you fully trust the security of the computer consider running it on an offline system with no network connectivity.
-
-    ./wallet-tool decrypt --wallet=/tmp/bitcoin-wallet-decrypted-backup --password=<PIN>
-
-Then to get the private keys use:
+You can also get a list of your private keys, e.g. to claim coins other than Bitcoin which may sit on the same keys. To dump the private keys use:
 
     ./wallet-tool dump --wallet=/tmp/bitcoin-wallet-decrypted-backup --dump-privkeys
 
-Look for `priv WIF=<...>`, where `<...>` will be your private keys in wallet import format. Be careful where you put them, as anybody getting access to them will be able to steal your coins. Consider securely deleting the decrypted wallet once you get your private keys.
+Again, if your wallet was protected by a spending PIN, you need to supply that PIN using the `--password=<PIN>` option.
+
+Look for `priv WIF=<...>`, where `<...>` will be your private keys in wallet import format. Be careful where you put them, as anybody getting access to them will be able to steal *all* your coins associated to that key, not only your Bitcoins! Unless you fully trust the security of the computer consider running it on an offline system with no network connectivity. Also, consider securely erasing any decrypted copy of your private keys once you've used them.
 
 ## RECOVERING FROM BASE58 KEY FORMAT
 
