@@ -37,7 +37,7 @@ requiring your Ubuntu user password.
 
 On your PC, within your Linux shell, install the following Ubuntu packages:
 
-    sudo apt install openjdk-8-jdk openjfx android-tools-adb openssl git maven
+    sudo apt install openjdk-8-jdk android-tools-adb openssl git gradle
 
 On your Android device, go to Settings > Developer options and enable "USB debugging". On most
 recent devices you need to go to Settings > About first and tap on "Build number" multiple times
@@ -81,7 +81,7 @@ password.
 
 We need wallet-tool from bitcoinj. First, in a working directory, let's get bitcoinj:
 
-    git clone -b release-0.14 https://github.com/bitcoinj/bitcoinj.git
+    git clone -b release-0.15 https://github.com/bitcoinj/bitcoinj.git
 
 Make sure everything is compiled and ready to go by using once:
 
