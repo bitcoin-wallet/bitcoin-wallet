@@ -26,6 +26,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -47,6 +48,7 @@ import android.content.res.AssetManager;
 import android.os.AsyncTask;
 import androidx.lifecycle.LiveData;
 import okhttp3.Call;
+import okhttp3.ConnectionSpec;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -171,6 +173,7 @@ public class DynamicFeeLiveData extends LiveData<Map<FeeCategory, Coin>> {
             request.header("If-Modified-Since", HttpDate.format(new Date(targetFile.lastModified())));
 
         final OkHttpClient.Builder httpClientBuilder = Constants.HTTP_CLIENT.newBuilder();
+        httpClientBuilder.connectionSpecs(Arrays.asList(ConnectionSpec.RESTRICTED_TLS));
         httpClientBuilder.connectTimeout(5, TimeUnit.SECONDS);
         httpClientBuilder.writeTimeout(5, TimeUnit.SECONDS);
         httpClientBuilder.readTimeout(5, TimeUnit.SECONDS);

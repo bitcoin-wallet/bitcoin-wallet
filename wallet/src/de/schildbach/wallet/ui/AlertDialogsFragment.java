@@ -21,6 +21,7 @@ import java.io.BufferedReader;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
+import java.util.Arrays;
 import java.util.Iterator;
 
 import org.slf4j.Logger;
@@ -52,7 +53,9 @@ import android.text.format.DateUtils;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import okhttp3.Call;
+import okhttp3.ConnectionSpec;
 import okhttp3.HttpUrl;
+import okhttp3.OkHttpClient.Builder;
 import okhttp3.Request;
 import okhttp3.Response;
 
@@ -125,7 +128,9 @@ public class AlertDialogsFragment extends Fragment {
         if (userAgent != null)
             request.header("User-Agent", userAgent);
 
-        final Call call = Constants.HTTP_CLIENT.newCall(request.build());
+        final Builder httpClientBuilder = Constants.HTTP_CLIENT.newBuilder();
+        httpClientBuilder.connectionSpecs(Arrays.asList(ConnectionSpec.RESTRICTED_TLS));
+        final Call call = httpClientBuilder.build().newCall(request.build());
 
         backgroundHandler.post(new Runnable() {
             @Override
