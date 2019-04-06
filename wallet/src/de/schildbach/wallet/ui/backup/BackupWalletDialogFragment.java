@@ -357,6 +357,8 @@ public class BackupWalletDialogFragment extends DialogFragment {
         final String host = uri.getHost();
         if ("com.google.android.apps.docs.storage".equals(host))
             return "Google Drive";
+        if ("com.box.android.documents".equals(host))
+            return "Box";
         if ("com.android.providers.downloads.documents".equals(host))
             return "internal storage";
         return null;
