@@ -17,6 +17,7 @@
 
 package de.schildbach.wallet.ui.backup;
 
+import static androidx.core.util.Preconditions.checkNotNull;
 import static androidx.core.util.Preconditions.checkState;
 
 import java.io.ByteArrayOutputStream;
@@ -289,7 +290,7 @@ public class BackupWalletDialogFragment extends DialogFragment {
                     public void onChanged(final Wallet wallet) {
                         viewModel.wallet.removeObserver(this);
 
-                        final Uri targetUri = intent.getData();
+                        final Uri targetUri = checkNotNull(intent.getData());
                         final String target = uriToTarget(targetUri);
                         final String password = passwordView.getText().toString().trim();
                         checkState(!password.isEmpty());
