@@ -1,3 +1,7 @@
+v7.07
+
+* Segregated Witness - Phase III: Existing wallets without spending PIN are upgraded to use native segwit (Bech32) addresses.
+
 v7.06
 
 * Make more room for transactions list by scrolling away the balance panel.
