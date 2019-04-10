@@ -261,7 +261,7 @@ public class WalletApplication extends Application {
 
     public void replaceWallet(final Wallet newWallet) {
         newWallet.cleanup();
-        if (newWallet.isDeterministicUpgradeRequired(Constants.UPGRADE_OUTPUT_SCRIPT_TYPE))
+        if (newWallet.isDeterministicUpgradeRequired(Constants.UPGRADE_OUTPUT_SCRIPT_TYPE) && !newWallet.isEncrypted())
             newWallet.upgradeToDeterministic(Constants.UPGRADE_OUTPUT_SCRIPT_TYPE, null);
         BlockchainService.resetBlockchain(this);
 

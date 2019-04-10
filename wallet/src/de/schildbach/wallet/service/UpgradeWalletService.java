@@ -76,7 +76,7 @@ public final class UpgradeWalletService extends IntentService {
         final Wallet wallet = application.getWallet();
 
         // Maybe upgrade wallet from basic to deterministic
-        if (wallet.isDeterministicUpgradeRequired(Constants.UPGRADE_OUTPUT_SCRIPT_TYPE))
+        if (wallet.isDeterministicUpgradeRequired(Constants.UPGRADE_OUTPUT_SCRIPT_TYPE) && !wallet.isEncrypted())
             wallet.upgradeToDeterministic(Constants.UPGRADE_OUTPUT_SCRIPT_TYPE, null);
 
         // Maybe upgrade wallet to secure chain
