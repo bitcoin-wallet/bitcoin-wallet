@@ -12,6 +12,7 @@
         android:id="@+id/wallet_options_request_legacy"
         android:showAsAction="never"
         android:title="@string/wallet_options_request_legacy"
+        android:orderInCategory="998"
         android:visible="false"/>
     <item
         android:id="@+id/wallet_options_send"
