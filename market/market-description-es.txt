@@ -26,10 +26,4 @@ Todas las traducciones son administradas a través de Transifex:
 https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
 
 
-<b>TESTIMONIOS</b>
-
-• Muchos monederos móviles basan su código en Bitcoin Wallet. Ejemplos: blockchain.info y BTCX.
-• Recomendado por BitPay.
-
-
 <i>¡Úsalo bajo tu propio riesgo!</i>

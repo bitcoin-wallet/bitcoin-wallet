@@ -26,10 +26,4 @@ All översättning hanteras via Transifex:
 https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
 
 
-<b>REKOMMENDATIONER</b>
-
-• Många mobila plånböcker baserar sin kod på Bitcoin Wallet. Exempelvis: blockchain.info och BTCX.
-• Rekommenderad av BitPay.
-
-
 <i>Används på egen risk!</i>

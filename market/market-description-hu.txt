@@ -26,10 +26,4 @@ Minden fordítást a Transifex kezelt:
 https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
 
 
-<b>AJÁNLÓLEVELEK</b>
-
-• Sok mobiltárca a Bitcoin Wallet-re alapozza a kódját. Például: blockchain.info és BTCX.
-• Ajánlva a BitPay által.
-
-
 <i>Saját felelősségedre használd!</i>

@@ -26,10 +26,4 @@ Kaikki käännökset on hallinnoitu Transifex:n kautta:
 https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
 
 
-<b>SUOSITTELUMME</b>
-
-• Useat mobiililompakot perustuvat Bitcoin Wallet-ohjelman lähdekoodiin, esimerkiksi: blockchain.info ja BTCX.
-• BitPay:n suosittelema.
-
-
 <i>Käytä omalla vastuulla!</i>

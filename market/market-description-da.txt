@@ -26,10 +26,4 @@ Alle oversættelser håndteres via Transifex:
 https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
 
 
-<b>ANBEFALINGER</b>
-
-• Mange mobile tegnebøger baserer deres kode på Bitcoin Wallet. Eksempler: blockchain.info og BTCX.
-• Anbefalet af BitPay.
-
-
 <i>Brug for egen risiko!</i>

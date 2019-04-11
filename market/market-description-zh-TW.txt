@@ -26,10 +26,4 @@ https://github.com/bitcoin-wallet/bitcoin-wallet
 https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
 
 
-<b>大推</b>
-
-• 很多行動錢包的程式都從 Bitcoin Wallet 發展而來。比如說: blockchain.info 以及 BTCX。
-• BitPay 推薦使用。
-
-
 <i>請自負使用風險！</i>

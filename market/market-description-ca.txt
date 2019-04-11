@@ -26,10 +26,4 @@ Totes les traduccions estan gestionades a través de Transifex:
 https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
 
 
-<b>TESTIMONIS</b>
-
-• Moltes carteres mòbils basen el seu codi en la Cartera Bitcoin. Exemples: blockchain.info i BTCX.
-• Recomanada per BitPay.
-
-
 <i>Utilitza-la sota la teva responsabilitat!</i>

@@ -26,10 +26,4 @@ Tüm tercümeler Transifex üzerinde yönetilir:
 https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
 
 
-<b>REFERANSLAR</b>
-
-• Birçok mobil cüzdan kodları için Bitcoin Wallet'i temel alırlar. Mesela blockchain.info ve BTCX.
-• BitPay tarafından tavsiye edilir.
-
-
 <i>Tüm riski siz üstlenmiş olursunuz!</i>

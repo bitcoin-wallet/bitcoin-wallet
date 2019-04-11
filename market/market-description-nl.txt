@@ -26,10 +26,4 @@ Alle vertalingen worden geregeld via Transifex:
 https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
 
 
-<b>TESTIMONIALS</b>
-
-* Veel mobiele portemonnees baseren hun code op Bitcoin Wallet. Voorbeelden: blockchain.info en BTCX.
-* Aangeraden door BitPay.
-
-
 <i>Gebruik op eigen risico!</i>

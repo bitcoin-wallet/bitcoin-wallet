@@ -25,10 +25,4 @@ https://github.com/bitcoin-wallet/bitcoin-wallet
 https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
 
 
-<b>شهادات</b>
-
-الكثير من أكواد برامج المحفظات الخاصة بالموبايل تعتمد بالاساس على Bitcoin Wallet. امثلة: blockchain.info و BTCX.
-موصى به عن طريق BitPay.
-
-
 استخدم على مسؤوليتك الشخصية !

@@ -26,10 +26,4 @@ Alle oversettelser skjer via Transifex:
 https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
 
 
-<b>ANBEFALINGER</b>
-
-• Mange mobillommebøker baserer sin kildekode på Bitcoin Wallet. Eksempler: blockchain.info og BTCX.
-• Anbefalt av BitPay.
-
-
 <i>Bruk på eget ansvar!</i>
