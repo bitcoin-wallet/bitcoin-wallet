@@ -44,14 +44,13 @@ import android.content.IntentFilter;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.HandlerThread;
-import android.os.Process;
 import android.text.format.DateUtils;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewModelProviders;
 import okhttp3.Call;
 import okhttp3.ConnectionSpec;
 import okhttp3.HttpUrl;
@@ -79,9 +78,7 @@ public class AlertDialogsFragment extends Fragment {
 
     private HttpUrl versionUrl;
 
-    private final Handler handler = new Handler();
-    private HandlerThread backgroundThread;
-    private Handler backgroundHandler;
+    private AlertDialogsViewModel viewModel;
 
     private static final Logger log = LoggerFactory.getLogger(AlertDialogsFragment.class);
 
@@ -97,9 +94,37 @@ public class AlertDialogsFragment extends Fragment {
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        backgroundThread = new HandlerThread("backgroundThread", Process.THREAD_PRIORITY_BACKGROUND);
-        backgroundThread.start();
-        backgroundHandler = new Handler(backgroundThread.getLooper());
+        viewModel = ViewModelProviders.of(this).get(AlertDialogsViewModel.class);
+        viewModel.showTimeskewAlertDialog.observe(this, new Event.Observer<Long>() {
+            @Override
+            public void onEvent(final Long diffMinutes) {
+                createTimeskewAlertDialog(diffMinutes).show();
+            }
+        });
+        viewModel.showVersionAlertDialog.observe(this, new Event.Observer<Void>() {
+            @Override
+            public void onEvent(final Void v) {
+                createVersionAlertDialog().show();
+            }
+        });
+        viewModel.showInsecureBluetoothAlertDialog.observe(this, new Event.Observer<String>() {
+            @Override
+            public void onEvent(final String minSecurityPatchLevel) {
+                createInsecureBluetoothAlertDialog(minSecurityPatchLevel).show();
+            }
+        });
+        viewModel.showLowStorageAlertDialog.observe(this, new Event.Observer<Void>() {
+            @Override
+            public void onEvent(final Void v) {
+                createLowStorageAlertDialog().show();
+            }
+        });
+        viewModel.showSettingsFailedDialog.observe(this, new Event.Observer<String>() {
+            @Override
+            public void onEvent(final String message) {
+                createSettingsFailedDialog(message).show();
+            }
+        });
 
         final PackageInfo packageInfo = application.packageInfo();
         final int versionNameSplit = packageInfo.versionName.indexOf('-');
@@ -132,7 +157,7 @@ public class AlertDialogsFragment extends Fragment {
         httpClientBuilder.connectionSpecs(Arrays.asList(ConnectionSpec.RESTRICTED_TLS));
         final Call call = httpClientBuilder.build().newCall(request.build());
 
-        backgroundHandler.post(new Runnable() {
+        AsyncTask.execute(new Runnable() {
             @Override
             public void run() {
                 boolean abort = false;
@@ -181,26 +206,13 @@ public class AlertDialogsFragment extends Fragment {
         });
     }
 
-    @Override
-    public void onDestroy() {
-        backgroundThread.getLooper().quit();
-
-        super.onDestroy();
-    }
-
     private boolean handleLine(final String line) {
         final int serverVersionCode = Integer.parseInt(line.split("\\s+")[0]);
         log.info("according to \"" + versionUrl + "\", strongly recommended minimum app version is "
                 + serverVersionCode);
 
         if (serverVersionCode > application.packageInfo().versionCode) {
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
-                    if (isAdded())
-                        createVersionAlertDialog().show();
-                }
-            });
+            viewModel.showVersionAlertDialog.postValue(Event.simple());
             return true;
         }
         return false;
@@ -215,13 +227,7 @@ public class AlertDialogsFragment extends Fragment {
                     && Build.VERSION.SECURITY_PATCH.compareTo(minSecurityPatchLevel) < 0) {
                 final BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
                 if (bluetoothAdapter != null && BluetoothAdapter.getDefaultAdapter().isEnabled()) {
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (isAdded())
-                                createInsecureBluetoothAlertDialog(minSecurityPatchLevel).show();
-                        }
-                    });
+                    viewModel.showInsecureBluetoothAlertDialog.postValue(new Event<>(minSecurityPatchLevel));
                     return true;
                 }
             }
@@ -237,13 +243,7 @@ public class AlertDialogsFragment extends Fragment {
 
             if (diffMinutes >= 60) {
                 log.info("according to \"" + versionUrl + "\", system clock is off by " + diffMinutes + " minutes");
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (isAdded())
-                            createTimeskewAlertDialog(diffMinutes).show();
-                    }
-                });
+                viewModel.showTimeskewAlertDialog.postValue(new Event<>(diffMinutes));
                 return true;
             }
         }
@@ -253,13 +253,7 @@ public class AlertDialogsFragment extends Fragment {
     private boolean handleCatchAll() {
         final Intent stickyIntent = activity.registerReceiver(null, new IntentFilter(Intent.ACTION_DEVICE_STORAGE_LOW));
         if (stickyIntent != null) {
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
-                    if (isAdded())
-                        createLowStorageAlertDialog().show();
-                }
-            });
+            viewModel.showLowStorageAlertDialog.postValue(Event.simple());
             return true;
         }
         return false;
@@ -287,7 +281,7 @@ public class AlertDialogsFragment extends Fragment {
                         startActivity(settingsIntent);
                         activity.finish();
                     } catch (final Exception x) {
-                        createSettingsFailedDialog(x.getMessage()).show();
+                        viewModel.showSettingsFailedDialog.setValue(new Event<>(x.getMessage()));
                     }
                 }
             });
@@ -349,7 +343,7 @@ public class AlertDialogsFragment extends Fragment {
                         startActivity(settingsIntent);
                         activity.finish();
                     } catch (final Exception x) {
-                        createSettingsFailedDialog(x.getMessage()).show();
+                        viewModel.showSettingsFailedDialog.setValue(new Event<>(x.getMessage()));
                     }
                 }
             });
@@ -371,7 +365,7 @@ public class AlertDialogsFragment extends Fragment {
                                 startActivity(settingsIntent);
                                 activity.finish();
                             } catch (final Exception x) {
-                                createSettingsFailedDialog(x.getMessage()).show();
+                                viewModel.showSettingsFailedDialog.setValue(new Event<>(x.getMessage()));
                             }
                         }
                     });
