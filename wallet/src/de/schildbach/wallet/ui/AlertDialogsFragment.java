@@ -143,11 +143,7 @@ public class AlertDialogsFragment extends Fragment {
 
     private void process() {
         final PackageInfo packageInfo = application.packageInfo();
-        final int versionNameSplit = packageInfo.versionName.indexOf('-');
-        final HttpUrl.Builder url = HttpUrl
-                .parse(Constants.VERSION_URL
-                        + (versionNameSplit >= 0 ? packageInfo.versionName.substring(versionNameSplit) : ""))
-                .newBuilder();
+        final HttpUrl.Builder url = Constants.VERSION_URL.newBuilder();
         url.addEncodedQueryParameter("package", packageInfo.packageName);
         final String installerPackageName = Installer.installerPackageName(application);
         if (installerPackageName != null)

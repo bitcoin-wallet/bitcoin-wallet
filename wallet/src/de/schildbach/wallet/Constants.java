@@ -116,7 +116,8 @@ public final class Constants {
     }
 
     /** URL to fetch version alerts from. */
-    public static final HttpUrl VERSION_URL = HttpUrl.parse("https://wallet.schildbach.de/version");
+    public static final HttpUrl VERSION_URL = HttpUrl.parse("https://wallet.schildbach.de/version"
+            + (NETWORK_PARAMETERS.getId().equals(NetworkParameters.ID_MAINNET) ? "" : "-test"));
     /** URL to fetch dynamic fees from. */
     public static final HttpUrl DYNAMIC_FEES_URL = HttpUrl.parse("https://wallet.schildbach.de/fees");
 
