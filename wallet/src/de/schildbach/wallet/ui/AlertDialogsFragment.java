@@ -22,7 +22,11 @@ import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 import java.util.Arrays;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Locale;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -76,8 +80,6 @@ public class AlertDialogsFragment extends Fragment {
     private WalletApplication application;
     private PackageManager packageManager;
 
-    private HttpUrl versionUrl;
-
     private AlertDialogsViewModel viewModel;
 
     private static final Logger log = LoggerFactory.getLogger(AlertDialogsFragment.class);
@@ -98,34 +100,44 @@ public class AlertDialogsFragment extends Fragment {
         viewModel.showTimeskewAlertDialog.observe(this, new Event.Observer<Long>() {
             @Override
             public void onEvent(final Long diffMinutes) {
+                log.info("showing timeskew alert dialog");
                 createTimeskewAlertDialog(diffMinutes).show();
             }
         });
         viewModel.showVersionAlertDialog.observe(this, new Event.Observer<Void>() {
             @Override
             public void onEvent(final Void v) {
+                log.info("showing version alert dialog");
                 createVersionAlertDialog().show();
             }
         });
         viewModel.showInsecureBluetoothAlertDialog.observe(this, new Event.Observer<String>() {
             @Override
             public void onEvent(final String minSecurityPatchLevel) {
+                log.info("showing insecure bluetooth alert dialog");
                 createInsecureBluetoothAlertDialog(minSecurityPatchLevel).show();
             }
         });
         viewModel.showLowStorageAlertDialog.observe(this, new Event.Observer<Void>() {
             @Override
             public void onEvent(final Void v) {
+                log.info("showing low storage alert dialog");
                 createLowStorageAlertDialog().show();
             }
         });
         viewModel.showSettingsFailedDialog.observe(this, new Event.Observer<String>() {
             @Override
             public void onEvent(final String message) {
+                log.info("showing settings failed dialog");
                 createSettingsFailedDialog(message).show();
             }
         });
 
+        if (savedInstanceState == null)
+            process();
+    }
+
+    private void process() {
         final PackageInfo packageInfo = application.packageInfo();
         final int versionNameSplit = packageInfo.versionName.indexOf('-');
         final HttpUrl.Builder url = HttpUrl
@@ -138,36 +150,42 @@ public class AlertDialogsFragment extends Fragment {
             url.addEncodedQueryParameter("installer", installerPackageName);
         url.addQueryParameter("sdk", Integer.toString(Build.VERSION.SDK_INT));
         url.addQueryParameter("current", Integer.toString(packageInfo.versionCode));
-        versionUrl = url.build();
-    }
-
-    @Override
-    public void onActivityCreated(final Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-        log.debug("querying \"{}\"...", versionUrl);
-        final Request.Builder request = new Request.Builder();
-        request.url(versionUrl);
-        request.header("Accept-Charset", "utf-8");
-        final String userAgent = application.httpUserAgent();
-        if (userAgent != null)
-            request.header("User-Agent", userAgent);
-
-        final Builder httpClientBuilder = Constants.HTTP_CLIENT.newBuilder();
-        httpClientBuilder.connectionSpecs(Arrays.asList(ConnectionSpec.RESTRICTED_TLS));
-        final Call call = httpClientBuilder.build().newCall(request.build());
+        final HttpUrl versionUrl = url.build();
 
         AsyncTask.execute(new Runnable() {
             @Override
             public void run() {
-                boolean abort = false;
                 try {
+                    log.debug("querying \"{}\"...", versionUrl);
+                    final Request.Builder request = new Request.Builder();
+                    request.url(versionUrl);
+                    request.header("Accept-Charset", "utf-8");
+                    final String userAgent = application.httpUserAgent();
+                    if (userAgent != null)
+                        request.header("User-Agent", userAgent);
+
+                    final Builder httpClientBuilder = Constants.HTTP_CLIENT.newBuilder();
+                    httpClientBuilder.connectionSpecs(Arrays.asList(ConnectionSpec.RESTRICTED_TLS));
+                    final Call call = httpClientBuilder.build().newCall(request.build());
+
                     final Response response = call.execute();
                     if (response.isSuccessful()) {
-                        final long serverTime = response.headers().getDate("Date").getTime();
-                        try (final BufferedReader reader = new BufferedReader(response.body().charStream())) {
-                            abort = handleServerTime(serverTime);
+                        // Maybe show timeskew alert.
+                        final Date serverDate = response.headers().getDate("Date");
+                        if (serverDate != null) {
+                            final long diffMinutes = Math.abs(
+                                    (System.currentTimeMillis() - serverDate.getTime()) / DateUtils.MINUTE_IN_MILLIS);
+                            if (diffMinutes >= 60) {
+                                log.info("according to \"" + versionUrl + "\", system clock is off by " + diffMinutes
+                                        + " minutes");
+                                viewModel.showTimeskewAlertDialog.postValue(new Event<>(diffMinutes));
+                                return;
+                            }
+                        }
 
+                        // Read properties from server.
+                        final Map<String, String> properties = new HashMap<>();
+                        try (final BufferedReader reader = new BufferedReader(response.body().charStream())) {
                             while (true) {
                                 final String line = reader.readLine();
                                 if (line == null)
@@ -181,92 +199,69 @@ public class AlertDialogsFragment extends Fragment {
                                     continue;
                                 final String key = split.next();
                                 if (!split.hasNext()) {
-                                    abort = handleLine(key);
-                                    if (abort)
-                                        break;
+                                    properties.put(null, key);
                                     continue;
                                 }
                                 final String value = split.next();
                                 if (!split.hasNext()) {
-                                    abort = handleProperty(key, value);
-                                    if (abort)
-                                        break;
+                                    properties.put(key.toLowerCase(Locale.US), value);
                                     continue;
                                 }
                                 log.info("Ignoring line: {}", line);
                             }
                         }
+
+                        // Maybe show version alert.
+                        final String version = properties.get(null);
+                        if (version != null) {
+                            final int recommendedVersionCode = Integer.parseInt(version);
+                            log.info("according to \"" + versionUrl + "\", strongly recommended minimum app version is "
+                                    + recommendedVersionCode);
+                            if (recommendedVersionCode > application.packageInfo().versionCode) {
+                                viewModel.showVersionAlertDialog.postValue(Event.simple());
+                                return;
+                            }
+                        }
+
+                        // Maybe show insecure bluetooth alert.
+                        final String minSecurityPatchLevel = properties.get("min.security_patch.bluetooth");
+                        if (minSecurityPatchLevel != null) {
+                            log.info("according to \"{}\", minimum security patch level for bluetooth is {}",
+                                    versionUrl, minSecurityPatchLevel);
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
+                                    && Build.VERSION.SECURITY_PATCH.compareTo(minSecurityPatchLevel) < 0) {
+                                final BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+                                if (bluetoothAdapter != null && BluetoothAdapter.getDefaultAdapter().isEnabled()) {
+                                    viewModel.showInsecureBluetoothAlertDialog
+                                            .postValue(new Event<>(minSecurityPatchLevel));
+                                    return;
+                                }
+                            }
+                        }
+
+                        // Maybe show low storage alert.
+                        final Intent stickyIntent = activity.registerReceiver(null,
+                                new IntentFilter(Intent.ACTION_DEVICE_STORAGE_LOW));
+                        if (stickyIntent != null) {
+                            viewModel.showLowStorageAlertDialog.postValue(Event.simple());
+                            return;
+                        }
+
+                        log.info("all good, no alert dialog shown");
                     }
                 } catch (final Exception x) {
-                    handleException(x);
+                    if (x instanceof UnknownHostException || x instanceof SocketException
+                            || x instanceof SocketTimeoutException) {
+                        // swallow
+                        log.debug("problem reading", x);
+                    } else {
+                        CrashReporter.saveBackgroundTrace(new RuntimeException(versionUrl.toString(), x),
+                                application.packageInfo());
+                        log.warn("problem parsing", x);
+                    }
                 }
-                if (!abort)
-                    handleCatchAll();
             }
         });
-    }
-
-    private boolean handleLine(final String line) {
-        final int serverVersionCode = Integer.parseInt(line.split("\\s+")[0]);
-        log.info("according to \"" + versionUrl + "\", strongly recommended minimum app version is "
-                + serverVersionCode);
-
-        if (serverVersionCode > application.packageInfo().versionCode) {
-            viewModel.showVersionAlertDialog.postValue(Event.simple());
-            return true;
-        }
-        return false;
-    }
-
-    private boolean handleProperty(final String key, final String value) {
-        if (key.equalsIgnoreCase("min.security_patch.bluetooth")) {
-            final String minSecurityPatchLevel = value;
-            log.info("according to \"{}\", minimum security patch level for bluetooth is {}", versionUrl,
-                    minSecurityPatchLevel);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
-                    && Build.VERSION.SECURITY_PATCH.compareTo(minSecurityPatchLevel) < 0) {
-                final BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-                if (bluetoothAdapter != null && BluetoothAdapter.getDefaultAdapter().isEnabled()) {
-                    viewModel.showInsecureBluetoothAlertDialog.postValue(new Event<>(minSecurityPatchLevel));
-                    return true;
-                }
-            }
-        } else {
-            log.info("Ignoring key: {}", key);
-        }
-        return false;
-    }
-
-    private boolean handleServerTime(final long serverTime) {
-        if (serverTime > 0) {
-            final long diffMinutes = Math.abs((System.currentTimeMillis() - serverTime) / DateUtils.MINUTE_IN_MILLIS);
-
-            if (diffMinutes >= 60) {
-                log.info("according to \"" + versionUrl + "\", system clock is off by " + diffMinutes + " minutes");
-                viewModel.showTimeskewAlertDialog.postValue(new Event<>(diffMinutes));
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private boolean handleCatchAll() {
-        final Intent stickyIntent = activity.registerReceiver(null, new IntentFilter(Intent.ACTION_DEVICE_STORAGE_LOW));
-        if (stickyIntent != null) {
-            viewModel.showLowStorageAlertDialog.postValue(Event.simple());
-            return true;
-        }
-        return false;
-    }
-
-    private void handleException(final Exception x) {
-        if (x instanceof UnknownHostException || x instanceof SocketException || x instanceof SocketTimeoutException) {
-            // swallow
-            log.debug("problem reading", x);
-        } else {
-            CrashReporter.saveBackgroundTrace(new RuntimeException(versionUrl.toString(), x),
-                    application.packageInfo());
-        }
     }
 
     private Dialog createTimeskewAlertDialog(final long diffMinutes) {
