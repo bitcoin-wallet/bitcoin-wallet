@@ -32,6 +32,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Splitter;
+import com.google.common.primitives.Ints;
 
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.R;
@@ -52,6 +53,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.format.DateUtils;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProviders;
@@ -79,6 +81,7 @@ public class AlertDialogsFragment extends Fragment {
     private AbstractWalletActivity activity;
     private WalletApplication application;
     private PackageManager packageManager;
+    private @Nullable Installer installer;
 
     private AlertDialogsViewModel viewModel;
 
@@ -90,6 +93,7 @@ public class AlertDialogsFragment extends Fragment {
         this.activity = (AbstractWalletActivity) context;
         this.application = activity.getWalletApplication();
         this.packageManager = activity.getPackageManager();
+        this.installer = Installer.from(application);
     }
 
     @Override
@@ -212,14 +216,22 @@ public class AlertDialogsFragment extends Fragment {
                         }
 
                         // Maybe show version alert.
-                        final String version = properties.get(null);
+                        String version = null;
+                        if (installer != null)
+                            version = properties.get("version." + installer.name().toLowerCase(Locale.US));
+                        if (version == null)
+                            version = properties.get("version");
+                        if (version == null)
+                            version = properties.get(null);
                         if (version != null) {
-                            final int recommendedVersionCode = Integer.parseInt(version);
-                            log.info("according to \"" + versionUrl + "\", strongly recommended minimum app version is "
-                                    + recommendedVersionCode);
-                            if (recommendedVersionCode > application.packageInfo().versionCode) {
-                                viewModel.showVersionAlertDialog.postValue(Event.simple());
-                                return;
+                            log.info("according to \"{}\", strongly recommended minimum app version is \"{}\"",
+                                    versionUrl, version);
+                            final Integer recommendedVersionCode = Ints.tryParse(version);
+                            if (recommendedVersionCode != null) {
+                                if (recommendedVersionCode > application.packageInfo().versionCode) {
+                                    viewModel.showVersionAlertDialog.postValue(Event.simple());
+                                    return;
+                                }
                             }
                         }
 
@@ -286,9 +298,7 @@ public class AlertDialogsFragment extends Fragment {
     }
 
     private Dialog createVersionAlertDialog() {
-        Installer installer = Installer.from(application);
-        if (installer == null)
-            installer = Installer.F_DROID;
+        final Installer installer = this.installer != null ? this.installer : Installer.F_DROID;
         final Intent marketIntent = new Intent(Intent.ACTION_VIEW,
                 Uri.parse(installer.appStorePageFor(application).toString()));
         final Intent binaryIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.BINARY_URL));
