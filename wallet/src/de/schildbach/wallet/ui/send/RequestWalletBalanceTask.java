@@ -117,12 +117,18 @@ public final class RequestWalletBalanceTask {
     public static class JsonRpcResponse {
         public int id;
         public Utxo[] result;
+        public Error error;
 
         public static class Utxo {
             public String tx_hash;
             public int tx_pos;
             public long value;
             public int height;
+        }
+
+        public static class Error {
+            public int code;
+            public String message;
         }
     }
 
@@ -191,20 +197,24 @@ public final class RequestWalletBalanceTask {
                     for (final Script outputScript : outputScripts) {
                         final JsonRpcResponse response = responseAdapter.fromJson(source);
                         final int expectedResponseId = outputScript.getScriptType().ordinal();
-                        if (response.id == expectedResponseId) {
-                            for (final JsonRpcResponse.Utxo responseUtxo : response.result) {
-                                final Sha256Hash utxoHash = Sha256Hash.wrap(responseUtxo.tx_hash);
-                                final int utxoIndex = responseUtxo.tx_pos;
-                                final Coin utxoValue = Coin.valueOf(responseUtxo.value);
-                                final UTXO utxo = new UTXO(utxoHash, utxoIndex, utxoValue, responseUtxo.height, false,
-                                        outputScript);
-                                log.info("utxo: {}", utxo);
-                                utxos.add(utxo);
-                            }
-                        } else {
+                        if (response.id != expectedResponseId) {
                             log.info("id mismatch response:{} vs request:{}", response.id, expectedResponseId);
                             onFail(R.string.error_parse, server.socketAddress.toString());
                             return;
+                        }
+                        if (response.error != null) {
+                            log.info("server error {}: {}", response.error.code, response.error.message);
+                            onFail(R.string.error_parse, response.error.code);
+                            return;
+                        }
+                        for (final JsonRpcResponse.Utxo responseUtxo : response.result) {
+                            final Sha256Hash utxoHash = Sha256Hash.wrap(responseUtxo.tx_hash);
+                            final int utxoIndex = responseUtxo.tx_pos;
+                            final Coin utxoValue = Coin.valueOf(responseUtxo.value);
+                            final UTXO utxo = new UTXO(utxoHash, utxoIndex, utxoValue, responseUtxo.height, false,
+                                    outputScript);
+                            log.info("utxo: {}", utxo);
+                            utxos.add(utxo);
                         }
                     }
                     log.info("fetched {} unspent outputs from {}", utxos.size(), server.socketAddress);
