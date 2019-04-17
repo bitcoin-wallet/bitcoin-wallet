@@ -171,8 +171,8 @@ public final class RequestWalletBalanceTask {
                         } else {
                             // self-signed
                             if (!certificateFingerprint.equals(server.certificateFingerprint))
-                                throw new SSLHandshakeException("Expected " + server.certificateFingerprint + ", got "
-                                        + certificateFingerprint);
+                                throw new SSLHandshakeException("Expected " + server.certificateFingerprint + " for "
+                                        + server.socketAddress.getHostName() + ", got " + certificateFingerprint);
                         }
                     } else if (server.type == ElectrumServer.Type.TCP) {
                         socket = new Socket();
