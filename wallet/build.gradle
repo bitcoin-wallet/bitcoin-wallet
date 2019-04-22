@@ -1,5 +1,7 @@
-apply plugin: 'com.android.application'
-apply plugin: 'androidsvgdrawable'
+plugins {
+    id 'com.android.application'
+    id 'androidsvgdrawable'
+}
 
 configurations {
     all*.exclude group: 'com.google.android', module: 'android'
