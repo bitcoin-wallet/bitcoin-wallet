@@ -53,7 +53,7 @@ is world readable/writeable. The goal is to be able to debug easily.
 
 You can probably skip some steps, especially if you built Android apps before.
 
-You'll need git, a Java6 SDK (or later) and Gradle 3.4 (or later) for this. I'll assume Ubuntu 18.04 LTS (Bionic Beaver)
+You'll need git, a Java 7 SDK (or later) and Gradle 3.4 (or later) for this. I'll assume Ubuntu 18.04 LTS (Bionic Beaver)
 for the package installs, which comes with slightly more recent versions.
 
     # first time only
