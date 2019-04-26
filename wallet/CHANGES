@@ -1,3 +1,7 @@
+v7.08
+
+* Fix issue with sweeping paper wallets.
+
 v7.07
 
 * Segregated Witness - Phase III: Existing wallets without spending PIN are upgraded to use native segwit (Bech32) addresses.
