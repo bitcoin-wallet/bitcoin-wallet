@@ -66,6 +66,7 @@ import com.squareup.moshi.Moshi;
 
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.R;
+import de.schildbach.wallet.util.Assets;
 
 import android.content.res.AssetManager;
 import android.os.Handler;
@@ -140,7 +141,7 @@ public final class RequestWalletBalanceTask {
 
                 try {
                     final List<ElectrumServer> servers = loadElectrumServers(
-                            assets.open(Constants.Files.ELECTRUM_SERVERS_FILENAME));
+                            Assets.open(assets, Constants.Files.ELECTRUM_SERVERS_FILENAME));
                     final ElectrumServer server = servers.get(new Random().nextInt(servers.size()));
                     final Address legacyAddress = LegacyAddress.fromKey(Constants.NETWORK_PARAMETERS, key);
                     final Script[] outputScripts;
