@@ -155,31 +155,7 @@ public final class RequestWalletBalanceTask {
                         addressesStr = legacyAddress.toString();
                     }
                     log.info("trying to request wallet balance for {} from {}", addressesStr, server.socketAddress);
-                    final Socket socket;
-                    if (server.type == ElectrumServer.Type.TLS) {
-                        final SocketFactory sf = sslTrustAllCertificates();
-                        socket = sf.createSocket(server.socketAddress.getHostName(), server.socketAddress.getPort());
-                        final SSLSession sslSession = ((SSLSocket) socket).getSession();
-                        final Certificate certificate = sslSession.getPeerCertificates()[0];
-                        final String certificateFingerprint = sslCertificateFingerprint(certificate);
-                        if (server.certificateFingerprint == null) {
-                            // signed by CA
-                            if (!HttpsURLConnection.getDefaultHostnameVerifier()
-                                    .verify(server.socketAddress.getHostName(), sslSession))
-                                throw new SSLHandshakeException("Expected " + server.socketAddress.getHostName()
-                                        + ", got " + sslSession.getPeerPrincipal());
-                        } else {
-                            // self-signed
-                            if (!certificateFingerprint.equals(server.certificateFingerprint))
-                                throw new SSLHandshakeException("Expected " + server.certificateFingerprint + " for "
-                                        + server.socketAddress.getHostName() + ", got " + certificateFingerprint);
-                        }
-                    } else if (server.type == ElectrumServer.Type.TCP) {
-                        socket = new Socket();
-                        socket.connect(server.socketAddress, 5000);
-                    } else {
-                        throw new IllegalStateException("Cannot handle: " + server.type);
-                    }
+                    final Socket socket = connect(server);
                     final BufferedSink sink = Okio.buffer(Okio.sink(socket));
                     sink.timeout().timeout(5000, TimeUnit.MILLISECONDS);
                     final BufferedSource source = Okio.buffer(Okio.source(socket));
@@ -226,6 +202,35 @@ public final class RequestWalletBalanceTask {
                     log.info("problem querying unspent outputs", x);
                     onFail(R.string.error_io, x.getMessage());
                 }
+            }
+
+            private Socket connect(final ElectrumServer server) throws IOException {
+                final Socket socket;
+                if (server.type == ElectrumServer.Type.TLS) {
+                    final SocketFactory sf = sslTrustAllCertificates();
+                    socket = sf.createSocket(server.socketAddress.getHostName(), server.socketAddress.getPort());
+                    final SSLSession sslSession = ((SSLSocket) socket).getSession();
+                    final Certificate certificate = sslSession.getPeerCertificates()[0];
+                    final String certificateFingerprint = sslCertificateFingerprint(certificate);
+                    if (server.certificateFingerprint == null) {
+                        // signed by CA
+                        if (!HttpsURLConnection.getDefaultHostnameVerifier().verify(server.socketAddress.getHostName(),
+                                sslSession))
+                            throw new SSLHandshakeException("Expected " + server.socketAddress.getHostName() + ", got "
+                                    + sslSession.getPeerPrincipal());
+                    } else {
+                        // self-signed
+                        if (!certificateFingerprint.equals(server.certificateFingerprint))
+                            throw new SSLHandshakeException("Expected " + server.certificateFingerprint + " for "
+                                    + server.socketAddress.getHostName() + ", got " + certificateFingerprint);
+                    }
+                } else if (server.type == ElectrumServer.Type.TCP) {
+                    socket = new Socket();
+                    socket.connect(server.socketAddress, 5000);
+                } else {
+                    throw new IllegalStateException("Cannot handle: " + server.type);
+                }
+                return socket;
             }
         });
     }
