@@ -125,6 +125,8 @@
     <string name="sweep_wallet_fragment_decrypt_progress">Decrypting…\nTakes up to 2 minutes.</string>
     <string name="sweep_wallet_fragment_request_wallet_balance_progress">Loading balance…</string>
     <string name="sweep_wallet_fragment_request_wallet_balance_failed_title">Loading wallet balance failed</string>
+    <string name="sweep_wallet_fragment_request_wallet_balance_failed_connection">You\'ve got a bad connection to the Electrum network.</string>
+    <string name="sweep_wallet_fragment_request_wallet_balance_empty">The paper wallet is empty.</string>
     <string name="sweep_wallet_fragment_insufficient_money_title">Not enough coins</string>
     <string name="sweep_wallet_fragment_insufficient_money_msg">The amount of coins in the wallet is too small for sweeping.</string>
     <string name="sweep_wallet_options_reload">Reload balance</string>

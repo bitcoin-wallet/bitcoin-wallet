@@ -127,6 +127,8 @@
     <string name="sweep_wallet_fragment_decrypt_progress">Entschlüsselung…\nDauert bis zu 2 Minuten.</string>
     <string name="sweep_wallet_fragment_request_wallet_balance_progress">Aktualisiere Guthaben…</string>
     <string name="sweep_wallet_fragment_request_wallet_balance_failed_title">Guthabenanforderung fehlgeschlagen</string>
+    <string name="sweep_wallet_fragment_request_wallet_balance_failed_connection">Du hast eine schlechte Verbindung zum Electrum-Netzwerk.</string>
+    <string name="sweep_wallet_fragment_request_wallet_balance_empty">Die Paper-Wallet ist leer.</string>
     <string name="sweep_wallet_fragment_insufficient_money_title">Nicht genug Bitcoins</string>
     <string name="sweep_wallet_fragment_insufficient_money_msg">Das zu leerende Guthaben ist zu gering zum Entleeren.</string>
     <string name="sweep_wallet_options_reload">Guthaben aktualisieren</string>
