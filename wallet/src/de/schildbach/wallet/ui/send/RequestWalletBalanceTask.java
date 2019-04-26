@@ -279,7 +279,7 @@ public final class RequestWalletBalanceTask {
         }
     }
 
-    private static List<ElectrumServer> loadElectrumServers(final InputStream is) throws IOException {
+    private static List<ElectrumServer> loadElectrumServers(final InputStream is) {
         final Splitter splitter = Splitter.on(':').trimResults();
         final List<ElectrumServer> servers = new LinkedList<>();
         String line = null;
@@ -301,8 +301,6 @@ public final class RequestWalletBalanceTask {
             }
         } catch (final Exception x) {
             throw new RuntimeException("Error while parsing: '" + line + "'", x);
-        } finally {
-            is.close();
         }
         return servers;
     }
