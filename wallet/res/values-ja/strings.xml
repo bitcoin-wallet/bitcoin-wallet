@@ -298,7 +298,7 @@
   <string name="about_category_credits">このアプリは以下のソフトウェアを利用しています。</string>
   <string name="about_credits_bitcoinj_title">Bitcoinプロトコルの実装、bitcoinj %s</string>
   <string name="about_credits_zxing_title">QRコード処理ライブラリ、ZXing</string>
-  <string name="about_credits_spongycastle_title">Spongy Castle, 暗号ライブラリ</string>
+  <string name="about_credits_bouncycastle_title">Bouncy Castle, 暗号ライブラリ</string>
   <string name="about_credits_scrypt_title">Scrypt, 鍵導出関数の実装</string>
   <string name="about_credits_okhttp_title">OkHttp, HTTPクライアントライブラリ</string>
   <string name="about_credits_moshi_title">Moshi, JSONライブラリ</string>

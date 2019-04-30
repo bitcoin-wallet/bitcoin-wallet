@@ -298,7 +298,7 @@
   <string name="about_category_credits">Tämä sovellus käyttää…</string>
   <string name="about_credits_bitcoinj_title">bitcoinj %s, implementaatio Bitcoin-protokollasta</string>
   <string name="about_credits_zxing_title">ZXing, QR-koodien prosessointikirjasto</string>
-  <string name="about_credits_spongycastle_title">Spongy Castle, kryptografiakirjasto</string>
+  <string name="about_credits_bouncycastle_title">Bouncy Castle, kryptografiakirjasto</string>
   <string name="about_credits_scrypt_title">Scrypt, toteutus avaimen derivaatiofunktiosta</string>
   <string name="about_credits_okhttp_title">OkHttp, HTTP-asiakaskirjasto</string>
   <string name="about_credits_moshi_title">Moshi, JSON-kirjasto</string>

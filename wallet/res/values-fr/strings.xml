@@ -298,7 +298,7 @@
   <string name="about_category_credits">Cette appli utilise…</string>
   <string name="about_credits_bitcoinj_title">bitcoinj %s, une application du protocole Bitcoin</string>
   <string name="about_credits_zxing_title">ZXing, un bibliothèque de traitement de codes QR</string>
-  <string name="about_credits_spongycastle_title">Spongy Castle, une bibliothèque cryptographique</string>
+  <string name="about_credits_bouncycastle_title">Bouncy Castle, une bibliothèque cryptographique</string>
   <string name="about_credits_scrypt_title">Scrypt, une mise en œuvre de la fonction de dérivation de clé</string>
   <string name="about_credits_okhttp_title">OkHttp, une bibliothèque client HTTP</string>
   <string name="about_credits_moshi_title">Moshi, une bibliothèque JSON</string>

@@ -62,9 +62,9 @@
                 android:data="https://github.com/zxing/zxing" />
         </Preference>
         <Preference
-            android:key="about_credits_spongycastle"
+            android:key="about_credits_bouncycastle"
             android:summary="https://github.com/rtyley/spongycastle"
-            android:title="@string/about_credits_spongycastle_title" >
+            android:title="@string/about_credits_bouncycastle_title" >
             <intent
                 android:action="android.intent.action.VIEW"
                 android:data="https://github.com/rtyley/spongycastle" />

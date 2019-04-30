@@ -304,7 +304,7 @@
     <string name="about_category_credits">Diese App nutzt…</string>
     <string name="about_credits_bitcoinj_title">bitcoinj %s, eine Implementierung des Bitcoin-Protokolls</string>
     <string name="about_credits_zxing_title">ZXing, eine QR-Code-Bibliothek</string>
-    <string name="about_credits_spongycastle_title">Spongy Castle, eine Kryptographie-Bibliothek</string>
+    <string name="about_credits_bouncycastle_title">Bouncy Castle, eine Kryptographie-Bibliothek</string>
     <string name="about_credits_scrypt_title">Scrypt, eine Implementierung der Schlüsselableitung</string>
     <string name="about_credits_okhttp_title">OkHttp, eine HTTP-Client-Bibliothek</string>
     <string name="about_credits_moshi_title">Moshi, eine JSON-Bibliothek</string>
