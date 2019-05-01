@@ -53,16 +53,6 @@ android {
         dexOptions {
             preDexLibraries false
         }
-
-        ndk {
-            abiFilters 'armeabi-v7a', 'x86'
-        }
-
-        externalNativeBuild {
-            cmake {
-                cFlags '-DHAVE_CONFIG_H'
-            }
-        }
     }
 
     buildTypes {
@@ -82,7 +72,6 @@ android {
             java.srcDirs = ['src']
             res.srcDirs = ['res']
             assets.srcDirs = ['assets']
-            jniLibs.srcDirs = ['libs']
         }
         test {
             java.srcDirs = ['test']
@@ -90,16 +79,9 @@ android {
         }
     }
 
-    externalNativeBuild {
-        cmake {
-            path 'cpp/CMakeLists.txt'
-        }
-    }
-
     packagingOptions {
         exclude 'META-INF/*.version'
         exclude 'META-INF/proguard/**'
-        exclude 'lib/x86_64/darwin/libscrypt.dylib'
         exclude 'okhttp3/internal/publicsuffix/publicsuffixes.gz'
         exclude 'org/bitcoinj/crypto/mnemonic/wordlist/english.txt'
         exclude 'org/bitcoinj/crypto/cacerts'

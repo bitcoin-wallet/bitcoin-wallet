@@ -302,7 +302,6 @@
   <string name="about_credits_bitcoinj_title">bitcoinj %s</string>
   <string name="about_credits_zxing_title">ZXing</string>
   <string name="about_credits_bouncycastle_title">Bouncy Castle, una biblioteca de criptografía</string>
-  <string name="about_credits_scrypt_title">Scrypt, implementado por Will Glozer y Colin Percival</string>
   <string name="about_credits_okhttp_title">OkHttp, una biblioteca de cliente HTTP</string>
   <string name="about_credits_moshi_title">Moshi, una biblioteca JSON</string>
   <string name="about_credits_guava_title">Guava, una colección de utilidades de ayuda</string>

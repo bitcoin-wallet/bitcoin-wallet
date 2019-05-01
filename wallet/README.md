@@ -64,11 +64,6 @@ Create a directory for the Android SDK (e.g. `android-sdk`) and point the `ANDRO
 Download the [Android SDK Tools](https://developer.android.com/studio/index.html#command-tools)
 and unpack it to `$ANDROID_HOME/`.
 
-Install the NDK:
-
-    # first time only
-    $ANDROID_HOME/bin/tools/sdkmanager ndk-bundle
-
 Finally, you can build Bitcoin Wallet and sign it with your development key. Again in your workspace,
 use:
 

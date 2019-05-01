@@ -291,7 +291,6 @@
   <string name="about_category_credits">Este app está usando…</string>
   <string name="about_credits_bitcoinj_title">bitcoinj %s, um protocolo de implementação Bitcoin </string>
   <string name="about_credits_zxing_title">ZXing, uma biblioteca de processamento para QR-code</string>
-  <string name="about_credits_scrypt_title">Scrypt, implementado por Will Glozer e Colin Percival</string>
   <string name="about_market_app_title">Página no %s</string>
   <string name="about_market_app_summary">Comente ou classifique o aplicativo</string>
   <string name="about_faq_title">FAQ</string>

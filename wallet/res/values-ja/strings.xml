@@ -305,7 +305,6 @@
   <string name="about_credits_bitcoinj_title">bitcoinj %s、Bitcoinプロトコルの実装</string>
   <string name="about_credits_zxing_title">ZXing、QRコード処理ライブラリ</string>
   <string name="about_credits_bouncycastle_title">Bouncy Castle、暗号ライブラリ</string>
-  <string name="about_credits_scrypt_title">Scrypt, 鍵導出関数の実装</string>
   <string name="about_credits_okhttp_title">OkHttp, HTTPクライアントライブラリ</string>
   <string name="about_credits_moshi_title">Moshi, JSONライブラリ</string>
   <string name="about_credits_guava_title">Guava, 便利なヘルパーの集まり</string>

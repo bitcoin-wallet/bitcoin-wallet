@@ -280,7 +280,6 @@
   <string name="about_category_credits">此应用正在使用...</string>
   <string name="about_credits_bitcoinj_title">bitcoinj %s, 一个比特币协议库</string>
   <string name="about_credits_zxing_title">ZXing，一个QR码处理库</string>
-  <string name="about_credits_scrypt_title">Scrypt，由Will Glozer和Colin Percival执行</string>
   <string name="about_market_app_title">%s 页面</string>
   <string name="about_market_app_summary">评价这个应用</string>
   <string name="notification_coins_received_msg">收到了 %s</string>

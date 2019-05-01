@@ -302,7 +302,6 @@
   <string name="about_credits_bitcoinj_title">bitcoinj %s, en implementation af Bitcoin-protokollen</string>
   <string name="about_credits_zxing_title">ZXing, et bibliotek til processering af QR-koder</string>
   <string name="about_credits_bouncycastle_title">Bouncy Castle, et kryptografi-bibliotek</string>
-  <string name="about_credits_scrypt_title">Scrypt, en implementering af nøglederivationsfunktionen</string>
   <string name="about_credits_okhttp_title">OkHttp, et HTTP-klientbibliotek</string>
   <string name="about_credits_moshi_title">Moshi, et JSON-bibliotek</string>
   <string name="about_credits_guava_title">Guava, en samling af nyttige hjælpere</string>
