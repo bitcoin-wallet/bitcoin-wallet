@@ -1,3 +1,7 @@
+v7.09
+
+* Based on bitcoinj 0.15.2.
+
 v7.08
 
 * Fix issue with sweeping paper wallets.
