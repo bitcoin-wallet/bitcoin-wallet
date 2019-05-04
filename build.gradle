@@ -1,6 +1,7 @@
 buildscript {
     repositories {
         jcenter()
+        google()
     }
 
     dependencies {
@@ -19,5 +20,6 @@ allprojects {
            url 'https://maven.google.com'
        }
        mavenLocal()
+       google()
    }
 }

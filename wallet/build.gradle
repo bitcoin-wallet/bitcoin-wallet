@@ -50,8 +50,8 @@ android {
     defaultConfig {
         generatedDensities = ['hdpi', 'xhdpi']
         applicationId 'de.langerhans.wallet'
-        versionCode 311
-        versionName '3.1.1'
+        versionCode 312
+        versionName '3.1.2'
         minSdkVersion 16
         targetSdkVersion 26
         vectorDrawables.useSupportLibrary = true

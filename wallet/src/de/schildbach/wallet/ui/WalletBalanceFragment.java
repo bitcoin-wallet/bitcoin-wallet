@@ -182,7 +182,7 @@ public final class WalletBalanceFragment extends Fragment {
     public void onPrepareOptionsMenu(final Menu menu) {
         final boolean hasSomeBalance = balance != null && !balance.isLessThan(SOME_BALANCE_THRESHOLD);
         menu.findItem(R.id.wallet_balance_options_donate)
-                .setVisible(Constants.DONATION_ADDRESS != null && (!installedFromGooglePlay || hasSomeBalance));
+                .setVisible(false/*Constants.DONATION_ADDRESS != null && (!installedFromGooglePlay || hasSomeBalance)*/);
 
         super.onPrepareOptionsMenu(menu);
     }
