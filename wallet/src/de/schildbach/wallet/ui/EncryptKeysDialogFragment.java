@@ -336,7 +336,7 @@ public class EncryptKeysDialogFragment extends DialogFragment {
             passwordStrengthView.setTextColor(ContextCompat.getColor(activity, R.color.fg_password_strength_fair));
         } else if (passwordLength < 8) {
             passwordStrengthView.setText(R.string.encrypt_keys_dialog_password_strength_good);
-            passwordStrengthView.setTextColor(ContextCompat.getColor(activity, R.color.fg_less_significant));
+            passwordStrengthView.setTextColor(ContextCompat.getColor(activity, R.color.fg_password_strength_good));
         } else {
             passwordStrengthView.setText(R.string.encrypt_keys_dialog_password_strength_strong);
             passwordStrengthView.setTextColor(ContextCompat.getColor(activity, R.color.fg_password_strength_strong));

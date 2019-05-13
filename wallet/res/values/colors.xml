@@ -26,6 +26,7 @@
     <!-- password strength -->
     <color name="fg_password_strength_weak">#ff0000</color>
     <color name="fg_password_strength_fair">#c06000</color>
+    <color name="fg_password_strength_good">#666666</color>
     <color name="fg_password_strength_strong">#00a000</color>
 
     <!-- scanner -->
