@@ -46,7 +46,6 @@ import de.schildbach.wallet.util.Formats;
 import de.schildbach.wallet.util.WalletUtils;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.text.Html;
@@ -60,6 +59,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
@@ -124,13 +124,12 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
                 this.transactionHash = tx.getTxId();
                 this.isSelected = isSelected;
 
-                final Resources res = context.getResources();
-                final int colorSignificant = res.getColor(R.color.fg_significant);
-                final int colorLessSignificant = res.getColor(R.color.fg_less_significant);
-                final int colorInsignificant = res.getColor(R.color.fg_insignificant);
-                final int colorValuePositve = res.getColor(R.color.fg_value_positive);
-                final int colorValueNegative = res.getColor(R.color.fg_value_negative);
-                final int colorError = res.getColor(R.color.fg_error);
+                final int colorSignificant = ContextCompat.getColor(context, R.color.fg_significant);
+                final int colorLessSignificant = ContextCompat.getColor(context, R.color.fg_less_significant);
+                final int colorInsignificant = ContextCompat.getColor(context, R.color.fg_insignificant);
+                final int colorValuePositve = ContextCompat.getColor(context, R.color.fg_value_positive);
+                final int colorValueNegative = ContextCompat.getColor(context, R.color.fg_value_negative);
+                final int colorError = ContextCompat.getColor(context, R.color.fg_error);
 
                 final Coin value = tx.getValue(wallet);
                 final boolean sent = value.signum() < 0;
@@ -714,9 +713,9 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
 
         public TransactionViewHolder(final View itemView) {
             super(itemView);
-            final Resources res = itemView.getResources();
-            this.colorBackground = res.getColor(R.color.bg_bright);
-            this.colorBackgroundSelected = res.getColor(R.color.bg_panel);
+            final Context context = itemView.getContext();
+            this.colorBackground = ContextCompat.getColor(context, R.color.bg_bright);
+            this.colorBackgroundSelected = ContextCompat.getColor(context, R.color.bg_panel);
 
             this.extendTimeView = itemView.findViewById(R.id.transaction_row_extend_time);
             this.fullTimeView = (TextView) itemView.findViewById(R.id.transaction_row_full_time);

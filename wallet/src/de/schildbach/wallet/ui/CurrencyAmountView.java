@@ -27,7 +27,6 @@ import de.schildbach.wallet.util.GenericUtils;
 import de.schildbach.wallet.util.MonetarySpannable;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -45,6 +44,7 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 
 /**
  * @author Andreas Schildbach
@@ -82,11 +82,10 @@ public final class CurrencyAmountView extends FrameLayout {
     }
 
     private void init(final Context context) {
-        final Resources resources = context.getResources();
-        significantColor = resources.getColor(R.color.fg_significant);
-        lessSignificantColor = resources.getColor(R.color.fg_less_significant);
-        errorColor = resources.getColor(R.color.fg_error);
-        deleteButtonDrawable = resources.getDrawable(R.drawable.ic_clear_grey600_24dp);
+        significantColor = ContextCompat.getColor(context, R.color.fg_significant);
+        lessSignificantColor = ContextCompat.getColor(context, R.color.fg_less_significant);
+        errorColor = ContextCompat.getColor(context, R.color.fg_error);
+        deleteButtonDrawable = ContextCompat.getDrawable(context, R.drawable.ic_clear_grey600_24dp);
     }
 
     @Override
@@ -131,21 +130,21 @@ public final class CurrencyAmountView extends FrameLayout {
                 currencySymbolDrawable = new CurrencySymbolDrawable(bitcoinSymbol, smallerTextSize,
                         lessSignificantColor, offset);
             else
-                currencySymbolDrawable = getResources().getDrawable(R.drawable.currency_symbol_btc);
+                currencySymbolDrawable = ContextCompat.getDrawable(getContext(), R.drawable.currency_symbol_btc);
             localCurrencyCode = null;
         } else if (MonetaryFormat.CODE_MBTC.equals(currencyCode)) {
             if (hasBitcoinSymbol)
                 currencySymbolDrawable = new CurrencySymbolDrawable("m" + bitcoinSymbol, smallerTextSize,
                         lessSignificantColor, offset);
             else
-                currencySymbolDrawable = getResources().getDrawable(R.drawable.currency_symbol_mbtc);
+                currencySymbolDrawable = ContextCompat.getDrawable(getContext(), R.drawable.currency_symbol_mbtc);
             localCurrencyCode = null;
         } else if (MonetaryFormat.CODE_UBTC.equals(currencyCode)) {
             if (hasBitcoinSymbol)
                 currencySymbolDrawable = new CurrencySymbolDrawable("µ" + bitcoinSymbol, smallerTextSize,
                         lessSignificantColor, offset);
             else
-                currencySymbolDrawable = getResources().getDrawable(R.drawable.currency_symbol_ubtc);
+                currencySymbolDrawable = ContextCompat.getDrawable(getContext(), R.drawable.currency_symbol_ubtc);
             localCurrencyCode = null;
         } else if (currencyCode != null) {
             currencySymbolDrawable = new CurrencySymbolDrawable(GenericUtils.currencySymbol(currencyCode),
@@ -182,7 +181,7 @@ public final class CurrencyAmountView extends FrameLayout {
     }
 
     public void setContextButton(final int contextButtonResId, final OnClickListener contextButtonClickListener) {
-        this.contextButtonDrawable = getContext().getResources().getDrawable(contextButtonResId);
+        this.contextButtonDrawable = ContextCompat.getDrawable(getContext(), contextButtonResId);
         this.contextButtonClickListener = contextButtonClickListener;
 
         updateAppearance();

@@ -32,6 +32,7 @@ import android.text.style.ScaleXSpan;
 import android.util.AttributeSet;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 
 /**
  * @author Andreas Schildbach
@@ -99,7 +100,7 @@ public final class CurrencyTextView extends TextView {
     protected void onFinishInflate() {
         super.onFinishInflate();
 
-        setPrefixColor(getResources().getColor(R.color.fg_less_significant));
+        setPrefixColor(ContextCompat.getColor(getContext(), R.color.fg_less_significant));
         setPrefixScaleX(1);
         setInsignificantRelativeSize(0.85f);
         setSingleLine();

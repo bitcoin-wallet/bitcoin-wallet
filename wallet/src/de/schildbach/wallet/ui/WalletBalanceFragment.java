@@ -42,6 +42,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -225,7 +226,7 @@ public final class WalletBalanceFragment extends Fragment {
                         viewBalanceLocal.setFormat(Constants.LOCAL_FORMAT.code(0,
                                 Constants.PREFIX_ALMOST_EQUAL_TO + exchangeRate.getCurrencyCode()));
                         viewBalanceLocal.setAmount(localValue);
-                        viewBalanceLocal.setTextColor(getResources().getColor(R.color.fg_less_significant));
+                        viewBalanceLocal.setTextColor(ContextCompat.getColor(activity, R.color.fg_less_significant));
                     } else {
                         viewBalanceLocal.setVisibility(View.INVISIBLE);
                     }

@@ -117,6 +117,7 @@ import android.widget.Filter;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
@@ -1059,7 +1060,7 @@ public final class SendCoinsFragment extends Fragment {
                 else
                     staticLabel = getString(R.string.address_unlabeled);
                 receivingStaticLabelView.setText(staticLabel);
-                receivingStaticLabelView.setTextColor(getResources().getColor(
+                receivingStaticLabelView.setTextColor(ContextCompat.getColor(activity,
                         viewModel.validatedAddress.label != null ? R.color.fg_significant : R.color.fg_insignificant));
             } else if (viewModel.paymentIntent.standard == null) {
                 payeeGroup.setVisibility(View.VISIBLE);
@@ -1092,16 +1093,16 @@ public final class SendCoinsFragment extends Fragment {
             hintView.setVisibility(View.GONE);
             if (viewModel.state == SendCoinsViewModel.State.INPUT) {
                 if (blockchainState != null && blockchainState.replaying) {
-                    hintView.setTextColor(getResources().getColor(R.color.fg_error));
+                    hintView.setTextColor(ContextCompat.getColor(activity, R.color.fg_error));
                     hintView.setVisibility(View.VISIBLE);
                     hintView.setText(R.string.send_coins_fragment_hint_replaying);
                 } else if (viewModel.paymentIntent.mayEditAddress() && viewModel.validatedAddress == null
                         && !receivingAddressView.getText().toString().trim().isEmpty()) {
-                    hintView.setTextColor(getResources().getColor(R.color.fg_error));
+                    hintView.setTextColor(ContextCompat.getColor(activity, R.color.fg_error));
                     hintView.setVisibility(View.VISIBLE);
                     hintView.setText(R.string.send_coins_fragment_receiving_address_error);
                 } else if (viewModel.dryrunException != null) {
-                    hintView.setTextColor(getResources().getColor(R.color.fg_error));
+                    hintView.setTextColor(ContextCompat.getColor(activity, R.color.fg_error));
                     hintView.setVisibility(View.VISIBLE);
                     if (viewModel.dryrunException instanceof DustySendRequested)
                         hintView.setText(getString(R.string.send_coins_fragment_hint_dusty_send));
@@ -1126,11 +1127,11 @@ public final class SendCoinsFragment extends Fragment {
                         hintResId = R.string.send_coins_fragment_hint_fee;
                         colorResId = R.color.fg_insignificant;
                     }
-                    hintView.setTextColor(getResources().getColor(colorResId));
+                    hintView.setTextColor(ContextCompat.getColor(activity, colorResId));
                     hintView.setText(getString(hintResId, btcFormat.format(viewModel.dryrunTransaction.getFee())));
                 } else if (viewModel.paymentIntent.mayEditAddress() && viewModel.validatedAddress != null
                         && wallet != null && wallet.isAddressMine(viewModel.validatedAddress.address)) {
-                    hintView.setTextColor(getResources().getColor(R.color.fg_insignificant));
+                    hintView.setTextColor(ContextCompat.getColor(activity, R.color.fg_insignificant));
                     hintView.setVisibility(View.VISIBLE);
                     hintView.setText(R.string.send_coins_fragment_receiving_address_own);
                 }

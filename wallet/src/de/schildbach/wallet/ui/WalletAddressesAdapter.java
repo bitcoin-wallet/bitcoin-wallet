@@ -32,13 +32,13 @@ import de.schildbach.wallet.data.AddressBookEntry;
 import de.schildbach.wallet.util.WalletUtils;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 
 /**
  * @author Andreas Schildbach
@@ -57,10 +57,9 @@ public class WalletAddressesAdapter extends BaseAdapter {
     private Map<String, AddressBookEntry> addressBook = null;
 
     public WalletAddressesAdapter(final Context context) {
-        final Resources res = context.getResources();
-        colorSignificant = res.getColor(R.color.fg_significant);
-        colorInsignificant = res.getColor(R.color.fg_insignificant);
-        colorLessSignificant = res.getColor(R.color.fg_less_significant);
+        colorSignificant = ContextCompat.getColor(context, R.color.fg_significant);
+        colorInsignificant = ContextCompat.getColor(context, R.color.fg_insignificant);
+        colorLessSignificant = ContextCompat.getColor(context, R.color.fg_less_significant);
         inflater = LayoutInflater.from(context);
     }
 

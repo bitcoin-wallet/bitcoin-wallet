@@ -70,6 +70,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
@@ -202,18 +203,19 @@ public class BackupWalletDialogFragment extends DialogFragment {
                         if (passwordLength < 6) {
                             passwordStrengthView.setText(R.string.encrypt_keys_dialog_password_strength_weak);
                             passwordStrengthView
-                                    .setTextColor(getResources().getColor(R.color.fg_password_strength_weak));
+                                    .setTextColor(ContextCompat.getColor(activity, R.color.fg_password_strength_weak));
                         } else if (passwordLength < 8) {
                             passwordStrengthView.setText(R.string.encrypt_keys_dialog_password_strength_fair);
                             passwordStrengthView
-                                    .setTextColor(getResources().getColor(R.color.fg_password_strength_fair));
+                                    .setTextColor(ContextCompat.getColor(activity, R.color.fg_password_strength_fair));
                         } else if (passwordLength < 10) {
                             passwordStrengthView.setText(R.string.encrypt_keys_dialog_password_strength_good);
-                            passwordStrengthView.setTextColor(getResources().getColor(R.color.fg_less_significant));
+                            passwordStrengthView
+                                    .setTextColor(ContextCompat.getColor(activity, R.color.fg_less_significant));
                         } else {
                             passwordStrengthView.setText(R.string.encrypt_keys_dialog_password_strength_strong);
-                            passwordStrengthView
-                                    .setTextColor(getResources().getColor(R.color.fg_password_strength_strong));
+                            passwordStrengthView.setTextColor(
+                                    ContextCompat.getColor(activity, R.color.fg_password_strength_strong));
                         }
 
                         final boolean hasPassword = !password.isEmpty();

@@ -186,8 +186,8 @@ public final class ScanActivity extends AbstractWalletActivity
                 // Using alpha rather than visibility because 'invisible' will cause the surface view to never
                 // start up, so the animation will never start.
                 contentView.setAlpha(0);
-                getWindow()
-                        .setBackgroundDrawable(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
+                getWindow().setBackgroundDrawable(
+                        new ColorDrawable(ContextCompat.getColor(this, android.R.color.transparent)));
                 OnFirstPreDraw.listen(contentView, new OnFirstPreDraw.Callback() {
                     @Override
                     public boolean onFirstPreDraw() {
@@ -212,8 +212,8 @@ public final class ScanActivity extends AbstractWalletActivity
             sceneTransition.addListener(new AnimatorListenerAdapter() {
                 @Override
                 public void onAnimationEnd(Animator animation) {
-                    getWindow()
-                            .setBackgroundDrawable(new ColorDrawable(getResources().getColor(android.R.color.black)));
+                    getWindow().setBackgroundDrawable(
+                            new ColorDrawable(ContextCompat.getColor(ScanActivity.this, android.R.color.black)));
                 }
             });
             sceneTransition.start();
