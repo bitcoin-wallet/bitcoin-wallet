@@ -26,6 +26,7 @@ import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Strings;
 
+import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.R;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.util.WalletUtils;
@@ -249,6 +250,7 @@ public class EncryptKeysDialogFragment extends DialogFragment {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
+                        // Decrypt from old password
                         if (wallet.isEncrypted()) {
                             if (oldKey == null) {
                                 log.info("wallet is encrypted, but did not provide spending password");
@@ -269,6 +271,11 @@ public class EncryptKeysDialogFragment extends DialogFragment {
                             }
                         }
 
+                        // Use opportunity to maybe upgrade wallet
+                        if (wallet.isDeterministicUpgradeRequired(Constants.UPGRADE_OUTPUT_SCRIPT_TYPE))
+                            wallet.upgradeToDeterministic(Constants.UPGRADE_OUTPUT_SCRIPT_TYPE, null);
+
+                        // Encrypt to new password
                         if (newKey != null && !wallet.isEncrypted()) {
                             wallet.encrypt(keyCrypter, newKey);
 
