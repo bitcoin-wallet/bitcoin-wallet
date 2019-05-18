@@ -1,3 +1,7 @@
+v7.10
+
+* Segregated Witness - Phase IV: Existing wallets with spending PIN can be upgraded by changing or removing the PIN.
+
 v7.09
 
 * Based on bitcoinj 0.15.2.
