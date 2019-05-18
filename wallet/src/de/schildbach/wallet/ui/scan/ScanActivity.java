@@ -365,8 +365,12 @@ public final class ScanActivity extends AbstractWalletActivity
 
                 if (nonContinuousAutoFocus)
                     cameraHandler.post(new AutoFocusRunnable(camera));
-
-                maybeTriggerSceneTransition();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        maybeTriggerSceneTransition();
+                    }
+                });
                 cameraHandler.post(fetchAndDecodeRunnable);
             } catch (final Exception x) {
                 log.info("problem opening camera", x);
