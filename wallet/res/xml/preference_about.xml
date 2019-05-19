@@ -63,11 +63,11 @@
         </Preference>
         <Preference
             android:key="about_credits_bouncycastle"
-            android:summary="https://github.com/rtyley/spongycastle"
+            android:summary="https://bouncycastle.org"
             android:title="@string/about_credits_bouncycastle_title" >
             <intent
                 android:action="android.intent.action.VIEW"
-                android:data="https://github.com/rtyley/spongycastle" />
+                android:data="https://bouncycastle.org" />
         </Preference>
         <Preference
             android:key="about_credits_scrypt"
