@@ -272,7 +272,8 @@ public class EncryptKeysDialogFragment extends DialogFragment {
                         }
 
                         // Use opportunity to maybe upgrade wallet
-                        if (wallet.isDeterministicUpgradeRequired(Constants.UPGRADE_OUTPUT_SCRIPT_TYPE))
+                        if (wallet.isDeterministicUpgradeRequired(Constants.UPGRADE_OUTPUT_SCRIPT_TYPE)
+                                && !wallet.isEncrypted())
                             wallet.upgradeToDeterministic(Constants.UPGRADE_OUTPUT_SCRIPT_TYPE, null);
 
                         // Encrypt to new password
