@@ -1,3 +1,7 @@
+v7.11
+
+* Various small bugfixes.
+
 v7.10
 
 * Segregated Witness - Phase IV: Existing wallets with spending PIN can be upgraded by changing or removing the PIN.
