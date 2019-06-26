@@ -67,7 +67,6 @@ public final class WalletBalanceFragment extends Fragment {
 
 
 	private static final long BLOCKCHAIN_UPTODATE_THRESHOLD_MS = DateUtils.HOUR_IN_MILLIS;
-    private static final long BLOCKCHAIN_UPTODATE_THRESHOLD_MS = DateUtils.HOUR_IN_MILLIS;
 
     @Override
     public void onAttach(final Context context) {
