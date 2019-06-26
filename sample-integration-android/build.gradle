@@ -19,6 +19,7 @@ android {
     lintOptions { abortOnError false }
 
     defaultConfig {
+        minSdkVersion 15
         dexOptions {
             preDexLibraries false
         }

@@ -68,6 +68,7 @@ android {
                 cFlags '-DHAVE_CONFIG_H'
             }
         }
+        minSdkVersion 21
     }
 
     buildTypes {
@@ -149,19 +150,6 @@ task svgToPngMipmapTestnet(type: fr.avianey.androidsvgdrawable.gradle.SvgDrawabl
     outputFormat = 'PNG'
     outputType = 'mipmap'
 }
-
-task buildNativeScrypt(type: GradleBuild) {
-    buildFile = '../native-scrypt/build.gradle'
-    tasks = ['copy']
-}
-
-task buildNativeGroestl(type: GradleBuild) {
-    buildFile = '../native-groestl/build.gradle'
-    tasks = ['copy']
-}
-
-preBuild.dependsOn 'buildNativeScrypt'
-preBuild.dependsOn 'buildNativeGroestl'
 
 clean {
     file('libs').deleteDir()
