@@ -7,8 +7,8 @@
                 android:angle="270"
                 android:centerX="50%"
                 android:centerY="50%"
-                android:endColor="#008ba4"
-                android:startColor="#008ba4"
+                android:endColor="#054083"
+                android:startColor="#01113f"
                 android:type="linear" />
         </shape>
     </background>
