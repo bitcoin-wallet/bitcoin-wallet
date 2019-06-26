@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <dimen name="font_size_tiny">13sp</dimen>
     <dimen name="font_size_small">16sp</dimen>
     <dimen name="font_size_normal">20sp</dimen>
-    <dimen name="font_size_large">26sp</dimen>
+    <dimen name="font_size_larger">26sp</dimen>
     <dimen name="font_size_xlarge">31sp</dimen>
     <dimen name="font_size_huge">42sp</dimen>
     <dimen name="symbol_size_normal">17sp</dimen>

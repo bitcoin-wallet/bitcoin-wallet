@@ -9,6 +9,12 @@
         android:titleCondensed="@string/button_request_coins"
         android:visible="@bool/wallet_actions_top"/>
     <item
+        android:id="@+id/wallet_options_request_legacy"
+        android:showAsAction="never"
+        android:title="@string/wallet_options_request_legacy"
+        android:orderInCategory="998"
+        android:visible="false"/>
+    <item
         android:id="@+id/wallet_options_send"
         android:icon="@drawable/ic_send_white_24dp"
         android:showAsAction="always|withText"
@@ -49,7 +55,8 @@
             <item
                 android:id="@+id/wallet_options_encrypt_keys"
                 android:showAsAction="never"
-                android:title="@string/encrypt_keys_dialog_title"/>
+                android:title="@string/encrypt_keys_dialog_title"
+                android:visible="false"/>
         </menu>
     </item>
     <item

@@ -12,7 +12,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 package de.schildbach.wallet.ui.preference;
@@ -20,13 +20,16 @@ package de.schildbach.wallet.ui.preference;
 import java.util.Locale;
 
 import org.bitcoinj.crypto.DeterministicKey;
+import org.bitcoinj.script.Script;
+import org.bitcoinj.wallet.DeterministicKeyChain;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.R;
 import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.ui.DialogBuilder;
-import de.schildbach.wallet_test.R;
 
 import android.app.Activity;
 import android.content.DialogInterface;
@@ -92,7 +95,7 @@ public final class DiagnosticsFragment extends PreferenceFragment {
             public void onClick(final DialogInterface dialog, final int which) {
                 log.info("manually initiated blockchain reset");
 
-                application.resetBlockchain();
+                BlockchainService.resetBlockchain(activity);
                 activity.finish(); // TODO doesn't fully finish prefs on single pane layouts
             }
         });
@@ -101,9 +104,12 @@ public final class DiagnosticsFragment extends PreferenceFragment {
     }
 
     private void handleExtendedPublicKey() {
-        final DeterministicKey extendedKey = application.getWallet().getWatchingKey();
-        final String xpub = String.format(Locale.US, "%s?c=%d&h=bip32",
-                extendedKey.serializePubB58(Constants.NETWORK_PARAMETERS), extendedKey.getCreationTimeSeconds());
-        ExtendedPublicKeyFragment.show(getFragmentManager(), (CharSequence) xpub);
+        final DeterministicKeyChain activeKeyChain = application.getWallet().getActiveKeyChain();
+        final DeterministicKey extendedKey = activeKeyChain.getWatchingKey();
+        final Script.ScriptType outputScriptType = activeKeyChain.getOutputScriptType();
+        final long creationTimeSeconds = extendedKey.getCreationTimeSeconds();
+        final String base58 = String.format(Locale.US, "%s?c=%d&h=bip32",
+                extendedKey.serializePubB58(Constants.NETWORK_PARAMETERS, outputScriptType), creationTimeSeconds);
+        ExtendedPublicKeyFragment.show(getFragmentManager(), (CharSequence) base58);
     }
 }

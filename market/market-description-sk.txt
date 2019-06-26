@@ -1,21 +1,18 @@
-Groestlcoiny vždy so sebou vo svojom vrecku. Jednoduché a rýchle platby pomocou QR kódov. Pre obchodníkov ponúka spoľahlivé a okamžité prijímanie platieb. Groestlcoin Wallet je prvá mobilná Groestlcoin aplikácia a preukázateľne aj najbezpečnejšia.
+Bitcoiny vždy so sebou vo svojom vrecku. Jednoduché a rýchle platby pomocou QR kódov. Pre obchodníkov ponúka spoľahlivé a okamžité prijímanie platieb. Bitcoin Wallet je prvá mobilná Bitcoin aplikácia a preukázateľne aj najbezpečnejšia.
 
 FUNKCIE:
 
 • Nie je potrebná žiadna registrácia ani žiadny účet.
-• Zobrazenie zostatku Groestlcoinov v GRS alebo mGRS.
-• Prepočet hodnoty Groestlcoinov do viacerých cudzích mien.
-• Posielanie a prijímanie Groestlcoinov pomocou NFC, QR kódov alebo Groestlcoin adries.
-• Adresár pre často používané Groestlcoin adresy.
+• Zobrazenie zostatku Bitcoinov v BTC alebo mBTC.
+• Prepočet hodnoty Bitcoinov do viacerých cudzích mien.
+• Posielanie a prijímanie Bitcoinov pomocou NFC, QR kódov alebo Bitcoin adries.
+• Adresár pre často používané Bitcoin adresy.
 • V offline režime je platba možná aj cez Bluetooth.
-• Notifikácie v stavovej lište pri prijatí Groestlcoinov.
+• Notifikácie v stavovej lište pri prijatí Bitcoinov.
 • Widget s celkovým zostatkom.
 
-Viac informácií o Groestlcoine
-http://groestlcoin.org
-
-Ak chcete prispieť do projektu Groestlcoin Wallet nájdete ho na adrese
-https://github.com/Groesltcoin/groestlcoin-wallet
+Ak chcete prispieť do projektu Bitcoin Wallet nájdete ho na adrese
+https://github.com/bitcoin-wallet/bitcoin-wallet
 
 Licencia: GPLv3
 Použitie len na vlastné riziko!

@@ -1,34 +1,29 @@
-<b>Draag je Groestlcoins altijd bij je, in je broekzak!</b> Je kunt vlot betalen door een QR-code te scannen. Als winkelier ontvang je je betalingen betrouwbaar en onmiddelijk. Groestlcoin Wallet is de eerste mobiele Groestlcoin-app, en misschien wel de veiligste!
+<b>Draag je Bitcoins altijd bij je, in je broekzak!</b> Je kunt vlot betalen door een QR-code te scannen. Als winkelier ontvang je je betalingen betrouwbaar en onmiddelijk. Bitcoin Wallet is de eerste mobiele Bitcoin-app, en misschien wel de veiligste!
 
 
 <b>EIGENSCHAPPEN</b>
 
 • Geen registratie, webservice of cloud vereist! Deze portemonnee is decentraal en peer-to-peer.
-• Toon Groestlcoin bedrag in GRS, mGRS en µGRS.
+• Toon Bitcoin bedrag in BTC, mBTC en µBTC.
 • Conversie van en naar nationale valuta.
-* Verzend en ontvang Groestlcoin via NFC, QR-codes of Groestlcoin-URL's
-• Adresboek voor regelmatig gebruikte Groestlcoin-adressen.
+* Verzend en ontvang Bitcoin via NFC, QR-codes of Bitcoin-URL's
+• Adresboek voor regelmatig gebruikte Bitcoin-adressen.
 • Offline kun je nog steeds betalen via Bluetooth.
-• Systeemmelding wanneer je Groestlcoins ontvangt
+• Systeemmelding wanneer je Bitcoins ontvangt
 • Opname van papieren portemonnee (b.v. voor cold storage).
-• App widget voor Groestlcoin saldo.
+• App widget voor Bitcoin saldo.
 
 
 <b>HELP MEE</b>
 
-Groestlcoin Wallet is <b>open source</b> en <b>free software</b>. Licentie: GPLv3
+Bitcoin Wallet is <b>open source</b> en <b>free software</b>. Licentie: GPLv3
 https://www.gnu.org/licenses/gpl-3.0.nl.html
 
 Onze broncode is beschikbaar op GitHub:
-https://github.com/Groesltcoin/groestlcoin-wallet
+https://github.com/bitcoin-wallet/bitcoin-wallet
 
 Alle vertalingen worden geregeld via Transifex:
-https://www.transifex.com/Groestlcoin-wallet/Groestlcoin-wallet/
-
-
-<b>TESTIMONIALS</b>
-
-* Aanbevolen mobiele portemonnee op http://groestlcoin.org
+https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
 
 
 <i>Gebruik op eigen risico!</i>

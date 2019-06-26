@@ -16,7 +16,7 @@
 
 package de.schildbach.wallet.util;
 
-import com.google.common.base.Charsets;
+import java.nio.charset.StandardCharsets;
 
 /**
  * Base43, derived from bitcoinj Base58. It's meant to be used for efficiently stuffing binary data into QR
@@ -70,7 +70,7 @@ public class Base43 {
 
         final byte[] output = copyOfRange(temp, j, temp.length);
 
-        return new String(output, Charsets.US_ASCII);
+        return new String(output, StandardCharsets.US_ASCII);
     }
 
     public static byte[] decode(final String input) throws IllegalArgumentException {

@@ -12,7 +12,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 package de.schildbach.wallet.offline;
@@ -61,18 +61,11 @@ public abstract class AcceptBluetoothThread extends Thread {
             org.bitcoinj.core.Context.propagate(Constants.CONTEXT);
 
             while (running.get()) {
-                BluetoothSocket socket = null;
-                DataInputStream is = null;
-                DataOutputStream os = null;
-
-                try {
-                    // start a blocking call, and return only on success or exception
-                    socket = listeningSocket.accept();
-
+                try ( // start a blocking call, and return only on success or exception
+                        final BluetoothSocket socket = listeningSocket.accept();
+                        final DataInputStream is = new DataInputStream(socket.getInputStream());
+                        final DataOutputStream os = new DataOutputStream(socket.getOutputStream())) {
                     log.info("accepted classic bluetooth connection");
-
-                    is = new DataInputStream(socket.getInputStream());
-                    os = new DataOutputStream(socket.getOutputStream());
 
                     boolean ack = true;
 
@@ -97,30 +90,6 @@ public abstract class AcceptBluetoothThread extends Thread {
                     os.writeBoolean(ack);
                 } catch (final IOException x) {
                     log.info("exception in bluetooth accept loop", x);
-                } finally {
-                    if (os != null) {
-                        try {
-                            os.close();
-                        } catch (final IOException x) {
-                            // swallow
-                        }
-                    }
-
-                    if (is != null) {
-                        try {
-                            is.close();
-                        } catch (final IOException x) {
-                            // swallow
-                        }
-                    }
-
-                    if (socket != null) {
-                        try {
-                            socket.close();
-                        } catch (final IOException x) {
-                            // swallow
-                        }
-                    }
                 }
             }
         }
@@ -137,18 +106,11 @@ public abstract class AcceptBluetoothThread extends Thread {
             org.bitcoinj.core.Context.propagate(Constants.CONTEXT);
 
             while (running.get()) {
-                BluetoothSocket socket = null;
-                DataInputStream is = null;
-                DataOutputStream os = null;
-
-                try {
-                    // start a blocking call, and return only on success or exception
-                    socket = listeningSocket.accept();
-
+                try ( // start a blocking call, and return only on success or exception
+                        final BluetoothSocket socket = listeningSocket.accept();
+                        final DataInputStream is = new DataInputStream(socket.getInputStream());
+                        final DataOutputStream os = new DataOutputStream(socket.getOutputStream())) {
                     log.info("accepted payment protocol bluetooth connection");
-
-                    is = new DataInputStream(socket.getInputStream());
-                    os = new DataOutputStream(socket.getOutputStream());
 
                     boolean ack = true;
 
@@ -170,30 +132,6 @@ public abstract class AcceptBluetoothThread extends Thread {
                     paymentAck.writeDelimitedTo(os);
                 } catch (final IOException x) {
                     log.info("exception in bluetooth accept loop", x);
-                } finally {
-                    if (os != null) {
-                        try {
-                            os.close();
-                        } catch (final IOException x) {
-                            // swallow
-                        }
-                    }
-
-                    if (is != null) {
-                        try {
-                            is.close();
-                        } catch (final IOException x) {
-                            // swallow
-                        }
-                    }
-
-                    if (socket != null) {
-                        try {
-                            socket.close();
-                        } catch (final IOException x) {
-                            // swallow
-                        }
-                    }
                 }
             }
         }

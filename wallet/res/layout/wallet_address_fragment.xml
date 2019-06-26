@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/bitcoin_address_qr_card"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:elevation="2dp"
     android:foreground="?android:attr/selectableItemBackground" >
 
     <ImageView
@@ -12,7 +13,7 @@
         android:layout_gravity="center"
         android:contentDescription="@string/action_show_qr"
         android:focusable="true"
-        android:padding="3dp"
-        android:scaleType="centerInside" />
+        android:padding="4dp"
+        android:scaleType="fitXY" />
 
-</android.support.v7.widget.CardView>
+</androidx.cardview.widget.CardView>

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:paddingLeft="@dimen/list_entry_padding_horizontal_lax"
-    android:paddingRight="@dimen/list_entry_padding_horizontal_lax"
     android:background="@color/bg_form"
-    android:orientation="vertical" >
+    android:elevation="3dp"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/list_entry_padding_horizontal_lax"
+    android:paddingRight="@dimen/list_entry_padding_horizontal_lax" >
 
     <TextView
         android:layout_width="match_parent"
@@ -32,7 +33,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:imeOptions="flagNoExtractUi"
-                android:textSize="@dimen/font_size_large"
+                android:textSize="@dimen/font_size_larger"
                 tools:ignore="TextFields" />
         </de.schildbach.wallet.ui.CurrencyAmountView>
 
@@ -47,7 +48,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:imeOptions="flagNoExtractUi"
-                android:textSize="@dimen/font_size_large"
+                android:textSize="@dimen/font_size_larger"
                 tools:ignore="TextFields" />
         </de.schildbach.wallet.ui.CurrencyAmountView>
     </LinearLayout>

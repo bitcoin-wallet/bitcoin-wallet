@@ -12,17 +12,21 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 package de.schildbach.wallet.ui;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import android.app.Activity;
 import android.app.Dialog;
-import android.app.DialogFragment;
-import android.app.FragmentManager;
+import android.content.Context;
 import android.os.Bundle;
 import android.text.Html;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
 
 
 /**
@@ -50,11 +54,18 @@ public final class HelpDialogFragment extends DialogFragment {
 
     private Activity activity;
 
-    @Override
-    public void onAttach(final Activity activity) {
-        super.onAttach(activity);
+    private static final Logger log = LoggerFactory.getLogger(HelpDialogFragment.class);
 
-        this.activity = activity;
+    @Override
+    public void onAttach(final Context context) {
+        super.onAttach(context);
+        this.activity = (AbstractWalletActivity) context;
+    }
+
+    @Override
+    public void onCreate(final Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        log.info("opening dialog {}", getClass().getName());
     }
 
     @Override

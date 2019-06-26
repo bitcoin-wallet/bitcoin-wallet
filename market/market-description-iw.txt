@@ -11,11 +11,8 @@ FEATURES:
 • התראות מערכת על קבלת מטבעות.
 • וידג'ט לבדיקת יתרת הביטקוין שלך
 
-אתה יכול למצוא יותר על ביטקוין בכתובת
-לפרטים נוספים : http://groestlcoin.org
-
 אם אתה רוצה לתרום לפרויקט ארנק הביטקוין, הפרויקט ממוקם ב
-https://github.com/Groesltcoin/groestlcoin-wallet
+https://github.com/bitcoin-wallet/bitcoin-wallet
 
 רישיון : GPLv3
 שים לב: השימוש הוא באחריות המשתמש.

@@ -12,16 +12,20 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 package de.schildbach.wallet.util;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.util.UUID;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import android.bluetooth.BluetoothAdapter;
-import android.os.Build;
+import androidx.annotation.Nullable;
 
 /**
  * @author Andreas Schildbach
@@ -40,16 +44,9 @@ public class Bluetooth {
     /** Android 6 uses this MAC address instead of the real one. */
     private static final String MARSHMELLOW_FAKE_MAC = "02:00:00:00:00:00";
 
-    public static boolean canListen(final BluetoothAdapter adapter) {
-        if (adapter == null)
-            return false;
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR2)
-            // Earlier versions cannot reliably listen.
-            return false;
-        return true;
-    }
+    private static final Logger log = LoggerFactory.getLogger(Bluetooth.class);
 
-    public static String getAddress(final BluetoothAdapter adapter) {
+    public static @Nullable String getAddress(final BluetoothAdapter adapter) {
         if (adapter == null)
             return null;
 
@@ -65,6 +62,9 @@ public class Bluetooth {
             if (mService == null)
                 return null;
             return (String) mService.getClass().getMethod("getAddress").invoke(mService);
+        } catch (final InvocationTargetException x) {
+            log.info("Problem determining Bluetooth MAC via reflection", x);
+            return null;
         } catch (final Exception x) {
             throw new RuntimeException(x);
         }

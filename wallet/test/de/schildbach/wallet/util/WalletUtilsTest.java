@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 the original author or authors.
+ * Copyright the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -12,7 +12,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 package de.schildbach.wallet.util;
@@ -29,21 +29,13 @@ import org.junit.Test;
 public class WalletUtilsTest {
     @Test
     public void restoreWalletFromProtobufOrBase58() throws Exception {
-        WalletUtils.restoreWalletFromProtobufOrBase58(getClass().getResourceAsStream("backup-protobuf-testnet"),
-                TestNet3Params.get());
-        WalletUtils.restoreWalletFromProtobufOrBase58(getClass().getResourceAsStream("backup-base58-testnet"),
+        WalletUtils.restoreWalletFromProtobuf(getClass().getResourceAsStream("backup-protobuf-testnet"),
                 TestNet3Params.get());
     }
 
     @Test(expected = IOException.class)
     public void restoreWalletFromProtobuf_wrongNetwork() throws Exception {
-        WalletUtils.restoreWalletFromProtobufOrBase58(getClass().getResourceAsStream("backup-protobuf-testnet"),
-                MainNetParams.get());
-    }
-
-    @Test(expected = IOException.class)
-    public void restoreWalletFromBase58_wrongNetwork() throws Exception {
-        WalletUtils.restoreWalletFromProtobufOrBase58(getClass().getResourceAsStream("backup-base58-testnet"),
+        WalletUtils.restoreWalletFromProtobuf(getClass().getResourceAsStream("backup-protobuf-testnet"),
                 MainNetParams.get());
     }
 }

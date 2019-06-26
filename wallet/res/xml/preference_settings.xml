@@ -57,28 +57,10 @@
         android:key="remind_balance"
         android:summary="@string/preferences_remind_balance_summary"
         android:title="@string/preferences_remind_balance_title" />
-
-    <PreferenceCategory android:title="@string/preferences_category_labs" >
-        <Preference
-            android:icon="@drawable/ic_warning_grey600_24dp"
-            android:summary="This is all unfinished stuff. Use at your own risk!"
-            android:title="Warning" />
-
-        <CheckBoxPreference
-            android:defaultValue="true"
-            android:key="disclaimer"
-            android:summary="Have you really read the safety notes? Did you already back up your wallet to a safe place?"
-            android:title="Show disclaimer" />
-        <CheckBoxPreference
-            android:defaultValue="false"
-            android:key="labs_qr_payment_request"
-            android:summary="Use payment protocol for QR-code initiated payments"
-            android:title="BIP70 for scan-to-pay" />
-        <CheckBoxPreference
-            android:defaultValue="false"
-            android:key="look_up_wallet_names"
-            android:summary="When sending coins, use DNSSEC to look up wallet names from the domain name system."
-            android:title="Look up wallet names" />
-    </PreferenceCategory>
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:key="disclaimer"
+        android:summary="@string/preferences_show_disclaimer_summary"
+        android:title="@string/preferences_show_disclaimer_title" />
 
 </PreferenceScreen>

@@ -12,7 +12,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 package de.schildbach.wallet.service;
@@ -55,8 +55,10 @@ public class BlockchainState {
         final boolean replaying = intent.getBooleanExtra(EXTRA_REPLAYING, false);
         @SuppressWarnings("unchecked")
         final Set<Impediment> impediments = (Set<Impediment>) intent.getSerializableExtra(EXTRA_IMPEDIMENTS);
-
-        return new BlockchainState(bestChainDate, bestChainHeight, replaying, impediments);
+        if (bestChainDate != null && bestChainHeight != -1 && impediments != null)
+            return new BlockchainState(bestChainDate, bestChainHeight, replaying, impediments);
+        else
+            return null;
     }
 
     public void putExtras(final Intent intent) {

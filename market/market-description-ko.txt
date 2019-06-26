@@ -1,34 +1,29 @@
-<b>주머니에 항상 넣어다닐 수 있는 그로에셀코인 지갑!</b> QR 코드를 통해 빠르게 그로에셀코인 결제가 가능합니다. 판매자의 경우 안전하고 빠르게 대금을 받을 수 있습니다. 그로에셀코인 지갑(Groestlcoin Wallet)은  최초의 모바일 그로에셀코인 앱이며 최고의 보안을 자랑합니다!
+<b>주머니에 항상 넣어다닐 수 있는 비트코인 지갑!</b> QR 코드를 통해 빠르게 비트코인 결제가 가능합니다. 판매자의 경우 안전하고 빠르게 대금을 받을 수 있습니다. 비트코인 지갑(Bitcoin Wallet)은  최초의 모바일 비트코인 앱이며 최고의 보안을 자랑합니다!
 
 
 <b>특징</b>
 
 • 회원 가입이나 별도의 인증 과정이 없는 P2P 기반의 지갑
-• 다양한 그로에셀코인 단위 설정 - GRS, mGRS, µGRS
-• 모든 국가별 그로에셀코인 평가 환율 제공
-• 그로에셀코인 URL, QR 코드, NFC를 통해 그로에셀코인 거래 가능
-• 그로에셀코인 간편 주소록 기능
+• 다양한 비트코인 단위 설정 - BTC, mBTC, µBTC
+• 모든 국가별 비트코인 평가 환율 제공
+• 비트코인 URL, QR 코드, NFC를 통해 비트코인 거래 가능
+• 비트코인 간편 주소록 기능
 • 오프라인일 때에도 블루투스를 통해 거래 가능
-• 그로에셀코인 수신 시 시스템의 자동 알림 기능
+• 비트코인 수신 시 시스템의 자동 알림 기능
 • 종이 지갑(오프라인 형태로 사용되는 출력물)에서 가져오기
 • 전 세계 모든 통화별 잔액 표시 기능
 
 
 <b>도움받은 곳</b>
 
-그로에셀코인 지갑은 <b>오픈소스</b>이며 <b>무료 소프트웨어</b>입니다. 라이센스 정책 : GPLv3
+비트코인 지갑은 <b>오픈소스</b>이며 <b>무료 소프트웨어</b>입니다. 라이센스 정책 : GPLv3
 https://www.gnu.org/licenses/gpl-3.0.en.html
 
 소스 코드는 깃허브(GitHub)에서 볼 수 있습니다.
-https://github.com/Groesltcoin/groestlcoin-wallet
+https://github.com/bitcoin-wallet/bitcoin-wallet
 
 모든 번역은 Transifex 웹사이트를 통해 이루어집니다.
-https://www.transifex.com/Groestlcoin-wallet/Groestlcoin-wallet/
-
-
-<b>추천 의견</b>
-
-• 그로에셀코인 공식 사이트인 http://groestlcoin.org로부터 그 신뢰성과 안정성을 추천받았습니다.
+https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
 
 
 <i>이 앱을 사용하는 것은 앱 사용에 따른 위험에 동의하는 것입니다!</i>

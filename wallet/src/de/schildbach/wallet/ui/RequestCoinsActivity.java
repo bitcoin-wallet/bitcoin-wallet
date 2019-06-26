@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2015 the original author or authors.
+ * Copyright the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -12,32 +12,65 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 package de.schildbach.wallet.ui;
 
-import de.schildbach.wallet_test.R;
+import org.bitcoinj.script.Script;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import de.schildbach.wallet.R;
+
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.WindowManager;
+import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.lifecycle.ViewModelProviders;
 
 /**
  * @author Andreas Schildbach
  */
-public final class RequestCoinsActivity extends AbstractBindServiceActivity {
+public final class RequestCoinsActivity extends AbstractWalletActivity {
+    public static final String INTENT_EXTRA_OUTPUT_SCRIPT_TYPE = "output_script_type";
+
+    public static void start(final Context context) {
+        start(context, null);
+    }
+
+    public static void start(final Context context, final @Nullable Script.ScriptType outputScriptType) {
+        final Intent intent = new Intent(context, RequestCoinsActivity.class);
+        if (outputScriptType != null)
+            intent.putExtra(INTENT_EXTRA_OUTPUT_SCRIPT_TYPE, outputScriptType);
+        context.startActivity(intent);
+    }
+
+    private RequestCoinsActivityViewModel viewModel;
+
+    private static final Logger log = LoggerFactory.getLogger(RequestCoinsActivity.class);
+
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        log.info("Referrer: {}", ActivityCompat.getReferrer(this));
         setContentView(R.layout.request_coins_content);
+
+        viewModel = ViewModelProviders.of(this).get(RequestCoinsActivityViewModel.class);
+        viewModel.showHelpDialog.observe(this, new Event.Observer<Integer>() {
+            @Override
+            public void onEvent(final Integer messageResId) {
+                HelpDialogFragment.page(getSupportFragmentManager(), messageResId);
+            }
+        });
     }
 
     @Override
     public void onAttachedToWindow() {
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
+        setShowWhenLocked(true);
     }
 
     @Override
@@ -50,12 +83,8 @@ public final class RequestCoinsActivity extends AbstractBindServiceActivity {
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
         switch (item.getItemId()) {
-        case android.R.id.home:
-            finish();
-            return true;
-
         case R.id.request_coins_options_help:
-            HelpDialogFragment.page(getFragmentManager(), R.string.help_request_coins);
+            viewModel.showHelpDialog.setValue(new Event<>(R.string.help_request_coins));
             return true;
         }
 

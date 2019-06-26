@@ -1,34 +1,29 @@
-<b>Ten tus Groestlcoins siempre contigo, ¡en tu bolsillo!</b> Paga rápidamente leyendo el código QR. Como comercio puedes recibir pagos de forma fiable e instantánea. Groestlcoin Wallet es la primera aplicación móvil Groestlcoin. ¡Y posiblemente también la más segura!
+<b>Ten tus Bitcoins siempre contigo, ¡en tu bolsillo!</b> Paga rápidamente leyendo el código QR. Como comercio puedes recibir pagos de forma fiable e instantánea. Bitcoin Wallet es la primera aplicación móvil Bitcoin. ¡Y posiblemente también la más segura!
 
 
 <b>CARACTERÍSTICAS</b>
 
 • ¡No requiere registro, servidor en la nube o servicio web! Este monedero es auténticamente descentralizado y entre pares (peer-to-peer).
-• Muestra la cantidad de Groestlcoins en GRS, mGRS, y µGRS.
+• Muestra la cantidad de bitcoins en BTC, mBTC, y µBTC.
 • Conversión hacia y desde divisas nacionales.
-• Envío y recepción de Groestlcoins mediante NFC, códigos QR o identificadores URL Groestlcoin.
-• Libreta de direcciones para guardar las direcciones Groestlcoin más utilizadas.
+• Envío y recepción de bitcoins mediante NFC, códigos QR o identificadores URL Bitcoin.
+• Libreta de direcciones para guardar las direcciones Bitcoin más utilizadas.
 • Cuando no tienes conexión, puedes pagar via Bluetooth.
-• Notificación del sistema al recibir Groestlcoins.
+• Notificación del sistema al recibir bitcoins.
 • Barrido de monederos de papel (por ejemplo, los que se utilizan para custodia en frio).
-• Widget para el saldo de Groestlcoins.
+• Widget para el saldo de bitcoins.
 
 
 <b>CONTRIBUIR</b>
 
-Groestlcoin Wallet es <b>código abierto</b> y <b>software libre</b>. Licencia: GPLv3
+Bitcoin Wallet es <b>código abierto</b> y <b>software libre</b>. Licencia: GPLv3
 https://www.gnu.org/licenses/gpl-3.0.en.html
 
 Nuestro código fuente está disponible en GitHub:
-https://github.com/Groesltcoin/groestlcoin-wallet
+https://github.com/bitcoin-wallet/bitcoin-wallet
 
 Todas las traducciones son administradas a través de Transifex:
-https://www.transifex.com/Groestlcoin-wallet/Groestlcoin-wallet/
-
-
-<b>TESTIMONIOS</b>
-
-• Monedero móvil recomendado por http://groestlcoin.org
+https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
 
 
 <i>¡Úsalo bajo tu propio riesgo!</i>

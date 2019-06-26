@@ -12,19 +12,18 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 package de.schildbach.wallet.data;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.Currency;
 import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
 import java.util.TreeMap;
-
-import javax.annotation.Nullable;
 
 import org.bitcoinj.core.Coin;
 import org.bitcoinj.utils.Fiat;
@@ -35,13 +34,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Stopwatch;
-import com.squareup.okhttp.Call;
-import com.squareup.okhttp.HttpUrl;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
 
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.Logging;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.util.GenericUtils;
 
@@ -51,9 +47,15 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.net.Uri;
-import android.preference.PreferenceManager;
 import android.provider.BaseColumns;
 import android.text.format.DateUtils;
+import androidx.annotation.Nullable;
+import okhttp3.Call;
+import okhttp3.ConnectionSpec;
+import okhttp3.HttpUrl;
+import okhttp3.OkHttpClient.Builder;
+import okhttp3.Request;
+import okhttp3.Response;
 
 /**
  * @author Andreas Schildbach
@@ -88,10 +90,13 @@ public class ExchangeRatesProvider extends ContentProvider {
         if (!Constants.ENABLE_EXCHANGE_RATES)
             return false;
 
-        final Context context = getContext();
+        final Stopwatch watch = Stopwatch.createStarted();
 
-        this.config = new Configuration(PreferenceManager.getDefaultSharedPreferences(context), context.getResources());
-        this.userAgent = WalletApplication.httpUserAgent(WalletApplication.packageInfoFromContext(context).versionName);
+        final Context context = getContext();
+        Logging.init(context.getFilesDir());
+        final WalletApplication application = (WalletApplication) context.getApplicationContext();
+        this.config = application.getConfiguration();
+        this.userAgent = WalletApplication.httpUserAgent(application.packageInfo().versionName);
 
         final ExchangeRate cachedExchangeRate = config.getCachedExchangeRate();
         if (cachedExchangeRate != null) {
@@ -99,6 +104,8 @@ public class ExchangeRatesProvider extends ContentProvider {
             exchangeRates.put(cachedExchangeRate.getCurrencyCode(), cachedExchangeRate);
         }
 
+        watch.stop();
+        log.info("{}.onCreate() took {}", getClass().getSimpleName(), watch);
         return true;
     }
 
@@ -234,7 +241,9 @@ public class ExchangeRatesProvider extends ContentProvider {
         request.url(BITCOINAVERAGE_URL);
         request.header("User-Agent", userAgent);
 
-        final Call call = Constants.HTTP_CLIENT.newCall(request.build());
+        final Builder httpClientBuilder = Constants.HTTP_CLIENT.newBuilder();
+        httpClientBuilder.connectionSpecs(Arrays.asList(ConnectionSpec.RESTRICTED_TLS));
+        final Call call = httpClientBuilder.build().newCall(request.build());
         try {
             final Response response = call.execute();
             if (response.isSuccessful()) {
@@ -250,10 +259,9 @@ public class ExchangeRatesProvider extends ContentProvider {
                                 && !fiatCurrencyCode.equals(MonetaryFormat.CODE_MBTC)
                                 && !fiatCurrencyCode.equals(MonetaryFormat.CODE_UBTC)) {
                             final JSONObject exchangeRate = head.getJSONObject(currencyCode);
-                            final JSONObject averages = exchangeRate.getJSONObject("averages");
                             try {
                                 Double _rate = GRSPerBTC * averages.getDouble("day");
-                                final Fiat rate = parseFiatInexact(fiatCurrencyCode, _rate.toString());
+                                final Fiat rate = parseFiatInexact(fiatCurrencyCode, exchangeRate.getString("last"));
                                 if (rate.signum() > 0)
                                     rates.put(fiatCurrencyCode, new ExchangeRate(
                                             new org.bitcoinj.utils.ExchangeRate(rate), BITCOINAVERAGE_SOURCE));

@@ -4,9 +4,6 @@ This project contains several sub-projects:
 
  * __wallet__:
      The Android app itself. This is probably what you're searching for.
- * __native-scrypt__:
-     Native code implementation for Scrypt. The C files are copied from the
-     Java Scrypt project at [GitHub](https://github.com/wg/scrypt).
  * __market__:
      App description and promo material for the Google Play app store.
  * __integration-android__:
@@ -19,3 +16,12 @@ This project contains several sub-projects:
 You can build all sub-projects at once using Gradle:
 
 `gradle clean build`
+
+You can install the app from the app store of your choice:
+
+ * __Testnet__:
+   <a href="https://f-droid.org/app/de.schildbach.wallet_test">F-Droid</a> |
+   <a href='https://play.google.com/store/apps/details?id=de.schildbach.wallet_test'>Google Play</a>
+ * __Mainnet__:
+   <a href="https://f-droid.org/app/de.schildbach.wallet">F-Droid</a> |
+   <a href='https://play.google.com/store/apps/details?id=de.schildbach.wallet'>Google Play</a>

@@ -12,7 +12,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 package de.schildbach.wallet.ui.send;
@@ -59,7 +59,7 @@ public abstract class SendCoinsOfflineTask {
                 try {
                     log.info("sending: {}", sendRequest);
                     final Transaction transaction = wallet.sendCoinsOffline(sendRequest); // can take long
-                    log.info("send successful, transaction committed: {}", transaction.getHashAsString());
+                    log.info("send successful, transaction committed: {}", transaction.getTxId());
 
                     callbackHandler.post(new Runnable() {
                         @Override

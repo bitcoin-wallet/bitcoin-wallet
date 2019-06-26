@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 the original author or authors.
+ * Copyright the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -12,33 +12,72 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 package de.schildbach.wallet.util;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Looper;
 
 /**
  * @author Andreas Schildbach
  */
 public class Toast {
     private final Context context;
+    private final Handler handler = new Handler(Looper.getMainLooper());
 
     public Toast(final Context context) {
         this.context = context;
+    }
+
+    public final void postToast(final int textResId, final Object... formatArgs) {
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                toast(textResId, formatArgs);
+            }
+        });
     }
 
     public final void toast(final int textResId, final Object... formatArgs) {
         customToast(textResId, android.widget.Toast.LENGTH_SHORT, formatArgs);
     }
 
+    public final void postToast(final CharSequence text) {
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                toast(text);
+            }
+        });
+    }
+
     public final void toast(final CharSequence text) {
         customToast(text, android.widget.Toast.LENGTH_SHORT);
     }
 
+    public final void postLongToast(final int textResId, final Object... formatArgs) {
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                longToast(textResId, formatArgs);
+            }
+        });
+    }
+
     public final void longToast(final int textResId, final Object... formatArgs) {
         customToast(textResId, android.widget.Toast.LENGTH_LONG, formatArgs);
+    }
+
+    public final void postLongToast(final CharSequence text) {
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                longToast(text);
+            }
+        });
     }
 
     public final void longToast(final CharSequence text) {

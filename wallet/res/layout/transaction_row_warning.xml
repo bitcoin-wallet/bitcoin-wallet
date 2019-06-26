@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/transaction_row_warning_message"
-    style="@android:style/Widget.Holo.Button.Borderless"
+    style="@style/My.Widget.Button.Borderless"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:drawablePadding="@dimen/list_entry_padding_vertical_lax"
@@ -10,5 +10,6 @@
     android:paddingLeft="@dimen/list_entry_padding_horizontal_lax"
     android:paddingRight="@dimen/list_entry_padding_horizontal_lax"
     android:paddingTop="@dimen/list_entry_padding_vertical_lax"
+    android:textAllCaps="false"
     android:textColor="@color/fg_less_significant"
     android:textSize="@dimen/font_size_small" />

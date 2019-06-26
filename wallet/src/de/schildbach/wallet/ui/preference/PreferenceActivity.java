@@ -12,14 +12,14 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 package de.schildbach.wallet.ui.preference;
 
 import java.util.List;
 
-import de.schildbach.wallet_test.R;
+import de.schildbach.wallet.R;
 
 import android.view.MenuItem;
 
@@ -37,7 +37,7 @@ public final class PreferenceActivity extends android.preference.PreferenceActiv
     public boolean onOptionsItemSelected(final MenuItem item) {
         switch (item.getItemId()) {
         case android.R.id.home:
-            finish();
+            onBackPressed();
             return true;
         }
 

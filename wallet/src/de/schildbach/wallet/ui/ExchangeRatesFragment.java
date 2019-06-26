@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2015 the original author or authors.
+ * Copyright the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -12,43 +12,28 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 package de.schildbach.wallet.ui;
 
-import javax.annotation.Nullable;
-
 import org.bitcoinj.core.Coin;
-import org.bitcoinj.wallet.Wallet;
 
 import com.google.common.base.Strings;
 
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.R;
 import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.WalletBalanceWidgetProvider;
-import de.schildbach.wallet.data.ExchangeRate;
 import de.schildbach.wallet.data.ExchangeRatesProvider;
 import de.schildbach.wallet.service.BlockchainState;
-import de.schildbach.wallet.service.BlockchainStateLoader;
-import de.schildbach.wallet_test.R;
 
-import android.app.Activity;
-import android.app.Fragment;
-import android.app.LoaderManager;
-import android.app.LoaderManager.LoaderCallbacks;
-import android.content.CursorLoader;
-import android.content.Loader;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.database.Cursor;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.BaseColumns;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -56,61 +41,95 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.SearchView;
 import android.widget.SearchView.OnQueryTextListener;
-import android.widget.TextView;
 import android.widget.ViewAnimator;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * @author Andreas Schildbach
  */
-public final class ExchangeRatesFragment extends Fragment implements OnSharedPreferenceChangeListener {
-    private AbstractBindServiceActivity activity;
+public final class ExchangeRatesFragment extends Fragment
+        implements OnSharedPreferenceChangeListener, ExchangeRatesAdapter.OnClickListener {
+    private AbstractWalletActivity activity;
     private WalletApplication application;
     private Configuration config;
-    private Wallet wallet;
-    private Uri contentUri;
-    private LoaderManager loaderManager;
 
     private ViewAnimator viewGroup;
     private RecyclerView recyclerView;
     private ExchangeRatesAdapter adapter;
 
-    private String query = null;
-    @Nullable
-    private BlockchainState blockchainState = null;
-
-    private static final int ID_BALANCE_LOADER = 0;
-    private static final int ID_RATE_LOADER = 1;
-    private static final int ID_BLOCKCHAIN_STATE_LOADER = 2;
+    private ExchangeRatesViewModel viewModel;
 
     @Override
-    public void onAttach(final Activity activity) {
-        super.onAttach(activity);
-
-        this.activity = (AbstractBindServiceActivity) activity;
-        this.application = (WalletApplication) activity.getApplication();
+    public void onAttach(final Context context) {
+        super.onAttach(context);
+        this.activity = (AbstractWalletActivity) context;
+        this.application = activity.getWalletApplication();
         this.config = application.getConfiguration();
-        this.wallet = application.getWallet();
-        this.contentUri = ExchangeRatesProvider.contentUri(activity.getPackageName(), false);
-        this.loaderManager = getLoaderManager();
     }
 
     @Override
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        setRetainInstance(true);
         setHasOptionsMenu(true);
 
-        adapter = new ExchangeRatesAdapter();
-        adapter.setRateBase(config.getBtcBase());
-        adapter.setDefaultCurrency(config.getExchangeCurrencyCode());
+        viewModel = ViewModelProviders.of(this).get(ExchangeRatesViewModel.class);
+        if (Constants.ENABLE_EXCHANGE_RATES) {
+            viewModel.getExchangeRates().observe(this, new Observer<Cursor>() {
+                @Override
+                public void onChanged(final Cursor cursor) {
+                    if (cursor.getCount() == 0 && viewModel.query == null) {
+                        viewGroup.setDisplayedChild(1);
+                    } else if (cursor.getCount() == 0 && viewModel.query != null) {
+                        viewGroup.setDisplayedChild(2);
+                    } else {
+                        viewGroup.setDisplayedChild(3);
+                        maybeSubmitList();
 
-        if (Constants.ENABLE_EXCHANGE_RATES)
-            loaderManager.initLoader(ID_RATE_LOADER, null, rateLoaderCallbacks);
+                        final String defaultCurrency = config.getExchangeCurrencyCode();
+                        if (defaultCurrency != null) {
+                            cursor.moveToPosition(-1);
+                            while (cursor.moveToNext()) {
+                                if (cursor
+                                        .getString(
+                                                cursor.getColumnIndexOrThrow(ExchangeRatesProvider.KEY_CURRENCY_CODE))
+                                        .equals(defaultCurrency)) {
+                                    recyclerView.scrollToPosition(cursor.getPosition());
+                                    break;
+                                }
+                            }
+                        }
+
+                        if (activity instanceof ExchangeRatesActivity) {
+                            cursor.moveToPosition(0);
+                            final String source = ExchangeRatesProvider.getExchangeRate(cursor).source;
+                            activity.getActionBar().setSubtitle(
+                                    source != null ? getString(R.string.exchange_rates_fragment_source, source) : null);
+                        }
+                    }
+                }
+            });
+        }
+        viewModel.getBalance().observe(this, new Observer<Coin>() {
+            @Override
+            public void onChanged(final Coin balance) {
+                maybeSubmitList();
+            }
+        });
+        viewModel.getBlockchainState().observe(this, new Observer<BlockchainState>() {
+            @Override
+            public void onChanged(final BlockchainState blockchainState) {
+                maybeSubmitList();
+            }
+        });
+
+        adapter = new ExchangeRatesAdapter(activity, this);
 
         config.registerOnSharedPreferenceChangeListener(this);
     }
@@ -128,29 +147,34 @@ public final class ExchangeRatesFragment extends Fragment implements OnSharedPre
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-
-        loaderManager.initLoader(ID_BALANCE_LOADER, null, balanceLoaderCallbacks);
-        loaderManager.initLoader(ID_BLOCKCHAIN_STATE_LOADER, null, blockchainStateLoaderCallbacks);
-    }
-
-    @Override
-    public void onPause() {
-        loaderManager.destroyLoader(ID_BALANCE_LOADER);
-        loaderManager.destroyLoader(ID_BLOCKCHAIN_STATE_LOADER);
-
-        super.onPause();
-    }
-
-    @Override
     public void onDestroy() {
         config.unregisterOnSharedPreferenceChangeListener(this);
-
-        if (Constants.ENABLE_EXCHANGE_RATES)
-            loaderManager.destroyLoader(ID_RATE_LOADER);
-
         super.onDestroy();
+    }
+
+    private void maybeSubmitList() {
+        final Cursor exchangeRates = viewModel.getExchangeRates().getValue();
+        if (exchangeRates != null)
+            adapter.submitList(ExchangeRatesAdapter.buildListItems(exchangeRates, viewModel.getBalance().getValue(),
+                    viewModel.getBlockchainState().getValue(), config.getExchangeCurrencyCode(), config.getBtcBase()));
+    }
+
+    @Override
+    public void onExchangeRateMenuClick(final View view, final String currencyCode) {
+        final PopupMenu popupMenu = new PopupMenu(activity, view);
+        popupMenu.inflate(R.menu.exchange_rates_context);
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(final MenuItem item) {
+                if (item.getItemId() == R.id.exchange_rates_context_set_as_default) {
+                    config.setExchangeCurrencyCode(currencyCode);
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        });
+        popupMenu.show();
     }
 
     @Override
@@ -163,16 +187,14 @@ public final class ExchangeRatesFragment extends Fragment implements OnSharedPre
             searchView.setOnQueryTextListener(new OnQueryTextListener() {
                 @Override
                 public boolean onQueryTextChange(final String newText) {
-                    query = Strings.emptyToNull(newText.trim());
-                    getLoaderManager().restartLoader(ID_RATE_LOADER, null, rateLoaderCallbacks);
-
+                    viewModel.query = Strings.emptyToNull(newText.trim());
+                    viewModel.getExchangeRates().setQuery(viewModel.query);
                     return true;
                 }
 
                 @Override
                 public boolean onQueryTextSubmit(final String query) {
                     searchView.clearFocus();
-
                     return true;
                 }
             });
@@ -193,211 +215,8 @@ public final class ExchangeRatesFragment extends Fragment implements OnSharedPre
     @Override
     public void onSharedPreferenceChanged(final SharedPreferences sharedPreferences, final String key) {
         if (Configuration.PREFS_KEY_EXCHANGE_CURRENCY.equals(key))
-            adapter.setDefaultCurrency(config.getExchangeCurrencyCode());
+            maybeSubmitList();
         else if (Configuration.PREFS_KEY_BTC_PRECISION.equals(key))
-            adapter.setRateBase(config.getBtcBase());
-    }
-
-    private final LoaderCallbacks<Cursor> rateLoaderCallbacks = new LoaderManager.LoaderCallbacks<Cursor>() {
-        @Override
-        public Loader<Cursor> onCreateLoader(final int id, final Bundle args) {
-            if (query == null)
-                return new CursorLoader(activity, contentUri, null, null, null, null);
-            else
-                return new CursorLoader(activity, contentUri, null, ExchangeRatesProvider.QUERY_PARAM_Q,
-                        new String[] { query }, null);
-        }
-
-        @Override
-        public void onLoadFinished(final Loader<Cursor> loader, final Cursor data) {
-            adapter.setCursor(data);
-            if (adapter.getItemCount() == 0 && query == null) {
-                viewGroup.setDisplayedChild(1);
-            } else if (adapter.getItemCount() == 0 && query != null) {
-                viewGroup.setDisplayedChild(2);
-            } else {
-                viewGroup.setDisplayedChild(3);
-                final int positionToScrollTo = adapter.getDefaultCurrencyPosition();
-                if (positionToScrollTo != RecyclerView.NO_POSITION)
-                    recyclerView.scrollToPosition(positionToScrollTo);
-                if (activity instanceof ExchangeRatesActivity) {
-                    data.moveToPosition(0);
-                    final String source = ExchangeRatesProvider.getExchangeRate(data).source;
-                    activity.getActionBar().setSubtitle(
-                            source != null ? getString(R.string.exchange_rates_fragment_source, source) : null);
-                }
-            }
-        }
-
-        @Override
-        public void onLoaderReset(final Loader<Cursor> loader) {
-        }
-    };
-
-    private final LoaderCallbacks<Coin> balanceLoaderCallbacks = new LoaderManager.LoaderCallbacks<Coin>() {
-        @Override
-        public Loader<Coin> onCreateLoader(final int id, final Bundle args) {
-            return new WalletBalanceLoader(activity, wallet);
-        }
-
-        @Override
-        public void onLoadFinished(final Loader<Coin> loader, final Coin balance) {
-            adapter.setBalance(balance);
-        }
-
-        @Override
-        public void onLoaderReset(final Loader<Coin> loader) {
-        }
-    };
-
-    private final LoaderCallbacks<BlockchainState> blockchainStateLoaderCallbacks = new LoaderManager.LoaderCallbacks<BlockchainState>() {
-        @Override
-        public Loader<BlockchainState> onCreateLoader(final int id, final Bundle args) {
-            return new BlockchainStateLoader(activity);
-        }
-
-        @Override
-        public void onLoadFinished(final Loader<BlockchainState> loader, final BlockchainState blockchainState) {
-            adapter.setBlockchainState(blockchainState);
-        }
-
-        @Override
-        public void onLoaderReset(final Loader<BlockchainState> loader) {
-        }
-    };
-
-    private final class ExchangeRatesAdapter extends RecyclerView.Adapter<ExchangeRateViewHolder> {
-        private final LayoutInflater inflater = LayoutInflater.from(activity);
-
-        private Cursor cursor = null;
-        private Coin rateBase = Coin.COIN;
-        @Nullable
-        private String defaultCurrency = null;
-        @Nullable
-        private Coin balance = null;
-        @Nullable
-        private BlockchainState blockchainState = null;
-
-        private ExchangeRatesAdapter() {
-            setHasStableIds(true);
-        }
-
-        public void setCursor(final Cursor cursor) {
-            this.cursor = cursor;
-            notifyDataSetChanged();
-        }
-
-        public void setDefaultCurrency(final String defaultCurrency) {
-            this.defaultCurrency = defaultCurrency;
-            notifyDataSetChanged();
-        }
-
-        public void setRateBase(final Coin rateBase) {
-            this.rateBase = rateBase;
-            notifyDataSetChanged();
-        }
-
-        public void setBalance(final Coin balance) {
-            this.balance = balance;
-            notifyDataSetChanged();
-        }
-
-        public void setBlockchainState(final BlockchainState blockchainState) {
-            this.blockchainState = blockchainState;
-            notifyDataSetChanged();
-        }
-
-        public int getDefaultCurrencyPosition() {
-            if (cursor == null || defaultCurrency == null)
-                return RecyclerView.NO_POSITION;
-
-            cursor.moveToPosition(-1);
-            while (cursor.moveToNext())
-                if (cursor.getString(cursor.getColumnIndexOrThrow(ExchangeRatesProvider.KEY_CURRENCY_CODE))
-                        .equals(defaultCurrency))
-                    return cursor.getPosition();
-            return RecyclerView.NO_POSITION;
-        }
-
-        @Override
-        public int getItemCount() {
-            return cursor != null ? cursor.getCount() : 0;
-        }
-
-        @Override
-        public long getItemId(final int position) {
-            cursor.moveToPosition(position);
-            return cursor.getLong(cursor.getColumnIndexOrThrow(BaseColumns._ID));
-        }
-
-        @Override
-        public ExchangeRateViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
-            return new ExchangeRateViewHolder(inflater.inflate(R.layout.exchange_rate_row, parent, false));
-        }
-
-        @Override
-        public void onBindViewHolder(final ExchangeRateViewHolder holder, final int position) {
-            cursor.moveToPosition(position);
-            final ExchangeRate exchangeRate = ExchangeRatesProvider.getExchangeRate(cursor);
-            final boolean isDefaultCurrency = exchangeRate.getCurrencyCode().equals(defaultCurrency);
-
-            holder.itemView.setBackgroundResource(isDefaultCurrency ? R.color.bg_list_selected : R.color.bg_list);
-
-            holder.defaultView.setVisibility(isDefaultCurrency ? View.VISIBLE : View.INVISIBLE);
-
-            holder.currencyCodeView.setText(exchangeRate.getCurrencyCode());
-
-            holder.rateView.setFormat(!rateBase.isLessThan(Coin.COIN) ? Constants.LOCAL_FORMAT.minDecimals(2)
-                    : Constants.LOCAL_FORMAT.minDecimals(4));
-            holder.rateView.setAmount(exchangeRate.rate.coinToFiat(rateBase));
-
-            holder.walletView.setFormat(Constants.LOCAL_FORMAT);
-            if (balance != null && (blockchainState == null || !blockchainState.replaying)) {
-                holder.walletView.setAmount(exchangeRate.rate.coinToFiat(balance));
-                holder.walletView.setStrikeThru(Constants.TEST);
-            } else {
-                holder.walletView.setText("n/a");
-                holder.walletView.setStrikeThru(false);
-            }
-
-            holder.menuView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(final View v) {
-                    final PopupMenu popupMenu = new PopupMenu(activity, v);
-                    popupMenu.inflate(R.menu.exchange_rates_context);
-                    popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                        @Override
-                        public boolean onMenuItemClick(final MenuItem item) {
-                            if (item.getItemId() == R.id.exchange_rates_context_set_as_default) {
-                                setDefaultCurrency(exchangeRate.getCurrencyCode());
-                                config.setExchangeCurrencyCode(exchangeRate.getCurrencyCode());
-                                WalletBalanceWidgetProvider.updateWidgets(activity, wallet);
-                                return true;
-                            } else {
-                                return false;
-                            }
-                        }
-                    });
-                    popupMenu.show();
-                }
-            });
-        }
-    }
-
-    private final class ExchangeRateViewHolder extends RecyclerView.ViewHolder {
-        private final View defaultView;
-        private final TextView currencyCodeView;
-        private final CurrencyTextView rateView;
-        private final CurrencyTextView walletView;
-        private final ImageButton menuView;
-
-        public ExchangeRateViewHolder(final View itemView) {
-            super(itemView);
-            defaultView = itemView.findViewById(R.id.exchange_rate_row_default);
-            currencyCodeView = (TextView) itemView.findViewById(R.id.exchange_rate_row_currency_code);
-            rateView = (CurrencyTextView) itemView.findViewById(R.id.exchange_rate_row_rate);
-            walletView = (CurrencyTextView) itemView.findViewById(R.id.exchange_rate_row_balance);
-            menuView = (ImageButton) itemView.findViewById(R.id.exchange_rate_row_menu);
-        }
+            maybeSubmitList();
     }
 }

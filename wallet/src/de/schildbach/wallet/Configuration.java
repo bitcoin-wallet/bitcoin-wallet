@@ -12,7 +12,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 package de.schildbach.wallet;
@@ -26,7 +26,6 @@ import org.slf4j.LoggerFactory;
 import com.google.common.base.Strings;
 
 import de.schildbach.wallet.data.ExchangeRate;
-import de.schildbach.wallet_test.R;
 
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -55,8 +54,6 @@ public class Configuration {
     public static final String PREFS_KEY_DATA_USAGE = "data_usage";
     public static final String PREFS_KEY_REMIND_BALANCE = "remind_balance";
     public static final String PREFS_KEY_DISCLAIMER = "disclaimer";
-    private static final String PREFS_KEY_LABS_QR_PAYMENT_REQUEST = "labs_qr_payment_request";
-    private static final String PREFS_KEY_LOOK_UP_WALLET_NAMES = "look_up_wallet_names";
 
     private static final String PREFS_KEY_LAST_VERSION = "last_version";
     private static final String PREFS_KEY_LAST_USED = "last_used";
@@ -68,6 +65,7 @@ public class Configuration {
     private static final String PREFS_KEY_CHANGE_LOG_VERSION = "change_log_version";
     public static final String PREFS_KEY_REMIND_BACKUP = "remind_backup";
     private static final String PREFS_KEY_LAST_BACKUP = "last_backup";
+    private static final String PREFS_KEY_LAST_BLUETOOTH_ADDRESS = "last_bluetooth_address";
 
 	private static final int PREFS_DEFAULT_BTC_SHIFT = 0;
 	private static final int PREFS_DEFAULT_BTC_PRECISION = 2;
@@ -189,14 +187,6 @@ public class Configuration {
         prefs.edit().putString(PREFS_KEY_EXCHANGE_CURRENCY, exchangeCurrencyCode).apply();
     }
 
-    public boolean getQrPaymentRequestEnabled() {
-        return prefs.getBoolean(PREFS_KEY_LABS_QR_PAYMENT_REQUEST, false);
-    }
-
-    public boolean getLookUpWalletNames() {
-        return prefs.getBoolean(PREFS_KEY_LOOK_UP_WALLET_NAMES, false);
-    }
-
     public boolean versionCodeCrossed(final int currentVersionCode, final int triggeringVersionCode) {
         final boolean wasBelow = lastVersionCode < triggeringVersionCode;
         final boolean wasUsedBefore = lastVersionCode > 0;
@@ -281,6 +271,11 @@ public class Configuration {
         prefs.edit().putInt(PREFS_KEY_CHANGE_LOG_VERSION, currentVersionCode).apply();
 
         return /* wasUsedBefore && */wasBelow && isNowAbove;
+    }
+
+    public void updateLastBluetoothAddress(final String bluetoothAddress) {
+        if (bluetoothAddress != null)
+            prefs.edit().putString(PREFS_KEY_LAST_BLUETOOTH_ADDRESS, bluetoothAddress).apply();
     }
 
     public void registerOnSharedPreferenceChangeListener(final OnSharedPreferenceChangeListener listener) {

@@ -19,6 +19,7 @@ package de.schildbach.wallet.integration.sample;
 import org.bitcoin.protocols.payments.Protos;
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.AddressFormatException;
+import org.bitcoinj.core.LegacyAddress;
 import org.bitcoinj.core.NetworkParameters;
 import org.bitcoinj.script.ScriptBuilder;
 
@@ -92,17 +93,17 @@ public class SampleActivity extends Activity {
     private void handleRequest() {
         try {
             final String[] addresses = donationAddresses();
-            final NetworkParameters params = Address.getParametersFromAddress(addresses[0]);
+            final NetworkParameters params = LegacyAddress.getParametersFromAddress(addresses[0]);
 
             final Protos.Output.Builder output1 = Protos.Output.newBuilder();
             output1.setAmount(AMOUNT);
             output1.setScript(ByteString
-                    .copyFrom(ScriptBuilder.createOutputScript(new Address(params, addresses[0])).getProgram()));
+                    .copyFrom(ScriptBuilder.createOutputScript(LegacyAddress.fromBase58(params, addresses[0])).getProgram()));
 
             final Protos.Output.Builder output2 = Protos.Output.newBuilder();
             output2.setAmount(AMOUNT);
             output2.setScript(ByteString
-                    .copyFrom(ScriptBuilder.createOutputScript(new Address(params, addresses[1])).getProgram()));
+                    .copyFrom(ScriptBuilder.createOutputScript(LegacyAddress.fromBase58(params, addresses[1])).getProgram()));
 
             final Protos.PaymentDetails.Builder paymentDetails = Protos.PaymentDetails.newBuilder();
             paymentDetails.setNetwork(params.getPaymentProtocolId());

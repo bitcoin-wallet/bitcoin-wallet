@@ -1,22 +1,23 @@
 buildscript {
     repositories {
+        mavenLocal()
+        google()
         jcenter()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.1.2'
-        classpath 'com.android.tools.build:gradle-experimental:0.7.0'
-        classpath('fr.avianey.androidsvgdrawable:gradle-plugin:3.0.0') {
+        classpath 'com.android.tools.build:gradle:3.2.1'
+        classpath('fr.avianey.androidsvgdrawable:gradle-plugin:3.0.2') {
             exclude group: 'xerces'
         }
     }
 }
 
 allprojects {
-   repositories {
-       jcenter()
-       maven {
-           url 'https://maven.google.com'
-       }
-   }
+    repositories {
+        jcenter()
+        maven {
+            url 'https://maven.google.com'
+        }
+    }
 }

@@ -12,27 +12,25 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 package de.schildbach.wallet.data;
 
-import static com.google.common.base.Preconditions.checkArgument;
+import static androidx.core.util.Preconditions.checkArgument;
 
 import java.util.Arrays;
-
-import javax.annotation.Nullable;
 
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.AddressFormatException;
 import org.bitcoinj.core.Coin;
-import org.bitcoinj.core.ScriptException;
 import org.bitcoinj.core.Transaction;
-import org.bitcoinj.core.WrongNetworkException;
 import org.bitcoinj.protocols.payments.PaymentProtocol;
 import org.bitcoinj.protocols.payments.PaymentProtocolException;
 import org.bitcoinj.script.Script;
 import org.bitcoinj.script.ScriptBuilder;
+import org.bitcoinj.script.ScriptException;
+import org.bitcoinj.script.ScriptPattern;
 import org.bitcoinj.uri.BitcoinURI;
 import org.bitcoinj.wallet.SendRequest;
 import org.slf4j.Logger;
@@ -46,6 +44,7 @@ import de.schildbach.wallet.util.GenericUtils;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import androidx.annotation.Nullable;
 
 /**
  * @author Andreas Schildbach
@@ -87,11 +86,12 @@ public final class PaymentIntent implements Parcelable {
             builder.append('[');
             builder.append(hasAmount() ? amount.toPlainString() : "null");
             builder.append(',');
-            if (script.isSentToAddress() || script.isPayToScriptHash())
+            if (ScriptPattern.isP2PKH(script) || ScriptPattern.isP2SH(script)
+                    || ScriptPattern.isP2WH(script))
                 builder.append(script.getToAddress(Constants.NETWORK_PARAMETERS));
-            else if (script.isSentToRawPubKey())
-                builder.append(Constants.HEX.encode(script.getPubKey()));
-            else if (script.isSentToMultiSig())
+            else if (ScriptPattern.isP2PK(script))
+                builder.append(Constants.HEX.encode(ScriptPattern.extractKeyFromP2PK(script)));
+            else if (ScriptPattern.isSentToMultisig(script))
                 builder.append("multisig");
             else
                 builder.append("unknown");
@@ -193,14 +193,14 @@ public final class PaymentIntent implements Parcelable {
     }
 
     public static PaymentIntent fromAddress(final String address, @Nullable final String addressLabel)
-            throws WrongNetworkException, AddressFormatException {
-        return new PaymentIntent(Address.fromBase58(Constants.NETWORK_PARAMETERS, address), addressLabel);
+            throws AddressFormatException {
+        return new PaymentIntent(Address.fromString(Constants.NETWORK_PARAMETERS, address), addressLabel);
     }
 
     public static PaymentIntent from(final String address, @Nullable final String addressLabel,
-            @Nullable final Coin amount) throws WrongNetworkException, AddressFormatException {
+            @Nullable final Coin amount) throws AddressFormatException {
         return new PaymentIntent(null, null, null,
-                buildSimplePayTo(amount, Address.fromBase58(Constants.NETWORK_PARAMETERS, address)), addressLabel, null,
+                buildSimplePayTo(amount, Address.fromString(Constants.NETWORK_PARAMETERS, address)), addressLabel, null,
                 null, null, null);
     }
 
@@ -276,7 +276,8 @@ public final class PaymentIntent implements Parcelable {
             return false;
 
         final Script script = outputs[0].script;
-        return script.isSentToAddress() || script.isPayToScriptHash() || script.isSentToRawPubKey();
+        return ScriptPattern.isP2PKH(script) || ScriptPattern.isP2SH(script)
+                || ScriptPattern.isP2PK(script) || ScriptPattern.isP2WH(script);
     }
 
     public Address getAddress() {

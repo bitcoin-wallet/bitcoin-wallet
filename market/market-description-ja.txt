@@ -1,34 +1,29 @@
-<b>グルシュルコインを持ち歩こう、いつでもあなたのポケットに!</b> QRコードスキャンで素早く支払。バイヤーとしても、即座にかつ確実に支払を受取り。 グルシュルコインウォレットは初めてのモバイルグルシュルコインアプリ、そして間違いなく最も安全なアプリでもあります!
+<b>ビットコインを持ち歩こう、いつでもあなたのポケットに!</b> QRコードスキャンで素早く支払。バイヤーとしても、即座にかつ確実に支払を受取り。 ビットコインウォレットは初めてのモバイルビットコインアプリ、そして間違いなく最も安全なアプリでもあります!
 
 
 <b>特徴</b>
 
 • 登録必要なし、ウェブサービスもクラウドもいりません! このウォレットは分散型P2Pです。
-• GRS、mGRS、μGRSでのグルシュルコインの表示。
+• BTC、mBTC、μBTCでのビットコインの表示。
 • 自国通貨へ/自国通貨からの変換表示。
-• NFC、QRコード、グルシュルコインURLでの送金や受取。
-• 良く使うグルシュルコインアドレス用のアドレスブック。
+• NFC、QRコード、ビットコインURLでの送金や受取。
+• 良く使うビットコインアドレス用のアドレスブック。
 • オフラインの時でもBluetoothで支払い可能。
 • コイン受取の通知。
 • ペーパーウォレットをスィープ(例. コールドストレージ用)
-• グルシュルコイン残高のためのウィジェット。
+• ビットコイン残高のためのウィジェット。
 
 
 <b>開発に協力ください</b>
 
-Groestlcoin Walletは<b>オープンソース</b>であり、<b>自由ソフトウェア</b>です。ライセンス: GPLv3
+Bitcoin Walletは<b>オープンソース</b>であり、<b>自由ソフトウェア</b>です。ライセンス: GPLv3
 https://www.gnu.org/licenses/gpl-3.0.ja.html
 
 ソースコードはGithubにあります。
-https://github.com/Groesltcoin/groestlcoin-wallet
+https://github.com/bitcoin-wallet/bitcoin-wallet
 
 全ての翻訳はTransifexで管理されています:
-https://www.transifex.com/Groestlcoin-wallet/Groestlcoin-wallet/
-
-
-<b>推薦文</b>
-
-• http://groestlcoin.org の推奨モバイルウォレットです。
+https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
 
 
 <i>自己責任でお使いください!</i>

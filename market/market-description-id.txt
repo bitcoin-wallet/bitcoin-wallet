@@ -1,20 +1,17 @@
-Dengan aplikasi ini Anda selalu mempunyai Groestlcoin dengan Anda, dalam saku Anda! Anda dapat mengirim pembayaran hanya dengan memindai kode-QR atau mendekatkan dua ponsel bersama (NFC). Groestlcoin Wallet dirancang untuk mudah digunakan dan diandalkan, sementara juga menjadi lebih aman dan cepat.
+Dengan aplikasi ini Anda selalu mempunyai Bitcoin dengan Anda, dalam saku Anda! Anda dapat mengirim pembayaran hanya dengan memindai kode-QR atau mendekatkan dua ponsel bersama (NFC). Bitcoin Wallet dirancang untuk mudah digunakan dan diandalkan, sementara juga menjadi lebih aman dan cepat.
 
 FITUR:
 
 • Tidak diperlukan server awan atau layanan web! Dompet ini benar-benar peer ke peer.
-• Tampilkan saldo dompet dalam Groestlcoin dan mata uang lainnya.
-• Mengirim dan menerima Groestlcoin via NFC, kode-QR atau Tautan Groestlcoin.
-• Buku alamat untuk alamat penggunaan Groestlcoin secara reguler.
+• Tampilkan saldo dompet dalam Bitcoin dan mata uang lainnya.
+• Mengirim dan menerima Bitcoin via NFC, kode-QR atau Tautan Bitcoin.
+• Buku alamat untuk alamat penggunaan bitcoin secara reguler.
 • Masukkan transaksi saat offline, akan dilaksanakan ketika online.
-• Notifikasi sistem untuk konektivitas Groestlcoin dan menerima koin.
-• Widget Apl untuk saldo Groestlcoin.
+• Notifikasi sistem untuk konektivitas Bitcoin dan menerima koin.
+• Widget Apl untuk saldo Bitcoin.
 
-Anda dapat mengetahui lebih mengenai Groestlcoin di
-http://groestlcoin.org
-
-Jika Anda ingin berkontribusi kepada Groestlcoin Wallet, proyeknya berada di
-https://github.com/Groesltcoin/groestlcoin-wallet
+Jika Anda ingin berkontribusi kepada Bitcoin Wallet, proyeknya berada di
+https://github.com/bitcoin-wallet/bitcoin-wallet
 
 Lisensi: GPLv3
 Gunakan dengan resiko Anda!

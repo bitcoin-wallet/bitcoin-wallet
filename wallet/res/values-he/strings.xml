@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
   <string name="toast_wallet_reset">הארנק אופס, התאוששת תקח זמן מה.</string>
   <string name="wallet_disclaimer_fragment_remind_safety">השימוש באחריותך, קרא את הוראות השימוש</string>
   <string name="wallet_disclaimer_fragment_remind_backup">אתה צריך &lt;u&gt;לגבות את הארנק שלך&lt;/u&gt;!</string>
@@ -26,7 +26,7 @@
   <string name="wallet_transactions_options_filter_sent">נשלח</string>
   <string name="wallet_transactions_fragment_empty_text_received">לא נתקבלו ביטקוינים עד כה.</string>
   <string name="wallet_transactions_fragment_empty_text_sent">לא נשלחו ביטקוינים עד כה.</string>
-  <string name="wallet_transactions_fragment_empty_text_howto">איך להשיג ביטקוין ?\n\nהמר תמורת כסף פיאט,\nמכור סחורות או שירותים או\nהשג על ידי עבודה.</string>
+  <string name="wallet_transactions_fragment_empty_text_howto">איך להשיג ביטקוין ?\nהמר תמורת כסף פיאט,\nמכור סחורות או שירותים או\nהשג על ידי עבודה.</string>
   <string name="wallet_transactions_row_warning_backup">ברכותי, קיבלת את התשלום הראשון! האם כבר &lt;u&gt;גיבית את הארנק&lt;/u&gt; כדי להגן מפני אבדן?</string>
   <string name="wallet_transactions_fragment_coinbase">נכרו</string>
   <string name="wallet_transactions_fragment_internal">פנימי</string>
@@ -40,9 +40,8 @@
   <string name="wallet_timeskew_dialog_title">בדוק את הגדרות הזמנים שלך</string>
   <string name="wallet_timeskew_dialog_msg">זמן המכשיר מאחר ב %d דקות. אתה כנראה לא יכול לקבל או לשלוח ביטקוינים בגלל בעיה זהו.\n\nכדאי שתבדוק את הגדרות הזמן ואיזור הזמן שלך.</string>
   <string name="wallet_version_dialog_title">גירסה חדשה זמינה!</string>
-  <string name="wallet_version_dialog_msg">גירסה זו מתקנת באגים חשובים, לפרטים גש לדף העדכון בGoogle Play.</string>
+  <string name="wallet_version_dialog_msg">גירסה זו מתקנת באגים חשובים, לפרטים גש לדף העדכון ב%s.</string>
   <string name="wallet_version_dialog_msg_deprecated">אם אתה לא רואה עדכון, זה כנראה אומר שגרסאת האנדרואיד שלך אינה נתמכת יותר.</string>
-  <string name="wallet_version_dialog_button_market">Google Play</string>
   <string name="wallet_version_dialog_button_binary">הורדה</string>
   <string name="wallet_old_sdk_dialog_title">גירסת אנדרויד לא מעודכנת</string>
   <string name="wallet_old_sdk_dialog_message">יש סיכוי כי מהגרסאות הקרובות של ארנק ביטקוין לא נתמוך במכשירך יותר. במקרים מסוימים יהיה קשה להשתמש במטבעות על המכשיר.\n\nאלא אם אתה יודע מה אתה עושה, מומלץ שתעביר את המטבעות בקרוב.</string>
@@ -137,13 +136,8 @@
   <string name="export_keys_dialog_title">גבה ארנק</string>
   <string name="backup_wallet_dialog_message">הארנק שלך יהיה מוצפן עם הסיסמא הנבחרת ומועתק לאחסון חיצוני</string>
   <string name="export_keys_dialog_button_export">ייצוא</string>
-  <string name="export_keys_dialog_success"><![CDATA[<p>ארנקך גובה אל <tt>%s</tt></p><p>אם במכשירך קיים כרטיס SD נייד הגיבוי שלך <i>אמור</i> להיות על הכרטיס. הסר אותו ושמור במקום בטוח. במידה והכרטיס <i>אינו</i> נייד, אתה צריך לאחסן את הגיבוי מחוץ למכשירך.</p><p><b>אם המקום היחיד בו קיים הגיבוי הוא במכשירך, אתה מסתכן באיבוד שניהם בו-זמנית!</b></p><p>בכל מקרה וודא שאתה זוכר את סיסמאת הגיבוי שלך. האם אתה מעוניין לגבות את ארנקך כעת?</p>]]></string>
+  <string name="export_keys_dialog_success"><![CDATA[<p>ארנקך גובה אל <tt>%s</tt></p><p><b>אם המקום היחיד בו קיים הגיבוי הוא במכשירך, אתה מסתכן באיבוד שניהם בו-זמנית!</b></p><p>האם אתה מעוניין לגבות את ארנקך כעת.</p>]]></string>
   <string name="export_keys_dialog_failure">לא ניתן היה לגבות את ארנקך:\n%s</string>
-  <string name="export_keys_dialog_button_archive">ארכיון</string>
-  <string name="export_keys_dialog_mail_subject">גיבוי ארנק ביטקוין</string>
-  <string name="export_keys_dialog_mail_text">הקובץ המצורף מכיל את המפתח הפרטיים של ארנק הביטקוין שלך וצריך להשמר בצורה מאובטחת בכל עת. אל תשכח את ססמאת ההצפנה שלך!</string>
-  <string name="export_keys_dialog_mail_intent_chooser">גבה ארנק באמצעות…</string>
-  <string name="export_keys_dialog_mail_intent_failed">גיבוי ארנק נכשל.</string>
   <string name="import_export_keys_dialog_password">סיסמא</string>
   <string name="import_export_keys_dialog_show">הצג סיסמא</string>
   <string name="import_export_keys_dialog_failure_title">שגיאה</string>
@@ -186,7 +180,6 @@
   <string name="report_issue_dialog_collect_application_log">הוסף מידע מהאפליקציה</string>
   <string name="report_issue_dialog_collect_wallet_dump">הוסף</string>
   <string name="report_issue_dialog_mail_intent_chooser">שלח דוח באמצעות…</string>
-  <string name="report_issue_dialog_mail_intent_failed">שליחת דו\"ח נכשלה.</string>
   <string name="about_title">על אודות</string>
   <string name="about_version_title">גירסה</string>
   <string name="about_copyright_title">זכויות יוצרים</string>
@@ -195,9 +188,6 @@
   <string name="about_category_credits">אפליקציה זו משתמשת ב</string>
   <string name="about_credits_bitcoinj_title">groestlcoinj %s</string>
   <string name="about_credits_zxing_title">ZXing</string>
-  <string name="about_community_googleplus_title">קהילת גוגל+</string>
-  <string name="about_community_googleplus_summary">דיונים על אודות האפליקציה</string>
-  <string name="about_market_app_title">עמוד גוגל פליי</string>
   <string name="about_market_app_summary">כתוב ביקורת או דרג את האפליקציה</string>
   <string name="notification_coins_received_msg">נתקבלו %s</string>
   <string name="notification_peers_connected_msg">%d עמיתים מחוברים</string>

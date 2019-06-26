@@ -15,13 +15,9 @@
         </shape>
     </item>
     <item
+        android:drawable="@drawable/ic_photo_camera_shortcut_24dp"
         android:gravity="center"
         android:height="@dimen/shortcut_icon_size"
-        android:width="@dimen/shortcut_icon_size">
-        >
-        <bitmap
-            android:src="@drawable/ic_photo_camera_white_24dp"
-            android:tint="@color/fg_shortcut" />
-    </item>
+        android:width="@dimen/shortcut_icon_size"/>
 
 </layer-list>

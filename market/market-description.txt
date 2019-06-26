@@ -1,34 +1,29 @@
-<b>Have your Groestlcoins always with you, in your pocket!</b> You pay by quickly scanning a QR code. As a merchant, you receive payments reliably and instantly. Groestlcoin Wallet is the first mobile Groestlcoin app, and arguably also the most secure!
+<b>Have your Bitcoins always with you, in your pocket!</b> You pay by quickly scanning a QR code. As a merchant, you receive payments reliably and instantly. Bitcoin Wallet is the first mobile Bitcoin app, and arguably also the most secure!
 
 
 <b>FEATURES</b>
 
 • No registration, web service or cloud needed! This wallet is de-centralized and peer to peer.
-• Display of Groestlcoin amount in GRS, mGRS and µGRS.
+• Display of Bitcoin amount in BTC, mBTC and µBTC.
 • Conversion to and from national currencies.
-• Sending and receiving of Groestlcoin via NFC, QR codes or Groestlcoin URLs.
-• Address book for regularly used Groestlcoin addresses.
+• Sending and receiving of Bitcoin via NFC, QR codes or Bitcoin URLs.
+• Address book for regularly used Bitcoin addresses.
 • When you're offline, you can still pay via Bluetooth.
 • System notification for received coins.
 • Sweeping of paper wallets (e.g. those used for cold storage).
-• App widget for Groestlcoin balance.
+• App widget for Bitcoin balance.
 
 
 <b>CONTRIBUTE</b>
 
-Groestlcoin Wallet is <b>open source</b> and <b>free software</b>. License: GPLv3
+Bitcoin Wallet is <b>open source</b> and <b>free software</b>. License: GPLv3
 https://www.gnu.org/licenses/gpl-3.0.en.html
 
 Our source code is available at GitHub:
-https://github.com/Groesltcoin/groestlcoin-wallet
+https://github.com/bitcoin-wallet/bitcoin-wallet
 
 All translations are managed via Transifex:
-https://www.transifex.com/Groestlcoin-wallet/Groestlcoin-wallet/
-
-
-<b>TESTIMONIALS</b>
-
-• Recommended mobile wallet by http://groestlcoin.org
+https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
 
 
 <i>Use at your own risk!</i>

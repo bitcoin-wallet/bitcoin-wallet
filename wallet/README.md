@@ -1,4 +1,7 @@
-FILES
+Technical details
+=================
+
+### FILES
 
 Your wallet contains your private keys and various transaction related metadata. It is stored in app-private
 storage:
@@ -14,13 +17,13 @@ Certain actions cause automatic rolling backups of your wallet to app-private st
 	Mainnet: /data/data/hashengineering.groestlcoin.wallet/files/key-backup-protobuf
 	Testnet: /data/data/hashengineering.groestlcoin.wallet_test/files/key-backup-protobuf-testnet
 
-Your wallet can be manually backed up to and restored from external storage:
+Your wallet can be manually backed up to and restored from a share of the storage access framework (likely Google Drive):
 
 	Mainnet: /sdcard/Download/groestlcoin-wallet-backup-<yyyy-MM-dd>
 	Testnet: /sdcard/Download/groestlcoin-wallet-backup-testnet-<yyyy-MM-dd>
 
 If you want to recover coins from manual backups and for whatever reason you cannot use the app
-itself to restore from the backup, see the separate README.recover guide.
+itself to restore from the backup, see the separate [README.recover.md](README.recover.md) guide.
 
 The current fee rate for each of the fee categories (economic, normal, priority) is cached in
 app-private storage:
@@ -29,53 +32,45 @@ app-private storage:
     Testnet: /data/data/de.schildbach.wallet_test/files/fees-testnet.txt
 
 
-DEBUGGING
+### DEBUGGING
 
-Wallet file for Testnet can be pulled from an (even un-rooted) device using
+Wallet file for Testnet can be pulled from an (even un-rooted) device using:
 
 	adb pull /data/data/hashengineering.groestlcoin.wallet/files/wallet-protobuf-testnet
 
-Log messages can be viewed by
+Log messages can be viewed by:
 
     adb logcat
 
-The app can send extensive debug information. Use Options > Settings > Report Issue and follow the dialog.
+The app can send extensive debug information. Use **Options > Settings > Report Issue** and follow the dialog.
 In the generated e-mail, replace the support address with yours.
 
 
-BUILDING THE DEVELOPMENT VERSION
+### BUILDING THE DEVELOPMENT VERSION
 
 It's important to know that the development version uses Testnet, is debuggable and the wallet file
 is world readable/writeable. The goal is to be able to debug easily.
 
 You can probably skip some steps, especially if you built Android apps before.
 
-You'll need git, a Java SDK 6 (or later) and Gradle 2.10 (or later) for this. I'll assume Ubuntu Xenial Linux
-for the package installs, which comes with slightly more recent versions.
+You'll need git, a Java 7 SDK (or later) and Gradle 4.4 (or later) for this. I'll assume Ubuntu 18.04 LTS (Bionic Beaver)
+for the package installs, which comes with OpenJDK 8 and Gradle 4.4.1 out of the box.
 
     # first time only
-    sudo apt install git gradle openjdk-8-jdk libstdc++6:i386 zlib1g:i386
+    sudo apt install git gradle openjdk-8-jdk
 
-Get the Android SDK (Tools only) from
+Create a directory for the Android SDK (e.g. `android-sdk`) and point the `ANDROID_HOME` variable to it.
 
-    https://developer.android.com/sdk/
+Download the [Android SDK Tools](https://developer.android.com/studio/index.html#command-tools)
+and unpack it to `$ANDROID_HOME/`.
 
-and unpack it to your workspace directory. Point your ANDROID_HOME variable to the unpacked Android SDK directory
-and switch to it. Use
+Install the NDK:
 
-    tools/android update sdk --no-ui --force --all --filter tool,platform-tool,build-tools-25.0.3,android-15,android-25
-
-to download and install the required Android dependencies.
-
-Get the Android NDK from
-
-    https://developer.android.com/ndk
-
-and unpack it to your workspace directory. Point your ANDROID_NDK_HOME variable to the unpacked Android NDK
-directory.
+    # first time only
+    $ANDROID_HOME/bin/tools/sdkmanager ndk-bundle
 
 Finally, you can build Groestlcoin Wallet and sign it with your development key. Again in your workspace,
-use
+use:
 
 	# first time only
 	git clone -b master https://github.com/HashEngineering/groestlcoin-wallet.git groestlcoin-wallet
@@ -86,47 +81,48 @@ use
     gradle clean :native-scrypt:copy test build
 
 To install the app on your Android device, use
+    # each time
+	cd groestlcoin-wallet
+	git pull
+    gradle clean :native-scrypt:copy test build
 
-    # first time only
-    sudo apt install android-tools-adb
+To install the app on your Android device, use:
 
     # each time
-    adb install wallet/build/outputs/apk/bitcoin-wallet-debug.apk
+    gradle installDebug
 
-If installing fails, make sure "Developer options" and "USB debugging" are enabled on your Android device, and an ADB
+If installation fails, make sure "Developer options" and "USB debugging" are enabled on your Android device, and an ADB
 connection is established.
 
 
-BUILDING THE PRODUCTIVE VERSION
+### BUILDING THE PRODUCTIVE VERSION
 
 At this point I'd like to remind that you continue on your own risk. According to the license,
 there is basically no warranty and liability. It's your responsibility to audit the source code
 for security issues and build, install and run the application in a secure way.
 
-The productive version uses Mainnet, is built non-debuggable, space-optimized with ProGuard and the
+The production version uses Mainnet, is built non-debuggable, space-optimized with ProGuard and the
 wallet file is protected against access from non-root users. In the code repository, it lives in a
 separate 'prod' branch that gets rebased against master with each released version.
 
-	# each time
+    # each time
 	cd groestlcoin-wallet
 	git fetch origin
-	git checkout origin/prod
+	git checkout master
     gradle clean :native-scrypt:copy test build
 
 
-SETTING UP FOR DEVELOPMENT
+### SETTING UP FOR DEVELOPMENT
 
 You should be able to import the project into Android Studio, as it uses Gradle for building.
 
 
-TRANSLATIONS
+### TRANSLATIONS
 
-The source language is English. Translations for all languages except German happen on Transifex:
+The source language is English. Translations for all languages except German [happen on Transifex](https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/).
 
-    https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
-
-The english resources are pushed to Transifex. Changes are pulled and committed to the git
-repository from time to time. It can be done by manually downloading the files, but using the "tx"
+The English resources are pushed to Transifex. Changes are pulled and committed to the git
+repository from time to time. It can be done by manually downloading the files, but using the `tx`
 command line client is more convenient:
 
     # first time only
@@ -148,7 +144,7 @@ Note that after pulling, any bugs introduced by either translators or Transifex 
 corrected manually.
 
 
-NFC (Near field communication)
+### NFC (Near field communication)
 
 Groestlcoin Wallet supports reading Groestlcoin requests via NFC, either from a passive NFC tag or from
 another NFC capable Android device that is requesting coins.
@@ -158,15 +154,14 @@ the "Request coins" dialog open). The "Send coins" dialog will open with fields 
 
 Instructions for preparing an NFC tag with your address:
 
-- We have successfully tested this NFC tag writer:
-  https://play.google.com/store/apps/details?id=com.nxp.nfc.tagwriter
+- We have successfully tested [this NFC tag writer](https://play.google.com/store/apps/details?id=com.nxp.nfc.tagwriter).
   Other writers should work as well, let us know if you succeed.
 
 - Some tags have less than 50 bytes capacity, those won't work. 1 KB tags recommended.
 
 - The tag needs to contain a Groestlcoin URI. You can construct one with the "Request coins" dialog,
   then share with messaging or email. You can also construct the URI manually. Example for Mainnet:
-  groestlcoin:1G2Y2jP5YFZ5RGk2PXaeWwbeA5y1ZtFhoL
+  `groestlcoin:FkCFUe7T6kEcrsm9Gda7yTPxpFEy6qfSQz`
 
 - The type of the message needs to be URI or URL (not Text).
 
@@ -174,26 +169,24 @@ Instructions for preparing an NFC tag with your address:
   could overwrite the tag with his own groestlcoin address.
 
 
-GroestlcoinJ
+### GROESTLCOINJ
 
-Groestlcoin Wallet uses groestlcoinj for groestlcoin specific logic:
-
-	https://github.com/Groestlcoin/groestlcoinj
+Groestlcoin Wallet uses [groestlcoinj](	https://github.com/Groestlcoin/groestlcoinj) for Groestlcoin specific logic.
 
 
-EXCHANGE RATES
+### EXCHANGE RATES
 
 Groestlcoin Wallet reads this feed from "BitcoinAverage" for getting exchange rates:
 
     https://apiv2.bitcoinaverage.com/indices/global/ticker/short?crypto=BTC
 
-We chose this feed because it is not dependent on a single exchange. However, you should keep in
-mind it's always a 24h average. This feature can be disabled with the compile-time flag
+We chose this feed because it is not dependent on a single exchange. This feature can be disabled
+with the compile-time flag
 
     Constants.ENABLE_EXCHANGE_RATES
 
 
-SWEEPING WALLETS
+### SWEEPING WALLETS
 
 When sweeping wallets, Groestlcoin Wallet uses a set of Electrum servers to query for unspent transaction
 outputs (UTXOs). This feature can be disabled with the compile-time flag

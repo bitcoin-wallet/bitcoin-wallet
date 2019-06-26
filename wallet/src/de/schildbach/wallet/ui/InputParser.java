@@ -12,7 +12,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 package de.schildbach.wallet.ui;
@@ -27,18 +27,15 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.regex.Pattern;
 
-import javax.annotation.Nullable;
-
 import org.bitcoin.protocols.payments.Protos;
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.AddressFormatException;
-import org.bitcoinj.core.Base58;
 import org.bitcoinj.core.DumpedPrivateKey;
-import org.bitcoinj.core.NetworkParameters;
+import org.bitcoinj.core.LegacyAddress;
+import org.bitcoinj.core.PrefixedChecksummedBytes;
 import org.bitcoinj.core.ProtocolException;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.VerificationException;
-import org.bitcoinj.core.VersionedChecksummedBytes;
 import org.bitcoinj.crypto.BIP38PrivateKey;
 import org.bitcoinj.crypto.TrustStoreLoader;
 import org.bitcoinj.protocols.payments.PaymentProtocol;
@@ -51,18 +48,19 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.hash.Hashing;
+import com.google.common.io.ByteStreams;
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf.UninitializedMessageException;
 
 import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.R;
 import de.schildbach.wallet.data.PaymentIntent;
-import de.schildbach.wallet.util.Io;
 import de.schildbach.wallet.util.Qr;
-import de.schildbach.wallet_test.R;
 
 import org.bitcoinj.core.CoinDefinition;
 import android.content.Context;
 import android.content.DialogInterface.OnClickListener;
+import androidx.annotation.Nullable;
 
 /**
  * @author Andreas Schildbach
@@ -96,54 +94,21 @@ public abstract class InputParser {
                 } catch (final PaymentProtocolException x) {
                     log.info("got invalid payment request", x);
 
-					error(R.string.input_parser_invalid_paymentrequest, x.getMessage());
-				}
-			}
-			else if (input.startsWith(CoinDefinition.coinURIScheme +":")) {
-				try {
-					final BitcoinURI bitcoinUri = new BitcoinURI(null, input);
-					final Address address = bitcoinUri.getAddress();
-					if (address != null && !Constants.NETWORK_PARAMETERS.equals(address.getParameters()))
-						throw new BitcoinURIParseException("mismatched network");
+                    error(R.string.input_parser_invalid_paymentrequest, x.getMessage());
+                }
+            } else if (input.startsWith("groestlcoin:") || input.startsWith("GROESTLCOIN:")) {
+                try {
+                    final BitcoinURI bitcoinUri = new BitcoinURI(null, "groestlcoin:" + input.substring(8));
+                    final Address address = bitcoinUri.getAddress();
+                    if (address != null && !Constants.NETWORK_PARAMETERS.equals(address.getParameters()))
+                        throw new BitcoinURIParseException("mismatched network");
+>>>>>>> 729c8b1a6bcaf6deb2bcd571160696957181deaa
 
                     handlePaymentIntent(PaymentIntent.fromBitcoinUri(bitcoinUri));
                 } catch (final BitcoinURIParseException x) {
-                    log.info("got invalid bitcoin uri: '" + input + "'", x);
+                    log.info("got invalid groestlcoin uri: '" + input + "'", x);
 
                     error(R.string.input_parser_invalid_bitcoin_uri, input);
-                }
-            } else if (PATTERN_BITCOIN_ADDRESS.matcher(input).matches()) {
-                try {
-                    final Address address = Address.fromBase58(Constants.NETWORK_PARAMETERS, input);
-
-                    handlePaymentIntent(PaymentIntent.fromAddress(address, null));
-                } catch (final AddressFormatException x) {
-                    log.info("got invalid address", x);
-
-                    error(R.string.input_parser_invalid_address);
-                }
-            } else if (PATTERN_DUMPED_PRIVATE_KEY_UNCOMPRESSED.matcher(input).matches()
-                    || PATTERN_DUMPED_PRIVATE_KEY_COMPRESSED.matcher(input).matches()) {
-                try {
-                    final VersionedChecksummedBytes key = DumpedPrivateKey.fromBase58(Constants.NETWORK_PARAMETERS,
-                            input);
-
-                    handlePrivateKey(key);
-                } catch (final AddressFormatException x) {
-                    log.info("got invalid address", x);
-
-                    error(R.string.input_parser_invalid_address);
-                }
-            } else if (PATTERN_BIP38_PRIVATE_KEY.matcher(input).matches()) {
-                try {
-                    final VersionedChecksummedBytes key = BIP38PrivateKey.fromBase58(Constants.NETWORK_PARAMETERS,
-                            input);
-
-                    handlePrivateKey(key);
-                } catch (final AddressFormatException x) {
-                    log.info("got invalid address", x);
-
-                    error(R.string.input_parser_invalid_address);
                 }
             } else if (PATTERN_TRANSACTION.matcher(input).matches()) {
                 try {
@@ -161,13 +126,29 @@ public abstract class InputParser {
                     error(R.string.input_parser_invalid_transaction, x.getMessage());
                 }
             } else {
-                cannotClassify(input);
+                try {
+                    handlePrivateKey(DumpedPrivateKey.fromBase58(Constants.NETWORK_PARAMETERS, input));
+                } catch (AddressFormatException x) {
+                    try {
+                        handlePrivateKey(BIP38PrivateKey.fromBase58(Constants.NETWORK_PARAMETERS, input));
+                    } catch (final AddressFormatException x2) {
+                        try {
+                            handlePaymentIntent(PaymentIntent
+                                    .fromAddress(Address.fromString(Constants.NETWORK_PARAMETERS, input), null));
+                        } catch (AddressFormatException.WrongNetwork x3) {
+                            log.info("detected address, but wrong network", x3);
+                            error(R.string.input_parser_invalid_address);
+                        } catch (AddressFormatException x3) {
+                            cannotClassify(input);
+                        }
+                    }
+                }
             }
         }
 
-        protected void handlePrivateKey(final VersionedChecksummedBytes key) {
-            final Address address = new Address(Constants.NETWORK_PARAMETERS,
-                    ((DumpedPrivateKey) key).getKey().getPubKeyHash());
+        protected void handlePrivateKey(final PrefixedChecksummedBytes key) {
+            final Address address = LegacyAddress.fromKey(Constants.NETWORK_PARAMETERS,
+                    ((DumpedPrivateKey) key).getKey());
 
             handlePaymentIntent(PaymentIntent.fromAddress(address, null));
         }
@@ -229,11 +210,8 @@ public abstract class InputParser {
         @Override
         public void parse() {
             if (PaymentProtocol.MIMETYPE_PAYMENTREQUEST.equals(inputType)) {
-                ByteArrayOutputStream baos = null;
-
-                try {
-                    baos = new ByteArrayOutputStream();
-                    Io.copy(is, baos);
+                try (final ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
+                    ByteStreams.copy(is, baos);
                     parseAndHandlePaymentRequest(baos.toByteArray());
                 } catch (final IOException x) {
                     log.info("i/o error while fetching payment request", x);
@@ -248,13 +226,6 @@ public abstract class InputParser {
 
                     error(R.string.input_parser_invalid_paymentrequest, x.getMessage());
                 } finally {
-                    try {
-                        if (baos != null)
-                            baos.close();
-                    } catch (IOException x) {
-                        x.printStackTrace();
-                    }
-
                     try {
                         is.close();
                     } catch (IOException x) {
@@ -375,5 +346,6 @@ public abstract class InputParser {
 			NetworkParameters.ID_MAINNET) ? CoinDefinition.PATTERN_PRIVATE_KEY_START_COMPRESSED : CoinDefinition.PATTERN_PRIVATE_KEY_START_COMPRESSED_TESTNET)
 			+ "[" + new String(Base58.ALPHABET) + "]{51}");
     private static final Pattern PATTERN_BIP38_PRIVATE_KEY = Pattern.compile("6P" + "[" + new String(Base58.ALPHABET) + "]{56}");
-	private static final Pattern PATTERN_TRANSACTION = Pattern.compile("[0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ$\\*\\+\\-\\.\\/\\:]{100,}");
+    private static final Pattern PATTERN_TRANSACTION = Pattern
+            .compile("[0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ$\\*\\+\\-\\.\\/\\:]{100,}");
 }

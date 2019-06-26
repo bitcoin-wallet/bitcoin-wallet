@@ -23,6 +23,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:layout_weight="3"
+        android:animateLayoutChanges="true"
         android:background="@drawable/appwidget_button_left"
         android:focusable="true"
         android:gravity="left|center_vertical"
@@ -50,7 +51,7 @@
                 android:fadingEdgeLength="12dp"
                 android:singleLine="true"
                 android:textColor="@color/fg_network_significant"
-                android:textSize="@dimen/font_size_large" />
+                android:textSize="@dimen/font_size_larger" />
         </LinearLayout>
 
         <TextView

@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 the original author or authors.
+ * Copyright the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -12,16 +12,14 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 package de.schildbach.wallet.ui.send;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static androidx.core.util.Preconditions.checkNotNull;
 
 import java.util.Map;
-
-import javax.annotation.Nullable;
 
 import org.bitcoinj.core.Coin;
 import org.bitcoinj.core.Sha256Hash;
@@ -31,29 +29,24 @@ import org.bitcoinj.crypto.KeyCrypterException;
 import org.bitcoinj.wallet.KeyChain.KeyPurpose;
 import org.bitcoinj.wallet.SendRequest;
 import org.bitcoinj.wallet.Wallet;
+import org.bouncycastle.crypto.params.KeyParameter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.spongycastle.crypto.params.KeyParameter;
 
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.R;
 import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.data.DynamicFeeLoader;
+import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.ui.AbstractWalletActivity;
 import de.schildbach.wallet.ui.DialogBuilder;
 import de.schildbach.wallet.util.WalletUtils;
-import de.schildbach.wallet_test.R;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.DialogFragment;
-import android.app.FragmentManager;
-import android.app.LoaderManager;
-import android.app.LoaderManager.LoaderCallbacks;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnShowListener;
-import android.content.Loader;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
@@ -67,6 +60,11 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
 /**
  * @author Andreas Schildbach
@@ -84,7 +82,7 @@ public class RaiseFeeDialogFragment extends DialogFragment {
         final RaiseFeeDialogFragment fragment = new RaiseFeeDialogFragment();
 
         final Bundle args = new Bundle();
-        args.putSerializable(KEY_TRANSACTION, tx.getHash().getBytes());
+        args.putByteArray(KEY_TRANSACTION, tx.getTxId().getBytes());
         fragment.setArguments(args);
 
         return fragment;
@@ -94,7 +92,6 @@ public class RaiseFeeDialogFragment extends DialogFragment {
     private WalletApplication application;
     private Configuration config;
     private Wallet wallet;
-    private LoaderManager loaderManager;
 
     private Coin feeRaise = null;
     private Transaction transaction;
@@ -108,10 +105,10 @@ public class RaiseFeeDialogFragment extends DialogFragment {
     private View badPasswordView;
     private Button positiveButton, negativeButton;
 
+    private RaiseFeeViewModel viewModel;
+
     private HandlerThread backgroundThread;
     private Handler backgroundHandler;
-
-    private static final int ID_DYNAMIC_FEES_LOADER = 0;
 
     private enum State {
         INPUT, DECRYPTING, DONE
@@ -121,50 +118,38 @@ public class RaiseFeeDialogFragment extends DialogFragment {
 
     private static final Logger log = LoggerFactory.getLogger(RaiseFeeDialogFragment.class);
 
-    private final LoaderCallbacks<Map<FeeCategory, Coin>> dynamicFeesLoaderCallbacks = new LoaderManager.LoaderCallbacks<Map<FeeCategory, Coin>>() {
-        @Override
-        public Loader<Map<FeeCategory, Coin>> onCreateLoader(final int id, final Bundle args) {
-            return new DynamicFeeLoader(activity);
-        }
-
-        @Override
-        public void onLoadFinished(final Loader<Map<FeeCategory, Coin>> loader, final Map<FeeCategory, Coin> data) {
-            // We basically have to pay fee for two transactions:
-            // The transaction to raise the fee of and the CPFP transaction we're about to create.
-            final int size = transaction.getMessageSize() + 192;
-            feeRaise = data.get(FeeCategory.PRIORITY).multiply(size).divide(1000);
-            updateView();
-        }
-
-        @Override
-        public void onLoaderReset(final Loader<Map<FeeCategory, Coin>> loader) {
-        }
-    };
-
     @Override
-    public void onAttach(final Activity activity) {
-        super.onAttach(activity);
-
-        this.activity = (AbstractWalletActivity) activity;
-        this.application = (WalletApplication) activity.getApplication();
+    public void onAttach(final Context context) {
+        super.onAttach(context);
+        this.activity = (AbstractWalletActivity) context;
+        this.application = activity.getWalletApplication();
         this.config = application.getConfiguration();
         this.wallet = application.getWallet();
-        this.loaderManager = getLoaderManager();
     }
 
     @Override
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        log.info("opening dialog {}", getClass().getName());
+
+        viewModel = ViewModelProviders.of(this).get(RaiseFeeViewModel.class);
+        viewModel.getDynamicFees().observe(this, new Observer<Map<FeeCategory, Coin>>() {
+            @Override
+            public void onChanged(final Map<FeeCategory, Coin> dynamicFees) {
+                // We basically have to pay fee for two transactions:
+                // The transaction to raise the fee of and the CPFP transaction we're about to create.
+                final int size = transaction.getMessageSize() + 192;
+                feeRaise = dynamicFees.get(FeeCategory.PRIORITY).multiply(size).divide(1000);
+                updateView();
+            }
+        });
 
         final Bundle args = getArguments();
-        final byte[] txHash = (byte[]) args.getSerializable(KEY_TRANSACTION);
-        transaction = checkNotNull(wallet.getTransaction(Sha256Hash.wrap(txHash)));
+        transaction = checkNotNull(wallet.getTransaction(Sha256Hash.wrap(args.getByteArray(KEY_TRANSACTION))));
 
         backgroundThread = new HandlerThread("backgroundThread", Process.THREAD_PRIORITY_BACKGROUND);
         backgroundThread.start();
         backgroundHandler = new Handler(backgroundThread.getLooper());
-
-        loaderManager.initLoader(ID_DYNAMIC_FEES_LOADER, null, dynamicFeesLoaderCallbacks);
     }
 
     @Override
@@ -183,8 +168,8 @@ public class RaiseFeeDialogFragment extends DialogFragment {
         final DialogBuilder builder = new DialogBuilder(activity);
         builder.setTitle(R.string.raise_fee_dialog_title);
         builder.setView(view);
-        builder.setPositiveButton(R.string.raise_fee_dialog_button_raise, null); // dummy, just to make it
-                                                                                 // show
+        // dummies, just to make buttons show
+        builder.setPositiveButton(R.string.raise_fee_dialog_button_raise, null);
         builder.setNegativeButton(R.string.button_dismiss, null);
         builder.setCancelable(false);
 
@@ -207,7 +192,7 @@ public class RaiseFeeDialogFragment extends DialogFragment {
                 negativeButton.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(final View v) {
-                        dismiss();
+                        dismissAllowingStateLoss();
                     }
                 });
 
@@ -234,8 +219,6 @@ public class RaiseFeeDialogFragment extends DialogFragment {
 
     @Override
     public void onDestroy() {
-        loaderManager.destroyLoader(ID_DYNAMIC_FEES_LOADER);
-
         backgroundThread.getLooper().quit();
 
         super.onDestroy();
@@ -250,7 +233,7 @@ public class RaiseFeeDialogFragment extends DialogFragment {
                 @Override
                 protected void onSuccess(final KeyParameter encryptionKey, final boolean wasChanged) {
                     if (wasChanged)
-                        application.backupWallet();
+                        WalletUtils.autoBackupWallet(activity, wallet);
                     doRaiseFee(encryptionKey);
                 }
             }.deriveKey(wallet, passwordView.getText().toString().trim());
@@ -279,7 +262,7 @@ public class RaiseFeeDialogFragment extends DialogFragment {
             log.info("raise fee: cpfp {}", transactionToSend);
 
             wallet.commitTx(transactionToSend);
-            application.broadcastTransaction(transactionToSend);
+            BlockchainService.broadcastTransaction(activity, transactionToSend);
 
             state = State.DONE;
             updateView();

@@ -1,3 +1,2 @@
-res/mipmap-*/
-testNet3/res/mipmap-*/
-libs/
+res/mipmap-*hdpi/
+.externalNativeBuild/

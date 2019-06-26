@@ -12,69 +12,62 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 package de.schildbach.wallet.util;
 
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Writer;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
-
-import javax.annotation.Nullable;
+import java.io.OutputStream;
 
 import org.bitcoinj.core.Address;
-import org.bitcoinj.core.AddressFormatException;
-import org.bitcoinj.core.DumpedPrivateKey;
-import org.bitcoinj.core.ECKey;
 import org.bitcoinj.core.NetworkParameters;
-import org.bitcoinj.core.ScriptException;
 import org.bitcoinj.core.Sha256Hash;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.TransactionInput;
 import org.bitcoinj.core.TransactionOutput;
 import org.bitcoinj.script.Script;
-import org.bitcoinj.wallet.KeyChainGroup;
+import org.bitcoinj.script.ScriptException;
+import org.bitcoinj.wallet.Protos;
 import org.bitcoinj.wallet.UnreadableWalletException;
 import org.bitcoinj.wallet.Wallet;
 import org.bitcoinj.wallet.WalletProtobufSerializer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import com.google.common.base.Charsets;
+import com.google.common.base.Stopwatch;
 
 import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.service.BlockchainService;
 
-import android.text.Editable;
+import android.content.Context;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
-import android.text.format.DateUtils;
+import android.text.Spanned;
+import android.text.SpannedString;
 import android.text.style.TypefaceSpan;
+import androidx.annotation.Nullable;
 
 /**
  * @author Andreas Schildbach
  */
 public class WalletUtils {
-    public static Editable formatAddress(final Address address, final int groupSize, final int lineSize) {
-        return formatHash(address.toBase58(), groupSize, lineSize);
+    private static final Logger log = LoggerFactory.getLogger(WalletUtils.class);
+
+    public static Spanned formatAddress(final Address address, final int groupSize, final int lineSize) {
+        return formatHash(address.toString(), groupSize, lineSize);
     }
 
-    public static Editable formatAddress(@Nullable final String prefix, final Address address, final int groupSize,
+    public static Spanned formatAddress(@Nullable final String prefix, final Address address, final int groupSize,
             final int lineSize) {
-        return formatHash(prefix, address.toBase58(), groupSize, lineSize, Constants.CHAR_THIN_SPACE);
+        return formatHash(prefix, address.toString(), groupSize, lineSize, Constants.CHAR_THIN_SPACE);
     }
 
-    public static Editable formatHash(final String address, final int groupSize, final int lineSize) {
+    public static Spanned formatHash(final String address, final int groupSize, final int lineSize) {
         return formatHash(null, address, groupSize, lineSize, Constants.CHAR_THIN_SPACE);
     }
 
@@ -86,7 +79,28 @@ public class WalletUtils {
                 | ((bytes[25] & 0xFFl) << 48) | ((bytes[23] & 0xFFl) << 56);
     }
 
-    public static Editable formatHash(@Nullable final String prefix, final String address, final int groupSize,
+    private static class MonospaceSpan extends TypefaceSpan {
+        public MonospaceSpan() {
+            super("monospace");
+        }
+
+        // TypefaceSpan doesn't implement this, and we need it so that Spanned.equals() works.
+        @Override
+        public boolean equals(final Object o) {
+            if (o == this)
+                return true;
+            if (o == null || o.getClass() != getClass())
+                return false;
+            return true;
+        }
+
+        @Override
+        public int hashCode() {
+            return 0;
+        }
+    }
+
+    public static Spanned formatHash(@Nullable final String prefix, final String address, final int groupSize,
             final int lineSize, final char groupSeparator) {
         final SpannableStringBuilder builder = prefix != null ? new SpannableStringBuilder(prefix)
                 : new SpannableStringBuilder();
@@ -97,7 +111,7 @@ public class WalletUtils {
             final String part = address.substring(i, end < len ? end : len);
 
             builder.append(part);
-            builder.setSpan(new TypefaceSpan("monospace"), builder.length() - part.length(), builder.length(),
+            builder.setSpan(new MonospaceSpan(), builder.length() - part.length(), builder.length(),
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             if (end < len) {
                 final boolean endOfLine = lineSize > 0 && end % lineSize == 0;
@@ -105,7 +119,7 @@ public class WalletUtils {
             }
         }
 
-        return builder;
+        return SpannedString.valueOf(builder);
     }
 
     @Nullable
@@ -155,20 +169,38 @@ public class WalletUtils {
         return true;
     }
 
-    public static Wallet restoreWalletFromProtobufOrBase58(final InputStream is,
-            final NetworkParameters expectedNetworkParameters) throws IOException {
-        is.mark((int) Constants.BACKUP_MAX_CHARS);
+    public static void autoBackupWallet(final Context context, final Wallet wallet) {
+        final Stopwatch watch = Stopwatch.createStarted();
+        final Protos.Wallet.Builder builder = new WalletProtobufSerializer().walletToProto(wallet).toBuilder();
 
-        try {
-            return restoreWalletFromProtobuf(is, expectedNetworkParameters);
+        // strip redundant
+        builder.clearTransaction();
+        builder.clearLastSeenBlockHash();
+        builder.setLastSeenBlockHeight(-1);
+        builder.clearLastSeenBlockTimeSecs();
+        final Protos.Wallet walletProto = builder.build();
+
+        try (final OutputStream os = context.openFileOutput(Constants.Files.WALLET_KEY_BACKUP_PROTOBUF,
+                Context.MODE_PRIVATE)) {
+            walletProto.writeTo(os);
+            watch.stop();
+            log.info("wallet backed up to: '{}', took {}", Constants.Files.WALLET_KEY_BACKUP_PROTOBUF, watch);
         } catch (final IOException x) {
-            try {
-                is.reset();
-                return restorePrivateKeysFromBase58(is, expectedNetworkParameters);
-            } catch (final IOException x2) {
-                throw new IOException(
-                        "cannot read protobuf (" + x.getMessage() + ") or base58 (" + x2.getMessage() + ")", x);
-            }
+            log.error("problem writing wallet backup", x);
+        }
+    }
+
+    public static Wallet restoreWalletFromAutoBackup(final Context context) {
+        try (final InputStream is = context.openFileInput(Constants.Files.WALLET_KEY_BACKUP_PROTOBUF)) {
+            final Wallet wallet = new WalletProtobufSerializer().readWallet(is, true, null);
+            if (!wallet.isConsistent())
+                throw new Error("inconsistent backup");
+
+            BlockchainService.resetBlockchain(context);
+            log.info("wallet restored from backup: '" + Constants.Files.WALLET_KEY_BACKUP_PROTOBUF + "'");
+            return wallet;
+        } catch (final IOException | UnreadableWalletException x) {
+            throw new Error("cannot read backup", x);
         }
     }
 
@@ -188,135 +220,16 @@ public class WalletUtils {
         }
     }
 
-    public static Wallet restorePrivateKeysFromBase58(final InputStream is,
-            final NetworkParameters expectedNetworkParameters) throws IOException {
-        final BufferedReader keyReader = new BufferedReader(new InputStreamReader(is, Charsets.UTF_8));
-
-        // create non-HD wallet
-        final KeyChainGroup group = new KeyChainGroup(expectedNetworkParameters);
-        group.importKeys(WalletUtils.readKeys(keyReader, expectedNetworkParameters));
-        return new Wallet(expectedNetworkParameters, group);
-    }
-
-    public static void writeKeys(final Writer out, final List<ECKey> keys) throws IOException {
-        final DateFormat format = Iso8601Format.newDateTimeFormatT();
-
-        out.write("# KEEP YOUR PRIVATE KEYS SAFE! Anyone who can read this can spend your Bitcoins.\n");
-
-        for (final ECKey key : keys) {
-            out.write(key.getPrivateKeyEncoded(Constants.NETWORK_PARAMETERS).toBase58());
-            if (key.getCreationTimeSeconds() != 0) {
-                out.write(' ');
-                out.write(format.format(new Date(key.getCreationTimeSeconds() * DateUtils.SECOND_IN_MILLIS)));
-            }
-            out.write('\n');
-        }
-    }
-
-    public static List<ECKey> readKeys(final BufferedReader in, final NetworkParameters expectedNetworkParameters)
-            throws IOException {
-        try {
-            final DateFormat format = Iso8601Format.newDateTimeFormatT();
-
-            final List<ECKey> keys = new LinkedList<ECKey>();
-
-            long charCount = 0;
-            while (true) {
-                final String line = in.readLine();
-                if (line == null)
-                    break; // eof
-                charCount += line.length();
-                if (charCount > Constants.BACKUP_MAX_CHARS)
-                    throw new IOException("read more than the limit of " + Constants.BACKUP_MAX_CHARS + " characters");
-                if (line.trim().isEmpty() || line.charAt(0) == '#')
-                    continue; // skip comment
-
-                final String[] parts = line.split(" ");
-
-                final ECKey key = DumpedPrivateKey.fromBase58(expectedNetworkParameters, parts[0]).getKey();
-                key.setCreationTimeSeconds(
-                        parts.length >= 2 ? format.parse(parts[1]).getTime() / DateUtils.SECOND_IN_MILLIS : 0);
-
-                keys.add(key);
-            }
-
-            return keys;
-        } catch (final AddressFormatException x) {
-            throw new IOException("cannot read keys", x);
-        } catch (final ParseException x) {
-            throw new IOException("cannot read keys", x);
-        }
-    }
-
-    public static final FileFilter KEYS_FILE_FILTER = new FileFilter() {
-        @Override
-        public boolean accept(final File file) {
-            BufferedReader reader = null;
-
-            try {
-                reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), Charsets.UTF_8));
-                WalletUtils.readKeys(reader, Constants.NETWORK_PARAMETERS);
-
-                return true;
-            } catch (final IOException x) {
-                return false;
-            } finally {
-                if (reader != null) {
-                    try {
-                        reader.close();
-                    } catch (final IOException x) {
-                        // swallow
-                    }
-                }
-            }
-        }
-    };
-
     public static final FileFilter BACKUP_FILE_FILTER = new FileFilter() {
         @Override
         public boolean accept(final File file) {
-            InputStream is = null;
-
-            try {
-                is = new FileInputStream(file);
+            try (final InputStream is = new FileInputStream(file)) {
                 return WalletProtobufSerializer.isWallet(is);
             } catch (final IOException x) {
                 return false;
-            } finally {
-                if (is != null) {
-                    try {
-                        is.close();
-                    } catch (final IOException x) {
-                        // swallow
-                    }
-                }
             }
         }
     };
-
-    public static byte[] walletToByteArray(final Wallet wallet) {
-        try {
-            final ByteArrayOutputStream os = new ByteArrayOutputStream();
-            new WalletProtobufSerializer().writeWallet(wallet, os);
-            os.close();
-            return os.toByteArray();
-        } catch (final IOException x) {
-            throw new RuntimeException(x);
-        }
-    }
-
-    public static Wallet walletFromByteArray(final byte[] walletBytes) {
-        try {
-            final ByteArrayInputStream is = new ByteArrayInputStream(walletBytes);
-            final Wallet wallet = new WalletProtobufSerializer().readWallet(is);
-            is.close();
-            return wallet;
-        } catch (final UnreadableWalletException x) {
-            throw new RuntimeException(x);
-        } catch (final IOException x) {
-            throw new RuntimeException(x);
-        }
-    }
 
     public static boolean isPayToManyTransaction(final Transaction transaction) {
         return transaction.getOutputs().size() > 20;

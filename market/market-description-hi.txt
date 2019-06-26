@@ -5,30 +5,24 @@
 
 • कोई पंजीकरण, वेब सेवा या बादल की जरूरत नहीं ! यह बटुआ विकेन्द्रीकृत और निजी है।
 •राष्ट्रीय मुद्राओं मै ओर से रूपांतरण।
-• एनएफसी, QR कोड या Groestlcoin यूआरएल के माध्यम से Groestlcoin प्राप्त करना
+• एनएफसी, QR कोड या Bitcoin यूआरएल के माध्यम से Bitcoin प्राप्त करना
 • Address book नियमित रूप से इस्तेमाल में आने वाले बिटकोइन पतों के लिए.
 • आप ऑफ़लाइन हो, तब भी आप ब्लूटूथ के माध्यम से भुगतान कर सकते हैं।
 • प्राप्त सिक्कों के लिए प्रणाली अधिसूचना।
 • जेब की सफ़ाई(जैसे कोल्ड स्टोरेज के लिए इस्तेमाल किया जाता हे)
-• Groestlcoin संतुलन के लिए ऐप विजेट।
+• Bitcoin संतुलन के लिए ऐप विजेट।
 
 
 योगदान
 
-Groestlcoin वॉलेट <b> खुला स्रोत </ b> और <b> मुफ्त सॉफ्टवेयर है । लाइसेंस: GPLv3
+bitcoin वॉलेट <b> खुला स्रोत </ b> और <b> मुफ्त सॉफ्टवेयर है । लाइसेंस: GPLv3
 https://www.gnu.org/licenses/gpl-3.0.en.html
 
 हमारे स्रोत कोड GitHub पर उपलब्ध है:
-https://github.com/Groesltcoin/groestlcoin-wallet
+https://github.com/bitcoin-wallet/bitcoin-wallet
 
 सभी अनुवाद Transifex के माध्यम से प्रबंधित कर रहे हैं:
-https://www.transifex.com/Groestlcoin-wallet/Groestlcoin-wallet/
-
-
- प्रशंसापत्र
-
-• http://groestlcoin.org द्वारा मोबाइल बटुआ की सिफारिश
-
+https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
 
 
 अपने जोखिम पर उपयोग करें!

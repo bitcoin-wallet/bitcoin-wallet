@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2015 the original author or authors.
+ * Copyright the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -12,29 +12,17 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 package de.schildbach.wallet.ui;
 
 import java.util.Set;
 
-import javax.annotation.Nullable;
-
-import de.schildbach.wallet.Configuration;
-import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.R;
 import de.schildbach.wallet.service.BlockchainState;
 import de.schildbach.wallet.service.BlockchainState.Impediment;
-import de.schildbach.wallet.service.BlockchainStateLoader;
-import de.schildbach.wallet_test.R;
 
-import android.app.Activity;
-import android.app.Fragment;
-import android.app.LoaderManager;
-import android.app.LoaderManager.LoaderCallbacks;
-import android.content.Loader;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.SpannableStringBuilder;
@@ -45,78 +33,54 @@ import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
 /**
  * @author Andreas Schildbach
  */
-public final class WalletDisclaimerFragment extends Fragment implements OnSharedPreferenceChangeListener {
-    private AbstractBindServiceActivity activity;
-    private Configuration config;
-    private LoaderManager loaderManager;
-
-    @Nullable
-    private BlockchainState blockchainState = null;
-
+public final class WalletDisclaimerFragment extends Fragment {
     private TextView messageView;
 
-    private static final int ID_BLOCKCHAIN_STATE_LOADER = 0;
+    private WalletDisclaimerViewModel viewModel;
 
     @Override
-    public void onAttach(final Activity activity) {
-        super.onAttach(activity);
-
-        this.activity = (AbstractBindServiceActivity) activity;
-        final WalletApplication application = (WalletApplication) activity.getApplication();
-        this.config = application.getConfiguration();
-        this.loaderManager = getLoaderManager();
+    public void onCreate(final Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        viewModel = ViewModelProviders.of(this).get(WalletDisclaimerViewModel.class);
+        viewModel.getBlockchainState().observe(this, new Observer<BlockchainState>() {
+            @Override
+            public void onChanged(final BlockchainState blockchainState) {
+                updateView();
+            }
+        });
+        viewModel.getDisclaimerEnabled().observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(final Boolean disclaimerEnabled) {
+                updateView();
+            }
+        });
     }
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
             final Bundle savedInstanceState) {
         messageView = (TextView) inflater.inflate(R.layout.wallet_disclaimer_fragment, container);
-
         messageView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(final View v) {
-                HelpDialogFragment.page(getFragmentManager(), R.string.help_safety);
+                final WalletActivityViewModel viewModel = ViewModelProviders.of(getActivity())
+                        .get(WalletActivityViewModel.class);
+                viewModel.showHelpDialog.setValue(new Event<>(R.string.help_safety));
             }
         });
-
         return messageView;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        config.registerOnSharedPreferenceChangeListener(this);
-
-        loaderManager.initLoader(ID_BLOCKCHAIN_STATE_LOADER, null, blockchainStateLoaderCallbacks);
-
-        updateView();
-    }
-
-    @Override
-    public void onPause() {
-        loaderManager.destroyLoader(ID_BLOCKCHAIN_STATE_LOADER);
-
-        config.unregisterOnSharedPreferenceChangeListener(this);
-
-        super.onPause();
-    }
-
-    @Override
-    public void onSharedPreferenceChanged(final SharedPreferences sharedPreferences, final String key) {
-        if (Configuration.PREFS_KEY_DISCLAIMER.equals(key))
-            updateView();
-    }
-
     private void updateView() {
-        if (!isResumed())
-            return;
-
-        final boolean showDisclaimer = config.getDisclaimerEnabled();
+        final BlockchainState blockchainState = viewModel.getBlockchainState().getValue();
+        final boolean showDisclaimer = viewModel.getDisclaimerEnabled().getValue();
 
         int progressResId = 0;
         if (blockchainState != null) {
@@ -141,22 +105,4 @@ public final class WalletDisclaimerFragment extends Fragment implements OnShared
         final View fragment = parent instanceof FrameLayout ? (FrameLayout) parent : view;
         fragment.setVisibility(text.length() > 0 ? View.VISIBLE : View.GONE);
     }
-
-    private final LoaderCallbacks<BlockchainState> blockchainStateLoaderCallbacks = new LoaderManager.LoaderCallbacks<BlockchainState>() {
-        @Override
-        public Loader<BlockchainState> onCreateLoader(final int id, final Bundle args) {
-            return new BlockchainStateLoader(activity);
-        }
-
-        @Override
-        public void onLoadFinished(final Loader<BlockchainState> loader, final BlockchainState blockchainState) {
-            WalletDisclaimerFragment.this.blockchainState = blockchainState;
-
-            updateView();
-        }
-
-        @Override
-        public void onLoaderReset(final Loader<BlockchainState> loader) {
-        }
-    };
 }

@@ -12,7 +12,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 package de.schildbach.wallet.util;
@@ -20,7 +20,7 @@ package de.schildbach.wallet.util;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.schildbach.wallet_test.R;
+import de.schildbach.wallet.R;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -30,9 +30,10 @@ import android.graphics.Path;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.AttributeSet;
 import android.view.View;
+import androidx.viewpager.widget.ViewPager.OnPageChangeListener;
+
 /**
  * @author Andreas Schildbach
  */

@@ -12,7 +12,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 package de.schildbach.wallet.service;
@@ -26,18 +26,20 @@ import org.slf4j.LoggerFactory;
 
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.R;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.ui.WalletActivity;
 import de.schildbach.wallet.ui.send.FeeCategory;
 import de.schildbach.wallet.ui.send.SendCoinsActivity;
-import de.schildbach.wallet_test.R;
 
 import android.app.IntentService;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v4.app.NotificationCompat;
+import android.os.Build;
+import androidx.core.app.NotificationCompat;
+import androidx.core.content.ContextCompat;
 
 /**
  * This service is responsible for showing a notification if the user hasn't used the app for a longer time.
@@ -46,13 +48,12 @@ import android.support.v4.app.NotificationCompat;
  */
 public final class InactivityNotificationService extends IntentService {
     public static void startMaybeShowNotification(final Context context) {
-        context.startService(new Intent(context, InactivityNotificationService.class));
+        ContextCompat.startForegroundService(context, new Intent(context, InactivityNotificationService.class));
     }
 
     private NotificationManager nm;
     private WalletApplication application;
     private Configuration config;
-    private Wallet wallet;
 
     private static final String ACTION_DISMISS = InactivityNotificationService.class.getPackage().getName()
             + ".dismiss";
@@ -75,31 +76,41 @@ public final class InactivityNotificationService extends IntentService {
         nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         application = (WalletApplication) getApplication();
         config = application.getConfiguration();
-        wallet = application.getWallet();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            final NotificationCompat.Builder notification = new NotificationCompat.Builder(this,
+                    Constants.NOTIFICATION_CHANNEL_ID_ONGOING);
+            notification.setSmallIcon(R.drawable.stat_notify_received_24dp);
+            notification.setWhen(System.currentTimeMillis());
+            notification.setOngoing(true);
+            startForeground(Constants.NOTIFICATION_ID_MAINTENANCE, notification.build());
+        }
     }
 
     @Override
     protected void onHandleIntent(final Intent intent) {
         org.bitcoinj.core.Context.propagate(Constants.CONTEXT);
+        final Wallet wallet = application.getWallet();
 
         if (ACTION_DISMISS.equals(intent.getAction()))
             handleDismiss();
         else if (ACTION_DISMISS_FOREVER.equals(intent.getAction()))
             handleDismissForever();
         else if (ACTION_DONATE.equals(intent.getAction()))
-            handleDonate();
+            handleDonate(wallet);
         else
-            handleMaybeShowNotification();
+            handleMaybeShowNotification(wallet);
     }
 
-    private void handleMaybeShowNotification() {
+    private void handleMaybeShowNotification(final Wallet wallet) {
         final Coin estimatedBalance = wallet.getBalance(BalanceType.ESTIMATED_SPENDABLE);
 
         if (estimatedBalance.isPositive()) {
             log.info("detected balance, showing inactivity notification");
 
             final Coin availableBalance = wallet.getBalance(BalanceType.AVAILABLE_SPENDABLE);
-            final boolean canDonate = Constants.DONATION_ADDRESS != null && availableBalance.isPositive();
+            final boolean canDonate = Constants.DONATION_ADDRESS != null
+                    && !availableBalance.isLessThan(Constants.SOME_BALANCE_THRESHOLD);
 
             final MonetaryFormat btcFormat = config.getFormat();
             final String title = getString(R.string.notification_inactivity_title);
@@ -115,7 +126,8 @@ public final class InactivityNotificationService extends IntentService {
             final Intent donateIntent = new Intent(this, InactivityNotificationService.class);
             donateIntent.setAction(ACTION_DONATE);
 
-            final NotificationCompat.Builder notification = new NotificationCompat.Builder(this);
+            final NotificationCompat.Builder notification = new NotificationCompat.Builder(this,
+                    Constants.NOTIFICATION_CHANNEL_ID_IMPORTANT);
             notification.setStyle(new NotificationCompat.BigTextStyle().bigText(text));
             notification.setSmallIcon(R.drawable.stat_notify_received_24dp);
             notification.setContentTitle(title);
@@ -149,7 +161,7 @@ public final class InactivityNotificationService extends IntentService {
         nm.cancel(Constants.NOTIFICATION_ID_INACTIVITY);
     }
 
-    private void handleDonate() {
+    private void handleDonate(final Wallet wallet) {
         final Coin balance = wallet.getBalance(BalanceType.AVAILABLE_SPENDABLE);
         SendCoinsActivity.startDonate(this, balance, FeeCategory.ECONOMIC,
                 Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

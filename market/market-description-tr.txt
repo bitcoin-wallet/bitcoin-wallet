@@ -1,34 +1,29 @@
-<b>Groestlcoin'leriniz daima cebinizde sizinle olsun!</b> Herhangi bir QR kodunu okutarak çabuk ödeme yapabilirsiniz. Bir tüccar olarak ödemeleri güvenle ve anında alabilirsiniz. Groestlcoin Wallet ilk mobil ve muhtemelen en güvenli Groestlcoin uygulamasıdır!
+<b>Bitcoin'leriniz daima cebinizde sizinle olsun!</b> Herhangi bir QR kodunu okutarak çabuk ödeme yapabilirsiniz. Bir tüccar olarak ödemeleri güvenle ve anında alabilirsiniz. Bitcoin Wallet ilk mobil ve muhtemelen en güvenli Bitcoin uygulamasıdır!
 
 
 <b>ÖZELLİKLER</b>
 
 • Kayıt olmaya, web ya da bulut hizmetine gerek yoktur. Bu cüzdan merkezsiz ve eşten eşedir.
-• Groestlcoin miktarını GRS, mGRS ve µGRS olarak göster.
+• Bitcoin miktarını BTC, mBTC ve µBTC olarak göster.
 • Ulusal para birimlerine ve bu para birimlerinden dönüştürme.
-• QR kodları, Groestlcoin bağlantıları ve yakın alan iletişimi ile Groestlcoin alımı ve gönderilmesi.
-• Sık kullanılan Groestlcoin adresleri için adres defteri içerir.
+• QR kodları, Bitcoin bağlantıları ve yakın alan iletişimi ile Bitcoin alımı ve gönderilmesi.
+• Sık kullanılan Bitcoin adresleri için adres defteri içerir.
 • Çevrimdışı olduğunuzda Bluetooth vasıtasıyla ödemeler.
-• Alınan Groestlcoin'ler için sistem bildirimleri.
+• Alınan bitcoin'ler için sistem bildirimleri.
 • Kağıt cüzdanların taranması (mesela soğuk depolama için kullanılanlar).
-• Groestlcoin bakiyesini görüntüleyen widget.
+• Bitcoin bakiyesini görüntüleyen widget.
 
 
 <b>KATKIDA BULUNUN</b>
 
-Groestlcoin Wallet <b>açık kaynak</b> ve <b>özgür yazılımdır</b>. Lisans: GPLv3
+Bitcoin Wallet <b>açık kaynak</b> ve <b>özgür yazılımdır</b>. Lisans: GPLv3
 https://www.gnu.org/licenses/gpl-3.0.en.html
 
 Kaynak kodumuz GitHub'da mevcuttur:
-https://github.com/Groesltcoin/groestlcoin-wallet
+https://github.com/bitcoin-wallet/bitcoin-wallet
 
 Tüm tercümeler Transifex üzerinde yönetilir:
-https://www.transifex.com/Groestlcoin-wallet/Groestlcoin-wallet/
-
-
-<b>REFERANSLAR</b>
-
-• http://groestlcoin.org tarafından tavsiye edilen mobil cüzdan.
+https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
 
 
 <i>Tüm riski siz üstlenmiş olursunuz!</i>

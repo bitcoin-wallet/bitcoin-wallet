@@ -1,63 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
 
-	<Preference
-		android:key="about_version"
-		android:title="@string/about_version_title" />
-	<Preference
-		android:summary="© 2011-2017, the Bitcoin Wallet developers\n© 2014-2017 Hash Engineering Solutions"
-		android:title="@string/about_copyright_title" />
-	<Preference
-		android:key="about_license"
-		android:summary="https://www.gnu.org/licenses/gpl-3.0.txt"
-		android:title="@string/about_license_title" >
-		<intent
-			android:action="android.intent.action.VIEW"
-			android:data="https://www.gnu.org/licenses/gpl-3.0.txt" />
-	</Preference>
-	<Preference
-		android:key="about_source"
-		android:summary="https://github.com/Groestlcoin/groestlcoin-wallet"
-		android:title="@string/about_source_title" >
-		<intent
-			android:action="android.intent.action.VIEW"
-			android:data="https://github.com/Groestlcoin/groestlcoin-wallet" />
-	</Preference>
-	<Preference
-		android:key="about_market_app"
-		android:summary="@string/about_market_app_summary"
-		android:title="@string/about_market_app_title" />
-	<Preference
-		android:key="about_community_googleplus"
-		android:summary="@string/about_community_googleplus_summary"
-		android:title="@string/about_community_googleplus_title" >
-		<intent
-			android:action="android.intent.action.VIEW"
-			android:data="https://plus.google.com/101784974802931539475" />
-	</Preference>
-	<!--Preference
-		android:key="about_twitter"
-		android:summary="\@Groestlcoin_wallet"
-		android:title="Twitter" >
-		<intent1fi
-			android:action="android.intent.action.VIEW"
-			android:data="https://twitter.com/#!/Groestlcoin_wallet" />
-	</Preference-->
-	<Preference
-		android:key="about_credits_bitcoinj"
-		android:summary="http://www.hashengineeringsolutions.com/?page_id=192" >
-		<intent
-			android:action="android.intent.action.VIEW"
-			android:data="http://www.hashengineeringsolutions.com/?page_id=192" />
-	</Preference>
-	<Preference
-		android:key="about_credits_zxing"
-		android:summary="https://github.com/zxing/zxing"
-		android:title="@string/about_credits_zxing_title" >
-		<intent
-			android:action="android.intent.action.VIEW"
-			android:data="https://github.com/zxing/zxing" />
-	</Preference>
+    <Preference
+        android:key="about_version"
+        android:title="@string/about_version_title" />
+    <Preference
+        android:summary="© 2011-2019, the Bitcoin Wallet developers\n© 2015-2019, Hash Engineering Solutions"
+        android:title="@string/about_copyright_title" />
+    <Preference
+        android:key="about_license"
+        android:summary="https://www.gnu.org/licenses/gpl-3.0.txt"
+        android:title="@string/about_license_title" >
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:data="https://www.gnu.org/licenses/gpl-3.0.txt" />
+    </Preference>
+    <Preference
+        android:key="about_source"
+        android:summary="https://github.com/Groestloin/groestlcoin-wallet"
+        android:title="@string/about_source_title" >
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:data="https://github.com/Groestloin/groestlcoin-wallet" />
+    </Preference>
+    <Preference
+        android:enabled="false"
+        android:key="about_market_app"
+        android:summary="@string/about_market_app_summary"
+        android:title="@string/about_market_app_title" />
 
+    <PreferenceCategory android:title="@string/about_category_credits" >
+        <Preference
+            android:key="about_credits_zxing"
+            android:summary="https://github.com/zxing/zxing"
+            android:title="@string/about_credits_zxing_title" >
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://github.com/zxing/zxing" />
+        </Preference>
+        <Preference
+            android:key="about_credits_bouncycastle"
+            android:summary="https://bouncycastle.org"
+            android:title="@string/about_credits_bouncycastle_title" >
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://bouncycastle.org" />
+        </Preference>
+        <Preference
+            android:key="about_credits_scrypt"
+            android:summary="https://github.com/wg/scrypt"
+            android:title="@string/about_credits_scrypt_title" >
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://github.com/wg/scrypt" />
+        </Preference>
+        <Preference
+            android:key="about_credits_okhttp"
+            android:summary="https://github.com/square/okhttp"
+            android:title="@string/about_credits_okhttp_title" >
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://github.com/square/okhttp" />
+        </Preference>
+        <Preference
+            android:key="about_credits_moshi"
+            android:summary="https://github.com/square/moshi"
+            android:title="@string/about_credits_moshi_title" >
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://github.com/square/moshi" />
+        </Preference>
+        <Preference
+            android:key="about_credits_guava"
+            android:summary="https://github.com/google/guava"
+            android:title="@string/about_credits_guava_title" >
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://github.com/google/guava" />
+        </Preference>
+        <Preference
+            android:key="about_credits_slf4j"
+            android:summary="https://github.com/qos-ch/slf4j"
+            android:title="@string/about_credits_slf4j_title" >
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://github.com/qos-ch/slf4j" />
+        </Preference>
+    </PreferenceCategory>
 
 </PreferenceScreen>

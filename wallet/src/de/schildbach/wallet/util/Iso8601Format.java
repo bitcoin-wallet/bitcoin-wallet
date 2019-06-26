@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2015 the original author or authors.
+ * Copyright the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -12,7 +12,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 package de.schildbach.wallet.util;
@@ -21,6 +21,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import java.util.TimeZone;
 
 import android.annotation.SuppressLint;
@@ -32,9 +33,8 @@ import android.annotation.SuppressLint;
 public class Iso8601Format extends SimpleDateFormat {
     private static final TimeZone UTC = TimeZone.getTimeZone("UTC");
 
-    private Iso8601Format(final String formatString) {
-        super(formatString);
-
+    public Iso8601Format(final String formatString) {
+        super(formatString, Locale.US);
         setTimeZone(UTC);
     }
 

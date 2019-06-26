@@ -12,7 +12,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 package de.schildbach.wallet.ui;
@@ -21,8 +21,8 @@ import org.bitcoinj.core.Monetary;
 import org.bitcoinj.utils.MonetaryFormat;
 
 import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.R;
 import de.schildbach.wallet.util.MonetarySpannable;
-import de.schildbach.wallet_test.R;
 
 import android.content.Context;
 import android.graphics.Paint;
@@ -31,6 +31,8 @@ import android.text.style.RelativeSizeSpan;
 import android.text.style.ScaleXSpan;
 import android.util.AttributeSet;
 import android.widget.TextView;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 
 /**
  * @author Andreas Schildbach
@@ -57,8 +59,8 @@ public final class CurrencyTextView extends TextView {
         updateView();
     }
 
-    public void setFormat(final MonetaryFormat format) {
-        this.format = format.codeSeparator(Constants.CHAR_HAIR_SPACE);
+    public void setFormat(@Nullable final MonetaryFormat format) {
+        this.format = format != null ? format.codeSeparator(Constants.CHAR_HAIR_SPACE) : null;
         updateView();
     }
 
@@ -98,7 +100,7 @@ public final class CurrencyTextView extends TextView {
     protected void onFinishInflate() {
         super.onFinishInflate();
 
-        setPrefixColor(getResources().getColor(R.color.fg_less_significant));
+        setPrefixColor(ContextCompat.getColor(getContext(), R.color.fg_less_significant));
         setPrefixScaleX(1);
         setInsignificantRelativeSize(0.85f);
         setSingleLine();

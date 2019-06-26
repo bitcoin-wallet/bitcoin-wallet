@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
 	<string name="toast_wallet_reset">Monujo restartiĝis,\nprenos iom da tempo por reakiri</string>
 	<string name="wallet_disclaimer_fragment_remind_safety">Uzu je via propra risko. Legu la &lt;u&gt;sekurecaj notoj&lt;/u&gt;.</string>
@@ -25,7 +25,7 @@
 	<string name="wallet_transactions_options_filter_sent">Sendita</string>
 	<string name="wallet_transactions_fragment_empty_text_received">Neniom da Bitmonoj tamen ricevitaj.</string>
 	<string name="wallet_transactions_fragment_empty_text_sent">Neniom da Bitmonoj tamen senditaj.</string>
-	<string name="wallet_transactions_fragment_empty_text_howto">Kiel obteni Bitmonojn?\n\nNegocu por tradicia mono,\nvendu varojn aŭ servojn aŭ\ngajnu per laborado.</string>
+	<string name="wallet_transactions_fragment_empty_text_howto">Kiel obteni Bitmonojn?\nNegocu por tradicia mono,\nvendu varojn aŭ servojn aŭ\ngajnu per laborado.</string>
 	<string name="wallet_transactions_row_warning_backup">Gratulon, vi ricevis vian unuan pagon! Ĉu vi jam &lt;u&gt;savkopiis vian monujon&lt;/u&gt;, por protekti kontraŭ perdo?</string>
 	<string name="wallet_transactions_fragment_coinbase">minita</string>
 	<string name="wallet_transactions_fragment_internal">interna</string>
@@ -38,8 +38,7 @@
 	<string name="wallet_timeskew_dialog_title">Kontrolu vian tempojn agordojn!</string>
 	<string name="wallet_timeskew_dialog_msg">Via aparata tempo estas ekstere de %d minutoj. Vi probable ne povas sendi aŭ ricevi Bitmonoj pro tiu problemo.\n\nVi devus kontroli kaj korekti vian tempon kaj horzonojn agordojn.</string>
 	<string name="wallet_version_dialog_title">Nova versio estas disponebla!</string>
-	<string name="wallet_version_dialog_msg">Tiu versio korektas gravajn cimojn. Por detaloj, vidu la ŝanĝan loglibron ĉe Google Play.</string>
-	<string name="wallet_version_dialog_button_market">Google Play</string>
+	<string name="wallet_version_dialog_msg">Tiu versio korektas gravajn cimojn. Por detaloj, vidu la ŝanĝan loglibron ĉe %s.</string>
 	<string name="wallet_version_dialog_button_binary">Elŝuti</string>
 	<string name="wallet_old_sdk_dialog_title">Androida versio eksdatas</string>
 	<string name="wallet_old_sdk_dialog_message">Estas verŝajne, ke unu de la sekvantaj versioj de BitmonMonujo ne subtenos vian aparaton. En iuj kazoj, ĝi povas esti malfacile elspezi monoj sur tiu aparato. \n\nSe vi ne scias kion vi faras, ĝi estas rekomendita movi viajn monojn frue.</string>
@@ -104,12 +103,8 @@
 	<string name="export_keys_dialog_title">Savkopi privatajn ŝlosilojn</string>
 	<string name="backup_wallet_dialog_message">Viaj privataj ŝlosiloj estos ĉifritaj kun l\'elektita pasvorto kaj skribitaj al ekstera storo.</string>
 	<string name="export_keys_dialog_button_export">Savkopi</string>
-	<string name="export_keys_dialog_success">Viaj privataj ŝlosiloj estas savkopiitaj ĝis\n\n%s\n\nKonservu ilin sekurajn, kaj konservu vian pasvorton sekuran!\n\nĈu vi volas arkivi viajn ŝlosilojn uzante aplikaĵo?</string>
+	<string name="export_keys_dialog_success">Viaj privataj ŝlosiloj estas savkopiitaj ĝis\n\n%s\n\nKonservu ilin sekurajn, kaj konservu vian pasvorton sekuran!</string>
 	<string name="export_keys_dialog_failure">Viaj privataj ŝlosiloj ne povis esti savkopiitaj:\n%s</string>
-	<string name="export_keys_dialog_button_archive">Arkivo</string>
-	<string name="export_keys_dialog_mail_subject">BitmonMonujo privataj ŝlosiloj savkopio</string>
-	<string name="export_keys_dialog_mail_text">La kuna ĉifrita dosiero entenas Bitmonajn privatajn ŝlosilojn, kaj devus esti sekura ĉiam. Ne forgesu la ĉifradan pasvorton!</string>
-	<string name="export_keys_dialog_mail_intent_chooser">Arkivi ŝlosilojn uzante…</string>
 	<string name="import_export_keys_dialog_password">pasvorto</string>
 	<string name="import_export_keys_dialog_show">Montru pasvorton</string>
 	<string name="import_export_keys_dialog_failure_title">Eraro</string>
@@ -154,9 +149,7 @@
 	<string name="about_category_credits">Ĉi tiu aplikaĵo uzas…</string>
 	<string name="about_credits_bitcoinj_title">groestlcoinj %s</string>
 	<string name="about_credits_zxing_title">ZXing</string>
-	<string name="about_community_googleplus_title">\"Google+\" Komunumo</string>
-	<string name="about_community_googleplus_summary">Diskutoj pri l\'aplikaĵo</string>
-	<string name="about_market_app_title">\"Google Play\" Paĝo</string>
+	<string name="about_market_app_title">%s Paĝo</string>
 	<string name="about_market_app_summary">Revui aŭ gradi l\'aplikaĵon</string>
 	<string name="notification_coins_received_msg">Ricevita %s</string>
 	<string name="notification_peers_connected_msg">%d pajroj konektitaj</string>

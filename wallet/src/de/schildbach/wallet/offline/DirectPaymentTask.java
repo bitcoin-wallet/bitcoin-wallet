@@ -12,7 +12,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 package de.schildbach.wallet.offline;
@@ -22,30 +22,28 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import javax.annotation.Nullable;
-
 import org.bitcoin.protocols.payments.Protos;
 import org.bitcoin.protocols.payments.Protos.Payment;
 import org.bitcoinj.protocols.payments.PaymentProtocol;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.squareup.okhttp.CacheControl;
-import com.squareup.okhttp.Call;
-import com.squareup.okhttp.MediaType;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.RequestBody;
-import com.squareup.okhttp.Response;
-
 import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.R;
 import de.schildbach.wallet.util.Bluetooth;
-import de.schildbach.wallet_test.R;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.os.Handler;
 import android.os.Looper;
+import androidx.annotation.Nullable;
+import okhttp3.CacheControl;
+import okhttp3.Call;
+import okhttp3.MediaType;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 import okio.BufferedSink;
 
 /**
@@ -170,19 +168,13 @@ public abstract class DirectPaymentTask {
                     final BluetoothDevice device = bluetoothAdapter
                             .getRemoteDevice(Bluetooth.decompressMac(bluetoothMac));
 
-                    BluetoothSocket socket = null;
-                    DataOutputStream os = null;
-                    DataInputStream is = null;
-
-                    try {
-                        socket = device
-                                .createInsecureRfcommSocketToServiceRecord(Bluetooth.BIP70_PAYMENT_PROTOCOL_UUID);
+                    try (final BluetoothSocket socket = device
+                            .createInsecureRfcommSocketToServiceRecord(Bluetooth.BIP70_PAYMENT_PROTOCOL_UUID);
+                            final DataOutputStream os = new DataOutputStream(socket.getOutputStream());
+                            final DataInputStream is = new DataInputStream(socket.getInputStream())) {
                         socket.connect();
 
                         log.info("connected to payment protocol {}", bluetoothMac);
-
-                        is = new DataInputStream(socket.getInputStream());
-                        os = new DataOutputStream(socket.getOutputStream());
 
                         payment.writeDelimitedTo(os);
                         os.flush();
@@ -200,30 +192,6 @@ public abstract class DirectPaymentTask {
                         log.info("problem sending", x);
 
                         onFail(R.string.error_io, x.getMessage());
-                    } finally {
-                        if (os != null) {
-                            try {
-                                os.close();
-                            } catch (final IOException x) {
-                                // swallow
-                            }
-                        }
-
-                        if (is != null) {
-                            try {
-                                is.close();
-                            } catch (final IOException x) {
-                                // swallow
-                            }
-                        }
-
-                        if (socket != null) {
-                            try {
-                                socket.close();
-                            } catch (final IOException x) {
-                                // swallow
-                            }
-                        }
                     }
                 }
             });
