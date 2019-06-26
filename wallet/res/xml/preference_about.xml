@@ -31,6 +31,13 @@
 
     <PreferenceCategory android:title="@string/about_category_credits" >
         <Preference
+            android:key="about_credits_bitcoinj"
+            android:summary="https://github.com/Groestlcoin/groestlcoinj" >
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://github.com/Groestlcoin/groestlcoinj" />
+        </Preference>
+        <Preference
             android:key="about_credits_zxing"
             android:summary="https://github.com/zxing/zxing"
             android:title="@string/about_credits_zxing_title" >
