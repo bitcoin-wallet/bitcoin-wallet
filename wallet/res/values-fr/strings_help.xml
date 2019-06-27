@@ -3,11 +3,11 @@
   <string name="help_wallet">
 <![CDATA[
 		<p>
-			La partie supérieure gauche de l’écran affiche votre solde en bitcoins ainsi qu’une monnaie nationale choisie.
+			La partie supérieure gauche de l’écran affiche votre solde en Groestlcoins ainsi qu’une monnaie nationale choisie.
 			Touchez-la pour atteindre la liste des monnaies nationales et touchez l’une d’elles pour la choisir par défaut.
 		</p>
 		<p>
-			Le code QR en haut à droite contient votre adresse Bitcoin actuelle et peut être balayé par un payeur.
+			Le code QR en haut à droite contient votre adresse Groestlcoin actuelle et peut être balayé par un payeur.
 			Touchez le code QR pour l’agrandir.
 		</p>
 		<p>
@@ -27,7 +27,7 @@
 			Grâce à cette fenêtre de dialogue, vous pouvez demander des pièces à un payeur.
 		</p>
 		<p>
-			Vous pouvez d’abord un montant de bitcoins à demander.
+			Vous pouvez d’abord un montant de Groestlcoins à demander.
 		</p>
 		<p>
 			Ensuite, le payeur devra balayé le code QR généré.
@@ -43,10 +43,10 @@
   <string name="help_send_coins">
 <![CDATA[
 		<p>
-			Vous avez amorcé un processus d’envoi de bitcoins.
+			Vous avez amorcé un processus d’envoi de Groestlcoins.
 		</p>
 		<p>
-			Saisissez d’abord l’adresse Bitcoin de destination.
+			Saisissez d’abord l’adresse Groestlcoin de destination.
 			L’adresse sera saisie automatiquement pour les entrées connues de votre carnet d’adresses.
 			Vous pouvez aussi balayer un code QR présenté par le bénéficiaire du paiement en touchant le bouton de l’appareil photo.
 		</p>
@@ -58,7 +58,7 @@
 		</p>
 		<p>
 			Vous pouvez saisir un paiement alors que vous êtes hors ligne.
-			Il sera envoyé lors du prochain démarrage de Bitcoin Wallet.
+			Il sera envoyé lors du prochain démarrage de Groestlcoin Wallet.
 			Pour que le paiement soit traité aussi rapidement que possible, assurez-vous d’être bien connecté (c.-à-d. sur un WLAN).
 		</p>
 		<p>
@@ -74,8 +74,8 @@
 			<b>Notes de sécurité importantes :</b>
 		</p>
 		<p>
-			Les bitcoins sont stockés sur l’appareil.
-			<b>Si vous le perdez, vous perdrez vos bitcoins.</b>
+			Les Groestlcoins sont stockés sur l’appareil.
+			<b>Si vous le perdez, vous perdrez vos Groestlcoins.</b>
 		</p>
 		<p>
 			Cela signifie que vous devez <b>sauvegarder votre porte-monnaie</b> !
@@ -83,12 +83,12 @@
 			Conservez votre sauvegarde en lieu sûr et souvenez-vous du mot de passe.
 		</p>
 		<p>
-			<b>Avant de désinstaller l’appli</b> (ou d’en effacer les données ou de purger les données de votre appareil), <b>transférez vos bitcoins vers un autre porte-monnaie</b>.
-			Les bitcoins restants seront perdus.
+			<b>Avant de désinstaller l’appli</b> (ou d’en effacer les données ou de purger les données de votre appareil), <b>transférez vos Groestlcoins vers un autre porte-monnaie</b>.
+			Les Groestlcoins restants seront perdus.
 		</p>
 		<p>
 			<b>Les paiements sont irréversibles</b>.
-			Si vous envoyez vos bitcoins dans le vide, il n’y a presque aucun moyen de les récupérer.
+			Si vous envoyez vos Groestlcoins dans le vide, il n’y a presque aucun moyen de les récupérer.
 		</p>
 		<p>
 			<b>Assurez la sécurité de votre appareil mobile !</b>
@@ -108,13 +108,13 @@
 			<b>Notes techniques :</b>
 		</p>
 		<p>
-			En tant que porte-monnaie VPS (vérification de paiement simplifiée), léger, le porte-monnaie Bitcoin Wallet suit la chaîne de la plus grande preuve de travail (parfois aussi appelé « la chaîne à la plus longue », « la chaîne gagnante », ou la « chaîne de blocs Bitcoin »).
+			En tant que porte-monnaie VPS (vérification de paiement simplifiée), léger, le porte-monnaie Groestlcoin Wallet suit la chaîne de la plus grande preuve de travail (parfois aussi appelé « la chaîne à la plus longue », « la chaîne gagnante », ou la « chaîne de blocs Groestlcoin »).
 			Vous ne pourrez recevoir des paiements entrants et ne pourrez payer que sur cette chaîne.
-			Il ne peut y avoir aucune garantie sur les bitcoins des chaînes minoritaires, c’est-à-dire les chaînes avec moins de preuve de travail.
+			Il ne peut y avoir aucune garantie sur les Groestlcoins des chaînes minoritaires, c’est-à-dire les chaînes avec moins de preuve de travail.
 		</p>
 		<p>
 			Par le passé, les chaînes minoritaires ont toujours très rapidement perdu toute pertinence.
-			Si vous souhaitez quand même suivre une chaîne minoritaire, il vous est conseillé d’utiliser la fonction « Pair de confiance » pour vous connecter exclusivement à une instance de bitcoind qui utilise votre chaîne désirée.
+			Si vous souhaitez quand même suivre une chaîne minoritaire, il vous est conseillé d’utiliser la fonction « Pair de confiance » pour vous connecter exclusivement à une instance de Groestlcoind qui utilise votre chaîne désirée.
 			Si l’on ne peut pas faire confiance au réseau entre votre porte-monnaie et le pair de confiance, utilisez un RPV pour certifier cette connexion.
 		</p>
 	]]>

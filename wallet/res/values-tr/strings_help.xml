@@ -3,7 +3,7 @@
   <string name="help_wallet">
 <![CDATA[
 		<p>
-			Ekranın sol üst köşesinde, dengenizi Bitcoins ve bir seçilen ulusal para birimi cinsinden görüntüler.
+			Ekranın sol üst köşesinde, dengenizi Groestlcoins ve bir seçilen ulusal para birimi cinsinden görüntüler.
 			Ulusal para birimleri listesine gitmek için hafifçe vurun ve varsayılan olarak seçmek için para birimlerinden birine hafifçe dokunun.
 		</p>
 		<p>
@@ -23,18 +23,18 @@
   <string name="help_request_coins">
 <![CDATA[
 		<p>
-			Bu diyaloğu kullanarak başka bir kişiden Bitcoin talep edebilirsiniz (bu kişinin Bitcoin Wallet uygulamasını cihazında kurmuş olması gerekir).
+			Bu diyaloğu kullanarak başka bir kişiden Groestlcoin talep edebilirsiniz (bu kişinin Groestlcoin Wallet uygulamasını cihazında kurmuş olması gerekir).
 		</p>
 		<p>
-			İlk olarak talep edilen Bitcoin miktarını girebilirsiniz.
+			İlk olarak talep edilen Groestlcoin miktarını girebilirsiniz.
 		</p>
 		<p>
 			Ardından ya diğer kişi tarafından taranacak bir QR code oluşturmanız,
 			ya da uzaktaki bir kişiye etkinlik çubuğunda paylaş düğmesiyle talebinizi göndermeniz gerekir.
-			Bu kişinin Bitcoin bağlantısını tıklaması gerekecektir.
+			Bu kişinin Groestlcoin bağlantısını tıklaması gerekecektir.
 		</p>
 		<p>
-			Her durumda diğer kişiye Bitcoin göndermesi için tüm seçenekleri doldurulmuş bir diyalog gösterilecektir.
+			Her durumda diğer kişiye Groestlcoin göndermesi için tüm seçenekleri doldurulmuş bir diyalog gösterilecektir.
 			Kabul ederse tüm yapması gereken muameleyi yollamaktır.
 		</p>
 	]]>
@@ -42,16 +42,16 @@
   <string name="help_send_coins">
 <![CDATA[
 		<p>
-			Bitcoin gönderme prosedürünü başlattınız.
-			Buraya ya ana ekrandan ya da mobil ağ tarayıcınızda bir Bitcoin bağlantısına tıklayarak geldiniz.
+			Groestlcoin gönderme prosedürünü başlattınız.
+			Buraya ya ana ekrandan ya da mobil ağ tarayıcınızda bir Groestlcoin bağlantısına tıklayarak geldiniz.
 		</p>
 		<p>
-			İlk olarak ödeme yapacağınız Bitcoin adresini girmelisiniz.
+			İlk olarak ödeme yapacağınız Groestlcoin adresini girmelisiniz.
 			Adres defterinizde bilinen adreslere dayanılarak adres otomatik olarak tamamlanacaktır.
-			Ayrıca etkinlik çubuğunda QR düğmesine dokunarak Bitcoin adresi ya da talebi içeren QR kodlarını tarayabilirsiniz.
+			Ayrıca etkinlik çubuğunda QR düğmesine dokunarak Groestlcoin adresi ya da talebi içeren QR kodlarını tarayabilirsiniz.
 		</p>
 		<p>
-			Bunun ardından o anda ne kadar Bitcoin harcayabileceğinizi görüntüleyebilirsiniz.
+			Bunun ardından o anda ne kadar Groestlcoin harcayabileceğinizi görüntüleyebilirsiniz.
 			Varsa ana ekrandaki bakiye ile farklılıklar henüz teyit edilmemiştir ve dolayısıyla henüz harcanamaz.
 		</p>
 		<p>
@@ -59,7 +59,7 @@
 		</p>
 		<p>
 			Çevrimdışı olduğunuz sırada bir muamele girebilirsiniz.
-			Bitcoin Wallet uygulamasının sonraki açılışında gönderilir.
+			Groestlcoin Wallet uygulamasının sonraki açılışında gönderilir.
 			Bir muamelenin mümkün olduğu kadar çabuk işlenmesini istiyorsanız bağlantınızın iyi olduğundan (mesela WLAN ile).
 		</p>
 		<p>
@@ -72,20 +72,20 @@
   <string name="help_safety">
 <![CDATA[
 		<p>
-			<b>Bitcoinlerinizin güvenliği hakkında önemli noktalar:</b>
+			<b>Groestlcoinlerinizin güvenliği hakkında önemli noktalar:</b>
 		</p>
 		<p>
-			Bitcoin cüzdanınızdaki Bitcoinler cihazınızda saklanır.
-			<b>Cihazınızı kaybederseniz Bitcoinlerinizi de kaybedersiniz.</b>
+			Groestlcoin cüzdanınızdaki Groestlcoinler cihazınızda saklanır.
+			<b>Cihazınızı kaybederseniz Groestlcoinlerinizi de kaybedersiniz.</b>
 			Tıpkı fiziki cüzdanınızdaki para gibi.
 		</p>
 		<p>
-			<b>Bitcoin Wallet</b> uygulamasını kaldırmadan önce (ya da uygulama verilerini/cihazınızı sıfırlamadan önce) <b>tüm Bitcoinlerinizi başka bir cüzdana aktarınız</b>.
-			Kalan tüm Bitcoinler kaybolacaktır.
+			<b>Groestlcoin Wallet</b> uygulamasını kaldırmadan önce (ya da uygulama verilerini/cihazınızı sıfırlamadan önce) <b>tüm Groestlcoinlerinizi başka bir cüzdana aktarınız</b>.
+			Kalan tüm Groestlcoinler kaybolacaktır.
 		</p>
 		<p>
 			<b>Muameleler geri alınamaz</b>.
-			Bitcoinlerinizi yanlış bir adrese yollarsanız, bunları geri almak için alıcıyı tanımanız ve onun geri yollamayı kabul etmeniz dışında hiçbir yol yoktur.
+			Groestlcoinlerinizi yanlış bir adrese yollarsanız, bunları geri almak için alıcıyı tanımanız ve onun geri yollamayı kabul etmeniz dışında hiçbir yol yoktur.
 		</p>
 		<p>
 			<b>Android cihazınızı güvenli kullanın!</b>
@@ -94,7 +94,7 @@
 		</p>
 		<p>
 			Riski sınırlayın!
-			<b>Bitcoin Wallet uygulamasını sadece küçük tutarlar için kullanınız</b>.
+			<b>Groestlcoin Wallet uygulamasını sadece küçük tutarlar için kullanınız</b>.
 		</p>
 	]]>
 	</string>
@@ -104,13 +104,13 @@
             <b>Teknik notlar:</b>
         </p>
         <p>
-            Bir SPV/hafif cüzdan olarak Bitcoin Wallet As en çok ispatlanmış zinciri takip eder (ki buna bazen \"en uzun zincir\", \"kazanan zincir\" veya \"Bitcoin blok zinciri\" de denir).
+            Bir SPV/hafif cüzdan olarak Groestlcoin Wallet As en çok ispatlanmış zinciri takip eder (ki buna bazen \"en uzun zincir\", \"kazanan zincir\" veya \"Groestlcoin blok zinciri\" de denir).
             Sadece gelen ödemeleri alacak ve o zincirde ödeme yapabileceksiniz.
-            Azınlık zincirlerindeki yani daha az ispatlanmış zincirlerdeki Bitcoinler için hiçbir garanti verilemez.
+            Azınlık zincirlerindeki yani daha az ispatlanmış zincirlerdeki Groestlcoinler için hiçbir garanti verilemez.
         </p>
         <p>
             Geçmişte azınlık anahtarları daima çok hızlı bir şekilde anlamsız bir hale gelmişlerdir.
-            Eğer her şeye rağmen bir azınlık zincirini takip etmek istiyorsanız, sadece istediğiniz zinciri zorlayacak bir bitcoind uygulamasına bağlanmak için \"güvenli eş\" işlevini kullanmanız tavsiye edilir.
+            Eğer her şeye rağmen bir azınlık zincirini takip etmek istiyorsanız, sadece istediğiniz zinciri zorlayacak bir Groestlcoind uygulamasına bağlanmak için \"güvenli eş\" işlevini kullanmanız tavsiye edilir.
             Şayet cüzdanınız ve güvenli eş arasındaki şebeke güvenilir değilse, bu bağlantıyı doğrulamak için bir VPN (sanal özel ağ) kullanın.
         </p>
     ]]>
