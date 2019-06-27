@@ -1,26 +1,26 @@
-<b>Ha alltid dine bitcoins med deg, i lommen din!</b> Du betaler ved å raskt skanne en QR-kode. Som en kjøpmann, får du betaling pålitelig og kjapt. Bitcoin Wallet er den første Bitcoin mobilappen, og kanskje også den sikreste!
+<b>Ha alltid dine Groestlcoins med deg, i lommen din!</b> Du betaler ved å raskt skanne en QR-kode. Som en kjøpmann, får du betaling pålitelig og kjapt. Groestlcoin Wallet er den første Groestlcoin mobilappen, og kanskje også den sikreste!
 
 
 <b>FUNKSJONER</b>
 
 • Ingen registrering, webtjeneste eller sky trengs! Denne lommeboken er desentralisert og peer-to-peer.
-• Visning av bitcoinbeløpet i BTC, mBTC og μBTC.
+• Visning av Groestlcoinbeløpet i GRS, mGRS og μGRS.
 • Konvertering til og fra nasjonale valutaer.
-• Sende og motta bitcoin via NFC, QR-koder eller Bitcoin-URLer.
-• Adressebok for regelmessig brukte Bitcoin-adresser.
+• Sende og motta Groestlcoin via NFC, QR-koder eller Groestlcoin-URLer.
+• Adressebok for regelmessig brukte Groestlcoin-adresser.
 • Når du er frakoblet, kan du fortsatt betale via blåtann.
 • Systemvarsling for mottatte mynter.
 • Sveiping av papirlommebøker (f.eks. de som brukes til kaldlagring).
-• Miniprogram for saldo over bitcoins.
+• Miniprogram for saldo over Groestlcoins.
 
 
 <b>BIDRA</b>
 
-Bitcoin Wallet har <b>åpen kildekode</b> og er <b>fri programvare</b>. Lisens: GPLv3
+Groestlcoin Wallet har <b>åpen kildekode</b> og er <b>fri programvare</b>. Lisens: GPLv3
 https://www.gnu.org/licenses/gpl-3.0.en.html
 
 Vår kildekode er tilgjengelig på GitHub:
-https://github.com/bitcoin-wallet/bitcoin-wallet
+https://github.com/Groestlcoin/groestlcoin-wallet
 
 Alle oversettelser skjer via Transifex:
 https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/

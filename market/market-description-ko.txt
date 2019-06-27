@@ -1,10 +1,10 @@
-<b>주머니에 항상 넣어다닐 수 있는 비트코인 지갑!</b> QR 코드를 통해 빠르게 비트코인 결제가 가능합니다. 판매자의 경우 안전하고 빠르게 대금을 받을 수 있습니다. 비트코인 지갑(Bitcoin Wallet)은  최초의 모바일 비트코인 앱이며 최고의 보안을 자랑합니다!
+<b>주머니에 항상 넣어다닐 수 있는 비트코인 지갑!</b> QR 코드를 통해 빠르게 비트코인 결제가 가능합니다. 판매자의 경우 안전하고 빠르게 대금을 받을 수 있습니다. 비트코인 지갑(Groestlcoin Wallet)은  최초의 모바일 비트코인 앱이며 최고의 보안을 자랑합니다!
 
 
 <b>특징</b>
 
 • 회원 가입이나 별도의 인증 과정이 없는 P2P 기반의 지갑
-• 다양한 비트코인 단위 설정 - BTC, mBTC, µBTC
+• 다양한 비트코인 단위 설정 - GRS, mGRS, µGRS
 • 모든 국가별 비트코인 평가 환율 제공
 • 비트코인 URL, QR 코드, NFC를 통해 비트코인 거래 가능
 • 비트코인 간편 주소록 기능
@@ -20,7 +20,7 @@
 https://www.gnu.org/licenses/gpl-3.0.en.html
 
 소스 코드는 깃허브(GitHub)에서 볼 수 있습니다.
-https://github.com/bitcoin-wallet/bitcoin-wallet
+https://github.com/Groestlcoin/groestlcoin-wallet
 
 모든 번역은 Transifex 웹사이트를 통해 이루어집니다.
 https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/

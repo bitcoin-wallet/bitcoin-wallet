@@ -1,26 +1,26 @@
-<b>Tingues els teus Bitcoins sempre amb tu, a la teva butxaca!.<b> Per pagar ràpidament escanejant un codi QR. Com a comerciant, pots rebre pagaments instantàniament amb confiança. La Cartera Bitcoin és la primera aplicació mòbil de Bitcoin i possiblement també la més segura!.
+<b>Tingues els teus Groestlcoins sempre amb tu, a la teva butxaca!.<b> Per pagar ràpidament escanejant un codi QR. Com a comerciant, pots rebre pagaments instantàniament amb confiança. La Cartera Groestlcoin és la primera aplicació mòbil de Groestlcoin i possiblement també la més segura!.
 
 
 <b>CARACTERÍSTIQUES</b>
 
 • Sense enregistrar-se ni amb necessitat d'un servei web o al núvol!. Aquesta cartera és descentralitzada i de parell a parell.
-• Mostra l'import de bitcoin en BTC, mBTC i µBTC.
+• Mostra l'import de Groestlcoin en GRS, mGRS i µGRS.
 • Conversió cap a i des de divises nacionals.
-• Enviar i rebre bitcoins a través d'NFC, codis QR i adreces Bitcoin.
+• Enviar i rebre Groestlcoins a través d'NFC, codis QR i adreces Groestlcoin.
 • Llibreta d'adreces per a les adreces utilitzades regularment.
 • Quan ets fora de línia, encara pots pagar a través de Bluetooth.
 • Notificació del sistema quan reps monedes.
 • Possibilitat d'agregar carteres de paper (per ex. les utilitzades per l'emmagatzematge en fred)
-• Widget d'aplicació per al balanç de Bitcoin.
+• Widget d'aplicació per al balanç de Groestlcoin.
 
 
 <b>COL·LABORAR</b>
 
-La Cartera de Bitcoin és <b>codi obert</b> i <b>programari lliure</b>. Llicència: GPLv3
+La Cartera de Groestlcoin és <b>codi obert</b> i <b>programari lliure</b>. Llicència: GPLv3
 https://www.gnu.org/licenses/gpl-3.0.ca.html
 
 El nostre codi està disponible a GitHub:
-https://github.com/bitcoin-wallet/bitcoin-wallet
+https://github.com/Groestlcoin/groestlcoin-wallet
 
 Totes les traduccions estan gestionades a través de Transifex:
 https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/

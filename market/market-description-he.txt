@@ -13,7 +13,7 @@
 • וידג'ט לבדיקת יתרת הביטקוין שלך
 
 אם אתה רוצה לתרום לפרויקט ארנק הביטקוין, הפרויקט ממוקם ב
-https://github.com/bitcoin-wallet/bitcoin-wallet
+https://github.com/Groestlcoin/groestlcoin-wallet
 
 רישיון : GPLv3
 שים לב: השימוש הוא באחריות המשתמש.

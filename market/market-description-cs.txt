@@ -1,26 +1,26 @@
-<b>Mějte své Bitcoiny vždy s sebou ve své kapse!</b> Plaťte rychlým oskenováním QR kódu. A jako prodejce můžete přijímat platby spolehlivě a rychle. Bitcoin Wallet je mobilní Bitcoin aplikace číslo jedna a jedna z nejbezpečnějších!
+<b>Mějte své Groestlcoiny vždy s sebou ve své kapse!</b> Plaťte rychlým oskenováním QR kódu. A jako prodejce můžete přijímat platby spolehlivě a rychle. Groestlcoin Wallet je mobilní Groestlcoin aplikace číslo jedna a jedna z nejbezpečnějších!
 
 
 <b>FUNKCE</b>
 
 • Není třeba žádná registrace, webová služba ani cloud! Toto je peer to peer decentralizovaná peněženka.
-• Zobrazení Bitcoin částek v BTC, mBTC a µBTC.
+• Zobrazení Groestlcoin částek v GRS, mGRS a µGRS.
 • Přepočet z a do národních měn.
-• Odesílání a přijímání plateb přes NFC, QR kódy nebo Bitcoin URL.
-• Adresář pro často používané Bitcoin adresy.
+• Odesílání a přijímání plateb přes NFC, QR kódy nebo Groestlcoin URL.
+• Adresář pro často používané Groestlcoin adresy.
 • Pokud jste offline, stále můžete platit přes Bluetooth.
 • Systémové notifikace při přijaté platbě
 • Načítání papírových peněženek (např. ty co se používají u cold storage).
-• Widget pro zobrazení Bitcoin bilance.
+• Widget pro zobrazení Groestlcoin bilance.
 
 
 <b>PŘISPĚJTE</b>
 
-Bitcoin Wallet je <b>open source</b> a <b>svobodný software</b>. Licence: GPLv3
+Groestlcoin Wallet je <b>open source</b> a <b>svobodný software</b>. Licence: GPLv3
 https://www.gnu.org/licenses/gpl-3.0.en.html
 
 Náš zdrojový kód je k dispozici na GitHubu:
-https://github.com/bitcoin-wallet/bitcoin-wallet
+https://github.com/Groestlcoin/groestlcoin-wallet
 
 Veškeré překlady jsou spravovány přes Transifex:
 https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/

@@ -1,25 +1,25 @@
-<b>Imaj svoje Bitcoin-e uvijek sa sobom, u svom džepu.</b> Plaćaj brzim skeniranjem QR koda. Kao trgovac, primaj uplate sigurno i brzo. Bitcoin Wallet je prva mobilna Bitcoin aplikacija, i ne porecivo najsigurnija!
+<b>Imaj svoje Groestlcoin-e uvijek sa sobom, u svom džepu.</b> Plaćaj brzim skeniranjem QR koda. Kao trgovac, primaj uplate sigurno i brzo. Groestlcoin Wallet je prva mobilna Groestlcoin aplikacija, i ne porecivo najsigurnija!
 
 
 <b>ZNAČAJKE</b>
 
 • Bez registracije, web servis ili cloud potreban! Ovaj novčanik je de-centraliziran i klijent prema klijentu.
-• Prikaži Bitcoin iznos u BTC, mBTC i uBTC.
+• Prikaži Groestlcoin iznos u GRS, mGRS i uGRS.
 • Pretvorba u ili iz nacionalnih valuta.
-• Slanje i primanje Bitcoina s NFC, QR kodom ili Bitcoin URL-om.
-• Adresar za često korištene Bitcoin adrese.
+• Slanje i primanje Groestlcoina s NFC, QR kodom ili Groestlcoin URL-om.
+• Adresar za često korištene Groestlcoin adrese.
 • Kada si izvan mreže, možete još uvijek preko Bluetooth-a.
 • Sistemske obavjesti za primljene coin-ove.
-• Widgeti aplikacije za balansiranje Bitcoin-ova.
+• Widgeti aplikacije za balansiranje Groestlcoin-ova.
 
 
 <b>DOPRINOS</b>
 
-Bitcoin Wallet je <b>javno dostupan kod</b> i <b>besplatna aplikacija</b>. Licencirana pod GPLv3.
+Groestlcoin Wallet je <b>javno dostupan kod</b> i <b>besplatna aplikacija</b>. Licencirana pod GPLv3.
 https://www.gnu.org/licenses/gpl-3.0.en.html
 
 Naš izvorni kod je dostušan na GitHub-u:
-https://github.com/bitcoin-wallet/bitcoin-wallet
+https://github.com/Groestlcoin/groestlcoin-wallet
 
 Sve transakcije se provode preko Transifex-a:
 https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/

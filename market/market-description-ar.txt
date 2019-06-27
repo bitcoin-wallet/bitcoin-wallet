@@ -4,9 +4,9 @@
 <b>المميزات</b>
 
 • لا داعي للتسجيل أو استخدام تطبيقات شبكة إنترنت أو الخدمات السحابية! كون الاتصال في هذه المحفظة غير مركزي (peer-to-peer) ولا تعتمد على سيرفر خدمة.
-إظهار رصيدك من البتكوين على شكل BTC و µBTC و mBTC.
+إظهار رصيدك من البتكوين على شكل GRS و µGRS و mGRS.
 • تحويل البيتكوين من وإلى العملات المحلية.
-ارسال واستقبال عملة Bitcoin عبر NFC, QR codes او Bitcoin روابط
+ارسال واستقبال عملة Groestlcoin عبر NFC, QR codes او Groestlcoin روابط
 • دفتر عناوين لحفظ عناوين البيتكوين المستخدمة بشكل دوري.
 • في حين تعذر الاتصال بالإنترنت، يمكنك الدفع عن طريق تقنية البلوتوث.
 • يقوم البرنامج بإشعارك حين استلام دفعات البيتكوين بواسطة تنبيهات النظام (Notifications).
@@ -19,7 +19,7 @@
 https://www.gnu.org/licenses/gpl-3.0.ar.html
 
 الكود المصدري للبرنامج متوافر على GitHub:
-https://github.com/bitcoin-wallet/bitcoin-wallet
+https://github.com/Groestlcoin/groestlcoin-wallet
 
 كل الترجمات مدارة عبر Transifex:
 https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
