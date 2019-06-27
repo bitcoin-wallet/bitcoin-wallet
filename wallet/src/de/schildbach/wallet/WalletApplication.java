@@ -25,6 +25,7 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
+import org.bitcoinj.core.Block;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.VerificationException;
 import org.bitcoinj.core.VersionMessage;
@@ -43,6 +44,11 @@ import com.google.common.base.Stopwatch;
 import com.google.common.collect.ImmutableList;
 import com.google.common.util.concurrent.SettableFuture;
 
+import de.schildbach.wallet.data.blockexplorer.BlockExplorer;
+import de.schildbach.wallet.data.blockexplorer.BlockExplorers;
+import de.schildbach.wallet.data.blockexplorer.BlockchairExplorer;
+import de.schildbach.wallet.data.blockexplorer.CryptoIDExplorer;
+import de.schildbach.wallet.data.blockexplorer.InsightExplorer;
 import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.util.Bluetooth;
 import de.schildbach.wallet.util.CrashReporter;
@@ -78,6 +84,7 @@ public class WalletApplication extends Application {
     private File walletFile;
     private WalletFiles walletFiles;
     private Configuration config;
+    private BlockExplorers blockExplorers;
 
     public static final String ACTION_WALLET_REFERENCE_CHANGED = WalletApplication.class.getPackage().getName()
             + ".wallet_reference_changed";
@@ -130,12 +137,22 @@ public class WalletApplication extends Application {
         cleanupFiles();
 
         initNotificationManager();
+
+        blockExplorers = new BlockExplorers();
+        blockExplorers.add(new CryptoIDExplorer("https://chainz.cryptoid.info/grs/", "https://chainz.cryptoid.info/grs-test/"));
+        blockExplorers.add(new InsightExplorer("https://groestlsight.groestlcoin.org/", "https://groestlsight-test.groestlcoin.org/"));
+        blockExplorers.add(new InsightExplorer("https://blockbook.groestlcoin.org/", "https://blockbook-test.groestlcoin.org/"));
+        blockExplorers.add(new BlockchairExplorer("https://blockchair.com/groestlcoin/", ""));
     }
 
     public synchronized Configuration getConfiguration() {
         if (config == null)
             config = new Configuration(PreferenceManager.getDefaultSharedPreferences(this), getResources());
         return config;
+    }
+
+    public BlockExplorer getBlockExplorer(Uri explorer) {
+        return blockExplorers.getExplorer(explorer.toString(), Constants.TEST);
     }
 
     @MainThread

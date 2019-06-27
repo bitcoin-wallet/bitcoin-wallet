@@ -36,6 +36,7 @@ import de.schildbach.wallet.R;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.data.AddressBookDao;
 import de.schildbach.wallet.data.AppDatabase;
+import de.schildbach.wallet.data.blockexplorer.BlockExplorer;
 import de.schildbach.wallet.ui.TransactionsAdapter.ListItem;
 import de.schildbach.wallet.ui.TransactionsAdapter.WarningType;
 import de.schildbach.wallet.ui.send.RaiseFeeDialogFragment;
@@ -322,9 +323,10 @@ public class WalletTransactionsFragment extends Fragment implements Transactions
                 case R.id.wallet_transactions_context_browse:
                     if (!txRotation) {
                         final Uri blockExplorerUri = config.getBlockExplorer();
+                        final BlockExplorer blockExplorer = application.getBlockExplorer(blockExplorerUri);
                         log.info("Viewing transaction {} on {}", tx.getTxId(), blockExplorerUri);
                         startActivity(new Intent(Intent.ACTION_VIEW,
-                                Uri.withAppendedPath(blockExplorerUri, "tx/" + tx.getTxId().toString())));
+                                blockExplorer.getTxUrl(tx.getTxId())));
                     } else {
                         startActivity(new Intent(Intent.ACTION_VIEW, KEY_ROTATION_URI));
                     }

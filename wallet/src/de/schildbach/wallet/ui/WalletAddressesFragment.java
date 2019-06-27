@@ -34,6 +34,8 @@ import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.data.AddressBookDao;
 import de.schildbach.wallet.data.AddressBookEntry;
 import de.schildbach.wallet.data.AppDatabase;
+import de.schildbach.wallet.data.blockexplorer.BlockExplorer;
+import de.schildbach.wallet.data.blockexplorer.BlockExplorers;
 import de.schildbach.wallet.util.Qr;
 import de.schildbach.wallet.util.Toast;
 import de.schildbach.wallet.util.WalletUtils;
@@ -192,9 +194,10 @@ public final class WalletAddressesFragment extends FancyListFragment {
 
                 case R.id.wallet_addresses_context_browse:
                     final Uri blockExplorerUri = application.getConfiguration().getBlockExplorer();
+                    final BlockExplorer explorer = application.getBlockExplorer(blockExplorerUri);
                     log.info("Viewing address {} on {}", address, blockExplorerUri);
                     startActivity(new Intent(Intent.ACTION_VIEW,
-                            Uri.withAppendedPath(blockExplorerUri, "address/" + address)));
+                            explorer.getAddressUrl(address)));
                     mode.finish();
                     return true;
                 }

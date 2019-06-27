@@ -34,6 +34,7 @@ import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.R;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.data.AddressBookEntry;
+import de.schildbach.wallet.data.blockexplorer.BlockExplorer;
 import de.schildbach.wallet.ui.AbstractWalletActivity;
 import de.schildbach.wallet.ui.DividerItemDecoration;
 import de.schildbach.wallet.ui.StickToTopLinearLayoutManager;
@@ -148,9 +149,10 @@ public final class BlockListFragment extends Fragment implements BlockListAdapte
                 switch (item.getItemId()) {
                 case R.id.blocks_context_browse:
                     final Uri blockExplorerUri = config.getBlockExplorer();
+                    final BlockExplorer blockExplorer = application.getBlockExplorer(blockExplorerUri);
                     log.info("Viewing block {} on {}", blockHash, blockExplorerUri);
                     startActivity(new Intent(Intent.ACTION_VIEW,
-                            Uri.withAppendedPath(blockExplorerUri, "block/" + blockHash)));
+                            blockExplorer.getBlockUrl(blockHash)));
                     return true;
                 }
                 return false;

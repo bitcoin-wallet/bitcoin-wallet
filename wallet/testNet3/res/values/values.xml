@@ -19,8 +19,12 @@
 	</string-array>
 	<string-array name="preferences_block_explorer_values">
 		<item>https://chainz.cryptoid.info/grs-test/</item>
+		<item>https://groestlsight-test.groestlcoin.org/</item>
+		<item>https://blockbook-test.groestlcoin.org/</item>
 	</string-array>
 	<string-array name="preferences_block_explorer_labels">
-		<item>cryptoID:GRS</item>
+		<item>cryptoID:GRS (testnet)</item>
+		<item>Groestlsight (testnet)</item>
+		<item>Blockbook (testnet)</item>
 	</string-array>
 </resources>

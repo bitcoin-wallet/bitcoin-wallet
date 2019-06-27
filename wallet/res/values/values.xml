@@ -24,9 +24,15 @@
 	</string-array>
 	<string-array name="preferences_block_explorer_values">
 		<item>https://chainz.cryptoid.info/grs/</item>
+		<item>https://groestlsight.groestlcoin.org/</item>
+		<item>https://blockbook.groestlcoin.org/</item>
+		<item>https://blockchair.com/groestlcoin/</item>
 	</string-array>
 	<string-array name="preferences_block_explorer_labels">
 		<item>cryptoID:GRS</item>
+		<item>Groestlsight</item>
+		<item>Blockbook</item>
+		<item>Blockchair</item>
 	</string-array>
 
 </resources>
