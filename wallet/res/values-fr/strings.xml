@@ -334,8 +334,8 @@
   <string name="button_paste">Coller</string>
   <string name="button_share">Partager</string>
   <string name="button_set_as_default">Définir par défaut</string>
-  <string name="button_request_coins">Demande de GRS</string>
-  <string name="button_send_coins">Envoi de GRS</string>
+  <string name="button_request_coins">Demande</string>
+  <string name="button_send_coins">Envoi</string>
   <string name="button_scan">Balayer</string>
   <string name="button_settings">Paramètres</string>
   <string name="action_show_qr">Montrer le code QR</string>

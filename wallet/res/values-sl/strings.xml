@@ -194,8 +194,8 @@
   <string name="button_paste">Prilepi</string>
   <string name="button_share">Deli</string>
   <string name="button_set_as_default">Nastavi kot privzeto</string>
-  <string name="button_request_coins">Prejmi novce</string>
-  <string name="button_send_coins">Pošlji novce</string>
+  <string name="button_request_coins">Prejmi</string>
+  <string name="button_send_coins">Pošlji</string>
   <string name="button_scan">Prečitaj</string>
   <string name="button_settings">Nastavitve</string>
   <string name="action_show_qr">Prikazi QR-kodo</string>

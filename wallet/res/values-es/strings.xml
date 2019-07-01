@@ -328,7 +328,7 @@
   <string name="button_paste">Pegar</string>
   <string name="button_share">Compartir</string>
   <string name="button_set_as_default">Establecer como predeterminado</string>
-  <string name="button_request_coins">Pedir Groestlcoins</string>
+  <string name="button_request_coins">Pedir</string>
   <string name="button_send_coins">Enviar</string>
   <string name="button_scan">Explorar</string>
   <string name="button_settings">Ajustes</string>

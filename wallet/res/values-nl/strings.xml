@@ -334,8 +334,8 @@
   <string name="button_paste">Plakken</string>
   <string name="button_share">Delen</string>
   <string name="button_set_as_default">Kies als standaard</string>
-  <string name="button_request_coins">Verzoek Groestlcoins</string>
-  <string name="button_send_coins">Verzend Groestlcoins</string>
+  <string name="button_request_coins">Verzoek</string>
+  <string name="button_send_coins">Verzend</string>
   <string name="button_scan">Scan QR</string>
   <string name="button_settings">Instellingen</string>
   <string name="action_show_qr">Toon QR-code</string>

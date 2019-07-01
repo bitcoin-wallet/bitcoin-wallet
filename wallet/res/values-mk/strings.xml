@@ -165,8 +165,8 @@
 	<string name="button_paste">Внеси</string>
 	<string name="button_share">Сподели</string>
 	<string name="button_set_as_default">Постави како главно</string>
-	<string name="button_request_coins">Побарај коини</string>
-	<string name="button_send_coins">Испрати коини</string>
+	<string name="button_request_coins">Побарај</string>
+	<string name="button_send_coins">Испрати</string>
 	<string name="button_scan">Скенирај</string>
 	<string name="button_settings">Поставувања</string>
 	<string name="action_show_qr">Прикажи QR код</string>

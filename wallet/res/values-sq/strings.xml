@@ -260,8 +260,8 @@
   <string name="button_paste">Fute</string>
   <string name="button_share">Shpërndaje</string>
   <string name="button_set_as_default">Vëndose si të rëdnomtë</string>
-  <string name="button_request_coins">Kërko monedha</string>
-  <string name="button_send_coins">Dërgo monedha</string>
+  <string name="button_request_coins">Kërko</string>
+  <string name="button_send_coins">Dërgo</string>
   <string name="button_scan">Skano</string>
   <string name="button_settings">Rregullat</string>
   <string name="action_show_qr">Shfaq kodin QR</string>

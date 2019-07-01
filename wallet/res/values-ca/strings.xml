@@ -328,8 +328,8 @@
   <string name="button_paste">Enganxa</string>
   <string name="button_share">Comparteix</string>
   <string name="button_set_as_default">Configura per defecte</string>
-  <string name="button_request_coins">Demana monedes</string>
-  <string name="button_send_coins">Envia monedes</string>
+  <string name="button_request_coins">Demana</string>
+  <string name="button_send_coins">Envia</string>
   <string name="button_scan">Escanejar</string>
   <string name="button_settings">Ajustaments</string>
   <string name="action_show_qr">Mostra codi QR</string>

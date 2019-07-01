@@ -165,8 +165,8 @@
 	<string name="button_paste">Wklej</string>
 	<string name="button_share">Udostępnij</string>
 	<string name="button_set_as_default">Ustaw jako domyślne</string>
-	<string name="button_request_coins">Poproś o monety</string>
-	<string name="button_send_coins">Wyślij monety</string>
+	<string name="button_request_coins">Poproś</string>
+	<string name="button_send_coins">Wyślij</string>
 	<string name="button_scan">Skanuj</string>
 	<string name="button_settings">Ustawienia</string>
 	<string name="action_show_qr">Pokaż kod QR</string>

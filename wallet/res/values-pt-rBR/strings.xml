@@ -322,8 +322,8 @@
   <string name="button_paste">Colar</string>
   <string name="button_share">Compartilhar</string>
   <string name="button_set_as_default">Definir como padrão</string>
-  <string name="button_request_coins">Solicitar Groestlcoins</string>
-  <string name="button_send_coins">Enviar Groestlcoins</string>
+  <string name="button_request_coins">Solicitar</string>
+  <string name="button_send_coins">Enviar</string>
   <string name="button_scan">Escanear</string>
   <string name="button_settings">Configurações</string>
   <string name="action_show_qr">Mostrar Código QR</string>

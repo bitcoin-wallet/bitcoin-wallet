@@ -303,8 +303,8 @@
   <string name="button_paste">Klistra in</string>
   <string name="button_share">Dela</string>
   <string name="button_set_as_default">Ange som standard</string>
-  <string name="button_request_coins">Mottag Groestlcoin</string>
-  <string name="button_send_coins">Skicka Groestlcoin</string>
+  <string name="button_request_coins">Mottag</string>
+  <string name="button_send_coins">Skicka</string>
   <string name="button_scan">Skanna</string>
   <string name="button_settings">Inställningar</string>
   <string name="action_show_qr">Visa QR-kod</string>

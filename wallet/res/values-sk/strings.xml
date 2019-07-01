@@ -185,8 +185,8 @@
 	<string name="button_paste">Vložiť</string>
 	<string name="button_share">Zdieľať</string>
 	<string name="button_set_as_default">Nastaviť ako predvolené</string>
-	<string name="button_request_coins">Vyžiadať Groestlcoiny</string>
-	<string name="button_send_coins">Odoslať Groestlcoiny</string>
+	<string name="button_request_coins">Vyžiadať</string>
+	<string name="button_send_coins">Odoslať</string>
 	<string name="button_scan">Skenovať</string>
 	<string name="button_settings">Nastavenia</string>
 	<string name="action_show_qr">Ukáž QR kód</string>

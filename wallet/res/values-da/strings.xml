@@ -334,8 +334,8 @@
   <string name="button_paste">Indsæt</string>
   <string name="button_share">Del</string>
   <string name="button_set_as_default">Sæt som standard</string>
-  <string name="button_request_coins">Modtag Groestlcoin</string>
-  <string name="button_send_coins">Send Groestlcoin</string>
+  <string name="button_request_coins">Modtag</string>
+  <string name="button_send_coins">Send</string>
   <string name="button_scan">Scan</string>
   <string name="button_settings">Opsætning</string>
   <string name="action_show_qr">Vis QR-kode</string>

@@ -159,8 +159,8 @@
 	<string name="button_paste">Tempel</string>
 	<string name="button_share">Berbagi</string>
 	<string name="button_set_as_default">Tetapkan sebagai standar</string>
-	<string name="button_request_coins">Meminta koin</string>
-	<string name="button_send_coins">Kirim koin</string>
+	<string name="button_request_coins">Meminta</string>
+	<string name="button_send_coins">Kirim</string>
 	<string name="button_scan">Pindai</string>
 	<string name="button_settings">Pengaturan</string>
 	<string name="action_show_qr">Tampilkan kode QR</string>

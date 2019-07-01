@@ -328,8 +328,8 @@
   <string name="button_paste">Yapıştır</string>
   <string name="button_share">Paylaş</string>
   <string name="button_set_as_default">Varsayılan olarak ayarla</string>
-  <string name="button_request_coins">Groestlcoin talep et</string>
-  <string name="button_send_coins">Groestlcoin gönder</string>
+  <string name="button_request_coins">Talep</string>
+  <string name="button_send_coins">Gönder</string>
   <string name="button_scan">Tara</string>
   <string name="button_settings">Ayarlar</string>
   <string name="action_show_qr">QR kodu göster</string>

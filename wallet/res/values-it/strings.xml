@@ -325,8 +325,8 @@
   <string name="button_paste">Incolla</string>
   <string name="button_share">Condividi</string>
   <string name="button_set_as_default">Imposta come predefinito</string>
-  <string name="button_request_coins">Richiedi Groestlcoins</string>
-  <string name="button_send_coins">Invia Groestlcoins</string>
+  <string name="button_request_coins">Richiedi</string>
+  <string name="button_send_coins">Invia</string>
   <string name="button_scan">Analizza</string>
   <string name="button_settings">Impostazioni</string>
   <string name="action_show_qr">Mostra codice QR</string>

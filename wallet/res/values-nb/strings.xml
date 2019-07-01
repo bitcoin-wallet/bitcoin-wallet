@@ -325,8 +325,8 @@
   <string name="button_paste">Lim inn</string>
   <string name="button_share">Del</string>
   <string name="button_set_as_default">Sett som standard</string>
-  <string name="button_request_coins">Spør etter mynter</string>
-  <string name="button_send_coins">Send mynter</string>
+  <string name="button_request_coins">Spør etter</string>
+  <string name="button_send_coins">Send</string>
   <string name="button_scan">Skann</string>
   <string name="button_settings">Innstillinger</string>
   <string name="action_show_qr">Vis QR-kode</string>

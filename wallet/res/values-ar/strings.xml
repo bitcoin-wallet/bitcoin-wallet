@@ -266,8 +266,8 @@
   <string name="button_paste">لصق</string>
   <string name="button_share">نشر</string>
   <string name="button_set_as_default">تعيين كافتراضي</string>
-  <string name="button_request_coins">طلب غرسلكوين</string>
-  <string name="button_send_coins">إرسال غرسلكوين</string>
+  <string name="button_request_coins">طلب</string>
+  <string name="button_send_coins">إرسال</string>
   <string name="button_scan">مسح بصري</string>
   <string name="button_settings">الإعدادات</string>
   <string name="action_show_qr">عرض رمز الاستجابة السريعة QR-code</string>

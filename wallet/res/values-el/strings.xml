@@ -216,8 +216,8 @@
   <string name="button_paste">Επικόλληση</string>
   <string name="button_share">Μοιράσου το</string>
   <string name="button_set_as_default">Ορισμός ως προεπιλογή</string>
-  <string name="button_request_coins">Ζητήστε νομίσματα</string>
-  <string name="button_send_coins">Αποστολή νομισμάτων</string>
+  <string name="button_request_coins">Ζητήστε</string>
+  <string name="button_send_coins">Αποστολή</string>
   <string name="button_scan">Ανίχνευση</string>
   <string name="button_settings">Ρυθμίσεις</string>
   <string name="action_show_qr">Εμφάνιση QR κώδικα</string>
