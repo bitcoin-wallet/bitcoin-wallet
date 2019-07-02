@@ -28,7 +28,7 @@ import java.util.TreeMap;
 import org.bitcoinj.core.Coin;
 import org.bitcoinj.utils.Fiat;
 import org.bitcoinj.utils.MonetaryFormat;
-import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -127,6 +127,10 @@ public class ExchangeRatesProvider extends ContentProvider {
             Map<String, ExchangeRate> newExchangeRates = null;
             if (newExchangeRates == null)
                 newExchangeRates = requestExchangeRates();
+
+            if (newExchangeRates == null)
+                newExchangeRates = requestExchangeRatesBackup();
+
 
             if (newExchangeRates != null) {
                 exchangeRates = newExchangeRates;
@@ -235,7 +239,11 @@ public class ExchangeRatesProvider extends ContentProvider {
     private Map<String, ExchangeRate> requestExchangeRates() {
         final Stopwatch watch = Stopwatch.createStarted();
 
-        Double GRSPerBTC = requestExchangeRatesForGRS();
+        Double GRSPerBTC = requestExchangeRatesForGRS(bitcoinAverage);
+        if(GRSPerBTC == null)
+            GRSPerBTC = requestExchangeRatesForGRS(bittrex);
+        if(GRSPerBTC == null)
+            GRSPerBTC = requestExchangeRatesForGRS(binance);
 
         final Request.Builder request = new Request.Builder();
         request.url(BITCOINAVERAGE_URL);
@@ -295,12 +303,53 @@ public class ExchangeRatesProvider extends ContentProvider {
         return Fiat.valueOf(currencyCode, val);
     }
 
+    private abstract class GroestlcoinExchangeRateProvider {
+        String url;
+        GroestlcoinExchangeRateProvider(String url) {
+            this.url = url;
+        }
+
+        public abstract Double parseResponse(JSONObject response) throws JSONException;
+    }
+
     private String BITTREX_URL = "https://bittrex.com/api/v1.1/public/getticker?market=btc-grs";
-    private Double requestExchangeRatesForGRS() {
+
+    GroestlcoinExchangeRateProvider bittrex = new GroestlcoinExchangeRateProvider(BITTREX_URL) {
+        @Override
+        public Double parseResponse(JSONObject response) throws JSONException {
+            String result = response.getString("success");
+            if(result.equals("true"))
+            {
+                JSONObject dataObject = response.getJSONObject("result");
+                return dataObject.getDouble("Last");
+            }
+            return null;
+        }
+    };
+
+    private static String BITCOIN_AVERAGE_GRSBTC_URL = "https://apiv2.bitcoinaverage.com/indices/crypto/ticker/GRSBTC";
+
+    GroestlcoinExchangeRateProvider bitcoinAverage = new GroestlcoinExchangeRateProvider(BITCOIN_AVERAGE_GRSBTC_URL) {
+        @Override
+        public Double parseResponse(JSONObject response) throws JSONException {
+            return response.getDouble("last");
+        }
+    };
+
+    public static final String BINANCE_EXCHANGE_URL = "https://api.binance.com/api/v1/ticker/price?symbol=GRSBTC";
+
+    GroestlcoinExchangeRateProvider binance = new GroestlcoinExchangeRateProvider(BINANCE_EXCHANGE_URL) {
+        @Override
+        public Double parseResponse(JSONObject response) throws JSONException {
+            return response.getDouble("price");
+        }
+    };
+
+    private Double requestExchangeRatesForGRS(GroestlcoinExchangeRateProvider provider) {
         final Stopwatch watch = Stopwatch.createStarted();
 
         final Request.Builder request = new Request.Builder();
-        request.url(BITTREX_URL);
+        request.url(provider.url);
         request.header("User-Agent", userAgent);
 
         final Call call = Constants.HTTP_CLIENT.newCall(request.build());
@@ -310,22 +359,10 @@ public class ExchangeRatesProvider extends ContentProvider {
                 final String content = response.body().string();
 
                 final JSONObject head = new JSONObject(content.toString());
-
-                String result = head.getString("success");
-
-                Double averageTrade = null;
-                if(result.equals("true"))
-                {
-                    JSONObject dataObject = head.getJSONObject("result");
-
-                    averageTrade = dataObject.getDouble("Last");
-                }
-
-
+                Double averageTrade = provider.parseResponse(head);
                 watch.stop();
                 log.info("fetched exchange rates from {}, {} chars, took {}", BITCOINAVERAGE_URL, content.length(),
                         watch);
-
                 return averageTrade;
             } else {
                 log.warn("http status {} when fetching exchange rates from {}", response.code(), BITCOINAVERAGE_URL);
@@ -337,4 +374,67 @@ public class ExchangeRatesProvider extends ContentProvider {
         return null;
     }
 
+    private static String COINGECKO_URL = "https://api.coingecko.com/api/v3/coins/groestlcoin?localization=false&community_data=false&developer_data=false&sparkline=false";
+    private static final String COINGECKO_SOURCE = "CoinGecko.com";
+
+    private Map<String, ExchangeRate> requestExchangeRatesBackup() {
+        final Stopwatch watch = Stopwatch.createStarted();
+
+        final Request.Builder request = new Request.Builder();
+        request.url(COINGECKO_URL);
+        request.header("User-Agent", userAgent);
+
+        final Builder httpClientBuilder = Constants.HTTP_CLIENT.newBuilder();
+        httpClientBuilder.connectionSpecs(Arrays.asList(ConnectionSpec.RESTRICTED_TLS));
+        final Call call = httpClientBuilder.build().newCall(request.build());
+        try {
+            final Response response = call.execute();
+            if (response.isSuccessful()) {
+                final String content = response.body().string();
+                final JSONObject head = new JSONObject(content);
+                final Map<String, ExchangeRate> rates = new TreeMap<String, ExchangeRate>();
+
+                //check for correct information
+                if(head.getString("id").equals("groestlcoin")) {
+                    JSONObject marketData = head.getJSONObject("market_data");
+                    JSONObject currentPrice = marketData.getJSONObject("current_price");
+
+                    for (final Iterator<String> i = currentPrice.keys(); i.hasNext(); ) {
+                        final String currencyCode = i.next();
+                        final String fiatCurrencyCode = currencyCode.toUpperCase();
+                        if (!fiatCurrencyCode.equals(MonetaryFormat.CODE_BTC)
+                                && !fiatCurrencyCode.equals(MonetaryFormat.CODE_MBTC)
+                                && !fiatCurrencyCode.equals(MonetaryFormat.CODE_UBTC)) {
+                            final String exchangeRate = currentPrice.getString(currencyCode);//head.getJSONObject(currencyCode);
+                            try {
+                                //Double _rate = GRSPerBTC * exchangeRate.getDouble("last");
+                                //final Fiat rate = parseFiatInexact(fiatCurrencyCode, _rate.toString());
+                                final Fiat rate = parseFiatInexact(fiatCurrencyCode, exchangeRate);
+                                if (rate.signum() > 0)
+                                    rates.put(fiatCurrencyCode, new ExchangeRate(
+                                            new org.bitcoinj.utils.ExchangeRate(rate), COINGECKO_SOURCE));
+                            } catch (final IllegalArgumentException x) {
+                                log.warn("problem fetching {} exchange rate from {}: {}", currencyCode,
+                                        COINGECKO_URL, x.getMessage());
+                            }
+                        }
+                    }
+
+                    watch.stop();
+                    log.info("fetched exchange rates from {}, {} chars, took {}", COINGECKO_URL, content.length(),
+                            watch);
+
+                    return rates;
+                } else {
+                    log.warn("wrong or missing id when fetching exchange rates from {}", response.code(), COINGECKO_URL);
+                }
+            } else {
+                log.warn("http status {} when fetching exchange rates from {}", response.code(), COINGECKO_URL);
+            }
+        } catch (final Exception x) {
+            log.warn("problem fetching exchange rates from " + COINGECKO_URL, x);
+        }
+
+        return null;
+    }
 }
