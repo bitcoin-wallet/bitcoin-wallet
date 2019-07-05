@@ -34,6 +34,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
+
 import androidx.core.app.ShareCompat;
 
 /**
@@ -79,6 +81,9 @@ public class ExtendedPublicKeyFragment extends DialogFragment {
         bitmap.setFilterBitmap(false);
         final ImageView imageView = (ImageView) view.findViewById(R.id.extended_public_key_dialog_image);
         imageView.setImageDrawable(bitmap);
+
+        final TextView textView = (TextView)view.findViewById(R.id.extended_public_key_dialog_xpub);
+        textView.setText(base58.substring(0, base58.lastIndexOf('?')));
 
         final DialogBuilder dialog = new DialogBuilder(activity);
         dialog.setView(view);

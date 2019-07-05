@@ -5,6 +5,11 @@
         android:key="extended_public_key"
         android:summary="@string/preferences_extended_public_key_summary"
         android:title="@string/preferences_extended_public_key_title" />
+
+    <Preference
+        android:key="extended_public_key_legacy"
+        android:title="@string/preferences_extended_public_key_title" />
+
     <Preference
         android:key="initiate_reset"
         android:summary="@string/preferences_initiate_reset_summary"

@@ -17,6 +17,7 @@
 
 package de.schildbach.wallet.ui.preference;
 
+import java.util.List;
 import java.util.Locale;
 
 import org.bitcoinj.crypto.DeterministicKey;
@@ -48,6 +49,7 @@ public final class DiagnosticsFragment extends PreferenceFragment {
 
     private static final String PREFS_KEY_INITIATE_RESET = "initiate_reset";
     private static final String PREFS_KEY_EXTENDED_PUBLIC_KEY = "extended_public_key";
+    private static final String PREFS_KEY_EXTENDED_PUBLIC_KEY_LEGACY = "extended_public_key_legacy";
 
     private static final Logger log = LoggerFactory.getLogger(DiagnosticsFragment.class);
 
@@ -69,6 +71,14 @@ public final class DiagnosticsFragment extends PreferenceFragment {
             String title = findPreference(PREFS_KEY_EXTENDED_PUBLIC_KEY).getTitle().toString();
             title.replaceFirst("xpub", "tpub");
         }
+        DeterministicKeyChain legacyKeyChain = getLegacyKeyChain();
+        if(legacyKeyChain == null) {
+            Preference legacyXpubPref = findPreference(PREFS_KEY_EXTENDED_PUBLIC_KEY_LEGACY);
+            getPreferenceScreen().removePreference(legacyXpubPref);
+        } else {
+            Preference legacyXpubPref = findPreference(PREFS_KEY_EXTENDED_PUBLIC_KEY_LEGACY);
+            legacyXpubPref.setTitle(legacyXpubPref.getTitle() + " (xpub)");
+        }
     }
 
     @Override
@@ -80,6 +90,9 @@ public final class DiagnosticsFragment extends PreferenceFragment {
             return true;
         } else if (PREFS_KEY_EXTENDED_PUBLIC_KEY.equals(key)) {
             handleExtendedPublicKey();
+            return true;
+        } else if (PREFS_KEY_EXTENDED_PUBLIC_KEY_LEGACY.equals(key)) {
+            handleLegacyExtendedPublicKey();
             return true;
         }
 
@@ -111,5 +124,28 @@ public final class DiagnosticsFragment extends PreferenceFragment {
         final String base58 = String.format(Locale.US, "%s?c=%d&h=bip32",
                 extendedKey.serializePubB58(Constants.NETWORK_PARAMETERS, outputScriptType), creationTimeSeconds);
         ExtendedPublicKeyFragment.show(getFragmentManager(), (CharSequence) base58);
+    }
+
+    private void handleLegacyExtendedPublicKey() {
+        DeterministicKeyChain activeKeyChain = getLegacyKeyChain();
+
+        if(activeKeyChain != null) {
+            final DeterministicKey extendedKey = activeKeyChain.getWatchingKey();
+            final Script.ScriptType outputScriptType = activeKeyChain.getOutputScriptType();
+            final long creationTimeSeconds = extendedKey.getCreationTimeSeconds();
+            final String base58 = String.format(Locale.US, "%s?c=%d&h=bip32",
+                    extendedKey.serializePubB58(Constants.NETWORK_PARAMETERS, outputScriptType), creationTimeSeconds);
+            ExtendedPublicKeyFragment.show(getFragmentManager(), (CharSequence) base58);
+        }
+    }
+
+    private DeterministicKeyChain getLegacyKeyChain() {
+        final List<DeterministicKeyChain> activeKeyChains = application.getWallet().getActiveKeyChains();
+        for(DeterministicKeyChain keyChain : activeKeyChains) {
+            if(keyChain.getAccountPath().equals(DeterministicKeyChain.ACCOUNT_ZERO_PATH)) {
+                return keyChain;
+            }
+        }
+        return null;
     }
 }
