@@ -45,6 +45,7 @@ import org.bitcoinj.core.Sha256Hash;
 import org.bitcoinj.core.StoredBlock;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.TransactionConfidence.ConfidenceType;
+import org.bitcoinj.core.Utils;
 import org.bitcoinj.core.listeners.AbstractPeerDataEventListener;
 import org.bitcoinj.core.listeners.PeerConnectedEventListener;
 import org.bitcoinj.core.listeners.PeerDataEventListener;
@@ -83,10 +84,12 @@ import de.schildbach.wallet.util.CrashReporter;
 import de.schildbach.wallet.util.WalletUtils;
 
 import android.app.AlarmManager;
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.ComponentCallbacks2;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -96,6 +99,8 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Binder;
+import android.os.Build;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.PowerManager;
@@ -157,6 +162,8 @@ public class BlockchainService extends LifecycleService {
             + ".broadcast_transaction";
     private static final String ACTION_BROADCAST_TRANSACTION_HASH = "hash";
 
+    public static final String START_AS_FOREGROUND_EXTRA = "start_as_foreground";
+
     private static final Logger log = LoggerFactory.getLogger(BlockchainService.class);
 
     public static void start(final Context context, final boolean cancelCoinsReceived) {
@@ -165,6 +172,74 @@ public class BlockchainService extends LifecycleService {
                     new Intent(BlockchainService.ACTION_CANCEL_COINS_RECEIVED, null, context, BlockchainService.class));
         else
             context.startService(new Intent(context, BlockchainService.class));
+    }
+
+
+    public void startForeground() {
+        //Shows ongoing notification promoting service to foreground service and
+        //preventing it from being killed in Android 26 or later
+        //Credit to Sam Barbosa for this code
+        Notification notification = createNetworkSyncNotification(getBlockchainState());
+        if (notification != null) {
+            startForeground(Constants.NOTIFICATION_ID_BLOCKCHAIN_SYNC, notification);
+        }
+    }
+
+    private static final long BLOCKCHAIN_UPTODATE_THRESHOLD_MS = DateUtils.HOUR_IN_MILLIS;
+
+    @Nullable
+    public static String getSyncStateString(BlockchainState blockchainState, Context context) {
+        if(blockchainState == null)
+            return null;
+        final long blockchainLag = System.currentTimeMillis() - blockchainState.bestChainDate.getTime();
+        final boolean blockchainUptodate = blockchainLag < BLOCKCHAIN_UPTODATE_THRESHOLD_MS;
+        final boolean noImpediments = blockchainState.impediments.isEmpty();
+
+        if (!(blockchainUptodate || !blockchainState.replaying)) {
+            String progressMessage;
+            final String downloading = context.getString(noImpediments ? R.string.blockchain_state_progress_downloading
+                    : R.string.blockchain_state_progress_stalled);
+
+            if (blockchainLag < 2 * DateUtils.DAY_IN_MILLIS) {
+                final long hours = blockchainLag / DateUtils.HOUR_IN_MILLIS;
+                progressMessage = context.getString(R.string.blockchain_state_progress_hours, downloading, hours);
+            } else if (blockchainLag < 2 * DateUtils.WEEK_IN_MILLIS) {
+                final long days = blockchainLag / DateUtils.DAY_IN_MILLIS;
+                progressMessage = context.getString(R.string.blockchain_state_progress_days, downloading, days);
+            } else if (blockchainLag < 90 * DateUtils.DAY_IN_MILLIS) {
+                final long weeks = blockchainLag / DateUtils.WEEK_IN_MILLIS;
+                progressMessage = context.getString(R.string.blockchain_state_progress_weeks, downloading, weeks);
+            } else {
+                final long months = blockchainLag / (30 * DateUtils.DAY_IN_MILLIS);
+                progressMessage = context.getString(R.string.blockchain_state_progress_months, downloading, months);
+            }
+
+            return progressMessage;
+        } else {
+            return null;
+        }
+    }
+
+
+    private Notification createNetworkSyncNotification(BlockchainState blockchainState) {
+        Intent notificationIntent = new Intent(this, WalletActivity.class);
+        PendingIntent pendingIntent=PendingIntent.getActivity(this, 0,
+                notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        String message = getSyncStateString(blockchainState, this);
+        if (message == null) {
+            message = getString(R.string.blockchain_state_progress_downloading);
+        }
+
+        return new NotificationCompat.Builder(this,
+                Constants.NOTIFICATION_CHANNEL_ID_ONGOING)
+                .setSmallIcon(R.drawable.stat_notify_received_24dp)
+                .setContentTitle(getString(R.string.app_name))
+                .setContentText(message)
+                .setContentIntent(pendingIntent)
+                .setWhen(System.currentTimeMillis())
+                .setOngoing(true)
+                .build();
     }
 
     public static void stop(final Context context) {
@@ -178,6 +253,8 @@ public class BlockchainService extends LifecycleService {
         // apply some backoff
         final long alarmInterval;
         if (lastUsedAgo < Constants.LAST_USAGE_THRESHOLD_JUST_MS)
+            alarmInterval = AlarmManager.INTERVAL_FIFTEEN_MINUTES / 15;
+        else if (lastUsedAgo < Constants.LAST_USAGE_THRESHOLD_2HOURS_MS)
             alarmInterval = AlarmManager.INTERVAL_FIFTEEN_MINUTES;
         else if (lastUsedAgo < Constants.LAST_USAGE_THRESHOLD_RECENTLY_MS)
             alarmInterval = AlarmManager.INTERVAL_HALF_DAY;
@@ -187,9 +264,19 @@ public class BlockchainService extends LifecycleService {
         log.info("last used {} minutes ago, rescheduling blockchain sync in roughly {} minutes",
                 lastUsedAgo / DateUtils.MINUTE_IN_MILLIS, alarmInterval / DateUtils.MINUTE_IN_MILLIS);
 
-        final AlarmManager alarmManager = (AlarmManager) application.getSystemService(Context.ALARM_SERVICE);
-        final PendingIntent alarmIntent = PendingIntent.getService(application, 0,
-                new Intent(application, BlockchainService.class), 0);
+        AlarmManager alarmManager = (AlarmManager) application.getSystemService(Context.ALARM_SERVICE);
+        PendingIntent alarmIntent;
+        //final PendingIntent alarmIntent = PendingIntent.getService(application, 0,
+        //        new Intent(application, BlockchainService.class), 0);
+        Intent serviceIntent = new Intent(application, BlockchainService.class);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            serviceIntent.putExtra(BlockchainService.START_AS_FOREGROUND_EXTRA, true);
+            alarmIntent = PendingIntent.getForegroundService(application, 0, serviceIntent,
+                    PendingIntent.FLAG_UPDATE_CURRENT);
+        } else {
+            alarmIntent = PendingIntent.getService(application, 0, serviceIntent,
+                    PendingIntent.FLAG_UPDATE_CURRENT);
+        }
         alarmManager.cancel(alarmIntent);
 
         // workaround for no inexact set() before KitKat
@@ -768,7 +855,7 @@ public class BlockchainService extends LifecycleService {
                 peerGroup.removeDisconnectedEventListener(peerConnectivityListener);
                 peerGroup.removeConnectedEventListener(peerConnectivityListener);
                 peerGroup.removeWallet(wallet);
-                log.info("stopping {} asynchronously", peerGroup);
+                log.info("stopping {} asynchronously (shutdown)", peerGroup);
                 peerGroup.stopAsync();
                 peerGroup = null;
 
@@ -785,6 +872,11 @@ public class BlockchainService extends LifecycleService {
         if (intent != null) {
             log.info("service start command: " + intent + (intent.hasExtra(Intent.EXTRA_ALARM_COUNT)
                     ? " (alarm count: " + intent.getIntExtra(Intent.EXTRA_ALARM_COUNT, 0) + ")" : ""));
+
+            Bundle extras = intent.getExtras();
+            if (extras != null && extras.containsKey(START_AS_FOREGROUND_EXTRA)) {
+                startForeground();
+            }
 
             final String action = intent.getAction();
 
@@ -827,7 +919,7 @@ public class BlockchainService extends LifecycleService {
             peerGroup.removeConnectedEventListener(peerConnectivityListener);
             peerGroup.removeWallet(wallet.getValue());
             peerGroup.stopAsync();
-            log.info("stopping {} asynchronously", peerGroup);
+            log.info("stopping {} asynchronously (onDestroy)", peerGroup);
         }
 
         peerConnectivityListener.stop();
@@ -926,5 +1018,20 @@ public class BlockchainService extends LifecycleService {
         if (blockchainState != null)
             blockchainState.putExtras(broadcast);
         LocalBroadcastManager.getInstance(this).sendBroadcast(broadcast);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            //Handle Ongoing notification state
+            if (blockchainState.bestChainHeight == config.getBestChainHeightEver()) {
+                //Remove ongoing notification if blockchain sync finished
+                stopForeground(true);
+                nm.cancel(Constants.NOTIFICATION_ID_BLOCKCHAIN_SYNC);
+            } else if (blockchainState.replaying || blockchainState.bestChainDate.getTime() < (Utils.currentTimeSeconds() - 60* 60 * 24 * 2)) {
+                //Shows ongoing notification when synchronizing the blockchain
+                Notification notification = createNetworkSyncNotification(blockchainState);
+                if (notification != null) {
+                    nm.notify(Constants.NOTIFICATION_ID_BLOCKCHAIN_SYNC, notification);
+                }
+            }
+        }
     }
 }

@@ -180,6 +180,7 @@ public final class Constants {
     public static final int PEER_TIMEOUT_MS = 15 * (int) DateUtils.SECOND_IN_MILLIS;
 
     public static final long LAST_USAGE_THRESHOLD_JUST_MS = DateUtils.HOUR_IN_MILLIS;
+    public static final long LAST_USAGE_THRESHOLD_2HOURS_MS = 2 + DateUtils.HOUR_IN_MILLIS;
     public static final long LAST_USAGE_THRESHOLD_RECENTLY_MS = 2 * DateUtils.DAY_IN_MILLIS;
     public static final long LAST_USAGE_THRESHOLD_INACTIVE_MS = 4 * DateUtils.WEEK_IN_MILLIS;
 
@@ -196,6 +197,7 @@ public final class Constants {
     public static final int NOTIFICATION_ID_COINS_RECEIVED = 2;
     public static final int NOTIFICATION_ID_MAINTENANCE = 3;
     public static final int NOTIFICATION_ID_INACTIVITY = 4;
+    public static final int NOTIFICATION_ID_BLOCKCHAIN_SYNC = 5;
     public static final String NOTIFICATION_GROUP_KEY_RECEIVED = "group-received";
     public static final String NOTIFICATION_CHANNEL_ID_RECEIVED = "received";
     public static final String NOTIFICATION_CHANNEL_ID_ONGOING = "ongoing";
