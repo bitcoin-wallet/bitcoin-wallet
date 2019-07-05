@@ -2,7 +2,7 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <ListPreference
-        android:defaultValue="2/3"
+        android:defaultValue="4"
         android:entries="@array/preferences_precision_labels"
         android:entryValues="@array/preferences_precision_values"
         android:key="btc_precision"
