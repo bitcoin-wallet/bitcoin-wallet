@@ -61,15 +61,18 @@ public final class AboutFragment extends PreferenceFragment {
         findPreference(KEY_ABOUT_VERSION).setSummary(WalletApplication.versionLine(packageInfo));
         Installer installer = Installer.from(application);
         if (installer == null)
-            installer = Installer.F_DROID;
-        final Preference marketPref = findPreference(KEY_ABOUT_MARKET_APP);
-        marketPref.setTitle(getString(R.string.about_market_app_title, installer.displayName));
-        final Intent marketIntent = new Intent(Intent.ACTION_VIEW,
-                Uri.parse(installer.appStorePageFor(application).toString()));
-        if (packageManager.resolveActivity(marketIntent, 0) != null) {
-            marketPref.setIntent(marketIntent);
-            marketPref.setEnabled(true);
-        }
+            //installer = Installer.F_DROID;  This can be activated again later
+            getPreferenceScreen().removePreference(findPreference(KEY_ABOUT_MARKET_APP));// after getting this app on FDroid, remove this line
+        else { // after getting this app on FDroid, remove this line
+            final Preference marketPref = findPreference(KEY_ABOUT_MARKET_APP);
+            marketPref.setTitle(getString(R.string.about_market_app_title, installer.displayName));
+            final Intent marketIntent = new Intent(Intent.ACTION_VIEW,
+                    Uri.parse(installer.appStorePageFor(application).toString()));
+            if (packageManager.resolveActivity(marketIntent, 0) != null) {
+                marketPref.setIntent(marketIntent);
+                marketPref.setEnabled(true);
+            }
+        }// after getting this app on FDroid, remove this line
         findPreference(KEY_ABOUT_CREDITS_BITCOINJ)
                 .setTitle(getString(R.string.about_credits_bitcoinj_title, VersionMessage.BITCOINJ_VERSION));
     }
