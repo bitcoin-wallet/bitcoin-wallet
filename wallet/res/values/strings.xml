@@ -260,8 +260,6 @@
     <string name="preferences_own_name_summary">Name of yourself, to be added to payment requests. Try to keep it short.</string>
     <string name="preferences_send_coins_autoclose_title">Auto-close send coins dialog</string>
     <string name="preferences_send_coins_autoclose_summary">When the payment is made, the send dialog will close automatically.</string>
-    <string name="preferences_connectivity_notification_title">Connectivity indicator</string>
-    <string name="preferences_connectivity_notification_summary">Show current number of connected peers in the notification area.</string>
     <string name="preferences_trusted_peer_title">Trusted peer</string>
     <string name="preferences_trusted_peer_summary">IP or hostname of single peer to connect to.</string>
     <string name="preferences_trusted_peer_resolve_progress">Resolving…</string>

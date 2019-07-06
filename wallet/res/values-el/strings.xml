@@ -164,8 +164,6 @@
   <string name="preferences_category_labs">Εργαστήρια</string>
   <string name="preferences_precision_title">Ονομασία και ακρίβεια</string>
   <string name="preferences_precision_summary">Μονάδα απεικόνισης ποσών. Δεν επηρεάζει τους υπολογισμούς.</string>
-  <string name="preferences_connectivity_notification_title">Ένδειξη συνδεσιμότητας</string>
-  <string name="preferences_connectivity_notification_summary">Δείτε τον τρέχοντα αριθμό των συνδεδεμένων peers στην περιοχή ειδοποιήσεων.</string>
   <string name="preferences_trusted_peer_title">Έμπιστη πηγή</string>
   <string name="preferences_trusted_peer_summary">IP ή hostname του χρήστη προς σύνδεση.</string>
   <string name="preferences_trusted_peer_only_summary">Να αποτραπεί η σύνδεση με οποιαδήποτε Peer εκτός από το αξιόπιστο.</string>

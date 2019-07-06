@@ -139,8 +139,6 @@
 	<string name="preferences_category_labs">Labs</string>
 	<string name="preferences_precision_title">Jednotka a presnosť</string>
 	<string name="preferences_precision_summary">Jednotka pre zobrazenie sumy. Neovplyvňuje výpočty.</string>
-	<string name="preferences_connectivity_notification_title">Indikátor pripojenia</string>
-	<string name="preferences_connectivity_notification_summary">Zobraziť počet pripojených uzlov v oznamovacej oblasti.</string>
 	<string name="preferences_trusted_peer_title">Dôveryhodný uzol</string>
 	<string name="preferences_trusted_peer_summary">IP alebo názov uzla na pripojenie.</string>
 	<string name="preferences_trusted_peer_only_title">Preskočiť pravidelné hľadanie uzlov</string>

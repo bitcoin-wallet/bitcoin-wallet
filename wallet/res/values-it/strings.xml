@@ -248,8 +248,6 @@
   <string name="preferences_own_name_summary">Il tuo nome da aggiungere alle richieste di pagamento. Prova a mantenerlo corto.</string>
   <string name="preferences_send_coins_autoclose_title">Auto-chiusura messaggio di invio monete</string>
   <string name="preferences_send_coins_autoclose_summary">Quando viene fatto un pagamento, il messaggio di invio si chiuderà automaticamente.</string>
-  <string name="preferences_connectivity_notification_title">Indicatore di connettività</string>
-  <string name="preferences_connectivity_notification_summary">Mostra il numero corrente di peer connessi nell\'area di notifica.</string>
   <string name="preferences_trusted_peer_title">Peer attendibili</string>
   <string name="preferences_trusted_peer_summary">Indirizzo IP o hostname di un singolo peer a cui connettersi.</string>
   <string name="preferences_trusted_peer_resolve_progress">Risoluzione…</string>

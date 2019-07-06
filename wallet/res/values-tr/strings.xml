@@ -251,8 +251,6 @@
   <string name="preferences_own_name_summary">Ödeme taleplerine eklenecek isminiz. Kısa tutmaya çalışın.</string>
   <string name="preferences_send_coins_autoclose_title">Bitcoin gönderme diyaloğunu otomatik kapat</string>
   <string name="preferences_send_coins_autoclose_summary">Ödeme yapıldığında gönderme diyaloğu otomatik olarak kapatılacaktır.</string>
-  <string name="preferences_connectivity_notification_title">Bağlantı göstergesi</string>
-  <string name="preferences_connectivity_notification_summary">Bağlı eş sayısını bildirim alanında göster.</string>
   <string name="preferences_trusted_peer_title">Güvenilen eş</string>
   <string name="preferences_trusted_peer_summary">Bağlanılacak tek eşin makine ismi ya da IP adresi.</string>
   <string name="preferences_trusted_peer_resolve_progress">Çözümleniyor…</string>

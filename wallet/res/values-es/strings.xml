@@ -255,8 +255,6 @@
   <string name="preferences_own_name_summary">Ponte un nombre, que será añadido a las solicitudes de pago. Trata de que sea corto.</string>
   <string name="preferences_send_coins_autoclose_title">Cerrar automáticamente el diálogo de envío de Bitcoins</string>
   <string name="preferences_send_coins_autoclose_summary">Cuando se realiza el pago, el diálogo de envío se cerrará automáticamente.</string>
-  <string name="preferences_connectivity_notification_title">Indicador de conectividad</string>
-  <string name="preferences_connectivity_notification_summary">Mostrar número actual de pares conectados en el área de notificaciones.</string>
   <string name="preferences_trusted_peer_title">Par de confianza</string>
   <string name="preferences_trusted_peer_summary">IP o nombre de host del par individual al que conectarse.</string>
   <string name="preferences_trusted_peer_resolve_progress">Resolviendo…</string>

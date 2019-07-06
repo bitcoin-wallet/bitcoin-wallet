@@ -160,8 +160,6 @@
   <string name="preferences_category_labs">Лабораторія</string>
   <string name="preferences_precision_title">Деномінація і точність</string>
   <string name="preferences_precision_summary">Одиниці, в яких показуються суми. Не впливає на вирахування.</string>
-  <string name="preferences_connectivity_notification_title">Індикатор з\'єднання</string>
-  <string name="preferences_connectivity_notification_summary">Показати поточну кількість підключень в області сповіщень.</string>
   <string name="preferences_trusted_peer_title">Довірений учасник</string>
   <string name="preferences_trusted_peer_summary">IP або ім\'я хоста одного учасника для підключення</string>
   <string name="preferences_trusted_peer_only_title">Не виконувати звичайне виявлення учасників</string>

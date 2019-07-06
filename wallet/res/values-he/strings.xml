@@ -156,8 +156,6 @@
   <string name="preferences_category_labs">מעבדות</string>
   <string name="preferences_precision_title">מטבע ודיוק</string>
   <string name="preferences_precision_summary">יחידה להציג כמויות בה. זה לא משפיע על חישובים.</string>
-  <string name="preferences_connectivity_notification_title">מצב קישוריות</string>
-  <string name="preferences_connectivity_notification_summary">הראה את מספר העמיתים הקשורים</string>
   <string name="preferences_trusted_peer_title">עמית מהימן</string>
   <string name="preferences_trusted_peer_summary">כתוובת IP או מארח של עמית שיש להתחבר לו.</string>
   <string name="preferences_trusted_peer_only_title">דלג על מערכת גילוי עמיתים רגילה</string>

@@ -229,8 +229,6 @@
   <string name="preferences_own_name_summary">Saját elnevezésed, ami a fizetési kérelemhez adódik. Próbáld röviden.</string>
   <string name="preferences_send_coins_autoclose_title">Érmék küldése párbeszédpanel automatikus bezárása</string>
   <string name="preferences_send_coins_autoclose_summary">Amikor a fizetés megtörténik, a küldés párbeszédpanel automatikusan bezáródik.</string>
-  <string name="preferences_connectivity_notification_title">Kapcsolódásjelző</string>
-  <string name="preferences_connectivity_notification_summary">Mutassa a kapcsolódások aktuális számát az értesítési területen.</string>
   <string name="preferences_trusted_peer_title">Megbízható peer</string>
   <string name="preferences_trusted_peer_summary">IP cím, vagy állomásnév a közvetlen peer kapcsolódáshoz.</string>
   <string name="preferences_trusted_peer_resolve_progress">Megoldás…</string>

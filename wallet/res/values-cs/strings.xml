@@ -243,8 +243,6 @@
   <string name="preferences_own_name_summary">Vaše jméno, přidávané k platebním požadavkům. Udržujte krátké.</string>
   <string name="preferences_send_coins_autoclose_title">Automaticky zavírat dialog odeslání platby</string>
   <string name="preferences_send_coins_autoclose_summary">Pokud je provedena platba, dialog odesílání bude zavřen automaticky.</string>
-  <string name="preferences_connectivity_notification_title">Indikátor připojení</string>
-  <string name="preferences_connectivity_notification_summary">Zobraz aktuální počet peerů v notifikační liště.</string>
   <string name="preferences_trusted_peer_title">Důvěryhodný peer</string>
   <string name="preferences_trusted_peer_summary">IP nebo hostname jednoho peera ke kterému se chcete připojit.</string>
   <string name="preferences_trusted_peer_resolve_progress">Vyhledávání…</string>

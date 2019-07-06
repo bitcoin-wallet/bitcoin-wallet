@@ -194,8 +194,6 @@
   <string name="preferences_category_labs">Maabara</string>
   <string name="preferences_precision_title">Dhebebu na usahihi</string>
   <string name="preferences_precision_summary">Vipimo kitengo. Hii haina kuathiri hesabu.</string>
-  <string name="preferences_connectivity_notification_title">Uhusiano wa mtandao</string>
-  <string name="preferences_connectivity_notification_summary">Kusema idadi ya wenzao kushikamana katika mtandao.</string>
   <string name="preferences_trusted_peer_title">Rika nzuri</string>
   <string name="preferences_trusted_peer_summary">IP au jina la mpangishaji wa rika moja kuunganisha.</string>
   <string name="preferences_trusted_peer_only_title">Ruka utafiti wa kawaida wa rika</string>

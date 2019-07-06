@@ -259,8 +259,6 @@
   <string name="preferences_own_name_summary">Ваше имя для добавления в запросы платежей. Желательно, покороче.</string>
   <string name="preferences_send_coins_autoclose_title">Автоматически закрывать диалог отправки монет</string>
   <string name="preferences_send_coins_autoclose_summary">Закрывать диалог автоматически после платежа.</string>
-  <string name="preferences_connectivity_notification_title">Индикатор подключения</string>
-  <string name="preferences_connectivity_notification_summary">Показать текущее число подключений в области уведомлений.</string>
   <string name="preferences_trusted_peer_title">Доверенный узел</string>
   <string name="preferences_trusted_peer_summary">IP или имя хоста одного участника для подключения</string>
   <string name="preferences_trusted_peer_resolve_progress">Определение имени…</string>

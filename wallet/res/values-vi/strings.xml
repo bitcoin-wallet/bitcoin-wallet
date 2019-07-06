@@ -111,8 +111,6 @@
 	<string name="preferences_activity_title">Thiết lập</string>
 	<string name="preferences_category_diagnostics">Chẩn đoán</string>
 	<string name="preferences_category_labs">Thí nghiệm</string>
-	<string name="preferences_connectivity_notification_title">Chỉ định kết nối</string>
-	<string name="preferences_connectivity_notification_summary">Hiển thị số lượng các kết nối ngang hàng hiện tại trong khu vực thông báo của thiết bị.</string>
 	<string name="preferences_trusted_peer_title">Kết nối ngang hàng đáng tin</string>
 	<string name="preferences_trusted_peer_summary">Địa chỉ IP hoặc hostname của kết nối ngang hàng để kết nối đến.</string>
 	<string name="preferences_trusted_peer_only_title">Bỏ qua việc tìm kiếm kết nối ngang hàng thông thường</string>

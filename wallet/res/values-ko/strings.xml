@@ -247,8 +247,6 @@
   <string name="preferences_own_name_summary">결제요청에 추가될 당신의 이름입니다. 짧게 입력해주세요.</string>
   <string name="preferences_send_coins_autoclose_title">송금 대화창을 자동으로 닫기</string>
   <string name="preferences_send_coins_autoclose_summary">결제가 완료되면 송금 대화창이 자동으로 닫힙니다.</string>
-  <string name="preferences_connectivity_notification_title">피어 연결 개수</string>
-  <string name="preferences_connectivity_notification_summary">알림 창에 현재 연결된 피어(Peer)의 숫자를 표시합니다.</string>
   <string name="preferences_trusted_peer_title">신뢰할 수 있는 피어</string>
   <string name="preferences_trusted_peer_summary">IP 또는 연결할 단일 피어의 호스트네임</string>
   <string name="preferences_trusted_peer_resolve_progress">분석 중...</string>

@@ -116,8 +116,6 @@
 	<string name="preferences_activity_title">Pengaturan</string>
 	<string name="preferences_category_diagnostics">Diagnosa</string>
 	<string name="preferences_category_labs">Lab</string>
-	<string name="preferences_connectivity_notification_title">Indikator Konetivitas</string>
-	<string name="preferences_connectivity_notification_summary">Tampilkan jumlah peer yang terhubung pada area notifikasi.</string>
 	<string name="preferences_trusted_peer_title">Peer Terpercaya</string>
 	<string name="preferences_trusted_peer_summary">IP atau hostname dari satu peer untuk dihubungkan.</string>
 	<string name="preferences_trusted_peer_only_title">Lewati Pencarian Peer Reguler</string>

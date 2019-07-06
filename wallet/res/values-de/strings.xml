@@ -262,8 +262,6 @@
     <string name="preferences_own_name_summary">Dein eigener Name, der zu Zahlungsanforderungen hinzugefügt wird. Versuch ihn kurz zu halten.</string>
     <string name="preferences_send_coins_autoclose_title">Senden-Dialog automatisch schließen</string>
     <string name="preferences_send_coins_autoclose_summary">Wenn die Zahlung gesendet ist, wird der Senden-Dialog automatisch geschlossen.</string>
-    <string name="preferences_connectivity_notification_title">Konnektivitäts-Anzeige</string>
-    <string name="preferences_connectivity_notification_summary">Zeigt die aktuelle Anzahl von verbundenen Peers im Notifizierungsbereich an.</string>
     <string name="preferences_trusted_peer_title">Vertrauenswürdiger Peer</string>
     <string name="preferences_trusted_peer_summary">IP oder Hostname eines einzelnen Peers, der verbunden wird.</string>
     <string name="preferences_trusted_peer_resolve_progress">Namensauflösung läuft…</string>

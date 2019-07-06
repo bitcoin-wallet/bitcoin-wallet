@@ -245,8 +245,6 @@
   <string name="preferences_own_name_summary">O seu nome, para ser adicionado nas requisições de pagamentos. Tente usar um nome curto.</string>
   <string name="preferences_send_coins_autoclose_title">Fechar diálogo de envio automaticamente</string>
   <string name="preferences_send_coins_autoclose_summary">Quando o pagamento for feito, o diálogo de envio será fechado automaticamente.</string>
-  <string name="preferences_connectivity_notification_title">Indicador de conectividade</string>
-  <string name="preferences_connectivity_notification_summary">Mostrar número atual de pontos conectados na área de notificação.</string>
   <string name="preferences_trusted_peer_title">Pontos confiáveis</string>
   <string name="preferences_trusted_peer_summary">IP ou hostname de um ponto para conectar.</string>
   <string name="preferences_trusted_peer_resolve_progress">Resolvendo…</string>

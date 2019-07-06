@@ -209,8 +209,6 @@
   <string name="preferences_category_labs">Labs</string>
   <string name="preferences_precision_title">Njësit dhe preciziteti</string>
   <string name="preferences_precision_summary">Njësit që shfaqin shumën. Kjo nuk ndikon në përllogaritjet.</string>
-  <string name="preferences_connectivity_notification_title">Indikatori i lidhjes</string>
-  <string name="preferences_connectivity_notification_summary">Shfaq numrin e konektuar të peers në pjesën e njoftimeve.</string>
   <string name="preferences_trusted_peer_title">Peers të besueshëm</string>
   <string name="preferences_trusted_peer_summary">IP apo hostname e një peer për tu konektuar.</string>
   <string name="preferences_trusted_peer_only_title">Kalo kërkimin e rregullt të peer</string>

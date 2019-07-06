@@ -19,11 +19,6 @@
         android:key="send_coins_autoclose"
         android:summary="@string/preferences_send_coins_autoclose_summary"
         android:title="@string/preferences_send_coins_autoclose_title" />
-    <CheckBoxPreference
-        android:defaultValue="false"
-        android:key="connectivity_notification"
-        android:summary="@string/preferences_connectivity_notification_summary"
-        android:title="@string/preferences_connectivity_notification_title" />
 
     <EditTextPreference
         android:key="trusted_peer"

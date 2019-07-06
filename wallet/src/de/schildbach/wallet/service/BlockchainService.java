@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2015 the original author or authors.
+ * Copyright the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -90,8 +90,6 @@ import android.content.ComponentCallbacks2;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -309,38 +307,21 @@ public class BlockchainService extends LifecycleService {
     }
 
     private final class PeerConnectivityListener
-            implements PeerConnectedEventListener, PeerDisconnectedEventListener, OnSharedPreferenceChangeListener {
-        private int peerCount;
+            implements PeerConnectedEventListener, PeerDisconnectedEventListener {
         private AtomicBoolean stopped = new AtomicBoolean(false);
-
-        public PeerConnectivityListener() {
-            config.registerOnSharedPreferenceChangeListener(this);
-        }
 
         public void stop() {
             stopped.set(true);
-
-            config.unregisterOnSharedPreferenceChangeListener(this);
-
-            nm.cancel(Constants.NOTIFICATION_ID_CONNECTED);
         }
 
         @Override
         public void onPeerConnected(final Peer peer, final int peerCount) {
-            this.peerCount = peerCount;
             changed(peerCount);
         }
 
         @Override
         public void onPeerDisconnected(final Peer peer, final int peerCount) {
-            this.peerCount = peerCount;
             changed(peerCount);
-        }
-
-        @Override
-        public void onSharedPreferenceChanged(final SharedPreferences sharedPreferences, final String key) {
-            if (Configuration.PREFS_KEY_CONNECTIVITY_NOTIFICATION.equals(key))
-                changed(peerCount);
         }
 
         private void changed(final int numPeers) {
@@ -350,9 +331,7 @@ public class BlockchainService extends LifecycleService {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    final boolean connectivityNotificationEnabled = config.getConnectivityNotificationEnabled();
-
-                    if (!connectivityNotificationEnabled || numPeers == 0) {
+                    if (numPeers == 0) {
                         stopForeground(true);
                     } else {
                         final NotificationCompat.Builder notification = new NotificationCompat.Builder(

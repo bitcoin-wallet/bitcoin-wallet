@@ -196,8 +196,6 @@
   <string name="preferences_precision_title">وحدات القياس والدقة</string>
   <string name="preferences_precision_summary">الوحدة المستخدمة لإظهار المبالغ. هذا لا يؤثر على العمليات الحسابية.</string>
   <string name="preferences_own_name_title">إسمك</string>
-  <string name="preferences_connectivity_notification_title">مؤشر حالة الإتصال</string>
-  <string name="preferences_connectivity_notification_summary">إظهار العدد الحالي للأقران المتصلة في قائمة التنبيهات.</string>
   <string name="preferences_trusted_peer_title">الأقران الموثوق فيها</string>
   <string name="preferences_trusted_peer_summary">عنوان IP أو عنوان مضيف لقرن واحد Peer للاتصال به</string>
   <string name="preferences_trusted_peer_resolve_unknown_host">إسم المضيف مجهول !</string>

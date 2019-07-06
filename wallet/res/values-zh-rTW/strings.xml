@@ -245,8 +245,6 @@
   <string name="preferences_own_name_summary">你自己的名字，用來放到請款資料中。請盡量簡短。</string>
   <string name="preferences_send_coins_autoclose_title">自動關閉付款對話框</string>
   <string name="preferences_send_coins_autoclose_summary">付款完成後會自動關掉付款對話框。</string>
-  <string name="preferences_connectivity_notification_title">連線標示</string>
-  <string name="preferences_connectivity_notification_summary">在通知區顯示目前節點連線的數目。</string>
   <string name="preferences_trusted_peer_title">信任節點</string>
   <string name="preferences_trusted_peer_summary">一個要連線過去的節點位址或主機名稱。</string>
   <string name="preferences_trusted_peer_resolve_progress">正在解析域名...</string>

@@ -259,8 +259,6 @@
   <string name="preferences_own_name_summary">Je naam, voor om toe te voegen aan betalingsverzoeken. Probeer het kort te houden.</string>
   <string name="preferences_send_coins_autoclose_title">Dialoog voor verzonden coins automatisch sluiten.</string>
   <string name="preferences_send_coins_autoclose_summary">Als de betaling is voltooid zal de verzend dialoog automatisch sluiten.</string>
-  <string name="preferences_connectivity_notification_title">Connectiviteitsindicator</string>
-  <string name="preferences_connectivity_notification_summary">Toon huidige aantal verbonden partners in het berichten gebied.</string>
   <string name="preferences_trusted_peer_title">Vertrouwde partner</string>
   <string name="preferences_trusted_peer_summary">IP of hostnaam voor connectie naar enkele peer.</string>
   <string name="preferences_trusted_peer_resolve_progress">Oplossen…</string>

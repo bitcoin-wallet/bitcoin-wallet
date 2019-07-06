@@ -251,8 +251,6 @@
   <string name="preferences_own_name_summary">El teu propi nom, que s\'afegeix a les sol·licituds de pagament. Intenta que sigui breu.</string>
   <string name="preferences_send_coins_autoclose_title">Tancar de manera automàtica el diàleg d\'enviament de monedes</string>
   <string name="preferences_send_coins_autoclose_summary">Quan s\'efectuï el pagament, el diàleg d\'enviament es tancarà automàticament.</string>
-  <string name="preferences_connectivity_notification_title">Indicador de connectivitat.</string>
-  <string name="preferences_connectivity_notification_summary">Mostra el nombre actual de parells connectats a l\'àrea de notificació.</string>
   <string name="preferences_trusted_peer_title">Parell de confiança</string>
   <string name="preferences_trusted_peer_summary">IP o nom de host del parell per connectar-hi</string>
   <string name="preferences_trusted_peer_resolve_progress">Resolent…</string>

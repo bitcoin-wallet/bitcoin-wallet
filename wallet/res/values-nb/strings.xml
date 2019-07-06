@@ -248,8 +248,6 @@
   <string name="preferences_own_name_summary">Ditt navn, som skal legges til betalingsforespørsler. Prøv å holde det kort.</string>
   <string name="preferences_send_coins_autoclose_title">Automatisk lukk dialogboksen send mynter</string>
   <string name="preferences_send_coins_autoclose_summary">Når betalingen er gjort, vil dialogboksen send lukkes automatisk.</string>
-  <string name="preferences_connectivity_notification_title">Tilkoblingsindikator</string>
-  <string name="preferences_connectivity_notification_summary">Vis nåværende antall tilkoblede peers i systemstatusfeltet.</string>
   <string name="preferences_trusted_peer_title">Klarert peer</string>
   <string name="preferences_trusted_peer_summary">IP eller vertsnavn for forbindelse til en enkelt peer.</string>
   <string name="preferences_trusted_peer_resolve_progress">Løser…</string>

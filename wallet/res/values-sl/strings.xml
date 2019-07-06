@@ -146,8 +146,6 @@
   <string name="preferences_category_labs">V razvoju</string>
   <string name="preferences_precision_title">Enota in prikaz številk</string>
   <string name="preferences_precision_summary">Enota za prikaz. Ne vpliva na računanje.</string>
-  <string name="preferences_connectivity_notification_title">Kazalnik povezanosti</string>
-  <string name="preferences_connectivity_notification_summary">Prikaži število trenutno povezanih vrstnikov v področju za obvestila.</string>
   <string name="preferences_trusted_peer_title">Vrstnik, ki mu zaupate</string>
   <string name="preferences_trusted_peer_summary">IP-naslov ali gostiteljsko ime vrstnika za povezavo.</string>
   <string name="preferences_trusted_peer_only_title">Preskoči običajno odkrivanje vrstnikov</string>

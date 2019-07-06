@@ -120,8 +120,6 @@
 	<string name="preferences_category_labs">Лабораторија</string>
 	<string name="preferences_precision_title">Деноминација и прецизност</string>
 	<string name="preferences_precision_summary">Мерка за прикажување на салдото. Ова не влијае на пресметките.</string>
-	<string name="preferences_connectivity_notification_title">Индикадор за поврзливост</string>
-	<string name="preferences_connectivity_notification_summary">Прикажи моментален број на поврзани точки во полето за известувања.</string>
 	<string name="preferences_trusted_peer_title">Ополномоштена точка</string>
 	<string name="preferences_trusted_peer_summary">IP или име на единствена точка за поврзување.</string>
 	<string name="preferences_trusted_peer_only_title">Прескокни основно откривање на точки</string>

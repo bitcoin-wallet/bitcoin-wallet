@@ -259,8 +259,6 @@
   <string name="preferences_own_name_summary">您自己的姓名，要添加到付款请求中。尽量保持简短。</string>
   <string name="preferences_send_coins_autoclose_title">自动关闭支付对话框</string>
   <string name="preferences_send_coins_autoclose_summary">付款后，发送对话框将自动关闭。</string>
-  <string name="preferences_connectivity_notification_title">连接指示器</string>
-  <string name="preferences_connectivity_notification_summary">在通知区域中显示已连接的peer数。</string>
   <string name="preferences_trusted_peer_title">受信任的peer</string>
   <string name="preferences_trusted_peer_summary">要连接的单个peer的IP地址或主机名称。</string>
   <string name="preferences_trusted_peer_resolve_progress">正在解析...</string>

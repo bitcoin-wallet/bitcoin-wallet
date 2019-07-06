@@ -259,8 +259,6 @@
   <string name="preferences_own_name_summary">Votre nom qui sera ajouté aux demandes de paiement. Il doit être court.</string>
   <string name="preferences_send_coins_autoclose_title">Fermer automatiquement la fenêtre d’envoi de pièces</string>
   <string name="preferences_send_coins_autoclose_summary">Une fois le paiement effectué, la fenêtre d’envoi sera fermée automatiquement.</string>
-  <string name="preferences_connectivity_notification_title">Indicateur de connectivité</string>
-  <string name="preferences_connectivity_notification_summary">Montrer dans la zone de notification le nombre de pairs connectés actuellement.</string>
   <string name="preferences_trusted_peer_title">Pair de confiance</string>
   <string name="preferences_trusted_peer_summary">L’IP ou le nom d’hôte d’un pair auquel se connecter.</string>
   <string name="preferences_trusted_peer_resolve_progress">Résolution…</string>

@@ -120,8 +120,6 @@
 	<string name="preferences_category_labs">Labs</string>
 	<string name="preferences_precision_title">Nomado kaj precizeco</string>
 	<string name="preferences_precision_summary">Unueco por montri kvantojn. Ĉi tio ne afektas komputadojn.</string>
-	<string name="preferences_connectivity_notification_title">Indikilo pri Konekteco</string>
-	<string name="preferences_connectivity_notification_summary">Montru aktualan nombron da konektitaj kolegoj en la sciiga areo.</string>
 	<string name="preferences_trusted_peer_title">Konfidinda Kolego</string>
 	<string name="preferences_trusted_peer_summary">IP aŭ nomo de gastiga komputilo de sola pajro por konekti al.</string>
 	<string name="preferences_trusted_peer_only_title">Salti regula pajra malkovro</string>

@@ -215,8 +215,6 @@
   <string name="preferences_own_name_title">Własna nazwa</string>
   <string name="preferences_send_coins_autoclose_title">Automatycznie zamknij okno wysyłania monet</string>
   <string name="preferences_send_coins_autoclose_summary">Po dokonaniu płatności okno wysyłania zostanie zamknięte automatycznie.</string>
-  <string name="preferences_connectivity_notification_title">Wskaźnik połączeń</string>
-  <string name="preferences_connectivity_notification_summary">Wyświetl obecną liczbę połączonych partnerów w przestrzeni powiadomień.</string>
   <string name="preferences_trusted_peer_title">Zaufany partner</string>
   <string name="preferences_trusted_peer_summary">IP lub nazwa hosta pojedynczego partnera z którym możesz się połączyć.</string>
   <string name="preferences_trusted_peer_resolve_progress">Rozwiązywanie…</string>
