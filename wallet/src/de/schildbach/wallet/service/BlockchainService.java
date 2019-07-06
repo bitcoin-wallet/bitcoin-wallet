@@ -94,6 +94,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Binder;
+import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.PowerManager;
@@ -101,6 +102,7 @@ import android.os.PowerManager.WakeLock;
 import android.text.format.DateUtils;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.LifecycleService;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
@@ -159,10 +161,10 @@ public class BlockchainService extends LifecycleService {
 
     public static void start(final Context context, final boolean cancelCoinsReceived) {
         if (cancelCoinsReceived)
-            context.startService(
+            ContextCompat.startForegroundService(context,
                     new Intent(BlockchainService.ACTION_CANCEL_COINS_RECEIVED, null, context, BlockchainService.class));
         else
-            context.startService(new Intent(context, BlockchainService.class));
+            ContextCompat.startForegroundService(context, new Intent(context, BlockchainService.class));
     }
 
     public static void stop(final Context context) {
@@ -186,8 +188,13 @@ public class BlockchainService extends LifecycleService {
                 lastUsedAgo / DateUtils.MINUTE_IN_MILLIS, alarmInterval / DateUtils.MINUTE_IN_MILLIS);
 
         final AlarmManager alarmManager = (AlarmManager) application.getSystemService(Context.ALARM_SERVICE);
-        final PendingIntent alarmIntent = PendingIntent.getService(application, 0,
-                new Intent(application, BlockchainService.class), 0);
+        final PendingIntent alarmIntent;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+            alarmIntent = PendingIntent.getForegroundService(application, 0,
+                    new Intent(application, BlockchainService.class), 0);
+        else
+            alarmIntent = PendingIntent.getService(application, 0,
+                    new Intent(application, BlockchainService.class), 0);
         alarmManager.cancel(alarmIntent);
 
         // workaround for no inexact set() before KitKat
@@ -198,7 +205,7 @@ public class BlockchainService extends LifecycleService {
 
     public static void resetBlockchain(final Context context) {
         // implicitly stops blockchain service
-        context.startService(
+        ContextCompat.startForegroundService(context,
                 new Intent(BlockchainService.ACTION_RESET_BLOCKCHAIN, null, context, BlockchainService.class));
     }
 
@@ -206,7 +213,7 @@ public class BlockchainService extends LifecycleService {
         final Intent intent = new Intent(BlockchainService.ACTION_BROADCAST_TRANSACTION, null, context,
                 BlockchainService.class);
         intent.putExtra(BlockchainService.ACTION_BROADCAST_TRANSACTION_HASH, tx.getTxId().getBytes());
-        context.startService(intent);
+        ContextCompat.startForegroundService(context, intent);
     }
 
     private static class NewTransactionLiveData extends LiveData<Transaction> {
@@ -331,20 +338,16 @@ public class BlockchainService extends LifecycleService {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    if (numPeers == 0) {
-                        stopForeground(true);
-                    } else {
-                        final NotificationCompat.Builder notification = new NotificationCompat.Builder(
-                                BlockchainService.this, Constants.NOTIFICATION_CHANNEL_ID_ONGOING);
-                        notification.setSmallIcon(R.drawable.stat_notify_peers, Math.min(numPeers, 4));
-                        notification.setContentTitle(getString(R.string.app_name));
-                        notification.setContentText(getString(R.string.notification_peers_connected_msg, numPeers));
-                        notification.setContentIntent(PendingIntent.getActivity(BlockchainService.this, 0,
-                                new Intent(BlockchainService.this, WalletActivity.class), 0));
-                        notification.setWhen(System.currentTimeMillis());
-                        notification.setOngoing(true);
-                        startForeground(Constants.NOTIFICATION_ID_CONNECTED, notification.build());
-                    }
+                    final NotificationCompat.Builder notification = new NotificationCompat.Builder(
+                            BlockchainService.this, Constants.NOTIFICATION_CHANNEL_ID_ONGOING);
+                    notification.setSmallIcon(R.drawable.stat_notify_peers, Math.min(numPeers, 4));
+                    notification.setContentTitle(getString(R.string.app_name));
+                    notification.setContentText(getString(R.string.notification_peers_connected_msg, numPeers));
+                    notification.setContentIntent(PendingIntent.getActivity(BlockchainService.this, 0,
+                            new Intent(BlockchainService.this, WalletActivity.class), 0));
+                    notification.setWhen(System.currentTimeMillis());
+                    notification.setOngoing(true);
+                    startForeground(Constants.NOTIFICATION_ID_CONNECTED, notification.build());
 
                     // send broadcast
                     broadcastPeerState(numPeers);
