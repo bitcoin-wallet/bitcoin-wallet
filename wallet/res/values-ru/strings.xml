@@ -161,9 +161,9 @@
   <string name="edit_address_book_entry_dialog_label_label">Имя</string>
   <string name="edit_address_book_entry_dialog_button_edit">Сохранить</string>
   <string name="transaction_row_fee">Комиссия сети</string>
+  <string name="transaction_row_confidence_message_sent_unbroadcasted">Этот платёж ещё не был передан в сеть.</string>
   <string name="transaction_row_message_purpose_key_rotation">Эта транзакция защищает ваш кошелек от воровства. &lt;u&gt;Подробнее.&lt;/u&gt;</string>
   <string name="transaction_row_message_purpose_raise_fee">Эта транзакция увеличит комиссию за предыдущий платёж.</string>
-  <string name="transaction_row_message_own_unbroadcasted">Этот платёж ещё не был передан в сеть.</string>
   <string name="transaction_row_message_received_direct">Этот платеж был проведен напрямую. Существует риск того, что вы никогда не сможете потратить полученные средства.</string>
   <string name="transaction_row_message_received_unconfirmed_delayed">Подтверждение этого платежа задерживается, возможно, из-за перегрузки сети Bitcoin.</string>
   <string name="transaction_row_message_received_unconfirmed_unlocked">Этот платёж должен стать доступным через несколько минут.</string>

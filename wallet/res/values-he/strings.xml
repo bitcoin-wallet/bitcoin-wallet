@@ -109,8 +109,8 @@
   <string name="edit_address_book_entry_dialog_address_label">כתובת</string>
   <string name="edit_address_book_entry_dialog_label_label">שם</string>
   <string name="edit_address_book_entry_dialog_button_edit">שמירה</string>
+  <string name="transaction_row_confidence_message_sent_unbroadcasted">התשלום עדיין לא שודר</string>
   <string name="transaction_row_message_purpose_key_rotation">העסקה מחזקת את הארנק שלך נגד גניבה.\n\n&lt;u&gt; עוד מידע. &lt;/u&gt;</string>
-  <string name="transaction_row_message_own_unbroadcasted">התשלום עדיין לא שודר</string>
   <string name="transaction_row_message_received_direct">התשלום התקבל ישירות. יש סיכון שהוא לעולם לא יהיה ניתן לניצול.</string>
   <string name="transaction_row_message_received_unconfirmed_unlocked">התשלום יהיה זמין בעוד מספר דקות</string>
   <string name="transaction_row_message_received_dead">תשלום זה בוטל על ידי השולח</string>

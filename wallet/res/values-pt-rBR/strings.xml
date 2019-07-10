@@ -158,9 +158,9 @@
   <string name="edit_address_book_entry_dialog_label_label">Etiqueta</string>
   <string name="edit_address_book_entry_dialog_button_edit">Salvar</string>
   <string name="transaction_row_fee">Taxa da rede</string>
+  <string name="transaction_row_confidence_message_sent_unbroadcasted">Este pagamento ainda não foi transmitido.</string>
   <string name="transaction_row_message_purpose_key_rotation">Esta transação fortalece sua carteira contra roubo. &lt;u&gt;More info.&lt;/u&gt;</string>
   <string name="transaction_row_message_purpose_raise_fee">Essa transação aumenta a taxa da rede para um pagamento anterior.</string>
-  <string name="transaction_row_message_own_unbroadcasted">Este pagamento ainda não foi transmitido.</string>
   <string name="transaction_row_message_received_direct">Esse pagamento foi recebido diretamente. Existe um certo risco dessa quantia nunca poder ser gasta no futuro. Deve haver um certo vínculo de confiança com o pagador.</string>
   <string name="transaction_row_message_received_unconfirmed_delayed">A confirmacão deste pagamento está demorando devido à sobrecarga na rede Bitcoin.</string>
   <string name="transaction_row_message_received_unconfirmed_unlocked">Este pagamento estará disponível em alguns minutos.</string>

@@ -169,9 +169,13 @@
     <string name="edit_address_book_entry_dialog_label_label">Label</string>
     <string name="edit_address_book_entry_dialog_button_edit">Save</string>
     <string name="transaction_row_fee">Network fee</string>
+    <string name="transaction_row_confidence_message_sent_unbroadcasted">This payment has not been transmitted yet.</string>
+    <string name="transaction_row_confidence_message_received_successful">This payment has been credited to your wallet.</string>
+    <string name="transaction_row_confidence_message_sent_successful">Your payment was successful. It has arrived at the payee.</string>
+    <string name="transaction_row_confidence_message_received_failed">This payment has failed.</string>
+    <string name="transaction_row_confidence_message_sent_failed">Your payment has failed.</string>
     <string name="transaction_row_message_purpose_key_rotation">This transaction strengthens your wallet against theft. &lt;u&gt;More info.&lt;/u&gt;</string>
     <string name="transaction_row_message_purpose_raise_fee">This transaction raises the network fee for a previous payment.</string>
-    <string name="transaction_row_message_own_unbroadcasted">This payment has not been transmitted yet.</string>
     <string name="transaction_row_message_received_direct">This payment has been received directly. There is a risk it might never become spendable.</string>
     <string name="transaction_row_message_received_unconfirmed_delayed">The confirmation of this payment is delayed, likely due to an overload of the Bitcoin network.</string>
     <string name="transaction_row_message_received_unconfirmed_unlocked">This payment should become spendable in a few minutes.</string>

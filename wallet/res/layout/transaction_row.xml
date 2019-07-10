@@ -45,6 +45,29 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/transaction_row_extend_confidence_message_selected"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="2dp"
+            android:paddingTop="2dp" >
+
+            <Space
+                android:layout_width="@dimen/symbol_size_normal"
+                android:layout_height="@dimen/symbol_size_normal"
+                android:layout_marginRight="8dp" />
+
+            <TextView
+                android:id="@+id/transaction_row_confidence_message_selected"
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left|top"
+                android:layout_weight="1"
+                android:textColor="@color/fg_insignificant"
+                android:textSize="@dimen/font_size_small" />
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/transaction_row_extend_address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -103,6 +126,29 @@
                     android:textColor="@color/fg_insignificant"
                     android:visibility="gone" />
             </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/transaction_row_extend_confidence_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="2dp"
+            android:paddingTop="2dp" >
+
+            <Space
+                android:layout_width="@dimen/symbol_size_normal"
+                android:layout_height="@dimen/symbol_size_normal"
+                android:layout_marginRight="8dp" />
+
+            <TextView
+                android:id="@+id/transaction_row_confidence_message"
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left|top"
+                android:layout_weight="1"
+                android:textColor="@color/fg_insignificant"
+                android:textSize="@dimen/font_size_small" />
         </LinearLayout>
 
         <LinearLayout

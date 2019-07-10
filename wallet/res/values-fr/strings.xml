@@ -165,9 +165,9 @@
   <string name="edit_address_book_entry_dialog_label_label">Étiquette</string>
   <string name="edit_address_book_entry_dialog_button_edit">Enregistrer</string>
   <string name="transaction_row_fee">Frais de réseau</string>
+  <string name="transaction_row_confidence_message_sent_unbroadcasted">Ce paiement n’a pas encore été transmis.</string>
   <string name="transaction_row_message_purpose_key_rotation">Cette transaction renforce votre porte-monnaie contre le vol. &lt;u&gt;Plus d’infos.&lt;/u&gt;</string>
   <string name="transaction_row_message_purpose_raise_fee">Cette transaction augmente les frais de réseau d’un paiement précédent.</string>
-  <string name="transaction_row_message_own_unbroadcasted">Ce paiement n’a pas encore été transmis.</string>
   <string name="transaction_row_message_received_direct">Ce paiement a été reçu directement. Il y a un risque qu’il ne puisse jamais être dépensé.</string>
   <string name="transaction_row_message_received_unconfirmed_delayed">La confirmation de ce paiement est retardée, probablement à cause d’une surcharge du réseau Bitcoin.</string>
   <string name="transaction_row_message_received_unconfirmed_unlocked">Ce paiement devrait pouvoir être dépensé dans quelques minutes.</string>

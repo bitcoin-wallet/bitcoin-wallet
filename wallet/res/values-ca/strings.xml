@@ -164,9 +164,9 @@
   <string name="edit_address_book_entry_dialog_label_label">Nom</string>
   <string name="edit_address_book_entry_dialog_button_edit">Desa</string>
   <string name="transaction_row_fee">Comissió de xarxa</string>
+  <string name="transaction_row_confidence_message_sent_unbroadcasted">Aquest pagament encara no s\'ha transferit.</string>
   <string name="transaction_row_message_purpose_key_rotation">Aquesta transacció reforça la teva cartera contra robatori. &lt;u&gt;Més informació.&lt;/u&gt;</string>
   <string name="transaction_row_message_purpose_raise_fee">Aquesta transacció augmenta la comissió de xarxa per a un pagament anterior.</string>
-  <string name="transaction_row_message_own_unbroadcasted">Aquest pagament encara no s\'ha transferit.</string>
   <string name="transaction_row_message_received_direct">Aquest pagament s\'ha rebut directament. Hi ha risc de que mai es pugui gastar.</string>
   <string name="transaction_row_message_received_unconfirmed_delayed">La confirmació d\'aquest pagament està retardada, probablement a causa d\'una sobrecàrrega de la xarxa Bitcoin.</string>
   <string name="transaction_row_message_received_unconfirmed_unlocked">Aquest pagament deuria estar disponible en pocs minuts.</string>

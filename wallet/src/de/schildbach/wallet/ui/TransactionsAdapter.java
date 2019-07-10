@@ -93,6 +93,8 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
             @Nullable
             public final String confidenceTextual;
             public final int confidenceTextualColor;
+            @Nullable
+            public final Spanned confidenceMessage;
             public final CharSequence time;
             public final int timeColor;
             @Nullable
@@ -165,6 +167,10 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
                     this.confidenceCircularStrokeColor = Color.TRANSPARENT;
                     this.confidenceTextual = null;
                     this.confidenceTextualColor = 0;
+                    this.confidenceMessage = sent && confidence.numBroadcastPeers() == 0
+                            ? SpannedString.valueOf(
+                                    context.getString(R.string.transaction_row_confidence_message_sent_unbroadcasted))
+                            : null;
                 } else if (confidenceType == ConfidenceType.IN_CONFLICT) {
                     this.confidenceTextual = CONFIDENCE_SYMBOL_IN_CONFLICT;
                     this.confidenceTextualColor = colorError;
@@ -174,6 +180,7 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
                     this.confidenceCircularSize = 0;
                     this.confidenceCircularFillColor = 0;
                     this.confidenceCircularStrokeColor = 0;
+                    this.confidenceMessage = null;
                 } else if (confidenceType == ConfidenceType.BUILDING) {
                     this.confidenceCircularMaxProgress = tx.isCoinBase()
                             ? Constants.NETWORK_PARAMETERS.getSpendableCoinbaseDepth()
@@ -186,6 +193,10 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
                     this.confidenceCircularStrokeColor = Color.TRANSPARENT;
                     this.confidenceTextual = null;
                     this.confidenceTextualColor = 0;
+                    this.confidenceMessage = isSelected ? SpannedString.valueOf(
+                            context.getString(sent ? R.string.transaction_row_confidence_message_sent_successful
+                                    : R.string.transaction_row_confidence_message_received_successful))
+                            : null;
                 } else if (confidenceType == ConfidenceType.DEAD) {
                     this.confidenceTextual = CONFIDENCE_SYMBOL_DEAD;
                     this.confidenceTextualColor = colorError;
@@ -195,6 +206,9 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
                     this.confidenceCircularSize = 0;
                     this.confidenceCircularFillColor = 0;
                     this.confidenceCircularStrokeColor = 0;
+                    this.confidenceMessage = SpannedString
+                            .valueOf(context.getString(sent ? R.string.transaction_row_confidence_message_sent_failed
+                                    : R.string.transaction_row_confidence_message_received_failed));
                 } else {
                     this.confidenceTextual = CONFIDENCE_SYMBOL_UNKNOWN;
                     this.confidenceTextualColor = colorInsignificant;
@@ -204,6 +218,7 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
                     this.confidenceCircularSize = 0;
                     this.confidenceCircularFillColor = 0;
                     this.confidenceCircularStrokeColor = 0;
+                    this.confidenceMessage = null;
                 }
 
                 // time
@@ -302,11 +317,6 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
                 } else if (purpose == Purpose.RAISE_FEE) {
                     this.message = SpannedString
                             .valueOf(context.getString(R.string.transaction_row_message_purpose_raise_fee));
-                    this.messageColor = colorInsignificant;
-                    this.messageSingleLine = false;
-                } else if (isOwn && confidenceType == ConfidenceType.PENDING && confidence.numBroadcastPeers() == 0) {
-                    this.message = SpannedString
-                            .valueOf(context.getString(R.string.transaction_row_message_own_unbroadcasted));
                     this.messageColor = colorInsignificant;
                     this.messageSingleLine = false;
                 } else if (!isOwn && confidenceType == ConfidenceType.PENDING && confidence.numBroadcastPeers() == 0) {
@@ -438,6 +448,8 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
                     if (!Objects.equals(oldTransactionItem.confidenceTextualColor,
                             newTransactionItem.confidenceTextualColor))
                         return false;
+                    if (!Objects.equals(oldTransactionItem.confidenceMessage, newTransactionItem.confidenceMessage))
+                        return false;
                     if (!Objects.equals(oldTransactionItem.time, newTransactionItem.time))
                         return false;
                     if (!Objects.equals(oldTransactionItem.timeColor, newTransactionItem.timeColor))
@@ -507,7 +519,9 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
                             && Objects.equals(oldTransactionItem.confidenceTextual,
                                     newTransactionItem.confidenceTextual)
                             && Objects.equals(oldTransactionItem.confidenceTextualColor,
-                                    newTransactionItem.confidenceTextualColor)))
+                                    newTransactionItem.confidenceTextualColor)
+                            && Objects.equals(oldTransactionItem.confidenceMessage,
+                                    newTransactionItem.confidenceMessage)))
                         changes.add(ChangeType.CONFIDENCE);
                     if (!(Objects.equals(oldTransactionItem.time, newTransactionItem.time)
                             && Objects.equals(oldTransactionItem.timeColor, newTransactionItem.timeColor)))
@@ -701,6 +715,8 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
         private final View extendAddressView;
         private final CircularProgressView confidenceCircularNormalView, confidenceCircularSelectedView;
         private final TextView confidenceTextualNormalView, confidenceTextualSelectedView;
+        private final View extendConfidenceMessageNormalView, extendConfidenceMessageSelectedView;
+        private final TextView confidenceMessageNormalView, confidenceMessageSelectedView;
         private final TextView timeView;
         private final TextView addressView;
         private final CurrencyTextView valueView;
@@ -728,6 +744,14 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
                     .findViewById(R.id.transaction_row_confidence_textual);
             this.confidenceTextualSelectedView = (TextView) itemView
                     .findViewById(R.id.transaction_row_confidence_textual_selected);
+            this.extendConfidenceMessageNormalView = itemView
+                    .findViewById(R.id.transaction_row_extend_confidence_message);
+            this.extendConfidenceMessageSelectedView = itemView
+                    .findViewById(R.id.transaction_row_extend_confidence_message_selected);
+            this.confidenceMessageNormalView = (TextView) itemView
+                    .findViewById(R.id.transaction_row_confidence_message);
+            this.confidenceMessageSelectedView = (TextView) itemView
+                    .findViewById(R.id.transaction_row_confidence_message_selected);
             this.timeView = (TextView) itemView.findViewById(R.id.transaction_row_time);
             this.addressView = (TextView) itemView.findViewById(R.id.transaction_row_address);
             this.valueView = (CurrencyTextView) itemView.findViewById(R.id.transaction_row_value);
@@ -769,6 +793,12 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
             confidenceTextualView.setVisibility(item.confidenceTextual != null ? View.VISIBLE : View.GONE);
             confidenceTextualView.setText(item.confidenceTextual);
             confidenceTextualView.setTextColor(item.confidenceTextualColor);
+            extendConfidenceMessageSelectedView
+                    .setVisibility(item.isSelected && item.confidenceMessage != null ? View.VISIBLE : View.GONE);
+            extendConfidenceMessageNormalView
+                    .setVisibility(!item.isSelected && item.confidenceMessage != null ? View.VISIBLE : View.GONE);
+            (item.isSelected ? confidenceMessageSelectedView : confidenceMessageNormalView)
+                    .setText(item.confidenceMessage);
         }
 
         private void bindTime(final TransactionItem item) {

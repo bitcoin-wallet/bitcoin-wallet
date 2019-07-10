@@ -165,9 +165,9 @@
   <string name="edit_address_book_entry_dialog_label_label">ラベル</string>
   <string name="edit_address_book_entry_dialog_button_edit">保存</string>
   <string name="transaction_row_fee">ネットワーク手数料</string>
+  <string name="transaction_row_confidence_message_sent_unbroadcasted">この支払はまだ送信されていません。</string>
   <string name="transaction_row_message_purpose_key_rotation">このトランザクションはウォレットの窃盗に対する強度を上げます。&lt;u&gt;より詳細な情報。&lt;/u&gt;</string>
   <string name="transaction_row_message_purpose_raise_fee">このトランザクションは前の支払いのネットワーク手数料を増額します。</string>
-  <string name="transaction_row_message_own_unbroadcasted">この支払はまだ送信されていません。</string>
   <string name="transaction_row_message_received_direct">この支払は直接届きました。利用可能とならないリスクがあります。</string>
   <string name="transaction_row_message_received_unconfirmed_delayed">この支払いの確認が遅れています。おそらくビットコインネットワークの過負荷によるものです。</string>
   <string name="transaction_row_message_received_unconfirmed_unlocked">この支払は数分程度で利用可能となります。</string>

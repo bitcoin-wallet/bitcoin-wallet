@@ -164,9 +164,9 @@
   <string name="edit_address_book_entry_dialog_label_label">Etiket</string>
   <string name="edit_address_book_entry_dialog_button_edit">Kaydet</string>
   <string name="transaction_row_fee">Şebeke ücreti</string>
+  <string name="transaction_row_confidence_message_sent_unbroadcasted">Bu ödeme henüz aktarılmamıştır.</string>
   <string name="transaction_row_message_purpose_key_rotation">Bu muamele cüzdanınızın çalınmaya karşı korunmasını güçlendirir. &lt;u&gt;Daha fazla bilgi.&lt;/u&gt;</string>
   <string name="transaction_row_message_purpose_raise_fee">Bu muamele önceki bir ödemenin şebeke ücretini arttırır.</string>
-  <string name="transaction_row_message_own_unbroadcasted">Bu ödeme henüz aktarılmamıştır.</string>
   <string name="transaction_row_message_received_direct">Bu ödeme doğrudan alındı. Asla harcanamayacak olması riski vardır.</string>
   <string name="transaction_row_message_received_unconfirmed_delayed">Bu ödemenin teyidi muhtemelen Bitcoin şebekesindeki aşırı yükten dolayı gecikmiştir.</string>
   <string name="transaction_row_message_received_unconfirmed_unlocked">Bu ödeme muhtemelen birkaç dakika içinde harcanabilir hâle gelecektir.</string>

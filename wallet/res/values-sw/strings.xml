@@ -132,8 +132,8 @@
   <string name="edit_address_book_entry_dialog_label_label">Jina</string>
   <string name="edit_address_book_entry_dialog_button_edit">Okoa</string>
   <string name="transaction_row_fee">Ata mtandao</string>
+  <string name="transaction_row_confidence_message_sent_unbroadcasted">Malipo hii ni bado alifanya.</string>
   <string name="transaction_row_message_purpose_key_rotation">Shuguli hii inafanya pochi yako nguvu dhidi ya majambazi. &lt;u&gt;Habari zaidi.&lt;/u&gt;</string>
-  <string name="transaction_row_message_own_unbroadcasted">Malipo hii ni bado alifanya.</string>
   <string name="transaction_row_message_received_direct">Malipo hii iliwekwa moja kwa moja na mpokeaji. Kuna hatari kwamba kamwe inakuwa halali.</string>
   <string name="transaction_row_message_received_unconfirmed_unlocked">Malipo hii lazima kuwa halali katika muda mfupi.</string>
   <string name="transaction_row_message_received_dead">Malipo hii imeluwa kuachwa kwa mtumaji.</string>

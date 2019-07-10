@@ -80,8 +80,8 @@
 	<string name="edit_address_book_entry_dialog_address_label">Adres</string>
 	<string name="edit_address_book_entry_dialog_label_label">Nazwa</string>
 	<string name="edit_address_book_entry_dialog_button_edit">Zapisz</string>
+	<string name="transaction_row_confidence_message_sent_unbroadcasted">Ta płatność nie została jeszcze przesłana.</string>
 	<string name="transaction_row_message_purpose_key_rotation">Ta transakcja wzmocni Twój portfel przed kradzieżą. &lt;u&gt;Więcej informacji&lt;/u&gt;</string>
-	<string name="transaction_row_message_own_unbroadcasted">Ta płatność nie została jeszcze przesłana.</string>
 	<string name="transaction_row_message_received_unconfirmed_unlocked">Ta płatność powinna stać się dostępna za kilka minut.</string>
 	<string name="transaction_row_message_received_dead">Ta płatność została cofnięta przez nadawcę.</string>
 	<string name="transaction_row_message_received_dust">Tak mała kwota prawdopodobnie nigdy nie zostanie wydana ekonomicznie.</string>

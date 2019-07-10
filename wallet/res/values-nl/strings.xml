@@ -165,9 +165,9 @@
   <string name="edit_address_book_entry_dialog_label_label">Label</string>
   <string name="edit_address_book_entry_dialog_button_edit">Opslaan</string>
   <string name="transaction_row_fee">Netwerkkosten</string>
+  <string name="transaction_row_confidence_message_sent_unbroadcasted">Deze betaling is nog niet verzonden.</string>
   <string name="transaction_row_message_purpose_key_rotation">Deze transactie maakt je wallet sterker tegen diefstal. &lt;u&gt;Meer info.&lt;/u&gt;</string>
   <string name="transaction_row_message_purpose_raise_fee">Deze transactie verhoogt de netwerkkosten van een eerder verstuurde betaling.</string>
-  <string name="transaction_row_message_own_unbroadcasted">Deze betaling is nog niet verzonden.</string>
   <string name="transaction_row_message_received_direct">Deze betaling is direct ontvangen. Het risico bestaat dat het nooit uitgegeven kan worden.</string>
   <string name="transaction_row_message_received_unconfirmed_delayed">De bevestiging van deze transactie is vertraagd, waarschijnlijk door een overbelasting van het Bitcoin netwerk.</string>
   <string name="transaction_row_message_received_unconfirmed_unlocked">Deze betaling wordt besteedbaar in een paar minuten.</string>

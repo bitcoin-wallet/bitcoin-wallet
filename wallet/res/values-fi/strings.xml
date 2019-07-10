@@ -165,9 +165,9 @@
   <string name="edit_address_book_entry_dialog_label_label">Nimike</string>
   <string name="edit_address_book_entry_dialog_button_edit">Tallenna</string>
   <string name="transaction_row_fee">Verkon rahansiirtokulu</string>
+  <string name="transaction_row_confidence_message_sent_unbroadcasted">Tätä maksua ei ole lähetetty vielä.</string>
   <string name="transaction_row_message_purpose_key_rotation">Tämä rahansiirto vahvistaa lompakkoasi varkauden varalta. &lt;u&gt;Lisää tietoa.&lt;/u&gt;</string>
   <string name="transaction_row_message_purpose_raise_fee">Tämä rahansiirto korottaa verkon rahansiirtokulua edeltävälle maksulle.</string>
-  <string name="transaction_row_message_own_unbroadcasted">Tätä maksua ei ole lähetetty vielä.</string>
   <string name="transaction_row_message_received_direct">Tämä maksu vastaanotettiin suoraan. On vaara, että sitä ei voida koskaan käyttää.</string>
   <string name="transaction_row_message_received_unconfirmed_delayed">Tämän rahansiirron vahvistamista on viivästetty, todennäköisimmin Bitcoin-verkon ylikuormituksesta johtuen.</string>
   <string name="transaction_row_message_received_unconfirmed_unlocked">Tämän maksun pitäisi muuttua käytettäväksi muutaman minuutin kuluttua.</string>

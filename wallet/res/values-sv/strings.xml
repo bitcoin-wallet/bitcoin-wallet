@@ -150,9 +150,9 @@
   <string name="edit_address_book_entry_dialog_label_label">Etikett</string>
   <string name="edit_address_book_entry_dialog_button_edit">Spara</string>
   <string name="transaction_row_fee">Nätverksavgift</string>
+  <string name="transaction_row_confidence_message_sent_unbroadcasted">Denna betalning har inte skickats ännu.</string>
   <string name="transaction_row_message_purpose_key_rotation">Den här transaktionen stärker din plånbok mot stöld. &lt;u&gt;Mer info.&lt;/u&gt;</string>
   <string name="transaction_row_message_purpose_raise_fee">Den här transaktionen höjer nätverksavgiften för en tidigare betalning.</string>
-  <string name="transaction_row_message_own_unbroadcasted">Denna betalning har inte skickats ännu.</string>
   <string name="transaction_row_message_received_direct">Denna betalning har mottagits direkt. Det finns en risk att den aldrig kommer att kunna användas.</string>
   <string name="transaction_row_message_received_unconfirmed_delayed">Bekräftelsen på den här betalningen är fördröjd, förmodligen på grund av hög belastning på Bitcoin-nätverket.</string>
   <string name="transaction_row_message_received_unconfirmed_unlocked">Den här betalningen borde bli spenderbar inom några minuter.</string>

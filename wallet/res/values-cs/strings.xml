@@ -152,9 +152,9 @@
   <string name="edit_address_book_entry_dialog_label_label">Popisek</string>
   <string name="edit_address_book_entry_dialog_button_edit">Uložit</string>
   <string name="transaction_row_fee">Poplatek síti</string>
+  <string name="transaction_row_confidence_message_sent_unbroadcasted">Tato platba nebyla ještě odeslána.</string>
   <string name="transaction_row_message_purpose_key_rotation">Tato transakce zvýší ochranu vaší peněženky proti krádeži. &lt;u&gt;Více informací.&lt;/u&gt;</string>
   <string name="transaction_row_message_purpose_raise_fee">Tato transakce navyšuje poplatek pro předcházející platbu.</string>
-  <string name="transaction_row_message_own_unbroadcasted">Tato platba nebyla ještě odeslána.</string>
   <string name="transaction_row_message_received_direct">Tato platba byla přijata přímo. Je zde riziko, že prostředky nebude možno nikdy utratit.</string>
   <string name="transaction_row_message_received_unconfirmed_delayed">Potvrzení této platby je pozdrženo, nejspíše z důvodu přetížení Bitcoin sítě.</string>
   <string name="transaction_row_message_received_unconfirmed_unlocked">Tuto platbu bude možné utratit během několika minut.</string>

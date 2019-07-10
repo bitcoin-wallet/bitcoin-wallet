@@ -158,9 +158,9 @@
   <string name="edit_address_book_entry_dialog_label_label">標籤</string>
   <string name="edit_address_book_entry_dialog_button_edit">儲存</string>
   <string name="transaction_row_fee">網路手續費</string>
+  <string name="transaction_row_confidence_message_sent_unbroadcasted">付款尚未傳輸。</string>
   <string name="transaction_row_message_purpose_key_rotation">這筆交易會增強你的錢包的防竊力。&lt;u&gt;更多資訊。&lt;/u&gt;</string>
   <string name="transaction_row_message_purpose_raise_fee">這筆交易會增加前一筆付款的網路手續費。</string>
-  <string name="transaction_row_message_own_unbroadcasted">付款尚未傳輸。</string>
   <string name="transaction_row_message_received_direct">這筆付款被直接接收了，這類付款可能存在無法花用的風險。</string>
   <string name="transaction_row_message_received_unconfirmed_delayed">這筆付款確認的時間將會被延遲，可能是因為 Bitcoin 網路超過負荷量了。</string>
   <string name="transaction_row_message_received_unconfirmed_unlocked">這筆付款應該在幾分鐘之後就可以花用。</string>

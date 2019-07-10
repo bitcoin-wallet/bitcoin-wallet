@@ -165,9 +165,9 @@
   <string name="edit_address_book_entry_dialog_label_label">Mærke</string>
   <string name="edit_address_book_entry_dialog_button_edit">Gem</string>
   <string name="transaction_row_fee">Netværksgebyr</string>
+  <string name="transaction_row_confidence_message_sent_unbroadcasted">Denne betaling er ikke sendt endnu.</string>
   <string name="transaction_row_message_purpose_key_rotation">Denne overførsel styrker din tegnebog mod tyveri. &lt;u&gt;Mere info.&lt;/u&gt;</string>
   <string name="transaction_row_message_purpose_raise_fee">Denne transaktion forhøjer netværksgebyret for en tidligere betaling.</string>
-  <string name="transaction_row_message_own_unbroadcasted">Denne betaling er ikke sendt endnu.</string>
   <string name="transaction_row_message_received_direct">Denne betaling er modtaget direkte. Der er en risiko for, at den aldrig bliver tilgængelig.</string>
   <string name="transaction_row_message_received_unconfirmed_delayed">Bekræftelsen af denne betaling er forsinket – sandsynligvis på grund af overbelastning af Bitcoin-netværket.</string>
   <string name="transaction_row_message_received_unconfirmed_unlocked">Denne betaling bør blive tilgængelig om få minutter.</string>

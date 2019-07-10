@@ -164,9 +164,9 @@
   <string name="edit_address_book_entry_dialog_label_label">Etiqueta</string>
   <string name="edit_address_book_entry_dialog_button_edit">Guardar</string>
   <string name="transaction_row_fee">Comisión de red</string>
+  <string name="transaction_row_confidence_message_sent_unbroadcasted">Este pago aún no se ha transmitido.</string>
   <string name="transaction_row_message_purpose_key_rotation">Esta transacción fortalece tu monedero frente a robos. &lt;u&gt;Más información.&lt;/u&gt;</string>
   <string name="transaction_row_message_purpose_raise_fee">Esta transacción incrementa la cuota de red para un pago previo.</string>
-  <string name="transaction_row_message_own_unbroadcasted">Este pago aún no se ha transmitido.</string>
   <string name="transaction_row_message_received_direct">Este pago se ha recibido directamente. Existe el riesgo de que no llegue a validarse.</string>
   <string name="transaction_row_message_received_unconfirmed_delayed">La confirmación de este pago está atrasada debido a una sobrecarga en la red de Bitcoin.</string>
   <string name="transaction_row_message_received_unconfirmed_unlocked">Este pago debería estar disponible en unos minutos.</string>

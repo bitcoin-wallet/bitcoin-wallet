@@ -158,9 +158,9 @@
   <string name="edit_address_book_entry_dialog_label_label">제목</string>
   <string name="edit_address_book_entry_dialog_button_edit">저장</string>
   <string name="transaction_row_fee">네트워크 비용</string>
+  <string name="transaction_row_confidence_message_sent_unbroadcasted">이 결제는 아직 전송되지 않았습니다.</string>
   <string name="transaction_row_message_purpose_key_rotation">이 거래 방식은 절도에 대비하기 위해 전자 지갑의 보안성을 증대시킵니다. &lt;u&gt;자세히 보기&lt;/u&gt;</string>
   <string name="transaction_row_message_purpose_raise_fee">이 거래는 이전 결제의 전송 수수료를 증가시킵니다.</string>
-  <string name="transaction_row_message_own_unbroadcasted">이 결제는 아직 전송되지 않았습니다.</string>
   <string name="transaction_row_message_received_direct">해당 결제는 직접 연결로부터 수령했습니다. 이 내역은 사용이 영구적으로 불가능한 승인되지 않은 금액일 수도 있습니다.</string>
   <string name="transaction_row_message_received_unconfirmed_delayed">비트코인 네트워크 트래픽 부하 등의 이유로 거래의 승인이 늦어지고 있습니다.</string>
   <string name="transaction_row_message_received_unconfirmed_unlocked">이 결제 내역은 승인 과정을 통해 몇 분 후에 사용할 수 있습니다.</string>

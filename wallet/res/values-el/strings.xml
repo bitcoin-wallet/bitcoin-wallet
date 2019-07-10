@@ -106,7 +106,7 @@
   <string name="edit_address_book_entry_dialog_address_label">Διεύθυνση</string>
   <string name="edit_address_book_entry_dialog_label_label">Ετικέτα</string>
   <string name="edit_address_book_entry_dialog_button_edit">Αποθήκευση</string>
-  <string name="transaction_row_message_own_unbroadcasted">Αυτή η πληρωμή δεν έχει διαβιβαστεί ακόμη.</string>
+  <string name="transaction_row_confidence_message_sent_unbroadcasted">Αυτή η πληρωμή δεν έχει διαβιβαστεί ακόμη.</string>
   <string name="transaction_row_message_received_unconfirmed_unlocked">Αυτή η πληρωμή θα είναι διαθέσιμη σε μερικά λεπτά.</string>
   <string name="transaction_row_message_received_dead">Αυτή η πληρωμή έχει αναιρεθεί από τον αποστολέα.</string>
   <string name="network_monitor_activity_title">Παρακολούθηση δικτύου</string>

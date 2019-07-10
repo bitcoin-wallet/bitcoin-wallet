@@ -161,9 +161,9 @@
   <string name="edit_address_book_entry_dialog_label_label">Merkelapp</string>
   <string name="edit_address_book_entry_dialog_button_edit">Lagre</string>
   <string name="transaction_row_fee">Nettverksgebyr</string>
+  <string name="transaction_row_confidence_message_sent_unbroadcasted">Denne betalingen er ikke sendt ennå.</string>
   <string name="transaction_row_message_purpose_key_rotation">Denne transaksjonen styrker din lommebok mot tyveri. &lt;u&gt;Mer info.&lt;/u&gt;</string>
   <string name="transaction_row_message_purpose_raise_fee">Denne transaksjonen øker nettverksgebyret for en tidligere betaling.</string>
-  <string name="transaction_row_message_own_unbroadcasted">Denne betalingen er ikke sendt ennå.</string>
   <string name="transaction_row_message_received_direct">Denne betalingen er mottatt direkte. Det er en risiko for at den aldri blir brukbar.</string>
   <string name="transaction_row_message_received_unconfirmed_delayed">Bekreftelsen av denne betalingen er forsinket, sannsynligvis på grunn av en overbelastning av Bitcoin-nettverket.</string>
   <string name="transaction_row_message_received_unconfirmed_unlocked">Denne betalingen bør bli brukbar om få minutter.</string>

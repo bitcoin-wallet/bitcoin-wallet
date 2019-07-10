@@ -152,9 +152,9 @@
   <string name="edit_address_book_entry_dialog_label_label">标签</string>
   <string name="edit_address_book_entry_dialog_button_edit">保存</string>
   <string name="transaction_row_fee">网络费用</string>
+  <string name="transaction_row_confidence_message_sent_unbroadcasted">此项支付尚未传输。</string>
   <string name="transaction_row_message_purpose_key_rotation">该项交易能加强您的钱包安全性，防止被盗。&lt;u&gt;更多信息.&lt;/u&gt;</string>
   <string name="transaction_row_message_purpose_raise_fee">此交易会提高先前付款的网络费用。</string>
-  <string name="transaction_row_message_own_unbroadcasted">此项支付尚未传输。</string>
   <string name="transaction_row_message_received_direct">此项付款已经被直接接收。这存在所获取的比特币可能永远无法使用的风险。</string>
   <string name="transaction_row_message_received_unconfirmed_delayed">此付款的确认被延迟，可能是由于比特币网络的过载。</string>
   <string name="transaction_row_message_received_unconfirmed_unlocked">此项付款所获得的比特币将在几分钟之后可以使用。</string>

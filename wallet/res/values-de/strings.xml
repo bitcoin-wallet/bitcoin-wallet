@@ -170,10 +170,14 @@
     <string name="edit_address_book_entry_dialog_address_label">Adresse</string>
     <string name="edit_address_book_entry_dialog_label_label">Name</string>
     <string name="edit_address_book_entry_dialog_button_edit">Speichern</string>
+    <string name="transaction_row_confidence_message_sent_unbroadcasted">Diese Zahlung ist noch nicht übertragen.</string>
+    <string name="transaction_row_confidence_message_received_successful">Diese Zahlung wurde deiner Wallet gutgeschrieben.</string>
+    <string name="transaction_row_confidence_message_sent_successful">Deine Zahlung war erfolgreich. Sie ist beim Empfänger angekommen.</string>
+    <string name="transaction_row_confidence_message_received_failed">Diese Zahlung ist fehlgeschlagen.</string>
+    <string name="transaction_row_confidence_message_sent_failed">Deine Zahlung ist fehlgeschlagen.</string>
     <string name="transaction_row_fee">Netzwerk-Gebühr</string>
     <string name="transaction_row_message_purpose_key_rotation">Diese Transaktion stärkt deine Wallet gegen Diebstahl. &lt;u&gt;Mehr Information.&lt;/u&gt;</string>
     <string name="transaction_row_message_purpose_raise_fee">Diese Transaktion erhöht die Netzwerk-Gebühr für eine vorherige Zahlung.</string>
-    <string name="transaction_row_message_own_unbroadcasted">Diese Zahlung ist noch nicht übertragen.</string>
     <string name="transaction_row_message_received_direct">Diese Zahlung wurde direkt empfangen. Es besteht das Risiko, daß sie niemals verfügbar wird.</string>
     <string name="transaction_row_message_received_unconfirmed_delayed">Die Bestätigung dieser Zahlung ist verspätet, wahrscheinlich aufgrund einer Überlastung des Bitcoin-Netzes.</string>
     <string name="transaction_row_message_received_unconfirmed_unlocked">Diese Zahlung sollte in ein paar Minuten verfügbar werden.</string>
