@@ -1,3 +1,7 @@
+v7.13
+
+* Add confidence messages, helping users to understand the confidence state of their payments.
+
 v7.11-v7.12
 
 * Various small bugfixes.
