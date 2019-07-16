@@ -37,6 +37,7 @@
   <string name="wallet_transactions_options_filter_all">全ての支払い</string>
   <string name="wallet_transactions_options_filter_received">受け取った支払い</string>
   <string name="wallet_transactions_options_filter_sent">送った支払い</string>
+  <string name="wallet_options_request_legacy">レガシーアドレスへの送金を要求する</string>
   <string name="wallet_options_safety_menu">安全対策</string>
   <string name="wallet_options_encrypt_keys_set">送金用PINを設定</string>
   <string name="wallet_options_encrypt_keys_change">送金用PINを変更</string>
@@ -123,6 +124,8 @@
   <string name="sweep_wallet_fragment_decrypt_progress">復号中……\n2分程度かかる場合があります。</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_progress">残高のロード中……</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_failed_title">ウォレットの残高のロードに失敗しました</string>
+  <string name="sweep_wallet_fragment_request_wallet_balance_failed_connection">Electrumネットワークに正常に接続できませんでした。</string>
+  <string name="sweep_wallet_fragment_request_wallet_balance_empty">ペーパーウォレットは空です。</string>
   <string name="sweep_wallet_fragment_insufficient_money_title">充分なコインがありません</string>
   <string name="sweep_wallet_fragment_insufficient_money_msg">ウォレット内のコインがスイープするには不十分です。</string>
   <string name="sweep_wallet_options_reload">残高のリロード</string>
@@ -165,7 +168,10 @@
   <string name="edit_address_book_entry_dialog_label_label">ラベル</string>
   <string name="edit_address_book_entry_dialog_button_edit">保存</string>
   <string name="transaction_row_fee">ネットワーク手数料</string>
-  <string name="transaction_row_confidence_message_sent_unbroadcasted">この支払はまだ送信されていません。</string>
+  <string name="transaction_row_confidence_message_sent_unbroadcasted">この支払いはまだ送信されていません。</string>
+  <string name="transaction_row_confidence_message_received_successful">この支払いはあなたのウォレットに入金されました。</string>
+  <string name="transaction_row_confidence_message_received_failed">支払いの受け取りに失敗しました。</string>
+  <string name="transaction_row_confidence_message_sent_failed">送金に失敗しました。</string>
   <string name="transaction_row_message_purpose_key_rotation">このトランザクションはウォレットの窃盗に対する強度を上げます。&lt;u&gt;より詳細な情報。&lt;/u&gt;</string>
   <string name="transaction_row_message_purpose_raise_fee">このトランザクションは前の支払いのネットワーク手数料を増額します。</string>
   <string name="transaction_row_message_received_direct">この支払は直接届きました。利用可能とならないリスクがあります。</string>
@@ -296,9 +302,9 @@
   <string name="about_license_title">ライセンス</string>
   <string name="about_source_title">ソースコード</string>
   <string name="about_category_credits">このアプリは以下のソフトウェアを利用しています。</string>
-  <string name="about_credits_bitcoinj_title">Bitcoinプロトコルの実装、bitcoinj %s</string>
-  <string name="about_credits_zxing_title">QRコード処理ライブラリ、ZXing</string>
-  <string name="about_credits_bouncycastle_title">Bouncy Castle, 暗号ライブラリ</string>
+  <string name="about_credits_bitcoinj_title">bitcoinj %s、Bitcoinプロトコルの実装</string>
+  <string name="about_credits_zxing_title">ZXing、QRコード処理ライブラリ</string>
+  <string name="about_credits_bouncycastle_title">Bouncy Castle、暗号ライブラリ</string>
   <string name="about_credits_scrypt_title">Scrypt, 鍵導出関数の実装</string>
   <string name="about_credits_okhttp_title">OkHttp, HTTPクライアントライブラリ</string>
   <string name="about_credits_moshi_title">Moshi, JSONライブラリ</string>
