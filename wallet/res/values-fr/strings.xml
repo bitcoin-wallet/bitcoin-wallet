@@ -37,6 +37,7 @@
   <string name="wallet_transactions_options_filter_all">Tous les paiements</string>
   <string name="wallet_transactions_options_filter_received">Paiements reçus</string>
   <string name="wallet_transactions_options_filter_sent">Paiements envoyés</string>
+  <string name="wallet_options_request_legacy">Demander à une adresse héritée</string>
   <string name="wallet_options_safety_menu">Sécurité</string>
   <string name="wallet_options_encrypt_keys_set">Définir le NIP de dépense</string>
   <string name="wallet_options_encrypt_keys_change">Changer le NIP de dépense</string>
@@ -123,6 +124,8 @@
   <string name="sweep_wallet_fragment_decrypt_progress">Déchiffrement…\nPeut prendre jusqu’à 2 min.</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_progress">Chargement du solde…</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_failed_title">Échec de chargement du solde</string>
+  <string name="sweep_wallet_fragment_request_wallet_balance_failed_connection">Vous avez une mauvaise connexion vers le réseau Electrum.</string>
+  <string name="sweep_wallet_fragment_request_wallet_balance_empty">Le porte-monnaie papier est vide.</string>
   <string name="sweep_wallet_fragment_insufficient_money_title">Pas assez de pièces</string>
   <string name="sweep_wallet_fragment_insufficient_money_msg">Le montant de pièces dans le porte-monnaie est trop petit pour être traité.</string>
   <string name="sweep_wallet_options_reload">Recharger le solde</string>
@@ -166,6 +169,9 @@
   <string name="edit_address_book_entry_dialog_button_edit">Enregistrer</string>
   <string name="transaction_row_fee">Frais de réseau</string>
   <string name="transaction_row_confidence_message_sent_unbroadcasted">Ce paiement n’a pas encore été transmis.</string>
+  <string name="transaction_row_confidence_message_received_successful">Ce paiement a été crédité à votre porte-monnaie.</string>
+  <string name="transaction_row_confidence_message_received_failed">Ce paiement a échoué.</string>
+  <string name="transaction_row_confidence_message_sent_failed">Votre paiement a échoué.</string>
   <string name="transaction_row_message_purpose_key_rotation">Cette transaction renforce votre porte-monnaie contre le vol. &lt;u&gt;Plus d’infos.&lt;/u&gt;</string>
   <string name="transaction_row_message_purpose_raise_fee">Cette transaction augmente les frais de réseau d’un paiement précédent.</string>
   <string name="transaction_row_message_received_direct">Ce paiement a été reçu directement. Il y a un risque qu’il ne puisse jamais être dépensé.</string>
@@ -185,8 +191,8 @@
   <string name="block_row_now">à l’instant</string>
   <string name="peer_list_fragment_empty">Aucun pair connecté</string>
   <string name="peer_list_row_ping_time">⇆ %d&#x2009;ms</string>
-  <string name="restore_wallet_permission_dialog_title">Droit de lecture manquant</string>
-  <string name="restore_wallet_permission_dialog_message">Afin de chercher les sauvegardes de porte-monnaie sur votre mémoire externe, vous devez accorder le droit de lecture.</string>
+  <string name="restore_wallet_permission_dialog_title">Il manque l’autorisation de lecture</string>
+  <string name="restore_wallet_permission_dialog_message">Afin de chercher les sauvegardes de porte-monnaie sur votre mémoire externe, vous devez accorder l’autorisation de lecture.</string>
   <string name="import_keys_dialog_title">Restaurer le porte-monnaie</string>
   <string name="import_keys_dialog_message">Choisir un fichier de sauvegarde de porte-monnaie sur une mémoire externe (%s) :</string>
   <string name="restore_wallet_dialog_message_empty">Aucune sauvegarde de porte-monnaie n’a été trouvée. Assurez-vous qu’elle est placée dans la mémoire externe (%s).</string>
@@ -229,8 +235,8 @@
   <string name="encrypt_keys_dialog_state_done">Terminé.</string>
   <string name="scan_camera_problem_dialog_title">Désolé</string>
   <string name="scan_camera_problem_dialog_message">L’appareil photo a un problème. Vous devez probablement redémarrer votre appareil.</string>
-  <string name="scan_camera_permission_dialog_title">Droit sur l’appareil photo</string>
-  <string name="scan_camera_permission_dialog_message">Afin de balayer des codes QR, vous devez accorder le droit d’utiliser l’appareil photo.</string>
+  <string name="scan_camera_permission_dialog_title">Autorisation sur l’appareil photo</string>
+  <string name="scan_camera_permission_dialog_message">Afin de balayer des codes QR, vous devez accorder autorisation d’utiliser l’appareil photo.</string>
   <string name="input_parser_io_error">Impossible de lire les données :\n%s</string>
   <string name="input_parser_cannot_classify">Impossible de reconnaître l’entrée :\n%s</string>
   <string name="input_parser_invalid_bitcoin_uri">L’URI Bitcoin est invalide :\n%s</string>
@@ -273,11 +279,11 @@
   <string name="preferences_initiate_reset_summary">Réinitialiser la chaîne de blocs et le solde du porte-monnaie. La relecture prendra du temps, ne le faites que si vous savez pourquoi.</string>
   <string name="preferences_initiate_reset_dialog_message">Souhaitez-vous réinitialiser et relire la chaîne de blocs ?\n\nLe solde de votre porte-monnaie sera caché et les transactions retirées temporairement. Les deux seront récupérés alors que la synchronisation de la chaîne de blocs progressera. Assurez-vous d’avoir une connexion Internet fiable.</string>
   <string name="preferences_initiate_reset_dialog_positive">Réinitialiser</string>
-  <string name="preferences_extended_public_key_title">Afficher la extended public key</string>
+  <string name="preferences_extended_public_key_title">Afficher la clé privée étendue</string>
   <string name="preferences_extended_public_key_summary">Visualisez la clé privée étendue de votre porte-monnaie afin qu’elle puisse être importée dans d’autres applis et services. Attention : Ceci divulguera vos renseignements monétaires à cette appli.</string>
   <string name="bitmap_fragment_share">Partager…</string>
   <string name="extended_public_key_fragment_title">Clé privée étendue</string>
-  <string name="extended_public_key_fragment_share">Partager la extended public key…</string>
+  <string name="extended_public_key_fragment_share">Partager la clé privée étendue…</string>
   <string name="report_issue_dialog_title_issue">Signaler un problème</string>
   <string name="report_issue_dialog_title_crash">Un plantage précédent a été détecté</string>
   <string name="report_issue_dialog_title_transaction">Signaler un problème avec le paiement sélectionné</string>
