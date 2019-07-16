@@ -37,6 +37,7 @@
   <string name="wallet_transactions_options_filter_all">Alle betalinger</string>
   <string name="wallet_transactions_options_filter_received">Modtagne betalinger</string>
   <string name="wallet_transactions_options_filter_sent">Sendte betalinger</string>
+  <string name="wallet_options_request_legacy">Anmod til ældre adresse</string>
   <string name="wallet_options_safety_menu">Sikkerhed</string>
   <string name="wallet_options_encrypt_keys_set">Sæt spenderings-PIN</string>
   <string name="wallet_options_encrypt_keys_change">Ændr spenderings-PIN</string>
@@ -123,6 +124,8 @@
   <string name="sweep_wallet_fragment_decrypt_progress">Afkrypterer…\nTager op til 2 minutter.</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_progress">Indlæser saldo…</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_failed_title">Indlæsning af tegnebogens saldo mislykkedes</string>
+  <string name="sweep_wallet_fragment_request_wallet_balance_failed_connection">Din forbindelse til Electrum-netværket er dårlig.</string>
+  <string name="sweep_wallet_fragment_request_wallet_balance_empty">Papirtegnebogen er tom.</string>
   <string name="sweep_wallet_fragment_insufficient_money_title">Ikke nok bitcoin</string>
   <string name="sweep_wallet_fragment_insufficient_money_msg">Mængden af bitcoin i tegnebogen er for lille til rydning.</string>
   <string name="sweep_wallet_options_reload">Genindlæs saldo</string>
