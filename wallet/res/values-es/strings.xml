@@ -27,6 +27,7 @@
   <string name="wallet_transactions_fragment_empty_text_received">Aún no se han recibido bitcoins.</string>
   <string name="wallet_transactions_fragment_empty_text_sent">Aún no se han enviado bitcoins.</string>
   <string name="wallet_transactions_fragment_empty_text_howto">¿Cómo obtener Bitcoins?\nCámbialos por dinero tradicional,\nvende bienes o servicios o\ngánalos trabajando</string>
+  <string name="wallet_transactions_fragment_empty_remind_backup">Por favor haga una copia de seguridad de su billetera\nantes de recibir Bitcoins!</string>
   <string name="wallet_transactions_row_warning_backup">Enhorabuena. ¡Has recibido tu primer pago! ¿Has hecho ya una &lt;u&gt;copia de seguridad de tu cartera&lt;/u&gt; como protección frente a pérdidas?</string>
   <string name="wallet_transactions_row_warning_storage_encryption">Consejo: para incrementar la seguridad de su wallet, usted puede escriptar su dispositivo. Esto permite la protección de sus datos con otras aplicaciones.</string>
   <string name="wallet_transactions_row_warning_chain_forking">la red de Bitcoin esta bajo mantenimiento. has sido avisado de no mandar o recibir Bitcoins hasta que finalice el mantenimiento. &lt;u&gt;Mas información.&lt;/u&gt;</string>
@@ -36,6 +37,7 @@
   <string name="wallet_transactions_options_filter_all">Todos los pagos</string>
   <string name="wallet_transactions_options_filter_received">Pagos recibidos</string>
   <string name="wallet_transactions_options_filter_sent">Pagos enviados</string>
+  <string name="wallet_options_request_legacy">Solicitud de dirección heredada</string>
   <string name="wallet_options_safety_menu">Seguridad</string>
   <string name="wallet_options_encrypt_keys_set">Establecer PIN para pagos</string>
   <string name="wallet_options_encrypt_keys_change">Cambiar PIN para pagos</string>
@@ -122,6 +124,8 @@
   <string name="sweep_wallet_fragment_decrypt_progress">Desencriptando…\nPuede tardar hasta 2 minutos.</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_progress">Cargando saldo…</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_failed_title">Error al cargar el saldo de la cartera</string>
+  <string name="sweep_wallet_fragment_request_wallet_balance_failed_connection">Tienes una mala conexión a la red de Electrum.</string>
+  <string name="sweep_wallet_fragment_request_wallet_balance_empty">La billetera de papel está vacía.</string>
   <string name="sweep_wallet_fragment_insufficient_money_title">No hay suficientes bitcoins</string>
   <string name="sweep_wallet_fragment_insufficient_money_msg">La cantidad de bitcoins en tu cartera es demasiado pequeña para ser convertidos.</string>
   <string name="sweep_wallet_options_reload">recargar el saldo</string>
@@ -297,7 +301,12 @@
   <string name="about_category_credits">Esta aplicación utiliza…</string>
   <string name="about_credits_bitcoinj_title">bitcoinj %s</string>
   <string name="about_credits_zxing_title">ZXing</string>
+  <string name="about_credits_bouncycastle_title">Bouncy Castle, una biblioteca de criptografía</string>
   <string name="about_credits_scrypt_title">Scrypt, implementado por Will Glozer y Colin Percival</string>
+  <string name="about_credits_okhttp_title">OkHttp, una biblioteca de cliente HTTP</string>
+  <string name="about_credits_moshi_title">Moshi, una biblioteca JSON</string>
+  <string name="about_credits_guava_title">Guava, una colección de utilidades de ayuda</string>
+  <string name="about_credits_slf4j_title">SLF4J, un marco de registros</string>
   <string name="about_market_app_title">Página en %s</string>
   <string name="about_market_app_summary">Critica o evalúa la aplicación</string>
   <string name="about_faq_title">Prefuntas Frecuentes</string>
