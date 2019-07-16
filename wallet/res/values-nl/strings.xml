@@ -37,6 +37,7 @@
   <string name="wallet_transactions_options_filter_all">Alle betalingen</string>
   <string name="wallet_transactions_options_filter_received">Ontvangen betalingen</string>
   <string name="wallet_transactions_options_filter_sent">Verzonden betalingen</string>
+  <string name="wallet_options_request_legacy">Verzoek aan verouderd (legacy) adres</string>
   <string name="wallet_options_safety_menu">Veiligheid</string>
   <string name="wallet_options_encrypt_keys_set">Betaalpincode instellen.</string>
   <string name="wallet_options_encrypt_keys_change">Wijzig pincode voor betalen</string>
@@ -123,6 +124,8 @@
   <string name="sweep_wallet_fragment_decrypt_progress">Decoderen…\nDit kan tot 2 minuten duren.</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_progress">Saldo wordt geladen…</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_failed_title">Saldo laden mislukt.</string>
+  <string name="sweep_wallet_fragment_request_wallet_balance_failed_connection">Je hebt een slechte verbinding met het Electrum-netwerk.</string>
+  <string name="sweep_wallet_fragment_request_wallet_balance_empty">De papieren portemonnee is leeg</string>
   <string name="sweep_wallet_fragment_insufficient_money_title">Niet genoeg saldo</string>
   <string name="sweep_wallet_fragment_insufficient_money_msg">De hoeveelheid bitcoins in de wallet is te laag om te kunnen overdragen.</string>
   <string name="sweep_wallet_options_reload">Saldo verversen</string>
