@@ -1,3 +1,9 @@
+v7.14
+
+* Remove native code from app.
+* Update translations from Transifex.
+* Based on bitcoinj 0.15.3.
+
 v7.13
 
 * Add confidence messages, helping users to understand the confidence state of their payments.
