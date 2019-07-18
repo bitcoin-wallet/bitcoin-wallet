@@ -362,8 +362,8 @@ public class WalletApplication extends Application {
     }
 
     public int scryptIterationsTarget() {
-        return activityManager.isLowRamDevice() ? Constants.SCRYPT_ITERATIONS_TARGET_LOWRAM
-                : Constants.SCRYPT_ITERATIONS_TARGET;
+        return activityManager.isLowRamDevice() || Build.SUPPORTED_64_BIT_ABIS.length == 0
+                ? Constants.SCRYPT_ITERATIONS_TARGET_LOWRAM : Constants.SCRYPT_ITERATIONS_TARGET;
     }
 
     public static String versionLine(final PackageInfo packageInfo) {
