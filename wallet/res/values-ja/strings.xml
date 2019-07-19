@@ -73,7 +73,7 @@
   <string name="send_coins_fragment_receiving_address_complex">複雑な\nアドレス</string>
   <string name="send_coins_fragment_pending">(%sが確認待ちです)</string>
   <string name="send_coins_fragment_amount_label">合計支払</string>
-  <string name="send_coins_fragment_hint_fee_economic">格安料金 %s が支払われます。重要: 「格安」は確認時間を気にしない場合のみ利用してください。 </string>
+  <string name="send_coins_fragment_hint_fee_economic">格安料金 %s が支払われます。重要: 「格安」は確認時間を気にしない場合のみ利用してください。</string>
   <string name="send_coins_fragment_hint_fee">ネットワーク料金 %s が支払われます。</string>
   <string name="send_coins_fragment_hint_fee_priority">優先料金 %s が支払われます。もし料金の安さを気にするのであれば、「優先」はできるだけ早く確定が必要なときのみ利用してください。</string>
   <string name="send_coins_fragment_hint_dusty_send">送金額小さすぎます</string>
@@ -170,6 +170,7 @@
   <string name="transaction_row_fee">ネットワーク手数料</string>
   <string name="transaction_row_confidence_message_sent_unbroadcasted">この支払いはまだ送信されていません。</string>
   <string name="transaction_row_confidence_message_received_successful">この支払いはあなたのウォレットに入金されました。</string>
+  <string name="transaction_row_confidence_message_sent_successful">送金に成功しました。受取人に届きました。</string>
   <string name="transaction_row_confidence_message_received_failed">支払いの受け取りに失敗しました。</string>
   <string name="transaction_row_confidence_message_sent_failed">送金に失敗しました。</string>
   <string name="transaction_row_message_purpose_key_rotation">このトランザクションはウォレットの窃盗に対する強度を上げます。&lt;u&gt;より詳細な情報。&lt;/u&gt;</string>
