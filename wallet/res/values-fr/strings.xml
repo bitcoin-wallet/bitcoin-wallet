@@ -170,6 +170,7 @@
   <string name="transaction_row_fee">Frais de réseau</string>
   <string name="transaction_row_confidence_message_sent_unbroadcasted">Ce paiement n’a pas encore été transmis.</string>
   <string name="transaction_row_confidence_message_received_successful">Ce paiement a été crédité à votre porte-monnaie.</string>
+  <string name="transaction_row_confidence_message_sent_successful">Votre paiement a été effectué avec succès. Il a atteint le bénéficiaire.</string>
   <string name="transaction_row_confidence_message_received_failed">Ce paiement a échoué.</string>
   <string name="transaction_row_confidence_message_sent_failed">Votre paiement a échoué.</string>
   <string name="transaction_row_message_purpose_key_rotation">Cette transaction renforce votre porte-monnaie contre le vol. &lt;u&gt;Plus d’infos.&lt;/u&gt;</string>
