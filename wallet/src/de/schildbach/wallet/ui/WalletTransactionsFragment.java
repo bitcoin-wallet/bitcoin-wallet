@@ -343,8 +343,13 @@ public class WalletTransactionsFragment extends Fragment implements Transactions
                 contextualData.append('\n');
                 if (tx.hasConfidence())
                     contextualData.append("  confidence: ").append(tx.getConfidence()).append('\n');
+                final String[] blockExplorers = activity.getResources()
+                        .getStringArray(R.array.preferences_block_explorer_values);
+                for (final String blockExplorer : blockExplorers)
+                    contextualData
+                            .append(Uri.withAppendedPath(Uri.parse(blockExplorer), "tx/" + tx.getTxId().toString()))
+                            .append('\n');
                 contextualData.append(tx.toString());
-
                 viewModel.showReportIssueDialog.setValue(new Event<>(contextualData.toString()));
             }
         });
