@@ -1,3 +1,7 @@
+v7.16
+
+* Count devices with a memory class of 128 MB as low-ram.
+
 v7.15
 
 * Handle edge case when restoring via an external app.
