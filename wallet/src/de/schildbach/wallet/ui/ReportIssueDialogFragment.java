@@ -209,7 +209,7 @@ public class ReportIssueDialogFragment extends DialogFragment {
         report.append("Test/Prod: " + (Constants.TEST ? "test" : "prod") + "\n");
         report.append("Timezone: " + TimeZone.getDefault().getID() + "\n");
         calendar.setTimeInMillis(System.currentTimeMillis());
-        report.append("Time: " + String.format(Locale.US, "%tF %tT %tZ", calendar, calendar, calendar) + "\n");
+        report.append("Current time: " + String.format(Locale.US, "%tF %tT %tZ", calendar, calendar, calendar) + "\n");
         calendar.setTimeInMillis(WalletApplication.TIME_CREATE_APPLICATION);
         report.append(
                 "Time of launch: " + String.format(Locale.US, "%tF %tT %tZ", calendar, calendar, calendar) + "\n");
