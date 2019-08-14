@@ -65,6 +65,7 @@ public class Configuration {
     private static final String PREFS_KEY_CHANGE_LOG_VERSION = "change_log_version";
     public static final String PREFS_KEY_REMIND_BACKUP = "remind_backup";
     private static final String PREFS_KEY_LAST_BACKUP = "last_backup";
+    private static final String PREFS_KEY_LAST_RESTORE = "last_restore";
     private static final String PREFS_KEY_LAST_BLUETOOTH_ADDRESS = "last_bluetooth_address";
 
     private static final int PREFS_DEFAULT_BTC_SHIFT = 3;
@@ -173,6 +174,14 @@ public class Configuration {
     public void disarmBackupReminder() {
         prefs.edit().putBoolean(PREFS_KEY_REMIND_BACKUP, false)
                 .putLong(PREFS_KEY_LAST_BACKUP, System.currentTimeMillis()).apply();
+    }
+
+    public long getLastRestoreTime() {
+        return prefs.getLong(PREFS_KEY_LAST_RESTORE, 0);
+    }
+
+    public void updateLastRestoreTime() {
+        prefs.edit().putLong(PREFS_KEY_LAST_RESTORE, System.currentTimeMillis());
     }
 
     public boolean getDisclaimerEnabled() {

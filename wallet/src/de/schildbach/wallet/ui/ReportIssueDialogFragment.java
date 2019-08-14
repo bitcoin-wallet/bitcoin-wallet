@@ -221,8 +221,13 @@ public class ReportIssueDialogFragment extends DialogFragment {
                 + "\n");
         final long lastBackupTime = configuration.getLastBackupTime();
         calendar.setTimeInMillis(lastBackupTime);
-        report.append("Time of backup: "
+        report.append("Time of last backup: "
                 + (lastBackupTime > 0 ? String.format(Locale.US, "%tF %tT %tZ", calendar, calendar, calendar) : "none")
+                + "\n");
+        final long lastRestoreTime = configuration.getLastRestoreTime();
+        calendar.setTimeInMillis(lastRestoreTime);
+        report.append("Time of last restore: "
+                + (lastRestoreTime > 0 ? String.format(Locale.US, "%tF %tT %tZ", calendar, calendar, calendar) : "none")
                 + "\n");
         report.append("Network: " + Constants.NETWORK_PARAMETERS.getId() + "\n");
         final Wallet wallet = viewModel.wallet.getValue();

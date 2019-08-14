@@ -345,6 +345,7 @@ public class RestoreWalletDialogFragment extends DialogFragment {
     private void restoreWallet(final Wallet restoredWallet) throws IOException {
         application.replaceWallet(restoredWallet);
         config.disarmBackupReminder();
+        config.updateLastRestoreTime();
         viewModel.showSuccessDialog.setValue(new Event<>(restoredWallet.isEncrypted()));
     }
 
