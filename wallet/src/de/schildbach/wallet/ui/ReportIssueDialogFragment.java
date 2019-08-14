@@ -229,6 +229,13 @@ public class ReportIssueDialogFragment extends DialogFragment {
         report.append("Time of last restore: "
                 + (lastRestoreTime > 0 ? String.format(Locale.US, "%tF %tT %tZ", calendar, calendar, calendar) : "none")
                 + "\n");
+        final long lastBlockchainResetTime = configuration.getLastBlockchainResetTime();
+        calendar.setTimeInMillis(lastBlockchainResetTime);
+        report.append(
+                "Time of last blockchain reset: "
+                        + (lastBlockchainResetTime > 0
+                                ? String.format(Locale.US, "%tF %tT %tZ", calendar, calendar, calendar) : "none")
+                        + "\n");
         report.append("Network: " + Constants.NETWORK_PARAMETERS.getId() + "\n");
         final Wallet wallet = viewModel.wallet.getValue();
         report.append("Encrypted: " + wallet.isEncrypted() + "\n");

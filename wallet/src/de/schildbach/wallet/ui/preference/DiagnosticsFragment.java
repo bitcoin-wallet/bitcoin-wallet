@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2015 the original author or authors.
+ * Copyright the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,6 +25,7 @@ import org.bitcoinj.wallet.DeterministicKeyChain;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.R;
 import de.schildbach.wallet.WalletApplication;
@@ -45,6 +46,7 @@ import android.preference.PreferenceScreen;
 public final class DiagnosticsFragment extends PreferenceFragment {
     private Activity activity;
     private WalletApplication application;
+    private Configuration config;
 
     private static final String PREFS_KEY_INITIATE_RESET = "initiate_reset";
     private static final String PREFS_KEY_EXTENDED_PUBLIC_KEY = "extended_public_key";
@@ -54,9 +56,9 @@ public final class DiagnosticsFragment extends PreferenceFragment {
     @Override
     public void onAttach(final Activity activity) {
         super.onAttach(activity);
-
         this.activity = activity;
         this.application = (WalletApplication) activity.getApplication();
+        this.config = application.getConfiguration();
     }
 
     @Override
@@ -91,6 +93,7 @@ public final class DiagnosticsFragment extends PreferenceFragment {
                 log.info("manually initiated blockchain reset");
 
                 BlockchainService.resetBlockchain(activity);
+                config.updateLastBlockchainResetTime();
                 activity.finish(); // TODO doesn't fully finish prefs on single pane layouts
             }
         });
