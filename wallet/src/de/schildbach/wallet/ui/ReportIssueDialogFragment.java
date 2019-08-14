@@ -212,13 +212,13 @@ public class ReportIssueDialogFragment extends DialogFragment {
         report.append("Current time: " + String.format(Locale.US, "%tF %tT %tZ", calendar, calendar, calendar) + "\n");
         calendar.setTimeInMillis(WalletApplication.TIME_CREATE_APPLICATION);
         report.append(
-                "Time of launch: " + String.format(Locale.US, "%tF %tT %tZ", calendar, calendar, calendar) + "\n");
-        calendar.setTimeInMillis(pi.lastUpdateTime);
-        report.append(
-                "Time of last update: " + String.format(Locale.US, "%tF %tT %tZ", calendar, calendar, calendar) + "\n");
+                "Time of app launch: " + String.format(Locale.US, "%tF %tT %tZ", calendar, calendar, calendar) + "\n");
         calendar.setTimeInMillis(pi.firstInstallTime);
-        report.append("Time of first install: " + String.format(Locale.US, "%tF %tT %tZ", calendar, calendar, calendar)
-                + "\n");
+        report.append("Time of first app install: "
+                + String.format(Locale.US, "%tF %tT %tZ", calendar, calendar, calendar) + "\n");
+        calendar.setTimeInMillis(pi.lastUpdateTime);
+        report.append("Time of last app update: "
+                + String.format(Locale.US, "%tF %tT %tZ", calendar, calendar, calendar) + "\n");
         final long lastBackupTime = configuration.getLastBackupTime();
         calendar.setTimeInMillis(lastBackupTime);
         report.append("Time of last backup: "
