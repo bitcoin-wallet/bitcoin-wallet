@@ -20,6 +20,7 @@ package de.schildbach.wallet.ui;
 import java.io.File;
 import java.io.IOException;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Formatter;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -29,6 +30,7 @@ import java.util.TimeZone;
 
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.TransactionOutput;
+import org.bitcoinj.core.Utils;
 import org.bitcoinj.wallet.Wallet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -257,8 +259,11 @@ public class ReportIssueDialogFragment extends DialogFragment {
         report.append("Transactions: " + transactions.size() + "\n");
         report.append("Inputs: " + numInputs + "\n");
         report.append("Outputs: " + numOutputs + " (spent: " + numSpentOutputs + ")\n");
-        report.append(
-                "Last block seen: " + wallet.getLastBlockSeenHeight() + " (" + wallet.getLastBlockSeenHash() + ")\n");
+        final int lastBlockSeenHeight = wallet.getLastBlockSeenHeight();
+        final Date lastBlockSeenTime = wallet.getLastBlockSeenTime();
+        report.append("Last block seen: " + lastBlockSeenHeight).append(" (")
+                .append(lastBlockSeenTime == null ? "time unknown" : Utils.dateTimeFormat(lastBlockSeenTime))
+                .append(")\n");
 
         report.append("Databases:");
         for (final String db : application.databaseList())
