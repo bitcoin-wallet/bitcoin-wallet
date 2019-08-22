@@ -1,5 +1,11 @@
-HEAD
 Groestlcoin Wallet
+
+v7.11.1
+Use Gradle 4.6
+
+v7.11
+Updated to Bitcoin Wallet 7.11
+
 v4.46.3
 Corrected xpub
 
