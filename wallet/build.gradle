@@ -49,7 +49,7 @@ android {
     }
 
     defaultConfig {
-        applicationId 'de.schildbach.wallet_test'
+        applicationId 'de.schildbach'
         dexOptions {
             preDexLibraries false
         }
@@ -66,12 +66,28 @@ android {
         }
     }
 
+    flavorDimensions 'flavor'
+    productFlavors {
+        dev {
+            dimension 'flavor'
+            applicationIdSuffix '.wallet_test'
+        }
+        prod {
+            dimension 'flavor'
+            applicationIdSuffix '.wallet'
+        }
+    }
+
     sourceSets {
         main {
             manifest.srcFile 'AndroidManifest.xml'
             java.srcDirs = ['src']
             res.srcDirs = ['res']
             assets.srcDirs = ['assets']
+        }
+        prod {
+            res.srcDirs = ['res-prod']
+            assets.srcDirs = ['assets-prod']
         }
         test {
             java.srcDirs = ['test']
@@ -95,6 +111,14 @@ android {
 task svgToPngMipmap(type: fr.avianey.androidsvgdrawable.gradle.SvgDrawableTask) {
     from = files('graphics/mipmap')
     to = file('res')
+    targetedDensities = ['hdpi', 'xhdpi', 'xxhdpi', 'xxxhdpi']
+    outputFormat = 'PNG'
+    outputType = 'mipmap'
+}
+
+task svgToPngMipmapProd(type: fr.avianey.androidsvgdrawable.gradle.SvgDrawableTask) {
+    from = files('graphics-prod/mipmap')
+    to = file('res-prod')
     targetedDensities = ['hdpi', 'xhdpi', 'xxhdpi', 'xxxhdpi']
     outputFormat = 'PNG'
     outputType = 'mipmap'

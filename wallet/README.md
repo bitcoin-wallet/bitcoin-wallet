@@ -78,7 +78,7 @@ use:
 To install the app on your Android device, use:
 
     # each time
-    gradle installDebug
+    gradle installDevDebug
 
 If installation fails, make sure "Developer options" and "USB debugging" are enabled on your Android device, and an ADB
 connection is established.
@@ -92,7 +92,7 @@ for security issues and build, install and run the application in a secure way.
 
 The production version uses Mainnet, is built non-debuggable, space-optimized with ProGuard and the
 wallet file is protected against access from non-root users. In the code repository, it lives in a
-separate 'prod' branch that gets rebased against master with each released version.
+separate 'prod' flavor.
 
     # each time
     cd bitcoin-wallet

@@ -187,12 +187,12 @@
 
         <provider
             android:name="de.schildbach.wallet.data.ExchangeRatesProvider"
-            android:authorities="de.schildbach.wallet_test.exchange_rates"
+            android:authorities="${applicationId}.exchange_rates"
             android:exported="false" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="de.schildbach.wallet_test.file_attachment"
+            android:authorities="${applicationId}.file_attachment"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
