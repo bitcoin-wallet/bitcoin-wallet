@@ -23,7 +23,7 @@ dependencies {
     annotationProcessor "androidx.room:room-compiler:2.1.0"
     compile 'org.bitcoinj:bitcoinj-core:0.15.3'
     compile 'com.google.protobuf:protobuf-java:3.7.1'
-    compile 'com.google.guava:guava:28.0-android'
+    compile 'com.google.guava:guava:28.1-android'
     compile 'com.google.zxing:core:3.3.3'
     compile 'com.squareup.okhttp3:okhttp:3.12.3'
     compile 'com.squareup.okhttp3:logging-interceptor:3.12.3'
