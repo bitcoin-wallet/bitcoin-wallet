@@ -17,11 +17,6 @@
 
 package de.schildbach.wallet.util;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import de.schildbach.wallet.R;
-
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -32,7 +27,13 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.view.View;
+import androidx.annotation.ColorInt;
+import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener;
+import de.schildbach.wallet.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Andreas Schildbach
@@ -41,6 +42,10 @@ public class ViewPagerTabs extends View implements OnPageChangeListener {
     private final List<String> labels = new ArrayList<String>();
     private final Paint paint = new Paint();
     private int maxWidth = 0;
+    @ColorInt
+    private int textColor, selectedTextColor;
+    @ColorInt
+    private int indicatorColor;
 
     // instance state
     private int pagePosition = 0;
@@ -52,9 +57,12 @@ public class ViewPagerTabs extends View implements OnPageChangeListener {
         setSaveEnabled(true);
 
         paint.setTextSize(getResources().getDimension(R.dimen.font_size_tiny));
-        paint.setColor(Color.BLACK);
         paint.setAntiAlias(true);
         paint.setShadowLayer(2, 0, 0, Color.WHITE);
+
+        textColor = ContextCompat.getColor(context, R.color.fg_less_significant);
+        selectedTextColor = ContextCompat.getColor(context, R.color.fg_significant);
+        indicatorColor = ContextCompat.getColor(context, R.color.bg_list);
     }
 
     public void addTabLabels(final int... labelResId) {
@@ -93,7 +101,7 @@ public class ViewPagerTabs extends View implements OnPageChangeListener {
         path.lineTo(viewHalfWidth - 5 * density, viewBottom);
         path.close();
 
-        paint.setColor(Color.WHITE);
+        paint.setColor(indicatorColor);
         canvas.drawPath(path, paint);
 
         paint.setTypeface(Typeface.DEFAULT_BOLD);
@@ -103,7 +111,7 @@ public class ViewPagerTabs extends View implements OnPageChangeListener {
             final String label = labels.get(i);
 
             paint.setTypeface(i == pagePosition ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);
-            paint.setColor(i == pagePosition ? Color.BLACK : Color.DKGRAY);
+            paint.setColor(i == pagePosition ? selectedTextColor : textColor);
 
             final float x = viewHalfWidth + (maxWidth + spacing) * (i - pageOffset);
             final float labelWidth = paint.measureText(label);
