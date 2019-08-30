@@ -7,8 +7,8 @@
                 android:angle="270"
                 android:centerX="50%"
                 android:centerY="50%"
-                android:endColor="#999999"
-                android:startColor="#bbbbbb"
+                android:endColor="@color/appicon_gradient_end"
+                android:startColor="@color/appicon_gradient_start"
                 android:type="linear" />
         </shape>
     </background>
