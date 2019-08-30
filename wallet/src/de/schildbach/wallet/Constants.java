@@ -111,8 +111,8 @@ public final class Constants {
         /** Filename of the fees files. */
         public static final String FEES_FILENAME = "fees" + FILENAME_NETWORK_SUFFIX + ".txt";
 
-        /** Filename of the file containing Electrum servers. */
-        public static final String ELECTRUM_SERVERS_FILENAME = "electrum-servers.txt";
+        /** Name of the asset containing Electrum servers. */
+        public static final String ELECTRUM_SERVERS_ASSET = "electrum-servers.txt";
     }
 
     /** URL to fetch version alerts from. */
