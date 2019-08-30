@@ -104,8 +104,8 @@ public final class Constants {
         /** Capacity of the block store. */
         public static final int BLOCKCHAIN_STORE_CAPACITY = 10000;
 
-        /** Name of the block checkpoints asset. */
-        public static final String CHECKPOINTS_ASSET = "checkpoints" + FILENAME_NETWORK_SUFFIX + ".txt";
+        /** Name of the asset containing the block checkpoints. */
+        public static final String CHECKPOINTS_ASSET = "checkpoints.txt";
 
         /** Name of the asset containing hardcoded fees. Also filename of the dynamic fees file. */
         public static final String FEES_ASSET = "fees" + FILENAME_NETWORK_SUFFIX + ".txt";
