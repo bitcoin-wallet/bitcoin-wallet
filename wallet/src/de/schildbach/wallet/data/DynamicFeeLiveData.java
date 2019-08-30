@@ -75,8 +75,8 @@ public class DynamicFeeLiveData extends LiveData<Map<FeeCategory, Coin>> {
                 + (versionNameSplit >= 0 ? packageInfo.versionName.substring(versionNameSplit) : ""));
         this.userAgent = WalletApplication.httpUserAgent(packageInfo.versionName);
         this.assets = application.getAssets();
-        this.dynamicFeesFile = new File(application.getFilesDir(), Constants.Files.FEES_FILENAME);
-        this.tempFile = new File(application.getCacheDir(), Constants.Files.FEES_FILENAME + ".temp");
+        this.dynamicFeesFile = new File(application.getFilesDir(), Constants.Files.FEES_ASSET);
+        this.tempFile = new File(application.getCacheDir(), Constants.Files.FEES_ASSET + ".temp");
     }
 
     @Override
@@ -92,7 +92,7 @@ public class DynamicFeeLiveData extends LiveData<Map<FeeCategory, Coin>> {
 
     private Map<FeeCategory, Coin> loadInBackground() {
         try {
-            final Map<FeeCategory, Coin> staticFees = parseFees(assets.open(Constants.Files.FEES_FILENAME));
+            final Map<FeeCategory, Coin> staticFees = parseFees(assets.open(Constants.Files.FEES_ASSET));
             fetchDynamicFees(dynamicFeesUrl, tempFile, dynamicFeesFile, userAgent);
             if (!dynamicFeesFile.exists())
                 return staticFees;
