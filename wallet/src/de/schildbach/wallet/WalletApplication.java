@@ -103,8 +103,8 @@ public class WalletApplication extends Application {
         org.bitcoinj.core.Context.enableStrictMode();
         org.bitcoinj.core.Context.propagate(Constants.CONTEXT);
 
-        log.info("=== starting app using configuration: {}, {}", Constants.TEST ? "test" : "prod",
-                Constants.NETWORK_PARAMETERS.getId());
+        log.info("=== starting app using flavor: {}, build type: {}, network: {}", BuildConfig.FLAVOR,
+                BuildConfig.BUILD_TYPE, Constants.NETWORK_PARAMETERS.getId());
 
         super.onCreate();
 
