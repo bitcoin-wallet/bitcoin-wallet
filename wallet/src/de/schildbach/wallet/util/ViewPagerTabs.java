@@ -58,7 +58,6 @@ public class ViewPagerTabs extends View implements OnPageChangeListener {
 
         paint.setTextSize(getResources().getDimension(R.dimen.font_size_tiny));
         paint.setAntiAlias(true);
-        paint.setShadowLayer(2, 0, 0, Color.WHITE);
 
         textColor = ContextCompat.getColor(context, R.color.fg_less_significant);
         selectedTextColor = ContextCompat.getColor(context, R.color.fg_significant);
