@@ -1,3 +1,7 @@
+v7.18
+
+* Improve performance by a bit.
+
 v7.16-v7.17
 
 * Count devices with a memory class of 128 MB as low-ram.
