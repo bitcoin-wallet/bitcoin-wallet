@@ -39,7 +39,7 @@ import java.util.List;
  * @author Andreas Schildbach
  */
 public class ViewPagerTabs extends View implements OnPageChangeListener {
-    private final List<String> labels = new ArrayList<String>();
+    private final List<String> labels = new ArrayList<>();
     private final Paint paint = new Paint();
     private int maxWidth = 0;
     @ColorInt
