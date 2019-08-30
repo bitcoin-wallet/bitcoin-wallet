@@ -28,6 +28,7 @@ import java.util.Locale;
 import java.util.Set;
 import java.util.TimeZone;
 
+import de.schildbach.wallet.BuildConfig;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.TransactionOutput;
 import org.bitcoinj.core.Utils;
@@ -203,13 +204,14 @@ public class ReportIssueDialogFragment extends DialogFragment {
         report.append("Version: " + pi.versionName + " (" + pi.versionCode + ")\n");
         report.append("APK Hash: " + application.apkHash().toString() + "\n");
         report.append("Package: " + pi.packageName + "\n");
+        report.append("Flavor: " + BuildConfig.FLAVOR + "\n");
+        report.append("Build Type: " + BuildConfig.BUILD_TYPE + "\n");
         final String installerPackageName = Installer.installerPackageName(application);
         final Installer installer = Installer.from(installerPackageName);
         if (installer != null)
             report.append("Installer: " + installer.displayName + " (" + installerPackageName + ")\n");
         else
             report.append("Installer: unknown\n");
-        report.append("Test/Prod: " + (Constants.TEST ? "test" : "prod") + "\n");
         report.append("Timezone: " + TimeZone.getDefault().getID() + "\n");
         calendar.setTimeInMillis(System.currentTimeMillis());
         report.append("Current time: " + String.format(Locale.US, "%tF %tT %tZ", calendar, calendar, calendar) + "\n");
