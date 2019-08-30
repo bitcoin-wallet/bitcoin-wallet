@@ -107,8 +107,11 @@ public final class Constants {
         /** Name of the asset containing the block checkpoints. */
         public static final String CHECKPOINTS_ASSET = "checkpoints.txt";
 
-        /** Name of the asset containing hardcoded fees. Also filename of the dynamic fees file. */
-        public static final String FEES_ASSET = "fees" + FILENAME_NETWORK_SUFFIX + ".txt";
+        /** Name of the asset containing hardcoded fees. */
+        public static final String FEES_ASSET = "fees.txt";
+
+        /** Filename of the dynamic fees file. */
+        public static final String FEES_FILENAME = "fees" + FILENAME_NETWORK_SUFFIX + ".txt";
 
         /** Name of the asset containing Electrum servers. */
         public static final String ELECTRUM_SERVERS_ASSET = "electrum-servers.txt";
