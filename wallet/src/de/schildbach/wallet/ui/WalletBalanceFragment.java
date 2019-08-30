@@ -18,6 +18,7 @@
 package de.schildbach.wallet.ui;
 
 import org.bitcoinj.core.Coin;
+import org.bitcoinj.core.NetworkParameters;
 import org.bitcoinj.utils.Fiat;
 
 import de.schildbach.wallet.Configuration;
@@ -139,7 +140,7 @@ public final class WalletBalanceFragment extends Fragment {
 
         viewBalanceLocal = (CurrencyTextView) view.findViewById(R.id.wallet_balance_local);
         viewBalanceLocal.setInsignificantRelativeSize(1);
-        viewBalanceLocal.setStrikeThru(Constants.TEST);
+        viewBalanceLocal.setStrikeThru(!Constants.NETWORK_PARAMETERS.getId().equals(NetworkParameters.ID_MAINNET));
 
         viewProgress = (TextView) view.findViewById(R.id.wallet_balance_progress);
     }

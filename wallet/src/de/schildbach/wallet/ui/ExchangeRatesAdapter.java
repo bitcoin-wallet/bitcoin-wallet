@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Objects;
 
 import org.bitcoinj.core.Coin;
+import org.bitcoinj.core.NetworkParameters;
 import org.bitcoinj.utils.Fiat;
 
 import de.schildbach.wallet.Constants;
@@ -125,7 +126,7 @@ public class ExchangeRatesAdapter extends ListAdapter<ExchangeRatesAdapter.ListI
         holder.walletView.setFormat(Constants.LOCAL_FORMAT);
         if (listItem.balanceAsFiat != null) {
             holder.walletView.setAmount(listItem.balanceAsFiat);
-            holder.walletView.setStrikeThru(Constants.TEST);
+            holder.walletView.setStrikeThru(!Constants.NETWORK_PARAMETERS.getId().equals(NetworkParameters.ID_MAINNET));
         } else {
             holder.walletView.setText("n/a");
             holder.walletView.setStrikeThru(false);
