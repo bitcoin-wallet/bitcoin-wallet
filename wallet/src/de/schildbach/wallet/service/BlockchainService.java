@@ -553,11 +553,11 @@ public class BlockchainService extends LifecycleService {
                         try {
                             final Stopwatch watch = Stopwatch.createStarted();
                             final InputStream checkpointsInputStream = getAssets()
-                                    .open(Constants.Files.CHECKPOINTS_FILENAME);
+                                    .open(Constants.Files.CHECKPOINTS_ASSET);
                             CheckpointManager.checkpoint(Constants.NETWORK_PARAMETERS, checkpointsInputStream,
                                     blockStore, earliestKeyCreationTime);
                             watch.stop();
-                            log.info("checkpoints loaded from '{}', took {}", Constants.Files.CHECKPOINTS_FILENAME,
+                            log.info("checkpoints loaded from '{}', took {}", Constants.Files.CHECKPOINTS_ASSET,
                                     watch);
                         } catch (final IOException x) {
                             log.error("problem reading checkpoints, continuing without", x);
