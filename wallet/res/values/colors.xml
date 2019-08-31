@@ -3,8 +3,8 @@
 
     <!-- foreground -->
     <color name="fg_significant">#ff000000</color>
-    <color name="fg_less_significant">#ff666666</color>
-    <color name="fg_insignificant">#ffbbbbbb</color>
+    <color name="fg_less_significant">#ff555555</color>
+    <color name="fg_insignificant">#ffaaaaaa</color>
     <color name="fg_value_positive">#ff008000</color>
     <color name="fg_value_negative">#ff990000</color>
     <color name="fg_error">#ffff0000</color>
