@@ -280,20 +280,20 @@ public final class CurrencyAmountView extends FrameLayout {
 
     private void updateAppearance() {
         final boolean enabled = textView.isEnabled();
-
-        contextButton.setEnabled(enabled);
-
         final String amount = textView.getText().toString().trim();
 
         if (enabled && !amount.isEmpty()) {
             textView.setCompoundDrawablesWithIntrinsicBounds(currencySymbolDrawable, null, deleteButtonDrawable, null);
             contextButton.setOnClickListener(deleteClickListener);
+            contextButton.setEnabled(enabled);
         } else if (enabled && contextButtonDrawable != null) {
             textView.setCompoundDrawablesWithIntrinsicBounds(currencySymbolDrawable, null, contextButtonDrawable, null);
             contextButton.setOnClickListener(contextButtonClickListener);
+            contextButton.setEnabled(enabled);
         } else {
             textView.setCompoundDrawablesWithIntrinsicBounds(currencySymbolDrawable, null, null, null);
             contextButton.setOnClickListener(null);
+            contextButton.setEnabled(false);
         }
 
         contextButton.requestLayout();
