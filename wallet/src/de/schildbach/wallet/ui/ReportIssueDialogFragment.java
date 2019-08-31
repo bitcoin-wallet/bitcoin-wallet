@@ -257,6 +257,7 @@ public class ReportIssueDialogFragment extends DialogFragment {
         report.append("Time of last blockchain reset: ").append(lastBlockchainResetTime > 0
                 ? String.format(Locale.US, "%tF %tT %tZ", calendar, calendar, calendar) : "none").append("\n");
         report.append("Network: ").append(Constants.NETWORK_PARAMETERS.getId()).append("\n");
+        report.append("Sync mode: ").append(config.getSyncMode().name()).append("\n");
         final Wallet wallet = walletActivityViewModel.wallet.getValue();
         report.append("Encrypted: ").append(String.valueOf(wallet.isEncrypted())).append("\n");
         report.append("Keychain size: ").append(String.valueOf(wallet.getKeyChainGroupSize())).append("\n");

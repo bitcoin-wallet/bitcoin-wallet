@@ -415,7 +415,8 @@ public class BlockchainService extends LifecycleService {
 
     private final SharedPreferences.OnSharedPreferenceChangeListener preferenceChangeListener =
             (sharedPreferences, key) -> {
-                if (Configuration.PREFS_KEY_TRUSTED_PEERS.equals(key) || Configuration.PREFS_KEY_TRUSTED_PEERS_ONLY.equals(key))
+                if (Configuration.PREFS_KEY_SYNC_MODE.equals(key) || Configuration.PREFS_KEY_TRUSTED_PEERS.equals(key) ||
+                        Configuration.PREFS_KEY_TRUSTED_PEERS_ONLY.equals(key))
                     stopSelf();
             };
 
@@ -611,10 +612,12 @@ public class BlockchainService extends LifecycleService {
                     CrashReporter.saveBackgroundTrace(new RuntimeException(message), application.packageInfo());
                 }
 
+                final Configuration.SyncMode syncMode = config.getSyncMode();
                 peerGroup = new PeerGroup(Constants.NETWORK_PARAMETERS, blockChain);
-                log.info("creating {}", peerGroup);
+                log.info("creating {}, sync mode: {}", peerGroup, syncMode);
                 peerGroup.setDownloadTxDependencies(0); // recursive implementation causes StackOverflowError
                 peerGroup.addWallet(wallet);
+                peerGroup.setBloomFilteringEnabled(syncMode == Configuration.SyncMode.CONNECTION_FILTER);
                 peerGroup.setUserAgent(Constants.USER_AGENT, application.packageInfo().versionName);
                 peerGroup.addConnectedEventListener(peerConnectivityListener);
                 peerGroup.addDisconnectedEventListener(peerConnectivityListener);
@@ -643,8 +646,12 @@ public class BlockchainService extends LifecycleService {
                 for (final String trustedPeer : trustedPeers)
                     resolveDnsTask.resolve(trustedPeer);
 
-                if (!trustedPeerOnly)
-                    peerGroup.setRequiredServices(VersionMessage.NODE_BLOOM | VersionMessage.NODE_WITNESS);
+                if (!trustedPeerOnly) {
+                    if (syncMode == Configuration.SyncMode.CONNECTION_FILTER)
+                        peerGroup.setRequiredServices(VersionMessage.NODE_BLOOM | VersionMessage.NODE_WITNESS);
+                    else
+                        peerGroup.setRequiredServices(VersionMessage.NODE_WITNESS);
+                }
 
                 // start peergroup
                 log.info("starting {} asynchronously", peerGroup);

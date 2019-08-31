@@ -353,6 +353,10 @@ public class WalletApplication extends Application {
                 ? Constants.SCRYPT_ITERATIONS_TARGET_LOWRAM : Constants.SCRYPT_ITERATIONS_TARGET;
     }
 
+    public boolean fullSyncCapable() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && activityManager.getMemoryClass() >= 192;
+    }
+
     public static String versionLine(final PackageInfo packageInfo) {
         return ImmutableList.copyOf(Splitter.on('.').splitToList(packageInfo.packageName)).reverse().get(0) + ' '
                 + packageInfo.versionName + (BuildConfig.DEBUG ? " (debuggable)" : "");

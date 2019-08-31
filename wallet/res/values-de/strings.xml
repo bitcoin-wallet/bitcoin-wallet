@@ -254,6 +254,10 @@
     <string name="preferences_own_name_dialog_message">Bitte halte ihn kurz.</string>
     <string name="preferences_send_coins_autoclose_title">Senden-Dialog automatisch schließen</string>
     <string name="preferences_send_coins_autoclose_summary">Wenn die Zahlung gesendet ist, wird der Senden-Dialog automatisch geschlossen.</string>
+    <string name="preferences_sync_mode_title">Datenverbrauch vs. Privatsphäre</string>
+    <string name="preferences_sync_mode_summary">Wähle bei der Netzwerk-Synchronisation zwischen geringem Datenverbrauch und verbesserter Privatsphäre.</string>
+    <string name="preferences_sync_mode_labels_connection_filter"><![CDATA[<b>Geringer Datenverbrauch:</b> Nutzt einen Netzwerk-Filter um nur Transaktionen zu übertragen, die relevant für deine Wallet sind. Das benötigt etwa 500 MB pro Monat, teilt den Filter aber dem Netzwerk mit.]]></string>
+    <string name="preferences_sync_mode_labels_full"><![CDATA[<b>Verbesserte Privatsphäre:</b> Legt keine Informationen über deine Wallet offen. Beachte daß weil alle Transaktionen übertragen werden, benötigt dies üppige 10 GB pro Monat. Bevor du dies nutzt, kläre bitte ob sich dein Tarif eignet.]]></string>
     <string name="preferences_trusted_peer_title">Vertrauenswürdiger Peer</string>
     <string name="preferences_trusted_peer_summary">IP oder Hostname eines einzelnen Peers, der verbunden wird.</string>
     <string name="preferences_trusted_peer_dialog_message">Bitte gib eine gültige IP-Adresse oder einen Hostnamen ein. Wenn du Tor eingerichtet hast, kannst du hier auch eine Onion-Adresse verwenden.</string>

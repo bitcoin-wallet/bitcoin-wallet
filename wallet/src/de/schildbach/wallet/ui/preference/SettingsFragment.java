@@ -28,11 +28,13 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Process;
 import android.preference.EditTextPreference;
+import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceFragment;
 import android.provider.Settings;
 import android.text.Editable;
+import android.text.Html;
 import android.text.InputFilter;
 import android.text.Spanned;
 import android.text.TextWatcher;
@@ -88,6 +90,16 @@ public final class SettingsFragment extends PreferenceFragment implements OnPref
         backgroundThread = new HandlerThread("backgroundThread", Process.THREAD_PRIORITY_BACKGROUND);
         backgroundThread.start();
         backgroundHandler = new Handler(backgroundThread.getLooper());
+
+        final ListPreference syncModePreference = (ListPreference) findPreference(Configuration.PREFS_KEY_SYNC_MODE);
+        syncModePreference.setEntryValues(new CharSequence[] {
+                Configuration.SyncMode.CONNECTION_FILTER.name(),
+                Configuration.SyncMode.FULL.name() });
+        syncModePreference.setEntries(new CharSequence[] {
+                Html.fromHtml(getString(R.string.preferences_sync_mode_labels_connection_filter)),
+                Html.fromHtml(getString(R.string.preferences_sync_mode_labels_full)) });
+        if (!application.fullSyncCapable())
+            removeOrDisablePreference(syncModePreference);
 
         trustedPeerPreference = (EditTextPreference) findPreference(Configuration.PREFS_KEY_TRUSTED_PEERS);
         trustedPeerPreference.setOnPreferenceChangeListener(this);

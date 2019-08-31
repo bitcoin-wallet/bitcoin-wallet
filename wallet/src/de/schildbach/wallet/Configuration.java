@@ -48,6 +48,7 @@ public class Configuration {
     public static final String PREFS_KEY_OWN_NAME = "own_name";
     public static final String PREFS_KEY_SEND_COINS_AUTOCLOSE = "send_coins_autoclose";
     public static final String PREFS_KEY_EXCHANGE_CURRENCY = "exchange_currency";
+    public static final String PREFS_KEY_SYNC_MODE = "sync_mode";
     public static final String PREFS_KEY_TRUSTED_PEERS = "trusted_peer";
     public static final String PREFS_KEY_TRUSTED_PEERS_ONLY = "trusted_peer_only";
     public static final String PREFS_KEY_BLOCK_EXPLORER = "block_explorer";
@@ -133,6 +134,15 @@ public class Configuration {
 
     public boolean getSendCoinsAutoclose() {
         return prefs.getBoolean(PREFS_KEY_SEND_COINS_AUTOCLOSE, true);
+    }
+
+    public SyncMode getSyncMode() {
+        return SyncMode.valueOf(prefs.getString(PREFS_KEY_SYNC_MODE, SyncMode.CONNECTION_FILTER.name()));
+    }
+
+    public enum SyncMode {
+        CONNECTION_FILTER,
+        FULL
     }
 
     public Set<String> getTrustedPeers() {
