@@ -30,7 +30,7 @@
         <item name="android:windowBackground">@android:color/black</item>
     </style>
 
-    <style name="My.Theme.Dialog" parent="@android:style/Theme.Material.Light.Dialog" />
+    <style name="My.Theme.Dialog" parent="@android:style/Theme.Material.Light.Dialog.Alert" />
 
     <style name="My.ThemeOverlay.ActionBar" parent="@android:style/ThemeOverlay.Material.ActionBar">
         <item name="android:colorControlNormal">@color/fg_network_significant</item>
