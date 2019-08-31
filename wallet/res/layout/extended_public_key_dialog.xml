@@ -11,7 +11,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="@dimen/list_entry_padding_vertical_lax"
         android:layout_marginTop="@dimen/list_entry_padding_vertical_lax"
-        android:background="@color/bg_bright"
+        android:background="@color/bg_qr_enlarged"
         android:keepScreenOn="true"
         android:padding="6dp"
         android:scaleType="fitXY" />

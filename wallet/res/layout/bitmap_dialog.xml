@@ -3,7 +3,7 @@
     android:id="@+id/bitmap_dialog_image"
     android:layout_width="@dimen/bitmap_dialog_qr_size"
     android:layout_height="@dimen/bitmap_dialog_qr_size"
-    android:background="@color/bg_bright"
+    android:background="@color/bg_qr_enlarged"
     android:keepScreenOn="true"
     android:padding="6dp"
     android:scaleType="fitXY" />
