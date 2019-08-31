@@ -17,6 +17,7 @@
 
 package de.schildbach.wallet.ui;
 
+import androidx.core.content.ContextCompat;
 import org.bitcoinj.core.Coin;
 
 import com.google.common.base.Strings;
@@ -202,9 +203,9 @@ public final class ExchangeRatesFragment extends Fragment
             // Workaround for not being able to style the SearchView
             final int id = searchView.getContext().getResources().getIdentifier("android:id/search_src_text", null,
                     null);
-            final View searchInput = searchView.findViewById(id);
-            if (searchInput instanceof EditText)
-                ((EditText) searchInput).setTextColor(Color.WHITE);
+            final EditText searchInput = searchView.findViewById(id);
+            searchInput.setTextColor(ContextCompat.getColor(activity, R.color.fg_network_significant));
+            searchInput.setHintTextColor(ContextCompat.getColor(activity, R.color.fg_network_insignificant));
         } else {
             searchMenuItem.setVisible(false);
         }
