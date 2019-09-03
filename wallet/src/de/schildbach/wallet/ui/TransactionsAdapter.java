@@ -730,8 +730,8 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
         public TransactionViewHolder(final View itemView) {
             super(itemView);
             final Context context = itemView.getContext();
-            this.colorBackground = ContextCompat.getColor(context, R.color.bg_list);
-            this.colorBackgroundSelected = ContextCompat.getColor(context, R.color.bg_list_selected);
+            this.colorBackground = ContextCompat.getColor(context, R.color.bg_level2);
+            this.colorBackgroundSelected = ContextCompat.getColor(context, R.color.bg_level3);
 
             this.extendTimeView = itemView.findViewById(R.id.transaction_row_extend_time);
             this.fullTimeView = (TextView) itemView.findViewById(R.id.transaction_row_full_time);

@@ -61,7 +61,7 @@ public class ViewPagerTabs extends View implements OnPageChangeListener {
 
         textColor = ContextCompat.getColor(context, R.color.fg_less_significant);
         selectedTextColor = ContextCompat.getColor(context, R.color.fg_significant);
-        indicatorColor = ContextCompat.getColor(context, R.color.bg_list);
+        indicatorColor = ContextCompat.getColor(context, R.color.bg_level2);
     }
 
     public void addTabLabels(final int... labelResId) {

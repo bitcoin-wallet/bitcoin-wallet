@@ -2,6 +2,6 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android"
     android:opacity="opaque" >
 
-    <item android:drawable="@color/bg_less_bright"/>
+    <item android:drawable="@color/bg_level0"/>
 
 </layer-list>

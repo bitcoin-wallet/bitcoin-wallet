@@ -53,7 +53,7 @@ public final class NetworkMonitorActivity extends AbstractWalletActivity {
             pager.setAdapter(pagerAdapter);
             pager.setOnPageChangeListener(pagerTabs);
             pager.setPageMargin(2);
-            pager.setPageMarginDrawable(R.color.bg_less_bright);
+            pager.setPageMarginDrawable(R.color.bg_level0);
 
             peerListFragment = new PeerListFragment();
             blockListFragment = new BlockListFragment();

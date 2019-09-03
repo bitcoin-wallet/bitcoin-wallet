@@ -13,7 +13,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/bg_less_bright"
+        android:background="@color/bg_level0"
         android:baselineAligned="false"
         android:orientation="horizontal"
         android:paddingBottom="@dimen/list_entry_padding_vertical_lax"

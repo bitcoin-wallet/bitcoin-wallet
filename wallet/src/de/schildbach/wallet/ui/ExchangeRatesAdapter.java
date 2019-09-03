@@ -118,7 +118,7 @@ public class ExchangeRatesAdapter extends ListAdapter<ExchangeRatesAdapter.ListI
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         final ListItem listItem = getItem(position);
-        holder.itemView.setBackgroundResource(listItem.isSelected ? R.color.bg_list_selected : R.color.bg_list);
+        holder.itemView.setBackgroundResource(listItem.isSelected ? R.color.bg_level3 : R.color.bg_level2);
         holder.defaultView.setVisibility(listItem.isSelected ? View.VISIBLE : View.INVISIBLE);
         holder.currencyCodeView.setText(listItem.currencyCode);
         holder.rateView.setFormat(Constants.LOCAL_FORMAT.minDecimals(listItem.baseRateMinDecimals));

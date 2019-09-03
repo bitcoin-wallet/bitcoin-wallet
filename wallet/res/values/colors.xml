@@ -13,13 +13,11 @@
     <color name="fg_shortcut">#ffa0a0a0</color>
 
     <!-- background -->
-    <color name="bg_bright">#ffffffff</color>
-    <color name="bg_less_bright">#ffe8e8f0</color>
-    <color name="bg_action_bar">#ff222222</color>
-    <color name="bg_panel">#fff2f2f8</color>
-    <color name="bg_form">@android:color/white</color>
-    <color name="bg_list">#ffffffff</color>
-    <color name="bg_list_selected">#fff0f0f8</color>
+    <color name="bg_level3">#ffffffff</color>
+    <color name="bg_level2">#fff2f2f8</color>
+    <color name="bg_level1">#ffeaeaf0</color>
+    <color name="bg_level0">#ffe0e0e8</color>
+    <color name="bg_action_bar">#ff181c22</color>
     <color name="bg_qr_thumb">@android:color/white</color>
     <color name="bg_qr_enlarged">@android:color/white</color>
     <color name="bg_dialog_title">@android:color/transparent</color>

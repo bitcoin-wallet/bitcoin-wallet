@@ -2,7 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@color/bg_less_bright" >
+    android:background="@color/bg_level0" >
 
     <ImageView
         android:id="@+id/extended_public_key_dialog_image"

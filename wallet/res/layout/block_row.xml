@@ -2,14 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/bg_list"
+    android:background="@color/bg_level1"
     android:orientation="vertical" >
 
     <TextView
         android:id="@+id/block_list_row_mining_reward_adjustment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/bg_less_bright"
+        android:background="@color/bg_level0"
         android:paddingBottom="@dimen/list_entry_padding_vertical_cram"
         android:paddingLeft="@dimen/list_entry_padding_horizontal"
         android:paddingRight="@dimen/list_entry_padding_horizontal"
@@ -22,7 +22,7 @@
         android:id="@+id/block_list_row_mining_difficulty_adjustment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/bg_less_bright"
+        android:background="@color/bg_level0"
         android:paddingBottom="@dimen/list_entry_padding_vertical_cram"
         android:paddingLeft="@dimen/list_entry_padding_horizontal"
         android:paddingRight="@dimen/list_entry_padding_horizontal"

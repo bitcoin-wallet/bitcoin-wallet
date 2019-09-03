@@ -8,7 +8,7 @@
         android:id="@+id/network_monitor_pager_tabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/bg_less_bright"
+        android:background="@color/bg_level0"
         android:paddingBottom="4dp"
         android:paddingTop="4dp" />
 
