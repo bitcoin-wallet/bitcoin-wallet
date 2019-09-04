@@ -15,6 +15,7 @@
         <item name="android:checkboxStyle">@style/My.Widget.CompoundButton.CheckBox</item>
         <item name="android:spinnerStyle">@style/My.Widget.Spinner</item>
         <item name="android:popupMenuStyle">@style/My.Widget.PopupMenu</item>
+        <item name="android:windowBackground">@color/bg_level1</item>
     </style>
 
     <style name="My.Theme.WithSplash" parent="@style/My.Theme">
