@@ -20,6 +20,7 @@
     <color name="bg_form">@android:color/white</color>
     <color name="bg_list">#ffffffff</color>
     <color name="bg_list_selected">#ffe0e0e8</color>
+    <color name="bg_qr_thumb">@android:color/white</color>
     <color name="bg_qr_enlarged">@android:color/white</color>
     <color name="bg_dialog_title">@android:color/transparent</color>
     <color name="bg_shortcut">#fff5f5f5</color>
