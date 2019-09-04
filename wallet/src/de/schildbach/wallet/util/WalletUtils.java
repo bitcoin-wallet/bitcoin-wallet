@@ -67,8 +67,8 @@ public class WalletUtils {
         return formatHash(prefix, address.toString(), groupSize, lineSize, Constants.CHAR_THIN_SPACE);
     }
 
-    public static Spanned formatHash(final String address, final int groupSize, final int lineSize) {
-        return formatHash(null, address, groupSize, lineSize, Constants.CHAR_THIN_SPACE);
+    public static Spanned formatHash(final String hash, final int groupSize, final int lineSize) {
+        return formatHash(null, hash, groupSize, lineSize, Constants.CHAR_THIN_SPACE);
     }
 
     public static long longHash(final Sha256Hash hash) {
@@ -100,15 +100,15 @@ public class WalletUtils {
         }
     }
 
-    public static Spanned formatHash(@Nullable final String prefix, final String address, final int groupSize,
+    public static Spanned formatHash(@Nullable final String prefix, final String hash, final int groupSize,
             final int lineSize, final char groupSeparator) {
         final SpannableStringBuilder builder = prefix != null ? new SpannableStringBuilder(prefix)
                 : new SpannableStringBuilder();
 
-        final int len = address.length();
+        final int len = hash.length();
         for (int i = 0; i < len; i += groupSize) {
             final int end = i + groupSize;
-            final String part = address.substring(i, end < len ? end : len);
+            final String part = hash.substring(i, end < len ? end : len);
 
             builder.append(part);
             builder.setSpan(new MonospaceSpan(), builder.length() - part.length(), builder.length(),
