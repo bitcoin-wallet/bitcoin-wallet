@@ -201,6 +201,7 @@ public class ReportIssueDialogFragment extends DialogFragment {
         final Calendar calendar = new GregorianCalendar(UTC);
 
         report.append("Version: " + pi.versionName + " (" + pi.versionCode + ")\n");
+        report.append("APK Hash: " + application.apkHash().toString() + "\n");
         report.append("Package: " + pi.packageName + "\n");
         final String installerPackageName = Installer.installerPackageName(application);
         final Installer installer = Installer.from(installerPackageName);
