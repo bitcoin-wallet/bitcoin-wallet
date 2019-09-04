@@ -17,6 +17,11 @@
 
 package de.schildbach.wallet.ui.preference;
 
+import android.app.Dialog;
+import android.app.DialogFragment;
+import androidx.annotation.Nullable;
+import de.schildbach.wallet.ui.DialogBuilder;
+import de.schildbach.wallet.util.WalletUtils;
 import org.bitcoinj.core.VersionMessage;
 
 import de.schildbach.wallet.R;
@@ -32,6 +37,8 @@ import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 
+import java.io.IOException;
+
 /**
  * @author Andreas Schildbach
  */
@@ -42,6 +49,22 @@ public final class AboutFragment extends PreferenceFragment {
     private static final String KEY_ABOUT_VERSION = "about_version";
     private static final String KEY_ABOUT_MARKET_APP = "about_market_app";
     private static final String KEY_ABOUT_CREDITS_BITCOINJ = "about_credits_bitcoinj";
+
+    public static class ApkHashFragment extends DialogFragment {
+        @Override
+        public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+            final DialogBuilder dialog = new DialogBuilder(getActivity());
+            dialog.setTitle(R.string.about_version_apk_hash_title);
+            try {
+                final WalletApplication application = (WalletApplication) getActivity().getApplication();
+                dialog.setMessage(WalletUtils.formatHash(application.apkHash().toString(), 4, 0));
+            } catch (final IOException x) {
+                dialog.setMessage("n/a");
+            }
+            dialog.singleDismissButton(null);
+            return dialog.create();
+        }
+    }
 
     @Override
     public void onAttach(final Activity activity) {
@@ -58,7 +81,16 @@ public final class AboutFragment extends PreferenceFragment {
         addPreferencesFromResource(R.xml.preference_about);
 
         final PackageInfo packageInfo = application.packageInfo();
-        findPreference(KEY_ABOUT_VERSION).setSummary(WalletApplication.versionLine(packageInfo));
+        final Preference versionPref = findPreference(KEY_ABOUT_VERSION);
+        versionPref.setSummary(WalletApplication.versionLine(packageInfo));
+        versionPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(final Preference preference) {
+                new ApkHashFragment().show(getFragmentManager(), null);
+                return true;
+            }
+        });
+
         Installer installer = Installer.from(application);
         if (installer == null)
             installer = Installer.F_DROID;

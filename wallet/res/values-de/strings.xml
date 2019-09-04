@@ -302,6 +302,7 @@
     <string name="report_issue_dialog_mail_intent_chooser">Bericht senden mit…</string>
     <string name="about_title">Über</string>
     <string name="about_version_title">Version</string>
+    <string name="about_version_apk_hash_title">SHA256-Prüfsumme des APK</string>
     <string name="about_copyright_title">Urheberrecht</string>
     <string name="about_license_title">Lizenz</string>
     <string name="about_source_title">Quellcode</string>

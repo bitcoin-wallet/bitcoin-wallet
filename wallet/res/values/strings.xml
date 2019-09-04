@@ -300,6 +300,7 @@
     <string name="report_issue_dialog_mail_intent_chooser">Send report using…</string>
     <string name="about_title">About</string>
     <string name="about_version_title">Version</string>
+    <string name="about_version_apk_hash_title">SHA256 hash of the APK</string>
     <string name="about_copyright_title">Copyright</string>
     <string name="about_license_title">License</string>
     <string name="about_source_title">Source code</string>
