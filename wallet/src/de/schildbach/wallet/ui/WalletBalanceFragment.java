@@ -239,7 +239,7 @@ public final class WalletBalanceFragment extends Fragment {
             if (balance != null && balance.isGreaterThan(Constants.TOO_MUCH_BALANCE_THRESHOLD)) {
                 viewBalanceWarning.setVisibility(View.VISIBLE);
                 viewBalanceWarning.setText(R.string.wallet_balance_fragment_too_much);
-            } else if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            } else if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M || Build.VERSION.SECURITY_PATCH.compareToIgnoreCase(Constants.SECURITY_PATCH_INSECURE_BELOW) < 0) {
                 viewBalanceWarning.setVisibility(View.VISIBLE);
                 viewBalanceWarning.setText(R.string.wallet_balance_fragment_insecure_device);
             } else {

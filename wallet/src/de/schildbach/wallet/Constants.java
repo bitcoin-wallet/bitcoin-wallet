@@ -182,6 +182,7 @@ public final class Constants {
     public static final Coin SOME_BALANCE_THRESHOLD = Coin.COIN.divide(400);
 
     public static final int SDK_DEPRECATED_BELOW = Build.VERSION_CODES.LOLLIPOP;
+    public static final String SECURITY_PATCH_INSECURE_BELOW = "2018-01-01";
 
     public static final int NOTIFICATION_ID_CONNECTED = 1;
     public static final int NOTIFICATION_ID_COINS_RECEIVED = 2;
