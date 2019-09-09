@@ -11,7 +11,7 @@ dependencies {
     compile project(':integration-android')
     compile 'androidx.annotation:annotation:1.1.0'
     compile 'androidx.core:core:1.1.0'
-    compile 'androidx.fragment:fragment:1.0.0'
+    compile 'androidx.fragment:fragment:1.1.0'
     compile 'androidx.recyclerview:recyclerview:1.0.0'
     compile 'androidx.cardview:cardview:1.0.0'
     compile 'androidx.coordinatorlayout:coordinatorlayout:1.0.0'
