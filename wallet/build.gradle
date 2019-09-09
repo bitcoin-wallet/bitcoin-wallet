@@ -17,7 +17,7 @@ dependencies {
     compile 'androidx.coordinatorlayout:coordinatorlayout:1.0.0'
     compile 'androidx.viewpager:viewpager:1.0.0'
     compile 'androidx.localbroadcastmanager:localbroadcastmanager:1.0.0'
-    compile 'androidx.lifecycle:lifecycle-extensions:2.0.0'
+    compile 'androidx.lifecycle:lifecycle-extensions:2.1.0'
     compile "androidx.sqlite:sqlite:2.0.1"
     compile "androidx.room:room-runtime:2.1.0"
     annotationProcessor "androidx.room:room-compiler:2.1.0"
