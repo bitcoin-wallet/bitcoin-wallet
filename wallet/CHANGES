@@ -1,3 +1,9 @@
+v7.20
+
+* Reduce memory usage of PIN-protected wallets.
+* Tapping on the app's version will reveal a checksum of the APK that was installed.
+* Based on bitcoinj 0.15.4.
+
 v7.19
 
 * Introduce dark mode on Android 10 devices.
