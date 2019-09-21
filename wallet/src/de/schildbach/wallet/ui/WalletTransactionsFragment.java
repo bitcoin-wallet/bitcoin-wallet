@@ -84,6 +84,7 @@ public class WalletTransactionsFragment extends Fragment implements Transactions
     private TransactionsAdapter adapter;
     private MenuItem filterMenuItem;
 
+    private WalletActivityViewModel activityViewModel;
     private WalletTransactionsViewModel viewModel;
 
     private static final Uri KEY_ROTATION_URI = Uri.parse("https://bitcoin.org/en/alert/2013-08-11-android");
@@ -106,7 +107,9 @@ public class WalletTransactionsFragment extends Fragment implements Transactions
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
+        activityViewModel = ViewModelProviders.of(activity).get(WalletActivityViewModel.class);
         viewModel = ViewModelProviders.of(this).get(WalletTransactionsViewModel.class);
+
         viewModel.direction.observe(this, new Observer<WalletTransactionsViewModel.Direction>() {
             @Override
             public void onChanged(final WalletTransactionsViewModel.Direction direction) {
@@ -147,7 +150,7 @@ public class WalletTransactionsFragment extends Fragment implements Transactions
             @Override
             public void onChanged(final List<ListItem> listItems) {
                 adapter.submitList(listItems);
-                ViewModelProviders.of(activity).get(WalletActivityViewModel.class).transactionsLoadingFinished();
+                activityViewModel.transactionsLoadingFinished();
             }
         });
         viewModel.showBitmapDialog.observe(this, new Event.Observer<Bitmap>() {
@@ -365,9 +368,7 @@ public class WalletTransactionsFragment extends Fragment implements Transactions
     public void onWarningClick(final View view) {
         switch (warning()) {
         case BACKUP:
-            final WalletActivityViewModel viewModel = ViewModelProviders.of(getActivity())
-                    .get(WalletActivityViewModel.class);
-            viewModel.showBackupWalletDialog.setValue(Event.simple());
+            activityViewModel.showBackupWalletDialog.setValue(Event.simple());
             break;
 
         case STORAGE_ENCRYPTION:
