@@ -30,6 +30,7 @@ dependencies {
     compile 'com.squareup.moshi:moshi:1.6.0'
     compile 'org.slf4j:slf4j-api:1.7.28'
     compile 'com.github.tony19:logback-android:2.0.0'
+    compile 'com.android.support:appcompat-v7:23.2.0'
     testCompile 'junit:junit:4.12'
 }
 
@@ -40,6 +41,10 @@ ext {
 android {
     compileSdkVersion 'android-28'
     buildToolsVersion '28.0.3'
+
+    defaultConfig {
+      vectorDrawables.useSupportLibrary = true
+    }
 
     lintOptions {
         abortOnError false
