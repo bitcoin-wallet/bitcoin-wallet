@@ -299,6 +299,7 @@
   <string name="report_issue_dialog_mail_intent_chooser">報告に使うアプリケーション……</string>
   <string name="about_title">アプリについて</string>
   <string name="about_version_title">バージョン</string>
+  <string name="about_version_apk_hash_title">APKのSHA256ハッシュ値</string>
   <string name="about_copyright_title">コピーライト</string>
   <string name="about_license_title">ライセンス</string>
   <string name="about_source_title">ソースコード</string>
