@@ -299,6 +299,7 @@
   <string name="report_issue_dialog_mail_intent_chooser">Envoyer le rapport avec…</string>
   <string name="about_title">À propos du programme</string>
   <string name="about_version_title">Version</string>
+  <string name="about_version_apk_hash_title">Empreinte SHA256 de l’APK</string>
   <string name="about_copyright_title">Tous droits réservés</string>
   <string name="about_license_title">Licence</string>
   <string name="about_source_title">Code source</string>
