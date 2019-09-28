@@ -169,6 +169,10 @@
   <string name="edit_address_book_entry_dialog_button_edit">Opslaan</string>
   <string name="transaction_row_fee">Netwerkkosten</string>
   <string name="transaction_row_confidence_message_sent_unbroadcasted">Deze betaling is nog niet verzonden.</string>
+  <string name="transaction_row_confidence_message_received_successful">Deze betaling is vanuit je portemonee gedaan.</string>
+  <string name="transaction_row_confidence_message_sent_successful">Je betaling was succesvol. Het is aangekomen bij de ontvanger.</string>
+  <string name="transaction_row_confidence_message_received_failed">Deze betaling is mislukt</string>
+  <string name="transaction_row_confidence_message_sent_failed">Je betaling is mislukt.</string>
   <string name="transaction_row_message_purpose_key_rotation">Deze transactie maakt je wallet sterker tegen diefstal. &lt;u&gt;Meer info.&lt;/u&gt;</string>
   <string name="transaction_row_message_purpose_raise_fee">Deze transactie verhoogt de netwerkkosten van een eerder verstuurde betaling.</string>
   <string name="transaction_row_message_received_direct">Deze betaling is direct ontvangen. Het risico bestaat dat het nooit uitgegeven kan worden.</string>
@@ -295,6 +299,7 @@
   <string name="report_issue_dialog_mail_intent_chooser">Rapport versturen met…</string>
   <string name="about_title">Over</string>
   <string name="about_version_title">Versie</string>
+  <string name="about_version_apk_hash_title">SHA256-hash van de APK</string>
   <string name="about_copyright_title">Auteursrecht</string>
   <string name="about_license_title">Licentie</string>
   <string name="about_source_title">Broncode</string>
