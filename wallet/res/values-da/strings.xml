@@ -169,6 +169,10 @@
   <string name="edit_address_book_entry_dialog_button_edit">Gem</string>
   <string name="transaction_row_fee">Netværksgebyr</string>
   <string name="transaction_row_confidence_message_sent_unbroadcasted">Denne betaling er ikke sendt endnu.</string>
+  <string name="transaction_row_confidence_message_received_successful">Denne betaling er blevet krediteret til din tegnebog.</string>
+  <string name="transaction_row_confidence_message_sent_successful">Din betaling blev gennemført. Den har nået modtageren.</string>
+  <string name="transaction_row_confidence_message_received_failed">Denne betaling mislykkedes.</string>
+  <string name="transaction_row_confidence_message_sent_failed">Din betaling mislykkedes.</string>
   <string name="transaction_row_message_purpose_key_rotation">Denne overførsel styrker din tegnebog mod tyveri. &lt;u&gt;Mere info.&lt;/u&gt;</string>
   <string name="transaction_row_message_purpose_raise_fee">Denne transaktion forhøjer netværksgebyret for en tidligere betaling.</string>
   <string name="transaction_row_message_received_direct">Denne betaling er modtaget direkte. Der er en risiko for, at den aldrig bliver tilgængelig.</string>
@@ -295,6 +299,7 @@
   <string name="report_issue_dialog_mail_intent_chooser">Send rapport ved hjælp af…</string>
   <string name="about_title">Om</string>
   <string name="about_version_title">Version</string>
+  <string name="about_version_apk_hash_title">SHA256-hash af APK\'en</string>
   <string name="about_copyright_title">Ophavsret</string>
   <string name="about_license_title">Licens</string>
   <string name="about_source_title">Kildekode</string>
