@@ -84,6 +84,10 @@
   <string name="send_coins_sent_msg">Është dërguar!</string>
   <string name="send_coins_failed_msg">Dështoi!</string>
   <string name="send_coins_error_msg">Problem gjatë dërgimit të monedhave!</string>
+  <string name="send_coins_options_fee_category">Tarifa</string>
+  <string name="send_coins_options_fee_category_economic">Ekonomike</string>
+  <string name="send_coins_options_fee_category_normal">Normal</string>
+  <string name="send_coins_options_fee_category_priority">Prioritet</string>
   <string name="send_coins_options_empty">Kuleta bosh</string>
   <string name="sweep_wallet_activity_title">Shpenzo kuletën në letër</string>
   <string name="sweep_wallet_fragment_intro">Jeni duke shpenzuar një kuletë në letër apo kupon. Kjo do t\'i zhvendos të gjitha monedhat nga kuleta ne letër ne kuletën tuaj në këtë pajisje. Kur transaksioni konfirmohet, letra do të bëhet e pavlefshme dhe nuk duhet të përdoret prap për shkaqe sigurie.</string>
@@ -148,12 +152,13 @@
   <string name="transaction_row_message_received_dust">Kjo shumë e vogël ndoshta kurrë nuk mund të shpenzohet ekonomikisht.</string>
   <string name="transaction_row_message_received_pay_to_many">Kjo pages paguan tek shumë kuleta perveҫ tëndes, gjë që e bën aplikacionin të ngadalsohet gjatë kohës. Nëse mundeni, provoni pagesat të cilat ju paguajn vetëm juve.</string>
   <string name="network_monitor_activity_title">Monitorimi i rrjetit</string>
+  <string name="network_monitor_peer_list_title">Peers</string>
   <string name="network_monitor_block_list_title">Blloqet</string>
   <string name="block_row_now">tash</string>
   <string name="peer_list_fragment_empty">Asnjë peers i konektuar</string>
   <string name="peer_list_row_ping_time">⇆ %d&#x2009;ms</string>
   <string name="import_keys_dialog_title">Rikthe kuletën</string>
-  <string name="import_keys_dialog_message">Zgjedhni një kopje rezervë të kuletës nga disku i jashtëm:</string>
+  <string name="import_keys_dialog_message">Zgjedh një kopje rezerë të kuletës nga memorja e jashtme (%s):</string>
   <string name="restore_wallet_dialog_replace_warning">Jeni duke zëvendësuar kuletën aktuale. Te gjitha monedhat që keni në kuletën aktuale do t\'i humisni përveҫ nëse keni një kopje rezerv të kuletës aktuale.</string>
   <string name="import_keys_dialog_warning">Kujdes: Mos ngarkoni ҫelësa privat nga burime të dyshimta! Të tjerët mund të marrin nën kontroll fondet tuaja.</string>
   <string name="import_keys_dialog_file_security_encrypted">fjalëkalimi i enkriptuar</string>
@@ -266,6 +271,7 @@
   <string name="button_settings">Rregullat</string>
   <string name="action_show_qr">Shfaq kodin QR</string>
   <string name="action_browse">Shfleto</string>
+  <!--generic strings-->
   <string name="time_today">sot</string>
   <string name="address_unlabeled">(paetiketuar)</string>
   <string name="private_key_password">PIN-i</string>
@@ -274,5 +280,5 @@
   <string name="error_io">I/O gabim: %s</string>
   <string name="error_parse">Parse gabim: %s</string>
   <string name="error_http">HTTP gabim %1$s:\n%2$s</string>
-  <string name="error_bluetooth">Gabim me Bluetooth: %1$s</string>
+  <string name="error_bluetooth">Gabim bluetooth: %1$s</string>
 </resources>
