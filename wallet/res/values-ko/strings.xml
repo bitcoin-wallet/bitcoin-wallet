@@ -43,6 +43,7 @@
   <string name="wallet_options_technical_notes_title">기술 참조 노트</string>
   <string name="wallet_options_donate">팁 / 기부</string>
   <string name="wallet_donate_address_label">Bitcoin Wallet 앱의 기부 주소</string>
+  <string name="alert_dialogs_fragment_insecure_bluetooth_title">보안 경고</string>
   <string name="wallet_low_storage_dialog_title">저장장치 용량 부족</string>
   <string name="wallet_low_storage_dialog_msg">비트코인 지갑은 거래 기록과 블록을 기억하기 위해 저장 장치의 공간을 사용합니다. 저장 공간이 부족할 경우 앱 작동이 중단될 수 있으며, 비트코인 보관과 거래에 문제가 있을 수 있습니다.\n\n불필요한 앱 정리를 위해 어플리케이션 매니저를 여시겠습니까?</string>
   <string name="wallet_low_storage_dialog_button_apps">앱 정리하기</string>
@@ -54,6 +55,7 @@
   <string name="wallet_version_dialog_button_binary">다운로드</string>
   <string name="wallet_old_sdk_dialog_title">안드로이드 버전을 업데이트해주세요</string>
   <string name="wallet_old_sdk_dialog_message">이 비트코인 지갑의 다음 업데이트시 현재 사용중인 장치 기기를 더 이상 지원하지 않을 수 있습니다. 또한 몇몇 경우에는 이 장치 기기에서 비트코인을 송금할 때 문제가 생길 수도 있습니다.\n\n기기의 계속 사용에 관한 확신이 생기지 않는다면 현재 이 지갑에서 보유하고 있는 비트코인을 다른 곳으로 옮기는 것이 좋습니다.</string>
+  <string name="alert_dialogs_fragment_settings_failed_title">설정을 여는 데 문제가 있습니다</string>
   <string name="send_coins_activity_title">비트코인 송금</string>
   <string name="send_coins_fragment_request_payment_request_progress">전자 서명 불러오는 중... : %s</string>
   <string name="send_coins_fragment_request_payment_request_failed_title">전자 서명 불러오기 실패</string>
@@ -259,6 +261,7 @@
   <string name="preferences_data_usage_summary">모바일 네트워크에서 사용할 데이터 사용량 제한 설정을 보여줍니다.</string>
   <string name="preferences_remind_balance_title">잔액 알림</string>
   <string name="preferences_remind_balance_summary">앱에 잔액이 남아 있는 상태에서 몇 주간 사용을 하지 않으면 앱이 알람을 보냅니다.</string>
+  <string name="preferences_show_disclaimer_title">면책 조항 표시</string>
   <string name="preferences_report_issue_title">오류 보고</string>
   <string name="preferences_initiate_reset_title">블럭체인 재설정</string>
   <string name="preferences_initiate_reset_summary">블럭 체인과 거래 내역, 비트코인 잔액을 다시 읽어들입니다. 이 리셋 과정에 상당히 많은 시간이 소요되므로 이 기능이 무엇인지 정확히 이해하고 있는 경우에만 적용하십시오.</string>
@@ -299,6 +302,9 @@
   <string name="notification_inactivity_message_donate">만약 남은 잔액에 관심이 없다면 비트코인 지갑 앱 프로젝트에 기부할 수 있습니다.</string>
   <string name="notification_inactivity_action_dismiss">이후 다시알림</string>
   <string name="notification_inactivity_action_dismiss_forever">알림 필요없음</string>
+  <string name="notification_channel_received_name">수신 내역</string>
+  <string name="notification_channel_ongoing_name">백그라운드 활동</string>
+  <string name="notification_channel_important_name">중요 경고</string>
   <string name="appwidget_wallet_balance_title">비트코인 잔액</string>
   <!--generic buttons-->
   <string name="button_ok">확인</string>
