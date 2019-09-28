@@ -1,19 +1,28 @@
-Miej swoje Bitcoiny zawsze w swojej kieszeni! Zapłacisz skanując kod QR. Jako sprzedawca odbierzesz płatności niezawodnie i natychmiastowo. Bitcoin Wallet jest pierwszą aplikacją Bitcoinową na telefony i niezaprzeczalnie najbezpieczniejszą.
+<b>Miej swoje Bitcoiny zawsze przy sobie, w Twojej kieszeni!<b> Możesz płacić przez szybkie zeskanowanie QR kodu. Jako sprzedawca otrzymujesz przelew szybko i bezpiecznie. Bitcoin Wallet jest pierwszą mobilną Bitcoin aplikacją oraz jest uważany za najbardziej bezpieczną.
 
-WŁAŚCIWOŚCI:
 
-• Brak konieczności rejestracji, serwisu online lub chmury! Ten portfel używa zdecentralizowanej sieci peer-to-peer.
-• Wyświetl ilość kwotę w BTC i mBTC.
-• Zamiana z i na waluty narodowe
-• Wysyłąnie i odbieranie Bitcoin za pomocą NFC, kodów QR czy adresów Bitcoin URL.
-• Książka adresowa dla regularnie używanych adresów Bitcoin.
-• Gdy jesteś offline, wciąż możesz zapłacić przy użyciu Bluetooth.
-• System powiadomień dla przychodzących transakcji.
-• Widget aplikacji dla stanu konta.
+<b>NOWOŚCI</b>
 
-Jeśli chcesz przyczynić się do rozwoju Bitcoin Wallet to projekt znajduje się pod adresem
+• Bez rejestracji, przeglądarki i połączenia z chmurą. Ten portfel jest zdecentralizowany i peer-to-peer.
+• Wyświetlaj ilość bitcoinów w BTC, mBTC lub µBTC.
+• Przelicznik z/do walut narodowych.
+• Wysyłaj i otrzymuj bitcoiny przy pomocy NFC, QRcode lub Bitcoin URL.
+• Książka adresowa dla regularnie używanych adresów bitcoin.
+• Kiedy jesteś offline możesz nadal płacić  przy pomocy Bluetooth.
+• Powiadomienia o otrzymaniu monet.
+• Zamiatanie portfeli papierowych (np. Używanych do przechowywania w chłodni).
+• Widget z saldem Bitcoinów.
+
+
+<b>PRZYCZYNIĆ SIĘ</b>
+Bitcoin Wallet to oprogramowanie typu <b>open source</b> i <b>free software</b>. Licencja: GPLv3
+https://www.gnu.org/licenses/gpl-3.0.en.html
+
+Nasz kod źródłowy jest dostępny na GitHub:
 https://github.com/bitcoin-wallet/bitcoin-wallet
 
-Licencja: GPLv3
-Używasz na własne ryzyko!
-http://www.gnu.org/licenses/gpl-3.0.en.html
+Wszystkie tłumaczenia są zarządzane przez Transifex:
+https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
+
+
+<i>Używasz na własne ryzyko!</i>
