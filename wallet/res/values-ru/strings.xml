@@ -26,7 +26,8 @@
   <string name="exchange_rates_options_search">Поиск обменного курса</string>
   <string name="wallet_transactions_fragment_empty_text_received">Ещё не получено Bitcoin-монет</string>
   <string name="wallet_transactions_fragment_empty_text_sent">Ещё не отправлено Bitcoin-монет</string>
-  <string name="wallet_transactions_fragment_empty_text_howto">Как получить монеты?\nОбменяйте обычные деньги,\nпродайте товары и услуги или\nзаработайте.</string>
+  <string name="wallet_transactions_fragment_empty_text_howto">Как получить Биткоины?\nПокупайте на обычные деньги,\nпродавайте услуги или товары или\nзарабатывайте.</string>
+  <string name="wallet_transactions_fragment_empty_remind_backup">Пожалуйста сделайте резервную копию кошелька\nперед получением любых платежей!</string>
   <string name="wallet_transactions_row_warning_backup">Поздравляем, вы получили первый платёж! Вы уже &lt;u&gt;сделали резервную копию кошелька&lt;/u&gt;, чтобы обезопаситься от потерь?</string>
   <string name="wallet_transactions_row_warning_storage_encryption">Подсказка: для улучшения безопасности вашего кошелька вы можете &lt;u&gt;зашифровать ваше устройство&lt;/u&gt;. Это также защитит данные других приложений.</string>
   <string name="wallet_transactions_row_warning_chain_forking">Сеть Биткойн в данный момент на техобслуживании. Советуем не переводить и не получать биткойны до его окончания. &lt;u&gt; Подробнее.&lt;/u&gt;</string>
@@ -36,6 +37,7 @@
   <string name="wallet_transactions_options_filter_all">Все выплаты</string>
   <string name="wallet_transactions_options_filter_received">Полученные выплаты</string>
   <string name="wallet_transactions_options_filter_sent">Отправленные выплаты</string>
+  <string name="wallet_options_request_legacy">Запрос на устаревший адрес</string>
   <string name="wallet_options_safety_menu">Безопасность</string>
   <string name="wallet_options_encrypt_keys_set">Установить ПИН</string>
   <string name="wallet_options_encrypt_keys_change">Изменить ПИН</string>
@@ -51,7 +53,7 @@
   <string name="wallet_timeskew_dialog_title">Проверьте дату &amp; в настройках времени</string>
   <string name="wallet_timeskew_dialog_msg">Ваше устройство выключено %d минут. Возможно, из-за этого Вы не можете отправлять и получать Bitcoin.\n\nПроверьте и исправте при необходимости настройки даты, времени и часового пояса.</string>
   <string name="wallet_version_dialog_title">Доступна новая версия!</string>
-  <string name="wallet_version_dialog_msg">Эта версия исправляет важные ошибки. Детали на %s.</string>
+  <string name="wallet_version_dialog_msg">Эта версия исправляет существенные ошибки. Подробности — по ссылке %s.</string>
   <string name="wallet_version_dialog_msg_deprecated">Если вы не видите обновления, это означает, что ваша версия Android больше не поддерживается.</string>
   <string name="wallet_version_dialog_button_binary">Скачать</string>
   <string name="wallet_old_sdk_dialog_title">Версия для Android устарела</string>
@@ -59,7 +61,8 @@
   <string name="alert_dialogs_fragment_settings_failed_title">Проблема с открытием настроек</string>
   <string name="send_coins_activity_title">Отправка Bitcoin</string>
   <string name="send_coins_fragment_request_payment_request_progress">Получение подписи %s…</string>
-  <string name="send_coins_fragment_request_payment_request_failed_title">Ошибка при получении подписи</string>
+  <string name="send_coins_fragment_request_payment_request_failed_title">Не удалось получить запрос платежа</string>
+  <string name="send_coins_fragment_request_payment_request_failed_message">Получатель (%1$s) использует несовместимый протокол (причина: %2$s).</string>
   <string name="send_coins_fragment_request_payment_request_wrong_signature">Неверная подпись!</string>
   <string name="send_coins_fragment_payee_verified_by">Проверяется: %s</string>
   <string name="send_coins_fragment_payee_verified_by_unknown">неизвестно</string>
@@ -84,6 +87,8 @@
   <string name="send_coins_fragment_direct_payment_failed_msg">Ваш платеж будет транслироваться через P2P-сети.</string>
   <string name="send_coins_fragment_button_send">Отправить</string>
   <string name="send_coins_fragment_button_back">Назад</string>
+  <string name="send_coins_fragment_significant_fee_title">Значительная сетевая оплата</string>
+  <string name="send_coins_fragment_significant_fee_message">Оплата этой транзакции (%1$s) высока по отношению к сумме платежа (%2$s). Все равно отправить?</string>
   <string name="send_coins_fragment_insufficient_money_title">Недостаточно монет</string>
   <string name="send_coins_fragment_insufficient_money_msg1">Вы упускаете %s.</string>
   <string name="send_coins_fragment_insufficient_money_msg2">Вы хотите оплатить всем, что у вас есть?</string>
@@ -119,6 +124,8 @@
   <string name="sweep_wallet_fragment_decrypt_progress">Расшифровка…\nМожет занять до 2-х минут.</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_progress">Загружаю баланс…</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_failed_title">Загрузка баланса кошелька прошла с ошибкой</string>
+  <string name="sweep_wallet_fragment_request_wallet_balance_failed_connection">У вас плохое соединение с сетью Electrum.</string>
+  <string name="sweep_wallet_fragment_request_wallet_balance_empty">Бумажный кошелек пуст.</string>
   <string name="sweep_wallet_fragment_insufficient_money_title">Недостаточно монет</string>
   <string name="sweep_wallet_fragment_insufficient_money_msg">Количество монет слишком мало для сканирования этого кошелька.</string>
   <string name="sweep_wallet_options_reload">Перезагрузить баланс</string>
@@ -162,6 +169,10 @@
   <string name="edit_address_book_entry_dialog_button_edit">Сохранить</string>
   <string name="transaction_row_fee">Комиссия сети</string>
   <string name="transaction_row_confidence_message_sent_unbroadcasted">Этот платёж ещё не был передан в сеть.</string>
+  <string name="transaction_row_confidence_message_received_successful">Этот платеж был зачислен на ваш кошелек.</string>
+  <string name="transaction_row_confidence_message_sent_successful">Ваш платеж прошел успешно. Дошел до получателя.</string>
+  <string name="transaction_row_confidence_message_received_failed">Этот платеж не прошел.</string>
+  <string name="transaction_row_confidence_message_sent_failed">Ваш платеж не прошел.</string>
   <string name="transaction_row_message_purpose_key_rotation">Эта транзакция защищает ваш кошелек от воровства. &lt;u&gt;Подробнее.&lt;/u&gt;</string>
   <string name="transaction_row_message_purpose_raise_fee">Эта транзакция увеличит комиссию за предыдущий платёж.</string>
   <string name="transaction_row_message_received_direct">Этот платеж был проведен напрямую. Существует риск того, что вы никогда не сможете потратить полученные средства.</string>
@@ -203,7 +214,7 @@
   <string name="backup_wallet_dialog_message">Резервная копия будет зашифрована выбранным паролем и записана на внешнее хранилище.</string>
   <string name="backup_wallet_dialog_warning_encrypted">Ваш кошелек защищен ПИН кодом. Запомните ваш ПИН и пароль для восстановления резервной копии.</string>
   <string name="export_keys_dialog_button_export">Резервная копия</string>
-  <string name="export_keys_dialog_success"><![CDATA[<p>Создана резервная копия кошелька <tt>%s</tt></p><p><b>Если ваше устройство это единственно место где хранится резервная копия, то вы рискуете потерять кошелек, потеряв устройство!</b></p><p>В любом случае, убедитесь, что вы помните пароль от резервной копии.</p>]]></string>
+  <string name="export_keys_dialog_success"><![CDATA[<p>Успешно создана резервная копия вашего кошелька в <tt>%s</tt></p><p><b>Если резервная копия хранится только на вашем устройстве, вы рискуете потерять ее одновременно вместе с кошельком!</b></p><p>В любом случае убедитесь, что вы запомнили/записали пароль от резервной копии.</p>]]></string>
   <string name="export_keys_dialog_failure">Не удается создать резервную копию кошелька:\n%s</string>
   <string name="import_export_keys_dialog_password">пароль</string>
   <string name="backup_wallet_dialog_password_again">Снова</string>
@@ -288,13 +299,19 @@
   <string name="report_issue_dialog_mail_intent_chooser">Отправить отчет используя…</string>
   <string name="about_title">О программе</string>
   <string name="about_version_title">Версия</string>
+  <string name="about_version_apk_hash_title">SHA256 хэш код от APK</string>
   <string name="about_copyright_title">Авторское право</string>
   <string name="about_license_title">Лицензия</string>
   <string name="about_source_title">Исходный код</string>
   <string name="about_category_credits">Это приложение использует…</string>
   <string name="about_credits_bitcoinj_title">bitcoinj %s, реализация протокола Bitcoin</string>
   <string name="about_credits_zxing_title">ZXing, библиотека обработки QR-кодов</string>
-  <string name="about_market_app_title">Страница %s</string>
+  <string name="about_credits_bouncycastle_title">Bouncy Castle, криптографическая библиотека</string>
+  <string name="about_credits_okhttp_title">OkHttp, библиотека для работы клиента HTTP</string>
+  <string name="about_credits_moshi_title">Moshi, библиотека JSON </string>
+  <string name="about_credits_guava_title">Guava, коллекция полезных вспомогательных инструментов</string>
+  <string name="about_credits_slf4j_title">SLF4J, фреймворк для логов</string>
+  <string name="about_market_app_title">%s стр.</string>
   <string name="about_market_app_summary">Напишите отзыв или оцените приложение</string>
   <string name="about_faq_title">ЧаВо</string>
   <string name="about_faq_summary">Частые вопросы по приложению</string>
