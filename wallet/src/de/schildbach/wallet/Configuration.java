@@ -182,7 +182,7 @@ public class Configuration {
     }
 
     public void updateLastRestoreTime() {
-        prefs.edit().putLong(PREFS_KEY_LAST_RESTORE, System.currentTimeMillis());
+        prefs.edit().putLong(PREFS_KEY_LAST_RESTORE, System.currentTimeMillis()).apply();
     }
 
     public long getLastBlockchainResetTime() {
@@ -190,7 +190,7 @@ public class Configuration {
     }
 
     public void updateLastBlockchainResetTime() {
-        prefs.edit().putLong(PREFS_KEY_LAST_BLOCKCHAIN_RESET, System.currentTimeMillis());
+        prefs.edit().putLong(PREFS_KEY_LAST_BLOCKCHAIN_RESET, System.currentTimeMillis()).apply();
     }
 
     public boolean getDisclaimerEnabled() {
