@@ -13,6 +13,7 @@
   <string name="blockchain_state_progress_problem_network">Synchronizace: Problém se sítí</string>
   <string name="wallet_address_fragment_clipboard_msg">Adresa zkopírována do schránky</string>
   <string name="wallet_address_dialog_fragment_hint">Z důvodu ochrany soukromí dojde ke změně této adresy po každé přijaté platbě.</string>
+  <string name="wallet_balance_fragment_insecure_device">Vaše zařízení je staré a nezajištěné. Prosím používejte jej pouze pro malé částky</string>
   <string name="wallet_balance_fragment_too_much">Tato částka je poměrně vysoká na nosení v kapse. Převeďte ji prosím na bezpečnější místo.</string>
   <string name="wallet_balance_fragment_replaying">Bilance je nedostupná během synchronizace.</string>
   <string name="exchange_rates_activity_title">Směnné kurzy</string>
@@ -28,6 +29,7 @@
   <string name="wallet_transactions_fragment_empty_text_howto">Jak získat Bitcoiny?\nSměnou za klasické peníze,\nprodejem zboží nebo služeb\nnebo vyděláním prací.</string>
   <string name="wallet_transactions_row_warning_backup">Gratulujeme, přijal jste svou první platbu! Už jste si &lt;u&gt;zazálohovali tuto peněženku&lt;/u&gt;, abyste se ochránil proti ztrátě?</string>
   <string name="wallet_transactions_row_warning_storage_encryption">Tip: pokud chcete zvýšit bezpečnost své peněženky, můžete &lt;u&gt;šifrovat data svého přístroje&lt;/u&gt;. Toto také chrání data ostatních aplikací.</string>
+  <string name="wallet_transactions_row_warning_chain_forking">Bitcoin připojení prochází údržbou. Doporučujeme vám, abyste mince neposílali ani nepřijímali, dokud nedokončíme údržbu.</string>
   <string name="wallet_transactions_fragment_coinbase">vytěženo</string>
   <string name="wallet_transactions_fragment_internal">interní</string>
   <string name="wallet_transactions_options_filter">Filtr</string>
@@ -38,8 +40,11 @@
   <string name="wallet_options_encrypt_keys_set">Nastavit PIN pro utrácení</string>
   <string name="wallet_options_encrypt_keys_change">Změnit PIN pro utrácení.</string>
   <string name="wallet_options_safety">Bezpečnost</string>
+  <string name="wallet_options_technical_notes_title">Technické informace</string>
   <string name="wallet_options_donate">Přispěj</string>
   <string name="wallet_donate_address_label">Dar pro Bitcoin Wallet</string>
+  <string name="alert_dialogs_fragment_insecure_bluetooth_title">Bezpečnostní ohrožení</string>
+  <string name="alert_dialogs_fragment_insecure_bluetooth_message">Vaš zařízení s Bluetooth je zranitelné. Vaše Bitcoiny na tomto zařízení nejsou zabezpečené, bezohledu na to jakou používáte applikaci! Doporučujeme vám okamžitě vypnout funkci Bluetooth a u výrobce vašeho zařízení zkontrolovat systém Android pro aktualizaci která implementuje úroveň opravy zabezpečení \'%s\' nebo vyšší.</string>
   <string name="wallet_low_storage_dialog_title">Na vnitřním úložišti není dostatek místa!</string>
   <string name="wallet_low_storage_dialog_msg">Bitcoin Wallet používá vnitřní úložiště pro ukládání transakcí a bloků. Pokud dojde místo v ůložišti, přestane fungovat a vaše Bitcoiny budou vystaveny riziku ztráty!\n\nChcete otevřít Správu Aplikací a odinstalovat nepotřebné aplikace?</string>
   <string name="wallet_low_storage_dialog_button_apps">Spravovat aplikace</string>
@@ -51,9 +56,11 @@
   <string name="wallet_version_dialog_button_binary">Stáhnout</string>
   <string name="wallet_old_sdk_dialog_title">Verze systému Android je příliš stará</string>
   <string name="wallet_old_sdk_dialog_message">Je pravděpodobné, že jedna z následujících verzí Bitcoin Wallet nebude podporovat vaše zařízení. V některých případech může být v takové situaci komplikované utratit Bitcoiny na tomto zařízení.\n\nPokud si nejste jistí co dělat, tak doporučujeme tyto Bitcoiny přemístit brzy do jiného zařízení.</string>
+  <string name="alert_dialogs_fragment_settings_failed_title">Problém s otevřením nastavení.</string>
   <string name="send_coins_activity_title">Zaslat Bitcoiny</string>
   <string name="send_coins_fragment_request_payment_request_progress">Stahuji podpis z %s…</string>
-  <string name="send_coins_fragment_request_payment_request_failed_title">Stahováni podpisu selhalo</string>
+  <string name="send_coins_fragment_request_payment_request_failed_title">Načítání žádosti o platbu se nezdařilo</string>
+  <string name="send_coins_fragment_request_payment_request_failed_message">Příjemce (%1$s) používá nekompatibilní platební protokol (důvod: %2$s).</string>
   <string name="send_coins_fragment_request_payment_request_wrong_signature">Špatný podpis!</string>
   <string name="send_coins_fragment_payee_verified_by">ověřeno kým: %s</string>
   <string name="send_coins_fragment_payee_verified_by_unknown">neznámý</string>
@@ -64,7 +71,7 @@
   <string name="send_coins_fragment_receiving_address_complex">komplex\nadresa</string>
   <string name="send_coins_fragment_pending">(%s čeká na potvrzení)</string>
   <string name="send_coins_fragment_amount_label">Částka k zaplacení</string>
-  <string name="send_coins_fragment_hint_fee">Bude vyplacen malý poplatek síti ve výši %s.</string>
+  <string name="send_coins_fragment_hint_fee">Poplatek za připojení %s bude započítán.</string>
   <string name="send_coins_fragment_hint_dusty_send">Částka je příliš nízká pro odeslání.</string>
   <string name="send_coins_fragment_hint_insufficient_money">Nemáte dostatek mincí. Chybí vám %s.</string>
   <string name="send_coins_fragment_hint_empty_wallet_failed">Množství malých plateb ve vaší peněžence neumožňuje v součtu zaslání platby.</string>
