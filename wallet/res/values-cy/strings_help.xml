@@ -1,0 +1,123 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+  <string name="help_wallet">
+<![CDATA[
+		<p>
+			Mae rhan dde uchaf y sgrin yn dangos dy falans mewn Bitcoin ac arian un wlad a ddewisir.
+			Tapia i fynd i\'r rhestr o arian gwledydd a thapia ar un ohonynt i\'w osod fel y rhagosodiad.
+		</p>
+		<p>
+			Mae\'r cod QR yn y dde uchaf yn cynnwys dy gyfeiriad Bitcoin cyfredol a gellir ei ddefnyddio i\'w sganio gan dalwr.
+			Tapia ar y cod QR i gael fersiwn mwy ohono.
+		</p>
+		<p>
+			Mae dy restr trafodion ar draws gaelod y sgrin.
+			Mae\'n wag i ddechrau a bydd yn llenwi wrth i ti dderbyn ac anfon taliadau.
+			Caiff taliadau a dderbyniwyd eu nodi mewn gwyrdd a thaliadau a anfonwyd mewn coch.
+		</p>
+		<p>
+			Gellir anfon neu wneud cais am Fitcoin trwy tapio\'r botymau yn y bar gweithredoedd.
+			Mae rhagor o opsiynau ar gael yn y dewislen opsiynau.
+		</p>
+	]]>
+    </string>
+  <string name="help_request_coins">
+<![CDATA[
+		<p>
+			Gan ddefnyddio\'r deialog hwn, gellir wneud cais am Fitcoin gan dalwr.
+			Rhaid bod y talwr eisoes hefyd wedi gosod waled Bitcoin.
+		</p>
+		<p>
+			Yn gyntaf, gellir rhoi swm o Fitcoin i wneud cais amdano.
+		</p>
+		<p>
+			Yna, rwyt naill ai\'n cael y talwr i sganio\'r cod QR a gynhyrchwyd.
+			Neu, gellir anfon dy gais at berson gan ddefnyddio\'r botwm rhannu yn y bar gweithredoedd.
+			Os yw\'r ddwy ddyfais gydag NFC wedi\'i alluogi, gellir hefyd eu tapio at eu gilydd.
+		</p>
+		<p>
+			Pa bynnag ffordd, caiff y talwr weld deialog i anfon Bitcoin gyda\'r holl meysydd ffurflen wedi\'u cwblhau.
+			Os yw\'r talwr yn cytuno, caiff wneud y taliad yn hawdd.
+		</p>
+	]]>
+    </string>
+  <string name="help_send_coins">
+<![CDATA[
+		<p>
+			Rwyt wedi dechrau\'r broses o anfon Bitcoin.
+		</p>
+		<p>
+			Yn gyntaf, rho\'r cyfeiriad Bitcoin i\'w dalu iddo.
+			Bydd y cyfeiriad yn awto-gwblhau o gofnodion eisoes yn dy lyfr cyfeiriadau.
+			Gellir hefyd sganio cod QR a gyflwynwyd gan y talai gan bwyso\'r botwm camera.
+		</p>
+		<p>
+			Nesaf, symda i\'r swm i\'w dalu.
+		</p>
+		<p>
+			Yn olaf, rhaid rhoi\'r PIN gwariant os oes un eisoes wedi\'i osod.
+		</p>
+		<p>
+			Gellir roi gorchymun taliad heb fod ar-lein.
+			Caiff ei anfon y tro nesaf bydd Waled Bitcoin yn ail-ddechrau.
+			Os wyt eisiau i daliad cael ei brosesu mor gyflym â phosib, gwiria fod gennyt gysylltiad da (e.e. WLAN).
+		</p>
+		<p>
+			Noder:
+			Ni ellir dad-wneud taliadau!
+			Gwiria\'r cyfeiriadau derbyn yn ofalus.
+		</p>
+	]]>
+    </string>
+  <string name="help_safety">
+<![CDATA[
+		<p>
+			<b>Nodiadau diogelwch pwysig:</b>
+		</p>
+		<p>
+			Mae Bitcoin yn cael eu cadw ar y ddyfais.
+			<b>Os wyt ti\'n ei golli, mi fyddi\'n colli dy Fitcoin.</b>
+		</p>
+		<p>
+			Golygir hyn bod angen <b>cadw copi wrth gefn o dy waled</b>!
+			Defnyddia\'r cyfleuster o fewn yr ap i wneud hyn, yn hytrach nag ap trydydd parti.
+			Cadwa dy gopi wrth gefn yn ddiogel a chofia dy gyfrinair.
+		</p>
+		<p>
+			<b>Cyn dadosod</b> (neu glirio data apiau/ailosod dy ddyfais), <b>trosglwydda dy Fitcoin i waled arall</b>.
+			Caiff Bitcoin sy\'n weddill eu colli.
+		</p>
+		<p>
+			<b>Ni ellir dad-wneud taliadau</b>.
+			Os wyt yn anfon dy Fitcoin i\'r gwagle, does bron dim modd o\'u cael nhw nôl.
+		</p>
+		<p>
+			<b>Cadwa dy ddyfais yn ddiogel!</b>
+			Paid â gwreiddio dy ddyfais.
+			Paid â gosod apiau nad wyt yn ymddiried ynddynt.
+			Gall apiau maleisus fod yn ceisio dwyn dy waled.
+		</p>
+		<p>
+			Cadwa\'r risg yn isel!
+			<b>Cadwa dim ond swm ymarferol</b> ar gyfer defnydd diwrnod.
+		</p>
+	]]>
+    </string>
+  <string name="help_technical_notes">
+<![CDATA[
+        <p>
+            <b>Nodiadau technegol:</b>
+        </p>
+        <p>
+            Fel waled ysgafn/SPV, mae Bitcoin Wallet yn dilyn y gadwyn fwyaf prawf-o-waith (proof-of-work) (a elwir hefyd weithiau y \"gadwyn hiraf\" (the \"longest chain\"), y \"gadwyn ennill\" (the \"winning chain\"), neu\'r \"bloc-gadwyn Bitcoin\" (the \"Bitcoin blockchain\").)
+            Byddi ond yn medru derbyn taliadau i mewn a gwneud taliadau ar y gadwyn honno.
+            Ni roddir unrhyw sicrwydd o ran Bitcoin ar gadwyni lleiafrifol, hynny yw cadwyni gyda llai prawf-o-waith.
+        </p>
+        <p>
+            Yn y gorffennol, mae cadwyni lleiafrifol yn gyflym iawn wedi dod yn amherthnasol.
+            Os wyt am ddilyn cadwyn lleiafrifol beth bynnag, cynghorir dy fod yn defnyddio\'r nodwedd \"cyfoed ymddiriedir ynddo\" i gysylltu yn unig â gweithrediad bitcoind sy\'n gorfodi dy gadwyn o ddewis.
+            Os na ellir ymddiried yn y rhwydwaith rhwng dy waled di a\'r cyfoed a ymddiriedir ynddo, defnyddia VPN i ddilysu\'r cysylltiad hwnnw.
+        </p>
+    ]]>
+    </string>
+</resources>
