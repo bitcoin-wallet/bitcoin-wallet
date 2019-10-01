@@ -1,3 +1,8 @@
+v7.22
+
+* Fix issue with confirmation of transactions that empty your wallet.
+* Based on bitcoinj 0.15.5.
+
 v7.21
 
 * Update translations from Transifex.
