@@ -366,15 +366,11 @@ public class WalletTransactionsFragment extends Fragment implements Transactions
 
     @Override
     public void onWarningClick(final View view) {
-        switch (warning()) {
-        case BACKUP:
+        final WarningType warning = warning();
+        if (warning == TransactionsAdapter.WarningType.BACKUP)
             activityViewModel.showBackupWalletDialog.setValue(Event.simple());
-            break;
-
-        case STORAGE_ENCRYPTION:
+        else if (warning == TransactionsAdapter.WarningType.STORAGE_ENCRYPTION)
             startActivity(new Intent(Settings.ACTION_SECURITY_SETTINGS));
-            break;
-        }
     }
 
     private TransactionsAdapter.WarningType warning() {
