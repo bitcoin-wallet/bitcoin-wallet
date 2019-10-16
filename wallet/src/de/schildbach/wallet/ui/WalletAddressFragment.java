@@ -54,6 +54,7 @@ public final class WalletAddressFragment extends Fragment {
     private ImageView currentAddressQrView;
     private CardView currentAddressQrCardView;
 
+    private WalletActivityViewModel activityViewModel;
     private WalletAddressViewModel viewModel;
 
     private static final Logger log = LoggerFactory.getLogger(WalletAddressFragment.class);
@@ -68,7 +69,10 @@ public final class WalletAddressFragment extends Fragment {
     @Override
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        activityViewModel = ViewModelProviders.of(activity).get(WalletActivityViewModel.class);
         viewModel = ViewModelProviders.of(this).get(WalletAddressViewModel.class);
+
         viewModel.qrCode.observe(this, new Observer<Bitmap>() {
             @Override
             public void onChanged(final Bitmap qrCode) {
@@ -89,7 +93,7 @@ public final class WalletAddressFragment extends Fragment {
                 final NfcAdapter nfcAdapter = WalletAddressFragment.this.nfcAdapter;
                 if (nfcAdapter != null)
                     nfcAdapter.setNdefPushMessage(createNdefMessage(bitcoinUri.toString()), activity);
-                ViewModelProviders.of(activity).get(WalletActivityViewModel.class).addressLoadingFinished();
+                activityViewModel.addressLoadingFinished();
             }
         });
         viewModel.showWalletAddressDialog.observe(this, new Event.Observer<Void>() {
@@ -109,7 +113,6 @@ public final class WalletAddressFragment extends Fragment {
         currentAddressQrView = (ImageView) view.findViewById(R.id.bitcoin_address_qr);
 
         currentAddressQrCardView = (CardView) view.findViewById(R.id.bitcoin_address_qr_card);
-        currentAddressQrCardView.setCardBackgroundColor(Color.WHITE);
         currentAddressQrCardView.setPreventCornerOverlap(false);
         currentAddressQrCardView.setUseCompatPadding(false);
         currentAddressQrCardView.setMaxCardElevation(0); // we're using Lollipop elevation

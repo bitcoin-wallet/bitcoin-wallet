@@ -170,10 +170,14 @@
     <string name="edit_address_book_entry_dialog_address_label">Adresse</string>
     <string name="edit_address_book_entry_dialog_label_label">Name</string>
     <string name="edit_address_book_entry_dialog_button_edit">Speichern</string>
+    <string name="transaction_row_confidence_message_sent_unbroadcasted">Diese Zahlung ist noch nicht übertragen.</string>
+    <string name="transaction_row_confidence_message_received_successful">Diese Zahlung wurde deiner Wallet gutgeschrieben.</string>
+    <string name="transaction_row_confidence_message_sent_successful">Deine Zahlung war erfolgreich. Sie ist beim Empfänger angekommen.</string>
+    <string name="transaction_row_confidence_message_received_failed">Diese Zahlung ist fehlgeschlagen.</string>
+    <string name="transaction_row_confidence_message_sent_failed">Deine Zahlung ist fehlgeschlagen.</string>
     <string name="transaction_row_fee">Netzwerk-Gebühr</string>
     <string name="transaction_row_message_purpose_key_rotation">Diese Transaktion stärkt deine Wallet gegen Diebstahl. &lt;u&gt;Mehr Information.&lt;/u&gt;</string>
     <string name="transaction_row_message_purpose_raise_fee">Diese Transaktion erhöht die Netzwerk-Gebühr für eine vorherige Zahlung.</string>
-    <string name="transaction_row_message_own_unbroadcasted">Diese Zahlung ist noch nicht übertragen.</string>
     <string name="transaction_row_message_received_direct">Diese Zahlung wurde direkt empfangen. Es besteht das Risiko, daß sie niemals verfügbar wird.</string>
     <string name="transaction_row_message_received_unconfirmed_delayed">Die Bestätigung dieser Zahlung ist verspätet, wahrscheinlich aufgrund einer Überlastung des Groestlcoin-Netzes.</string>
     <string name="transaction_row_message_received_unconfirmed_unlocked">Diese Zahlung sollte in ein paar Minuten verfügbar werden.</string>
@@ -298,6 +302,7 @@
     <string name="report_issue_dialog_mail_intent_chooser">Bericht senden mit…</string>
     <string name="about_title">Über</string>
     <string name="about_version_title">Version</string>
+    <string name="about_version_apk_hash_title">SHA256-Prüfsumme des APK</string>
     <string name="about_copyright_title">Urheberrecht</string>
     <string name="about_license_title">Lizenz</string>
     <string name="about_source_title">Quellcode</string>
@@ -305,7 +310,6 @@
     <string name="about_credits_bitcoinj_title">groestlcoinj %s, eine Implementierung des Groestlcoin-Protokolls</string>
     <string name="about_credits_zxing_title">ZXing, eine QR-Code-Bibliothek</string>
     <string name="about_credits_bouncycastle_title">Bouncy Castle, eine Kryptographie-Bibliothek</string>
-    <string name="about_credits_scrypt_title">Scrypt, eine Implementierung der Schlüsselableitung</string>
     <string name="about_credits_okhttp_title">OkHttp, eine HTTP-Client-Bibliothek</string>
     <string name="about_credits_moshi_title">Moshi, eine JSON-Bibliothek</string>
     <string name="about_credits_guava_title">Guava, eine Sammlung nützlicher Helfer</string>

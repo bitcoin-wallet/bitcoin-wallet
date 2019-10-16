@@ -101,8 +101,8 @@
   <string name="edit_address_book_entry_dialog_address_label">Naslov</string>
   <string name="edit_address_book_entry_dialog_label_label">Ime</string>
   <string name="edit_address_book_entry_dialog_button_edit">Shrani</string>
+  <string name="transaction_row_confidence_message_sent_unbroadcasted">To plačilo še ni bilo oddano.</string>
   <string name="transaction_row_message_purpose_key_rotation">To nakazilo je namenjeno zaščiti pred določeno vrsto kraje. &lt;u&gt;Več informacij.&lt;/u&gt;</string>
-  <string name="transaction_row_message_own_unbroadcasted">To plačilo še ni bilo oddano.</string>
   <string name="transaction_row_message_received_direct">To plačilo je bilo prejeto neposredno. Obstaja tveganje, da ga ne boste nikoli mogli potrošiti.</string>
   <string name="transaction_row_message_received_unconfirmed_unlocked">Te prejete novce boste predvidoma lahko uporabili v nekaj minutah.</string>
   <string name="transaction_row_message_received_dead">To plačilo je pošiljatelj storniral.</string>

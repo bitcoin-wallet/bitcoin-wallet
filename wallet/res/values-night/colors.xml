@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- foreground -->
+    <color name="fg_significant">#ffeceff4</color>
+    <color name="fg_less_significant">#ffe5e9f0</color>
+    <color name="fg_insignificant">#ffd8dee9</color>
+    <color name="fg_value_positive">#ffa3d08c</color>
+    <color name="fg_value_negative">#ffd0616a</color>
+
+    <!-- background -->
+    <color name="bg_level3">#ff384050</color>
+    <color name="bg_level2">#ff2a303d</color>
+    <color name="bg_level1">#ff1a1e24</color>
+    <color name="bg_level0">#ff10121c</color>
+    <color name="bg_action_bar">#ff2c323e</color>
+    <color name="bg_qr_thumb">#ffa0a8b0</color>
+
+    <!-- password strength -->
+    <color name="fg_password_strength_weak">#ffe06068</color>
+    <color name="fg_password_strength_fair">#ffdfa870</color>
+    <color name="fg_password_strength_good">#ffa0a8a0</color>
+    <color name="fg_password_strength_strong">#ffa3e08c</color>
+
+    <!-- app icon -->
+    <item name="splash_icon_alpha" format="float" type="dimen">0.6</item>
+
+</resources>

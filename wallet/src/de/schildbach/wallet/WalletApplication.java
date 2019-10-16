@@ -25,6 +25,9 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
+import com.google.common.hash.HashCode;
+import com.google.common.hash.Hasher;
+import com.google.common.hash.Hashing;
 import org.bitcoinj.core.Block;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.VerificationException;
@@ -375,16 +378,27 @@ public class WalletApplication extends Application {
     }
 
     public int maxConnectedPeers() {
-        return activityManager.isLowRamDevice() ? 4 : 6;
+        return activityManager.getMemoryClass() <= 128 ? 4 : 6;
     }
 
     public int scryptIterationsTarget() {
-        return activityManager.isLowRamDevice() ? Constants.SCRYPT_ITERATIONS_TARGET_LOWRAM
-                : Constants.SCRYPT_ITERATIONS_TARGET;
+        return activityManager.getMemoryClass() <= 128 || Build.SUPPORTED_64_BIT_ABIS.length == 0
+                ? Constants.SCRYPT_ITERATIONS_TARGET_LOWRAM : Constants.SCRYPT_ITERATIONS_TARGET;
     }
 
     public static String versionLine(final PackageInfo packageInfo) {
         return ImmutableList.copyOf(Splitter.on('.').splitToList(packageInfo.packageName)).reverse().get(0) + ' '
                 + packageInfo.versionName + (BuildConfig.DEBUG ? " (debuggable)" : "");
+    }
+
+    public final HashCode apkHash() throws IOException {
+        final Hasher hasher = Hashing.sha256().newHasher();
+        final FileInputStream is = new FileInputStream(getPackageCodePath());
+        final byte[] buf = new byte[4096];
+        int read;
+        while (-1 != (read = is.read(buf)))
+            hasher.putBytes(buf, 0, read);
+        is.close();
+        return hasher.hash();
     }
 }

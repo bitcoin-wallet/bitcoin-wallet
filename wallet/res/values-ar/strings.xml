@@ -137,8 +137,8 @@
   <string name="edit_address_book_entry_dialog_address_label">عنوان</string>
   <string name="edit_address_book_entry_dialog_button_edit">حفظ</string>
   <string name="transaction_row_fee">تكلفة الشبكة</string>
+  <string name="transaction_row_confidence_message_sent_unbroadcasted">لم يتم إرسال هذه الدفعة بعد.</string>
   <string name="transaction_row_message_purpose_key_rotation">هذه المعاملة تعزز محفظتك ضد السرقة. مزيد من المعلومات.</string>
-  <string name="transaction_row_message_own_unbroadcasted">لم يتم إرسال هذه الدفعة بعد.</string>
   <string name="transaction_row_message_received_direct">تم استلام هذه الدفعة مباشرة. توجد خطورة عدم القدرة على إنفاقها.</string>
   <string name="transaction_row_message_received_unconfirmed_unlocked">سيمكنك دفع هذه الدفعة في غضون دقائق.</string>
   <string name="transaction_row_message_received_dead">تم إرجاع هذه الدفعة من قبل المرسل.</string>

@@ -86,6 +86,7 @@ public class WalletTransactionsFragment extends Fragment implements Transactions
     private TransactionsAdapter adapter;
     private MenuItem filterMenuItem;
 
+    private WalletActivityViewModel activityViewModel;
     private WalletTransactionsViewModel viewModel;
 
     private static final Uri KEY_ROTATION_URI = Uri.parse("https://bitcoin.org/en/alert/2013-08-11-android");
@@ -108,7 +109,9 @@ public class WalletTransactionsFragment extends Fragment implements Transactions
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
+        activityViewModel = ViewModelProviders.of(activity).get(WalletActivityViewModel.class);
         viewModel = ViewModelProviders.of(this).get(WalletTransactionsViewModel.class);
+
         viewModel.direction.observe(this, new Observer<WalletTransactionsViewModel.Direction>() {
             @Override
             public void onChanged(final WalletTransactionsViewModel.Direction direction) {
@@ -149,7 +152,7 @@ public class WalletTransactionsFragment extends Fragment implements Transactions
             @Override
             public void onChanged(final List<ListItem> listItems) {
                 adapter.submitList(listItems);
-                ViewModelProviders.of(activity).get(WalletActivityViewModel.class).transactionsLoadingFinished();
+                activityViewModel.transactionsLoadingFinished();
             }
         });
         viewModel.showBitmapDialog.observe(this, new Event.Observer<Bitmap>() {
@@ -346,8 +349,13 @@ public class WalletTransactionsFragment extends Fragment implements Transactions
                 contextualData.append('\n');
                 if (tx.hasConfidence())
                     contextualData.append("  confidence: ").append(tx.getConfidence()).append('\n');
+                final String[] blockExplorers = activity.getResources()
+                        .getStringArray(R.array.preferences_block_explorer_values);
+                for (final String blockExplorer : blockExplorers)
+                    contextualData
+                            .append(Uri.withAppendedPath(Uri.parse(blockExplorer), "tx/" + tx.getTxId().toString()))
+                            .append('\n');
                 contextualData.append(tx.toString());
-
                 viewModel.showReportIssueDialog.setValue(new Event<>(contextualData.toString()));
             }
         });
@@ -363,9 +371,7 @@ public class WalletTransactionsFragment extends Fragment implements Transactions
     public void onWarningClick(final View view) {
         switch (warning()) {
         case BACKUP:
-            final WalletActivityViewModel viewModel = ViewModelProviders.of(getActivity())
-                    .get(WalletActivityViewModel.class);
-            viewModel.showBackupWalletDialog.setValue(Event.simple());
+            activityViewModel.showBackupWalletDialog.setValue(Event.simple());
             break;
 
         case STORAGE_ENCRYPTION:
@@ -375,13 +381,14 @@ public class WalletTransactionsFragment extends Fragment implements Transactions
     }
 
     private TransactionsAdapter.WarningType warning() {
-        final int storageEncryptionStatus = devicePolicyManager.getStorageEncryptionStatus();
         if (config.remindBackup())
             return TransactionsAdapter.WarningType.BACKUP;
-        else if (storageEncryptionStatus == DevicePolicyManager.ENCRYPTION_STATUS_INACTIVE
+
+        final int storageEncryptionStatus = devicePolicyManager.getStorageEncryptionStatus();
+        if (storageEncryptionStatus == DevicePolicyManager.ENCRYPTION_STATUS_INACTIVE
                 || storageEncryptionStatus == DevicePolicyManager.ENCRYPTION_STATUS_ACTIVE_DEFAULT_KEY)
             return TransactionsAdapter.WarningType.STORAGE_ENCRYPTION;
-        else
-            return null;
+
+        return null;
     }
 }

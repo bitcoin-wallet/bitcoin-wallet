@@ -1,0 +1,29 @@
+<b>Cluda dy Fitcoin yn dy boced!</b>Gellir talu'n gyflym gan sganio cod QR. Fel masnachwr, gellir derbyn taliadau yn syth ac yn ddibynadwy. Waled Bitcoin yw'r ap Bitcoin cyntaf a hefyd, gellir dadlau, y mwyaf diogel!
+
+
+<b>NODWEDDION</b>
+
+• Dim angen cofrestru, gwasanaeth gwe na chwmwl! Mae'r waled hon yn ddatganoledig ac yn gyfoed-i-gyfoed.
+• Dangos swm Bitcoin mewn BTC, mBTC a µBTC.
+• Cyfnewid i ac o arian gwahanol gwledydd.
+• Anfon a derbyn Bitcoin trwy NFC, codau QR neu URLau Bitcoin.
+• Llyfr cyfeiriadau ar gyfer cyfeiriadau Bitcoin a ddefnyddir yn aml.
+• Gellir talu trwy Bluetooth pan nad oes cysylltiad rhyngrwyd.
+• Hysbysiad system pan dderbynnir Bitcoin.
+• Ysgubo dy waled bapur (e.e. y rhai a ddefnyddir am storfa oer).
+• Teclyn i ddangos balans Bitcoin.
+
+
+<b>CYFRANNU</b>
+
+Mae Waled Bitcoin yn feddalwedd <b>cod agored</b> ac <b>am ddim</b>. Trwydded: GPLv3
+https://www.gnu.org/licenses/gpl-3.0.en.html
+
+Mae ein cod gwreiddiol ar gael ar GitHub:
+https://github.com/bitcoin-wallet/bitcoin-wallet
+
+Rheolir pob cyfieithiad trwy Transifex:
+https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
+
+
+<i>Defnyddir ar dy risg dy hun!</i>

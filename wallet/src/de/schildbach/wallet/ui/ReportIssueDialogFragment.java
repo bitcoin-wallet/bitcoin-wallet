@@ -20,6 +20,7 @@ package de.schildbach.wallet.ui;
 import java.io.File;
 import java.io.IOException;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Formatter;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -29,6 +30,7 @@ import java.util.TimeZone;
 
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.TransactionOutput;
+import org.bitcoinj.core.Utils;
 import org.bitcoinj.wallet.Wallet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -199,6 +201,7 @@ public class ReportIssueDialogFragment extends DialogFragment {
         final Calendar calendar = new GregorianCalendar(UTC);
 
         report.append("Version: " + pi.versionName + " (" + pi.versionCode + ")\n");
+        report.append("APK Hash: " + application.apkHash().toString() + "\n");
         report.append("Package: " + pi.packageName + "\n");
         final String installerPackageName = Installer.installerPackageName(application);
         final Installer installer = Installer.from(installerPackageName);
@@ -209,21 +212,33 @@ public class ReportIssueDialogFragment extends DialogFragment {
         report.append("Test/Prod: " + (Constants.TEST ? "test" : "prod") + "\n");
         report.append("Timezone: " + TimeZone.getDefault().getID() + "\n");
         calendar.setTimeInMillis(System.currentTimeMillis());
-        report.append("Time: " + String.format(Locale.US, "%tF %tT %tZ", calendar, calendar, calendar) + "\n");
+        report.append("Current time: " + String.format(Locale.US, "%tF %tT %tZ", calendar, calendar, calendar) + "\n");
         calendar.setTimeInMillis(WalletApplication.TIME_CREATE_APPLICATION);
         report.append(
-                "Time of launch: " + String.format(Locale.US, "%tF %tT %tZ", calendar, calendar, calendar) + "\n");
-        calendar.setTimeInMillis(pi.lastUpdateTime);
-        report.append(
-                "Time of last update: " + String.format(Locale.US, "%tF %tT %tZ", calendar, calendar, calendar) + "\n");
+                "Time of app launch: " + String.format(Locale.US, "%tF %tT %tZ", calendar, calendar, calendar) + "\n");
         calendar.setTimeInMillis(pi.firstInstallTime);
-        report.append("Time of first install: " + String.format(Locale.US, "%tF %tT %tZ", calendar, calendar, calendar)
-                + "\n");
+        report.append("Time of first app install: "
+                + String.format(Locale.US, "%tF %tT %tZ", calendar, calendar, calendar) + "\n");
+        calendar.setTimeInMillis(pi.lastUpdateTime);
+        report.append("Time of last app update: "
+                + String.format(Locale.US, "%tF %tT %tZ", calendar, calendar, calendar) + "\n");
         final long lastBackupTime = configuration.getLastBackupTime();
         calendar.setTimeInMillis(lastBackupTime);
-        report.append("Time of backup: "
+        report.append("Time of last backup: "
                 + (lastBackupTime > 0 ? String.format(Locale.US, "%tF %tT %tZ", calendar, calendar, calendar) : "none")
                 + "\n");
+        final long lastRestoreTime = configuration.getLastRestoreTime();
+        calendar.setTimeInMillis(lastRestoreTime);
+        report.append("Time of last restore: "
+                + (lastRestoreTime > 0 ? String.format(Locale.US, "%tF %tT %tZ", calendar, calendar, calendar) : "none")
+                + "\n");
+        final long lastBlockchainResetTime = configuration.getLastBlockchainResetTime();
+        calendar.setTimeInMillis(lastBlockchainResetTime);
+        report.append(
+                "Time of last blockchain reset: "
+                        + (lastBlockchainResetTime > 0
+                                ? String.format(Locale.US, "%tF %tT %tZ", calendar, calendar, calendar) : "none")
+                        + "\n");
         report.append("Network: " + Constants.NETWORK_PARAMETERS.getId() + "\n");
         final Wallet wallet = viewModel.wallet.getValue();
         report.append("Encrypted: " + wallet.isEncrypted() + "\n");
@@ -245,8 +260,11 @@ public class ReportIssueDialogFragment extends DialogFragment {
         report.append("Transactions: " + transactions.size() + "\n");
         report.append("Inputs: " + numInputs + "\n");
         report.append("Outputs: " + numOutputs + " (spent: " + numSpentOutputs + ")\n");
-        report.append(
-                "Last block seen: " + wallet.getLastBlockSeenHeight() + " (" + wallet.getLastBlockSeenHash() + ")\n");
+        final int lastBlockSeenHeight = wallet.getLastBlockSeenHeight();
+        final Date lastBlockSeenTime = wallet.getLastBlockSeenTime();
+        report.append("Last block seen: " + lastBlockSeenHeight).append(" (")
+                .append(lastBlockSeenTime == null ? "time unknown" : Utils.dateTimeFormat(lastBlockSeenTime))
+                .append(")\n");
 
         report.append("Databases:");
         for (final String db : application.databaseList())

@@ -3,7 +3,7 @@
     android:id="@+id/peer_list_group"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_bright" >
+    android:background="@color/bg_level2" >
 
     <ProgressBar
         android:layout_width="wrap_content"
@@ -13,7 +13,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/bg_bright"
+        android:background="@color/bg_level1"
         android:gravity="center"
         android:text="@string/peer_list_fragment_empty"
         android:textSize="@dimen/font_size_small" />

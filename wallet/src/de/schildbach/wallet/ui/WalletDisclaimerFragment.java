@@ -19,6 +19,7 @@ package de.schildbach.wallet.ui;
 
 import java.util.Set;
 
+import android.content.Context;
 import de.schildbach.wallet.R;
 import de.schildbach.wallet.service.BlockchainState;
 import de.schildbach.wallet.service.BlockchainState.Impediment;
@@ -41,14 +42,26 @@ import androidx.lifecycle.ViewModelProviders;
  * @author Andreas Schildbach
  */
 public final class WalletDisclaimerFragment extends Fragment {
+    private WalletActivity activity;
+
     private TextView messageView;
 
+    private WalletActivityViewModel activityViewModel;
     private WalletDisclaimerViewModel viewModel;
+
+    @Override
+    public void onAttach(final Context context) {
+        super.onAttach(context);
+        this.activity = (WalletActivity) context;
+    }
 
     @Override
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        activityViewModel = ViewModelProviders.of(activity).get(WalletActivityViewModel.class);
         viewModel = ViewModelProviders.of(this).get(WalletDisclaimerViewModel.class);
+
         viewModel.getBlockchainState().observe(this, new Observer<BlockchainState>() {
             @Override
             public void onChanged(final BlockchainState blockchainState) {
@@ -70,9 +83,7 @@ public final class WalletDisclaimerFragment extends Fragment {
         messageView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(final View v) {
-                final WalletActivityViewModel viewModel = ViewModelProviders.of(getActivity())
-                        .get(WalletActivityViewModel.class);
-                viewModel.showHelpDialog.setValue(new Event<>(R.string.help_safety));
+                activityViewModel.showHelpDialog.setValue(new Event<>(R.string.help_safety));
             }
         });
         return messageView;

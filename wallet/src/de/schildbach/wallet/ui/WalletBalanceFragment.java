@@ -18,6 +18,7 @@
 package de.schildbach.wallet.ui;
 
 import org.bitcoinj.core.Coin;
+import org.bitcoinj.core.NetworkParameters;
 import org.bitcoinj.utils.Fiat;
 
 import de.schildbach.wallet.Configuration;
@@ -63,6 +64,7 @@ public final class WalletBalanceFragment extends Fragment {
 
     private boolean showLocalBalance;
 
+    private WalletActivityViewModel activityViewModel;
     private WalletBalanceViewModel viewModel;
 
 
@@ -83,7 +85,9 @@ public final class WalletBalanceFragment extends Fragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
+        activityViewModel = ViewModelProviders.of(activity).get(WalletActivityViewModel.class);
         viewModel = ViewModelProviders.of(this).get(WalletBalanceViewModel.class);
+
         viewModel.getBlockchainState().observe(this, new Observer<BlockchainState>() {
             @Override
             public void onChanged(final BlockchainState blockchainState) {
@@ -95,7 +99,7 @@ public final class WalletBalanceFragment extends Fragment {
             public void onChanged(final Coin balance) {
                 activity.invalidateOptionsMenu();
                 updateView();
-                ViewModelProviders.of(activity).get(WalletActivityViewModel.class).balanceLoadingFinished();
+                activityViewModel.balanceLoadingFinished();
             }
         });
         if (Constants.ENABLE_EXCHANGE_RATES) {
@@ -140,7 +144,7 @@ public final class WalletBalanceFragment extends Fragment {
 
         viewBalanceLocal = (CurrencyTextView) view.findViewById(R.id.wallet_balance_local);
         viewBalanceLocal.setInsignificantRelativeSize(1);
-        viewBalanceLocal.setStrikeThru(Constants.TEST);
+        viewBalanceLocal.setStrikeThru(!Constants.NETWORK_PARAMETERS.getId().equals(NetworkParameters.ID_MAINNET));
 
         viewProgress = (TextView) view.findViewById(R.id.wallet_balance_progress);
     }
@@ -239,7 +243,7 @@ public final class WalletBalanceFragment extends Fragment {
             if (balance != null && balance.isGreaterThan(Constants.TOO_MUCH_BALANCE_THRESHOLD)) {
                 viewBalanceWarning.setVisibility(View.VISIBLE);
                 viewBalanceWarning.setText(R.string.wallet_balance_fragment_too_much);
-            } else if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            } else if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M || Build.VERSION.SECURITY_PATCH.compareToIgnoreCase(Constants.SECURITY_PATCH_INSECURE_BELOW) < 0) {
                 viewBalanceWarning.setVisibility(View.VISIBLE);
                 viewBalanceWarning.setText(R.string.wallet_balance_fragment_insecure_device);
             } else {

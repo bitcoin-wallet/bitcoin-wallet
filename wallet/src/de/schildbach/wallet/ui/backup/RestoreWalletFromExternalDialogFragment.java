@@ -40,6 +40,7 @@ import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.ui.AbstractWalletActivity;
 import de.schildbach.wallet.ui.DialogBuilder;
+import de.schildbach.wallet.ui.Event;
 import de.schildbach.wallet.ui.ShowPasswordCheckListener;
 import de.schildbach.wallet.util.Crypto;
 import de.schildbach.wallet.util.WalletUtils;
@@ -59,6 +60,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
@@ -74,7 +76,7 @@ public class RestoreWalletFromExternalDialogFragment extends DialogFragment {
     public static void show(final FragmentManager fm, final Uri backupUri) {
         final DialogFragment newFragment = new RestoreWalletFromExternalDialogFragment();
         final Bundle args = new Bundle();
-        args.putParcelable(KEY_BACKUP_URI, checkNotNull(backupUri));
+        args.putParcelable(KEY_BACKUP_URI, backupUri);
         newFragment.setArguments(args);
         newFragment.show(fm, FRAGMENT_TAG);
     }
@@ -83,6 +85,8 @@ public class RestoreWalletFromExternalDialogFragment extends DialogFragment {
     private WalletApplication application;
     private ContentResolver contentResolver;
     private Configuration config;
+    private FragmentManager fragmentManager;
+    @Nullable
     private Uri backupUri;
 
     private EditText passwordView;
@@ -100,6 +104,7 @@ public class RestoreWalletFromExternalDialogFragment extends DialogFragment {
         this.application = activity.getWalletApplication();
         this.contentResolver = application.getContentResolver();
         this.config = application.getConfiguration();
+        this.fragmentManager = getFragmentManager();
     }
 
     @Override
@@ -107,9 +112,22 @@ public class RestoreWalletFromExternalDialogFragment extends DialogFragment {
         super.onCreate(savedInstanceState);
         log.info("opening dialog {}", getClass().getName());
 
-        this.backupUri = checkNotNull((Uri) getArguments().getParcelable(KEY_BACKUP_URI));
+        this.backupUri = (Uri) getArguments().getParcelable(KEY_BACKUP_URI);
 
         viewModel = ViewModelProviders.of(this).get(RestoreWalletViewModel.class);
+        viewModel.showSuccessDialog.observe(this, new Event.Observer<Boolean>() {
+            @Override
+            public void onEvent(final Boolean showEncryptedMessage) {
+                SuccessDialogFragment.showDialog(fragmentManager, showEncryptedMessage);
+            }
+        });
+        viewModel.showFailureDialog.observe(this, new Event.Observer<String>() {
+            @Override
+            public void onEvent(final String message) {
+                FailureDialogFragment.showDialog(fragmentManager, message,
+                        RestoreWalletFromExternalDialogFragment.this.backupUri);
+            }
+        });
     }
 
     @Override
@@ -174,16 +192,23 @@ public class RestoreWalletFromExternalDialogFragment extends DialogFragment {
     }
 
     private void handleRestore(final String password) {
-        try {
-            final InputStream is = contentResolver.openInputStream(backupUri);
-            final Wallet restoredWallet = restoreWalletFromEncrypted(is, password);
-            application.replaceWallet(restoredWallet);
-            config.disarmBackupReminder();
-            SuccessDialogFragment.showDialog(getFragmentManager(), restoredWallet.isEncrypted());
-            log.info("successfully restored encrypted wallet from external source");
-        } catch (final IOException x) {
-            FailureDialogFragment.showDialog(getFragmentManager(), x.getMessage(), backupUri);
-            log.info("problem restoring wallet", x);
+        if (backupUri != null) {
+            try {
+                final InputStream is = contentResolver.openInputStream(backupUri);
+                final Wallet restoredWallet = restoreWalletFromEncrypted(is, password);
+                application.replaceWallet(restoredWallet);
+                config.disarmBackupReminder();
+                config.updateLastRestoreTime();
+                viewModel.showSuccessDialog.setValue(new Event<>(restoredWallet.isEncrypted()));
+                log.info("successfully restored encrypted wallet from external source");
+            } catch (final IOException x) {
+                viewModel.showFailureDialog.setValue(new Event<>(x.getMessage()));
+                log.info("problem restoring wallet", x);
+            }
+        } else {
+            final String message = "no backup data provided";
+            viewModel.showFailureDialog.setValue(new Event<>(message));
+            log.info("problem restoring wallet: %s", message);
         }
     }
 

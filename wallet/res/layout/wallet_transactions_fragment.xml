@@ -3,7 +3,7 @@
     android:id="@+id/wallet_transactions_group"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_less_bright" >
+    android:background="@color/bg_level0" >
 
     <TextView
         android:id="@+id/wallet_transactions_empty"

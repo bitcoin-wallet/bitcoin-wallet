@@ -109,14 +109,14 @@ public final class Constants {
         /** Capacity of the block store. */
         public static final int BLOCKCHAIN_STORE_CAPACITY = SPVBlockStore.DEFAULT_CAPACITY * 2;
 
-        /** Filename of the block checkpoints file. */
-        public static final String CHECKPOINTS_FILENAME = "checkpoints" + FILENAME_NETWORK_SUFFIX + ".txt";
+        /** Name of the block checkpoints asset. */
+        public static final String CHECKPOINTS_ASSET = "checkpoints" + FILENAME_NETWORK_SUFFIX + ".txt";
 
-        /** Filename of the fees files. */
-        public static final String FEES_FILENAME = "fees" + FILENAME_NETWORK_SUFFIX + ".txt";
+        /** Name of the asset containing hardcoded fees. Also filename of the dynamic fees file. */
+        public static final String FEES_ASSET = "fees" + FILENAME_NETWORK_SUFFIX + ".txt";
 
-        /** Filename of the file containing Electrum servers. */
-        public static final String ELECTRUM_SERVERS_FILENAME = TEST ? "electrum-servers-testnet.txt" : "electrum-servers.txt";
+        /** Name of the asset containing Electrum servers. */
+        public static final String ELECTRUM_SERVERS_ASSET = TEST ? "electrum-servers-testnet.txt" : "electrum-servers.txt";
     }
 
     /** URL to fetch version alerts from. */
@@ -192,6 +192,7 @@ public final class Constants {
     public static final Coin SOME_BALANCE_THRESHOLD = Coin.COIN;
 
     public static final int SDK_DEPRECATED_BELOW = Build.VERSION_CODES.LOLLIPOP;
+    public static final String SECURITY_PATCH_INSECURE_BELOW = "2018-01-01";
 
     public static final int NOTIFICATION_ID_CONNECTED = 1;
     public static final int NOTIFICATION_ID_COINS_RECEIVED = 2;

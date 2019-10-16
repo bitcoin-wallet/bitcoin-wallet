@@ -158,9 +158,9 @@
   <string name="edit_address_book_entry_dialog_label_label">標籤</string>
   <string name="edit_address_book_entry_dialog_button_edit">儲存</string>
   <string name="transaction_row_fee">網路手續費</string>
+  <string name="transaction_row_confidence_message_sent_unbroadcasted">付款尚未傳輸。</string>
   <string name="transaction_row_message_purpose_key_rotation">這筆交易會增強你的錢包的防竊力。&lt;u&gt;更多資訊。&lt;/u&gt;</string>
   <string name="transaction_row_message_purpose_raise_fee">這筆交易會增加前一筆付款的網路手續費。</string>
-  <string name="transaction_row_message_own_unbroadcasted">付款尚未傳輸。</string>
   <string name="transaction_row_message_received_direct">這筆付款被直接接收了，這類付款可能存在無法花用的風險。</string>
   <string name="transaction_row_message_received_unconfirmed_delayed">這筆付款確認的時間將會被延遲，可能是因為 Groestlcoin 網路超過負荷量了。</string>
   <string name="transaction_row_message_received_unconfirmed_unlocked">這筆付款應該在幾分鐘之後就可以花用。</string>
@@ -291,7 +291,6 @@
   <string name="about_category_credits">這個應用程式使用了...</string>
   <string name="about_credits_bitcoinj_title">groestlcoinj %s, 一個 Groestlcoin 通訊協定的實作</string>
   <string name="about_credits_zxing_title">ZXing, 一個處理 QR 代碼的程式庫</string>
-  <string name="about_credits_scrypt_title">Scrypt 演算法, Will Glozer 與 Colin Percival 的實作</string>
   <string name="about_market_app_title">%s 商店頁面</string>
   <string name="about_market_app_summary">給這個應用程式評論或評分</string>
   <string name="about_faq_title">常見問答</string>

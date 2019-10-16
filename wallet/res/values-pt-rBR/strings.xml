@@ -158,9 +158,9 @@
   <string name="edit_address_book_entry_dialog_label_label">Etiqueta</string>
   <string name="edit_address_book_entry_dialog_button_edit">Salvar</string>
   <string name="transaction_row_fee">Taxa da rede</string>
+  <string name="transaction_row_confidence_message_sent_unbroadcasted">Este pagamento ainda não foi transmitido.</string>
   <string name="transaction_row_message_purpose_key_rotation">Esta transação fortalece sua carteira contra roubo. &lt;u&gt;More info.&lt;/u&gt;</string>
   <string name="transaction_row_message_purpose_raise_fee">Essa transação aumenta a taxa da rede para um pagamento anterior.</string>
-  <string name="transaction_row_message_own_unbroadcasted">Este pagamento ainda não foi transmitido.</string>
   <string name="transaction_row_message_received_direct">Esse pagamento foi recebido diretamente. Existe um certo risco dessa quantia nunca poder ser gasta no futuro. Deve haver um certo vínculo de confiança com o pagador.</string>
   <string name="transaction_row_message_received_unconfirmed_delayed">A confirmacão deste pagamento está demorando devido à sobrecarga na rede Groestlcoin.</string>
   <string name="transaction_row_message_received_unconfirmed_unlocked">Este pagamento estará disponível em alguns minutos.</string>
@@ -291,7 +291,6 @@
   <string name="about_category_credits">Este app está usando…</string>
   <string name="about_credits_bitcoinj_title">groestlcoinj %s, um protocolo de implementação Groestlcoin </string>
   <string name="about_credits_zxing_title">ZXing, uma biblioteca de processamento para QR-code</string>
-  <string name="about_credits_scrypt_title">Scrypt, implementado por Will Glozer e Colin Percival</string>
   <string name="about_market_app_title">Página no %s</string>
   <string name="about_market_app_summary">Comente ou classifique o aplicativo</string>
   <string name="about_faq_title">FAQ</string>

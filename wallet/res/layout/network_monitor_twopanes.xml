@@ -8,7 +8,7 @@
         android:layout_width="0px"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:background="@color/bg_less_bright"
+        android:background="@color/bg_level0"
         android:orientation="vertical" >
 
         <TextView
@@ -29,14 +29,14 @@
             android:layout_width="match_parent"
             android:layout_height="0px"
             android:layout_weight="1"
-            android:background="@color/bg_bright" />
+            android:background="@color/bg_level1" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="0px"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:background="@color/bg_less_bright"
+        android:background="@color/bg_level0"
         android:elevation="3dp"
         android:orientation="vertical" >
 
@@ -58,7 +58,7 @@
             android:layout_width="match_parent"
             android:layout_height="0px"
             android:layout_weight="1"
-            android:background="@color/bg_bright" />
+            android:background="@color/bg_level1" />
     </LinearLayout>
 
 </LinearLayout>

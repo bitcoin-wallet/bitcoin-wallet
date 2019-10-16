@@ -112,8 +112,8 @@
   <string name="edit_address_book_entry_dialog_address_label">Адреса</string>
   <string name="edit_address_book_entry_dialog_label_label">Ім\'я</string>
   <string name="edit_address_book_entry_dialog_button_edit">Зберегти</string>
+  <string name="transaction_row_confidence_message_sent_unbroadcasted">Цей платіж ще не був переданий в мережу.</string>
   <string name="transaction_row_message_purpose_key_rotation">Ця транзакція захищає ваш гаманець від крадіжки. &lt;u&gt;Детальніше.&lt;/u&gt;</string>
-  <string name="transaction_row_message_own_unbroadcasted">Цей платіж ще не був переданий в мережу.</string>
   <string name="transaction_row_message_received_direct">Цей платіж був проведений напряму. Існує ризик того, що ви ніколи не зможете витратити отримані засоби.</string>
   <string name="transaction_row_message_received_unconfirmed_unlocked">Цей платіж повинен стати доступним через кілька хвилин.</string>
   <string name="transaction_row_message_received_dead">Цей платіж був скасований відправником.</string>

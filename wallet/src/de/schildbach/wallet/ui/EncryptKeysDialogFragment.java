@@ -85,6 +85,8 @@ public class EncryptKeysDialogFragment extends DialogFragment {
     private HandlerThread backgroundThread;
     private Handler backgroundHandler;
 
+    private WalletActivityViewModel activityViewModel;
+
     private enum State {
         INPUT, CRYPTING, DONE
     }
@@ -121,6 +123,8 @@ public class EncryptKeysDialogFragment extends DialogFragment {
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         log.info("opening dialog {}", getClass().getName());
+
+        activityViewModel = ViewModelProviders.of(activity).get(WalletActivityViewModel.class);
 
         backgroundThread = new HandlerThread("backgroundThread", Process.THREAD_PRIORITY_BACKGROUND);
         backgroundThread.start();
@@ -291,7 +295,7 @@ public class EncryptKeysDialogFragment extends DialogFragment {
                         if (state == State.DONE) {
                             WalletUtils.autoBackupWallet(activity, wallet);
                             // trigger load manually because of missing callbacks for encryption state
-                            ViewModelProviders.of(activity).get(WalletActivityViewModel.class).walletEncrypted.load();
+                            activityViewModel.walletEncrypted.load();
                             delayedDismiss();
                         }
                     }
@@ -336,7 +340,7 @@ public class EncryptKeysDialogFragment extends DialogFragment {
             passwordStrengthView.setTextColor(ContextCompat.getColor(activity, R.color.fg_password_strength_fair));
         } else if (passwordLength < 8) {
             passwordStrengthView.setText(R.string.encrypt_keys_dialog_password_strength_good);
-            passwordStrengthView.setTextColor(ContextCompat.getColor(activity, R.color.fg_less_significant));
+            passwordStrengthView.setTextColor(ContextCompat.getColor(activity, R.color.fg_password_strength_good));
         } else {
             passwordStrengthView.setText(R.string.encrypt_keys_dialog_password_strength_strong);
             passwordStrengthView.setTextColor(ContextCompat.getColor(activity, R.color.fg_password_strength_strong));

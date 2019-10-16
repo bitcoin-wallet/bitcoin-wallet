@@ -162,7 +162,7 @@ public final class RequestWalletBalanceTask {
                 }
 
                 final List<ElectrumServer> servers = loadElectrumServers(
-                        Assets.open(assets, Constants.Files.ELECTRUM_SERVERS_FILENAME));
+                        Assets.open(assets, Constants.Files.ELECTRUM_SERVERS_ASSET));
                 final List<Callable<Set<UTXO>>> tasks = new ArrayList<>(servers.size());
                 for (final ElectrumServer server : servers) {
                     tasks.add(new Callable<Set<UTXO>>() {

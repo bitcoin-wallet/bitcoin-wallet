@@ -150,9 +150,9 @@
   <string name="edit_address_book_entry_dialog_label_label">Címke</string>
   <string name="edit_address_book_entry_dialog_button_edit">Mentés</string>
   <string name="transaction_row_fee">Hálózati díj</string>
+  <string name="transaction_row_confidence_message_sent_unbroadcasted">Ez a kifizetés még nem került elküldésre.</string>
   <string name="transaction_row_message_purpose_key_rotation">Ez a művelet megerősíti a tárcád a lopások ellen. &lt;u&gt;Bővebb információ&lt;/u&gt;</string>
   <string name="transaction_row_message_purpose_raise_fee">Ez a tranzakció felemeli a hálózati díjat egy korábbi fizetésért.</string>
-  <string name="transaction_row_message_own_unbroadcasted">Ez a kifizetés még nem került elküldésre.</string>
   <string name="transaction_row_message_received_direct">Ez a fizetés közvetlenül érkezett. Fennáll a veszélye, hogy talán soha nem lesz elkölthető.</string>
   <string name="transaction_row_message_received_unconfirmed_unlocked">Ez a kifizetés perceken belül hozzáférhetővé válik.</string>
   <string name="transaction_row_message_received_in_conflict">Ennek a kifizetésnek megnövelt a kockázata a küldő általi visszafordításra. Ha tudsz, várj a megerősítésre.</string>

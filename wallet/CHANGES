@@ -100,8 +100,50 @@ v1.00
 
 Bitcoin Wallet
 =======
-v7.11
+v7.22
 
+* Fix issue with confirmation of transactions that empty your wallet.
+* Based on bitcoinj 0.15.5.
+
+v7.21
+
+* Update translations from Transifex.
+
+v7.20
+
+* Reduce memory usage of PIN-protected wallets.
+* Tapping on the app's version will reveal a checksum of the APK that was installed.
+* Based on bitcoinj 0.15.4.
+
+v7.19
+
+* Introduce dark mode on Android 10 devices.
+
+v7.18
+
+* Improve performance by a bit.
+
+v7.16-v7.17
+
+* Count devices with a memory class of 128 MB as low-ram.
+
+v7.15
+
+* Handle edge case when restoring via an external app.
+* Reduce Scrypt iterations for non-64-bit devices.
+* Update translations from Transifex.
+
+v7.14
+
+* Remove native code from app.
+* Update translations from Transifex.
+* Based on bitcoinj 0.15.3.
+
+v7.13
+
+* Add confidence messages, helping users to understand the confidence state of their payments.
+
+v7.11-v7.12
 * Various small bugfixes.
 
 v7.10

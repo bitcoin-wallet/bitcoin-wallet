@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Objects;
 
 import org.bitcoinj.core.Coin;
+import org.bitcoinj.core.NetworkParameters;
 import org.bitcoinj.utils.Fiat;
 
 import de.schildbach.wallet.Constants;
@@ -117,7 +118,7 @@ public class ExchangeRatesAdapter extends ListAdapter<ExchangeRatesAdapter.ListI
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         final ListItem listItem = getItem(position);
-        holder.itemView.setBackgroundResource(listItem.isSelected ? R.color.bg_list_selected : R.color.bg_list);
+        holder.itemView.setBackgroundResource(listItem.isSelected ? R.color.bg_level3 : R.color.bg_level2);
         holder.defaultView.setVisibility(listItem.isSelected ? View.VISIBLE : View.INVISIBLE);
         holder.currencyCodeView.setText(listItem.currencyCode);
         holder.rateView.setFormat(Constants.LOCAL_FORMAT.minDecimals(listItem.baseRateMinDecimals));
@@ -125,7 +126,7 @@ public class ExchangeRatesAdapter extends ListAdapter<ExchangeRatesAdapter.ListI
         holder.walletView.setFormat(Constants.LOCAL_FORMAT);
         if (listItem.balanceAsFiat != null) {
             holder.walletView.setAmount(listItem.balanceAsFiat);
-            holder.walletView.setStrikeThru(Constants.TEST);
+            holder.walletView.setStrikeThru(!Constants.NETWORK_PARAMETERS.getId().equals(NetworkParameters.ID_MAINNET));
         } else {
             holder.walletView.setText("n/a");
             holder.walletView.setStrikeThru(false);
