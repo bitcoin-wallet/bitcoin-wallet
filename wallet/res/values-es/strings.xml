@@ -24,10 +24,10 @@
   <string name="exchange_rates_fragment_balance">saldo</string>
   <string name="exchange_rates_fragment_source">Precio extraído de %s</string>
   <string name="exchange_rates_options_search">Buscar tasa de cambio</string>
-  <string name="wallet_transactions_fragment_empty_text_received">Aún no se han recibido bitcoins.</string>
-  <string name="wallet_transactions_fragment_empty_text_sent">Aún no se han enviado bitcoins.</string>
-  <string name="wallet_transactions_fragment_empty_text_howto">¿Cómo obtener Bitcoins?\nCámbialos por dinero tradicional,\nvende bienes o servicios o\ngánalos trabajando</string>
-  <string name="wallet_transactions_fragment_empty_remind_backup">Por favor haga una copia de seguridad de su billetera\nantes de recibir Bitcoins!</string>
+  <string name="wallet_transactions_fragment_empty_text_received">Aún no se han recibido Groestlcoins.</string>
+  <string name="wallet_transactions_fragment_empty_text_sent">Aún no se han enviado Groestlcoins.</string>
+  <string name="wallet_transactions_fragment_empty_text_howto">¿Cómo obtener Groestlcoins?\nCámbialos por dinero tradicional,\nvende bienes o servicios o\ngánalos trabajando</string>
+  <string name="wallet_transactions_fragment_empty_remind_backup">Por favor haga una copia de seguridad de su billetera\nantes de recibir Groestlcoins!</string>
   <string name="wallet_transactions_row_warning_backup">Enhorabuena. ¡Has recibido tu primer pago! ¿Has hecho ya una &lt;u&gt;copia de seguridad de tu cartera&lt;/u&gt; como protección frente a pérdidas?</string>
   <string name="wallet_transactions_row_warning_storage_encryption">Consejo: para incrementar la seguridad de su wallet, usted puede escriptar su dispositivo. Esto permite la protección de sus datos con otras aplicaciones.</string>
   <string name="wallet_transactions_row_warning_chain_forking">la red de Groestlcoin esta bajo mantenimiento. has sido avisado de no mandar o recibir Groestlcoins hasta que finalice el mantenimiento. &lt;u&gt;Mas información.&lt;/u&gt;</string>
@@ -126,8 +126,8 @@
   <string name="sweep_wallet_fragment_request_wallet_balance_failed_title">Error al cargar el saldo de la cartera</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_failed_connection">Tienes una mala conexión a la red de Electrum.</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_empty">La billetera de papel está vacía.</string>
-  <string name="sweep_wallet_fragment_insufficient_money_title">No hay suficientes bitcoins</string>
-  <string name="sweep_wallet_fragment_insufficient_money_msg">La cantidad de bitcoins en tu cartera es demasiado pequeña para ser convertidos.</string>
+  <string name="sweep_wallet_fragment_insufficient_money_title">No hay suficientes Groestlcoins</string>
+  <string name="sweep_wallet_fragment_insufficient_money_msg">La cantidad de Groestlcoins en tu cartera es demasiado pequeña para ser convertidos.</string>
   <string name="sweep_wallet_options_reload">recargar el saldo</string>
   <string name="maintenance_dialog_title">Se recomienda mantenimiento</string>
   <string name="maintenance_dialog_message">Recibíste %1$s a en direcciones no seguras ¿Te gustaría mover estas Groestlcoins a direcciones seguras? Se pagará una pequeña cuota de red de %2$s.</string>

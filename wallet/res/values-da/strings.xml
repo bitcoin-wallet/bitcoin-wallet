@@ -126,8 +126,8 @@
   <string name="sweep_wallet_fragment_request_wallet_balance_failed_title">Indlæsning af tegnebogens saldo mislykkedes</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_failed_connection">Din forbindelse til Electrum-netværket er dårlig.</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_empty">Papirtegnebogen er tom.</string>
-  <string name="sweep_wallet_fragment_insufficient_money_title">Ikke nok bitcoin</string>
-  <string name="sweep_wallet_fragment_insufficient_money_msg">Mængden af bitcoin i tegnebogen er for lille til rydning.</string>
+  <string name="sweep_wallet_fragment_insufficient_money_title">Ikke nok Groestlcoin</string>
+  <string name="sweep_wallet_fragment_insufficient_money_msg">Mængden af Groestlcoin i tegnebogen er for lille til rydning.</string>
   <string name="sweep_wallet_options_reload">Genindlæs saldo</string>
   <string name="maintenance_dialog_title">Vedligeholdelse anbefales</string>
   <string name="maintenance_dialog_message">Du har modtaget %1$s til usikre adresser. Vil du flytte disse til sikre adresser? Et lille netværksgebyr på %2$s vil opkræves.</string>

@@ -24,9 +24,9 @@
   <string name="exchange_rates_fragment_balance">баланс</string>
   <string name="exchange_rates_fragment_source">Цена получена с %s</string>
   <string name="exchange_rates_options_search">Поиск обменного курса</string>
-  <string name="wallet_transactions_fragment_empty_text_received">Ещё не получено Bitcoin-монет</string>
-  <string name="wallet_transactions_fragment_empty_text_sent">Ещё не отправлено Bitcoin-монет</string>
-  <string name="wallet_transactions_fragment_empty_text_howto">Как получить Биткоины?\nПокупайте на обычные деньги,\nпродавайте услуги или товары или\nзарабатывайте.</string>
+  <string name="wallet_transactions_fragment_empty_text_received">Ещё не получено Groestlcoin-монет</string>
+  <string name="wallet_transactions_fragment_empty_text_sent">Ещё не отправлено Groestlcoin-монет</string>
+  <string name="wallet_transactions_fragment_empty_text_howto">Как получить Грёстлкоины?\nПокупайте на обычные деньги,\nпродавайте услуги или товары или\nзарабатывайте.</string>
   <string name="wallet_transactions_fragment_empty_remind_backup">Пожалуйста сделайте резервную копию кошелька\nперед получением любых платежей!</string>
   <string name="wallet_transactions_row_warning_backup">Поздравляем, вы получили первый платёж! Вы уже &lt;u&gt;сделали резервную копию кошелька&lt;/u&gt;, чтобы обезопаситься от потерь?</string>
   <string name="wallet_transactions_row_warning_storage_encryption">Подсказка: для улучшения безопасности вашего кошелька вы можете &lt;u&gt;зашифровать ваше устройство&lt;/u&gt;. Это также защитит данные других приложений.</string>

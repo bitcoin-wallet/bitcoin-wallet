@@ -29,7 +29,7 @@
   <string name="wallet_transactions_fragment_empty_text_howto">Jak získat Groestlcoiny?\nSměnou za klasické peníze,\nprodejem zboží nebo služeb\nnebo vyděláním prací.</string>
   <string name="wallet_transactions_row_warning_backup">Gratulujeme, přijal jste svou první platbu! Už jste si &lt;u&gt;zazálohovali tuto peněženku&lt;/u&gt;, abyste se ochránil proti ztrátě?</string>
   <string name="wallet_transactions_row_warning_storage_encryption">Tip: pokud chcete zvýšit bezpečnost své peněženky, můžete &lt;u&gt;šifrovat data svého přístroje&lt;/u&gt;. Toto také chrání data ostatních aplikací.</string>
-  <string name="wallet_transactions_row_warning_chain_forking">Bitcoin připojení prochází údržbou. Doporučujeme vám, abyste mince neposílali ani nepřijímali, dokud nedokončíme údržbu.</string>
+  <string name="wallet_transactions_row_warning_chain_forking">Groestlcoin připojení prochází údržbou. Doporučujeme vám, abyste mince neposílali ani nepřijímali, dokud nedokončíme údržbu.</string>
   <string name="wallet_transactions_fragment_coinbase">vytěženo</string>
   <string name="wallet_transactions_fragment_internal">interní</string>
   <string name="wallet_transactions_options_filter">Filtr</string>
@@ -53,9 +53,9 @@
   <string name="wallet_version_dialog_msg_deprecated">Pokud nevidíte aktualizaci, znamená to, že verze vašeho operačního systému Android již není podporována.</string>
   <string name="wallet_version_dialog_button_binary">Stáhnout</string>
   <string name="wallet_old_sdk_dialog_title">Verze systému Android je příliš stará</string>
-  <string name="wallet_old_sdk_dialog_message">Je pravděpodobné, že jedna z následujících verzí Bitcoin Wallet nebude podporovat vaše zařízení. V některých případech může být v takové situaci komplikované utratit Bitcoiny na tomto zařízení.\n\nPokud si nejste jistí co dělat, tak doporučujeme tyto Bitcoiny přemístit brzy do jiného zařízení.</string>
+  <string name="wallet_old_sdk_dialog_message">Je pravděpodobné, že jedna z následujících verzí Groestlcoin Wallet nebude podporovat vaše zařízení. V některých případech může být v takové situaci komplikované utratit Groestlcoiny na tomto zařízení.\n\nPokud si nejste jistí co dělat, tak doporučujeme tyto Groestlcoiny přemístit brzy do jiného zařízení.</string>
   <string name="alert_dialogs_fragment_settings_failed_title">Problém s otevřením nastavení.</string>
-  <string name="send_coins_activity_title">Zaslat Bitcoiny</string>
+  <string name="send_coins_activity_title">Zaslat Groestlcoiny</string>
   <string name="send_coins_fragment_request_payment_request_progress">Stahuji podpis z %s…</string>
   <string name="send_coins_fragment_request_payment_request_failed_title">Načítání žádosti o platbu se nezdařilo</string>
   <string name="send_coins_fragment_request_payment_request_failed_message">Příjemce (%1$s) používá nekompatibilní platební protokol (důvod: %2$s).</string>
