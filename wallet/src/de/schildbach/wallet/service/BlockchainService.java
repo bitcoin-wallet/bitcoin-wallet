@@ -195,7 +195,7 @@ public class BlockchainService extends LifecycleService {
         final boolean blockchainUptodate = blockchainLag < BLOCKCHAIN_UPTODATE_THRESHOLD_MS;
         final boolean noImpediments = blockchainState.impediments.isEmpty();
 
-        if (!(blockchainUptodate || !blockchainState.replaying)) {
+        if (!blockchainUptodate || blockchainState.replaying) {
             String progressMessage;
             final String downloading = context.getString(noImpediments ? R.string.blockchain_state_progress_downloading
                     : R.string.blockchain_state_progress_stalled);
@@ -1021,11 +1021,12 @@ public class BlockchainService extends LifecycleService {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             //Handle Ongoing notification state
-            if (blockchainState.bestChainHeight == config.getBestChainHeightEver()) {
+            boolean syncing = blockchainState.bestChainDate.getTime() < (Utils.currentTimeMillis() - DateUtils.HOUR_IN_MILLIS); //1 hour
+            if (!syncing && blockchainState.bestChainHeight == config.getBestChainHeightEver()) {
                 //Remove ongoing notification if blockchain sync finished
                 stopForeground(true);
                 nm.cancel(Constants.NOTIFICATION_ID_BLOCKCHAIN_SYNC);
-            } else if (blockchainState.replaying || blockchainState.bestChainDate.getTime() < (Utils.currentTimeSeconds() - 60* 60 * 24 * 2)) {
+            } else if (blockchainState.replaying || syncing) {
                 //Shows ongoing notification when synchronizing the blockchain
                 Notification notification = createNetworkSyncNotification(blockchainState);
                 if (notification != null) {
