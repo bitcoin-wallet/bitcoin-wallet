@@ -1,16 +1,20 @@
 Groestlcoin Wallet
+v7.22
+* Updated to Bitcoin Wallet 7.22
+* Use blockchain sync notifications if more than 1 hour behind
+
 
 v7.11.1
-Use Gradle 4.6
+* Use Gradle 4.6
 
 v7.11
-Updated to Bitcoin Wallet 7.11
+* Updated to Bitcoin Wallet 7.11
 
 v4.46.3
-Corrected xpub
+* Corrected xpub
 
 v4.46
-Updated to Bitcoin Wallet 4.46
+* Updated to Bitcoin Wallet 4.46
 
 v0.23-beta
 * Updated marketing and help files for Groestlcoin

@@ -3,11 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="de.schildbach.wallet"
     android:installLocation="internalOnly"
-    android:versionCode="71107"
-    android:versionName="7.11.1" >
+    android:versionCode="72200"
+    android:versionName="7.22" >
 
     <uses-sdk
-        android:minSdkVersion="21"
         android:targetSdkVersion="28"
         tools:ignore="OldTargetApi" />
 
