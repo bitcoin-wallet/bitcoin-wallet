@@ -103,7 +103,7 @@ public final class Constants {
         public static final String BLOCKCHAIN_FILENAME = "blockchain" + FILENAME_NETWORK_SUFFIX;
 
         /** Capacity of the block store. */
-        public static final int BLOCKCHAIN_STORE_CAPACITY = SPVBlockStore.DEFAULT_CAPACITY * 2;
+        public static final int BLOCKCHAIN_STORE_CAPACITY = 10000;
 
         /** Name of the block checkpoints asset. */
         public static final String CHECKPOINTS_ASSET = "checkpoints" + FILENAME_NETWORK_SUFFIX + ".txt";
