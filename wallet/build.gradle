@@ -21,8 +21,8 @@ dependencies {
     implementation 'androidx.localbroadcastmanager:localbroadcastmanager:1.0.0'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
     implementation "androidx.sqlite:sqlite:2.0.1"
-    implementation "androidx.room:room-runtime:2.1.0"
-    annotationProcessor "androidx.room:room-compiler:2.1.0"
+    implementation "androidx.room:room-runtime:2.2.1"
+    annotationProcessor "androidx.room:room-compiler:2.2.1"
     implementation 'org.bitcoinj:bitcoinj-core:0.15.5'
     implementation 'com.google.protobuf:protobuf-java:3.7.1'
     implementation 'com.google.guava:guava:28.1-android'
