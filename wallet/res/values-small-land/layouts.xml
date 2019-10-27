@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <item name="wallet_content" type="layout">@layout/wallet_activity_onepane_horizontal</item>
-
 </resources>
