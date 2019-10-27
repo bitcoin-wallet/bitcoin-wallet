@@ -36,7 +36,7 @@ import androidx.core.content.ContextCompat;
  * This service upgrades the wallet to a deterministic wallet. Use {@link #startUpgrade(Context)} to start the
  * process.
  * 
- * It will upgrade and then hand over to {@Link BlockchainService} to pre-generate the look-ahead keys. If the
+ * It will upgrade and then hand over to {@link BlockchainService} to pre-generate the look-ahead keys. If the
  * wallet is already upgraded, it will do nothing.
  * 
  * @author Andreas Schildbach
