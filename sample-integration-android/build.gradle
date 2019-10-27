@@ -6,7 +6,7 @@ configurations {
 
 dependencies {
     implementation project(':integration-android')
-    implementation 'org.bitcoinj:bitcoinj-core:0.12.3'
+    implementation 'org.bitcoinj:bitcoinj-core:0.14.7'
 }
 
 android {
@@ -32,9 +32,10 @@ android {
 
     packagingOptions {
         exclude 'lib/x86_64/darwin/libscrypt.dylib'
-        exclude 'com/google/thirdparty/publicsuffix/PublicSuffixPatterns.gwt.xml'
-        exclude 'com/google/thirdparty/publicsuffix/PublicSuffixType.gwt.xml'
         exclude 'org/bitcoinj/crypto/mnemonic/wordlist/english.txt'
         exclude 'org/bitcoinj/crypto/cacerts'
+        exclude 'org.bitcoin.production.checkpoints.txt'
+        exclude 'org.bitcoin.test.checkpoints.txt'
+        exclude '**/*.java'
     }
 }
