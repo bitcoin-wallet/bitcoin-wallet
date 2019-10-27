@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
     package="de.schildbach.wallet.integration.sample"
     android:versionCode="1"
-    android:versionName="1.0" >
+    android:versionName="1.0">
 
     <uses-sdk android:minSdkVersion="15" />
 
@@ -16,10 +17,10 @@
         android:normalScreens="true"
         android:smallScreens="true" />
 
-    <application android:label="Bitcoin in-app payment sample" >
+    <application android:label="Bitcoin in-app payment sample">
         <activity
             android:name="de.schildbach.wallet.integration.sample.SampleActivity"
-            android:theme="@android:style/Theme.Light" >
+            android:theme="@android:style/Theme.Light">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
