@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<resources>
 
     <drawable name="ic_app_color">@mipmap/ic_app_color_108dp</drawable>
 

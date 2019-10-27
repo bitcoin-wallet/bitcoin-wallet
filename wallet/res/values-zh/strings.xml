@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<resources>
   <string name="toast_wallet_reset">钱包已重置，\n 需要一些时间才能恢复</string>
   <string name="wallet_disclaimer_fragment_remind_safety">使用时请您自担风险。请务必阅读 &lt;u&gt;安全提示&lt;/u&gt;.</string>
   <string name="wallet_disclaimer_fragment_remind_backup">你需要 &lt;u&gt;备份你的钱包&lt;/u&gt;!</string>

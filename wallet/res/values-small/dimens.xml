@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<resources>
 
     <dimen name="font_size_tiny">11sp</dimen>
     <dimen name="font_size_small">14sp</dimen>

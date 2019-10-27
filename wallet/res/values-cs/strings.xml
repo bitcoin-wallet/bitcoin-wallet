@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<resources>
   <string name="toast_wallet_reset">Vaše peněženka byla zresetována!\nObnova chvíli potrvá.</string>
   <string name="wallet_disclaimer_fragment_remind_safety">Použití na vlastní riziko. Přečtěte si &lt;u&gt;bezpečnostní pokyny&lt;/u&gt;.</string>
   <string name="wallet_disclaimer_fragment_remind_backup">Musíte si &lt;u&gt;zazálohovat svou peněženku&lt;/u&gt;!</string>

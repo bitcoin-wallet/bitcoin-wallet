@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<resources>
   <string name="toast_wallet_reset">Twój portfel został zresetowany!\nTo zajmie trochę czasu, aby odzyskać.</string>
   <string name="wallet_disclaimer_fragment_remind_safety">Używaj na własne ryzyko. Przeczytaj &lt;u&gt;instrukcje bezpieczeństwa&lt;/u&gt;.</string>
   <string name="wallet_disclaimer_fragment_remind_backup">Musisz zrobić &lt;u&gt;kopię zapasową&lt;/u&gt; swojego portfela!</string>

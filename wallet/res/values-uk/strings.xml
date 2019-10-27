@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<resources>
   <string name="toast_wallet_reset">Гаманець був скинутий,\nвідновлення займе трохи часу</string>
   <string name="wallet_disclaimer_fragment_remind_safety">Використовуйте на власний страх та ризик. Прочитайте &lt;u&gt;примітки по безпеці&lt;/u&gt;.</string>
   <string name="wallet_disclaimer_fragment_remind_backup">Вам необхідно &lt;u&gt;зробити резервну копію вашого гаманця&lt;/u&gt;!</string>

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<resources>
   <string name="wallet_disclaimer_fragment_remind_safety">Χρησιμοποιήστε με δική σας ευθύνη. Διαβάστε τις &lt;u&gt;επισημάνσεις ασφάλειας&lt;/u&gt;.</string>
   <string name="wallet_disclaimer_fragment_remind_backup">Είναι ανάγκη να &lt;u&gt;πάρετε αντίγραφο ασφάλειας του πορτοφολιού σας&lt;/u&gt;!</string>
   <string name="blockchain_state_progress_hours">Απομένουν %1$s, %2$d ώρες</string>

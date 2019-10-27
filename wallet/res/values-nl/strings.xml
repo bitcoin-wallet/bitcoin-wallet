@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<resources>
   <string name="toast_wallet_reset">Portemonnee is gereset!\nHerstel zal enige tijd duren.</string>
   <string name="wallet_disclaimer_fragment_remind_safety">Gebruik op eigen risico. Lees de &lt;u&gt;veiligheidsvoorschriften&lt;/u&gt;.</string>
   <string name="wallet_disclaimer_fragment_remind_backup">U moet uw &lt;u&gt;portemonnee back-uppen&lt;/u&gt;!</string>

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<resources>
   <string name="toast_wallet_reset">הארנק אופס, התאוששת תקח זמן מה.</string>
   <string name="wallet_disclaimer_fragment_remind_safety">השימוש באחריותך, קרא את הוראות השימוש</string>
   <string name="wallet_disclaimer_fragment_remind_backup">אתה צריך &lt;u&gt;לגבות את הארנק שלך&lt;/u&gt;!</string>

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<resources>
   <string name="toast_wallet_reset">A tárcád alapállapotba került!\nA visszaállítás némi időt vesz igénybe.</string>
   <string name="wallet_disclaimer_fragment_remind_safety">Csak saját felelősségre használd. Olvasd el a &lt;u&gt;biztonsági megjegyzéseket&lt;/u&gt;.</string>
   <string name="wallet_disclaimer_fragment_remind_backup">Szükséges &lt;u&gt;biztonsági mentést készítened a tárcádról&lt;/u&gt;!</string>
