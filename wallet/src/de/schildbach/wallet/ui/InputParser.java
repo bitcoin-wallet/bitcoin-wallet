@@ -301,13 +301,9 @@ public abstract class InputParser {
                         "cannot handle payment url: " + paymentIntent.paymentUrl);
 
             return paymentIntent;
-        } catch (final InvalidProtocolBufferException x) {
+        } catch (final InvalidProtocolBufferException | UninitializedMessageException x) {
             throw new PaymentProtocolException(x);
-        } catch (final UninitializedMessageException x) {
-            throw new PaymentProtocolException(x);
-        } catch (final FileNotFoundException x) {
-            throw new RuntimeException(x);
-        } catch (final KeyStoreException x) {
+        } catch (final FileNotFoundException | KeyStoreException x) {
             throw new RuntimeException(x);
         }
     }

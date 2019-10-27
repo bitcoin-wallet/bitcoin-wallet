@@ -248,9 +248,7 @@ public final class RequestWalletBalanceTask {
                             } else {
                                 numFail++;
                             }
-                        } catch (InterruptedException x) {
-                            throw new RuntimeException(x);
-                        } catch (ExecutionException x) {
+                        } catch (InterruptedException | ExecutionException x) {
                             throw new RuntimeException(x);
                         }
                     } else {
