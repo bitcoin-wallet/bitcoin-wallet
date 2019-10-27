@@ -13,8 +13,6 @@ android {
     compileSdkVersion 'android-15'
     buildToolsVersion '29.0.2'
 
-    lintOptions { abortOnError false }
-
     defaultConfig {
         dexOptions {
             preDexLibraries false
@@ -28,6 +26,11 @@ android {
             res.srcDirs = ['res']
             assets.srcDirs = ['assets']
         }
+    }
+
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
     }
 
     packagingOptions {
