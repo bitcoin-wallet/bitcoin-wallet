@@ -233,7 +233,7 @@ public class RestoreWalletDialogFragment extends DialogFragment {
                     @Override
                     protected boolean needsPassword() {
                         final File selectedFile = (File) fileView.getSelectedItem();
-                        return selectedFile != null ? Crypto.OPENSSL_FILE_FILTER.accept(selectedFile) : false;
+                        return selectedFile != null && Crypto.OPENSSL_FILE_FILTER.accept(selectedFile);
                     }
                 };
                 passwordView.addTextChangedListener(dialogButtonEnabler);
