@@ -4,8 +4,7 @@
     <dimen name="font_size_tiny">12sp</dimen>
     <dimen name="font_size_small">15sp</dimen>
     <dimen name="font_size_normal">18sp</dimen>
-    <dimen name="font_size_larger">24sp</dimen>
-    <dimen name="font_size_xlarge">28sp</dimen>
+    <dimen name="font_size_large">24sp</dimen>
     <dimen name="font_size_huge">34sp</dimen>
     <dimen name="symbol_size_normal">16sp</dimen>
     <dimen name="list_entry_padding_horizontal_cram">6dp</dimen>

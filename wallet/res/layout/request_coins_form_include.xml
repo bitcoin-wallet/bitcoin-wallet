@@ -32,7 +32,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:imeOptions="flagNoExtractUi"
-                android:textSize="@dimen/font_size_larger"
+                android:textSize="@dimen/font_size_large"
                 tools:ignore="TextFields" />
         </de.schildbach.wallet.ui.CurrencyAmountView>
 
@@ -47,7 +47,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:imeOptions="flagNoExtractUi"
-                android:textSize="@dimen/font_size_larger"
+                android:textSize="@dimen/font_size_large"
                 tools:ignore="TextFields" />
         </de.schildbach.wallet.ui.CurrencyAmountView>
     </LinearLayout>

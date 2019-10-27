@@ -51,7 +51,7 @@
                 android:fadingEdgeLength="12dp"
                 android:singleLine="true"
                 android:textColor="@color/fg_network_significant"
-                android:textSize="@dimen/font_size_larger" />
+                android:textSize="@dimen/font_size_large" />
         </LinearLayout>
 
         <TextView
