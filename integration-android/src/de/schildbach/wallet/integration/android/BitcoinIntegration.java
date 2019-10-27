@@ -155,9 +155,8 @@ public final class BitcoinIntegration {
      * @return payment request or null
      */
     public static byte[] paymentRequestFromIntent(final Intent intent) {
-        final byte[] paymentRequest = intent.getByteArrayExtra(INTENT_EXTRA_PAYMENTREQUEST);
 
-        return paymentRequest;
+        return intent.getByteArrayExtra(INTENT_EXTRA_PAYMENTREQUEST);
     }
 
     /**
@@ -184,9 +183,8 @@ public final class BitcoinIntegration {
      * @return payment message
      */
     public static byte[] paymentFromResult(final Intent result) {
-        final byte[] payment = result.getByteArrayExtra(INTENT_EXTRA_PAYMENT);
 
-        return payment;
+        return result.getByteArrayExtra(INTENT_EXTRA_PAYMENT);
     }
 
     /**
@@ -213,9 +211,8 @@ public final class BitcoinIntegration {
      * @return transaction hash
      */
     public static String transactionHashFromResult(final Intent result) {
-        final String txHash = result.getStringExtra(INTENT_EXTRA_TRANSACTION_HASH);
 
-        return txHash;
+        return result.getStringExtra(INTENT_EXTRA_TRANSACTION_HASH);
     }
 
     private static final int SATOSHIS_PER_COIN = 100000000;
@@ -228,9 +225,7 @@ public final class BitcoinIntegration {
             uri.append("?amount=")
                     .append(String.format("%d.%08d", amount / SATOSHIS_PER_COIN, amount % SATOSHIS_PER_COIN));
 
-        final Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri.toString()));
-
-        return intent;
+        return new Intent(Intent.ACTION_VIEW, Uri.parse(uri.toString()));
     }
 
     private static Intent makePaymentRequestIntent(final byte[] paymentRequest) {

@@ -109,10 +109,7 @@ public class Crypto {
     private static CipherParameters getAESPasswordKey(final char[] password, final byte[] salt) {
         final PBEParametersGenerator generator = new OpenSSLPBEParametersGenerator();
         generator.init(PBEParametersGenerator.PKCS5PasswordToBytes(password), salt, NUMBER_OF_ITERATIONS);
-
-        final ParametersWithIV key = (ParametersWithIV) generator.generateDerivedParameters(KEY_LENGTH, IV_LENGTH);
-
-        return key;
+        return (ParametersWithIV) generator.generateDerivedParameters(KEY_LENGTH, IV_LENGTH);
     }
 
     /**
@@ -226,9 +223,7 @@ public class Crypto {
         System.arraycopy(decodeTextAsBytes, OPENSSL_SALTED_BYTES.length, cipherBytes, 0,
                 decodeTextAsBytes.length - OPENSSL_SALTED_BYTES.length);
 
-        final byte[] decryptedBytes = decryptRaw(cipherBytes, password);
-
-        return decryptedBytes;
+        return decryptRaw(cipherBytes, password);
     }
 
     /**

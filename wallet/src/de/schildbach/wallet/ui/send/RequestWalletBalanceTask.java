@@ -379,8 +379,7 @@ public final class RequestWalletBalanceTask {
         try {
             final SSLContext context = SSLContext.getInstance("SSL");
             context.init(null, new TrustManager[] { TRUST_ALL_CERTIFICATES }, null);
-            final SSLSocketFactory socketFactory = context.getSocketFactory();
-            return socketFactory;
+            return context.getSocketFactory();
         } catch (final Exception x) {
             throw new RuntimeException(x);
         }

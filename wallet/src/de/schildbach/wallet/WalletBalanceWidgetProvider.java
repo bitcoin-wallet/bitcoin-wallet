@@ -172,8 +172,7 @@ public class WalletBalanceWidgetProvider extends AppWidgetProvider {
     private static Bundle getAppWidgetOptions(final AppWidgetManager appWidgetManager, final int appWidgetId) {
         try {
             final Method getAppWidgetOptions = AppWidgetManager.class.getMethod("getAppWidgetOptions", Integer.TYPE);
-            final Bundle options = (Bundle) getAppWidgetOptions.invoke(appWidgetManager, appWidgetId);
-            return options;
+            return (Bundle) getAppWidgetOptions.invoke(appWidgetManager, appWidgetId);
         } catch (final Exception x) {
             return null;
         }
