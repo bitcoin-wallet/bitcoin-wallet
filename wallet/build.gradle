@@ -82,6 +82,8 @@ android {
     packagingOptions {
         exclude 'META-INF/*.version'
         exclude 'META-INF/proguard/**'
+        exclude '**/*.proto'
+        exclude 'org/bouncycastle/x509/*.properties'
         exclude 'okhttp3/internal/publicsuffix/publicsuffixes.gz'
         exclude 'org/bitcoinj/crypto/mnemonic/wordlist/english.txt'
         exclude 'org/bitcoinj/crypto/cacerts'
