@@ -214,16 +214,14 @@ public final class SendingAddressesFragment extends FancyListFragment {
 
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
-        switch (item.getItemId()) {
-        case R.id.sending_addresses_options_paste:
+        int itemId = item.getItemId();
+        if (itemId == R.id.sending_addresses_options_paste) {
             handlePasteClipboard();
             return true;
-
-        case R.id.sending_addresses_options_scan:
+        } else if (itemId == R.id.sending_addresses_options_scan) {
             ScanActivity.startForResult(this, activity, REQUEST_CODE_SCAN);
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -268,41 +266,31 @@ public final class SendingAddressesFragment extends FancyListFragment {
 
             @Override
             public boolean onActionItemClicked(final ActionMode mode, final MenuItem item) {
-                switch (item.getItemId()) {
-                case R.id.sending_addresses_context_send:
+                int itemId = item.getItemId();
+                if (itemId == R.id.sending_addresses_context_send) {
                     handleSend(getAddress(position), getLabel(position));
-
                     mode.finish();
                     return true;
-
-                case R.id.sending_addresses_context_edit:
+                } else if (itemId == R.id.sending_addresses_context_edit) {
                     final Address address = Address.fromString(Constants.NETWORK_PARAMETERS, getAddress(position));
                     viewModel.showEditAddressBookEntryDialog.setValue(new Event<>(address));
-
                     mode.finish();
                     return true;
-
-                case R.id.sending_addresses_context_remove:
+                } else if (itemId == R.id.sending_addresses_context_remove) {
                     handleRemove(getAddress(position));
-
                     mode.finish();
                     return true;
-
-                case R.id.sending_addresses_context_show_qr:
+                } else if (itemId == R.id.sending_addresses_context_show_qr) {
                     final String uri = BitcoinURI.convertToBitcoinURI(Constants.NETWORK_PARAMETERS,
                             getAddress(position), null, getLabel(position), null);
                     viewModel.showBitmapDialog.setValue(new Event<>(Qr.bitmap(uri)));
-
                     mode.finish();
                     return true;
-
-                case R.id.sending_addresses_context_copy_to_clipboard:
+                } else if (itemId == R.id.sending_addresses_context_copy_to_clipboard) {
                     handleCopyToClipboard(getAddress(position));
-
                     mode.finish();
                     return true;
                 }
-
                 return false;
             }
 

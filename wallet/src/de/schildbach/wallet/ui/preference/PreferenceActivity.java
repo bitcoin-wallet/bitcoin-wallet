@@ -34,12 +34,10 @@ public final class PreferenceActivity extends android.preference.PreferenceActiv
 
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
-        switch (item.getItemId()) {
-        case android.R.id.home:
+        if (item.getItemId() == android.R.id.home) {
             onBackPressed();
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 

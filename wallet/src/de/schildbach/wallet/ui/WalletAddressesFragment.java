@@ -166,13 +166,12 @@ public final class WalletAddressesFragment extends FancyListFragment {
             @Override
             public boolean onActionItemClicked(final ActionMode mode, final MenuItem item) {
                 final Address address = getAddress(position);
-                switch (item.getItemId()) {
-                case R.id.wallet_addresses_context_edit:
+                int itemId = item.getItemId();
+                if (itemId == R.id.wallet_addresses_context_edit) {
                     viewModel.showEditAddressBookEntryDialog.setValue(new Event<>(address));
                     mode.finish();
                     return true;
-
-                case R.id.wallet_addresses_context_show_qr:
+                } else if (itemId == R.id.wallet_addresses_context_show_qr) {
                     final String label = viewModel.ownName.getValue();
                     final String uri;
                     if (address instanceof LegacyAddress || label != null)
@@ -180,16 +179,13 @@ public final class WalletAddressesFragment extends FancyListFragment {
                     else
                         uri = address.toString().toUpperCase(Locale.US);
                     viewModel.showBitmapDialog.setValue(new Event<>(Qr.bitmap(uri)));
-
                     mode.finish();
                     return true;
-
-                case R.id.wallet_addresses_context_copy_to_clipboard:
+                } else if (itemId == R.id.wallet_addresses_context_copy_to_clipboard) {
                     handleCopyToClipboard(address);
                     mode.finish();
                     return true;
-
-                case R.id.wallet_addresses_context_browse:
+                } else if (itemId == R.id.wallet_addresses_context_browse) {
                     final Uri blockExplorerUri = application.getConfiguration().getBlockExplorer();
                     log.info("Viewing address {} on {}", address, blockExplorerUri);
                     startActivity(new Intent(Intent.ACTION_VIEW,
@@ -197,7 +193,6 @@ public final class WalletAddressesFragment extends FancyListFragment {
                     mode.finish();
                     return true;
                 }
-
                 return false;
             }
 

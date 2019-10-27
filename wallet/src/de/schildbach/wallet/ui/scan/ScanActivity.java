@@ -300,13 +300,10 @@ public final class ScanActivity extends AbstractWalletActivity
 
     @Override
     public boolean onKeyDown(final int keyCode, final KeyEvent event) {
-        switch (keyCode) {
-        case KeyEvent.KEYCODE_FOCUS:
-        case KeyEvent.KEYCODE_CAMERA:
+        if (keyCode == KeyEvent.KEYCODE_FOCUS || keyCode == KeyEvent.KEYCODE_CAMERA) {
             // don't launch camera app
             return true;
-        case KeyEvent.KEYCODE_VOLUME_DOWN:
-        case KeyEvent.KEYCODE_VOLUME_UP:
+        } else if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN || keyCode == KeyEvent.KEYCODE_VOLUME_UP) {
             cameraHandler.post(new Runnable() {
                 @Override
                 public void run() {
@@ -315,7 +312,6 @@ public final class ScanActivity extends AbstractWalletActivity
             });
             return true;
         }
-
         return super.onKeyDown(keyCode, event);
     }
 

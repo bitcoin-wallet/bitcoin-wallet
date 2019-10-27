@@ -165,12 +165,10 @@ public final class WalletBalanceFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
-        switch (item.getItemId()) {
-        case R.id.wallet_balance_options_donate:
+        if (item.getItemId() == R.id.wallet_balance_options_donate) {
             handleDonate();
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 

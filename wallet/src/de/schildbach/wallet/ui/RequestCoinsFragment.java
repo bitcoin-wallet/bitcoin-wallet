@@ -338,20 +338,17 @@ public final class RequestCoinsFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
-        switch (item.getItemId()) {
-        case R.id.request_coins_options_copy:
+        int itemId = item.getItemId();
+        if (itemId == R.id.request_coins_options_copy) {
             handleCopy();
             return true;
-
-        case R.id.request_coins_options_share:
+        } else if (itemId == R.id.request_coins_options_share) {
             handleShare();
             return true;
-
-        case R.id.request_coins_options_local_app:
+        } else if (itemId == R.id.request_coins_options_local_app) {
             handleLocalApp();
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 

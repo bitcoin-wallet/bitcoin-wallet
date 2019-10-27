@@ -82,12 +82,10 @@ public final class RequestCoinsActivity extends AbstractWalletActivity {
 
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
-        switch (item.getItemId()) {
-        case R.id.request_coins_options_help:
+        if (item.getItemId() == R.id.request_coins_options_help) {
             viewModel.showHelpDialog.setValue(new Event<>(R.string.help_request_coins));
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 }

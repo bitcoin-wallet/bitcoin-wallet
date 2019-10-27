@@ -651,26 +651,23 @@ public final class SendCoinsFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
-        switch (item.getItemId()) {
-        case R.id.send_coins_options_scan:
+        int itemId = item.getItemId();
+        if (itemId == R.id.send_coins_options_scan) {
             ScanActivity.startForResult(this, activity, REQUEST_CODE_SCAN);
             return true;
-
-        case R.id.send_coins_options_fee_category_economic:
+        } else if (itemId == R.id.send_coins_options_fee_category_economic) {
             handleFeeCategory(FeeCategory.ECONOMIC);
             return true;
-        case R.id.send_coins_options_fee_category_normal:
+        } else if (itemId == R.id.send_coins_options_fee_category_normal) {
             handleFeeCategory(FeeCategory.NORMAL);
             return true;
-        case R.id.send_coins_options_fee_category_priority:
+        } else if (itemId == R.id.send_coins_options_fee_category_priority) {
             handleFeeCategory(FeeCategory.PRIORITY);
             return true;
-
-        case R.id.send_coins_options_empty:
+        } else if (itemId == R.id.send_coins_options_empty) {
             handleEmpty();
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 

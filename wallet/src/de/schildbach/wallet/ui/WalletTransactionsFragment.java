@@ -303,25 +303,21 @@ public class WalletTransactionsFragment extends Fragment implements Transactions
         popupMenu.setOnMenuItemClickListener(new OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(final MenuItem item) {
-                switch (item.getItemId()) {
-                case R.id.wallet_transactions_context_edit_address:
+                int itemId = item.getItemId();
+                if (itemId == R.id.wallet_transactions_context_edit_address) {
                     viewModel.showEditAddressBookEntryDialog.setValue(new Event<>(txAddress));
                     return true;
-
-                case R.id.wallet_transactions_context_show_qr:
+                } else if (itemId == R.id.wallet_transactions_context_show_qr) {
                     final Bitmap qrCodeBitmap = Qr.bitmap(Qr.encodeCompressBinary(txSerialized));
                     viewModel.showBitmapDialog.setValue(new Event<>(qrCodeBitmap));
                     return true;
-
-                case R.id.wallet_transactions_context_raise_fee:
+                } else if (itemId == R.id.wallet_transactions_context_raise_fee) {
                     RaiseFeeDialogFragment.show(getFragmentManager(), tx);
                     return true;
-
-                case R.id.wallet_transactions_context_report_issue:
+                } else if (itemId == R.id.wallet_transactions_context_report_issue) {
                     handleReportIssue(tx);
                     return true;
-
-                case R.id.wallet_transactions_context_browse:
+                } else if (itemId == R.id.wallet_transactions_context_browse) {
                     if (!txRotation) {
                         final Uri blockExplorerUri = config.getBlockExplorer();
                         log.info("Viewing transaction {} on {}", tx.getTxId(), blockExplorerUri);
@@ -332,7 +328,6 @@ public class WalletTransactionsFragment extends Fragment implements Transactions
                     }
                     return true;
                 }
-
                 return false;
             }
 

@@ -269,16 +269,14 @@ public class SweepWalletFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
-        switch (item.getItemId()) {
-        case R.id.sweep_wallet_options_reload:
+        int itemId = item.getItemId();
+        if (itemId == R.id.sweep_wallet_options_reload) {
             handleReload();
             return true;
-
-        case R.id.sweep_wallet_options_scan:
+        } else if (itemId == R.id.sweep_wallet_options_scan) {
             ScanActivity.startForResult(this, activity, REQUEST_CODE_SCAN);
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 

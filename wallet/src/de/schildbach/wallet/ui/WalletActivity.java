@@ -439,72 +439,56 @@ public final class WalletActivity extends AbstractWalletActivity {
 
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
-        switch (item.getItemId()) {
-        case R.id.wallet_options_request:
+        int itemId = item.getItemId();
+        if (itemId == R.id.wallet_options_request) {
             handleRequestCoins();
             return true;
-
-        case R.id.wallet_options_request_legacy:
+        } else if (itemId == R.id.wallet_options_request_legacy) {
             RequestCoinsActivity.start(this, Script.ScriptType.P2PKH);
             return true;
-
-        case R.id.wallet_options_send:
+        } else if (itemId == R.id.wallet_options_send) {
             handleSendCoins();
             return true;
-
-        case R.id.wallet_options_scan:
+        } else if (itemId == R.id.wallet_options_scan) {
             handleScan(null);
             return true;
-
-        case R.id.wallet_options_address_book:
+        } else if (itemId == R.id.wallet_options_address_book) {
             AddressBookActivity.start(this);
             return true;
-
-        case R.id.wallet_options_exchange_rates:
+        } else if (itemId == R.id.wallet_options_exchange_rates) {
             startActivity(new Intent(this, ExchangeRatesActivity.class));
             return true;
-
-        case R.id.wallet_options_sweep_wallet:
+        } else if (itemId == R.id.wallet_options_sweep_wallet) {
             SweepWalletActivity.start(this);
             return true;
-
-        case R.id.wallet_options_network_monitor:
+        } else if (itemId == R.id.wallet_options_network_monitor) {
             startActivity(new Intent(this, NetworkMonitorActivity.class));
             return true;
-
-        case R.id.wallet_options_restore_wallet:
+        } else if (itemId == R.id.wallet_options_restore_wallet) {
             viewModel.showRestoreWalletDialog.setValue(Event.simple());
             return true;
-
-        case R.id.wallet_options_backup_wallet:
+        } else if (itemId == R.id.wallet_options_backup_wallet) {
             viewModel.showBackupWalletDialog.setValue(Event.simple());
             return true;
-
-        case R.id.wallet_options_encrypt_keys:
+        } else if (itemId == R.id.wallet_options_encrypt_keys) {
             viewModel.showEncryptKeysDialog.setValue(Event.simple());
             return true;
-
-        case R.id.wallet_options_preferences:
+        } else if (itemId == R.id.wallet_options_preferences) {
             startActivity(new Intent(this, PreferenceActivity.class));
             return true;
-
-        case R.id.wallet_options_safety:
+        } else if (itemId == R.id.wallet_options_safety) {
             viewModel.showHelpDialog.setValue(new Event<>(R.string.help_safety));
             return true;
-
-        case R.id.wallet_options_technical_notes:
+        } else if (itemId == R.id.wallet_options_technical_notes) {
             viewModel.showHelpDialog.setValue(new Event<>(R.string.help_technical_notes));
             return true;
-
-        case R.id.wallet_options_report_issue:
+        } else if (itemId == R.id.wallet_options_report_issue) {
             viewModel.showReportIssueDialog.setValue(Event.simple());
             return true;
-
-        case R.id.wallet_options_help:
+        } else if (itemId == R.id.wallet_options_help) {
             viewModel.showHelpDialog.setValue(new Event<>(R.string.help_wallet));
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 

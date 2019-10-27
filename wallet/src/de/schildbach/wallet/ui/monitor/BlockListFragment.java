@@ -145,8 +145,7 @@ public final class BlockListFragment extends Fragment implements BlockListAdapte
         popupMenu.setOnMenuItemClickListener(new OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(final MenuItem item) {
-                switch (item.getItemId()) {
-                case R.id.blocks_context_browse:
+                if (item.getItemId() == R.id.blocks_context_browse) {
                     final Uri blockExplorerUri = config.getBlockExplorer();
                     log.info("Viewing block {} on {}", blockHash, blockExplorerUri);
                     startActivity(new Intent(Intent.ACTION_VIEW,
