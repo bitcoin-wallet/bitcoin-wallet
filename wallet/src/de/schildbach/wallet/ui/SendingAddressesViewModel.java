@@ -67,7 +67,7 @@ public class SendingAddressesViewModel extends AndroidViewModel {
         this.clip = new ClipLiveData(this.application);
     }
 
-    public class AddressesToExcludeLiveData extends AbstractWalletLiveData<Set<String>> {
+    public static class AddressesToExcludeLiveData extends AbstractWalletLiveData<Set<String>> {
         public AddressesToExcludeLiveData(final WalletApplication application) {
             super(application);
         }
