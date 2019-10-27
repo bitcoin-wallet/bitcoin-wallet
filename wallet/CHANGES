@@ -1,3 +1,11 @@
+v7.23
+
+* Update Android Gradle plugin to 3.1.0.
+  This means it doesn't build reproducably without external help like 'disorderfs'.
+  See https://issuetracker.google.com/issues/110237303
+* Modernize the sample-integration-android subproject a bit.
+* Various small bugfixes.
+
 v7.22
 
 * Fix issue with confirmation of transactions that empty your wallet.
