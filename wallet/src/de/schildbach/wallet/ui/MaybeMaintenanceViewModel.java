@@ -70,7 +70,7 @@ public class MaybeMaintenanceViewModel extends AndroidViewModel {
         final BlockchainState blockchainState = MaybeMaintenanceViewModel.this.blockchainState.getValue();
         final Boolean maintenanceRecommended = MaybeMaintenanceViewModel.this.walletMaintenanceRecommended.getValue();
         if (blockchainState != null && !blockchainState.replaying && maintenanceRecommended != null
-                && maintenanceRecommended == true)
+                && maintenanceRecommended)
             showDialog.postValue(null);
     }
 
