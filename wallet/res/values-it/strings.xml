@@ -76,7 +76,7 @@
   <string name="send_coins_fragment_hint_dusty_send">L\'importo è troppo piccolo per l\'invio.</string>
   <string name="send_coins_fragment_hint_insufficient_money">Non ci sono abbastanza monete disponibili. Ne mancano %s.</string>
   <string name="send_coins_fragment_hint_empty_wallet_failed">La quantità di piccoli pagamenti nel vostro portamonete non raggiunge valori inviabili.</string>
-  <string name="send_coins_fragment_hint_replaying">I pagamenti correnti non sono possibili perchè è in corso un replay.</string>
+  <string name="send_coins_fragment_hint_replaying">I pagamenti correnti non sono possibili perché è in corso un replay.</string>
   <string name="send_coins_fragment_direct_payment_enable">Invia il pagamento al beneficiario</string>
   <string name="send_coins_fragment_direct_payment_ack">Il tuo pagamento è stato inviato con successo.</string>
   <string name="send_coins_fragment_direct_payment_nack">Il tuo pagamento via connessione diretta è stato rifiutato.</string>

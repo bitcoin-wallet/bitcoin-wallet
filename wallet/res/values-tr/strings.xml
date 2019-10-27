@@ -109,10 +109,10 @@
   <string name="raise_fee_dialog_state_decrypting">Şifre çözülüyor…</string>
   <string name="raise_fee_dialog_state_done">Tamamlandı.</string>
   <string name="raise_fee_dialog_button_raise">Arttır</string>
-  <string name="sweep_wallet_activity_title">Kağıt cüzdanı tara</string>
-  <string name="sweep_wallet_fragment_intro">Bir kupon ya da kağıt cüzdan taramak üzeresiniz. Bunu yapmanız bu kağıttaki tüm bitcoinleri cihazınızdaki cüzdana taşıyacaktır. Muamele teyit edildiğinde kağıdın hiçbir değeri kalmayacaktır ve güvenlik nedenleriyle tekrar kullanılmamalıdır.</string>
-  <string name="sweep_wallet_fragment_hint">Kağıt cüzdanlar en sık soğuk depolama için kullanılır. Bazı bankamatikler doğrudan mobil cihazınıza bitcoin yollamaktan ziyade bunu kağıt çıktısına yazarlar. Bazı kişiler de bazen ön yüklü kağıt cüzdanları para değeri aktarmak için kullanırlar (tavsiye edilmez).</string>
-  <string name="sweep_wallet_fragment_wallet_unknown">Kağıt cüzdanın özel anahtarını tarayarak başlayın. Kameranın etkinleştirme düğmesini kullanın.</string>
+  <string name="sweep_wallet_activity_title">Kâğıt cüzdanı tara</string>
+  <string name="sweep_wallet_fragment_intro">Bir kupon ya da kâğıt cüzdan taramak üzeresiniz. Bunu yapmanız bu kağıttaki tüm bitcoinleri cihazınızdaki cüzdana taşıyacaktır. Muamele teyit edildiğinde kağıdın hiçbir değeri kalmayacaktır ve güvenlik nedenleriyle tekrar kullanılmamalıdır.</string>
+  <string name="sweep_wallet_fragment_hint">Kâğıt cüzdanlar en sık soğuk depolama için kullanılır. Bazı bankamatikler doğrudan mobil cihazınıza bitcoin yollamaktan ziyade bunu kâğıt çıktısına yazarlar. Bazı kişiler de bazen ön yüklü kâğıt cüzdanları para değeri aktarmak için kullanırlar (tavsiye edilmez).</string>
+  <string name="sweep_wallet_fragment_wallet_unknown">Kâğıt cüzdanın özel anahtarını tarayarak başlayın. Kameranın etkinleştirme düğmesini kullanın.</string>
   <string name="sweep_wallet_fragment_encrypted">Özel anahtar bir parola ile korunmuştur.</string>
   <string name="sweep_wallet_fragment_password">parola</string>
   <string name="sweep_wallet_fragment_bad_password">yanlış parola!</string>

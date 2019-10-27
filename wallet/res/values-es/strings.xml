@@ -69,7 +69,7 @@
   <string name="send_coins_fragment_receiving_address_label">Pagar a</string>
   <string name="send_coins_fragment_receiving_address_hint">escriba dirección o nombre</string>
   <string name="send_coins_fragment_receiving_address_error">¡Dirección Bitcoin inválida!</string>
-  <string name="send_coins_fragment_receiving_address_own">¡Estás a punto de enviartelo a tí mismo!</string>
+  <string name="send_coins_fragment_receiving_address_own">¡Estás a punto de enviartelo a ti mismo!</string>
   <string name="send_coins_fragment_receiving_address_complex">dirección\ncompleja</string>
   <string name="send_coins_fragment_pending">(%s esperando confirmación)</string>
   <string name="send_coins_fragment_amount_label">Cantidad a pagar</string>

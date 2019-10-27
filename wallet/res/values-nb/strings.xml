@@ -267,7 +267,7 @@
   <string name="preferences_report_issue_title">Rapporter problem</string>
   <string name="preferences_initiate_reset_title">Tilbakestill blokkjeden</string>
   <string name="preferences_initiate_reset_summary">Tilbakestill blokkjeden, transaksjoner og lommebok-balansen. Gjennomgangen vil ta en stund, så bare gjør dette hvis du vet hvorfor.</string>
-  <string name="preferences_initiate_reset_dialog_message">Har du lyst til å nullstille og gjennomgå blokkjeden?\n\nDette vil midlertidig skjule din lommebok-balanse og fjerne transaksjoner. Begge vil gjenopprettes etter hvert som blokkjeden synkroniseres. Sørg for at du har en pålitelig tilkobling til internett.</string>
+  <string name="preferences_initiate_reset_dialog_message">Har du lyst til å nullstille og gjennomgå blokkjeden?\n\nDette vil midlertidig skjule din lommebok-balanse og fjerne transaksjoner. Begge vil gjenopprettes etter hvert som blokkjeden synkroniseres. Sørg for at du har en pålitelig tilkobling til Internett.</string>
   <string name="preferences_initiate_reset_dialog_positive">Nullstill</string>
   <string name="preferences_extended_public_key_title">Vis extended public key</string>
   <string name="preferences_extended_public_key_summary">Vis den utvidede offentlige nøkkelen til lommeboken din, slik at den kan importeres i andre programmer og tjenester. Vær forsiktig: dette vil utlevere dine transaksjoner og privatliv til det programmet.</string>

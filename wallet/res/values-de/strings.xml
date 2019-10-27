@@ -38,7 +38,7 @@
     <string name="wallet_transactions_options_filter_all">Alle Zahlungen</string>
     <string name="wallet_transactions_options_filter_received">Empfangene Zahlungen</string>
     <string name="wallet_transactions_options_filter_sent">Gesendete Zahlungen</string>
-    <string name="wallet_options_request_legacy">An alte Addresse anfordern</string>
+    <string name="wallet_options_request_legacy">An alte Adresse anfordern</string>
     <string name="wallet_options_safety_menu">Sicherheit</string>
     <string name="wallet_options_encrypt_keys_set">Ausgabe-PIN setzen</string>
     <string name="wallet_options_encrypt_keys_change">Ausgabe-PIN ändern</string>
