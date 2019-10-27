@@ -821,7 +821,7 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
             extendFeeView.setVisibility(item.fee != null ? View.VISIBLE : View.GONE);
             feeView.setAlwaysSigned(true);
             feeView.setFormat(item.feeFormat);
-            feeView.setAmount(item.fee != null ? item.fee : null);
+            feeView.setAmount(item.fee);
         }
 
         private void bindValue(final TransactionItem item) {
