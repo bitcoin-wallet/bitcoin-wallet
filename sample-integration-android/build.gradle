@@ -5,8 +5,8 @@ configurations {
 }
 
 dependencies {
-    compile project(':integration-android')
-    compile 'org.bitcoinj:bitcoinj-core:0.12.3'
+    implementation project(':integration-android')
+    implementation 'org.bitcoinj:bitcoinj-core:0.12.3'
 }
 
 android {

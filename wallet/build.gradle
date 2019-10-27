@@ -8,29 +8,29 @@ configurations {
 }
 
 dependencies {
-    compile project(':integration-android')
-    compile 'androidx.annotation:annotation:1.1.0'
-    compile 'androidx.core:core:1.1.0'
-    compile 'androidx.fragment:fragment:1.1.0'
-    compile 'androidx.recyclerview:recyclerview:1.0.0'
-    compile 'androidx.cardview:cardview:1.0.0'
-    compile 'androidx.coordinatorlayout:coordinatorlayout:1.0.0'
-    compile 'androidx.viewpager:viewpager:1.0.0'
-    compile 'androidx.localbroadcastmanager:localbroadcastmanager:1.0.0'
-    compile 'androidx.lifecycle:lifecycle-extensions:2.1.0'
-    compile "androidx.sqlite:sqlite:2.0.1"
-    compile "androidx.room:room-runtime:2.1.0"
+    implementation project(':integration-android')
+    implementation 'androidx.annotation:annotation:1.1.0'
+    implementation 'androidx.core:core:1.1.0'
+    implementation 'androidx.fragment:fragment:1.1.0'
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'androidx.coordinatorlayout:coordinatorlayout:1.0.0'
+    implementation 'androidx.viewpager:viewpager:1.0.0'
+    implementation 'androidx.localbroadcastmanager:localbroadcastmanager:1.0.0'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
+    implementation "androidx.sqlite:sqlite:2.0.1"
+    implementation "androidx.room:room-runtime:2.1.0"
     annotationProcessor "androidx.room:room-compiler:2.1.0"
-    compile 'org.bitcoinj:bitcoinj-core:0.15.5'
-    compile 'com.google.protobuf:protobuf-java:3.7.1'
-    compile 'com.google.guava:guava:28.1-android'
-    compile 'com.google.zxing:core:3.3.3'
-    compile 'com.squareup.okhttp3:okhttp:3.12.6'
-    compile 'com.squareup.okhttp3:logging-interceptor:3.12.6'
-    compile 'com.squareup.moshi:moshi:1.6.0'
-    compile 'org.slf4j:slf4j-api:1.7.28'
-    compile 'com.github.tony19:logback-android:2.0.0'
-    testCompile 'junit:junit:4.12'
+    implementation 'org.bitcoinj:bitcoinj-core:0.15.5'
+    implementation 'com.google.protobuf:protobuf-java:3.7.1'
+    implementation 'com.google.guava:guava:28.1-android'
+    implementation 'com.google.zxing:core:3.3.3'
+    implementation 'com.squareup.okhttp3:okhttp:3.12.6'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.12.6'
+    implementation 'com.squareup.moshi:moshi:1.6.0'
+    implementation 'org.slf4j:slf4j-api:1.7.28'
+    implementation 'com.github.tony19:logback-android:2.0.0'
+    testImplementation 'junit:junit:4.12'
 }
 
 ext {
