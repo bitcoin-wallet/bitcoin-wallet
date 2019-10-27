@@ -79,7 +79,7 @@ public final class BitcoinIntegration {
 
     /**
      * Request any amount of Bitcoins (probably a donation) from user, with feedback from the app. Result
-     * intent can be received by overriding {@link android.app.Activity#onActivityResult()}. Result indicates
+     * intent can be received by overriding {@code Activity#onActivityResult(int, int, Intent)}. Result indicates
      * either {@link Activity#RESULT_OK} or {@link Activity#RESULT_CANCELED}. In the success case, use
      * {@link #transactionHashFromResult(Intent)} to read the transaction hash from the intent.
      * 
@@ -89,7 +89,7 @@ public final class BitcoinIntegration {
      * @param activity
      *            Calling Android activity
      * @param requestCode
-     *            Code identifying the call when {@link android.app.Activity#onActivityResult()} is called
+     *            Code identifying the call when {@code Activity#onActivityResult(int, int, Intent)} is called
      *            back
      * @param address
      *            Bitcoin address
@@ -102,7 +102,7 @@ public final class BitcoinIntegration {
 
     /**
      * Request specific amount of Bitcoins from user, with feedback from the app. Result intent can be
-     * received by overriding {@link android.app.Activity#onActivityResult()}. Result indicates either
+     * received by overriding {@code Activity#onActivityResult(int, int, Intent)}. Result indicates either
      * {@link Activity#RESULT_OK} or {@link Activity#RESULT_CANCELED}. In the success case, use
      * {@link #transactionHashFromResult(Intent)} to read the transaction hash from the intent.
      * 
@@ -112,7 +112,7 @@ public final class BitcoinIntegration {
      * @param activity
      *            Calling Android activity
      * @param requestCode
-     *            Code identifying the call when {@link android.app.Activity#onActivityResult()} is called
+     *            Code identifying the call when {@code Activity#onActivityResult(int, int, Intent)} is called
      *            back
      * @param address
      *            Bitcoin address
@@ -126,7 +126,7 @@ public final class BitcoinIntegration {
 
     /**
      * Request payment from user, with feedback from the app. Result intent can be received by overriding
-     * {@link android.app.Activity#onActivityResult()}. Result indicates either {@link Activity#RESULT_OK} or
+     * {@code Activity#onActivityResult(int, int, Intent)}. Result indicates either {@link Activity#RESULT_OK} or
      * {@link Activity#RESULT_CANCELED}. In the success case, use {@link #transactionHashFromResult(Intent)}
      * to read the transaction hash from the intent.
      * 
@@ -136,7 +136,7 @@ public final class BitcoinIntegration {
      * @param activity
      *            Calling Android activity
      * @param requestCode
-     *            Code identifying the call when {@link android.app.Activity#onActivityResult()} is called
+     *            Code identifying the call when {@code Activity#onActivityResult(int, int, Intent)} is called
      *            back
      * @param paymentRequest
      *            BIP70 formatted payment request
