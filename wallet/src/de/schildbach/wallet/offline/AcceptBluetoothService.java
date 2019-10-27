@@ -67,6 +67,7 @@ public final class AcceptBluetoothService extends LifecycleService {
 
     @Override
     public IBinder onBind(final Intent intent) {
+        super.onBind(intent);
         return null;
     }
 

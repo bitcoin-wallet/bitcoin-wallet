@@ -483,7 +483,7 @@ public class BlockchainService extends LifecycleService {
     @Override
     public IBinder onBind(final Intent intent) {
         log.debug(".onBind()");
-
+        super.onBind(intent);
         return mBinder;
     }
 
