@@ -166,9 +166,7 @@ public class BlockListAdapter extends ListAdapter<BlockListAdapter.ListItem, Blo
 
             @Override
             public boolean areContentsTheSame(final ListItem oldItem, final ListItem newItem) {
-                if (!Objects.equals(oldItem.time, newItem.time))
-                    return false;
-                return true;
+                return Objects.equals(oldItem.time, newItem.time);
             }
         });
 
