@@ -172,7 +172,7 @@ public final class CameraManager {
         }
     }
 
-    private static final Comparator<Camera.Size> numPixelComparator = new Comparator<Camera.Size>() {
+    private static final Comparator<Camera.Size> NUM_PIXEL_COMPARATOR = new Comparator<Camera.Size>() {
         @Override
         public int compare(final Camera.Size size1, final Camera.Size size2) {
             final int pixels1 = size1.height * size1.width;
@@ -196,7 +196,7 @@ public final class CameraManager {
 
         // sort by size, descending
         final List<Camera.Size> supportedPreviewSizes = new ArrayList<Camera.Size>(rawSupportedSizes);
-        Collections.sort(supportedPreviewSizes, numPixelComparator);
+        Collections.sort(supportedPreviewSizes, NUM_PIXEL_COMPARATOR);
 
         Camera.Size bestSize = null;
         float diff = Float.POSITIVE_INFINITY;
