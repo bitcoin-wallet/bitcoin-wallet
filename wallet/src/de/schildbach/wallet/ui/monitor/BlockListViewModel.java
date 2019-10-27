@@ -155,7 +155,7 @@ public class BlockListViewModel extends AndroidViewModel {
                 public void run() {
                     org.bitcoinj.core.Context.propagate(Constants.CONTEXT);
                     final Set<Transaction> transactions = wallet.getTransactions(false);
-                    final Set<Transaction> filteredTransactions = new HashSet<Transaction>(transactions.size());
+                    final Set<Transaction> filteredTransactions = new HashSet<>(transactions.size());
                     for (final Transaction tx : transactions) {
                         final Map<Sha256Hash, Integer> appearsIn = tx.getAppearsInHashes();
                         if (appearsIn != null && !appearsIn.isEmpty()) // TODO filter by updateTime

@@ -44,7 +44,7 @@ public class MaybeMaintenanceViewModel extends AndroidViewModel {
     private final WalletApplication application;
     private final WalletMaintenanceRecommendedLiveData walletMaintenanceRecommended;
     private final BlockchainStateLiveData blockchainState;
-    public final MediatorLiveData<Void> showDialog = new MediatorLiveData<Void>();
+    public final MediatorLiveData<Void> showDialog = new MediatorLiveData<>();
     private boolean dialogWasShown = false;
 
     public MaybeMaintenanceViewModel(final Application application) {

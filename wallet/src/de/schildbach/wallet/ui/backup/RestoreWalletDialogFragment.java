@@ -269,7 +269,7 @@ public class RestoreWalletDialogFragment extends DialogFragment {
         else
             path = backupPath;
 
-        final List<File> files = new LinkedList<File>();
+        final List<File> files = new LinkedList<>();
 
         // external storage
         log.info("looking for backup files in '{}'", Constants.Files.EXTERNAL_WALLET_BACKUP_DIR);

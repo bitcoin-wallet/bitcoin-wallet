@@ -132,7 +132,7 @@ public class BlockchainService extends LifecycleService {
     private ImpedimentsLiveData impediments;
     private int notificationCount = 0;
     private Coin notificationAccumulatedAmount = Coin.ZERO;
-    private final List<Address> notificationAddresses = new LinkedList<Address>();
+    private final List<Address> notificationAddresses = new LinkedList<>();
     private AtomicInteger transactionsReceived = new AtomicInteger();
     private long serviceCreatedAt;
     private boolean resetBlockchainOnShutdown = false;
@@ -603,7 +603,7 @@ public class BlockchainService extends LifecycleService {
         final TimeLiveData time = new TimeLiveData(application);
         time.observe(this, new Observer<Date>() {
             private int lastChainHeight = 0;
-            private final List<ActivityHistoryEntry> activityHistory = new LinkedList<ActivityHistoryEntry>();
+            private final List<ActivityHistoryEntry> activityHistory = new LinkedList<>();
 
             @Override
             public void onChanged(final Date time) {
@@ -722,7 +722,7 @@ public class BlockchainService extends LifecycleService {
                     @Override
                     public InetSocketAddress[] getPeers(final long services, final long timeoutValue,
                             final TimeUnit timeoutUnit) throws PeerDiscoveryException {
-                        final List<InetSocketAddress> peers = new LinkedList<InetSocketAddress>();
+                        final List<InetSocketAddress> peers = new LinkedList<>();
 
                         boolean needsTrimPeersWorkaround = false;
 
@@ -899,7 +899,7 @@ public class BlockchainService extends LifecycleService {
         if (blockChain == null)
             return null;
 
-        final List<StoredBlock> blocks = new ArrayList<StoredBlock>(maxBlocks);
+        final List<StoredBlock> blocks = new ArrayList<>(maxBlocks);
         try {
             StoredBlock block = blockChain.getChainHead();
             while (block != null) {

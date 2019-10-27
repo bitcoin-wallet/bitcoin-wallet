@@ -428,7 +428,7 @@ public final class ScanActivity extends AbstractWalletActivity
 
     private final Runnable fetchAndDecodeRunnable = new Runnable() {
         private final QRCodeReader reader = new QRCodeReader();
-        private final Map<DecodeHintType, Object> hints = new EnumMap<DecodeHintType, Object>(DecodeHintType.class);
+        private final Map<DecodeHintType, Object> hints = new EnumMap<>(DecodeHintType.class);
 
         @Override
         public void run() {

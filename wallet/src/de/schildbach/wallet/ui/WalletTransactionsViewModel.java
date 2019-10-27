@@ -157,7 +157,7 @@ public class WalletTransactionsViewModel extends AndroidViewModel {
                 final Map<String, AddressBookEntry> addressBook = AddressBookEntry
                         .asMap(WalletTransactionsViewModel.this.addressBook.getValue());
                 if (transactions != null && format != null && addressBook != null) {
-                    final List<Transaction> filteredTransactions = new ArrayList<Transaction>(transactions.size());
+                    final List<Transaction> filteredTransactions = new ArrayList<>(transactions.size());
                     final Wallet wallet = application.getWallet();
                     final Direction direction = WalletTransactionsViewModel.this.direction.getValue();
                     for (final Transaction tx : transactions) {

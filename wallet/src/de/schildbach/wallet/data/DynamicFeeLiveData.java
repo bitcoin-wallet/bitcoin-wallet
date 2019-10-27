@@ -134,7 +134,7 @@ public class DynamicFeeLiveData extends LiveData<Map<FeeCategory, Coin>> {
     }
 
     private static Map<FeeCategory, Coin> parseFees(final InputStream is) throws IOException {
-        final Map<FeeCategory, Coin> dynamicFees = new HashMap<FeeCategory, Coin>();
+        final Map<FeeCategory, Coin> dynamicFees = new HashMap<>();
         String line = null;
         try (final BufferedReader reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.US_ASCII))) {
             while (true) {

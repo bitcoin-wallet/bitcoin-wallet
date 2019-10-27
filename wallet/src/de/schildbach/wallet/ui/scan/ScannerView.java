@@ -53,7 +53,7 @@ public class ScannerView extends View {
     private final int maskColor, maskResultColor;
     private final int laserColor;
     private final int dotColor, dotResultColor;
-    private final Map<float[], Long> dots = new HashMap<float[], Long>(16);
+    private final Map<float[], Long> dots = new HashMap<>(16);
     private Rect frame;
     private final Matrix matrix = new Matrix();
 

@@ -195,7 +195,7 @@ public final class CameraManager {
             return parameters.getPreviewSize();
 
         // sort by size, descending
-        final List<Camera.Size> supportedPreviewSizes = new ArrayList<Camera.Size>(rawSupportedSizes);
+        final List<Camera.Size> supportedPreviewSizes = new ArrayList<>(rawSupportedSizes);
         Collections.sort(supportedPreviewSizes, NUM_PIXEL_COMPARATOR);
 
         Camera.Size bestSize = null;

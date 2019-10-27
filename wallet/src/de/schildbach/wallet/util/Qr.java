@@ -48,7 +48,7 @@ public class Qr {
 
     public static Bitmap bitmap(final String content) {
         try {
-            final Hashtable<EncodeHintType, Object> hints = new Hashtable<EncodeHintType, Object>();
+            final Hashtable<EncodeHintType, Object> hints = new Hashtable<>();
             hints.put(EncodeHintType.MARGIN, 0);
             hints.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.H);
             final BitMatrix result = QR_CODE_WRITER.encode(content, BarcodeFormat.QR_CODE, 0, 0, hints);

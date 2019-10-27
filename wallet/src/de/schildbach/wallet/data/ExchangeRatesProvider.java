@@ -99,7 +99,7 @@ public class ExchangeRatesProvider extends ContentProvider {
 
         final ExchangeRate cachedExchangeRate = config.getCachedExchangeRate();
         if (cachedExchangeRate != null) {
-            exchangeRates = new TreeMap<String, ExchangeRate>();
+            exchangeRates = new TreeMap<>();
             exchangeRates.put(cachedExchangeRate.getCurrencyCode(), cachedExchangeRate);
         }
 
@@ -246,7 +246,7 @@ public class ExchangeRatesProvider extends ContentProvider {
             if (response.isSuccessful()) {
                 final String content = response.body().string();
                 final JSONObject head = new JSONObject(content);
-                final Map<String, ExchangeRate> rates = new TreeMap<String, ExchangeRate>();
+                final Map<String, ExchangeRate> rates = new TreeMap<>();
 
                 for (final Iterator<String> i = head.keys(); i.hasNext();) {
                     final String currencyCode = i.next();
