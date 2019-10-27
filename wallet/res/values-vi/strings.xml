@@ -86,7 +86,7 @@
 	<string name="peer_list_fragment_empty">Không có mạng ngang hàng nào kết nối</string>
 	<string name="peer_list_row_ping_time">⇆ %d phần nghìn giây</string>
 	<string name="import_keys_dialog_title">Nhập dữ liệu là các khóa cá nhân</string>
-	<string name="import_keys_dialog_message">Chọn một khóa cá nhân từ một tập tin trong thẻ nhớ hoặc ở phần lưu trên hệ thống:</string>
+	<string name="import_keys_dialog_message">Chọn một khóa cá nhân từ một tập tin trong thẻ nhớ hoặc ở phần lưu trên hệ thống (%s):</string>
 	<string name="import_keys_dialog_file_security_encrypted">mã hóa mật khẩu</string>
 	<string name="import_keys_dialog_file_security_unencrypted">giải mã</string>
 	<string name="import_keys_dialog_file_security_external">thẻ nhớ</string>

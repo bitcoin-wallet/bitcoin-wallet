@@ -188,7 +188,7 @@
   <string name="restore_wallet_permission_dialog_title">Lukuoikeudet puuttuu</string>
   <string name="restore_wallet_permission_dialog_message">Jotta lompakon varmuuskopioita voidaan etsiä eriliseltä muistivälineeltä, sinun on annettava lukuoikeus.</string>
   <string name="import_keys_dialog_title">Palauta lompakko</string>
-  <string name="import_keys_dialog_message">Valitse varmuuskopio lompakkodatasta erilliseltä tai ohjelmalta suojassa olevalta tallennustilalta:</string>
+  <string name="import_keys_dialog_message">Valitse varmuuskopio lompakkodatasta erilliseltä tai ohjelmalta suojassa olevalta tallennustilalta (%s):</string>
   <string name="restore_wallet_dialog_message_empty">Lompakon varmuuskopiota ei löytynyt. Varmista, että se sijaitsee ulkoisella muistivälineellä (%s).</string>
   <string name="restore_wallet_dialog_replace_warning">Olet aikeissa korvata nykyisen lompakkosi. Kaikki varat tämänhetkisessä lompakossa katoaa ellet ota siitä erillistä varmuuskopiota.</string>
   <string name="import_keys_dialog_warning">Tärkeää: Ethän lataa yksityisavaimia kahdesta eri lähteestä! Muut voivat saada hallinan varoistasi.</string>

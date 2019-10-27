@@ -108,7 +108,7 @@
 	<string name="peer_list_fragment_empty">Žiadny uzol nie je pripojený</string>
 	<string name="peer_list_row_ping_time">⇆ %d&#x2009;ms</string>
 	<string name="import_keys_dialog_title">Obnoviť privátne kľúče</string>
-	<string name="import_keys_dialog_message">Vybrať súbor s privátnymi kľúčmi z externej alebo internej pamäte:</string>
+	<string name="import_keys_dialog_message">Vybrať súbor s privátnymi kľúčmi z externej alebo internej pamäte (%s):</string>
 	<string name="import_keys_dialog_file_security_encrypted">heslo zašifrované</string>
 	<string name="import_keys_dialog_file_security_unencrypted">nezašifrované</string>
 	<string name="import_keys_dialog_file_security_external">externá pamäť</string>

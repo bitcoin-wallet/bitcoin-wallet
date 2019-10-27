@@ -176,7 +176,7 @@
   <string name="backup_wallet_dialog_warning_encrypted">Kulaeta juaj është i mbrojtur nga një PIN. Sigurohuni që këtë PIN ta mbani në mend përveç fjalëkalimit të kopjes rezervë!</string>
   <string name="export_keys_dialog_button_export">Krijo kopje rezervë</string>
   <string name="export_keys_dialog_success"><![CDATA[<p>Kopja rezervë e kuletës suaj ndodhet në <tt>%s</tt></p><p><b>Nëse i vetmi vend që kopja juaj rezervë është në pajisjen tuaj, jeni në rrezik që të humbisni të dyjat në të njejtën kohë!</b></p><p>Për çdo rast sigurohuni që mbani në mend fjalëkalimin e kopjes rezervë.</p>]]></string>
-  <string name="export_keys_dialog_failure">Kuleta juaj nuk mund të krijohet njê kopje rezervë.</string>
+  <string name="export_keys_dialog_failure">Kuleta juaj nuk mund të krijohet njê kopje rezervë: %s</string>
   <string name="import_export_keys_dialog_password">fjalëkalimi</string>
   <string name="backup_wallet_dialog_password_again">prapë</string>
   <string name="backup_wallet_dialog_password_mismatch">mospërputhje</string>

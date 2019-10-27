@@ -195,7 +195,7 @@
   <string name="restore_wallet_permission_dialog_title">Отсутствуют права для чтения</string>
   <string name="restore_wallet_permission_dialog_message">Чтобы искать резервные копии бумажника на внешнем хранилище, вы должны разрешить чтение.</string>
   <string name="import_keys_dialog_title">Восстановить кошелек</string>
-  <string name="import_keys_dialog_message">Выберите файл резервного копирования кошелка с носителя или внутренний памяти:</string>
+  <string name="import_keys_dialog_message">Выберите файл резервного копирования кошелка с носителя или внутренний памяти (%s):</string>
   <string name="restore_wallet_dialog_message_empty">Резервная копия кошелька не найдена. Убедитесь что она находится на внешнем устройстве (%s).</string>
   <string name="restore_wallet_dialog_replace_warning">Вы собираетесь заменить текущий кошелек. Любые монеты в текущем кошельке будут потеряны, если у вас нет отдельной резервной копии.</string>
   <string name="import_keys_dialog_warning">Важно: Не загружать приватные ключи из сомнительных источников! Злоумышленники могут получить доступ над вашими средствами.</string>

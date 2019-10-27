@@ -91,7 +91,7 @@
 	<string name="peer_list_fragment_empty">Нема поврзани точки</string>
 	<string name="peer_list_row_ping_time">⇆ %d мс</string>
 	<string name="import_keys_dialog_title">Врати ги приватните клучеви</string>
-	<string name="import_keys_dialog_message">Одбери фајл со резервни копии на приватните клучеви од надворешниот склад, или од приватниот склад на апликацијата:</string>
+	<string name="import_keys_dialog_message">Одбери фајл со резервни копии на приватните клучеви од надворешниот склад, или од приватниот склад на апликацијата (%s):</string>
 	<string name="import_keys_dialog_file_security_encrypted">лозинката е шифрирана</string>
 	<string name="import_keys_dialog_file_security_unencrypted">отшифрирано</string>
 	<string name="import_keys_dialog_file_security_external">надворешен склад</string>

@@ -91,7 +91,7 @@
 	<string name="peer_list_fragment_empty">Tidak ada peer yang terhubung</string>
 	<string name="peer_list_row_ping_time">⇆ %d ms</string>
 	<string name="import_keys_dialog_title">Kembalikan kunci pribadi</string>
-	<string name="import_keys_dialog_message">Pilih berkas kunci pribadi dari penyimpanan eksternal atau apl:</string>
+	<string name="import_keys_dialog_message">Pilih berkas kunci pribadi dari penyimpanan eksternal atau apl (%s):</string>
 	<string name="import_keys_dialog_file_security_encrypted">kata sandi terenkripsi</string>
 	<string name="import_keys_dialog_file_security_unencrypted">tak terenkripsi</string>
 	<string name="import_keys_dialog_file_security_external">penyimpanan eksternal</string>

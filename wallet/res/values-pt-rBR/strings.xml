@@ -49,7 +49,7 @@
   <string name="wallet_timeskew_dialog_title">Verifique as configurações de hora!</string>
   <string name="wallet_timeskew_dialog_msg">A hora do seu dispositivo está incorreta por %d minutos. Você pode não conseguir enviar ou receber Bitcoins devido a esse problemas\n\nVerifique e corrija a hora em configurações de fuso horário.</string>
   <string name="wallet_version_dialog_title">Nova versão disponível!</string>
-  <string name="wallet_version_dialog_msg">Esta versão corrige erros importantes. Para mais detalhes, consulte o log de alterações no Google Tocar.</string>
+  <string name="wallet_version_dialog_msg">Esta versão corrige erros importantes. Para mais detalhes, consulte o log de alterações no %s.</string>
   <string name="wallet_version_dialog_msg_deprecated">Se você não vê uma atualização significa possivelmente que sua versão do Android não é mais suportada, desculpe.</string>
   <string name="wallet_version_dialog_button_binary">Baixar</string>
   <string name="wallet_old_sdk_dialog_title">Versão do Android desatualizada</string>

@@ -124,7 +124,7 @@
   <string name="peer_list_fragment_empty">Немає підключень</string>
   <string name="peer_list_row_ping_time">⇆ %d&#x2009;мс</string>
   <string name="import_keys_dialog_title">Відновити гаманець</string>
-  <string name="import_keys_dialog_message">Виберіть файл резервного копіювання гаманця з носія або внутрішньої пам\'яті:</string>
+  <string name="import_keys_dialog_message">Виберіть файл резервного копіювання гаманця з носія або внутрішньої пам\'яті (%s):</string>
   <string name="restore_wallet_dialog_replace_warning">Ви збираєтесь замінити поточний гаманець. Будь які монети в поточному гаманці будуть втрачені, якщо у вас немає окремої резервної копії.</string>
   <string name="import_keys_dialog_warning">Важливо: Не завантажуйте приватні ключі із сумнівних джерел! Зловмисники можуть отримати контроль над вашими засобами.</string>
   <string name="import_keys_dialog_file_security_encrypted">зашифровано паролем</string>

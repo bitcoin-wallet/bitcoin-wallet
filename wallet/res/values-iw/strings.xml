@@ -119,7 +119,7 @@
 	<string name="import_keys_dialog_file_created_automatic">גיבוי אוטומאטי %s</string>
 	<string name="import_keys_dialog_file_created_manual">ייצוא ידני %s</string>
 	<string name="import_keys_dialog_button_import">ייבא</string>
-	<string name="import_keys_dialog_failure">לא ניתן לייבא מפתחות פרטיים, בדקת סיסמא ?</string>
+	<string name="import_keys_dialog_failure">לא ניתן לייבא מפתחות פרטיים, בדקת סיסמא %s?</string>
 	<string name="export_keys_dialog_title">ייצא מפתחות פרטיים</string>
 	<string name="backup_wallet_dialog_message">המפתחות שלך יוצפנו בעזרת הסיסמא ויאוחסנו בהתקן החיצוני</string>
 	<string name="export_keys_dialog_button_export">ייצוא</string>

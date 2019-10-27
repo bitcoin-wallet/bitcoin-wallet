@@ -231,7 +231,7 @@
   <string name="input_parser_cannot_classify">Impossibile classificare l\'input:\n%s</string>
   <string name="input_parser_invalid_bitcoin_uri">URI Bitcoin errato:\n%s</string>
   <string name="input_parser_invalid_address">Ricevuto indirizzo bitcoin non valido!\n(Hai mescolato la mainnet con la testnet?)</string>
-  <string name="input_parser_unverifyable_paymentrequest">Impossibile verificare la richiesta di pagamento:\%s</string>
+  <string name="input_parser_unverifyable_paymentrequest">Impossibile verificare la richiesta di pagamento:\n%s</string>
   <string name="input_parser_invalid_paymentrequest">Richiesta di pagamento invalida:\n%s</string>
   <string name="input_parser_invalid_transaction">Transazione non valida:\n%s</string>
   <string name="preferences_activity_title">Impostazioni</string>
