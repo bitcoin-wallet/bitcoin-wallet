@@ -336,6 +336,7 @@ public final class WalletActivity extends AbstractWalletActivity {
 
     @Override
     protected void onNewIntent(final Intent intent) {
+        super.onNewIntent(intent);
         handleIntent(intent);
     }
 
