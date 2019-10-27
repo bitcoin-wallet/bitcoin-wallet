@@ -242,7 +242,7 @@ public class WalletApplication extends Application {
         });
     }
 
-    public static interface OnWalletLoadedListener {
+    public interface OnWalletLoadedListener {
         void onWalletLoaded(Wallet wallet);
     }
 

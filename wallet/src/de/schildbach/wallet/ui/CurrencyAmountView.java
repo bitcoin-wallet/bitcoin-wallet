@@ -50,7 +50,7 @@ import androidx.core.content.ContextCompat;
  * @author Andreas Schildbach
  */
 public final class CurrencyAmountView extends FrameLayout {
-    public static interface Listener {
+    public interface Listener {
         void changed();
 
         void focusChanged(final boolean hasFocus);

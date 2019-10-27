@@ -34,7 +34,7 @@ import androidx.lifecycle.MutableLiveData;
  * @author Andreas Schildbach
  */
 public class WalletActivityViewModel extends AndroidViewModel implements OnFirstPreDraw.Callback {
-    public static enum EnterAnimationState {
+    public enum EnterAnimationState {
         WAITING, ANIMATING, FINISHED
     }
 
