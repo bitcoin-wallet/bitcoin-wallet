@@ -4,7 +4,7 @@ import org.gradle.api.GradleScriptException
 // required Gradle version
 def minGradleVersion = GradleVersion.version("4.4")
 
-if (GradleVersion.current().compareTo(minGradleVersion) < 0)
+if (GradleVersion.current() < minGradleVersion)
     throw new GradleScriptException("build requires Gradle ${minGradleVersion} or later", null)
 
 include 'wallet'
