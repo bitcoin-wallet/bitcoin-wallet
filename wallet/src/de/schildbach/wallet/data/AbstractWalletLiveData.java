@@ -99,5 +99,5 @@ public abstract class AbstractWalletLiveData<T> extends ThrottelingLiveData<T> {
 
     protected void onWalletInactive(final Wallet wallet) {
         // do nothing by default
-    };
+    }
 }

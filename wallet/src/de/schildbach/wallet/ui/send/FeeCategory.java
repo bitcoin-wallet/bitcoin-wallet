@@ -35,5 +35,5 @@ public enum FeeCategory {
     /**
      * Confirms within the next 15 minutes.
      */
-    PRIORITY;
+    PRIORITY
 }
