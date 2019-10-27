@@ -177,13 +177,7 @@ public final class CameraManager {
         public int compare(final Camera.Size size1, final Camera.Size size2) {
             final int pixels1 = size1.height * size1.width;
             final int pixels2 = size2.height * size2.width;
-
-            if (pixels1 < pixels2)
-                return 1;
-            else if (pixels1 > pixels2)
-                return -1;
-            else
-                return 0;
+            return -Integer.compare(pixels1, pixels2);
         }
     };
 
