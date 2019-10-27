@@ -11,45 +11,40 @@
         android:layout_weight="1"
         layout="@layout/request_coins_form_include" />
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:background="@color/bg_level0"
         android:paddingBottom="@dimen/list_entry_padding_vertical"
         android:paddingLeft="@dimen/list_entry_padding_horizontal"
         android:paddingRight="@dimen/list_entry_padding_horizontal"
-        android:paddingTop="@dimen/list_entry_padding_vertical" >
+        android:paddingTop="@dimen/list_entry_padding_vertical"
+        android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="@dimen/request_coins_qr_size"
-            android:layout_height="match_parent"
-            android:orientation="vertical" >
+        <androidx.cardview.widget.CardView
+            android:id="@+id/request_coins_qr_card"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="@dimen/list_entry_padding_vertical"
+            android:layout_marginTop="@dimen/list_entry_padding_vertical"
+            android:elevation="2dp"
+            android:foreground="?android:attr/selectableItemBackground">
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/request_coins_qr_card"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="@dimen/list_entry_padding_vertical"
-                android:layout_marginTop="@dimen/list_entry_padding_vertical"
-                android:elevation="2dp"
-                android:foreground="?android:attr/selectableItemBackground" >
+            <ImageView
+                android:id="@+id/request_coins_qr"
+                android:layout_width="@dimen/request_coins_qr_size"
+                android:layout_height="@dimen/request_coins_qr_size"
+                android:contentDescription="@string/action_show_qr"
+                android:padding="4dp"
+                android:scaleType="fitXY" />
+        </androidx.cardview.widget.CardView>
 
-                <ImageView
-                    android:id="@+id/request_coins_qr"
-                    android:layout_width="@dimen/request_coins_qr_size"
-                    android:layout_height="@dimen/request_coins_qr_size"
-                    android:contentDescription="@string/action_show_qr"
-                    android:padding="4dp"
-                    android:scaleType="fitXY" />
-            </androidx.cardview.widget.CardView>
-
-            <TextView
-                android:id="@+id/request_coins_fragment_initiate_request"
-                android:layout_width="match_parent"
-                android:layout_height="0px"
-                android:layout_weight="1" />
-        </LinearLayout>
-    </FrameLayout>
+        <TextView
+            android:id="@+id/request_coins_fragment_initiate_request"
+            android:layout_width="match_parent"
+            android:layout_height="0px"
+            android:layout_weight="1" />
+    </LinearLayout>
 
 </LinearLayout>
