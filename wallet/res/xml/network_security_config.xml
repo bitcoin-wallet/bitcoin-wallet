@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <network-security-config>
 
-    <base-config cleartextTrafficPermitted="true" >
+    <!-- We need to allow cleartext because the BIP70 payment protocol doesn't
+         mandate encryption. It has its own authentication via embedded signatures. -->
+    <base-config cleartextTrafficPermitted="true">
         <trust-anchors>
             <certificates src="system" />
         </trust-anchors>
