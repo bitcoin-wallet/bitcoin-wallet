@@ -1,3 +1,7 @@
+v7.25
+
+* Fix wallet not syncing in the background on modern devices.
+
 v7.24
 
 * Various optimizations.
