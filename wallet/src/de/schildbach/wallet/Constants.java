@@ -170,7 +170,8 @@ public final class Constants {
     public static final int PEER_TIMEOUT_MS = 15 * (int) DateUtils.SECOND_IN_MILLIS;
 
     public static final long LAST_USAGE_THRESHOLD_JUST_MS = DateUtils.HOUR_IN_MILLIS;
-    public static final long LAST_USAGE_THRESHOLD_RECENTLY_MS = 2 * DateUtils.DAY_IN_MILLIS;
+    public static final long LAST_USAGE_THRESHOLD_TODAY_MS = DateUtils.DAY_IN_MILLIS;
+    public static final long LAST_USAGE_THRESHOLD_RECENTLY_MS = DateUtils.WEEK_IN_MILLIS;
     public static final long LAST_USAGE_THRESHOLD_INACTIVE_MS = 4 * DateUtils.WEEK_IN_MILLIS;
 
     public static final long DELAYED_TRANSACTION_THRESHOLD_MS = 2 * DateUtils.HOUR_IN_MILLIS;

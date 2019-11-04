@@ -179,6 +179,8 @@ public class BlockchainService extends LifecycleService {
         final long alarmInterval;
         if (lastUsedAgo < Constants.LAST_USAGE_THRESHOLD_JUST_MS)
             alarmInterval = AlarmManager.INTERVAL_FIFTEEN_MINUTES;
+        else if (lastUsedAgo < Constants.LAST_USAGE_THRESHOLD_TODAY_MS)
+            alarmInterval = AlarmManager.INTERVAL_HOUR;
         else if (lastUsedAgo < Constants.LAST_USAGE_THRESHOLD_RECENTLY_MS)
             alarmInterval = AlarmManager.INTERVAL_HALF_DAY;
         else
