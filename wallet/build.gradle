@@ -43,11 +43,6 @@ android {
     compileSdkVersion 'android-29'
     buildToolsVersion '29.0.2'
 
-    lintOptions {
-        abortOnError false
-        disable 'MissingTranslation'
-    }
-
     defaultConfig {
         applicationId 'de.schildbach'
         dexOptions {
@@ -93,6 +88,16 @@ android {
             java.srcDirs = ['test']
             resources.srcDirs = ['test']
         }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    lintOptions {
+        abortOnError false
+        disable 'MissingTranslation'
     }
 
     packagingOptions {
