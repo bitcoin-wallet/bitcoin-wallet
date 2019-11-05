@@ -112,7 +112,7 @@ public class PeerListViewModel extends AndroidViewModel {
         private final Handler handler = new Handler();
 
         public HostnamesLiveData(final WalletApplication application) {
-            setValue(new HashMap<InetAddress, String>());
+            setValue(new HashMap<>());
         }
 
         public void reverseLookup(final InetAddress address) {
