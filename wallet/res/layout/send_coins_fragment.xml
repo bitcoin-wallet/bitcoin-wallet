@@ -27,6 +27,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:labelFor="@id/send_coins_payee_name"
                 android:text="@string/send_coins_fragment_receiving_address_label"
                 android:textSize="@dimen/font_size_small"
                 android:textStyle="bold" />
