@@ -356,6 +356,7 @@
     <string name="address_unlabeled">(unbenannt)</string>
     <string name="private_key_password">PIN</string>
     <string name="private_key_bad_password">falsche PIN!</string>
+    <string name="qr_code">QR-Code</string>
 
     <!-- generic error messages -->
     <string name="error_io">I/O-Fehler: %s</string>
