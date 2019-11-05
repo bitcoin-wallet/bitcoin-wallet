@@ -169,7 +169,7 @@ public final class Constants {
     public static final String SOURCE_URL = "https://github.com/bitcoin-wallet/bitcoin-wallet";
     public static final String BINARY_URL = "https://wallet.schildbach.de/";
 
-    public static final int PEER_DISCOVERY_TIMEOUT_MS = 10 * (int) DateUtils.SECOND_IN_MILLIS;
+    public static final int PEER_DISCOVERY_TIMEOUT_MS = 5 * (int) DateUtils.SECOND_IN_MILLIS;
     public static final int PEER_TIMEOUT_MS = 15 * (int) DateUtils.SECOND_IN_MILLIS;
 
     public static final long LAST_USAGE_THRESHOLD_JUST_MS = DateUtils.HOUR_IN_MILLIS;
