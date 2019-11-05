@@ -347,6 +347,7 @@
     <string name="button_send_coins">Senden</string>
     <string name="button_scan">Scannen</string>
     <string name="button_settings">Einstellungen</string>
+    <string name="button_options">Weitere Optionen</string>
     <string name="action_show_qr">QR-Code zeigen</string>
     <string name="action_browse">Im Browser öffnen</string>
 
