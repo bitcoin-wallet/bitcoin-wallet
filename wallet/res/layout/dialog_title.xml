@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/bg_dialog_title"
@@ -7,7 +9,7 @@
     android:paddingBottom="8dp"
     android:paddingLeft="@dimen/list_entry_padding_horizontal_lax"
     android:paddingRight="@dimen/list_entry_padding_horizontal_lax"
-    android:paddingTop="16dp" >
+    android:paddingTop="16dp">
 
     <ImageView
         android:id="@android:id/icon"
@@ -15,7 +17,8 @@
         android:layout_height="28dp"
         android:layout_gravity="bottom"
         android:layout_marginRight="6dp"
-        android:visibility="gone" />
+        android:visibility="gone"
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@android:id/title"
