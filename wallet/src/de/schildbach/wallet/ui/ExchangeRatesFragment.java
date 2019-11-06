@@ -203,8 +203,8 @@ public final class ExchangeRatesFragment extends Fragment
             final int id = searchView.getContext().getResources().getIdentifier("android:id/search_src_text", null,
                     null);
             final EditText searchInput = searchView.findViewById(id);
-            searchInput.setTextColor(ContextCompat.getColor(activity, R.color.fg_network_significant));
-            searchInput.setHintTextColor(ContextCompat.getColor(activity, R.color.fg_network_insignificant));
+            searchInput.setTextColor(ContextCompat.getColor(activity, R.color.fg_on_dark_bg_network_significant));
+            searchInput.setHintTextColor(ContextCompat.getColor(activity, R.color.fg_on_dark_bg_network_insignificant));
         } else {
             searchMenuItem.setVisible(false);
         }

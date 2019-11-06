@@ -75,7 +75,7 @@ public final class WalletActionsFragment extends Fragment {
         });
         CheatSheet.setup(sendQrButton);
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP_MR1)
-            sendQrButton.getBackground().setColorFilter(ContextCompat.getColor(activity, R.color.fg_network_significant), PorterDuff.Mode.SRC_ATOP);
+            sendQrButton.getBackground().setColorFilter(ContextCompat.getColor(activity, R.color.fg_on_dark_bg_network_significant), PorterDuff.Mode.SRC_ATOP);
 
         return view;
     }
