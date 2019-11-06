@@ -2,6 +2,9 @@
 <level-list xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <item
+        android:drawable="@drawable/stat_notify_0_peers_24dp"
+        android:maxLevel="0"/>
+    <item
         android:drawable="@drawable/stat_notify_1_peers_24dp"
         android:maxLevel="1"/>
     <item
