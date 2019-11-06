@@ -8,6 +8,8 @@
     <color name="fg_value_positive">#ffa3d08c</color>
     <color name="fg_value_negative">#ffd0616a</color>
     <color name="fg_network_significant">#ffeceff4</color>
+    <color name="fg_network_less_significant">#cceceff4</color>
+    <color name="fg_network_insignificant">#99eceff4</color>
 
     <!-- background -->
     <color name="bg_level3">#ff384050</color>

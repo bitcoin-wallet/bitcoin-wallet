@@ -122,7 +122,7 @@ public class WalletBalanceWidgetProvider extends AppWidgetProvider {
             final MonetaryFormat localFormat = Constants.LOCAL_FORMAT.code(0,
                     Constants.PREFIX_ALMOST_EQUAL_TO + GenericUtils.currencySymbol(exchangeRate.getCurrencyCode()));
             final Object[] prefixSpans = new Object[] { MonetarySpannable.SMALLER_SPAN,
-                    new ForegroundColorSpan(ContextCompat.getColor(context, R.color.fg_less_significant)) };
+                    new ForegroundColorSpan(ContextCompat.getColor(context, R.color.fg_network_insignificant)) };
             localBalanceStr = new MonetarySpannable(localFormat, localBalance).applyMarkup(prefixSpans,
                     MonetarySpannable.STANDARD_INSIGNIFICANT_SPANS);
         } else {

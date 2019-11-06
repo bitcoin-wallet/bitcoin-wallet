@@ -2,5 +2,7 @@
 <resources>
 
     <color name="fg_network_significant">#ffffcc99</color>
+    <color name="fg_network_less_significant">#ccffcc99</color>
+    <color name="fg_network_insignificant">#99ffcc99</color>
 
 </resources>
