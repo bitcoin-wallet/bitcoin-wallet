@@ -338,18 +338,7 @@ public class BlockchainService extends LifecycleService {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    final NotificationCompat.Builder notification = new NotificationCompat.Builder(
-                            BlockchainService.this, Constants.NOTIFICATION_CHANNEL_ID_ONGOING);
-                    notification.setSmallIcon(R.drawable.stat_notify_peers, Math.min(numPeers, 4));
-                    notification.setContentTitle(getString(R.string.app_name));
-                    notification.setContentText(getString(R.string.notification_peers_connected_msg, numPeers));
-                    notification.setContentIntent(PendingIntent.getActivity(BlockchainService.this, 0,
-                            new Intent(BlockchainService.this, WalletActivity.class), 0));
-                    notification.setWhen(System.currentTimeMillis());
-                    notification.setOngoing(true);
-                    startForeground(Constants.NOTIFICATION_ID_CONNECTED, notification.build());
-
-                    // send broadcast
+                    startForeground(numPeers);
                     broadcastPeerState(numPeers);
                 }
             });
@@ -562,6 +551,8 @@ public class BlockchainService extends LifecycleService {
                 observeLiveDatasThatAreDependentOnWalletAndBlockchain();
             }
         });
+
+        startForeground(0);
     }
 
     private void observeLiveDatasThatAreDependentOnWalletAndBlockchain() {
@@ -894,6 +885,19 @@ public class BlockchainService extends LifecycleService {
         } catch (final BlockStoreException x) {
             throw new RuntimeException(x);
         }
+    }
+
+    private void startForeground(final int numPeers) {
+        final NotificationCompat.Builder notification = new NotificationCompat.Builder(BlockchainService.this,
+                Constants.NOTIFICATION_CHANNEL_ID_ONGOING);
+        notification.setSmallIcon(R.drawable.stat_notify_peers, Math.min(numPeers, 4));
+        notification.setContentTitle(getString(R.string.app_name));
+        notification.setContentText(getString(R.string.notification_peers_connected_msg, numPeers));
+        notification.setContentIntent(PendingIntent.getActivity(BlockchainService.this, 0,
+                new Intent(BlockchainService.this, WalletActivity.class), 0));
+        notification.setWhen(System.currentTimeMillis());
+        notification.setOngoing(true);
+        startForeground(Constants.NOTIFICATION_ID_CONNECTED, notification.build());
     }
 
     private void broadcastPeerState(final int numPeers) {
