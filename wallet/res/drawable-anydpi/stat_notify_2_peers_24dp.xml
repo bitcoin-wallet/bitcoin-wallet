@@ -9,7 +9,7 @@
         android:pivotY="12"
         android:rotation="270" >
         <path
-            android:fillColor="#8FFF"
+            android:fillColor="#6FFF"
             android:pathData="M13,21H16V9H13M18,21H21V3H18V21Z" />
         <path
             android:fillColor="#FFFF"
