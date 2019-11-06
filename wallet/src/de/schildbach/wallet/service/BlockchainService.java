@@ -261,6 +261,7 @@ public class BlockchainService extends LifecycleService {
         childNotification.setGroup(Constants.NOTIFICATION_GROUP_KEY_RECEIVED);
         childNotification.setGroupAlertBehavior(NotificationCompat.GROUP_ALERT_CHILDREN);
         childNotification.setWhen(System.currentTimeMillis());
+        childNotification.setColor(ContextCompat.getColor(this, R.color.fg_network_significant));
         childNotification.setSmallIcon(R.drawable.stat_notify_received_24dp);
         final String msg = getString(R.string.notification_coins_received_msg, btcFormat.format(amount)) + msgSuffix;
         childNotification.setTicker(msg);
@@ -855,6 +856,7 @@ public class BlockchainService extends LifecycleService {
     private void startForeground(final int numPeers) {
         final NotificationCompat.Builder notification = new NotificationCompat.Builder(BlockchainService.this,
                 Constants.NOTIFICATION_CHANNEL_ID_ONGOING);
+        notification.setColor(ContextCompat.getColor(this, R.color.fg_network_significant));
         notification.setSmallIcon(R.drawable.stat_notify_peers, Math.min(numPeers, 4));
         notification.setContentTitle(getString(R.string.app_name));
         notification.setContentText(getString(R.string.notification_peers_connected_msg, numPeers));

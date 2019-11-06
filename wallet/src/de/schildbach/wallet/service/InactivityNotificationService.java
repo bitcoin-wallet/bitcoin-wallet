@@ -80,6 +80,7 @@ public final class InactivityNotificationService extends IntentService {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             final NotificationCompat.Builder notification = new NotificationCompat.Builder(this,
                     Constants.NOTIFICATION_CHANNEL_ID_ONGOING);
+            notification.setColor(ContextCompat.getColor(this, R.color.fg_network_significant));
             notification.setSmallIcon(R.drawable.stat_notify_received_24dp);
             notification.setWhen(System.currentTimeMillis());
             notification.setOngoing(true);
@@ -129,6 +130,7 @@ public final class InactivityNotificationService extends IntentService {
             final NotificationCompat.Builder notification = new NotificationCompat.Builder(this,
                     Constants.NOTIFICATION_CHANNEL_ID_IMPORTANT);
             notification.setStyle(new NotificationCompat.BigTextStyle().bigText(text));
+            notification.setColor(ContextCompat.getColor(this, R.color.fg_network_significant));
             notification.setSmallIcon(R.drawable.stat_notify_received_24dp);
             notification.setContentTitle(title);
             notification.setContentText(text);

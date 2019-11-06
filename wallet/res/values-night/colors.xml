@@ -7,6 +7,7 @@
     <color name="fg_insignificant">#ffd8dee9</color>
     <color name="fg_value_positive">#ffa3d08c</color>
     <color name="fg_value_negative">#ffd0616a</color>
+    <color name="fg_network_significant">#ffeceff4</color>
 
     <!-- background -->
     <color name="bg_level3">#ff384050</color>
