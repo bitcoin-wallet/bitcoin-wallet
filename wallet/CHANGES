@@ -1,4 +1,4 @@
-v7.25
+v7.25-v7.26
 
 * Fix wallet not syncing in the background on modern devices.
 
