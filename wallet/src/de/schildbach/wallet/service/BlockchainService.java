@@ -138,8 +138,8 @@ public class BlockchainService extends LifecycleService {
     private boolean resetBlockchainOnShutdown = false;
 
     private static final int MIN_COLLECT_HISTORY = 2;
-    private static final int IDLE_BLOCK_TIMEOUT_MIN = 2;
-    private static final int IDLE_TRANSACTION_TIMEOUT_MIN = 9;
+    private static final int IDLE_BLOCK_TIMEOUT_MIN = 1;
+    private static final int IDLE_TRANSACTION_TIMEOUT_MIN = 5;
     private static final int MAX_HISTORY_SIZE = Math.max(IDLE_TRANSACTION_TIMEOUT_MIN, IDLE_BLOCK_TIMEOUT_MIN);
     private static final long BLOCKCHAIN_STATE_BROADCAST_THROTTLE_MS = DateUtils.SECOND_IN_MILLIS;
 
