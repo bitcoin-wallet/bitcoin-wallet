@@ -234,6 +234,12 @@ public class ReportIssueDialogFragment extends DialogFragment {
         report.append("Time of last restore: "
                 + (lastRestoreTime > 0 ? String.format(Locale.US, "%tF %tT %tZ", calendar, calendar, calendar) : "none")
                 + "\n");
+        final long lastEncryptKeysTime = configuration.getLastEncryptKeysTime();
+        calendar.setTimeInMillis(lastEncryptKeysTime);
+        report.append("Time of last encrypt keys: "
+                + (lastEncryptKeysTime > 0 ? String.format(Locale.US, "%tF %tT %tZ", calendar, calendar, calendar) :
+                "none")
+                + "\n");
         final long lastBlockchainResetTime = configuration.getLastBlockchainResetTime();
         calendar.setTimeInMillis(lastBlockchainResetTime);
         report.append(

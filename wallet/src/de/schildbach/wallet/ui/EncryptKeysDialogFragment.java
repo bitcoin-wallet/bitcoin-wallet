@@ -17,6 +17,7 @@
 
 package de.schildbach.wallet.ui;
 
+import de.schildbach.wallet.Configuration;
 import org.bitcoinj.crypto.KeyCrypterException;
 import org.bitcoinj.crypto.KeyCrypterScrypt;
 import org.bitcoinj.wallet.Wallet;
@@ -68,6 +69,7 @@ public class EncryptKeysDialogFragment extends DialogFragment {
 
     private AbstractWalletActivity activity;
     private WalletApplication application;
+    private Configuration config;
     private Wallet wallet;
 
     @Nullable
@@ -116,6 +118,7 @@ public class EncryptKeysDialogFragment extends DialogFragment {
         super.onAttach(context);
         this.activity = (AbstractWalletActivity) context;
         this.application = activity.getWalletApplication();
+        this.config = application.getConfiguration();
         this.wallet = application.getWallet();
     }
 
@@ -283,7 +286,7 @@ public class EncryptKeysDialogFragment extends DialogFragment {
                         // Encrypt to new password
                         if (newKey != null && !wallet.isEncrypted()) {
                             wallet.encrypt(keyCrypter, newKey);
-
+                            config.updateLastEncryptKeysTime();
                             log.info(
                                     "wallet successfully encrypted, using key derived by new spending password ({} scrypt iterations)",
                                     keyCrypter.getScryptParameters().getN());

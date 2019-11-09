@@ -65,6 +65,7 @@ public class Configuration {
     public static final String PREFS_KEY_REMIND_BACKUP = "remind_backup";
     private static final String PREFS_KEY_LAST_BACKUP = "last_backup";
     private static final String PREFS_KEY_LAST_RESTORE = "last_restore";
+    private static final String PREFS_KEY_LAST_ENCRYPT_KEYS = "last_encrypt_keys";
     private static final String PREFS_KEY_LAST_BLOCKCHAIN_RESET = "last_blockchain_reset";
     private static final String PREFS_KEY_LAST_BLUETOOTH_ADDRESS = "last_bluetooth_address";
 
@@ -178,6 +179,14 @@ public class Configuration {
 
     public void updateLastRestoreTime() {
         prefs.edit().putLong(PREFS_KEY_LAST_RESTORE, System.currentTimeMillis()).apply();
+    }
+
+    public long getLastEncryptKeysTime() {
+        return prefs.getLong(PREFS_KEY_LAST_ENCRYPT_KEYS, 0);
+    }
+
+    public void updateLastEncryptKeysTime() {
+        prefs.edit().putLong(PREFS_KEY_LAST_ENCRYPT_KEYS, System.currentTimeMillis()).apply();
     }
 
     public long getLastBlockchainResetTime() {
