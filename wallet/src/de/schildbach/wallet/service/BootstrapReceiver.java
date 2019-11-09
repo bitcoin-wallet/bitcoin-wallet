@@ -48,8 +48,8 @@ public class BootstrapReceiver extends BroadcastReceiver {
             if (packageReplaced)
                 UpgradeWalletService.startUpgrade(context);
 
-            // make sure there is always an alarm scheduled
-            BlockchainService.scheduleStart(application);
+            // make sure there is always a blockchain sync scheduled
+            StartBlockchainService.schedule(application);
 
             // if the app hasn't been used for a while and contains coins, maybe show reminder
             final Configuration config = application.getConfiguration();

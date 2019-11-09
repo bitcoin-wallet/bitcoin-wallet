@@ -212,6 +212,9 @@
         </receiver>
 
         <service
+            android:name="de.schildbach.wallet.service.StartBlockchainService"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+        <service
             android:name="de.schildbach.wallet.service.BlockchainService"
             android:exported="false" />
 

@@ -82,7 +82,6 @@ import de.schildbach.wallet.ui.WalletActivity;
 import de.schildbach.wallet.util.CrashReporter;
 import de.schildbach.wallet.util.WalletUtils;
 
-import android.app.AlarmManager;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -94,7 +93,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Binder;
-import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.PowerManager;
@@ -169,38 +167,6 @@ public class BlockchainService extends LifecycleService {
 
     public static void stop(final Context context) {
         context.stopService(new Intent(context, BlockchainService.class));
-    }
-
-    public static void scheduleStart(final WalletApplication application) {
-        final Configuration config = application.getConfiguration();
-        final long lastUsedAgo = config.getLastUsedAgo();
-
-        // apply some backoff
-        final long alarmInterval;
-        if (lastUsedAgo < Constants.LAST_USAGE_THRESHOLD_JUST_MS)
-            alarmInterval = AlarmManager.INTERVAL_FIFTEEN_MINUTES;
-        else if (lastUsedAgo < Constants.LAST_USAGE_THRESHOLD_TODAY_MS)
-            alarmInterval = AlarmManager.INTERVAL_HOUR;
-        else if (lastUsedAgo < Constants.LAST_USAGE_THRESHOLD_RECENTLY_MS)
-            alarmInterval = AlarmManager.INTERVAL_HALF_DAY;
-        else
-            alarmInterval = AlarmManager.INTERVAL_DAY;
-
-        log.info("last used {} minutes ago, rescheduling blockchain sync in roughly {} minutes",
-                lastUsedAgo / DateUtils.MINUTE_IN_MILLIS, alarmInterval / DateUtils.MINUTE_IN_MILLIS);
-
-        final AlarmManager alarmManager = (AlarmManager) application.getSystemService(Context.ALARM_SERVICE);
-        final PendingIntent alarmIntent;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-            alarmIntent = PendingIntent.getForegroundService(application, 0,
-                    new Intent(application, BlockchainService.class), 0);
-        else
-            alarmIntent = PendingIntent.getService(application, 0,
-                    new Intent(application, BlockchainService.class), 0);
-        alarmManager.cancel(alarmIntent);
-
-        final long now = System.currentTimeMillis();
-        alarmManager.set(AlarmManager.RTC_WAKEUP, now + alarmInterval, alarmIntent);
     }
 
     public static void resetBlockchain(final Context context) {
@@ -756,8 +722,7 @@ public class BlockchainService extends LifecycleService {
         super.onStartCommand(intent, flags, startId);
 
         if (intent != null) {
-            log.info("service start command: " + intent + (intent.hasExtra(Intent.EXTRA_ALARM_COUNT)
-                    ? " (alarm count: " + intent.getIntExtra(Intent.EXTRA_ALARM_COUNT, 0) + ")" : ""));
+            log.info("service start command: " + intent);
 
             final String action = intent.getAction();
 
@@ -827,7 +792,7 @@ public class BlockchainService extends LifecycleService {
             blockChainFile.delete();
         }
 
-        scheduleStart(application);
+        StartBlockchainService.schedule(application);
 
         stopForeground(true);
 
