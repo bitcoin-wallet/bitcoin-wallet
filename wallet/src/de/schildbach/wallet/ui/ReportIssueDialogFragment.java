@@ -276,6 +276,8 @@ public class ReportIssueDialogFragment extends DialogFragment {
         final File filesDir = application.getFilesDir();
         report.append("\nContents of FilesDir " + filesDir + ":\n");
         appendDir(report, filesDir, 0);
+        report.append("free/usable space: ").append(Long.toString(filesDir.getFreeSpace() / 1024))
+                .append("/").append(Long.toString(filesDir.getUsableSpace() / 1024)).append(" kB\n");
     }
 
     private static void appendDir(final Appendable report, final File file, final int indent) throws IOException {
@@ -285,7 +287,8 @@ public class ReportIssueDialogFragment extends DialogFragment {
         final Formatter formatter = new Formatter(report);
         final Calendar calendar = new GregorianCalendar(UTC);
         calendar.setTimeInMillis(file.lastModified());
-        formatter.format(Locale.US, "%tF %tT %8d  %s\n", calendar, calendar, file.length(), file.getName());
+        formatter.format(Locale.US, "%tF %tT %8d kB  %s\n",
+                calendar, calendar, file.length() / 1024, file.getName());
         formatter.close();
 
         final File[] files = file.listFiles();
