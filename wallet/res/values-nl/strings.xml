@@ -343,6 +343,7 @@
   <string name="button_send_coins">Verzend Bitcoins</string>
   <string name="button_scan">Scan QR</string>
   <string name="button_settings">Instellingen</string>
+  <string name="button_options">Meer opties</string>
   <string name="action_show_qr">Toon QR-code</string>
   <string name="action_browse">Bladeren</string>
   <!--generic strings-->
@@ -350,6 +351,7 @@
   <string name="address_unlabeled">(niet-gemerkt)</string>
   <string name="private_key_password">Pincode</string>
   <string name="private_key_bad_password">foutieve pincode!</string>
+  <string name="qr_code">QR-code</string>
   <!--generic error messages-->
   <string name="error_io">I/O-fout: %s</string>
   <string name="error_parse">Parseerfout: %s</string>
