@@ -154,6 +154,23 @@ public final class ScanActivity extends AbstractWalletActivity
                         getString(R.string.scan_camera_problem_dialog_message));
             }
         });
+        viewModel.maybeStartSceneTransition.observe(this, new Event.Observer<Void>() {
+            @Override
+            public void onEvent(final Void v) {
+                if (sceneTransition != null) {
+                    contentView.setAlpha(1);
+                    sceneTransition.addListener(new AnimatorListenerAdapter() {
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                            getWindow().setBackgroundDrawable(new ColorDrawable(
+                                    ContextCompat.getColor(ScanActivity.this, android.R.color.black)));
+                        }
+                    });
+                    sceneTransition.start();
+                    sceneTransition = null;
+                }
+            }
+        });
 
         // Stick to the orientation the activity was started with. We cannot declare this in the
         // AndroidManifest.xml, because it's not allowed in combination with the windowIsTranslucent=true
@@ -203,21 +220,6 @@ public final class ScanActivity extends AbstractWalletActivity
                     }
                 });
             }
-        }
-    }
-
-    private void maybeTriggerSceneTransition() {
-        if (sceneTransition != null) {
-            contentView.setAlpha(1);
-            sceneTransition.addListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    getWindow().setBackgroundDrawable(
-                            new ColorDrawable(ContextCompat.getColor(ScanActivity.this, android.R.color.black)));
-                }
-            });
-            sceneTransition.start();
-            sceneTransition = null;
         }
     }
 
@@ -361,12 +363,7 @@ public final class ScanActivity extends AbstractWalletActivity
 
                 if (nonContinuousAutoFocus)
                     cameraHandler.post(new AutoFocusRunnable(camera));
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        maybeTriggerSceneTransition();
-                    }
-                });
+                viewModel.maybeStartSceneTransition.postValue(Event.simple());
                 cameraHandler.post(fetchAndDecodeRunnable);
             } catch (final Exception x) {
                 log.info("problem opening camera", x);
