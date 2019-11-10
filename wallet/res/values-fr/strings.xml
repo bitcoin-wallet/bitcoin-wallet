@@ -343,6 +343,7 @@
   <string name="button_send_coins">Envoi de BTC</string>
   <string name="button_scan">Balayer</string>
   <string name="button_settings">Paramètres</string>
+  <string name="button_options">Plus d’options</string>
   <string name="action_show_qr">Montrer le code QR</string>
   <string name="action_browse">Parcourir</string>
   <!--generic strings-->
@@ -350,6 +351,7 @@
   <string name="address_unlabeled">(sans étiquette)</string>
   <string name="private_key_password">NIP</string>
   <string name="private_key_bad_password">le NIP est erroné !</string>
+  <string name="qr_code">Code QR</string>
   <!--generic error messages-->
   <string name="error_io">Erreur E/S : %s</string>
   <string name="error_parse">Erreur d’analyse : %s</string>
