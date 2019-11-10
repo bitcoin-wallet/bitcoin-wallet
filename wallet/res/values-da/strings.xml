@@ -343,6 +343,7 @@
   <string name="button_send_coins">Send bitcoin</string>
   <string name="button_scan">Scan</string>
   <string name="button_settings">Opsætning</string>
+  <string name="button_options">Flere indstillinger</string>
   <string name="action_show_qr">Vis QR-kode</string>
   <string name="action_browse">Gennemse</string>
   <!--generic strings-->
@@ -350,6 +351,7 @@
   <string name="address_unlabeled">(uden etikette)</string>
   <string name="private_key_password">PIN</string>
   <string name="private_key_bad_password">forkert PIN!</string>
+  <string name="qr_code">QR-kode</string>
   <!--generic error messages-->
   <string name="error_io">I/O-fejl: %s</string>
   <string name="error_parse">Fortolkningsfejl: %s</string>
