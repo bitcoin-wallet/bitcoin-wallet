@@ -1,3 +1,10 @@
+v7.27
+
+* Use Gradle build variants for testnet (dev) and mainnet (prod) flavors.
+* Notifications are now subtly colored.
+* On Android 10, when uninstalling the app users have the choice to keep their wallet in app-private storage.
+* Update translations from Transifex.
+
 v7.25-v7.26
 
 * Fix wallet not syncing in the background on modern devices.
