@@ -60,6 +60,7 @@
 
     <application
         android:name="de.schildbach.wallet.WalletApplication"
+        android:hasFragileUserData="true"
         android:allowBackup="false"
         android:icon="@drawable/ic_app_color"
         android:label="@string/app_name"
