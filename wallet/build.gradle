@@ -5,6 +5,7 @@ plugins {
 
 configurations {
     all*.exclude group: 'com.google.android', module: 'android'
+    all*.exclude group: 'androidx.viewpager', module: 'viewpager'
 }
 
 dependencies {
@@ -15,7 +16,7 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.coordinatorlayout:coordinatorlayout:1.1.0'
-    implementation 'androidx.viewpager:viewpager:1.0.0'
+    implementation 'androidx.viewpager2:viewpager2:1.0.0'
     implementation 'androidx.lifecycle:lifecycle-service:2.2.0'
     implementation 'androidx.sqlite:sqlite:2.1.0'
     implementation "androidx.room:room-runtime:2.2.4"

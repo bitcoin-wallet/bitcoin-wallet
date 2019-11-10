@@ -17,68 +17,77 @@
 
 package de.schildbach.wallet.ui.monitor;
 
+import android.os.Bundle;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.viewpager2.widget.ViewPager2;
 import de.schildbach.wallet.R;
 import de.schildbach.wallet.ui.AbstractWalletActivity;
 import de.schildbach.wallet.util.ViewPagerTabs;
-
-import android.os.Bundle;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentStatePagerAdapter;
-import androidx.viewpager.widget.ViewPager;
+import de.schildbach.wallet.util.ZoomOutPageTransformer;
 
 /**
  * @author Andreas Schildbach
  */
 public final class NetworkMonitorActivity extends AbstractWalletActivity {
-    private PeerListFragment peerListFragment;
-    private BlockListFragment blockListFragment;
+    private static final int POSITION_PEER_LIST = 0;
+    private static final int POSITION_BLOCK_LIST = 1;
+    private static final int[] TAB_LABELS = { R.string.network_monitor_peer_list_title,
+            R.string.network_monitor_block_list_title };
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.network_monitor_content);
+        final ViewPager2 pager = findViewById(R.id.network_monitor_pager);
+        final ViewPagerTabs pagerTabs = findViewById(R.id.network_monitor_pager_tabs);
 
-        final ViewPager pager = findViewById(R.id.network_monitor_pager);
+        pagerTabs.addTabLabels(TAB_LABELS);
 
-        final FragmentManager fm = getSupportFragmentManager();
+        final boolean twoPanes = getResources().getBoolean(R.bool.network_monitor_two_panes);
 
-        if (pager != null) {
-            final ViewPagerTabs pagerTabs = findViewById(R.id.network_monitor_pager_tabs);
-            pagerTabs.addTabLabels(R.string.network_monitor_peer_list_title, R.string.network_monitor_block_list_title);
-
-            final PagerAdapter pagerAdapter = new PagerAdapter(fm);
-
-            pager.setAdapter(pagerAdapter);
-            pager.setOnPageChangeListener(pagerTabs);
-            pager.setPageMargin(2);
-            pager.setPageMarginDrawable(R.color.bg_level0);
-
-            peerListFragment = new PeerListFragment();
-            blockListFragment = new BlockListFragment();
+        if (twoPanes) {
+            final RecyclerView recyclerView = (RecyclerView) pager.getChildAt(0);
+            recyclerView.setClipToPadding(false);
+            recyclerView.getViewTreeObserver().addOnGlobalLayoutListener(() -> {
+                final int width = recyclerView.getWidth();
+                recyclerView.setPadding(0, 0, width / 2, 0);
+                pager.setCurrentItem(0);
+            });
+            pager.setUserInputEnabled(false);
+            pagerTabs.setMode(ViewPagerTabs.Mode.STATIC);
         } else {
-            peerListFragment = (PeerListFragment) fm.findFragmentById(R.id.peer_list_fragment);
-            blockListFragment = (BlockListFragment) fm.findFragmentById(R.id.block_list_fragment);
+            pager.setPageTransformer(new ZoomOutPageTransformer());
+            pager.registerOnPageChangeCallback(pagerTabs.getPageChangeCallback());
+            pagerTabs.setMode(ViewPagerTabs.Mode.DYNAMIC);
         }
+
+        pager.setOffscreenPageLimit(1);
+        pager.setAdapter(new PagerAdapter());
     }
 
-    private class PagerAdapter extends FragmentStatePagerAdapter {
-        public PagerAdapter(final FragmentManager fm) {
-            super(fm);
+    private class PagerAdapter extends FragmentStateAdapter {
+        public PagerAdapter() {
+            super(NetworkMonitorActivity.this);
         }
 
         @Override
-        public int getCount() {
+        public int getItemCount() {
             return 2;
         }
 
+        @NonNull
         @Override
-        public Fragment getItem(final int position) {
-            if (position == 0)
-                return peerListFragment;
+        public Fragment createFragment(final int position) {
+            if (position == POSITION_PEER_LIST)
+                return new PeerListFragment();
+            else if (position == POSITION_BLOCK_LIST)
+                return new BlockListFragment();
             else
-                return blockListFragment;
+                throw new IllegalArgumentException();
         }
     }
 }
