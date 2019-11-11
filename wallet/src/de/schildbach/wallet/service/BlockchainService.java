@@ -32,6 +32,8 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicLong;
 
+import android.os.Build;
+import androidx.annotation.RequiresApi;
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.Block;
 import org.bitcoinj.core.BlockChain;
@@ -407,6 +409,14 @@ public class BlockchainService extends LifecycleService {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private final BroadcastReceiver deviceIdleModeReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(final Context context, final Intent intent) {
+            log.info("device {} idle mode", pm.isDeviceIdleMode() ? "entering" : "exiting");
+        }
+    };
+
     public class LocalBinder extends Binder {
         public BlockchainService getService() {
             return BlockchainService.this;
@@ -443,6 +453,9 @@ public class BlockchainService extends LifecycleService {
         config = application.getConfiguration();
         addressBookDao = AppDatabase.getDatabase(application).addressBookDao();
         blockChainFile = new File(getDir("blockstore", Context.MODE_PRIVATE), Constants.Files.BLOCKCHAIN_FILENAME);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+            registerReceiver(deviceIdleModeReceiver, new IntentFilter(PowerManager.ACTION_DEVICE_IDLE_MODE_CHANGED));
 
         peerConnectivityListener = new PeerConnectivityListener();
 
@@ -731,6 +744,9 @@ public class BlockchainService extends LifecycleService {
             log.info("removing blockchain");
             blockChainFile.delete();
         }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+            unregisterReceiver(deviceIdleModeReceiver);
 
         StartBlockchainService.schedule(application);
 
