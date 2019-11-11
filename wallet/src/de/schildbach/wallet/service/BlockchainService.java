@@ -663,9 +663,8 @@ public class BlockchainService extends LifecycleService {
         super.onStartCommand(intent, flags, startId);
 
         if (intent != null) {
-            log.info("service start command: " + intent);
-
             final String action = intent.getAction();
+            log.info("service start command: {}", action);
 
             if (BlockchainService.ACTION_CANCEL_COINS_RECEIVED.equals(action)) {
                 notificationCount = 0;
