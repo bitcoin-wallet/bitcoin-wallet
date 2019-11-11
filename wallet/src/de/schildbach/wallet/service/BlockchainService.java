@@ -109,6 +109,9 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
  * @author Andreas Schildbach
  */
 public class BlockchainService extends LifecycleService {
+    private PowerManager pm;
+    private NotificationManager nm;
+
     private WalletApplication application;
     private Configuration config;
     private AddressBookDao addressBookDao;
@@ -125,7 +128,6 @@ public class BlockchainService extends LifecycleService {
     private WakeLock wakeLock;
 
     private PeerConnectivityListener peerConnectivityListener;
-    private NotificationManager nm;
     private ImpedimentsLiveData impediments;
     private int notificationCount = 0;
     private Coin notificationAccumulatedAmount = Coin.ZERO;
@@ -431,10 +433,11 @@ public class BlockchainService extends LifecycleService {
     public void onCreate() {
         serviceCreatedAt = System.currentTimeMillis();
         log.debug(".onCreate()");
-
         super.onCreate();
+
+        pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
         nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        final PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+
         wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, getClass().getName());
         application = (WalletApplication) getApplication();
         config = application.getConfiguration();
