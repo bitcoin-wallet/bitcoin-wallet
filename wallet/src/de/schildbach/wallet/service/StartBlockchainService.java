@@ -26,6 +26,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Build;
+import android.os.PowerManager;
 import android.text.format.DateUtils;
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
@@ -37,6 +38,8 @@ import org.slf4j.LoggerFactory;
  * @author Andreas Schildbach
  */
 public class StartBlockchainService extends JobService {
+    private PowerManager pm;
+
     private static final Logger log = LoggerFactory.getLogger(StartBlockchainService.class);
 
     public static void schedule(final WalletApplication application) {
@@ -72,14 +75,23 @@ public class StartBlockchainService extends JobService {
     }
 
     @Override
+    public void onCreate() {
+        super.onCreate();
+        pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+    }
+
+    @Override
     public boolean onStartJob(final JobParameters params) {
         final boolean storageLow = registerReceiver(null, new IntentFilter(Intent.ACTION_DEVICE_STORAGE_LOW)) != null;
+        final boolean batteryLow = registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_LOW)) != null;
+        final boolean powerSaveMode = pm.isPowerSaveMode();
         if (storageLow)
             log.info("storage low, not starting blockchain sync");
-        final boolean batteryLow = registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_LOW)) != null;
         if (batteryLow)
             log.info("battery low, not starting blockchain sync");
-        if (!storageLow && !batteryLow)
+        if (powerSaveMode)
+            log.info("power save mode, not starting blockchain sync");
+        if (!storageLow && !batteryLow && !powerSaveMode)
             BlockchainService.start(this, false);
         return false;
     }
