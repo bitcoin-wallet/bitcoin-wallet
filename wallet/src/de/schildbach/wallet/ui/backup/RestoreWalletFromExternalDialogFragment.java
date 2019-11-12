@@ -208,7 +208,7 @@ public class RestoreWalletFromExternalDialogFragment extends DialogFragment {
         } else {
             final String message = "no backup data provided";
             viewModel.showFailureDialog.setValue(new Event<>(message));
-            log.info("problem restoring wallet: %s", message);
+            log.info("problem restoring wallet: {}", message);
         }
     }
 
