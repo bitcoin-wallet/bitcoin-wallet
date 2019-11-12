@@ -17,6 +17,7 @@
 
 package de.schildbach.wallet.service;
 
+import com.google.common.base.Joiner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -67,13 +68,7 @@ public class ActivityHistory {
                 history.remove(history.size() - 1);
 
             // print
-            final StringBuilder builder = new StringBuilder();
-            for (final Entry entry : history) {
-                if (builder.length() > 0)
-                    builder.append(", ");
-                builder.append(entry);
-            }
-            log.info("History of transactions/blocks: " + builder);
+            log.info(toString());
         }
 
         lastChainHeight = chainHeight;
@@ -99,6 +94,13 @@ public class ActivityHistory {
             }
         }
         return isIdle;
+    }
+
+    @Override
+    public synchronized String toString() {
+        final StringBuilder builder = new StringBuilder("transactions/blocks: ");
+        Joiner.on(", ").appendTo(builder, history);
+        return builder.toString();
     }
 
     public static final class Entry {
