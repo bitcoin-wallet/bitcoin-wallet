@@ -30,7 +30,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
 import org.bitcoinj.core.Address;
@@ -131,14 +130,10 @@ public class BlockchainService extends LifecycleService {
     private int notificationCount = 0;
     private Coin notificationAccumulatedAmount = Coin.ZERO;
     private final List<Address> notificationAddresses = new LinkedList<>();
-    private AtomicInteger transactionsReceived = new AtomicInteger();
     private long serviceCreatedAt;
     private boolean resetBlockchainOnShutdown = false;
 
-    private static final int MIN_COLLECT_HISTORY = 2;
-    private static final int IDLE_BLOCK_TIMEOUT_MIN = 1;
-    private static final int IDLE_TRANSACTION_TIMEOUT_MIN = 5;
-    private static final int MAX_HISTORY_SIZE = Math.max(IDLE_TRANSACTION_TIMEOUT_MIN, IDLE_BLOCK_TIMEOUT_MIN);
+    private static final ActivityHistory activityHistory = new ActivityHistory();
     private static final long BLOCKCHAIN_STATE_BROADCAST_THROTTLE_MS = DateUtils.SECOND_IN_MILLIS;
 
     public static final String ACTION_PEER_STATE = BlockchainService.class.getPackage().getName() + ".peer_state";
@@ -528,7 +523,7 @@ public class BlockchainService extends LifecycleService {
             @Override
             public void onChanged(final Transaction tx) {
                 final Wallet wallet = BlockchainService.this.wallet.getValue();
-                transactionsReceived.incrementAndGet();
+                activityHistory.registerTransactionReceived();
                 final Coin amount = tx.getValue(wallet);
                 if (amount.isPositive()) {
                     final Address address = WalletUtils.getWalletAddressOfReceived(tx, wallet);
@@ -542,72 +537,14 @@ public class BlockchainService extends LifecycleService {
         });
         final TimeLiveData time = new TimeLiveData(application);
         time.observe(this, new Observer<Date>() {
-            private int lastChainHeight = 0;
-            private final List<ActivityHistoryEntry> activityHistory = new LinkedList<>();
-
             @Override
             public void onChanged(final Date time) {
-                final int chainHeight = blockChain.getBestChainHeight();
-
-                if (lastChainHeight > 0) {
-                    final int numBlocksDownloaded = chainHeight - lastChainHeight;
-                    final int numTransactionsReceived = transactionsReceived.getAndSet(0);
-
-                    // push history
-                    activityHistory.add(0, new ActivityHistoryEntry(numTransactionsReceived, numBlocksDownloaded));
-
-                    // trim
-                    while (activityHistory.size() > MAX_HISTORY_SIZE)
-                        activityHistory.remove(activityHistory.size() - 1);
-
-                    // print
-                    final StringBuilder builder = new StringBuilder();
-                    for (final ActivityHistoryEntry entry : activityHistory) {
-                        if (builder.length() > 0)
-                            builder.append(", ");
-                        builder.append(entry);
-                    }
-                    log.info("History of transactions/blocks: " + builder);
-
-                    // determine if block and transaction activity is idling
-                    boolean isIdle = false;
-                    if (activityHistory.size() >= MIN_COLLECT_HISTORY) {
-                        isIdle = true;
-                        for (int i = 0; i < activityHistory.size(); i++) {
-                            final ActivityHistoryEntry entry = activityHistory.get(i);
-                            final boolean blocksActive = entry.numBlocksDownloaded > 0 && i <= IDLE_BLOCK_TIMEOUT_MIN;
-                            final boolean transactionsActive = entry.numTransactionsReceived > 0
-                                    && i <= IDLE_TRANSACTION_TIMEOUT_MIN;
-
-                            if (blocksActive || transactionsActive) {
-                                isIdle = false;
-                                break;
-                            }
-                        }
-                    }
-
-                    // if idling, shutdown service
-                    if (isIdle) {
-                        log.info("idling detected, stopping service");
-                        stopSelf();
-                    }
-                }
-
-                lastChainHeight = chainHeight;
-            }
-
-            final class ActivityHistoryEntry {
-                public final int numTransactionsReceived;
-                public final int numBlocksDownloaded;
-
-                public ActivityHistoryEntry(final int numTransactionsReceived, final int numBlocksDownloaded) {
-                    this.numTransactionsReceived = numTransactionsReceived;
-                    this.numBlocksDownloaded = numBlocksDownloaded;
-                }
-
-                @Override
-                public String toString() {
-                    return numTransactionsReceived + "/" + numBlocksDownloaded;
+                activityHistory.registerBestChainHeight(blockChain.getBestChainHeight());
+                activityHistory.tick();
+                // if idling, shutdown service
+                if (activityHistory.isIdle()) {
+                    log.info("idling detected, stopping service");
+                    stopSelf();
                 }
             }
         });
