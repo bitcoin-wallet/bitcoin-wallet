@@ -1,3 +1,7 @@
+v7.28
+
+* Various improvements on blockchain sync.
+
 v7.27
 
 * Use Gradle build variants for testnet (dev) and mainnet (prod) flavors.
