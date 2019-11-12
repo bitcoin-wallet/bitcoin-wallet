@@ -39,6 +39,7 @@ public class ActivityHistory {
     private final Deque<Entry> history = new LinkedList<>();
     private final AtomicInteger transactionsReceived = new AtomicInteger();
     private final AtomicInteger bestChainHeight = new AtomicInteger();
+    private final AtomicInteger blocksLeft = new AtomicInteger(-1);
 
     private int lastChainHeight = 0;
 
@@ -48,6 +49,10 @@ public class ActivityHistory {
 
     public void registerBestChainHeight(final int bestChainHeight) {
         this.bestChainHeight.set(bestChainHeight);
+    }
+
+    public void registerBlocksLeft(final int blocksLeft) {
+        this.blocksLeft.set(blocksLeft);
     }
 
     /**
@@ -61,7 +66,7 @@ public class ActivityHistory {
             final int numTransactionsReceived = transactionsReceived.getAndSet(0);
 
             // push history
-            history.addFirst(new Entry(numTransactionsReceived, numBlocksDownloaded));
+            history.addFirst(new Entry(numTransactionsReceived, numBlocksDownloaded, blocksLeft.get()));
 
             // trim
             while (history.size() > MAX_HISTORY_SIZE)
@@ -78,28 +83,25 @@ public class ActivityHistory {
      * Determine if block and transaction activity is idling.
      */
     public synchronized boolean isIdle() {
-        boolean isIdle = false;
-        if (history.size() >= MIN_COLLECT_HISTORY) {
-            isIdle = true;
-            int i = 0;
-            for (final Entry entry : history) {
-                final boolean blocksActive = entry.numBlocksDownloaded > 0 && i <= IDLE_BLOCK_TIMEOUT_MIN;
-                final boolean transactionsActive = entry.numTransactionsReceived > 0
-                        && i <= IDLE_TRANSACTION_TIMEOUT_MIN;
-                i++;
-
-                if (blocksActive || transactionsActive) {
-                    isIdle = false;
-                    break;
-                }
-            }
+        if (history.size() < MIN_COLLECT_HISTORY)
+            return false;
+        if (history.getFirst().numBlocksLeft == 0 && history.getFirst().numBlocksDownloaded <= 1)
+            return true;
+        int i = 0;
+        for (final Entry entry : history) {
+            if (entry.numBlocksDownloaded > 0 && i <= IDLE_BLOCK_TIMEOUT_MIN)
+                return false;
+            if (entry.numTransactionsReceived > 0
+                    && i <= IDLE_TRANSACTION_TIMEOUT_MIN)
+                return false;
+            i++;
         }
-        return isIdle;
+        return true;
     }
 
     @Override
     public synchronized String toString() {
-        final StringBuilder builder = new StringBuilder("secsAgo/txns/blocks: ");
+        final StringBuilder builder = new StringBuilder("secsAgo/txns/blks recvd/left: ");
         Joiner.on(", ").appendTo(builder, history);
         return builder.toString();
     }
@@ -108,11 +110,13 @@ public class ActivityHistory {
         public final long time;
         public final int numTransactionsReceived;
         public final int numBlocksDownloaded;
+        public final int numBlocksLeft;
 
-        public Entry(final int numTransactionsReceived, final int numBlocksDownloaded) {
+        public Entry(final int numTransactionsReceived, final int numBlocksDownloaded, final int numBlocksLeft) {
             this.time = System.currentTimeMillis();
             this.numTransactionsReceived = numTransactionsReceived;
             this.numBlocksDownloaded = numBlocksDownloaded;
+            this.numBlocksLeft = numBlocksLeft;
         }
 
         @Override
@@ -121,8 +125,15 @@ public class ActivityHistory {
         }
 
         public String toString(final long currentTime) {
-            final long secsAgo = (currentTime - time) / 1000;
-            return secsAgo + "/" + numTransactionsReceived + "/" + numBlocksDownloaded;
+            final StringBuilder builder = new StringBuilder();
+            builder.append((currentTime - time) / 1000); // seconds ago
+            builder.append('/');
+            builder.append(numTransactionsReceived);
+            builder.append('/');
+            builder.append(numBlocksDownloaded);
+            builder.append('/');
+            builder.append(numBlocksLeft >= 0 ? numBlocksLeft : "-");
+            return builder.toString();
         }
     }
 }

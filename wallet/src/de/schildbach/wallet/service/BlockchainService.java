@@ -315,10 +315,16 @@ public class BlockchainService extends LifecycleService {
         private final AtomicLong lastMessageTime = new AtomicLong(0);
 
         @Override
+        public void onChainDownloadStarted(final Peer peer, final int blocksLeft) {
+            activityHistory.registerBlocksLeft(blocksLeft);
+        }
+
+        @Override
         public void onBlocksDownloaded(final Peer peer, final Block block, final FilteredBlock filteredBlock,
                 final int blocksLeft) {
-            delayHandler.removeCallbacksAndMessages(null);
+            activityHistory.registerBlocksLeft(blocksLeft);
 
+            delayHandler.removeCallbacksAndMessages(null);
             final long now = System.currentTimeMillis();
             if (now - lastMessageTime.get() > BLOCKCHAIN_STATE_BROADCAST_THROTTLE_MS)
                 delayHandler.post(runnable);
