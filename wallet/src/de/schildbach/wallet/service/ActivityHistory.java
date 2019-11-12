@@ -21,8 +21,8 @@ import com.google.common.base.Joiner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Deque;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -36,7 +36,7 @@ public class ActivityHistory {
 
     private static final Logger log = LoggerFactory.getLogger(ActivityHistory.class);
 
-    private final List<Entry> history = new LinkedList<>();
+    private final Deque<Entry> history = new LinkedList<>();
     private final AtomicInteger transactionsReceived = new AtomicInteger();
     private final AtomicInteger bestChainHeight = new AtomicInteger();
 
@@ -61,11 +61,11 @@ public class ActivityHistory {
             final int numTransactionsReceived = transactionsReceived.getAndSet(0);
 
             // push history
-            history.add(0, new Entry(numTransactionsReceived, numBlocksDownloaded));
+            history.addFirst(new Entry(numTransactionsReceived, numBlocksDownloaded));
 
             // trim
             while (history.size() > MAX_HISTORY_SIZE)
-                history.remove(history.size() - 1);
+                history.removeLast();
 
             // print
             log.info(toString());
@@ -81,11 +81,12 @@ public class ActivityHistory {
         boolean isIdle = false;
         if (history.size() >= MIN_COLLECT_HISTORY) {
             isIdle = true;
-            for (int i = 0; i < history.size(); i++) {
-                final Entry entry = history.get(i);
+            int i = 0;
+            for (final Entry entry : history) {
                 final boolean blocksActive = entry.numBlocksDownloaded > 0 && i <= IDLE_BLOCK_TIMEOUT_MIN;
                 final boolean transactionsActive = entry.numTransactionsReceived > 0
                         && i <= IDLE_TRANSACTION_TIMEOUT_MIN;
+                i++;
 
                 if (blocksActive || transactionsActive) {
                     isIdle = false;
