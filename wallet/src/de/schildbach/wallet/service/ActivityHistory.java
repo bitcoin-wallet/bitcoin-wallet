@@ -99,23 +99,30 @@ public class ActivityHistory {
 
     @Override
     public synchronized String toString() {
-        final StringBuilder builder = new StringBuilder("transactions/blocks: ");
+        final StringBuilder builder = new StringBuilder("secsAgo/txns/blocks: ");
         Joiner.on(", ").appendTo(builder, history);
         return builder.toString();
     }
 
     public static final class Entry {
+        public final long time;
         public final int numTransactionsReceived;
         public final int numBlocksDownloaded;
 
         public Entry(final int numTransactionsReceived, final int numBlocksDownloaded) {
+            this.time = System.currentTimeMillis();
             this.numTransactionsReceived = numTransactionsReceived;
             this.numBlocksDownloaded = numBlocksDownloaded;
         }
 
         @Override
         public String toString() {
-            return numTransactionsReceived + "/" + numBlocksDownloaded;
+            return toString(System.currentTimeMillis());
+        }
+
+        public String toString(final long currentTime) {
+            final long secsAgo = (currentTime - time) / 1000;
+            return secsAgo + "/" + numTransactionsReceived + "/" + numBlocksDownloaded;
         }
     }
 }
