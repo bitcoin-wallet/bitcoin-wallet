@@ -75,7 +75,6 @@ import de.schildbach.wallet.data.AddressBookDao;
 import de.schildbach.wallet.data.AppDatabase;
 import de.schildbach.wallet.data.ExchangeRate;
 import de.schildbach.wallet.data.SelectedExchangeRateLiveData;
-import de.schildbach.wallet.data.TimeLiveData;
 import de.schildbach.wallet.data.WalletBalanceLiveData;
 import de.schildbach.wallet.data.WalletLiveData;
 import de.schildbach.wallet.service.BlockchainState.Impediment;
@@ -137,7 +136,6 @@ public class BlockchainService extends LifecycleService {
     private long serviceCreatedAt;
     private boolean resetBlockchainOnShutdown = false;
 
-    private final ActivityHistory activityHistory = new ActivityHistory();
     private static final long BLOCKCHAIN_STATE_BROADCAST_THROTTLE_MS = DateUtils.SECOND_IN_MILLIS;
 
     public static final String ACTION_PEER_STATE = BlockchainService.class.getPackage().getName() + ".peer_state";
@@ -316,15 +314,15 @@ public class BlockchainService extends LifecycleService {
 
         @Override
         public void onChainDownloadStarted(final Peer peer, final int blocksLeft) {
-            activityHistory.registerBlocksLeft(blocksLeft);
+            postDelayedStopSelf(DateUtils.MINUTE_IN_MILLIS / 2);
         }
 
         @Override
         public void onBlocksDownloaded(final Peer peer, final Block block, final FilteredBlock filteredBlock,
                 final int blocksLeft) {
-            activityHistory.registerBlocksLeft(blocksLeft);
+            postDelayedStopSelf(DateUtils.MINUTE_IN_MILLIS / 2);
 
-            delayHandler.removeCallbacksAndMessages(null);
+            delayHandler.removeCallbacks(runnable);
             final long now = System.currentTimeMillis();
             if (now - lastMessageTime.get() > BLOCKCHAIN_STATE_BROADCAST_THROTTLE_MS)
                 delayHandler.post(runnable);
@@ -415,6 +413,19 @@ public class BlockchainService extends LifecycleService {
         }
     }
 
+    private Runnable delayedStopSelfRunnable = new Runnable() {
+        @Override
+        public void run() {
+            log.info("service idling detected, trying to stop");
+            stopSelf();
+        }
+    };
+
+    private void postDelayedStopSelf(final long ms) {
+        delayHandler.removeCallbacks(delayedStopSelfRunnable);
+        delayHandler.postDelayed(delayedStopSelfRunnable, ms);
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.M)
     private final BroadcastReceiver deviceIdleModeReceiver = new BroadcastReceiver() {
         @Override
@@ -454,7 +465,10 @@ public class BlockchainService extends LifecycleService {
         pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
         nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
+        log.debug("acquiring wakelock");
         wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, getClass().getName());
+        wakeLock.acquire();
+
         application = (WalletApplication) getApplication();
         config = application.getConfiguration();
         addressBookDao = AppDatabase.getDatabase(application).addressBookDao();
@@ -545,7 +559,7 @@ public class BlockchainService extends LifecycleService {
             @Override
             public void onChanged(final Transaction tx) {
                 final Wallet wallet = BlockchainService.this.wallet.getValue();
-                activityHistory.registerTransactionReceived();
+                postDelayedStopSelf(5 * DateUtils.MINUTE_IN_MILLIS);
                 final Coin amount = tx.getValue(wallet);
                 if (amount.isPositive()) {
                     final Address address = WalletUtils.getWalletAddressOfReceived(tx, wallet);
@@ -554,19 +568,6 @@ public class BlockchainService extends LifecycleService {
                     final boolean isReplayedTx = confidenceType == ConfidenceType.BUILDING && replaying;
                     if (!isReplayedTx)
                         notifyCoinsReceived(address, amount, tx.getTxId());
-                }
-            }
-        });
-        final TimeLiveData time = new TimeLiveData(application);
-        time.observe(this, new Observer<Date>() {
-            @Override
-            public void onChanged(final Date time) {
-                activityHistory.registerBestChainHeight(blockChain.getBestChainHeight());
-                activityHistory.tick();
-                // if idling, shutdown service
-                if (activityHistory.isIdle()) {
-                    log.info("service idling detected, trying to stop");
-                    stopSelf();
                 }
             }
         });
@@ -582,8 +583,6 @@ public class BlockchainService extends LifecycleService {
             }
 
             private void startup() {
-                log.debug("acquiring wakelock");
-                wakeLock.acquire();
                 final Wallet wallet = BlockchainService.this.wallet.getValue();
 
                 // consistency check
@@ -659,6 +658,8 @@ public class BlockchainService extends LifecycleService {
                 log.info("starting {} asynchronously", peerGroup);
                 peerGroup.startAsync();
                 peerGroup.startBlockChainDownload(blockchainDownloadListener);
+
+                postDelayedStopSelf(DateUtils.MINUTE_IN_MILLIS);
             }
 
             private void shutdown() {
@@ -670,9 +671,6 @@ public class BlockchainService extends LifecycleService {
                 log.info("stopping {} asynchronously", peerGroup);
                 peerGroup.stopAsync();
                 peerGroup = null;
-
-                log.debug("releasing wakelock");
-                wakeLock.release();
             }
         });
     }
@@ -680,6 +678,7 @@ public class BlockchainService extends LifecycleService {
     @Override
     public int onStartCommand(final Intent intent, final int flags, final int startId) {
         super.onStartCommand(intent, flags, startId);
+        postDelayedStopSelf(DateUtils.MINUTE_IN_MILLIS);
 
         if (intent != null) {
             final String action = intent.getAction();
@@ -741,10 +740,8 @@ public class BlockchainService extends LifecycleService {
 
         application.autosaveWalletNow();
 
-        if (wakeLock.isHeld()) {
-            log.debug("wakelock still held, releasing");
-            wakeLock.release();
-        }
+        log.debug("releasing wakelock");
+        wakeLock.release();
 
         if (resetBlockchainOnShutdown) {
             log.info("removing blockchain");
