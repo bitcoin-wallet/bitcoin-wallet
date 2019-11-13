@@ -1,3 +1,8 @@
+v7.30
+
+* Use storage access framework for restoring wallet backups.
+* More improvements on blockchain sync.
+
 v7.28-v7.29
 
 * Various improvements on blockchain sync.
