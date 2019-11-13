@@ -9,9 +9,13 @@
         </trust-anchors>
     </base-config>
 
-    <!-- Our own domain. -->
+    <!-- Domains we need to communicate to securely. -->
     <domain-config cleartextTrafficPermitted="false">
+        <!-- Our own domain to fetch new version notifications from. -->
         <domain includeSubdomains="true">wallet.schildbach.de</domain>
+        <!-- BitcoinAverage to fetch exchange rates from. -->
+        <domain includeSubdomains="true">bitcoinaverage.com</domain>
+
         <trust-anchors>
             <certificates src="system" />
         </trust-anchors>
