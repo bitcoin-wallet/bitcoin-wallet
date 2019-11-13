@@ -84,6 +84,7 @@ public final class InactivityNotificationService extends IntentService {
             notification.setSmallIcon(R.drawable.stat_notify_received_24dp);
             notification.setWhen(System.currentTimeMillis());
             notification.setOngoing(true);
+            notification.setPriority(NotificationCompat.PRIORITY_LOW);
             startForeground(Constants.NOTIFICATION_ID_MAINTENANCE, notification.build());
         }
     }

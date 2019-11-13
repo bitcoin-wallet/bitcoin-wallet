@@ -822,6 +822,7 @@ public class BlockchainService extends LifecycleService {
                 new Intent(BlockchainService.this, WalletActivity.class), 0));
         notification.setWhen(System.currentTimeMillis());
         notification.setOngoing(true);
+        notification.setPriority(NotificationCompat.PRIORITY_LOW);
         startForeground(Constants.NOTIFICATION_ID_CONNECTED, notification.build());
     }
 
