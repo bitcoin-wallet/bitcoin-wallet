@@ -565,7 +565,7 @@ public class BlockchainService extends LifecycleService {
                 activityHistory.tick();
                 // if idling, shutdown service
                 if (activityHistory.isIdle()) {
-                    log.info("idling detected, stopping service");
+                    log.info("service idling detected, trying to stop");
                     stopSelf();
                 }
             }
