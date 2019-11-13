@@ -137,7 +137,7 @@ public class BlockchainService extends LifecycleService {
     private long serviceCreatedAt;
     private boolean resetBlockchainOnShutdown = false;
 
-    private static final ActivityHistory activityHistory = new ActivityHistory();
+    private final ActivityHistory activityHistory = new ActivityHistory();
     private static final long BLOCKCHAIN_STATE_BROADCAST_THROTTLE_MS = DateUtils.SECOND_IN_MILLIS;
 
     public static final String ACTION_PEER_STATE = BlockchainService.class.getPackage().getName() + ".peer_state";
