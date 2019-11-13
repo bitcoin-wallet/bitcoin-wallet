@@ -34,6 +34,7 @@
                 android:layout_weight="3"
                 android:hint="@string/import_export_keys_dialog_password"
                 android:inputType="textPassword"
+                android:importantForAccessibility="no"
                 android:singleLine="true" />
 
             <TextView
@@ -59,6 +60,7 @@
                 android:layout_weight="3"
                 android:hint="@string/backup_wallet_dialog_password_again"
                 android:inputType="textPassword"
+                android:importantForAccessibility="no"
                 android:singleLine="true" />
 
             <TextView

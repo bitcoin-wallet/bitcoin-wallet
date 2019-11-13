@@ -35,6 +35,7 @@
                 android:hint="@string/encrypt_keys_dialog_password_old"
                 android:imeOptions="flagNoExtractUi"
                 android:inputType="numberPassword"
+                android:importantForAccessibility="no"
                 android:singleLine="true" />
 
             <TextView
@@ -64,6 +65,7 @@
                 android:hint="@string/private_key_password"
                 android:imeOptions="flagNoExtractUi"
                 android:inputType="numberPassword"
+                android:importantForAccessibility="no"
                 android:singleLine="true" />
 
             <TextView
