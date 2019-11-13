@@ -272,23 +272,37 @@ public class RestoreWalletDialogFragment extends DialogFragment {
         final List<File> files = new LinkedList<>();
 
         // external storage
-        log.info("looking for backup files in '{}'", Constants.Files.EXTERNAL_WALLET_BACKUP_DIR);
         final File[] externalFiles = Constants.Files.EXTERNAL_WALLET_BACKUP_DIR.listFiles();
         if (externalFiles != null) {
+            log.info("looking for backup files in '{}'", Constants.Files.EXTERNAL_WALLET_BACKUP_DIR);
+            int numNonBackup = 0;
             for (final File file : externalFiles) {
                 final boolean looksLikeBackup = Crypto.OPENSSL_FILE_FILTER.accept(file);
-                if (looksLikeBackup)
+                if (looksLikeBackup) {
                     files.add(file);
+                    log.info("  found '{}'", file.getName());
+                } else {
+                    numNonBackup++;
+                }
             }
+            if (numNonBackup > 0)
+                log.info("  skipped {} non-backup files", numNonBackup);
         }
 
         // app-private storage
-        log.info("adding backup files from app-private storage");
+        log.info("looking for backup files in app-private storage");
+        int numNonBackup = 0;
         for (final String filename : activity.fileList()) {
             if (filename.startsWith(Constants.Files.WALLET_KEY_BACKUP_PROTOBUF + '.')) {
-                files.add(new File(activity.getFilesDir(), filename));
+                final File file = new File(activity.getFilesDir(), filename);
+                files.add(file);
+                log.info("  found '{}'", file.getName());
+            } else {
+                numNonBackup++;
             }
         }
+        if (numNonBackup > 0)
+            log.info("  skipped {} non-backup files", numNonBackup);
 
         // sort
         Collections.sort(files, new Comparator<File>() {
