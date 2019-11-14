@@ -155,7 +155,7 @@ public class BackupWalletDialogFragment extends DialogFragment {
         builder.setTitle(R.string.export_keys_dialog_title);
         builder.setView(view);
         // dummies, just to make buttons show
-        builder.setPositiveButton(R.string.button_ok, null);
+        builder.setPositiveButton(R.string.export_keys_dialog_button_export, null);
         builder.setNegativeButton(R.string.button_cancel, null);
 
         final AlertDialog dialog = builder.create();
