@@ -32,6 +32,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.TimeZone;
 
+import de.schildbach.wallet.util.WalletUtils;
 import org.bitcoinj.wallet.Protos;
 import org.bitcoinj.wallet.Wallet;
 import org.bitcoinj.wallet.WalletProtobufSerializer;
@@ -69,7 +70,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
-import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
@@ -293,7 +293,7 @@ public class BackupWalletDialogFragment extends DialogFragment {
                         viewModel.wallet.removeObserver(this);
 
                         final Uri targetUri = checkNotNull(intent.getData());
-                        final String target = uriToTarget(targetUri);
+                        final String targetProvider = WalletUtils.uriToProvider(targetUri);
                         final String password = passwordView.getText().toString().trim();
                         checkState(!password.isEmpty());
                         wipePasswords();
@@ -313,7 +313,7 @@ public class BackupWalletDialogFragment extends DialogFragment {
                             cipherOut.flush();
 
                             log.info("backed up wallet to: '{}'{}, {} characters written", targetUri,
-                                    target != null ? " (" + target + ")" : "", cipherText.length());
+                                    targetProvider != null ? " (" + targetProvider + ")" : "", cipherText.length());
                         } catch (final IOException x) {
                             log.error("problem backing up wallet to " + targetUri, x);
                             ErrorDialogFragment.showDialog(getFragmentManager(), x.toString());
@@ -334,7 +334,7 @@ public class BackupWalletDialogFragment extends DialogFragment {
                             log.info("verified successfully: '" + targetUri + "'");
                             application.getConfiguration().disarmBackupReminder();
                             SuccessDialogFragment.showDialog(getFragmentManager(),
-                                    target != null ? target : targetUri.toString());
+                                    targetProvider != null ? targetProvider : targetUri.toString());
                         } catch (final IOException x) {
                             log.error("problem verifying backup from " + targetUri, x);
                             ErrorDialogFragment.showDialog(getFragmentManager(), x.toString());
@@ -351,19 +351,6 @@ public class BackupWalletDialogFragment extends DialogFragment {
         } else {
             super.onActivityResult(requestCode, resultCode, intent);
         }
-    }
-
-    private @Nullable String uriToTarget(final Uri uri) {
-        if (!uri.getScheme().equals("content"))
-            return null;
-        final String host = uri.getHost();
-        if ("com.google.android.apps.docs.storage".equals(host))
-            return "Google Drive";
-        if ("com.box.android.documents".equals(host))
-            return "Box";
-        if ("com.android.providers.downloads.documents".equals(host))
-            return "internal storage";
-        return null;
     }
 
     public static class SuccessDialogFragment extends DialogFragment {

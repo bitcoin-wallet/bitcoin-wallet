@@ -42,6 +42,7 @@ import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.service.BlockchainService;
 
 import android.content.Context;
+import android.net.Uri;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -219,5 +220,19 @@ public class WalletUtils {
 
     public static boolean isPayToManyTransaction(final Transaction transaction) {
         return transaction.getOutputs().size() > 20;
+    }
+
+    public static @Nullable
+    String uriToProvider(final Uri uri) {
+        if (!uri.getScheme().equals("content"))
+            return null;
+        final String host = uri.getHost();
+        if ("com.google.android.apps.docs.storage".equals(host))
+            return "Google Drive";
+        if ("com.box.android.documents".equals(host))
+            return "Box";
+        if ("com.android.providers.downloads.documents".equals(host))
+            return "internal storage";
+        return null;
     }
 }

@@ -134,6 +134,8 @@ public class RestoreWalletDialogFragment extends DialogFragment {
         viewModel.backupUri.observe(this, new Observer<Uri>() {
             @Override
             public void onChanged(final Uri uri) {
+                final String backupProvider = WalletUtils.uriToProvider(uri);
+                log.info("picked '{}'{}", uri, backupProvider != null ? " (" + backupProvider + ")" : "");
                 final Cursor cursor = contentResolver.query(uri, null, null, null, null, null);
                 try {
                     if (cursor != null && cursor.moveToFirst()) {
