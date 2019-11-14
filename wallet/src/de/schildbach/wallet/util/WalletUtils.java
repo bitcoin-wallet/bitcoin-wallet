@@ -227,7 +227,7 @@ public class WalletUtils {
         if (!uri.getScheme().equals("content"))
             return null;
         final String host = uri.getHost();
-        if ("com.google.android.apps.docs.storage".equals(host))
+        if ("com.google.android.apps.docs.storage".equals(host) || "com.google.android.apps.docs.storage.legacy".equals(host))
             return "Google Drive";
         if ("com.box.android.documents".equals(host))
             return "Box";
