@@ -751,7 +751,7 @@ public class BlockchainService extends LifecycleService {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
             unregisterReceiver(deviceIdleModeReceiver);
 
-        StartBlockchainService.schedule(application);
+        StartBlockchainService.schedule(application, false);
 
         stopForeground(true);
 

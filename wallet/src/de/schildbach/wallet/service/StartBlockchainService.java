@@ -42,7 +42,7 @@ public class StartBlockchainService extends JobService {
 
     private static final Logger log = LoggerFactory.getLogger(StartBlockchainService.class);
 
-    public static void schedule(final WalletApplication application) {
+    public static void schedule(final WalletApplication application, final boolean expectLargeData) {
         final Configuration config = application.getConfiguration();
         final long lastUsedAgo = config.getLastUsedAgo();
 
@@ -65,7 +65,7 @@ public class StartBlockchainService extends JobService {
                 StartBlockchainService.class));
         jobInfo.setMinimumLatency(interval);
         jobInfo.setOverrideDeadline(DateUtils.WEEK_IN_MILLIS);
-        jobInfo.setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY);
+        jobInfo.setRequiredNetworkType(expectLargeData ? JobInfo.NETWORK_TYPE_UNMETERED : JobInfo.NETWORK_TYPE_ANY);
         jobInfo.setRequiresDeviceIdle(true);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             jobInfo.setRequiresBatteryNotLow(true);
