@@ -116,15 +116,8 @@
   <string name="peer_list_fragment_empty">Κανένας χρήστης συνδεδεμένος</string>
   <string name="peer_list_row_ping_time">⇆ %d&#x2009;ms</string>
   <string name="import_keys_dialog_title">Επαναφορά πορτοφολιού</string>
-  <string name="import_keys_dialog_message">Διαλέξτε ένα αντίγραφο ασφαλείας πορτοφολιού από εξωτερικό χώρο αποθήκευσης (%s):</string>
   <string name="restore_wallet_dialog_replace_warning">Είστε έτοιμος να αντικαταστήσετε το τρέχον πορτοφόλι σας. Τυχόν νομίσματα στο τρέχον πορτοφόλι θα χαθούν αν δεν έχετε ένα ξεχωριστό αντίγραφο ασφαλείας από αυτό.</string>
   <string name="import_keys_dialog_warning">Σημαντικό: Μην τοποθετείτε ιδιωτικά κλειδιά από αμφίβολες πηγές! Άλλοι μπορούν να αποκτήσουν τον έλεγχο των χρημάτων σας αν το κάνετε.</string>
-  <string name="import_keys_dialog_file_security_encrypted">κρυπτογραφημένος κωδικός</string>
-  <string name="import_keys_dialog_file_security_unencrypted">μη-κρυπτογραφημένο</string>
-  <string name="import_keys_dialog_file_security_external">εξωτερικός χώρος αποθήκευσης</string>
-  <string name="import_keys_dialog_file_security_internal">app-private αποθεματοποίηση</string>
-  <string name="import_keys_dialog_file_created_automatic">Αυτόματο αντίγραφο ασφαλείας %s</string>
-  <string name="import_keys_dialog_file_created_manual">Χειροκίνητο αντίγραφο ασφαλείας:  %s</string>
   <string name="import_keys_dialog_button_import">Επαναφορά</string>
   <string name="restore_wallet_dialog_success">Το πορτοφόλι αποκαταστάθηκε.</string>
   <string name="restore_wallet_dialog_success_replay">Το πορτοφόλι σας αποκαταστάθηκε με επιτυχία. Το ποσό του θα καθοριστεί στη συνέχεια. Αυτό θα πάρει κάποιο χρόνο.</string>

@@ -146,15 +146,8 @@
   <string name="peer_list_fragment_empty">Hakuna rika kushikamana</string>
   <string name="peer_list_row_ping_time">⇆ %d&#x2009;ms</string>
   <string name="import_keys_dialog_title">Kurejesha pochi</string>
-  <string name="import_keys_dialog_message">Bamba pochi backup faili kutoka disc nje au ndani (%s):</string>
   <string name="restore_wallet_dialog_replace_warning">Utakuwa kuchukua pochi yako ya sasa. Pesa yako yote yatapolea isipokuwa kama una backup.</string>
   <string name="import_keys_dialog_warning">Muhimu! Je, si nakala funguo kutoka vyanzo haijulikani. Si kila mtu ni waaminifu.</string>
-  <string name="import_keys_dialog_file_security_encrypted">Siri ni halali.</string>
-  <string name="import_keys_dialog_file_security_unencrypted">Siri ni haramu</string>
-  <string name="import_keys_dialog_file_security_external">Disc nje</string>
-  <string name="import_keys_dialog_file_security_internal">Disc ndani</string>
-  <string name="import_keys_dialog_file_created_automatic">Moja kwa moja backup %s</string>
-  <string name="import_keys_dialog_file_created_manual">Backup vitendo %s</string>
   <string name="import_keys_dialog_button_import">Kurejesha</string>
   <string name="restore_wallet_dialog_success">Pochi yako ni kurejeshwa.</string>
   <string name="restore_wallet_dialog_success_replay">Pochi yako ni kurejeshwa kwa mafanikio. Pochi yako sasa bamba mizani. hii inachukua muda mfupi.</string>

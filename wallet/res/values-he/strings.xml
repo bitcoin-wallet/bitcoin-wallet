@@ -121,15 +121,8 @@
   <string name="peer_list_fragment_empty">אין עמיתים מחוברים</string>
   <string name="peer_list_row_ping_time">⇆ %d&#x2009;ms</string>
   <string name="import_keys_dialog_title">שחזר ארנק</string>
-  <string name="import_keys_dialog_message">בחר קובץ גיבוי ארנק מאחסון פרטי חיצוני או אפליקציה:</string>
   <string name="restore_wallet_dialog_replace_warning">אתה עומד להחליף את הארנק הנוכחי שלך. כל המטבעות בארנק הנוכחי יאבדו אלא אם יש לך גיבוי שלו.</string>
   <string name="import_keys_dialog_warning">חשוב: אל תטען מפתחות פרטיים ממקורות מפוקפקים! אחרים יכולים לקבל שליטה על כספי אם תעשה כן.</string>
-  <string name="import_keys_dialog_file_security_encrypted">סיסמה הוצפנה</string>
-  <string name="import_keys_dialog_file_security_unencrypted">לא הוצפנה</string>
-  <string name="import_keys_dialog_file_security_external">אחסון בהתקן חיצוני</string>
-  <string name="import_keys_dialog_file_security_internal">אחסון באפליקציה</string>
-  <string name="import_keys_dialog_file_created_automatic">גיבוי אוטומאטי %s</string>
-  <string name="import_keys_dialog_file_created_manual">ייצוא ידני %s</string>
   <string name="import_keys_dialog_button_import">ייבא</string>
   <string name="restore_wallet_dialog_success">ארנק שוחזר.</string>
   <string name="import_keys_dialog_failure">לא ניתן לשחזר ארנק:\n\n%s\n\nסיסמא שגויה?</string>

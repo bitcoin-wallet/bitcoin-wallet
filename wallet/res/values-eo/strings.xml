@@ -91,13 +91,6 @@
 	<string name="peer_list_fragment_empty">Neniom da pajroj konektitaj</string>
 	<string name="peer_list_row_ping_time">⇆ %d ms</string>
 	<string name="import_keys_dialog_title">Restaŭri privatajn ŝlosilojn</string>
-	<string name="import_keys_dialog_message">Elektu privatŝlosilojsavkopion el ekstera aŭ aplikaĵa-privata storo (%s):</string>
-	<string name="import_keys_dialog_file_security_encrypted">pasvorto ĉifrita</string>
-	<string name="import_keys_dialog_file_security_unencrypted">neĉifrita</string>
-	<string name="import_keys_dialog_file_security_external">ekstera stoko</string>
-	<string name="import_keys_dialog_file_security_internal">aplikaĵa-privata storo</string>
-	<string name="import_keys_dialog_file_created_automatic">aŭtomata savkopio %s</string>
-	<string name="import_keys_dialog_file_created_manual">permane savokopiita %s</string>
 	<string name="import_keys_dialog_button_import">Restaŭri</string>
 	<string name="import_keys_dialog_failure">Privataj ŝlosiloj ne povis esti restaŭritaj\n\n%s\n\nMalbona pasvorto?</string>
 	<string name="export_keys_dialog_title">Savkopi privatajn ŝlosilojn</string>

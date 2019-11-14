@@ -110,14 +110,7 @@
 	<string name="peer_list_fragment_empty">אין עמיתים מחוברים</string>
 	<string name="peer_list_row_ping_time">⇆ %d&#x2009;ms</string>
 	<string name="import_keys_dialog_title">ייבא מפתחות פפרטיים</string>
-	<string name="import_keys_dialog_message">בחר מפתחות לייבוא מקובץ חיצוני או משטח האחסון הפנימי.</string>
 	<string name="import_keys_dialog_warning">חשוב: אל תטען מפתחות פרטיים ממקורות מפוקפקים! אחרים יכולים לקבל שליטה על כספי אם תעשה כן.</string>
-	<string name="import_keys_dialog_file_security_encrypted">סיסמה הוצפנה</string>
-	<string name="import_keys_dialog_file_security_unencrypted">לא הוצפנה</string>
-	<string name="import_keys_dialog_file_security_external">אחסון בהתקן חיצוני</string>
-	<string name="import_keys_dialog_file_security_internal">אחסון באפליקציה</string>
-	<string name="import_keys_dialog_file_created_automatic">גיבוי אוטומאטי %s</string>
-	<string name="import_keys_dialog_file_created_manual">ייצוא ידני %s</string>
 	<string name="import_keys_dialog_button_import">ייבא</string>
 	<string name="import_keys_dialog_failure">לא ניתן לייבא מפתחות פרטיים, בדקת סיסמא %s?</string>
 	<string name="export_keys_dialog_title">ייצא מפתחות פרטיים</string>

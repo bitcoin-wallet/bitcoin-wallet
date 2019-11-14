@@ -151,12 +151,6 @@
   <string name="peer_list_row_ping_time">⇆ %d ms </string>
   <string name="import_keys_dialog_title">إستعادة المحفظة</string>
   <string name="import_keys_dialog_warning">تنبيه: لا تقم بتحميل المفاتيح الخاصة من مصادر مشكوك فيها! يمكن للآخرين السيطرة على البيتكوين الخاصة بك إذا قمت بذلك.</string>
-  <string name="import_keys_dialog_file_security_encrypted">كلمة المرور مشفرة</string>
-  <string name="import_keys_dialog_file_security_unencrypted">غير مشفر</string>
-  <string name="import_keys_dialog_file_security_external">وحدة تخزين خارجية</string>
-  <string name="import_keys_dialog_file_security_internal">ذاكرة خاصة بالبرنامج</string>
-  <string name="import_keys_dialog_file_created_automatic">حفظ احتياطي تلقائي %s</string>
-  <string name="import_keys_dialog_file_created_manual">حفظ احتياطي يدوي  %s</string>
   <string name="import_keys_dialog_button_import">استعادة</string>
   <string name="restore_wallet_dialog_success">تمت عملية استعادة المحفظة.</string>
   <string name="restore_wallet_dialog_success_replay">تمت عملية استيراد و استرجاع محفظتك بنجاح. سوف يتم تحديث ميزانيتها لاحقا. هذة العملية تتطلب بعضا من الوقت.</string>

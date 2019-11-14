@@ -36,6 +36,6 @@ public final class RestoreWalletFromExternalActivity extends AbstractWalletActiv
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         log.info("Referrer: {}", ActivityCompat.getReferrer(this));
-        RestoreWalletFromExternalDialogFragment.show(getSupportFragmentManager(), getIntent().getData());
+        RestoreWalletDialogFragment.show(getSupportFragmentManager(), getIntent().getData());
     }
 }
