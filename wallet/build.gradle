@@ -103,6 +103,7 @@ android {
     packagingOptions {
         exclude 'META-INF/*.version'
         exclude 'META-INF/proguard/**'
+        exclude 'META-INF/services/**'
         exclude '**/*.proto'
         exclude 'org/bouncycastle/x509/*.properties'
         exclude 'okhttp3/internal/publicsuffix/*'
