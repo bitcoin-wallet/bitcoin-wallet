@@ -61,22 +61,14 @@ public final class PeerListFragment extends Fragment {
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         viewModel = ViewModelProviders.of(this).get(PeerListViewModel.class);
-        viewModel.getPeers().observe(this, new Observer<List<Peer>>() {
-            @Override
-            public void onChanged(final List<Peer> peers) {
-                viewGroup.setDisplayedChild((peers == null || peers.isEmpty()) ? 1 : 2);
-                maybeSubmitList();
-                if (peers != null)
-                    for (final Peer peer : peers)
-                        viewModel.getHostnames().reverseLookup(peer.getAddress().getAddr());
-            }
+        viewModel.getPeers().observe(this, peers -> {
+            viewGroup.setDisplayedChild((peers == null || peers.isEmpty()) ? 1 : 2);
+            maybeSubmitList();
+            if (peers != null)
+                for (final Peer peer : peers)
+                    viewModel.getHostnames().reverseLookup(peer.getAddress().getAddr());
         });
-        viewModel.getHostnames().observe(this, new Observer<Map<InetAddress, String>>() {
-            @Override
-            public void onChanged(final Map<InetAddress, String> hostnames) {
-                maybeSubmitList();
-            }
-        });
+        viewModel.getHostnames().observe(this, hostnames -> maybeSubmitList());
 
         adapter = new PeerListAdapter(activity);
     }

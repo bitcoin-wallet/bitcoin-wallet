@@ -150,33 +150,24 @@ public class MaintenanceDialogFragment extends DialogFragment {
         final AlertDialog dialog = builder.create();
         dialog.setCanceledOnTouchOutside(false);
 
-        dialog.setOnShowListener(new OnShowListener() {
-            @Override
-            public void onShow(final DialogInterface d) {
-                positiveButton = dialog.getButton(DialogInterface.BUTTON_POSITIVE);
-                negativeButton = dialog.getButton(DialogInterface.BUTTON_NEGATIVE);
+        dialog.setOnShowListener(d -> {
+            positiveButton = dialog.getButton(DialogInterface.BUTTON_POSITIVE);
+            negativeButton = dialog.getButton(DialogInterface.BUTTON_NEGATIVE);
 
-                positiveButton.setTypeface(Typeface.DEFAULT_BOLD);
-                positiveButton.setOnClickListener(new OnClickListener() {
-                    @Override
-                    public void onClick(final View v) {
-                        log.info("user decided to do maintenance");
-                        handleGo();
-                    }
-                });
-                negativeButton.setOnClickListener(new OnClickListener() {
-                    @Override
-                    public void onClick(final View v) {
-                        log.info("user decided to dismiss");
-                        dismissAllowingStateLoss();
-                    }
-                });
+            positiveButton.setTypeface(Typeface.DEFAULT_BOLD);
+            positiveButton.setOnClickListener(v -> {
+                log.info("user decided to do maintenance");
+                handleGo();
+            });
+            negativeButton.setOnClickListener(v -> {
+                log.info("user decided to dismiss");
+                dismissAllowingStateLoss();
+            });
 
-                passwordView.addTextChangedListener(textWatcher);
+            passwordView.addTextChangedListener(textWatcher);
 
-                MaintenanceDialogFragment.this.dialog = dialog;
-                updateView();
-            }
+            MaintenanceDialogFragment.this.dialog = dialog;
+            updateView();
         });
 
         log.info("showing maintenance dialog");
@@ -228,49 +219,35 @@ public class MaintenanceDialogFragment extends DialogFragment {
     }
 
     private void doMaintenance(final KeyParameter encryptionKey) {
-        backgroundHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                org.bitcoinj.core.Context.propagate(Constants.CONTEXT);
+        backgroundHandler.post(() -> {
+            org.bitcoinj.core.Context.propagate(Constants.CONTEXT);
 
-                try {
-                    wallet.doMaintenance(encryptionKey, true);
+            try {
+                wallet.doMaintenance(encryptionKey, true);
 
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            state = State.DONE;
-                            updateView();
+                handler.post(() -> {
+                    state = State.DONE;
+                    updateView();
 
-                            delayedDismiss();
-                        }
-                    });
-                } catch (final KeyCrypterException x) {
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            badPasswordView.setVisibility(View.VISIBLE);
+                    delayedDismiss();
+                });
+            } catch (final KeyCrypterException x) {
+                handler.post(() -> {
+                    badPasswordView.setVisibility(View.VISIBLE);
 
-                            state = State.INPUT;
-                            updateView();
+                    state = State.INPUT;
+                    updateView();
 
-                            passwordView.requestFocus();
+                    passwordView.requestFocus();
 
-                            log.info("bad spending password");
-                        }
-                    });
-                }
+                    log.info("bad spending password");
+                });
             }
         });
     }
 
     private void delayedDismiss() {
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                dismiss();
-            }
-        }, 2000);
+        handler.postDelayed(() -> dismiss(), 2000);
     }
 
     private void wipePasswords() {

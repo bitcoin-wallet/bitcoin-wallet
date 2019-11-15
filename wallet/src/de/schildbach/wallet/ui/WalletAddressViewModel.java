@@ -59,41 +59,16 @@ public class WalletAddressViewModel extends AndroidViewModel {
         this.application = (WalletApplication) application;
         this.currentAddress = new CurrentAddressLiveData(this.application);
         this.ownName = new ConfigOwnNameLiveData(this.application);
-        this.qrCode.addSource(currentAddress, new Observer<Address>() {
-            @Override
-            public void onChanged(final Address currentAddress) {
-                maybeGenerateQrCode();
-            }
-        });
-        this.qrCode.addSource(ownName, new Observer<String>() {
-            @Override
-            public void onChanged(final String label) {
-                maybeGenerateQrCode();
-            }
-        });
-        this.bitcoinUri.addSource(currentAddress, new Observer<Address>() {
-            @Override
-            public void onChanged(final Address currentAddress) {
-                maybeGenerateBitcoinUri();
-            }
-        });
-        this.bitcoinUri.addSource(ownName, new Observer<String>() {
-            @Override
-            public void onChanged(final String label) {
-                maybeGenerateBitcoinUri();
-            }
-        });
+        this.qrCode.addSource(currentAddress, currentAddress -> maybeGenerateQrCode());
+        this.qrCode.addSource(ownName, label -> maybeGenerateQrCode());
+        this.bitcoinUri.addSource(currentAddress, currentAddress -> maybeGenerateBitcoinUri());
+        this.bitcoinUri.addSource(ownName, label -> maybeGenerateBitcoinUri());
     }
 
     private void maybeGenerateQrCode() {
         final Address address = currentAddress.getValue();
         if (address != null) {
-            AsyncTask.execute(new Runnable() {
-                @Override
-                public void run() {
-                    qrCode.postValue(Qr.bitmap(uri(address, ownName.getValue())));
-                }
-            });
+            AsyncTask.execute(() -> qrCode.postValue(Qr.bitmap(uri(address, ownName.getValue()))));
         }
     }
 
@@ -141,12 +116,9 @@ public class WalletAddressViewModel extends AndroidViewModel {
         @Override
         protected void load() {
             final Wallet wallet = getWallet();
-            AsyncTask.execute(new Runnable() {
-                @Override
-                public void run() {
-                    org.bitcoinj.core.Context.propagate(Constants.CONTEXT);
-                    postValue(wallet.currentReceiveAddress());
-                }
+            AsyncTask.execute(() -> {
+                org.bitcoinj.core.Context.propagate(Constants.CONTEXT);
+                postValue(wallet.currentReceiveAddress());
             });
         }
 

@@ -126,33 +126,25 @@ public final class EditAddressBookEntryFragment extends DialogFragment {
 
         dialog.setView(view);
 
-        final DialogInterface.OnClickListener onClickListener = new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(final DialogInterface dialog, final int which) {
-                if (which == DialogInterface.BUTTON_POSITIVE) {
-                    final String newLabel = viewLabel.getText().toString().trim();
-                    if (!newLabel.isEmpty())
-                        addressBookDao.insertOrUpdate(new AddressBookEntry(address.toString(), newLabel));
-                    else if (!isAdd)
-                        addressBookDao.delete(address.toString());
-                } else if (which == DialogInterface.BUTTON_NEUTRAL) {
+        final DialogInterface.OnClickListener onClickListener = (d, which) -> {
+            if (which == DialogInterface.BUTTON_POSITIVE) {
+                final String newLabel = viewLabel.getText().toString().trim();
+                if (!newLabel.isEmpty())
+                    addressBookDao.insertOrUpdate(new AddressBookEntry(address.toString(), newLabel));
+                else if (!isAdd)
                     addressBookDao.delete(address.toString());
-                }
-
-                dismiss();
+            } else if (which == DialogInterface.BUTTON_NEUTRAL) {
+                addressBookDao.delete(address.toString());
             }
+
+            dismiss();
         };
 
         dialog.setPositiveButton(isAdd ? R.string.button_add : R.string.edit_address_book_entry_dialog_button_edit,
                 onClickListener);
         if (!isAdd)
             dialog.setNeutralButton(R.string.button_delete, onClickListener);
-        dialog.setNegativeButton(R.string.button_cancel, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(final DialogInterface dialog, final int which) {
-                dismissAllowingStateLoss();
-            }
-        });
+        dialog.setNegativeButton(R.string.button_cancel, (d, which) -> dismissAllowingStateLoss());
 
         return dialog.create();
     }

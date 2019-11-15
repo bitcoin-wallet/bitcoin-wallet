@@ -87,15 +87,12 @@ public final class DiagnosticsFragment extends PreferenceFragment {
         final DialogBuilder dialog = new DialogBuilder(activity);
         dialog.setTitle(R.string.preferences_initiate_reset_title);
         dialog.setMessage(R.string.preferences_initiate_reset_dialog_message);
-        dialog.setPositiveButton(R.string.preferences_initiate_reset_dialog_positive, new OnClickListener() {
-            @Override
-            public void onClick(final DialogInterface dialog, final int which) {
-                log.info("manually initiated blockchain reset");
+        dialog.setPositiveButton(R.string.preferences_initiate_reset_dialog_positive, (d, which) -> {
+            log.info("manually initiated blockchain reset");
 
-                BlockchainService.resetBlockchain(activity);
-                config.updateLastBlockchainResetTime();
-                activity.finish(); // TODO doesn't fully finish prefs on single pane layouts
-            }
+            BlockchainService.resetBlockchain(activity);
+            config.updateLastBlockchainResetTime();
+            activity.finish(); // TODO doesn't fully finish prefs on single pane layouts
         });
         dialog.setNegativeButton(R.string.button_dismiss, null);
         dialog.show();

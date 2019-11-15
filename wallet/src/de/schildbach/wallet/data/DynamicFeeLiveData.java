@@ -81,12 +81,9 @@ public class DynamicFeeLiveData extends LiveData<Map<FeeCategory, Coin>> {
 
     @Override
     protected void onActive() {
-        AsyncTask.execute(new Runnable() {
-            @Override
-            public void run() {
-                final Map<FeeCategory, Coin> dynamicFees = loadInBackground();
-                postValue(dynamicFees);
-            }
+        AsyncTask.execute(() -> {
+            final Map<FeeCategory, Coin> dynamicFees = loadInBackground();
+            postValue(dynamicFees);
         });
     }
 

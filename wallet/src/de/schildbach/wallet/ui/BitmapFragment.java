@@ -84,12 +84,7 @@ public class BitmapFragment extends DialogFragment {
 
         final ImageView imageView = (ImageView) dialog.findViewById(R.id.bitmap_dialog_image);
         imageView.setImageDrawable(bitmap);
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                dismissAllowingStateLoss();
-            }
-        });
+        imageView.setOnClickListener(v -> dismissAllowingStateLoss());
 
         return dialog;
     }

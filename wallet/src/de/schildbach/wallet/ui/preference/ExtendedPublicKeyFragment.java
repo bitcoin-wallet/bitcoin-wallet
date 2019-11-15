@@ -82,23 +82,15 @@ public class ExtendedPublicKeyFragment extends DialogFragment {
 
         final DialogBuilder dialog = new DialogBuilder(activity);
         dialog.setView(view);
-        dialog.setNegativeButton(R.string.button_dismiss, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(final DialogInterface dialog, final int which) {
-                dismissAllowingStateLoss();
-            }
-        });
-        dialog.setPositiveButton(R.string.button_share, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(final DialogInterface dialog, final int which) {
-                final ShareCompat.IntentBuilder builder = ShareCompat.IntentBuilder.from(activity);
-                builder.setType("text/plain");
-                builder.setText(base58);
-                builder.setSubject(getString(R.string.extended_public_key_fragment_title));
-                builder.setChooserTitle(R.string.extended_public_key_fragment_share);
-                builder.startChooser();
-                log.info("extended public key shared via intent: {}", base58);
-            }
+        dialog.setNegativeButton(R.string.button_dismiss, (d, which) -> dismissAllowingStateLoss());
+        dialog.setPositiveButton(R.string.button_share, (d, which) -> {
+            final ShareCompat.IntentBuilder builder = ShareCompat.IntentBuilder.from(activity);
+            builder.setType("text/plain");
+            builder.setText(base58);
+            builder.setSubject(getString(R.string.extended_public_key_fragment_title));
+            builder.setChooserTitle(R.string.extended_public_key_fragment_share);
+            builder.startChooser();
+            log.info("extended public key shared via intent: {}", base58);
         });
 
         return dialog.show();

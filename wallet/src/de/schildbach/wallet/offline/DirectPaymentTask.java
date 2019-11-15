@@ -83,61 +83,58 @@ public abstract class DirectPaymentTask {
 
         @Override
         public void send(final Payment payment) {
-            super.backgroundHandler.post(new Runnable() {
-                @Override
-                public void run() {
-                    log.info("trying to send tx to {}", url);
+            super.backgroundHandler.post(() -> {
+                log.info("trying to send tx to {}", url);
 
-                    final Request.Builder request = new Request.Builder();
-                    request.url(url);
-                    request.cacheControl(new CacheControl.Builder().noCache().build());
-                    request.header("Accept", PaymentProtocol.MIMETYPE_PAYMENTACK);
-                    if (userAgent != null)
-                        request.header("User-Agent", userAgent);
-                    request.post(new RequestBody() {
-                        @Override
-                        public MediaType contentType() {
-                            return MediaType.parse(PaymentProtocol.MIMETYPE_PAYMENT);
-                        }
-
-                        @Override
-                        public long contentLength() throws IOException {
-                            return payment.getSerializedSize();
-                        }
-
-                        @Override
-                        public void writeTo(final BufferedSink sink) throws IOException {
-                            payment.writeTo(sink.outputStream());
-                        }
-                    });
-
-                    final Call call = Constants.HTTP_CLIENT.newCall(request.build());
-                    try {
-                        final Response response = call.execute();
-                        if (response.isSuccessful()) {
-                            log.info("tx sent via http");
-
-                            final InputStream is = response.body().byteStream();
-                            final Protos.PaymentACK paymentAck = Protos.PaymentACK.parseFrom(is);
-                            is.close();
-
-                            final boolean ack = !"nack".equals(PaymentProtocol.parsePaymentAck(paymentAck).getMemo());
-
-                            log.info("received {} via http", ack ? "ack" : "nack");
-
-                            onResult(ack);
-                        } else {
-                            final int responseCode = response.code();
-                            final String responseMessage = response.message();
-
-                            log.info("got http error {}: {}", responseCode, responseMessage);
-                            onFail(R.string.error_http, responseCode, responseMessage);
-                        }
-                    } catch (final IOException x) {
-                        log.info("problem sending", x);
-
-                        onFail(R.string.error_io, x.getMessage());
+                final Request.Builder request = new Request.Builder();
+                request.url(url);
+                request.cacheControl(new CacheControl.Builder().noCache().build());
+                request.header("Accept", PaymentProtocol.MIMETYPE_PAYMENTACK);
+                if (userAgent != null)
+                    request.header("User-Agent", userAgent);
+                request.post(new RequestBody() {
+                    @Override
+                    public MediaType contentType() {
+                        return MediaType.parse(PaymentProtocol.MIMETYPE_PAYMENT);
                     }
+
+                    @Override
+                    public long contentLength() throws IOException {
+                        return payment.getSerializedSize();
+                    }
+
+                    @Override
+                    public void writeTo(final BufferedSink sink) throws IOException {
+                        payment.writeTo(sink.outputStream());
+                    }
+                });
+
+                final Call call = Constants.HTTP_CLIENT.newCall(request.build());
+                try {
+                    final Response response = call.execute();
+                    if (response.isSuccessful()) {
+                        log.info("tx sent via http");
+
+                        final InputStream is = response.body().byteStream();
+                        final Protos.PaymentACK paymentAck = Protos.PaymentACK.parseFrom(is);
+                        is.close();
+
+                        final boolean ack = !"nack".equals(PaymentProtocol.parsePaymentAck(paymentAck).getMemo());
+
+                        log.info("received {} via http", ack ? "ack" : "nack");
+
+                        onResult(ack);
+                    } else {
+                        final int responseCode = response.code();
+                        final String responseMessage = response.message();
+
+                        log.info("got http error {}: {}", responseCode, responseMessage);
+                        onFail(R.string.error_http, responseCode, responseMessage);
+                    }
+                } catch (final IOException x) {
+                    log.info("problem sending", x);
+
+                    onFail(R.string.error_io, x.getMessage());
                 }
             });
         }
@@ -157,42 +154,39 @@ public abstract class DirectPaymentTask {
 
         @Override
         public void send(final Payment payment) {
-            super.backgroundHandler.post(new Runnable() {
-                @Override
-                public void run() {
-                    log.info("trying to send tx via bluetooth {}", bluetoothMac);
+            super.backgroundHandler.post(() -> {
+                log.info("trying to send tx via bluetooth {}", bluetoothMac);
 
-                    if (payment.getTransactionsCount() != 1)
-                        throw new IllegalArgumentException("wrong transactions count");
+                if (payment.getTransactionsCount() != 1)
+                    throw new IllegalArgumentException("wrong transactions count");
 
-                    final BluetoothDevice device = bluetoothAdapter
-                            .getRemoteDevice(Bluetooth.decompressMac(bluetoothMac));
+                final BluetoothDevice device = bluetoothAdapter
+                        .getRemoteDevice(Bluetooth.decompressMac(bluetoothMac));
 
-                    try (final BluetoothSocket socket = device
-                            .createInsecureRfcommSocketToServiceRecord(Bluetooth.BIP70_PAYMENT_PROTOCOL_UUID);
-                            final DataOutputStream os = new DataOutputStream(socket.getOutputStream());
-                            final DataInputStream is = new DataInputStream(socket.getInputStream())) {
-                        socket.connect();
+                try (final BluetoothSocket socket = device
+                        .createInsecureRfcommSocketToServiceRecord(Bluetooth.BIP70_PAYMENT_PROTOCOL_UUID);
+                        final DataOutputStream os = new DataOutputStream(socket.getOutputStream());
+                        final DataInputStream is = new DataInputStream(socket.getInputStream())) {
+                    socket.connect();
 
-                        log.info("connected to payment protocol {}", bluetoothMac);
+                    log.info("connected to payment protocol {}", bluetoothMac);
 
-                        payment.writeDelimitedTo(os);
-                        os.flush();
+                    payment.writeDelimitedTo(os);
+                    os.flush();
 
-                        log.info("tx sent via bluetooth");
+                    log.info("tx sent via bluetooth");
 
-                        final Protos.PaymentACK paymentAck = Protos.PaymentACK.parseDelimitedFrom(is);
+                    final Protos.PaymentACK paymentAck = Protos.PaymentACK.parseDelimitedFrom(is);
 
-                        final boolean ack = "ack".equals(PaymentProtocol.parsePaymentAck(paymentAck).getMemo());
+                    final boolean ack = "ack".equals(PaymentProtocol.parsePaymentAck(paymentAck).getMemo());
 
-                        log.info("received {} via bluetooth", ack ? "ack" : "nack");
+                    log.info("received {} via bluetooth", ack ? "ack" : "nack");
 
-                        onResult(ack);
-                    } catch (final IOException x) {
-                        log.info("problem sending", x);
+                    onResult(ack);
+                } catch (final IOException x) {
+                    log.info("problem sending", x);
 
-                        onFail(R.string.error_io, x.getMessage());
-                    }
+                    onFail(R.string.error_io, x.getMessage());
                 }
             });
         }
@@ -201,20 +195,10 @@ public abstract class DirectPaymentTask {
     public abstract void send(Payment payment);
 
     protected void onResult(final boolean ack) {
-        callbackHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                resultCallback.onResult(ack);
-            }
-        });
+        callbackHandler.post(() -> resultCallback.onResult(ack));
     }
 
     protected void onFail(final int messageResId, final Object... messageArgs) {
-        callbackHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                resultCallback.onFail(messageResId, messageArgs);
-            }
-        });
+        callbackHandler.post(() -> resultCallback.onFail(messageResId, messageArgs));
     }
 }

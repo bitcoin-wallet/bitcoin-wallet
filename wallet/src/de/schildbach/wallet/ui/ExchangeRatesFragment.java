@@ -81,53 +81,40 @@ public final class ExchangeRatesFragment extends Fragment
 
         viewModel = ViewModelProviders.of(this).get(ExchangeRatesViewModel.class);
         if (Constants.ENABLE_EXCHANGE_RATES) {
-            viewModel.getExchangeRates().observe(this, new Observer<Cursor>() {
-                @Override
-                public void onChanged(final Cursor cursor) {
-                    if (cursor.getCount() == 0 && viewModel.query == null) {
-                        viewGroup.setDisplayedChild(1);
-                    } else if (cursor.getCount() == 0 && viewModel.query != null) {
-                        viewGroup.setDisplayedChild(2);
-                    } else {
-                        viewGroup.setDisplayedChild(3);
-                        maybeSubmitList();
+            viewModel.getExchangeRates().observe(this, cursor -> {
+                if (cursor.getCount() == 0 && viewModel.query == null) {
+                    viewGroup.setDisplayedChild(1);
+                } else if (cursor.getCount() == 0 && viewModel.query != null) {
+                    viewGroup.setDisplayedChild(2);
+                } else {
+                    viewGroup.setDisplayedChild(3);
+                    maybeSubmitList();
 
-                        final String defaultCurrency = config.getExchangeCurrencyCode();
-                        if (defaultCurrency != null) {
-                            cursor.moveToPosition(-1);
-                            while (cursor.moveToNext()) {
-                                if (cursor
-                                        .getString(
-                                                cursor.getColumnIndexOrThrow(ExchangeRatesProvider.KEY_CURRENCY_CODE))
-                                        .equals(defaultCurrency)) {
-                                    recyclerView.scrollToPosition(cursor.getPosition());
-                                    break;
-                                }
+                    final String defaultCurrency = config.getExchangeCurrencyCode();
+                    if (defaultCurrency != null) {
+                        cursor.moveToPosition(-1);
+                        while (cursor.moveToNext()) {
+                            if (cursor
+                                    .getString(
+                                            cursor.getColumnIndexOrThrow(ExchangeRatesProvider.KEY_CURRENCY_CODE))
+                                    .equals(defaultCurrency)) {
+                                recyclerView.scrollToPosition(cursor.getPosition());
+                                break;
                             }
                         }
+                    }
 
-                        if (activity instanceof ExchangeRatesActivity) {
-                            cursor.moveToPosition(0);
-                            final String source = ExchangeRatesProvider.getExchangeRate(cursor).source;
-                            activity.getActionBar().setSubtitle(
-                                    source != null ? getString(R.string.exchange_rates_fragment_source, source) : null);
-                        }
+                    if (activity instanceof ExchangeRatesActivity) {
+                        cursor.moveToPosition(0);
+                        final String source = ExchangeRatesProvider.getExchangeRate(cursor).source;
+                        activity.getActionBar().setSubtitle(
+                                source != null ? getString(R.string.exchange_rates_fragment_source, source) : null);
                     }
                 }
             });
         }
-        viewModel.getBalance().observe(this, new Observer<Coin>() {
-            @Override
-            public void onChanged(final Coin balance) {
-                maybeSubmitList();
-            }
-        });
-        viewModel.getBlockchainState().observe(this, new Observer<BlockchainState>() {
-            @Override
-            public void onChanged(final BlockchainState blockchainState) {
-                maybeSubmitList();
-            }
-        });
+        viewModel.getBalance().observe(this, balance -> maybeSubmitList());
+        viewModel.getBlockchainState().observe(this, blockchainState -> maybeSubmitList());
 
         adapter = new ExchangeRatesAdapter(activity, this);
 
@@ -163,15 +150,12 @@ public final class ExchangeRatesFragment extends Fragment
     public void onExchangeRateMenuClick(final View view, final String currencyCode) {
         final PopupMenu popupMenu = new PopupMenu(activity, view);
         popupMenu.inflate(R.menu.exchange_rates_context);
-        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(final MenuItem item) {
-                if (item.getItemId() == R.id.exchange_rates_context_set_as_default) {
-                    config.setExchangeCurrencyCode(currencyCode);
-                    return true;
-                } else {
-                    return false;
-                }
+        popupMenu.setOnMenuItemClickListener(item -> {
+            if (item.getItemId() == R.id.exchange_rates_context_set_as_default) {
+                config.setExchangeCurrencyCode(currencyCode);
+                return true;
+            } else {
+                return false;
             }
         });
         popupMenu.show();

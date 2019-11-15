@@ -143,12 +143,7 @@ public class SweepWalletFragment extends Fragment {
             throw new IllegalStateException("ENABLE_SWEEP_WALLET is disabled");
 
         viewModel = ViewModelProviders.of(this).get(SweepWalletViewModel.class);
-        viewModel.getDynamicFees().observe(this, new Observer<Map<FeeCategory, Coin>>() {
-            @Override
-            public void onChanged(final Map<FeeCategory, Coin> dynamicFees) {
-                updateView();
-            }
-        });
+        viewModel.getDynamicFees().observe(this, dynamicFees -> updateView());
         viewModel.progress.observe(this, new ProgressDialogFragment.Observer(fragmentManager));
 
         backgroundThread = new HandlerThread("backgroundThread", Process.THREAD_PRIORITY_BACKGROUND);
@@ -189,23 +184,15 @@ public class SweepWalletFragment extends Fragment {
         sweepTransactionViewHolder = new TransactionsAdapter.TransactionViewHolder(view);
 
         viewGo = (Button) view.findViewById(R.id.send_coins_go);
-        viewGo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                if (viewModel.state == SweepWalletViewModel.State.DECODE_KEY)
-                    handleDecrypt();
-                if (viewModel.state == SweepWalletViewModel.State.CONFIRM_SWEEP)
-                    handleSweep();
-            }
+        viewGo.setOnClickListener(v -> {
+            if (viewModel.state == SweepWalletViewModel.State.DECODE_KEY)
+                handleDecrypt();
+            if (viewModel.state == SweepWalletViewModel.State.CONFIRM_SWEEP)
+                handleSweep();
         });
 
         viewCancel = (Button) view.findViewById(R.id.send_coins_cancel);
-        viewCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                activity.finish();
-            }
-        });
+        viewCancel.setOnClickListener(v -> activity.finish());
 
         return view;
     }
@@ -291,48 +278,40 @@ public class SweepWalletFragment extends Fragment {
         @Override
         public void onConfidenceChanged(final TransactionConfidence confidence,
                 final TransactionConfidence.Listener.ChangeReason reason) {
-            activity.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    if (!isResumed())
-                        return;
+            activity.runOnUiThread(() -> {
+                if (!isResumed())
+                    return;
 
-                    final TransactionConfidence confidence = viewModel.sentTransaction.getConfidence();
-                    final TransactionConfidence.ConfidenceType confidenceType = confidence.getConfidenceType();
-                    final int numBroadcastPeers = confidence.numBroadcastPeers();
+                final TransactionConfidence confidence1 = viewModel.sentTransaction.getConfidence();
+                final ConfidenceType confidenceType = confidence1.getConfidenceType();
+                final int numBroadcastPeers = confidence1.numBroadcastPeers();
 
-                    if (viewModel.state == SweepWalletViewModel.State.SENDING) {
-                        if (confidenceType == TransactionConfidence.ConfidenceType.DEAD)
-                            setState(SweepWalletViewModel.State.FAILED);
-                        else if (numBroadcastPeers > 1
-                                || confidenceType == TransactionConfidence.ConfidenceType.BUILDING)
-                            setState(SweepWalletViewModel.State.SENT);
-                    }
-
-                    if (reason == ChangeReason.SEEN_PEERS
-                            && confidenceType == TransactionConfidence.ConfidenceType.PENDING) {
-                        // play sound effect
-                        final int soundResId = getResources().getIdentifier("send_coins_broadcast_" + numBroadcastPeers,
-                                "raw", activity.getPackageName());
-                        if (soundResId > 0)
-                            RingtoneManager
-                                    .getRingtone(activity, Uri.parse(
-                                            "android.resource://" + activity.getPackageName() + "/" + soundResId))
-                                    .play();
-                    }
-
-                    updateView();
+                if (viewModel.state == SweepWalletViewModel.State.SENDING) {
+                    if (confidenceType == ConfidenceType.DEAD)
+                        setState(SweepWalletViewModel.State.FAILED);
+                    else if (numBroadcastPeers > 1
+                            || confidenceType == ConfidenceType.BUILDING)
+                        setState(SweepWalletViewModel.State.SENT);
                 }
+
+                if (reason == ChangeReason.SEEN_PEERS
+                        && confidenceType == ConfidenceType.PENDING) {
+                    // play sound effect
+                    final int soundResId = getResources().getIdentifier("send_coins_broadcast_" + numBroadcastPeers,
+                            "raw", activity.getPackageName());
+                    if (soundResId > 0)
+                        RingtoneManager
+                                .getRingtone(activity, Uri.parse(
+                                        "android.resource://" + activity.getPackageName() + "/" + soundResId))
+                                .play();
+                }
+
+                updateView();
             });
         }
     };
 
-    private final Runnable maybeDecodeKeyRunnable = new Runnable() {
-        @Override
-        public void run() {
-            maybeDecodeKey();
-        }
-    };
+    private final Runnable maybeDecodeKeyRunnable = () -> maybeDecodeKey();
 
     private void maybeDecodeKey() {
         checkState(viewModel.state == SweepWalletViewModel.State.DECODE_KEY);
@@ -386,20 +365,10 @@ public class SweepWalletFragment extends Fragment {
         handler.post(requestWalletBalanceRunnable);
     }
 
-    private final Runnable requestWalletBalanceRunnable = new Runnable() {
-        @Override
-        public void run() {
-            requestWalletBalance();
-        }
-    };
+    private final Runnable requestWalletBalanceRunnable = () -> requestWalletBalance();
 
-    private static final Comparator<UTXO> UTXO_COMPARATOR = new Comparator<UTXO>() {
-        @Override
-        public int compare(final UTXO lhs, final UTXO rhs) {
-            return ComparisonChain.start().compare(lhs.getHash(), rhs.getHash()).compare(lhs.getIndex(), rhs.getIndex())
-                    .result();
-        }
-    };
+    private static final Comparator<UTXO> UTXO_COMPARATOR = (lhs, rhs) -> ComparisonChain.start().compare(lhs.getHash(), rhs.getHash()).compare(lhs.getIndex(), rhs.getIndex())
+            .result();
 
     private void requestWalletBalance() {
         viewModel.progress.setValue(getString(R.string.sweep_wallet_fragment_request_wallet_balance_progress));
@@ -463,12 +432,7 @@ public class SweepWalletFragment extends Fragment {
                 final DialogBuilder dialog = DialogBuilder.warn(activity,
                         R.string.sweep_wallet_fragment_request_wallet_balance_failed_title);
                 dialog.setMessage(getString(messageResId, messageArgs));
-                dialog.setPositiveButton(R.string.button_retry, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(final DialogInterface dialog, final int which) {
-                        requestWalletBalance();
-                    }
-                });
+                dialog.setPositiveButton(R.string.button_retry, (d, which) -> requestWalletBalance());
                 dialog.setNegativeButton(R.string.button_dismiss, null);
                 dialog.show();
             }

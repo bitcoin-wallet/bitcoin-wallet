@@ -72,28 +72,17 @@ public final class WalletAddressFragment extends Fragment {
         activityViewModel = ViewModelProviders.of(activity).get(WalletActivityViewModel.class);
         viewModel = ViewModelProviders.of(this).get(WalletAddressViewModel.class);
 
-        viewModel.qrCode.observe(this, new Observer<Bitmap>() {
-            @Override
-            public void onChanged(final Bitmap qrCode) {
-                final BitmapDrawable qrDrawable = new BitmapDrawable(getResources(), qrCode);
-                qrDrawable.setFilterBitmap(false);
-                currentAddressQrView.setImageDrawable(qrDrawable);
-                currentAddressQrCardView.setOnClickListener(new OnClickListener() {
-                    @Override
-                    public void onClick(final View v) {
-                        viewModel.showWalletAddressDialog.setValue(Event.simple());
-                    }
-                });
-            }
+        viewModel.qrCode.observe(this, qrCode -> {
+            final BitmapDrawable qrDrawable = new BitmapDrawable(getResources(), qrCode);
+            qrDrawable.setFilterBitmap(false);
+            currentAddressQrView.setImageDrawable(qrDrawable);
+            currentAddressQrCardView.setOnClickListener(v -> viewModel.showWalletAddressDialog.setValue(Event.simple()));
         });
-        viewModel.bitcoinUri.observe(this, new Observer<Uri>() {
-            @Override
-            public void onChanged(final Uri bitcoinUri) {
-                final NfcAdapter nfcAdapter = WalletAddressFragment.this.nfcAdapter;
-                if (nfcAdapter != null)
-                    nfcAdapter.setNdefPushMessage(createNdefMessage(bitcoinUri.toString()), activity);
-                activityViewModel.addressLoadingFinished();
-            }
+        viewModel.bitcoinUri.observe(this, bitcoinUri -> {
+            final NfcAdapter nfcAdapter = WalletAddressFragment.this.nfcAdapter;
+            if (nfcAdapter != null)
+                nfcAdapter.setNdefPushMessage(createNdefMessage(bitcoinUri.toString()), activity);
+            activityViewModel.addressLoadingFinished();
         });
         viewModel.showWalletAddressDialog.observe(this, new Event.Observer<Void>() {
             @Override

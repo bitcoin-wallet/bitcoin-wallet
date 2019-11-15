@@ -87,48 +87,13 @@ public class WalletTransactionsViewModel extends AndroidViewModel {
         this.transactionsConfidence = new TransactionsConfidenceLiveData(this.application);
         this.addressBook = AppDatabase.getDatabase(this.application).addressBookDao().getAll();
         this.configFormat = new ConfigFormatLiveData(this.application);
-        this.list.addSource(transactions, new Observer<Set<Transaction>>() {
-            @Override
-            public void onChanged(final Set<Transaction> transactions) {
-                maybePostList();
-            }
-        });
-        this.list.addSource(wallet, new Observer<Wallet>() {
-            @Override
-            public void onChanged(final Wallet wallet) {
-                maybePostList();
-            }
-        });
-        this.list.addSource(transactionsConfidence, new Observer<Void>() {
-            @Override
-            public void onChanged(final Void v) {
-                maybePostList();
-            }
-        });
-        this.list.addSource(addressBook, new Observer<List<AddressBookEntry>>() {
-            @Override
-            public void onChanged(final List<AddressBookEntry> addressBook) {
-                maybePostList();
-            }
-        });
-        this.list.addSource(direction, new Observer<Direction>() {
-            @Override
-            public void onChanged(final Direction direction) {
-                maybePostList();
-            }
-        });
-        this.list.addSource(selectedTransaction, new Observer<Sha256Hash>() {
-            @Override
-            public void onChanged(final Sha256Hash selectedTransaction) {
-                maybePostList();
-            }
-        });
-        this.list.addSource(configFormat, new Observer<MonetaryFormat>() {
-            @Override
-            public void onChanged(final MonetaryFormat format) {
-                maybePostList();
-            }
-        });
+        this.list.addSource(transactions, transactions -> maybePostList());
+        this.list.addSource(wallet, wallet -> maybePostList());
+        this.list.addSource(transactionsConfidence, v -> maybePostList());
+        this.list.addSource(addressBook, addressBook -> maybePostList());
+        this.list.addSource(direction, direction -> maybePostList());
+        this.list.addSource(selectedTransaction, selectedTransaction -> maybePostList());
+        this.list.addSource(configFormat, format -> maybePostList());
     }
 
     public void setDirection(final Direction direction) {
@@ -148,53 +113,47 @@ public class WalletTransactionsViewModel extends AndroidViewModel {
     }
 
     private void maybePostList() {
-        AsyncTask.execute(new Runnable() {
-            @Override
-            public void run() {
-                org.bitcoinj.core.Context.propagate(Constants.CONTEXT);
-                final Set<Transaction> transactions = WalletTransactionsViewModel.this.transactions.getValue();
-                final MonetaryFormat format = configFormat.getValue();
-                final Map<String, AddressBookEntry> addressBook = AddressBookEntry
-                        .asMap(WalletTransactionsViewModel.this.addressBook.getValue());
-                if (transactions != null && format != null && addressBook != null) {
-                    final List<Transaction> filteredTransactions = new ArrayList<>(transactions.size());
-                    final Wallet wallet = application.getWallet();
-                    final Direction direction = WalletTransactionsViewModel.this.direction.getValue();
-                    for (final Transaction tx : transactions) {
-                        final boolean sent = tx.getValue(wallet).signum() < 0;
-                        final boolean isInternal = tx.getPurpose() == Purpose.KEY_ROTATION;
-                        if ((direction == Direction.RECEIVED && !sent && !isInternal) || direction == null
-                                || (direction == Direction.SENT && sent && !isInternal))
-                            filteredTransactions.add(tx);
-                    }
-
-                    Collections.sort(filteredTransactions, TRANSACTION_COMPARATOR);
-
-                    list.postValue(TransactionsAdapter.buildListItems(application, filteredTransactions,
-                            warning.getValue(), wallet, addressBook, format, application.maxConnectedPeers(),
-                            selectedTransaction.getValue()));
+        AsyncTask.execute(() -> {
+            org.bitcoinj.core.Context.propagate(Constants.CONTEXT);
+            final Set<Transaction> transactions = WalletTransactionsViewModel.this.transactions.getValue();
+            final MonetaryFormat format = configFormat.getValue();
+            final Map<String, AddressBookEntry> addressBook = AddressBookEntry
+                    .asMap(WalletTransactionsViewModel.this.addressBook.getValue());
+            if (transactions != null && format != null && addressBook != null) {
+                final List<Transaction> filteredTransactions = new ArrayList<>(transactions.size());
+                final Wallet wallet = application.getWallet();
+                final Direction direction = WalletTransactionsViewModel.this.direction.getValue();
+                for (final Transaction tx : transactions) {
+                    final boolean sent = tx.getValue(wallet).signum() < 0;
+                    final boolean isInternal = tx.getPurpose() == Purpose.KEY_ROTATION;
+                    if ((direction == Direction.RECEIVED && !sent && !isInternal) || direction == null
+                            || (direction == Direction.SENT && sent && !isInternal))
+                        filteredTransactions.add(tx);
                 }
+
+                Collections.sort(filteredTransactions, TRANSACTION_COMPARATOR);
+
+                list.postValue(TransactionsAdapter.buildListItems(application, filteredTransactions,
+                        warning.getValue(), wallet, addressBook, format, application.maxConnectedPeers(),
+                        selectedTransaction.getValue()));
             }
         });
     }
 
-    private static final Comparator<Transaction> TRANSACTION_COMPARATOR = new Comparator<Transaction>() {
-        @Override
-        public int compare(final Transaction tx1, final Transaction tx2) {
-            final boolean pending1 = tx1.getConfidence().getConfidenceType() == ConfidenceType.PENDING;
-            final boolean pending2 = tx2.getConfidence().getConfidenceType() == ConfidenceType.PENDING;
-            if (pending1 != pending2)
-                return pending1 ? -1 : 1;
+    private static final Comparator<Transaction> TRANSACTION_COMPARATOR = (tx1, tx2) -> {
+        final boolean pending1 = tx1.getConfidence().getConfidenceType() == ConfidenceType.PENDING;
+        final boolean pending2 = tx2.getConfidence().getConfidenceType() == ConfidenceType.PENDING;
+        if (pending1 != pending2)
+            return pending1 ? -1 : 1;
 
-            final Date updateTime1 = tx1.getUpdateTime();
-            final long time1 = updateTime1 != null ? updateTime1.getTime() : 0;
-            final Date updateTime2 = tx2.getUpdateTime();
-            final long time2 = updateTime2 != null ? updateTime2.getTime() : 0;
-            if (time1 != time2)
-                return time1 > time2 ? -1 : 1;
+        final Date updateTime1 = tx1.getUpdateTime();
+        final long time1 = updateTime1 != null ? updateTime1.getTime() : 0;
+        final Date updateTime2 = tx2.getUpdateTime();
+        final long time2 = updateTime2 != null ? updateTime2.getTime() : 0;
+        if (time1 != time2)
+            return time1 > time2 ? -1 : 1;
 
-            return tx1.getTxId().compareTo(tx2.getTxId());
-        }
+        return tx1.getTxId().compareTo(tx2.getTxId());
     };
 
     public static class TransactionsLiveData extends AbstractWalletLiveData<Set<Transaction>> {
@@ -232,12 +191,9 @@ public class WalletTransactionsViewModel extends AndroidViewModel {
         @Override
         protected void load() {
             final Wallet wallet = getWallet();
-            AsyncTask.execute(new Runnable() {
-                @Override
-                public void run() {
-                    org.bitcoinj.core.Context.propagate(Constants.CONTEXT);
-                    postValue(wallet.getTransactions(true));
-                }
+            AsyncTask.execute(() -> {
+                org.bitcoinj.core.Context.propagate(Constants.CONTEXT);
+                postValue(wallet.getTransactions(true));
             });
         }
 

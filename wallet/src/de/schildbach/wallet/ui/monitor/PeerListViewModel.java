@@ -118,18 +118,12 @@ public class PeerListViewModel extends AndroidViewModel {
         public void reverseLookup(final InetAddress address) {
             final Map<InetAddress, String> hostnames = getValue();
             if (!hostnames.containsKey(address)) {
-                AsyncTask.execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        final String hostname = address.getCanonicalHostName();
-                        handler.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                hostnames.put(address, hostname);
-                                setValue(hostnames);
-                            }
-                        });
-                    }
+                AsyncTask.execute(() -> {
+                    final String hostname = address.getCanonicalHostName();
+                    handler.post(() -> {
+                        hostnames.put(address, hostname);
+                        setValue(hostnames);
+                    });
                 });
             }
         }

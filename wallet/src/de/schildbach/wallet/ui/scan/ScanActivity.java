@@ -205,19 +205,16 @@ public final class ScanActivity extends AbstractWalletActivity
                 contentView.setAlpha(0);
                 getWindow().setBackgroundDrawable(
                         new ColorDrawable(ContextCompat.getColor(this, android.R.color.transparent)));
-                OnFirstPreDraw.listen(contentView, new OnFirstPreDraw.Callback() {
-                    @Override
-                    public boolean onFirstPreDraw() {
-                        float finalRadius = (float) (Math.max(contentView.getWidth(), contentView.getHeight()));
-                        final int duration = getResources().getInteger(android.R.integer.config_mediumAnimTime);
-                        sceneTransition = ViewAnimationUtils.createCircularReveal(contentView, x, y, 0, finalRadius);
-                        sceneTransition.setDuration(duration);
-                        sceneTransition.setInterpolator(new AccelerateInterpolator());
-                        // TODO Here, the transition should start in a paused state, showing the first frame
-                        // of the animation. Sadly, RevealAnimator doesn't seem to support this, unlike
-                        // (subclasses of) ValueAnimator.
-                        return false;
-                    }
+                OnFirstPreDraw.listen(contentView, () -> {
+                    float finalRadius = (float) (Math.max(contentView.getWidth(), contentView.getHeight()));
+                    final int duration = getResources().getInteger(android.R.integer.config_mediumAnimTime);
+                    sceneTransition = ViewAnimationUtils.createCircularReveal(contentView, x, y, 0, finalRadius);
+                    sceneTransition.setDuration(duration);
+                    sceneTransition.setInterpolator(new AccelerateInterpolator());
+                    // TODO Here, the transition should start in a paused state, showing the first frame
+                    // of the animation. Sadly, RevealAnimator doesn't seem to support this, unlike
+                    // (subclasses of) ValueAnimator.
+                    return false;
                 });
             }
         }
@@ -306,12 +303,7 @@ public final class ScanActivity extends AbstractWalletActivity
             // don't launch camera app
             return true;
         } else if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN || keyCode == KeyEvent.KEYCODE_VOLUME_UP) {
-            cameraHandler.post(new Runnable() {
-                @Override
-                public void run() {
-                    cameraManager.setTorch(keyCode == KeyEvent.KEYCODE_VOLUME_UP);
-                }
-            });
+            cameraHandler.post(() -> cameraManager.setTorch(keyCode == KeyEvent.KEYCODE_VOLUME_UP));
             return true;
         }
         return super.onKeyDown(keyCode, event);
@@ -329,12 +321,7 @@ public final class ScanActivity extends AbstractWalletActivity
     }
 
     private void postFinish() {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                finish();
-            }
-        }, 50);
+        new Handler().postDelayed(() -> finish(), 50);
     }
 
     private final Runnable openRunnable = new Runnable() {
@@ -349,13 +336,8 @@ public final class ScanActivity extends AbstractWalletActivity
                 final boolean cameraFlip = cameraManager.getFacing() == CameraInfo.CAMERA_FACING_FRONT;
                 final int cameraRotation = cameraManager.getOrientation();
 
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        scannerView.setFraming(framingRect, framingRectInPreview, displayRotation(), cameraRotation,
-                                cameraFlip);
-                    }
-                });
+                runOnUiThread(() -> scannerView.setFraming(framingRect, framingRectInPreview, displayRotation(), cameraRotation,
+                        cameraFlip));
 
                 final String focusMode = camera.getParameters().getFocusMode();
                 final boolean nonContinuousAutoFocus = Camera.Parameters.FOCUS_MODE_AUTO.equals(focusMode)
@@ -425,12 +407,7 @@ public final class ScanActivity extends AbstractWalletActivity
 
         @Override
         public void run() {
-            cameraManager.requestPreviewFrame(new PreviewCallback() {
-                @Override
-                public void onPreviewFrame(final byte[] data, final Camera camera) {
-                    decode(data);
-                }
-            });
+            cameraManager.requestPreviewFrame((data, camera) -> decode(data));
         }
 
         private void decode(final byte[] data) {
@@ -438,25 +415,10 @@ public final class ScanActivity extends AbstractWalletActivity
             final BinaryBitmap bitmap = new BinaryBitmap(new HybridBinarizer(source));
 
             try {
-                hints.put(DecodeHintType.NEED_RESULT_POINT_CALLBACK, new ResultPointCallback() {
-                    @Override
-                    public void foundPossibleResultPoint(final ResultPoint dot) {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                scannerView.addDot(dot);
-                            }
-                        });
-                    }
-                });
+                hints.put(DecodeHintType.NEED_RESULT_POINT_CALLBACK, (ResultPointCallback) dot -> runOnUiThread(() -> scannerView.addDot(dot)));
                 final Result scanResult = reader.decode(bitmap, hints);
 
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        handleResult(scanResult);
-                    }
-                });
+                runOnUiThread(() -> handleResult(scanResult));
             } catch (final ReaderException x) {
                 // retry
                 cameraHandler.post(fetchAndDecodeRunnable);
@@ -483,12 +445,7 @@ public final class ScanActivity extends AbstractWalletActivity
             final Bundle args = getArguments();
             final DialogBuilder dialog = DialogBuilder.warn(getActivity(), args.getInt("title"));
             dialog.setMessage(args.getString("message"));
-            dialog.singleDismissButton(new OnClickListener() {
-                @Override
-                public void onClick(final DialogInterface dialog, final int which) {
-                    getActivity().finish();
-                }
-            });
+            dialog.singleDismissButton((d, which) -> getActivity().finish());
             return dialog.create();
         }
 

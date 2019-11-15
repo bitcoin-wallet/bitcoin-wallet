@@ -133,15 +133,12 @@ public class RaiseFeeDialogFragment extends DialogFragment {
         log.info("opening dialog {}", getClass().getName());
 
         viewModel = ViewModelProviders.of(this).get(RaiseFeeViewModel.class);
-        viewModel.getDynamicFees().observe(this, new Observer<Map<FeeCategory, Coin>>() {
-            @Override
-            public void onChanged(final Map<FeeCategory, Coin> dynamicFees) {
-                // We basically have to pay fee for two transactions:
-                // The transaction to raise the fee of and the CPFP transaction we're about to create.
-                final int size = transaction.getMessageSize() + 192;
-                feeRaise = dynamicFees.get(FeeCategory.PRIORITY).multiply(size).divide(1000);
-                updateView();
-            }
+        viewModel.getDynamicFees().observe(this, dynamicFees -> {
+            // We basically have to pay fee for two transactions:
+            // The transaction to raise the fee of and the CPFP transaction we're about to create.
+            final int size = transaction.getMessageSize() + 192;
+            feeRaise = dynamicFees.get(FeeCategory.PRIORITY).multiply(size).divide(1000);
+            updateView();
         });
 
         final Bundle args = getArguments();
@@ -176,31 +173,18 @@ public class RaiseFeeDialogFragment extends DialogFragment {
         final AlertDialog dialog = builder.create();
         dialog.setCanceledOnTouchOutside(false);
 
-        dialog.setOnShowListener(new OnShowListener() {
-            @Override
-            public void onShow(final DialogInterface d) {
-                positiveButton = dialog.getButton(DialogInterface.BUTTON_POSITIVE);
-                negativeButton = dialog.getButton(DialogInterface.BUTTON_NEGATIVE);
+        dialog.setOnShowListener(d -> {
+            positiveButton = dialog.getButton(DialogInterface.BUTTON_POSITIVE);
+            negativeButton = dialog.getButton(DialogInterface.BUTTON_NEGATIVE);
 
-                positiveButton.setTypeface(Typeface.DEFAULT_BOLD);
-                positiveButton.setOnClickListener(new OnClickListener() {
-                    @Override
-                    public void onClick(final View v) {
-                        handleGo();
-                    }
-                });
-                negativeButton.setOnClickListener(new OnClickListener() {
-                    @Override
-                    public void onClick(final View v) {
-                        dismissAllowingStateLoss();
-                    }
-                });
+            positiveButton.setTypeface(Typeface.DEFAULT_BOLD);
+            positiveButton.setOnClickListener(v -> handleGo());
+            negativeButton.setOnClickListener(v -> dismissAllowingStateLoss());
 
-                passwordView.addTextChangedListener(textWatcher);
+            passwordView.addTextChangedListener(textWatcher);
 
-                RaiseFeeDialogFragment.this.dialog = dialog;
-                updateView();
-            }
+            RaiseFeeDialogFragment.this.dialog = dialog;
+            updateView();
         });
 
         log.info("showing raise fee dialog");

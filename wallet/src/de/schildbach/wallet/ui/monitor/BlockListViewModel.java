@@ -150,19 +150,16 @@ public class BlockListViewModel extends AndroidViewModel {
             final Wallet wallet = getWallet();
             if (wallet == null)
                 return;
-            AsyncTask.execute(new Runnable() {
-                @Override
-                public void run() {
-                    org.bitcoinj.core.Context.propagate(Constants.CONTEXT);
-                    final Set<Transaction> transactions = wallet.getTransactions(false);
-                    final Set<Transaction> filteredTransactions = new HashSet<>(transactions.size());
-                    for (final Transaction tx : transactions) {
-                        final Map<Sha256Hash, Integer> appearsIn = tx.getAppearsInHashes();
-                        if (appearsIn != null && !appearsIn.isEmpty()) // TODO filter by updateTime
-                            filteredTransactions.add(tx);
-                    }
-                    postValue(filteredTransactions);
+            AsyncTask.execute(() -> {
+                org.bitcoinj.core.Context.propagate(Constants.CONTEXT);
+                final Set<Transaction> transactions = wallet.getTransactions(false);
+                final Set<Transaction> filteredTransactions = new HashSet<>(transactions.size());
+                for (final Transaction tx : transactions) {
+                    final Map<Sha256Hash, Integer> appearsIn = tx.getAppearsInHashes();
+                    if (appearsIn != null && !appearsIn.isEmpty()) // TODO filter by updateTime
+                        filteredTransactions.add(tx);
                 }
+                postValue(filteredTransactions);
             });
         }
     }

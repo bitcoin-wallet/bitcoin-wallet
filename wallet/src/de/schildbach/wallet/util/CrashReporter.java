@@ -100,12 +100,7 @@ public class CrashReporter {
         final List<PackageInfo> installedPackages = pm.getInstalledPackages(0);
 
         // sort by package name
-        Collections.sort(installedPackages, new Comparator<PackageInfo>() {
-            @Override
-            public int compare(final PackageInfo lhs, final PackageInfo rhs) {
-                return lhs.packageName.compareTo(rhs.packageName);
-            }
-        });
+        Collections.sort(installedPackages, (lhs, rhs) -> lhs.packageName.compareTo(rhs.packageName));
 
         for (final PackageInfo p : installedPackages)
             report.append(String.format(Locale.US, "%s %s (%d) - %tF %tF\n", p.packageName, p.versionName,

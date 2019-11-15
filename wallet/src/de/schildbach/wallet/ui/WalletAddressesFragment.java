@@ -84,36 +84,11 @@ public final class WalletAddressesFragment extends FancyListFragment {
         setHasOptionsMenu(true);
 
         viewModel = ViewModelProviders.of(this).get(WalletAddressesViewModel.class);
-        viewModel.issuedReceiveAddresses.observe(this, new Observer<List<Address>>() {
-            @Override
-            public void onChanged(final List<Address> issuedReceiveAddresses) {
-                adapter.replaceDerivedAddresses(issuedReceiveAddresses);
-            }
-        });
-        viewModel.importedAddresses.observe(this, new Observer<List<Address>>() {
-            @Override
-            public void onChanged(final List<Address> importedAddresses) {
-                adapter.replaceRandomAddresses(importedAddresses);
-            }
-        });
-        viewModel.wallet.observe(this, new Observer<Wallet>() {
-            @Override
-            public void onChanged(final Wallet wallet) {
-                adapter.setWallet(wallet);
-            }
-        });
-        viewModel.addressBook.observe(this, new Observer<List<AddressBookEntry>>() {
-            @Override
-            public void onChanged(final List<AddressBookEntry> addressBook) {
-                adapter.setAddressBook(AddressBookEntry.asMap(addressBook));
-            }
-        });
-        viewModel.ownName.observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(final String ownName) {
-                adapter.notifyDataSetChanged();
-            }
-        });
+        viewModel.issuedReceiveAddresses.observe(this, issuedReceiveAddresses -> adapter.replaceDerivedAddresses(issuedReceiveAddresses));
+        viewModel.importedAddresses.observe(this, importedAddresses -> adapter.replaceRandomAddresses(importedAddresses));
+        viewModel.wallet.observe(this, wallet -> adapter.setWallet(wallet));
+        viewModel.addressBook.observe(this, addressBook -> adapter.setAddressBook(AddressBookEntry.asMap(addressBook)));
+        viewModel.ownName.observe(this, ownName -> adapter.notifyDataSetChanged());
         viewModel.showBitmapDialog.observe(this, new Event.Observer<Bitmap>() {
             @Override
             public void onEvent(final Bitmap bitmap) {

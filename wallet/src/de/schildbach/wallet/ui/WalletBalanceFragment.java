@@ -87,27 +87,14 @@ public final class WalletBalanceFragment extends Fragment {
         activityViewModel = ViewModelProviders.of(activity).get(WalletActivityViewModel.class);
         viewModel = ViewModelProviders.of(this).get(WalletBalanceViewModel.class);
 
-        viewModel.getBlockchainState().observe(this, new Observer<BlockchainState>() {
-            @Override
-            public void onChanged(final BlockchainState blockchainState) {
-                updateView();
-            }
-        });
-        viewModel.getBalance().observe(this, new Observer<Coin>() {
-            @Override
-            public void onChanged(final Coin balance) {
-                activity.invalidateOptionsMenu();
-                updateView();
-                activityViewModel.balanceLoadingFinished();
-            }
+        viewModel.getBlockchainState().observe(this, blockchainState -> updateView());
+        viewModel.getBalance().observe(this, balance -> {
+            activity.invalidateOptionsMenu();
+            updateView();
+            activityViewModel.balanceLoadingFinished();
         });
         if (Constants.ENABLE_EXCHANGE_RATES) {
-            viewModel.getExchangeRate().observe(this, new Observer<ExchangeRate>() {
-                @Override
-                public void onChanged(final ExchangeRate exchangeRate) {
-                    updateView();
-                }
-            });
+            viewModel.getExchangeRate().observe(this, exchangeRate -> updateView());
         }
     }
 
@@ -126,12 +113,7 @@ public final class WalletBalanceFragment extends Fragment {
 
         viewBalance = view.findViewById(R.id.wallet_balance);
         if (showExchangeRatesOption) {
-            viewBalance.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(final View v) {
-                    startActivity(new Intent(getActivity(), ExchangeRatesActivity.class));
-                }
-            });
+            viewBalance.setOnClickListener(v -> startActivity(new Intent(getActivity(), ExchangeRatesActivity.class)));
         } else {
             viewBalance.setEnabled(false);
         }

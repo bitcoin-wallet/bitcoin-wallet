@@ -110,48 +110,37 @@ public class WalletTransactionsFragment extends Fragment implements Transactions
         activityViewModel = ViewModelProviders.of(activity).get(WalletActivityViewModel.class);
         viewModel = ViewModelProviders.of(this).get(WalletTransactionsViewModel.class);
 
-        viewModel.direction.observe(this, new Observer<WalletTransactionsViewModel.Direction>() {
-            @Override
-            public void onChanged(final WalletTransactionsViewModel.Direction direction) {
-                activity.invalidateOptionsMenu();
-            }
-        });
-        viewModel.transactions.observe(this, new Observer<Set<Transaction>>() {
-            @Override
-            public void onChanged(final Set<Transaction> transactions) {
-                if (transactions.isEmpty()) {
-                    viewGroup.setDisplayedChild(0);
+        viewModel.direction.observe(this, direction -> activity.invalidateOptionsMenu());
+        viewModel.transactions.observe(this, transactions -> {
+            if (transactions.isEmpty()) {
+                viewGroup.setDisplayedChild(0);
 
-                    final WalletTransactionsViewModel.Direction direction = viewModel.direction.getValue();
-                    final WarningType warning = viewModel.warning.getValue();
-                    final SpannableStringBuilder emptyText = new SpannableStringBuilder(
-                            getString(direction == WalletTransactionsViewModel.Direction.SENT
-                                    ? R.string.wallet_transactions_fragment_empty_text_sent
-                                    : R.string.wallet_transactions_fragment_empty_text_received));
-                    emptyText.setSpan(new StyleSpan(Typeface.BOLD), 0, emptyText.length(),
+                final WalletTransactionsViewModel.Direction direction = viewModel.direction.getValue();
+                final WarningType warning = viewModel.warning.getValue();
+                final SpannableStringBuilder emptyText = new SpannableStringBuilder(
+                        getString(direction == WalletTransactionsViewModel.Direction.SENT
+                                ? R.string.wallet_transactions_fragment_empty_text_sent
+                                : R.string.wallet_transactions_fragment_empty_text_received));
+                emptyText.setSpan(new StyleSpan(Typeface.BOLD), 0, emptyText.length(),
+                        SpannableStringBuilder.SPAN_POINT_MARK);
+                if (direction != WalletTransactionsViewModel.Direction.SENT)
+                    emptyText.append("\n\n")
+                            .append(getString(R.string.wallet_transactions_fragment_empty_text_howto));
+                if (warning == WarningType.BACKUP) {
+                    final int start = emptyText.length();
+                    emptyText.append("\n\n")
+                            .append(getString(R.string.wallet_transactions_fragment_empty_remind_backup));
+                    emptyText.setSpan(new StyleSpan(Typeface.BOLD), start, emptyText.length(),
                             SpannableStringBuilder.SPAN_POINT_MARK);
-                    if (direction != WalletTransactionsViewModel.Direction.SENT)
-                        emptyText.append("\n\n")
-                                .append(getString(R.string.wallet_transactions_fragment_empty_text_howto));
-                    if (warning == WarningType.BACKUP) {
-                        final int start = emptyText.length();
-                        emptyText.append("\n\n")
-                                .append(getString(R.string.wallet_transactions_fragment_empty_remind_backup));
-                        emptyText.setSpan(new StyleSpan(Typeface.BOLD), start, emptyText.length(),
-                                SpannableStringBuilder.SPAN_POINT_MARK);
-                    }
-                    emptyView.setText(emptyText);
-                } else {
-                    viewGroup.setDisplayedChild(1);
                 }
+                emptyView.setText(emptyText);
+            } else {
+                viewGroup.setDisplayedChild(1);
             }
         });
-        viewModel.list.observe(this, new Observer<List<ListItem>>() {
-            @Override
-            public void onChanged(final List<ListItem> listItems) {
-                adapter.submitList(listItems);
-                activityViewModel.transactionsLoadingFinished();
-            }
+        viewModel.list.observe(this, listItems -> {
+            adapter.submitList(listItems);
+            activityViewModel.transactionsLoadingFinished();
         });
         viewModel.showBitmapDialog.observe(this, new Event.Observer<Bitmap>() {
             @Override

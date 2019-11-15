@@ -102,15 +102,12 @@ public final class SettingsFragment extends PreferenceFragment implements OnPref
     @Override
     public boolean onPreferenceChange(final Preference preference, final Object newValue) {
         // delay action because preference isn't persisted until after this method returns
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                if (preference.equals(trustedPeerPreference)) {
-                    BlockchainService.stop(activity);
-                    updateTrustedPeer();
-                } else if (preference.equals(trustedPeerOnlyPreference)) {
-                    BlockchainService.stop(activity);
-                }
+        handler.post(() -> {
+            if (preference.equals(trustedPeerPreference)) {
+                BlockchainService.stop(activity);
+                updateTrustedPeer();
+            } else if (preference.equals(trustedPeerOnlyPreference)) {
+                BlockchainService.stop(activity);
             }
         });
 

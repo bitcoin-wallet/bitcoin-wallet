@@ -58,15 +58,12 @@ public class WalletBalanceWidgetProvider extends AppWidgetProvider {
     @Override
     public void onUpdate(final Context context, final AppWidgetManager appWidgetManager, final int[] appWidgetIds) {
         final PendingResult result = goAsync();
-        AsyncTask.execute(new Runnable() {
-            @Override
-            public void run() {
-                final WalletApplication application = (WalletApplication) context.getApplicationContext();
-                final Coin balance = application.getWallet().getBalance(BalanceType.ESTIMATED);
-                final ExchangeRate exchangeRate = application.getConfiguration().getCachedExchangeRate();
-                updateWidgets(context, appWidgetManager, appWidgetIds, balance, exchangeRate);
-                result.finish();
-            }
+        AsyncTask.execute(() -> {
+            final WalletApplication application = (WalletApplication) context.getApplicationContext();
+            final Coin balance = application.getWallet().getBalance(BalanceType.ESTIMATED);
+            final ExchangeRate exchangeRate = application.getConfiguration().getCachedExchangeRate();
+            updateWidgets(context, appWidgetManager, appWidgetIds, balance, exchangeRate);
+            result.finish();
         });
     }
 
@@ -77,15 +74,12 @@ public class WalletBalanceWidgetProvider extends AppWidgetProvider {
             log.info("app widget {} options changed: minWidth={}", appWidgetId,
                     newOptions.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_WIDTH));
         final PendingResult result = goAsync();
-        AsyncTask.execute(new Runnable() {
-            @Override
-            public void run() {
-                final WalletApplication application = (WalletApplication) context.getApplicationContext();
-                final Coin balance = application.getWallet().getBalance(BalanceType.ESTIMATED);
-                final ExchangeRate exchangeRate = application.getConfiguration().getCachedExchangeRate();
-                updateWidget(context, appWidgetManager, appWidgetId, newOptions, balance, exchangeRate);
-                result.finish();
-            }
+        AsyncTask.execute(() -> {
+            final WalletApplication application = (WalletApplication) context.getApplicationContext();
+            final Coin balance = application.getWallet().getBalance(BalanceType.ESTIMATED);
+            final ExchangeRate exchangeRate = application.getConfiguration().getCachedExchangeRate();
+            updateWidget(context, appWidgetManager, appWidgetId, newOptions, balance, exchangeRate);
+            result.finish();
         });
     }
 

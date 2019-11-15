@@ -83,12 +83,9 @@ public final class AboutFragment extends PreferenceFragment {
         final PackageInfo packageInfo = application.packageInfo();
         final Preference versionPref = findPreference(KEY_ABOUT_VERSION);
         versionPref.setSummary(WalletApplication.versionLine(packageInfo));
-        versionPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(final Preference preference) {
-                new ApkHashFragment().show(getFragmentManager(), null);
-                return true;
-            }
+        versionPref.setOnPreferenceClickListener(preference -> {
+            new ApkHashFragment().show(getFragmentManager(), null);
+            return true;
         });
 
         Installer installer = Installer.from(application);

@@ -36,26 +36,13 @@ public abstract class DecodePrivateKeyTask {
     }
 
     public final void decodePrivateKey(final BIP38PrivateKey encryptedKey, final String passphrase) {
-        backgroundHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    final ECKey decryptedKey = encryptedKey.decrypt(passphrase); // takes time
+        backgroundHandler.post(() -> {
+            try {
+                final ECKey decryptedKey = encryptedKey.decrypt(passphrase); // takes time
 
-                    callbackHandler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            onSuccess(decryptedKey);
-                        }
-                    });
-                } catch (final BIP38PrivateKey.BadPassphraseException x) {
-                    callbackHandler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            onBadPassphrase();
-                        }
-                    });
-                }
+                callbackHandler.post(() -> onSuccess(decryptedKey));
+            } catch (final BIP38PrivateKey.BadPassphraseException x) {
+                callbackHandler.post(() -> onBadPassphrase());
             }
         });
     }

@@ -51,28 +51,13 @@ public final class WalletActionsFragment extends Fragment {
         final View view = inflater.inflate(R.layout.wallet_actions_fragment, container);
 
         final View requestButton = view.findViewById(R.id.wallet_actions_request);
-        requestButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                activity.handleRequestCoins();
-            }
-        });
+        requestButton.setOnClickListener(v -> activity.handleRequestCoins());
 
         final View sendButton = view.findViewById(R.id.wallet_actions_send);
-        sendButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                activity.handleSendCoins();
-            }
-        });
+        sendButton.setOnClickListener(v -> activity.handleSendCoins());
 
         final View sendQrButton = view.findViewById(R.id.wallet_actions_send_qr);
-        sendQrButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                activity.handleScan(v);
-            }
-        });
+        sendQrButton.setOnClickListener(v -> activity.handleScan(v));
         CheatSheet.setup(sendQrButton);
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP_MR1)
             sendQrButton.getBackground().setColorFilter(ContextCompat.getColor(activity, R.color.fg_on_dark_bg_network_significant), PorterDuff.Mode.SRC_ATOP);

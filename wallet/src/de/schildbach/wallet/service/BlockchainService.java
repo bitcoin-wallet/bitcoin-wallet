@@ -299,12 +299,9 @@ public class BlockchainService extends LifecycleService {
             if (stopped.get())
                 return;
 
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
-                    startForeground(numPeers);
-                    broadcastPeerState(numPeers);
-                }
+            handler.post(() -> {
+                startForeground(numPeers);
+                broadcastPeerState(numPeers);
             });
         }
     }
@@ -413,12 +410,9 @@ public class BlockchainService extends LifecycleService {
         }
     }
 
-    private Runnable delayedStopSelfRunnable = new Runnable() {
-        @Override
-        public void run() {
-            log.info("service idling detected, trying to stop");
-            stopSelf();
-        }
+    private Runnable delayedStopSelfRunnable = () -> {
+        log.info("service idling detected, trying to stop");
+        stopSelf();
     };
 
     private void postDelayedStopSelf(final long ms) {
@@ -483,21 +477,14 @@ public class BlockchainService extends LifecycleService {
 
         final WalletBalanceLiveData walletBalance = new WalletBalanceLiveData(application);
         final SelectedExchangeRateLiveData exchangeRate = new SelectedExchangeRateLiveData(application);
-        walletBalance.observe(this, new Observer<Coin>() {
-            @Override
-            public void onChanged(final Coin walletBalance) {
-                WalletBalanceWidgetProvider.updateWidgets(BlockchainService.this, walletBalance,
-                        exchangeRate.getValue());
-            }
-        });
+        walletBalance.observe(this, balance -> WalletBalanceWidgetProvider.updateWidgets(BlockchainService.this,
+                balance,
+                exchangeRate.getValue()));
         if (Constants.ENABLE_EXCHANGE_RATES) {
-            exchangeRate.observe(this, new Observer<ExchangeRate>() {
-                @Override
-                public void onChanged(final ExchangeRate exchangeRate) {
-                    final Coin balance = walletBalance.getValue();
-                    if (balance != null)
-                        WalletBalanceWidgetProvider.updateWidgets(BlockchainService.this, balance, exchangeRate);
-                }
+            exchangeRate.observe(this, rate -> {
+                final Coin balance = walletBalance.getValue();
+                if (balance != null)
+                    WalletBalanceWidgetProvider.updateWidgets(BlockchainService.this, balance, rate);
             });
         }
         wallet = new WalletLiveData(application);
@@ -555,20 +542,17 @@ public class BlockchainService extends LifecycleService {
 
     private void observeLiveDatasThatAreDependentOnWalletAndBlockchain() {
         final NewTransactionLiveData newTransaction = new NewTransactionLiveData(wallet.getValue());
-        newTransaction.observe(this, new Observer<Transaction>() {
-            @Override
-            public void onChanged(final Transaction tx) {
-                final Wallet wallet = BlockchainService.this.wallet.getValue();
-                postDelayedStopSelf(5 * DateUtils.MINUTE_IN_MILLIS);
-                final Coin amount = tx.getValue(wallet);
-                if (amount.isPositive()) {
-                    final Address address = WalletUtils.getWalletAddressOfReceived(tx, wallet);
-                    final ConfidenceType confidenceType = tx.getConfidence().getConfidenceType();
-                    final boolean replaying = blockChain.getBestChainHeight() < config.getBestChainHeightEver();
-                    final boolean isReplayedTx = confidenceType == ConfidenceType.BUILDING && replaying;
-                    if (!isReplayedTx)
-                        notifyCoinsReceived(address, amount, tx.getTxId());
-                }
+        newTransaction.observe(this, tx -> {
+            final Wallet wallet = BlockchainService.this.wallet.getValue();
+            postDelayedStopSelf(5 * DateUtils.MINUTE_IN_MILLIS);
+            final Coin amount = tx.getValue(wallet);
+            if (amount.isPositive()) {
+                final Address address = WalletUtils.getWalletAddressOfReceived(tx, wallet);
+                final ConfidenceType confidenceType = tx.getConfidence().getConfidenceType();
+                final boolean replaying = blockChain.getBestChainHeight() < config.getBestChainHeightEver();
+                final boolean isReplayedTx = confidenceType == ConfidenceType.BUILDING && replaying;
+                if (!isReplayedTx)
+                    notifyCoinsReceived(address, amount, tx.getTxId());
             }
         });
         impediments = new ImpedimentsLiveData(application);

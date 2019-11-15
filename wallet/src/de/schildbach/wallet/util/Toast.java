@@ -33,12 +33,7 @@ public class Toast {
     }
 
     public final void postToast(final int textResId, final Object... formatArgs) {
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                toast(textResId, formatArgs);
-            }
-        });
+        handler.post(() -> toast(textResId, formatArgs));
     }
 
     public final void toast(final int textResId, final Object... formatArgs) {
@@ -46,12 +41,7 @@ public class Toast {
     }
 
     public final void postToast(final CharSequence text) {
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                toast(text);
-            }
-        });
+        handler.post(() -> toast(text));
     }
 
     public final void toast(final CharSequence text) {
@@ -59,12 +49,7 @@ public class Toast {
     }
 
     public final void postLongToast(final int textResId, final Object... formatArgs) {
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                longToast(textResId, formatArgs);
-            }
-        });
+        handler.post(() -> longToast(textResId, formatArgs));
     }
 
     public final void longToast(final int textResId, final Object... formatArgs) {
@@ -72,12 +57,7 @@ public class Toast {
     }
 
     public final void postLongToast(final CharSequence text) {
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                longToast(text);
-            }
-        });
+        handler.post(() -> longToast(text));
     }
 
     public final void longToast(final CharSequence text) {

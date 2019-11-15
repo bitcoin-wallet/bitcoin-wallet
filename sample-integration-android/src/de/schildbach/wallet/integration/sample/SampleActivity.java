@@ -61,18 +61,10 @@ public class SampleActivity extends Activity {
         setContentView(R.layout.sample_activity);
 
         donateButton = (Button) findViewById(R.id.sample_donate_button);
-        donateButton.setOnClickListener(new OnClickListener() {
-            public void onClick(final View v) {
-                handleDonate();
-            }
-        });
+        donateButton.setOnClickListener(v -> handleDonate());
 
         requestButton = (Button) findViewById(R.id.sample_request_button);
-        requestButton.setOnClickListener(new OnClickListener() {
-            public void onClick(final View v) {
-                handleRequest();
-            }
-        });
+        requestButton.setOnClickListener(v -> handleRequest());
 
         donateMessage = (TextView) findViewById(R.id.sample_donate_message);
     }

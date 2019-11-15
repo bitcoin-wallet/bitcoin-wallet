@@ -118,52 +118,26 @@ public final class RequestCoinsFragment extends Fragment {
         if (intent.hasExtra(RequestCoinsActivity.INTENT_EXTRA_OUTPUT_SCRIPT_TYPE))
             viewModel.freshReceiveAddress.overrideOutputScriptType((Script.ScriptType) intent
                     .getSerializableExtra(RequestCoinsActivity.INTENT_EXTRA_OUTPUT_SCRIPT_TYPE));
-        viewModel.freshReceiveAddress.observe(this, new Observer<Address>() {
-            @Override
-            public void onChanged(final Address address) {
-                log.info("request coins address: {}", address);
-            }
+        viewModel.freshReceiveAddress.observe(this, address -> log.info("request coins address: {}", address));
+        viewModel.qrCode.observe(this, qrCode -> {
+            final BitmapDrawable qrDrawable = new BitmapDrawable(getResources(), qrCode);
+            qrDrawable.setFilterBitmap(false);
+            qrView.setImageDrawable(qrDrawable);
+            qrCardView.setOnClickListener(v -> viewModel.showBitmapDialog.setValue(new Event<>(viewModel.qrCode.getValue())));
         });
-        viewModel.qrCode.observe(this, new Observer<Bitmap>() {
-            @Override
-            public void onChanged(final Bitmap qrCode) {
-                final BitmapDrawable qrDrawable = new BitmapDrawable(getResources(), qrCode);
-                qrDrawable.setFilterBitmap(false);
-                qrView.setImageDrawable(qrDrawable);
-                qrCardView.setOnClickListener(new OnClickListener() {
-                    @Override
-                    public void onClick(final View v) {
-                        viewModel.showBitmapDialog.setValue(new Event<>(viewModel.qrCode.getValue()));
-                    }
-                });
+        viewModel.paymentRequest.observe(this, paymentRequest -> {
+            final NfcAdapter nfcAdapter = RequestCoinsFragment.this.nfcAdapter;
+            final SpannableStringBuilder initiateText = new SpannableStringBuilder(
+                    getString(R.string.request_coins_fragment_initiate_request_qr));
+            if (nfcAdapter != null && nfcAdapter.isEnabled()) {
+                initiateText.append(' ').append(getString(R.string.request_coins_fragment_initiate_request_nfc));
+                nfcAdapter.setNdefPushMessage(createNdefMessage(paymentRequest), activity);
             }
+            initiateRequestView.setText(initiateText);
         });
-        viewModel.paymentRequest.observe(this, new Observer<byte[]>() {
-            @Override
-            public void onChanged(final byte[] paymentRequest) {
-                final NfcAdapter nfcAdapter = RequestCoinsFragment.this.nfcAdapter;
-                final SpannableStringBuilder initiateText = new SpannableStringBuilder(
-                        getString(R.string.request_coins_fragment_initiate_request_qr));
-                if (nfcAdapter != null && nfcAdapter.isEnabled()) {
-                    initiateText.append(' ').append(getString(R.string.request_coins_fragment_initiate_request_nfc));
-                    nfcAdapter.setNdefPushMessage(createNdefMessage(paymentRequest), activity);
-                }
-                initiateRequestView.setText(initiateText);
-            }
-        });
-        viewModel.bitcoinUri.observe(this, new Observer<Uri>() {
-            @Override
-            public void onChanged(final Uri bitcoinUri) {
-                activity.invalidateOptionsMenu();
-            }
-        });
+        viewModel.bitcoinUri.observe(this, bitcoinUri -> activity.invalidateOptionsMenu());
         if (Constants.ENABLE_EXCHANGE_RATES) {
-            viewModel.exchangeRate.observe(this, new Observer<ExchangeRate>() {
-                @Override
-                public void onChanged(final ExchangeRate exchangeRate) {
-                    amountCalculatorLink.setExchangeRate(exchangeRate.rate);
-                }
-            });
+            viewModel.exchangeRate.observe(this, exchangeRate -> amountCalculatorLink.setExchangeRate(exchangeRate.rate));
         }
         viewModel.showBitmapDialog.observe(this, new Event.Observer<Bitmap>() {
             @Override
@@ -206,20 +180,17 @@ public final class RequestCoinsFragment extends Fragment {
         acceptBluetoothPaymentView.setVisibility(
                 bluetoothAdapter != null && Bluetooth.getAddress(bluetoothAdapter) != null ? View.VISIBLE : View.GONE);
         acceptBluetoothPaymentView.setChecked(bluetoothAdapter != null && bluetoothAdapter.isEnabled());
-        acceptBluetoothPaymentView.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(final CompoundButton buttonView, final boolean isChecked) {
-                if (bluetoothAdapter != null && isChecked) {
-                    if (bluetoothAdapter.isEnabled()) {
-                        maybeStartBluetoothListening();
-                    } else {
-                        // ask for permission to enable bluetooth
-                        startActivityForResult(new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE),
-                                REQUEST_CODE_ENABLE_BLUETOOTH);
-                    }
+        acceptBluetoothPaymentView.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (bluetoothAdapter != null && isChecked) {
+                if (bluetoothAdapter.isEnabled()) {
+                    maybeStartBluetoothListening();
                 } else {
-                    stopBluetoothListening();
+                    // ask for permission to enable bluetooth
+                    startActivityForResult(new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE),
+                            REQUEST_CODE_ENABLE_BLUETOOTH);
                 }
+            } else {
+                stopBluetoothListening();
             }
         });
 

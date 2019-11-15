@@ -62,30 +62,15 @@ public final class WalletDisclaimerFragment extends Fragment {
         activityViewModel = ViewModelProviders.of(activity).get(WalletActivityViewModel.class);
         viewModel = ViewModelProviders.of(this).get(WalletDisclaimerViewModel.class);
 
-        viewModel.getBlockchainState().observe(this, new Observer<BlockchainState>() {
-            @Override
-            public void onChanged(final BlockchainState blockchainState) {
-                updateView();
-            }
-        });
-        viewModel.getDisclaimerEnabled().observe(this, new Observer<Boolean>() {
-            @Override
-            public void onChanged(final Boolean disclaimerEnabled) {
-                updateView();
-            }
-        });
+        viewModel.getBlockchainState().observe(this, blockchainState -> updateView());
+        viewModel.getDisclaimerEnabled().observe(this, disclaimerEnabled -> updateView());
     }
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
             final Bundle savedInstanceState) {
         messageView = (TextView) inflater.inflate(R.layout.wallet_disclaimer_fragment, container);
-        messageView.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                activityViewModel.showHelpDialog.setValue(new Event<>(R.string.help_safety));
-            }
-        });
+        messageView.setOnClickListener(v -> activityViewModel.showHelpDialog.setValue(new Event<>(R.string.help_safety)));
         return messageView;
     }
 

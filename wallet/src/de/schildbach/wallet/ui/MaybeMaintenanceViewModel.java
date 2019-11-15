@@ -52,18 +52,8 @@ public class MaybeMaintenanceViewModel extends AndroidViewModel {
         this.application = (WalletApplication) application;
         this.walletMaintenanceRecommended = new WalletMaintenanceRecommendedLiveData(this.application);
         this.blockchainState = new BlockchainStateLiveData(this.application);
-        showDialog.addSource(walletMaintenanceRecommended, new Observer<Boolean>() {
-            @Override
-            public void onChanged(final Boolean maintenanceRecommended) {
-                maybeShowDialog();
-            }
-        });
-        showDialog.addSource(blockchainState, new Observer<BlockchainState>() {
-            @Override
-            public void onChanged(final BlockchainState blockchainState) {
-                maybeShowDialog();
-            }
-        });
+        showDialog.addSource(walletMaintenanceRecommended, maintenanceRecommended -> maybeShowDialog());
+        showDialog.addSource(blockchainState, blockchainState -> maybeShowDialog());
     }
 
     private void maybeShowDialog() {
@@ -95,18 +85,15 @@ public class MaybeMaintenanceViewModel extends AndroidViewModel {
         @Override
         protected void load() {
             final Wallet wallet = getWallet();
-            AsyncTask.execute(new Runnable() {
-                @Override
-                public void run() {
-                    org.bitcoinj.core.Context.propagate(Constants.CONTEXT);
-                    try {
-                        final ListenableFuture<List<Transaction>> result = wallet.doMaintenance(null, false);
-                        postValue(!result.get().isEmpty());
-                    } catch (final DeterministicUpgradeRequiresPassword x) {
-                        postValue(true);
-                    } catch (final Exception x) {
-                        throw new RuntimeException(x);
-                    }
+            AsyncTask.execute(() -> {
+                org.bitcoinj.core.Context.propagate(Constants.CONTEXT);
+                try {
+                    final ListenableFuture<List<Transaction>> result = wallet.doMaintenance(null, false);
+                    postValue(!result.get().isEmpty());
+                } catch (final DeterministicUpgradeRequiresPassword x) {
+                    postValue(true);
+                } catch (final Exception x) {
+                    throw new RuntimeException(x);
                 }
             });
         }

@@ -82,32 +82,14 @@ public final class BlockListFragment extends Fragment implements BlockListAdapte
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         viewModel = ViewModelProviders.of(this).get(BlockListViewModel.class);
-        viewModel.getBlocks().observe(this, new Observer<List<StoredBlock>>() {
-            @Override
-            public void onChanged(final List<StoredBlock> blocks) {
-                maybeSubmitList();
-                viewGroup.setDisplayedChild(1);
-                viewModel.getTransactions().loadTransactions();
-            }
+        viewModel.getBlocks().observe(this, blocks -> {
+            maybeSubmitList();
+            viewGroup.setDisplayedChild(1);
+            viewModel.getTransactions().loadTransactions();
         });
-        viewModel.getTransactions().observe(this, new Observer<Set<Transaction>>() {
-            @Override
-            public void onChanged(final Set<Transaction> transactions) {
-                maybeSubmitList();
-            }
-        });
-        viewModel.getWallet().observe(this, new Observer<Wallet>() {
-            @Override
-            public void onChanged(final Wallet wallet) {
-                maybeSubmitList();
-            }
-        });
-        viewModel.getTime().observe(this, new Observer<Date>() {
-            @Override
-            public void onChanged(final Date time) {
-                maybeSubmitList();
-            }
-        });
+        viewModel.getTransactions().observe(this, transactions -> maybeSubmitList());
+        viewModel.getWallet().observe(this, wallet -> maybeSubmitList());
+        viewModel.getTime().observe(this, time -> maybeSubmitList());
 
         adapter = new BlockListAdapter(activity, this);
     }
@@ -142,18 +124,15 @@ public final class BlockListFragment extends Fragment implements BlockListAdapte
         final PopupMenu popupMenu = new PopupMenu(activity, view);
         popupMenu.inflate(R.menu.blocks_context);
         popupMenu.getMenu().findItem(R.id.blocks_context_browse).setVisible(Constants.ENABLE_BROWSE);
-        popupMenu.setOnMenuItemClickListener(new OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(final MenuItem item) {
-                if (item.getItemId() == R.id.blocks_context_browse) {
-                    final Uri blockExplorerUri = config.getBlockExplorer();
-                    log.info("Viewing block {} on {}", blockHash, blockExplorerUri);
-                    startActivity(new Intent(Intent.ACTION_VIEW,
-                            Uri.withAppendedPath(blockExplorerUri, "block/" + blockHash)));
-                    return true;
-                }
-                return false;
+        popupMenu.setOnMenuItemClickListener(item -> {
+            if (item.getItemId() == R.id.blocks_context_browse) {
+                final Uri blockExplorerUri = config.getBlockExplorer();
+                log.info("Viewing block {} on {}", blockHash, blockExplorerUri);
+                startActivity(new Intent(Intent.ACTION_VIEW,
+                        Uri.withAppendedPath(blockExplorerUri, "block/" + blockHash)));
+                return true;
             }
+            return false;
         });
         popupMenu.show();
     }

@@ -131,28 +131,20 @@ public class RestoreWalletDialogFragment extends DialogFragment {
                 FailureDialogFragment.showDialog(fragmentManager, message, viewModel.backupUri.getValue());
             }
         });
-        viewModel.backupUri.observe(this, new Observer<Uri>() {
-            @Override
-            public void onChanged(final Uri uri) {
-                final String backupProvider = WalletUtils.uriToProvider(uri);
-                log.info("picked '{}'{}", uri, backupProvider != null ? " (" + backupProvider + ")" : "");
-                final Cursor cursor = contentResolver.query(uri, null, null, null, null, null);
-                if (cursor != null) {
-                    try {
-                        if (cursor.moveToFirst())
-                            viewModel.displayName.setValue(cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)));
-                    } finally {
-                        cursor.close();
-                    }
+        viewModel.backupUri.observe(this, uri -> {
+            final String backupProvider = WalletUtils.uriToProvider(uri);
+            log.info("picked '{}'{}", uri, backupProvider != null ? " (" + backupProvider + ")" : "");
+            final Cursor cursor = contentResolver.query(uri, null, null, null, null, null);
+            if (cursor != null) {
+                try {
+                    if (cursor.moveToFirst())
+                        viewModel.displayName.setValue(cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)));
+                } finally {
+                    cursor.close();
                 }
             }
         });
-        viewModel.displayName.observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(final String name) {
-                messageView.setText(name);
-            }
-        });
+        viewModel.displayName.observe(this, name -> messageView.setText(name));
 
         final Bundle args = getArguments();
         if (args != null) {
@@ -197,52 +189,37 @@ public class RestoreWalletDialogFragment extends DialogFragment {
         final DialogBuilder builder = new DialogBuilder(activity);
         builder.setTitle(R.string.import_keys_dialog_title);
         builder.setView(view);
-        builder.setPositiveButton(R.string.import_keys_dialog_button_import, new OnClickListener() {
-            @Override
-            public void onClick(final DialogInterface dialog, final int which) {
-                final String password = passwordView.getText().toString().trim();
-                passwordView.setText(null); // get rid of it asap
-                handleRestore(password);
-            }
+        builder.setPositiveButton(R.string.import_keys_dialog_button_import, (dialog, which) -> {
+            final String password = passwordView.getText().toString().trim();
+            passwordView.setText(null); // get rid of it asap
+            handleRestore(password);
         });
-        builder.setNegativeButton(R.string.button_cancel, new OnClickListener() {
-            @Override
-            public void onClick(final DialogInterface dialog, final int which) {
-                passwordView.setText(null); // get rid of it asap
-                maybeFinishActivity();
-            }
+        builder.setNegativeButton(R.string.button_cancel, (dialog, which) -> {
+            passwordView.setText(null); // get rid of it asap
+            maybeFinishActivity();
         });
-        builder.setOnCancelListener(new OnCancelListener() {
-            @Override
-            public void onCancel(final DialogInterface dialog) {
-                passwordView.setText(null); // get rid of it asap
-                maybeFinishActivity();
-            }
+        builder.setOnCancelListener(dialog -> {
+            passwordView.setText(null); // get rid of it asap
+            maybeFinishActivity();
         });
 
         final AlertDialog dialog = builder.create();
 
-        dialog.setOnShowListener(new OnShowListener() {
-            @Override
-            public void onShow(final DialogInterface d) {
-                final ImportDialogButtonEnablerListener dialogButtonEnabler = new ImportDialogButtonEnablerListener(
-                        passwordView, dialog) {
-                    @Override
-                    protected boolean hasFile() {
-                        return true;
-                    }
-                };
-                passwordView.addTextChangedListener(dialogButtonEnabler);
-                showView.setOnCheckedChangeListener(new ShowPasswordCheckListener(passwordView));
+        dialog.setOnShowListener(d -> {
+            final ImportDialogButtonEnablerListener dialogButtonEnabler = new ImportDialogButtonEnablerListener(
+                    passwordView, dialog) {
+                @Override
+                protected boolean hasFile() {
+                    return true;
+                }
+            };
+            passwordView.addTextChangedListener(dialogButtonEnabler);
+            showView.setOnCheckedChangeListener(new ShowPasswordCheckListener(passwordView));
 
-                viewModel.balance.observe(RestoreWalletDialogFragment.this, new Observer<Coin>() {
-                    @Override
-                    public void onChanged(final Coin balance) {
-                        final boolean hasCoins = balance.signum() > 0;
-                        replaceWarningView.setVisibility(hasCoins ? View.VISIBLE : View.GONE);
-                    }
-                });
-            }
+            viewModel.balance.observe(RestoreWalletDialogFragment.this, balance -> {
+                final boolean hasCoins = balance.signum() > 0;
+                replaceWarningView.setVisibility(hasCoins ? View.VISIBLE : View.GONE);
+            });
         });
 
         return dialog;
@@ -315,12 +292,9 @@ public class RestoreWalletDialogFragment extends DialogFragment {
                 message.append(getString(R.string.restore_wallet_dialog_success_encrypted));
             }
             dialog.setMessage(message);
-            dialog.setNeutralButton(R.string.button_ok, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(final DialogInterface dialog, final int id) {
-                    BlockchainService.resetBlockchain(activity);
-                    activity.finish();
-                }
+            dialog.setNeutralButton(R.string.button_ok, (dialog1, id) -> {
+                BlockchainService.resetBlockchain(activity);
+                activity.finish();
             });
             return dialog.create();
         }
@@ -355,26 +329,15 @@ public class RestoreWalletDialogFragment extends DialogFragment {
             final DialogBuilder dialog = DialogBuilder.warn(getContext(),
                     R.string.import_export_keys_dialog_failure_title);
             dialog.setMessage(getString(R.string.import_keys_dialog_failure, exceptionMessage));
-            dialog.setPositiveButton(R.string.button_dismiss, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(final DialogInterface dialog, final int which) {
-                    if (activity instanceof RestoreWalletFromExternalActivity)
-                        activity.finish();
-                }
+            dialog.setPositiveButton(R.string.button_dismiss, (dialog13, which) -> {
+                if (activity instanceof RestoreWalletFromExternalActivity)
+                    activity.finish();
             });
-            dialog.setOnCancelListener(new OnCancelListener() {
-                @Override
-                public void onCancel(final DialogInterface dialog) {
-                    if (activity instanceof RestoreWalletFromExternalActivity)
-                        activity.finish();
-                }
+            dialog.setOnCancelListener(dialog12 -> {
+                if (activity instanceof RestoreWalletFromExternalActivity)
+                    activity.finish();
             });
-            dialog.setNegativeButton(R.string.button_retry, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(final DialogInterface dialog, final int id) {
-                    RestoreWalletDialogFragment.show(getFragmentManager(), backupUri);
-                }
-            });
+            dialog.setNegativeButton(R.string.button_retry, (dialog1, id) -> RestoreWalletDialogFragment.show(getFragmentManager(), backupUri));
             return dialog.create();
         }
     }

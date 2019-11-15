@@ -91,12 +91,7 @@ public class WalletAddressesViewModel extends AndroidViewModel {
 
         private void loadAddresses() {
             final Wallet wallet = getWallet();
-            AsyncTask.execute(new Runnable() {
-                @Override
-                public void run() {
-                    postValue(wallet.getIssuedReceiveAddresses());
-                }
-            });
+            AsyncTask.execute(() -> postValue(wallet.getIssuedReceiveAddresses()));
         }
     }
 
@@ -124,28 +119,22 @@ public class WalletAddressesViewModel extends AndroidViewModel {
 
         private void loadAddresses() {
             final Wallet wallet = getWallet();
-            AsyncTask.execute(new Runnable() {
-                @Override
-                public void run() {
-                    final List<ECKey> importedKeys = wallet.getImportedKeys();
-                    Collections.sort(importedKeys, new Comparator<ECKey>() {
-                        @Override
-                        public int compare(final ECKey lhs, final ECKey rhs) {
-                            final boolean lhsRotating = wallet.isKeyRotating(lhs);
-                            final boolean rhsRotating = wallet.isKeyRotating(rhs);
+            AsyncTask.execute(() -> {
+                final List<ECKey> importedKeys = wallet.getImportedKeys();
+                Collections.sort(importedKeys, (lhs, rhs) -> {
+                    final boolean lhsRotating = wallet.isKeyRotating(lhs);
+                    final boolean rhsRotating = wallet.isKeyRotating(rhs);
 
-                            if (lhsRotating != rhsRotating)
-                                return lhsRotating ? 1 : -1;
-                            if (lhs.getCreationTimeSeconds() != rhs.getCreationTimeSeconds())
-                                return lhs.getCreationTimeSeconds() > rhs.getCreationTimeSeconds() ? 1 : -1;
-                            return 0;
-                        }
-                    });
-                    final List<Address> importedAddresses = new ArrayList<>();
-                    for (final ECKey key : importedKeys)
-                        importedAddresses.add(LegacyAddress.fromKey(Constants.NETWORK_PARAMETERS, key));
-                    postValue(importedAddresses);
-                }
+                    if (lhsRotating != rhsRotating)
+                        return lhsRotating ? 1 : -1;
+                    if (lhs.getCreationTimeSeconds() != rhs.getCreationTimeSeconds())
+                        return lhs.getCreationTimeSeconds() > rhs.getCreationTimeSeconds() ? 1 : -1;
+                    return 0;
+                });
+                final List<Address> importedAddresses = new ArrayList<>();
+                for (final ECKey key : importedKeys)
+                    importedAddresses.add(LegacyAddress.fromKey(Constants.NETWORK_PARAMETERS, key));
+                postValue(importedAddresses);
             });
         }
     }

@@ -73,18 +73,10 @@ public abstract class AbstractWalletLiveData<T> extends ThrottelingLiveData<T> {
         return wallet;
     }
 
-    private final OnWalletLoadedListener onWalletLoadedListener = new OnWalletLoadedListener() {
-        @Override
-        public void onWalletLoaded(final Wallet wallet) {
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
-                    AbstractWalletLiveData.this.wallet = wallet;
-                    onWalletActive(wallet);
-                }
-            });
-        }
-    };
+    private final OnWalletLoadedListener onWalletLoadedListener = wallet -> handler.post(() -> {
+        AbstractWalletLiveData.this.wallet = wallet;
+        onWalletActive(wallet);
+    });
 
     private final BroadcastReceiver walletReferenceChangeReceiver = new BroadcastReceiver() {
         @Override

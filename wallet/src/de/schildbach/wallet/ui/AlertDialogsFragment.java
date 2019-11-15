@@ -152,121 +152,118 @@ public class AlertDialogsFragment extends Fragment {
         url.addQueryParameter("current", Integer.toString(packageInfo.versionCode));
         final HttpUrl versionUrl = url.build();
 
-        AsyncTask.execute(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    log.debug("querying \"{}\"...", versionUrl);
-                    final Request.Builder request = new Request.Builder();
-                    request.url(versionUrl);
-                    request.header("Accept-Charset", "utf-8");
-                    final String userAgent = application.httpUserAgent();
-                    if (userAgent != null)
-                        request.header("User-Agent", userAgent);
+        AsyncTask.execute(() -> {
+            try {
+                log.debug("querying \"{}\"...", versionUrl);
+                final Request.Builder request = new Request.Builder();
+                request.url(versionUrl);
+                request.header("Accept-Charset", "utf-8");
+                final String userAgent = application.httpUserAgent();
+                if (userAgent != null)
+                    request.header("User-Agent", userAgent);
 
-                    final Builder httpClientBuilder = Constants.HTTP_CLIENT.newBuilder();
-                    httpClientBuilder.connectionSpecs(Arrays.asList(ConnectionSpec.RESTRICTED_TLS));
-                    final Call call = httpClientBuilder.build().newCall(request.build());
+                final Builder httpClientBuilder = Constants.HTTP_CLIENT.newBuilder();
+                httpClientBuilder.connectionSpecs(Arrays.asList(ConnectionSpec.RESTRICTED_TLS));
+                final Call call = httpClientBuilder.build().newCall(request.build());
 
-                    final Response response = call.execute();
-                    if (response.isSuccessful()) {
-                        // Maybe show timeskew alert.
-                        final Date serverDate = response.headers().getDate("Date");
-                        if (serverDate != null) {
-                            final long diffMinutes = Math.abs(
-                                    (System.currentTimeMillis() - serverDate.getTime()) / DateUtils.MINUTE_IN_MILLIS);
-                            if (diffMinutes >= 60) {
-                                log.info("according to \"" + versionUrl + "\", system clock is off by " + diffMinutes
-                                        + " minutes");
-                                viewModel.showTimeskewAlertDialog.postValue(new Event<>(diffMinutes));
+                final Response response = call.execute();
+                if (response.isSuccessful()) {
+                    // Maybe show timeskew alert.
+                    final Date serverDate = response.headers().getDate("Date");
+                    if (serverDate != null) {
+                        final long diffMinutes = Math.abs(
+                                (System.currentTimeMillis() - serverDate.getTime()) / DateUtils.MINUTE_IN_MILLIS);
+                        if (diffMinutes >= 60) {
+                            log.info("according to \"" + versionUrl + "\", system clock is off by " + diffMinutes
+                                    + " minutes");
+                            viewModel.showTimeskewAlertDialog.postValue(new Event<>(diffMinutes));
+                            return;
+                        }
+                    }
+
+                    // Read properties from server.
+                    final Map<String, String> properties = new HashMap<>();
+                    try (final BufferedReader reader = new BufferedReader(response.body().charStream())) {
+                        while (true) {
+                            final String line = reader.readLine();
+                            if (line == null)
+                                break;
+                            if (line.charAt(0) == '#')
+                                continue;
+
+                            final Splitter splitter = Splitter.on('=').trimResults();
+                            final Iterator<String> split = splitter.split(line).iterator();
+                            if (!split.hasNext())
+                                continue;
+                            final String key = split.next();
+                            if (!split.hasNext()) {
+                                properties.put(null, key);
+                                continue;
+                            }
+                            final String value = split.next();
+                            if (!split.hasNext()) {
+                                properties.put(key.toLowerCase(Locale.US), value);
+                                continue;
+                            }
+                            log.info("Ignoring line: {}", line);
+                        }
+                    }
+
+                    // Maybe show version alert.
+                    String version = null;
+                    if (installer != null)
+                        version = properties.get("version." + installer.name().toLowerCase(Locale.US));
+                    if (version == null)
+                        version = properties.get("version");
+                    if (version == null)
+                        version = properties.get(null);
+                    if (version != null) {
+                        log.info("according to \"{}\", strongly recommended minimum app version is \"{}\"",
+                                versionUrl, version);
+                        final Integer recommendedVersionCode = Ints.tryParse(version);
+                        if (recommendedVersionCode != null) {
+                            if (recommendedVersionCode > application.packageInfo().versionCode) {
+                                viewModel.showVersionAlertDialog.postValue(Event.simple());
                                 return;
                             }
                         }
-
-                        // Read properties from server.
-                        final Map<String, String> properties = new HashMap<>();
-                        try (final BufferedReader reader = new BufferedReader(response.body().charStream())) {
-                            while (true) {
-                                final String line = reader.readLine();
-                                if (line == null)
-                                    break;
-                                if (line.charAt(0) == '#')
-                                    continue;
-
-                                final Splitter splitter = Splitter.on('=').trimResults();
-                                final Iterator<String> split = splitter.split(line).iterator();
-                                if (!split.hasNext())
-                                    continue;
-                                final String key = split.next();
-                                if (!split.hasNext()) {
-                                    properties.put(null, key);
-                                    continue;
-                                }
-                                final String value = split.next();
-                                if (!split.hasNext()) {
-                                    properties.put(key.toLowerCase(Locale.US), value);
-                                    continue;
-                                }
-                                log.info("Ignoring line: {}", line);
-                            }
-                        }
-
-                        // Maybe show version alert.
-                        String version = null;
-                        if (installer != null)
-                            version = properties.get("version." + installer.name().toLowerCase(Locale.US));
-                        if (version == null)
-                            version = properties.get("version");
-                        if (version == null)
-                            version = properties.get(null);
-                        if (version != null) {
-                            log.info("according to \"{}\", strongly recommended minimum app version is \"{}\"",
-                                    versionUrl, version);
-                            final Integer recommendedVersionCode = Ints.tryParse(version);
-                            if (recommendedVersionCode != null) {
-                                if (recommendedVersionCode > application.packageInfo().versionCode) {
-                                    viewModel.showVersionAlertDialog.postValue(Event.simple());
-                                    return;
-                                }
-                            }
-                        }
-
-                        // Maybe show insecure bluetooth alert.
-                        final String minSecurityPatchLevel = properties.get("min.security_patch.bluetooth");
-                        if (minSecurityPatchLevel != null) {
-                            log.info("according to \"{}\", minimum security patch level for bluetooth is {}",
-                                    versionUrl, minSecurityPatchLevel);
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
-                                    && Build.VERSION.SECURITY_PATCH.compareTo(minSecurityPatchLevel) < 0) {
-                                final BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-                                if (bluetoothAdapter != null && BluetoothAdapter.getDefaultAdapter().isEnabled()) {
-                                    viewModel.showInsecureBluetoothAlertDialog
-                                            .postValue(new Event<>(minSecurityPatchLevel));
-                                    return;
-                                }
-                            }
-                        }
-
-                        // Maybe show low storage alert.
-                        final Intent stickyIntent = activity.registerReceiver(null,
-                                new IntentFilter(Intent.ACTION_DEVICE_STORAGE_LOW));
-                        if (stickyIntent != null) {
-                            viewModel.showLowStorageAlertDialog.postValue(Event.simple());
-                            return;
-                        }
-
-                        log.info("all good, no alert dialog shown");
                     }
-                } catch (final Exception x) {
-                    if (x instanceof UnknownHostException || x instanceof SocketException
-                            || x instanceof SocketTimeoutException) {
-                        // swallow
-                        log.debug("problem reading", x);
-                    } else {
-                        CrashReporter.saveBackgroundTrace(new RuntimeException(versionUrl.toString(), x),
-                                application.packageInfo());
-                        log.warn("problem parsing", x);
+
+                    // Maybe show insecure bluetooth alert.
+                    final String minSecurityPatchLevel = properties.get("min.security_patch.bluetooth");
+                    if (minSecurityPatchLevel != null) {
+                        log.info("according to \"{}\", minimum security patch level for bluetooth is {}",
+                                versionUrl, minSecurityPatchLevel);
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
+                                && Build.VERSION.SECURITY_PATCH.compareTo(minSecurityPatchLevel) < 0) {
+                            final BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+                            if (bluetoothAdapter != null && BluetoothAdapter.getDefaultAdapter().isEnabled()) {
+                                viewModel.showInsecureBluetoothAlertDialog
+                                        .postValue(new Event<>(minSecurityPatchLevel));
+                                return;
+                            }
+                        }
                     }
+
+                    // Maybe show low storage alert.
+                    final Intent stickyIntent = activity.registerReceiver(null,
+                            new IntentFilter(Intent.ACTION_DEVICE_STORAGE_LOW));
+                    if (stickyIntent != null) {
+                        viewModel.showLowStorageAlertDialog.postValue(Event.simple());
+                        return;
+                    }
+
+                    log.info("all good, no alert dialog shown");
+                }
+            } catch (final Exception x) {
+                if (x instanceof UnknownHostException || x instanceof SocketException
+                        || x instanceof SocketTimeoutException) {
+                    // swallow
+                    log.debug("problem reading", x);
+                } else {
+                    CrashReporter.saveBackgroundTrace(new RuntimeException(versionUrl.toString(), x),
+                            application.packageInfo());
+                    log.warn("problem parsing", x);
                 }
             }
         });
@@ -277,15 +274,12 @@ public class AlertDialogsFragment extends Fragment {
         final DialogBuilder dialog = DialogBuilder.warn(activity, R.string.wallet_timeskew_dialog_title);
         dialog.setMessage(getString(R.string.wallet_timeskew_dialog_msg, diffMinutes));
         if (packageManager.resolveActivity(settingsIntent, 0) != null) {
-            dialog.setPositiveButton(R.string.button_settings, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(final DialogInterface dialog, final int id) {
-                    try {
-                        startActivity(settingsIntent);
-                        activity.finish();
-                    } catch (final Exception x) {
-                        viewModel.showSettingsFailedDialog.setValue(new Event<>(x.getMessage()));
-                    }
+            dialog.setPositiveButton(R.string.button_settings, (d, id) -> {
+                try {
+                    startActivity(settingsIntent);
+                    activity.finish();
+                } catch (final Exception x) {
+                    viewModel.showSettingsFailedDialog.setValue(new Event<>(x.getMessage()));
                 }
             });
         }
@@ -307,23 +301,17 @@ public class AlertDialogsFragment extends Fragment {
         dialog.setMessage(message);
 
         if (packageManager.resolveActivity(marketIntent, 0) != null) {
-            dialog.setPositiveButton(installer.displayName, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(final DialogInterface dialog, final int id) {
-                    startActivity(marketIntent);
-                    activity.finish();
-                }
+            dialog.setPositiveButton(installer.displayName, (d, id) -> {
+                startActivity(marketIntent);
+                activity.finish();
             });
         }
 
         if (packageManager.resolveActivity(binaryIntent, 0) != null) {
             dialog.setNeutralButton(R.string.wallet_version_dialog_button_binary,
-                    new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(final DialogInterface dialog, final int id) {
-                            startActivity(binaryIntent);
-                            activity.finish();
-                        }
+                    (d, id) -> {
+                        startActivity(binaryIntent);
+                        activity.finish();
                     });
         }
 
@@ -337,15 +325,12 @@ public class AlertDialogsFragment extends Fragment {
                 R.string.alert_dialogs_fragment_insecure_bluetooth_title);
         dialog.setMessage(getString(R.string.alert_dialogs_fragment_insecure_bluetooth_message, minSecurityPatch));
         if (packageManager.resolveActivity(settingsIntent, 0) != null) {
-            dialog.setPositiveButton(R.string.button_settings, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(final DialogInterface dialog, final int id) {
-                    try {
-                        startActivity(settingsIntent);
-                        activity.finish();
-                    } catch (final Exception x) {
-                        viewModel.showSettingsFailedDialog.setValue(new Event<>(x.getMessage()));
-                    }
+            dialog.setPositiveButton(R.string.button_settings, (d, id) -> {
+                try {
+                    startActivity(settingsIntent);
+                    activity.finish();
+                } catch (final Exception x) {
+                    viewModel.showSettingsFailedDialog.setValue(new Event<>(x.getMessage()));
                 }
             });
         }
@@ -359,15 +344,12 @@ public class AlertDialogsFragment extends Fragment {
         dialog.setMessage(R.string.wallet_low_storage_dialog_msg);
         if (packageManager.resolveActivity(settingsIntent, 0) != null) {
             dialog.setPositiveButton(R.string.wallet_low_storage_dialog_button_apps,
-                    new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(final DialogInterface dialog, final int id) {
-                            try {
-                                startActivity(settingsIntent);
-                                activity.finish();
-                            } catch (final Exception x) {
-                                viewModel.showSettingsFailedDialog.setValue(new Event<>(x.getMessage()));
-                            }
+                    (d, id) -> {
+                        try {
+                            startActivity(settingsIntent);
+                            activity.finish();
+                        } catch (final Exception x) {
+                            viewModel.showSettingsFailedDialog.setValue(new Event<>(x.getMessage()));
                         }
                     });
         }

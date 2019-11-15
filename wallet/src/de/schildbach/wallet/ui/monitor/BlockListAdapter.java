@@ -209,12 +209,7 @@ public class BlockListAdapter extends ListAdapter<BlockListAdapter.ListItem, Blo
 
         final OnClickListener onClickListener = this.onClickListener;
         if (onClickListener != null) {
-            holder.menuView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(final View v) {
-                    onClickListener.onBlockMenuClick(v, listItem.blockHash);
-                }
-            });
+            holder.menuView.setOnClickListener(v -> onClickListener.onBlockMenuClick(v, listItem.blockHash));
         }
     }
 

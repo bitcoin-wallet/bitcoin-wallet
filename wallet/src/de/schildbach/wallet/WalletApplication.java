@@ -112,12 +112,9 @@ public class WalletApplication extends Application {
 
         final PackageInfo packageInfo = packageInfo();
 
-        Threading.uncaughtExceptionHandler = new Thread.UncaughtExceptionHandler() {
-            @Override
-            public void uncaughtException(final Thread thread, final Throwable throwable) {
-                log.info("bitcoinj uncaught exception", throwable);
-                CrashReporter.saveBackgroundTrace(throwable, packageInfo);
-            }
+        Threading.uncaughtExceptionHandler = (thread, throwable) -> {
+            log.info("bitcoinj uncaught exception", throwable);
+            CrashReporter.saveBackgroundTrace(throwable, packageInfo);
         };
 
         activityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
@@ -145,12 +142,7 @@ public class WalletApplication extends Application {
     public Wallet getWallet() {
         final Stopwatch watch = Stopwatch.createStarted();
         final SettableFuture<Wallet> future = SettableFuture.create();
-        getWalletAsync(new OnWalletLoadedListener() {
-            @Override
-            public void onWalletLoaded(Wallet wallet) {
-                future.set(wallet);
-            }
-        });
+        getWalletAsync(wallet -> future.set(wallet));
         try {
             return future.get();
         } catch (final InterruptedException | ExecutionException x) {
