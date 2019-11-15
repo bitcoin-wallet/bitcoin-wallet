@@ -137,14 +137,13 @@ public class RestoreWalletDialogFragment extends DialogFragment {
                 final String backupProvider = WalletUtils.uriToProvider(uri);
                 log.info("picked '{}'{}", uri, backupProvider != null ? " (" + backupProvider + ")" : "");
                 final Cursor cursor = contentResolver.query(uri, null, null, null, null, null);
-                try {
-                    if (cursor != null && cursor.moveToFirst()) {
-                        final String displayName =
-                                cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
-                        viewModel.displayName.setValue(displayName);
+                if (cursor != null) {
+                    try {
+                        if (cursor.moveToFirst())
+                            viewModel.displayName.setValue(cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)));
+                    } finally {
+                        cursor.close();
                     }
-                } finally {
-                    cursor.close();
                 }
             }
         });
