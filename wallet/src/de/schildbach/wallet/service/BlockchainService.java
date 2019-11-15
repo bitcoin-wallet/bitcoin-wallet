@@ -800,7 +800,7 @@ public class BlockchainService extends LifecycleService {
                 Constants.NOTIFICATION_CHANNEL_ID_ONGOING);
         notification.setColor(ContextCompat.getColor(this, R.color.fg_network_significant));
         notification.setSmallIcon(R.drawable.stat_notify_peers, Math.min(numPeers, 4));
-        notification.setContentTitle(getString(R.string.app_name));
+        notification.setContentTitle(getString(R.string.notification_connectivity_syncing_message));
         notification.setContentText(getString(R.string.notification_peers_connected_msg, numPeers));
         notification.setContentIntent(PendingIntent.getActivity(BlockchainService.this, 0,
                 new Intent(BlockchainService.this, WalletActivity.class), 0));

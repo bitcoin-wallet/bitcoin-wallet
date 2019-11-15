@@ -305,6 +305,7 @@
     <string name="about_faq_title">FAQ</string>
     <string name="about_faq_summary">Frequently asked questions about the app</string>
     <string name="notification_coins_received_msg">Received %s</string>
+    <string name="notification_connectivity_syncing_message">Synchronizing with the network…</string>
     <string name="notification_peers_connected_msg">%d peers connected</string>
     <string name="notification_inactivity_title">You\'ve still got Bitcoins on this device!</string>
     <string name="notification_inactivity_message">Remember your balance of %s will be lost if you uninstall the Bitcoin Wallet app without sending it away first.</string>
