@@ -42,6 +42,7 @@ import android.os.Looper;
 import androidx.annotation.Nullable;
 import okhttp3.CacheControl;
 import okhttp3.Call;
+import okhttp3.Headers;
 import okhttp3.Request;
 import okhttp3.Response;
 
@@ -86,9 +87,11 @@ public abstract class RequestPaymentRequestTask {
                 final Request.Builder request = new Request.Builder();
                 request.url(url);
                 request.cacheControl(new CacheControl.Builder().noCache().build());
-                request.header("Accept", PaymentProtocol.MIMETYPE_PAYMENTREQUEST);
+                final Headers.Builder headers = new Headers.Builder();
+                headers.add("Accept", PaymentProtocol.MIMETYPE_PAYMENTREQUEST);
                 if (userAgent != null)
-                    request.header("User-Agent", userAgent);
+                    headers.add("User-Agent", userAgent);
+                request.headers(headers.build());
 
                 final Call call = Constants.HTTP_CLIENT.newCall(request.build());
                 try {

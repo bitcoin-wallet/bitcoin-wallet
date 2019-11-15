@@ -40,6 +40,7 @@ import android.os.Looper;
 import androidx.annotation.Nullable;
 import okhttp3.CacheControl;
 import okhttp3.Call;
+import okhttp3.Headers;
 import okhttp3.MediaType;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -89,9 +90,11 @@ public abstract class DirectPaymentTask {
                 final Request.Builder request = new Request.Builder();
                 request.url(url);
                 request.cacheControl(new CacheControl.Builder().noCache().build());
-                request.header("Accept", PaymentProtocol.MIMETYPE_PAYMENTACK);
+                final Headers.Builder headers = new Headers.Builder();
+                headers.add("Accept", PaymentProtocol.MIMETYPE_PAYMENTACK);
                 if (userAgent != null)
-                    request.header("User-Agent", userAgent);
+                    headers.add("User-Agent", userAgent);
+                request.headers(headers.build());
                 request.post(new RequestBody() {
                     @Override
                     public MediaType contentType() {

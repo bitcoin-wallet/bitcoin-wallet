@@ -59,6 +59,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProviders;
 import okhttp3.Call;
 import okhttp3.ConnectionSpec;
+import okhttp3.Headers;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient.Builder;
 import okhttp3.Request;
@@ -157,10 +158,12 @@ public class AlertDialogsFragment extends Fragment {
                 log.debug("querying \"{}\"...", versionUrl);
                 final Request.Builder request = new Request.Builder();
                 request.url(versionUrl);
-                request.header("Accept-Charset", "utf-8");
+                final Headers.Builder headers = new Headers.Builder();
+                headers.add("Accept-Charset", "utf-8");
                 final String userAgent = application.httpUserAgent();
                 if (userAgent != null)
-                    request.header("User-Agent", userAgent);
+                    headers.add("User-Agent", userAgent);
+                request.headers(headers.build());
 
                 final Builder httpClientBuilder = Constants.HTTP_CLIENT.newBuilder();
                 httpClientBuilder.connectionSpecs(Arrays.asList(ConnectionSpec.RESTRICTED_TLS));
