@@ -1,3 +1,7 @@
+v7.32
+
+* Enabled Java 8 language features.
+
 v7.30-v7.31
 
 * Use storage access framework for restoring wallet backups.
