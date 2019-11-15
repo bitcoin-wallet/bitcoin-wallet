@@ -747,9 +747,6 @@ public class BlockchainService extends LifecycleService {
 
         application.autosaveWalletNow();
 
-        log.debug("releasing wakelock");
-        wakeLock.release();
-
         if (resetBlockchainOnShutdown) {
             log.info("removing blockchain");
             blockChainFile.delete();
@@ -761,6 +758,9 @@ public class BlockchainService extends LifecycleService {
         StartBlockchainService.schedule(application, false);
 
         stopForeground(true);
+
+        log.debug("releasing wakelock");
+        wakeLock.release();
 
         super.onDestroy();
 
