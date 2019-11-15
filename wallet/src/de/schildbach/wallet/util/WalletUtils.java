@@ -229,6 +229,8 @@ public class WalletUtils {
         final String host = uri.getHost();
         if ("com.google.android.apps.docs.storage".equals(host) || "com.google.android.apps.docs.storage.legacy".equals(host))
             return "Google Drive";
+        if ("org.nextcloud.documents".equals(host))
+            return "Nextcloud";
         if ("com.box.android.documents".equals(host))
             return "Box";
         if ("com.android.providers.downloads.documents".equals(host))
