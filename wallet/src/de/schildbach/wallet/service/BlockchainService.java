@@ -30,6 +30,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
 import android.os.Build;
@@ -128,6 +129,8 @@ public class BlockchainService extends LifecycleService {
     private final Handler delayHandler = new Handler();
     private WakeLock wakeLock;
 
+    private final NotificationCompat.Builder connectivityNotification = new NotificationCompat.Builder(BlockchainService.this,
+            Constants.NOTIFICATION_CHANNEL_ID_ONGOING);
     private PeerConnectivityListener peerConnectivityListener;
     private ImpedimentsLiveData impediments;
     private int notificationCount = 0;
@@ -136,6 +139,7 @@ public class BlockchainService extends LifecycleService {
     private long serviceCreatedAt;
     private boolean resetBlockchainOnShutdown = false;
 
+    private static final int CONNECTIVITY_NOTIFICATION_PROGRESS_MIN_BLOCKS = 10;
     private static final long BLOCKCHAIN_STATE_BROADCAST_THROTTLE_MS = DateUtils.SECOND_IN_MILLIS;
 
     public static final String ACTION_PEER_STATE = BlockchainService.class.getPackage().getName() + ".peer_state";
@@ -306,37 +310,48 @@ public class BlockchainService extends LifecycleService {
         }
     }
 
-    private final PeerDataEventListener blockchainDownloadListener = new AbstractPeerDataEventListener() {
+    private final PeerDataEventListener blockchainDownloadListener = new BlockchainDownloadListener();
+
+    private class BlockchainDownloadListener extends AbstractPeerDataEventListener implements Runnable {
         private final AtomicLong lastMessageTime = new AtomicLong(0);
+        private final AtomicInteger blocksToDownload = new AtomicInteger();
+        private final AtomicInteger blocksLeft = new AtomicInteger();
 
         @Override
-        public void onChainDownloadStarted(final Peer peer, final int blocksLeft) {
+        public void onChainDownloadStarted(final Peer peer, final int blocksToDownload) {
             postDelayedStopSelf(DateUtils.MINUTE_IN_MILLIS / 2);
+            this.blocksToDownload.set(blocksToDownload);
+            if (blocksToDownload >= CONNECTIVITY_NOTIFICATION_PROGRESS_MIN_BLOCKS)
+                startForegroundProgress(blocksToDownload, blocksToDownload);
         }
 
         @Override
         public void onBlocksDownloaded(final Peer peer, final Block block, final FilteredBlock filteredBlock,
                 final int blocksLeft) {
-            postDelayedStopSelf(DateUtils.MINUTE_IN_MILLIS / 2);
+            this.blocksLeft.set(blocksLeft);
 
-            delayHandler.removeCallbacks(runnable);
+            delayHandler.removeCallbacks(this);
             final long now = System.currentTimeMillis();
             if (now - lastMessageTime.get() > BLOCKCHAIN_STATE_BROADCAST_THROTTLE_MS)
-                delayHandler.post(runnable);
+                delayHandler.post(this);
             else
-                delayHandler.postDelayed(runnable, BLOCKCHAIN_STATE_BROADCAST_THROTTLE_MS);
+                delayHandler.postDelayed(this, BLOCKCHAIN_STATE_BROADCAST_THROTTLE_MS);
         }
 
-        private final Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                lastMessageTime.set(System.currentTimeMillis());
+        @Override
+        public void run() {
+            lastMessageTime.set(System.currentTimeMillis());
 
-                config.maybeIncrementBestChainHeightEver(blockChain.getChainHead().getHeight());
-                broadcastBlockchainState();
-            }
-        };
-    };
+            postDelayedStopSelf(DateUtils.MINUTE_IN_MILLIS / 2);
+            final int blocksToDownload = this.blocksToDownload.get();
+            final int blocksLeft = this.blocksLeft.get();
+            if (blocksToDownload >= CONNECTIVITY_NOTIFICATION_PROGRESS_MIN_BLOCKS)
+                startForegroundProgress(blocksToDownload, blocksLeft);
+
+            config.maybeIncrementBestChainHeightEver(blockChain.getChainHead().getHeight());
+            broadcastBlockchainState();
+        }
+    }
 
     private static class ImpedimentsLiveData extends LiveData<Set<Impediment>> {
         private final WalletApplication application;
@@ -467,6 +482,14 @@ public class BlockchainService extends LifecycleService {
         config = application.getConfiguration();
         addressBookDao = AppDatabase.getDatabase(application).addressBookDao();
         blockChainFile = new File(getDir("blockstore", Context.MODE_PRIVATE), Constants.Files.BLOCKCHAIN_FILENAME);
+
+        connectivityNotification.setColor(ContextCompat.getColor(this, R.color.fg_network_significant));
+        connectivityNotification.setContentTitle(getString(R.string.notification_connectivity_syncing_message));
+        connectivityNotification.setContentIntent(PendingIntent.getActivity(BlockchainService.this, 0,
+                new Intent(BlockchainService.this, WalletActivity.class), 0));
+        connectivityNotification.setWhen(System.currentTimeMillis());
+        connectivityNotification.setOngoing(true);
+        connectivityNotification.setPriority(NotificationCompat.PRIORITY_LOW);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
             registerReceiver(deviceIdleModeReceiver, new IntentFilter(PowerManager.ACTION_DEVICE_IDLE_MODE_CHANGED));
@@ -796,18 +819,14 @@ public class BlockchainService extends LifecycleService {
     }
 
     private void startForeground(final int numPeers) {
-        final NotificationCompat.Builder notification = new NotificationCompat.Builder(BlockchainService.this,
-                Constants.NOTIFICATION_CHANNEL_ID_ONGOING);
-        notification.setColor(ContextCompat.getColor(this, R.color.fg_network_significant));
-        notification.setSmallIcon(R.drawable.stat_notify_peers, Math.min(numPeers, 4));
-        notification.setContentTitle(getString(R.string.notification_connectivity_syncing_message));
-        notification.setContentText(getString(R.string.notification_peers_connected_msg, numPeers));
-        notification.setContentIntent(PendingIntent.getActivity(BlockchainService.this, 0,
-                new Intent(BlockchainService.this, WalletActivity.class), 0));
-        notification.setWhen(System.currentTimeMillis());
-        notification.setOngoing(true);
-        notification.setPriority(NotificationCompat.PRIORITY_LOW);
-        startForeground(Constants.NOTIFICATION_ID_CONNECTED, notification.build());
+        connectivityNotification.setSmallIcon(R.drawable.stat_notify_peers, Math.min(numPeers, 4));
+        connectivityNotification.setContentText(getString(R.string.notification_peers_connected_msg, numPeers));
+        startForeground(Constants.NOTIFICATION_ID_CONNECTIVITY, connectivityNotification.build());
+    }
+
+    private void startForegroundProgress(final int blocksToDownload, final int blocksLeft) {
+        connectivityNotification.setProgress(blocksToDownload, blocksToDownload - blocksLeft, false);
+        startForeground(Constants.NOTIFICATION_ID_CONNECTIVITY, connectivityNotification.build());
     }
 
     private void broadcastPeerState(final int numPeers) {
