@@ -490,6 +490,7 @@ public class BlockchainService extends LifecycleService {
         connectivityNotification.setWhen(System.currentTimeMillis());
         connectivityNotification.setOngoing(true);
         connectivityNotification.setPriority(NotificationCompat.PRIORITY_LOW);
+        startForeground(0);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
             registerReceiver(deviceIdleModeReceiver, new IntentFilter(PowerManager.ACTION_DEVICE_IDLE_MODE_CHANGED));
@@ -559,8 +560,6 @@ public class BlockchainService extends LifecycleService {
                 observeLiveDatasThatAreDependentOnWalletAndBlockchain();
             }
         });
-
-        startForeground(0);
     }
 
     private void observeLiveDatasThatAreDependentOnWalletAndBlockchain() {
