@@ -304,6 +304,7 @@
   <string name="about_faq_title">FAQ</string>
   <string name="about_faq_summary">Foire aux questions au sujet de l’appli</string>
   <string name="notification_coins_received_msg">%s reçu</string>
+  <string name="notification_connectivity_syncing_message">Synchronisation avec le réseau…</string>
   <string name="notification_peers_connected_msg">%d pairs connectés</string>
   <string name="notification_inactivity_title">Vous avez encore des bitcoins sur cet appareil !</string>
   <string name="notification_inactivity_message">Souvenez-vous que votre solde de %s sera perdu si vous désinstallez l’appli Bitcoin Wallet sans d’abord envoyer ce solde.</string>
