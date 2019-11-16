@@ -285,15 +285,15 @@ public final class CurrencyAmountView extends FrameLayout {
         if (enabled && !amount.isEmpty()) {
             textView.setCompoundDrawablesWithIntrinsicBounds(currencySymbolDrawable, null, deleteButtonDrawable, null);
             contextButton.setOnClickListener(deleteClickListener);
-            contextButton.setEnabled(enabled);
+            contextButton.setVisibility(View.VISIBLE);
         } else if (enabled && contextButtonDrawable != null) {
             textView.setCompoundDrawablesWithIntrinsicBounds(currencySymbolDrawable, null, contextButtonDrawable, null);
             contextButton.setOnClickListener(contextButtonClickListener);
-            contextButton.setEnabled(enabled);
+            contextButton.setVisibility(View.VISIBLE);
         } else {
             textView.setCompoundDrawablesWithIntrinsicBounds(currencySymbolDrawable, null, null, null);
             contextButton.setOnClickListener(null);
-            contextButton.setEnabled(false);
+            contextButton.setVisibility(View.GONE);
         }
 
         contextButton.requestLayout();
