@@ -34,7 +34,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ViewAnimator;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -61,7 +60,7 @@ public final class PeerListFragment extends Fragment {
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         viewModel = ViewModelProviders.of(this).get(PeerListViewModel.class);
-        viewModel.getPeers().observe(this, peers -> {
+        viewModel.peers.observe(this, peers -> {
             viewGroup.setDisplayedChild((peers == null || peers.isEmpty()) ? 1 : 2);
             maybeSubmitList();
             if (peers != null)
@@ -89,7 +88,7 @@ public final class PeerListFragment extends Fragment {
     }
 
     private void maybeSubmitList() {
-        final List<Peer> peers = viewModel.getPeers().getValue();
+        final List<Peer> peers = viewModel.peers.getValue();
         if (peers != null)
             adapter.submitList(PeerListAdapter.buildListItems(activity, peers, viewModel.getHostnames().getValue()));
     }

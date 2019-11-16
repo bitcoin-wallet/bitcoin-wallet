@@ -106,7 +106,6 @@ import androidx.core.content.ContextCompat;
 import androidx.lifecycle.LifecycleService;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 /**
  * @author Andreas Schildbach
@@ -142,9 +141,6 @@ public class BlockchainService extends LifecycleService {
 
     private static final int CONNECTIVITY_NOTIFICATION_PROGRESS_MIN_BLOCKS = 10;
     private static final long BLOCKCHAIN_STATE_BROADCAST_THROTTLE_MS = DateUtils.SECOND_IN_MILLIS;
-
-    public static final String ACTION_PEER_STATE = BlockchainService.class.getPackage().getName() + ".peer_state";
-    public static final String ACTION_PEER_STATE_NUM_PEERS = "num_peers";
 
     private static final String ACTION_CANCEL_COINS_RECEIVED = BlockchainService.class.getPackage().getName()
             + ".cancel_coins_received";
@@ -826,10 +822,9 @@ public class BlockchainService extends LifecycleService {
         startForeground(Constants.NOTIFICATION_ID_CONNECTIVITY, connectivityNotification.build());
     }
 
+    @MainThread
     private void broadcastPeerState(final int numPeers) {
-        final Intent broadcast = new Intent(ACTION_PEER_STATE);
-        broadcast.putExtra(ACTION_PEER_STATE_NUM_PEERS, numPeers);
-        LocalBroadcastManager.getInstance(this).sendBroadcast(broadcast);
+        application.peerState.setValue(numPeers);
     }
 
     @MainThread

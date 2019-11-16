@@ -25,87 +25,44 @@ import java.util.Map;
 import org.bitcoinj.core.Peer;
 
 import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.data.BlockchainServiceLiveData;
 import de.schildbach.wallet.service.BlockchainService;
 
 import android.app.Application;
-import android.content.BroadcastReceiver;
-import android.content.ComponentName;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.ServiceConnection;
 import android.os.AsyncTask;
 import android.os.Handler;
-import android.os.IBinder;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.lifecycle.MediatorLiveData;
 
 /**
  * @author Andreas Schildbach
  */
 public class PeerListViewModel extends AndroidViewModel {
     private final WalletApplication application;
-    private PeersLiveData peers;
+    private final BlockchainServiceLiveData blockchainService;
+    public final MediatorLiveData<List<Peer>> peers;
     private HostnamesLiveData hostnames;
 
     public PeerListViewModel(final Application application) {
         super(application);
         this.application = (WalletApplication) application;
+        this.blockchainService = new BlockchainServiceLiveData(application);
+        this.peers = new MediatorLiveData<>();
+        this.peers.addSource(blockchainService, blockchainService -> maybeRefreshPeers());
+        this.peers.addSource(this.application.peerState, numPeers -> maybeRefreshPeers());
     }
 
-    public PeersLiveData getPeers() {
-        if (peers == null)
-            peers = new PeersLiveData(application);
-        return peers;
+    private void maybeRefreshPeers() {
+        final BlockchainService blockchainService = this.blockchainService.getValue();
+        if (blockchainService != null)
+            this.peers.setValue(blockchainService.getConnectedPeers());
     }
 
     public HostnamesLiveData getHostnames() {
         if (hostnames == null)
             hostnames = new HostnamesLiveData(application);
         return hostnames;
-    }
-
-    public static class PeersLiveData extends LiveData<List<Peer>> implements ServiceConnection {
-        private final WalletApplication application;
-        private LocalBroadcastManager broadcastManager;
-        private BlockchainService blockchainService;
-
-        private PeersLiveData(final WalletApplication application) {
-            this.application = application;
-            this.broadcastManager = LocalBroadcastManager.getInstance(application);
-        }
-
-        @Override
-        protected void onActive() {
-            broadcastManager.registerReceiver(broadcastReceiver, new IntentFilter(BlockchainService.ACTION_PEER_STATE));
-            application.bindService(new Intent(application, BlockchainService.class), this, Context.BIND_AUTO_CREATE);
-        }
-
-        @Override
-        protected void onInactive() {
-            application.unbindService(this);
-            broadcastManager.unregisterReceiver(broadcastReceiver);
-        }
-
-        @Override
-        public void onServiceConnected(final ComponentName name, final IBinder service) {
-            blockchainService = ((BlockchainService.LocalBinder) service).getService();
-            setValue(blockchainService.getConnectedPeers());
-        }
-
-        @Override
-        public void onServiceDisconnected(final ComponentName name) {
-            blockchainService = null;
-        }
-
-        private final BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(final Context context, final Intent intent) {
-                if (blockchainService != null)
-                    setValue(blockchainService.getConnectedPeers());
-            }
-        };
     }
 
     public static class HostnamesLiveData extends LiveData<Map<InetAddress, String>> {

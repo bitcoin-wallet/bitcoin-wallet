@@ -85,6 +85,7 @@ public class WalletApplication extends Application {
     private Configuration config;
 
     public final MutableLiveData<BlockchainState> blockchainState = new MutableLiveData<>();
+    public final MutableLiveData<Integer> peerState = new MutableLiveData<>();
 
     public static final String ACTION_WALLET_REFERENCE_CHANGED = WalletApplication.class.getPackage().getName()
             + ".wallet_reference_changed";
