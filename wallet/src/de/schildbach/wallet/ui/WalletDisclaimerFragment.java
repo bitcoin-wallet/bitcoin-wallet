@@ -76,7 +76,8 @@ public final class WalletDisclaimerFragment extends Fragment {
 
     private void updateView() {
         final BlockchainState blockchainState = viewModel.getBlockchainState().getValue();
-        final boolean showDisclaimer = viewModel.getDisclaimerEnabled().getValue();
+        final Boolean disclaimerEnabled = viewModel.getDisclaimerEnabled().getValue();
+        final boolean showDisclaimer = disclaimerEnabled != null && disclaimerEnabled;
 
         int progressResId = 0;
         if (blockchainState != null) {
