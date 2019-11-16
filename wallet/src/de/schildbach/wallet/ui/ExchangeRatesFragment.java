@@ -27,7 +27,6 @@ import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.R;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.data.ExchangeRatesProvider;
-import de.schildbach.wallet.service.BlockchainState;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -46,7 +45,6 @@ import android.widget.SearchView;
 import android.widget.SearchView.OnQueryTextListener;
 import android.widget.ViewAnimator;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -114,7 +112,7 @@ public final class ExchangeRatesFragment extends Fragment
             });
         }
         viewModel.getBalance().observe(this, balance -> maybeSubmitList());
-        viewModel.getBlockchainState().observe(this, blockchainState -> maybeSubmitList());
+        application.blockchainState.observe(this, blockchainState -> maybeSubmitList());
 
         adapter = new ExchangeRatesAdapter(activity, this);
 
@@ -143,7 +141,7 @@ public final class ExchangeRatesFragment extends Fragment
         final Cursor exchangeRates = viewModel.getExchangeRates().getValue();
         if (exchangeRates != null)
             adapter.submitList(ExchangeRatesAdapter.buildListItems(exchangeRates, viewModel.getBalance().getValue(),
-                    viewModel.getBlockchainState().getValue(), config.getExchangeCurrencyCode(), config.getBtcBase()));
+                    application.blockchainState.getValue(), config.getExchangeCurrencyCode(), config.getBtcBase()));
     }
 
     @Override

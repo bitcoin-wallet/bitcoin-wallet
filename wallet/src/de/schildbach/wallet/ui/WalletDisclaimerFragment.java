@@ -21,6 +21,7 @@ import java.util.Set;
 
 import android.content.Context;
 import de.schildbach.wallet.R;
+import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.service.BlockchainState;
 import de.schildbach.wallet.service.BlockchainState.Impediment;
 
@@ -35,7 +36,6 @@ import android.view.ViewParent;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 /**
@@ -43,6 +43,7 @@ import androidx.lifecycle.ViewModelProviders;
  */
 public final class WalletDisclaimerFragment extends Fragment {
     private WalletActivity activity;
+    private WalletApplication application;
 
     private TextView messageView;
 
@@ -53,6 +54,7 @@ public final class WalletDisclaimerFragment extends Fragment {
     public void onAttach(final Context context) {
         super.onAttach(context);
         this.activity = (WalletActivity) context;
+        this.application = activity.getWalletApplication();
     }
 
     @Override
@@ -62,7 +64,7 @@ public final class WalletDisclaimerFragment extends Fragment {
         activityViewModel = ViewModelProviders.of(activity).get(WalletActivityViewModel.class);
         viewModel = ViewModelProviders.of(this).get(WalletDisclaimerViewModel.class);
 
-        viewModel.getBlockchainState().observe(this, blockchainState -> updateView());
+        application.blockchainState.observe(this, blockchainState -> updateView());
         viewModel.getDisclaimerEnabled().observe(this, disclaimerEnabled -> updateView());
     }
 
@@ -75,7 +77,7 @@ public final class WalletDisclaimerFragment extends Fragment {
     }
 
     private void updateView() {
-        final BlockchainState blockchainState = viewModel.getBlockchainState().getValue();
+        final BlockchainState blockchainState = application.blockchainState.getValue();
         final Boolean disclaimerEnabled = viewModel.getDisclaimerEnabled().getValue();
         final boolean showDisclaimer = disclaimerEnabled != null && disclaimerEnabled;
 

@@ -32,31 +32,27 @@ import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.data.AbstractWalletLiveData;
 import de.schildbach.wallet.data.AddressBookEntry;
 import de.schildbach.wallet.data.AppDatabase;
+import de.schildbach.wallet.data.BlockchainServiceLiveData;
 import de.schildbach.wallet.data.TimeLiveData;
 import de.schildbach.wallet.data.WalletLiveData;
 import de.schildbach.wallet.service.BlockchainService;
 
 import android.app.Application;
-import android.content.BroadcastReceiver;
-import android.content.ComponentName;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.ServiceConnection;
 import android.os.AsyncTask;
-import android.os.IBinder;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.lifecycle.MediatorLiveData;
 
 /**
  * @author Andreas Schildbach
  */
 public class BlockListViewModel extends AndroidViewModel {
     private final WalletApplication application;
-    private BlocksLiveData blocks;
+    private final BlockchainServiceLiveData blockchainService;
+    public final MediatorLiveData<List<StoredBlock>> blocks;
     private TransactionsLiveData transactions;
     private WalletLiveData wallet;
+    public final LiveData<List<AddressBookEntry>> addressBook;
     private TimeLiveData time;
 
     private static final int MAX_BLOCKS = 100;
@@ -64,13 +60,17 @@ public class BlockListViewModel extends AndroidViewModel {
     public BlockListViewModel(final Application application) {
         super(application);
         this.application = (WalletApplication) application;
+        this.blockchainService = new BlockchainServiceLiveData(application);
+        this.blocks = new MediatorLiveData<>();
+        this.blocks.addSource(blockchainService, blockchainService -> maybeRefreshBlocks());
+        this.blocks.addSource(this.application.blockchainState, blockchainState -> maybeRefreshBlocks());
         this.addressBook = AppDatabase.getDatabase(this.application).addressBookDao().getAll();
     }
 
-    public BlocksLiveData getBlocks() {
-        if (blocks == null)
-            blocks = new BlocksLiveData(application);
-        return blocks;
+    private void maybeRefreshBlocks() {
+        final BlockchainService blockchainService = this.blockchainService.getValue();
+        if (blockchainService != null)
+            this.blocks.setValue(blockchainService.getRecentBlocks(MAX_BLOCKS));
     }
 
     public TransactionsLiveData getTransactions() {
@@ -85,55 +85,10 @@ public class BlockListViewModel extends AndroidViewModel {
         return wallet;
     }
 
-    public final LiveData<List<AddressBookEntry>> addressBook;
-
     public TimeLiveData getTime() {
         if (time == null)
             time = new TimeLiveData(application);
         return time;
-    }
-
-    public static class BlocksLiveData extends LiveData<List<StoredBlock>> implements ServiceConnection {
-        private final WalletApplication application;
-        private final LocalBroadcastManager broadcastManager;
-        private BlockchainService blockchainService;
-
-        private BlocksLiveData(final WalletApplication application) {
-            this.application = application;
-            this.broadcastManager = LocalBroadcastManager.getInstance(application);
-        }
-
-        @Override
-        protected void onActive() {
-            broadcastManager.registerReceiver(broadcastReceiver,
-                    new IntentFilter(BlockchainService.ACTION_BLOCKCHAIN_STATE));
-            application.bindService(new Intent(application, BlockchainService.class), this, Context.BIND_AUTO_CREATE);
-        }
-
-        @Override
-        protected void onInactive() {
-            application.unbindService(this);
-            broadcastManager.unregisterReceiver(broadcastReceiver);
-        }
-
-        @Override
-        public void onServiceConnected(final ComponentName name, final IBinder service) {
-            blockchainService = ((BlockchainService.LocalBinder) service).getService();
-            setValue(blockchainService.getRecentBlocks(MAX_BLOCKS));
-        }
-
-        @Override
-        public void onServiceDisconnected(final ComponentName name) {
-            blockchainService = null;
-        }
-
-        private final BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(final Context context, final Intent intent) {
-                if (blockchainService != null)
-                    setValue(blockchainService.getRecentBlocks(MAX_BLOCKS));
-            }
-        };
     }
 
     public static class TransactionsLiveData extends AbstractWalletLiveData<Set<Transaction>> {

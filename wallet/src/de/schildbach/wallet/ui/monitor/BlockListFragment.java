@@ -82,7 +82,7 @@ public final class BlockListFragment extends Fragment implements BlockListAdapte
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         viewModel = ViewModelProviders.of(this).get(BlockListViewModel.class);
-        viewModel.getBlocks().observe(this, blocks -> {
+        viewModel.blocks.observe(this, blocks -> {
             maybeSubmitList();
             viewGroup.setDisplayedChild(1);
             viewModel.getTransactions().loadTransactions();
@@ -110,7 +110,7 @@ public final class BlockListFragment extends Fragment implements BlockListAdapte
     }
 
     private void maybeSubmitList() {
-        final List<StoredBlock> blocks = viewModel.getBlocks().getValue();
+        final List<StoredBlock> blocks = viewModel.blocks.getValue();
         if (blocks != null) {
             final Map<String, AddressBookEntry> addressBook = AddressBookEntry.asMap(viewModel.addressBook.getValue());
             adapter.submitList(BlockListAdapter.buildListItems(activity, blocks, viewModel.getTime().getValue(),

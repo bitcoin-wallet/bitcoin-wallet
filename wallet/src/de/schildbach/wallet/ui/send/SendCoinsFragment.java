@@ -120,7 +120,6 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 /**
@@ -368,7 +367,7 @@ public final class SendCoinsFragment extends Fragment {
             updateView();
             handler.post(dryrunRunnable);
         });
-        viewModel.blockchainState.observe(this, blockchainState -> updateView());
+        application.blockchainState.observe(this, blockchainState -> updateView());
         viewModel.balance.observe(this, coin -> activity.invalidateOptionsMenu());
         viewModel.progress.observe(this, new ProgressDialogFragment.Observer(fragmentManager));
 
@@ -938,7 +937,7 @@ public final class SendCoinsFragment extends Fragment {
     private void updateView() {
         final Wallet wallet = viewModel.wallet.getValue();
         final Map<FeeCategory, Coin> fees = viewModel.dynamicFees.getValue();
-        final BlockchainState blockchainState = viewModel.blockchainState.getValue();
+        final BlockchainState blockchainState = application.blockchainState.getValue();
         final Map<String, AddressBookEntry> addressBook = AddressBookEntry.asMap(viewModel.addressBook.getValue());
 
         if (viewModel.paymentIntent != null) {

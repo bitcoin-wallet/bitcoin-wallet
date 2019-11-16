@@ -34,7 +34,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
 import android.os.Build;
-import androidx.annotation.RequiresApi;
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.Block;
 import org.bitcoinj.core.BlockChain;
@@ -99,7 +98,9 @@ import android.os.IBinder;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
 import android.text.format.DateUtils;
+import androidx.annotation.MainThread;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.LifecycleService;
@@ -144,9 +145,6 @@ public class BlockchainService extends LifecycleService {
 
     public static final String ACTION_PEER_STATE = BlockchainService.class.getPackage().getName() + ".peer_state";
     public static final String ACTION_PEER_STATE_NUM_PEERS = "num_peers";
-
-    public static final String ACTION_BLOCKCHAIN_STATE = BlockchainService.class.getPackage().getName()
-            + ".blockchain_state";
 
     private static final String ACTION_CANCEL_COINS_RECEIVED = BlockchainService.class.getPackage().getName()
             + ".cancel_coins_received";
@@ -834,11 +832,9 @@ public class BlockchainService extends LifecycleService {
         LocalBroadcastManager.getInstance(this).sendBroadcast(broadcast);
     }
 
+    @MainThread
     private void broadcastBlockchainState() {
-        final Intent broadcast = new Intent(ACTION_BLOCKCHAIN_STATE);
         final BlockchainState blockchainState = getBlockchainState();
-        if (blockchainState != null)
-            blockchainState.putExtras(broadcast);
-        LocalBroadcastManager.getInstance(this).sendBroadcast(broadcast);
+        application.blockchainState.setValue(blockchainState);
     }
 }

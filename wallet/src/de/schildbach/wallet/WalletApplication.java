@@ -47,6 +47,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.util.concurrent.SettableFuture;
 
 import de.schildbach.wallet.service.BlockchainService;
+import de.schildbach.wallet.service.BlockchainState;
 import de.schildbach.wallet.util.Bluetooth;
 import de.schildbach.wallet.util.CrashReporter;
 import de.schildbach.wallet.util.Toast;
@@ -70,6 +71,7 @@ import android.os.StrictMode;
 import android.preference.PreferenceManager;
 import androidx.annotation.MainThread;
 import androidx.annotation.WorkerThread;
+import androidx.lifecycle.MutableLiveData;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 /**
@@ -81,6 +83,8 @@ public class WalletApplication extends Application {
     private File walletFile;
     private WalletFiles walletFiles;
     private Configuration config;
+
+    public final MutableLiveData<BlockchainState> blockchainState = new MutableLiveData<>();
 
     public static final String ACTION_WALLET_REFERENCE_CHANGED = WalletApplication.class.getPackage().getName()
             + ".wallet_reference_changed";
