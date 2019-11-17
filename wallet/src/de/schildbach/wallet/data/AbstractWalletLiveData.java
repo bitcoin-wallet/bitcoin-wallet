@@ -21,39 +21,45 @@ import org.bitcoinj.wallet.Wallet;
 
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.WalletApplication.OnWalletLoadedListener;
+import de.schildbach.wallet.ui.Event;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Handler;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.annotation.NonNull;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.Observer;
 
 /**
  * @author Andreas Schildbach
  */
-public abstract class AbstractWalletLiveData<T> extends ThrottelingLiveData<T> {
+public abstract class AbstractWalletLiveData<T> extends ThrottelingLiveData<T> implements Observer<Event<Void>> {
     private final WalletApplication application;
-    private final LocalBroadcastManager broadcastManager;
     private final Handler handler = new Handler();
     private Wallet wallet;
 
     public AbstractWalletLiveData(final WalletApplication application) {
         super();
         this.application = application;
-        this.broadcastManager = LocalBroadcastManager.getInstance(application);
     }
 
     public AbstractWalletLiveData(final WalletApplication application, final long throttleMs) {
         super(throttleMs);
         this.application = application;
-        this.broadcastManager = LocalBroadcastManager.getInstance(application);
+    }
+
+    @Override
+    public void observe(@NonNull final LifecycleOwner owner, @NonNull final Observer<? super T> observer) {
+        super.observe(owner, observer);
+        application.walletChanged.observe(owner, this);
+    }
+
+    @Override
+    public void removeObservers(@NonNull final LifecycleOwner owner) {
+        application.walletChanged.removeObservers(owner);
+        super.removeObservers(owner);
     }
 
     @Override
     protected final void onActive() {
-        broadcastManager.registerReceiver(walletReferenceChangeReceiver,
-                new IntentFilter(WalletApplication.ACTION_WALLET_REFERENCE_CHANGED));
         loadWallet();
     }
 
@@ -62,7 +68,6 @@ public abstract class AbstractWalletLiveData<T> extends ThrottelingLiveData<T> {
         // TODO cancel async loading
         if (wallet != null)
             onWalletInactive(wallet);
-        broadcastManager.unregisterReceiver(walletReferenceChangeReceiver);
     }
 
     private void loadWallet() {
@@ -78,14 +83,12 @@ public abstract class AbstractWalletLiveData<T> extends ThrottelingLiveData<T> {
         onWalletActive(wallet);
     });
 
-    private final BroadcastReceiver walletReferenceChangeReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(final Context context, final Intent intent) {
-            if (wallet != null)
-                onWalletInactive(wallet);
-            loadWallet();
-        }
-    };
+    @Override
+    public void onChanged(final Event<Void> v) {
+        if (wallet != null)
+            onWalletInactive(wallet);
+        loadWallet();
+    }
 
     protected abstract void onWalletActive(Wallet wallet);
 

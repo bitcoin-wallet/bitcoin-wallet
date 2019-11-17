@@ -48,6 +48,7 @@ import com.google.common.util.concurrent.SettableFuture;
 
 import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.service.BlockchainState;
+import de.schildbach.wallet.ui.Event;
 import de.schildbach.wallet.util.Bluetooth;
 import de.schildbach.wallet.util.CrashReporter;
 import de.schildbach.wallet.util.Toast;
@@ -59,7 +60,6 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.media.AudioAttributes;
@@ -72,7 +72,6 @@ import android.preference.PreferenceManager;
 import androidx.annotation.MainThread;
 import androidx.annotation.WorkerThread;
 import androidx.lifecycle.MutableLiveData;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 /**
  * @author Andreas Schildbach
@@ -86,9 +85,7 @@ public class WalletApplication extends Application {
 
     public final MutableLiveData<BlockchainState> blockchainState = new MutableLiveData<>();
     public final MutableLiveData<Integer> peerState = new MutableLiveData<>();
-
-    public static final String ACTION_WALLET_REFERENCE_CHANGED = WalletApplication.class.getPackage().getName()
-            + ".wallet_reference_changed";
+    public final MutableLiveData<Event<Void>> walletChanged = new MutableLiveData<>();
 
     public static final long TIME_CREATE_APPLICATION = System.currentTimeMillis();
     private static final String BIP39_WORDLIST_FILENAME = "bip39-wordlist.txt";
@@ -274,8 +271,7 @@ public class WalletApplication extends Application {
         config.maybeIncrementBestChainHeightEver(newWallet.getLastBlockSeenHeight());
         WalletUtils.autoBackupWallet(this, newWallet);
 
-        final Intent broadcast = new Intent(ACTION_WALLET_REFERENCE_CHANGED);
-        LocalBroadcastManager.getInstance(this).sendBroadcast(broadcast);
+        walletChanged.setValue(Event.simple());
     }
 
     private void cleanupFiles() {

@@ -18,7 +18,6 @@ dependencies {
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.coordinatorlayout:coordinatorlayout:1.0.0'
     implementation 'androidx.viewpager:viewpager:1.0.0'
-    implementation 'androidx.localbroadcastmanager:localbroadcastmanager:1.0.0'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
     implementation "androidx.sqlite:sqlite:2.0.1"
     implementation "androidx.room:room-runtime:2.2.1"
