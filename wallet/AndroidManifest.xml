@@ -231,10 +231,6 @@
             </intent-filter>
         </receiver>
 
-        <service
-            android:name="de.schildbach.wallet.service.InactivityNotificationService"
-            android:exported="false" />
-
         <meta-data
             android:name="android.nfc.disable_beam_default"
             android:value="true" />
