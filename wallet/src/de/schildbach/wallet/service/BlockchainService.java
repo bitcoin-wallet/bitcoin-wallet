@@ -107,6 +107,8 @@ import androidx.lifecycle.LifecycleService;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 
+import static androidx.core.util.Preconditions.checkState;
+
 /**
  * @author Andreas Schildbach
  */
@@ -468,8 +470,8 @@ public class BlockchainService extends LifecycleService {
         pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
         nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
-        log.debug("acquiring wakelock");
         wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, getClass().getName());
+        log.info("acquiring {}", wakeLock);
         wakeLock.acquire();
 
         application = (WalletApplication) getApplication();
@@ -750,8 +752,9 @@ public class BlockchainService extends LifecycleService {
 
         StartBlockchainService.schedule(application, false);
 
-        log.debug("releasing wakelock");
         wakeLock.release();
+        log.info("released {}", wakeLock);
+        checkState(!wakeLock.isHeld(), "still held: " + wakeLock);
 
         super.onDestroy();
 
