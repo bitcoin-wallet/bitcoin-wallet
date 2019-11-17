@@ -750,8 +750,6 @@ public class BlockchainService extends LifecycleService {
 
         StartBlockchainService.schedule(application, false);
 
-        stopForeground(true);
-
         log.debug("releasing wakelock");
         wakeLock.release();
 
