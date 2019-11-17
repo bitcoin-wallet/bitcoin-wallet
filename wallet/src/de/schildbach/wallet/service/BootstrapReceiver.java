@@ -25,6 +25,7 @@ import androidx.annotation.WorkerThread;
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
+import org.bitcoinj.wallet.Wallet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -55,7 +56,7 @@ public class BootstrapReceiver extends BroadcastReceiver {
         if (packageReplaced || bootCompleted) {
             // make sure wallet is upgraded to HD
             if (packageReplaced)
-                UpgradeWalletService.startUpgrade(context);
+                maybeUpgradeWallet(application.getWallet());
 
             // make sure there is always a blockchain sync scheduled
             StartBlockchainService.schedule(application, true);
@@ -65,6 +66,22 @@ public class BootstrapReceiver extends BroadcastReceiver {
             if (config.remindBalance() && config.hasBeenUsed()
                     && config.getLastUsedAgo() > Constants.LAST_USAGE_THRESHOLD_INACTIVE_MS)
                 InactivityNotificationService.startMaybeShowNotification(context);
+        }
+    }
+
+    @WorkerThread
+    private void maybeUpgradeWallet(final Wallet wallet) {
+        log.info("maybe upgrading wallet");
+
+        // Maybe upgrade wallet from basic to deterministic, and maybe upgrade to the latest script type
+        if (wallet.isDeterministicUpgradeRequired(Constants.UPGRADE_OUTPUT_SCRIPT_TYPE) && !wallet.isEncrypted())
+            wallet.upgradeToDeterministic(Constants.UPGRADE_OUTPUT_SCRIPT_TYPE, null);
+
+        // Maybe upgrade wallet to secure chain
+        try {
+            wallet.doMaintenance(null, false);
+        } catch (final Exception x) {
+            log.error("failed doing wallet maintenance", x);
         }
     }
 }
