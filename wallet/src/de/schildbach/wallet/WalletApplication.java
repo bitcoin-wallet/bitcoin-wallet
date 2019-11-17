@@ -69,7 +69,7 @@ import android.os.Build;
 import android.os.Looper;
 import android.os.StrictMode;
 import android.preference.PreferenceManager;
-import androidx.annotation.MainThread;
+import androidx.annotation.AnyThread;
 import androidx.annotation.WorkerThread;
 import androidx.lifecycle.MutableLiveData;
 
@@ -140,7 +140,7 @@ public class WalletApplication extends Application {
         return config;
     }
 
-    @MainThread
+    @WorkerThread
     public Wallet getWallet() {
         final Stopwatch watch = Stopwatch.createStarted();
         final SettableFuture<Wallet> future = SettableFuture.create();
@@ -152,14 +152,14 @@ public class WalletApplication extends Application {
         } finally {
             watch.stop();
             if (Looper.myLooper() == Looper.getMainLooper())
-                log.warn("UI thread blocked for " + watch + " when using getWallet()", new RuntimeException());
+                log.warn("main thread blocked for " + watch + " when using getWallet()", new RuntimeException());
         }
     }
 
     private final Executor getWalletExecutor = Executors.newSingleThreadExecutor();
     private final Object getWalletLock = new Object();
 
-    @MainThread
+    @AnyThread
     public void getWalletAsync(final OnWalletLoadedListener listener) {
         getWalletExecutor.execute(new Runnable() {
             @Override
