@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2015 the original author or authors.
+ * Copyright the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,16 +17,16 @@
 
 package de.schildbach.wallet.service;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import de.schildbach.wallet.Configuration;
-import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.WalletApplication;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
+import androidx.annotation.WorkerThread;
+import de.schildbach.wallet.Configuration;
+import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.WalletApplication;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Andreas Schildbach
@@ -37,7 +37,16 @@ public class BootstrapReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(final Context context, final Intent intent) {
         log.info("got broadcast: " + intent);
+        final PendingResult result = goAsync();
+        AsyncTask.execute(() -> {
+            org.bitcoinj.core.Context.propagate(Constants.CONTEXT);
+            onAsyncReceive(context, intent);
+            result.finish();
+        });
+    }
 
+    @WorkerThread
+    private void onAsyncReceive(final Context context, final Intent intent) {
         final WalletApplication application = (WalletApplication) context.getApplicationContext();
 
         final boolean bootCompleted = Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction());
