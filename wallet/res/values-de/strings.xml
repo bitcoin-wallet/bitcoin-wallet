@@ -319,6 +319,7 @@
     <string name="notification_inactivity_message_donate">Wenn dir die Bitcoins egal sind, könntest du sie auch dem Bitcoin Wallet Projekt spenden.</string>
     <string name="notification_inactivity_action_dismiss">Später erinnern</string>
     <string name="notification_inactivity_action_dismiss_forever">Nicht erinnern</string>
+    <string name="notification_bluetooth_service_listening">Bereit zum Empfang von Zahlungen über Bluetooth</string>
     <string name="notification_channel_received_name">Empfangene Zahlungen</string>
     <string name="notification_channel_ongoing_name">Hintergrundaktivität</string>
     <string name="notification_channel_important_name">Wichtige Warnungen</string>

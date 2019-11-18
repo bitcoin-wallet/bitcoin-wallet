@@ -27,6 +27,7 @@ import org.bitcoinj.wallet.Wallet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.R;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.data.WalletLiveData;
@@ -44,8 +45,9 @@ import android.os.IBinder;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
 import android.text.format.DateUtils;
+import androidx.core.app.NotificationCompat;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.LifecycleService;
-import androidx.lifecycle.Observer;
 
 /**
  * @author Andreas Schildbach
@@ -93,6 +95,16 @@ public final class AcceptBluetoothService extends LifecycleService {
 
         wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, getClass().getName());
         wakeLock.acquire();
+
+        final NotificationCompat.Builder notification = new NotificationCompat.Builder(this,
+                Constants.NOTIFICATION_CHANNEL_ID_ONGOING);
+        notification.setColor(ContextCompat.getColor(this, R.color.fg_network_significant));
+        notification.setSmallIcon(R.drawable.stat_notify_bluetooth_24dp);
+        notification.setContentTitle(getString(R.string.notification_bluetooth_service_listening));
+        notification.setWhen(System.currentTimeMillis());
+        notification.setOngoing(true);
+        notification.setPriority(NotificationCompat.PRIORITY_LOW);
+        startForeground(Constants.NOTIFICATION_ID_BLUETOOTH, notification.build());
 
         registerReceiver(bluetoothStateChangeReceiver, new IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED));
 

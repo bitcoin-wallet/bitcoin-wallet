@@ -317,6 +317,7 @@
     <string name="notification_inactivity_message_donate">If you don\'t care about your coins, you could also donate them to the Bitcoin Wallet project.</string>
     <string name="notification_inactivity_action_dismiss">Remind me later</string>
     <string name="notification_inactivity_action_dismiss_forever">Don\'t remind me</string>
+    <string name="notification_bluetooth_service_listening">Ready to receive payments via Bluetooth</string>
     <string name="notification_channel_received_name">Received payments</string>
     <string name="notification_channel_ongoing_name">Background activity</string>
     <string name="notification_channel_important_name">Important alerts</string>

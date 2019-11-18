@@ -67,6 +67,7 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.core.app.ShareCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -279,7 +280,7 @@ public final class RequestCoinsFragment extends Fragment {
             bluetoothAddress = config.getLastBluetoothAddress();
         if (bluetoothAddress != null && acceptBluetoothPaymentView.isChecked()) {
             viewModel.bluetoothServiceIntent = new Intent(activity, AcceptBluetoothService.class);
-            activity.startService(viewModel.bluetoothServiceIntent);
+            ContextCompat.startForegroundService(activity, viewModel.bluetoothServiceIntent);
             viewModel.bluetoothMac.setValue(Bluetooth.compressMac(bluetoothAddress));
             return true;
         } else {
