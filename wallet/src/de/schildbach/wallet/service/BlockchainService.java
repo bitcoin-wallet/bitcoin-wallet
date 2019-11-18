@@ -287,6 +287,7 @@ public class BlockchainService extends LifecycleService {
 
         @Override
         public void onPeerConnected(final Peer peer, final int peerCount) {
+            postDelayedStopSelf(DateUtils.MINUTE_IN_MILLIS / 2);
             changed(peerCount);
         }
 
@@ -661,7 +662,7 @@ public class BlockchainService extends LifecycleService {
                 peerGroup.startAsync();
                 peerGroup.startBlockChainDownload(blockchainDownloadListener);
 
-                postDelayedStopSelf(DateUtils.MINUTE_IN_MILLIS);
+                postDelayedStopSelf(DateUtils.MINUTE_IN_MILLIS / 2);
             }
 
             private void shutdown() {
