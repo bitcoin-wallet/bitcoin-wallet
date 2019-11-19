@@ -304,6 +304,7 @@
   <string name="about_faq_title">FAQ</string>
   <string name="about_faq_summary">Ofte stillede spørgsmål om app\'en</string>
   <string name="notification_coins_received_msg">Modtog %s</string>
+  <string name="notification_connectivity_syncing_message">Synkroniserer med netværket…</string>
   <string name="notification_peers_connected_msg">%d peers forbundet</string>
   <string name="notification_inactivity_title">Du har stadig bitcoin på denne enhed!</string>
   <string name="notification_inactivity_message">Husk, at din saldo på %s vil gå tabt, hvis du afinstallerer app\'en Bitcoin Wallet uden først at sende pengede videre.</string>
