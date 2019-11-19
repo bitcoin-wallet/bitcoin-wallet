@@ -222,9 +222,8 @@ public class WalletUtils {
         return transaction.getOutputs().size() > 20;
     }
 
-    public static @Nullable
-    String uriToProvider(final Uri uri) {
-        if (!uri.getScheme().equals("content"))
+    public static @Nullable String uriToProvider(final Uri uri) {
+        if (uri == null || !uri.getScheme().equals("content"))
             return null;
         final String host = uri.getHost();
         if ("com.google.android.apps.docs.storage".equals(host) || "com.google.android.apps.docs.storage.legacy".equals(host))
