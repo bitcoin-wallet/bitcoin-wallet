@@ -140,6 +140,7 @@ public class BlockchainService extends LifecycleService {
     private final List<Address> notificationAddresses = new LinkedList<>();
     private long serviceCreatedAt;
     private boolean resetBlockchainOnShutdown = false;
+    private final AtomicBoolean isBound = new AtomicBoolean(false);
 
     private static final int CONNECTIVITY_NOTIFICATION_PROGRESS_MIN_BLOCKS = 10;
     private static final long BLOCKCHAIN_STATE_BROADCAST_THROTTLE_MS = DateUtils.SECOND_IN_MILLIS;
@@ -425,6 +426,8 @@ public class BlockchainService extends LifecycleService {
     private Runnable delayedStopSelfRunnable = () -> {
         log.info("service idling detected, trying to stop");
         stopSelf();
+        if (isBound.get())
+            log.info("stop is deferred because service still bound");
     };
 
     private void postDelayedStopSelf(final long ms) {
@@ -450,15 +453,16 @@ public class BlockchainService extends LifecycleService {
 
     @Override
     public IBinder onBind(final Intent intent) {
-        log.debug(".onBind()");
+        log.info("onBind: {}", intent);
         super.onBind(intent);
+        isBound.set(true);
         return mBinder;
     }
 
     @Override
     public boolean onUnbind(final Intent intent) {
-        log.debug(".onUnbind()");
-
+        log.info("onUnbind: {}", intent);
+        isBound.set(false);
         return super.onUnbind(intent);
     }
 
@@ -695,9 +699,10 @@ public class BlockchainService extends LifecycleService {
                 nm.cancel(Constants.NOTIFICATION_ID_COINS_RECEIVED);
             } else if (BlockchainService.ACTION_RESET_BLOCKCHAIN.equals(action)) {
                 log.info("will remove blockchain on service shutdown");
-
                 resetBlockchainOnShutdown = true;
                 stopSelf();
+                if (isBound.get())
+                    log.info("stop is deferred because service still bound");
             } else if (BlockchainService.ACTION_BROADCAST_TRANSACTION.equals(action)) {
                 final Sha256Hash hash = Sha256Hash
                         .wrap(intent.getByteArrayExtra(BlockchainService.ACTION_BROADCAST_TRANSACTION_HASH));
@@ -765,10 +770,11 @@ public class BlockchainService extends LifecycleService {
     @Override
     public void onTrimMemory(final int level) {
         log.info("onTrimMemory({}) called", level);
-
         if (level >= ComponentCallbacks2.TRIM_MEMORY_BACKGROUND) {
-            log.warn("low memory detected, stopping service");
+            log.warn("low memory detected, trying to stop");
             stopSelf();
+            if (isBound.get())
+                log.info("stop is deferred because service still bound");
         }
     }
 
