@@ -392,14 +392,17 @@ public class BlockchainService extends LifecycleService {
             if (ConnectivityManager.CONNECTIVITY_ACTION.equals(action)) {
                 final NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
                 final boolean hasConnectivity = networkInfo != null && networkInfo.isConnected();
+                final boolean isMetered = hasConnectivity && connectivityManager.isActiveNetworkMetered();
                 if (hasConnectivity)
                     impediments.remove(Impediment.NETWORK);
                 else
                     impediments.add(Impediment.NETWORK);
 
                 if (log.isInfoEnabled()) {
-                    final StringBuilder s = new StringBuilder("active network is ")
-                            .append(hasConnectivity ? "up" : "down");
+                    final StringBuilder s = new StringBuilder("active network is ").append(hasConnectivity ? "up" :
+                            "down");
+                    if (isMetered)
+                        s.append(", metered");
                     if (networkInfo != null) {
                         s.append(", type: ").append(networkInfo.getTypeName());
                         s.append(", state: ").append(networkInfo.getState()).append('/')
