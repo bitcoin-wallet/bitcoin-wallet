@@ -142,7 +142,7 @@ public class BlockchainService extends LifecycleService {
     private boolean resetBlockchainOnShutdown = false;
     private final AtomicBoolean isBound = new AtomicBoolean(false);
 
-    private static final int CONNECTIVITY_NOTIFICATION_PROGRESS_MIN_BLOCKS = 10;
+    private static final int CONNECTIVITY_NOTIFICATION_PROGRESS_MIN_BLOCKS = 144 * 2; // approx. 2 days
     private static final long BLOCKCHAIN_STATE_BROADCAST_THROTTLE_MS = DateUtils.SECOND_IN_MILLIS;
 
     private static final String ACTION_CANCEL_COINS_RECEIVED = BlockchainService.class.getPackage().getName()
@@ -757,7 +757,9 @@ public class BlockchainService extends LifecycleService {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
             unregisterReceiver(deviceIdleModeReceiver);
 
-        StartBlockchainService.schedule(application, false);
+        final boolean expectLargeData =
+                blockChain != null && (config.getBestChainHeightEver() - blockChain.getBestChainHeight()) > CONNECTIVITY_NOTIFICATION_PROGRESS_MIN_BLOCKS;
+        StartBlockchainService.schedule(application, expectLargeData);
 
         wakeLock.release();
         log.info("released {}", wakeLock);

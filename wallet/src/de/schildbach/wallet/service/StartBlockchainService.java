@@ -57,8 +57,9 @@ public class StartBlockchainService extends JobService {
         else
             interval = DateUtils.DAY_IN_MILLIS;
 
-        log.info("last used {} minutes ago, rescheduling blockchain sync in roughly {} minutes",
-                lastUsedAgo / DateUtils.MINUTE_IN_MILLIS, interval / DateUtils.MINUTE_IN_MILLIS);
+        log.info("last used {} minutes ago{}, rescheduling blockchain sync in roughly {} minutes",
+                lastUsedAgo / DateUtils.MINUTE_IN_MILLIS, expectLargeData ? " and expecting large data" : "",
+                interval / DateUtils.MINUTE_IN_MILLIS);
 
         final JobScheduler jobScheduler = (JobScheduler) application.getSystemService(Context.JOB_SCHEDULER_SERVICE);
         final JobInfo.Builder jobInfo = new JobInfo.Builder(0, new ComponentName(application,
