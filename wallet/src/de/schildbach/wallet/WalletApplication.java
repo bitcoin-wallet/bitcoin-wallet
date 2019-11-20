@@ -244,10 +244,10 @@ public class WalletApplication extends Application {
         final Stopwatch watch = Stopwatch.createStarted();
         synchronized (getWalletLock) {
             if (walletFiles != null) {
-                watch.stop();
-                log.info("wallet saved to: '{}', took {}", walletFile, watch);
                 try {
                     walletFiles.saveNow();
+                    watch.stop();
+                    log.info("wallet saved to: '{}', took {}", walletFile, watch);
                 } catch (final IOException x) {
                     log.warn("problem with forced autosaving of wallet", x);
                     CrashReporter.saveBackgroundTrace(x, packageInfo);
