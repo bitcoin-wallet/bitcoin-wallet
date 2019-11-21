@@ -51,6 +51,7 @@ public class Configuration {
     public static final String PREFS_KEY_TRUSTED_PEER_ONLY = "trusted_peer_only";
     public static final String PREFS_KEY_BLOCK_EXPLORER = "block_explorer";
     public static final String PREFS_KEY_DATA_USAGE = "data_usage";
+    public static final String PREFS_KEY_NOTIFICATIONS = "notifications";
     public static final String PREFS_KEY_REMIND_BALANCE = "remind_balance";
     public static final String PREFS_KEY_DISCLAIMER = "disclaimer";
 

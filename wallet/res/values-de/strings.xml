@@ -261,7 +261,9 @@
     <string name="preferences_block_explorer_title">Block-Explorer</string>
     <string name="preferences_block_explorer_summary">Externer Block-Explorer, der für die Anzeige von Transaktionen, Adressen und Blocks verwendet wird.</string>
     <string name="preferences_data_usage_title">Datenverbrauch</string>
-    <string name="preferences_data_usage_summary">Zeigt Optionen, um die mobile Datennutzung einzuschränken.</string>
+    <string name="preferences_data_usage_summary">Zeigt Optionen um die mobile Datennutzung einzuschränken.</string>
+    <string name="preferences_notifications_title">Benachrichtigungen</string>
+    <string name="preferences_notifications_summary">Zeigt Optionen um bestimmte Benachrichtigungen aus- oder einzuschalten.</string>
     <string name="preferences_remind_balance_title">Erinnerung an Guthaben</string>
     <string name="preferences_remind_balance_summary">Nach einigen Wochen Nicht-Nutzung wird die App daran erinnern wenn sich noch Bitcoins in der Wallet befinden.</string>
     <string name="preferences_show_disclaimer_title">Disclaimer anzeigen</string>

@@ -47,6 +47,12 @@
             android:targetPackage="com.android.settings" />
     </Preference>
 
+    <Preference
+        android:enabled="false"
+        android:key="notifications"
+        android:summary="@string/preferences_notifications_summary"
+        android:title="@string/preferences_notifications_title" />
+
     <CheckBoxPreference
         android:defaultValue="true"
         android:key="remind_balance"

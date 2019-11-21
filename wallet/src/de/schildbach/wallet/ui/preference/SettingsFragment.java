@@ -93,6 +93,12 @@ public final class SettingsFragment extends PreferenceFragment implements OnPref
                     Uri.parse("package:" + application.getPackageName())));
         dataUsagePreference.setEnabled(pm.resolveActivity(dataUsagePreference.getIntent(), 0) != null);
 
+        final Preference notificationsPreference = findPreference(Configuration.PREFS_KEY_NOTIFICATIONS);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            notificationsPreference.setIntent(new Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS).putExtra(Settings.EXTRA_APP_PACKAGE, application.getPackageName()));
+            notificationsPreference.setEnabled(pm.resolveActivity(notificationsPreference.getIntent(), 0) != null);
+        }
+
         updateTrustedPeer();
     }
 
