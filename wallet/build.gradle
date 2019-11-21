@@ -29,7 +29,7 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:3.14.4'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.14.4'
     implementation 'com.squareup.moshi:moshi:1.6.0'
-    implementation 'org.slf4j:slf4j-api:1.7.28'
+    implementation 'org.slf4j:slf4j-api:1.7.29'
     implementation 'com.github.tony19:logback-android:2.0.0'
     testImplementation 'junit:junit:4.12'
 }
