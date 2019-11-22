@@ -138,7 +138,7 @@ public class BlockchainService extends LifecycleService {
     private int notificationCount = 0;
     private Coin notificationAccumulatedAmount = Coin.ZERO;
     private final List<Address> notificationAddresses = new LinkedList<>();
-    private long serviceCreatedAt;
+    private Stopwatch serviceUpTime;
     private boolean resetBlockchainOnShutdown = false;
     private final AtomicBoolean isBound = new AtomicBoolean(false);
 
@@ -472,7 +472,7 @@ public class BlockchainService extends LifecycleService {
 
     @Override
     public void onCreate() {
-        serviceCreatedAt = System.currentTimeMillis();
+        serviceUpTime = Stopwatch.createStarted();
         log.debug(".onCreate()");
         super.onCreate();
 
@@ -770,7 +770,7 @@ public class BlockchainService extends LifecycleService {
 
         super.onDestroy();
 
-        log.info("service was up for " + ((System.currentTimeMillis() - serviceCreatedAt) / 1000 / 60) + " minutes");
+        log.info("service was up for {}", serviceUpTime.stop());
     }
 
     @Override
