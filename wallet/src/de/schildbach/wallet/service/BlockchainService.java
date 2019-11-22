@@ -483,11 +483,6 @@ public class BlockchainService extends LifecycleService {
         log.info("acquiring {}", wakeLock);
         wakeLock.acquire();
 
-        application = (WalletApplication) getApplication();
-        config = application.getConfiguration();
-        addressBookDao = AppDatabase.getDatabase(application).addressBookDao();
-        blockChainFile = new File(getDir("blockstore", Context.MODE_PRIVATE), Constants.Files.BLOCKCHAIN_FILENAME);
-
         connectivityNotification.setColor(ContextCompat.getColor(this, R.color.fg_network_significant));
         connectivityNotification.setContentTitle(getString(R.string.notification_connectivity_syncing_message));
         connectivityNotification.setContentIntent(PendingIntent.getActivity(BlockchainService.this, 0,
@@ -496,6 +491,11 @@ public class BlockchainService extends LifecycleService {
         connectivityNotification.setOngoing(true);
         connectivityNotification.setPriority(NotificationCompat.PRIORITY_LOW);
         startForeground(0);
+
+        application = (WalletApplication) getApplication();
+        config = application.getConfiguration();
+        addressBookDao = AppDatabase.getDatabase(application).addressBookDao();
+        blockChainFile = new File(getDir("blockstore", Context.MODE_PRIVATE), Constants.Files.BLOCKCHAIN_FILENAME);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
             registerReceiver(deviceIdleModeReceiver, new IntentFilter(PowerManager.ACTION_DEVICE_IDLE_MODE_CHANGED));
