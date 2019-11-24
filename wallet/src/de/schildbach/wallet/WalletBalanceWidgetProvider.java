@@ -20,6 +20,7 @@ package de.schildbach.wallet;
 import java.lang.reflect.Method;
 
 import org.bitcoinj.core.Coin;
+import org.bitcoinj.core.NetworkParameters;
 import org.bitcoinj.utils.Fiat;
 import org.bitcoinj.utils.MonetaryFormat;
 import org.bitcoinj.wallet.Wallet.BalanceType;
@@ -43,7 +44,9 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Spannable;
+import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
+import android.text.style.StrikethroughSpan;
 import android.view.View;
 import android.widget.RemoteViews;
 import androidx.annotation.Nullable;
@@ -53,6 +56,8 @@ import androidx.core.content.ContextCompat;
  * @author Andreas Schildbach
  */
 public class WalletBalanceWidgetProvider extends AppWidgetProvider {
+    private static final StrikethroughSpan STRIKE_THRU_SPAN = new StrikethroughSpan();
+
     private static final Logger log = LoggerFactory.getLogger(WalletBalanceWidgetProvider.class);
 
     @Override
@@ -125,6 +130,8 @@ public class WalletBalanceWidgetProvider extends AppWidgetProvider {
                     new ForegroundColorSpan(ContextCompat.getColor(context, R.color.fg_network_insignificant)) };
             localBalanceStr = new MonetarySpannable(localFormat, localBalance).applyMarkup(prefixSpans,
                     MonetarySpannable.STANDARD_INSIGNIFICANT_SPANS);
+            if (!Constants.NETWORK_PARAMETERS.getId().equals(NetworkParameters.ID_MAINNET))
+                localBalanceStr.setSpan(STRIKE_THRU_SPAN, 0, localBalanceStr.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         } else {
             localBalanceStr = null;
         }
