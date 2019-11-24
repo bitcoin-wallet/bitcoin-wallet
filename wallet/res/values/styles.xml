@@ -81,9 +81,8 @@
     </style>
 
     <style name="My.Widget.ActionButton.Floating" parent="@android:style/Widget.Material.ActionButton">
-        <item name="android:tint">@android:color/black</item>
         <item name="android:background">@drawable/floating_action_button_background</item>
-        <item name="android:backgroundTint">@color/fg_on_dark_bg_network_significant</item>
+        <item name="android:backgroundTint">@color/fg_network_significant</item>
     </style>
 
     <style name="My.Widget.ActionMode" parent="@android:style/Widget.Material.Light.ActionMode">
