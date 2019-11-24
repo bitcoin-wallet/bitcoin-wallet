@@ -38,7 +38,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:tint="@color/fg_network_less_significant"
+                android:tint="@color/fg_less_significant"
                 android:tintMode="src_in" />
 
             <TextView
@@ -50,7 +50,7 @@
                 android:fadingEdge="horizontal"
                 android:fadingEdgeLength="12dp"
                 android:singleLine="true"
-                android:textColor="@color/fg_network_significant"
+                android:textColor="@color/fg_significant"
                 android:textSize="@dimen/font_size_large" />
         </LinearLayout>
 
@@ -63,7 +63,7 @@
             android:fadingEdge="horizontal"
             android:fadingEdgeLength="12dp"
             android:singleLine="true"
-            android:textColor="@color/fg_network_less_significant"
+            android:textColor="@color/fg_insignificant"
             android:textSize="@dimen/font_size_normal" />
     </LinearLayout>
 

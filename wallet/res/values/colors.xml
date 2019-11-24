@@ -12,7 +12,6 @@
     <color name="fg_on_dark_bg_network_insignificant">#ffa0a0a0</color>
     <color name="fg_network_significant">#ff000000</color>
     <color name="fg_network_less_significant">#cc000000</color>
-    <color name="fg_network_insignificant">#99000000</color>
     <color name="fg_shortcut">#ffa0a0a0</color>
 
     <!-- background -->
