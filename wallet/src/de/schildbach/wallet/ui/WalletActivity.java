@@ -215,13 +215,19 @@ public final class WalletActivity extends AbstractWalletActivity {
     private AnimatorSet buildEnterAnimation(final View contentView) {
         final Drawable background = getWindow().getDecorView().getBackground();
         final int duration = getResources().getInteger(android.R.integer.config_mediumAnimTime);
-        final Animator splashFadeOut = AnimatorInflater.loadAnimator(WalletActivity.this, R.animator.fade_out_drawable);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
-            splashFadeOut.setTarget(((LayerDrawable) background).getDrawable(1));
-        else
-            splashFadeOut.setDuration(0); // skip this animation, as there is no splash icon
+        final Animator splashBackgroundFadeOut = AnimatorInflater.loadAnimator(WalletActivity.this, R.animator.fade_out_drawable);
+        final Animator splashForegroundFadeOut = AnimatorInflater.loadAnimator(WalletActivity.this, R.animator.fade_out_drawable);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            splashBackgroundFadeOut.setTarget(((LayerDrawable) background).getDrawable(1));
+            splashForegroundFadeOut.setTarget(((LayerDrawable) background).getDrawable(2));
+        } else {
+            // skip this animation, as there is no splash icon
+            splashBackgroundFadeOut.setDuration(0);
+            splashForegroundFadeOut.setDuration(0);
+        }
         final AnimatorSet fragmentEnterAnimation = new AnimatorSet();
-        final AnimatorSet.Builder fragmentEnterAnimationBuilder = fragmentEnterAnimation.play(splashFadeOut);
+        final AnimatorSet.Builder fragmentEnterAnimationBuilder =
+                fragmentEnterAnimation.play(splashBackgroundFadeOut).with(splashForegroundFadeOut);
 
         final View slideInLeftView = contentView.findViewWithTag("slide_in_left");
         if (slideInLeftView != null) {

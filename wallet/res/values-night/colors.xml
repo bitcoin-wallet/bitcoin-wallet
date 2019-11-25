@@ -24,7 +24,4 @@
     <color name="fg_password_strength_good">#ffa0a8a0</color>
     <color name="fg_password_strength_strong">#ffa3e08c</color>
 
-    <!-- app icon -->
-    <item name="splash_icon_alpha" format="float" type="dimen">0.6</item>
-
 </resources>

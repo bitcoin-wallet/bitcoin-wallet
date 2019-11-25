@@ -41,6 +41,5 @@
     <!-- app icon -->
     <color name="appicon_gradient_start">#bbbbbb</color>
     <color name="appicon_gradient_end">#999999</color>
-    <item name="splash_icon_alpha" format="float" type="dimen">1</item>
 
 </resources>
