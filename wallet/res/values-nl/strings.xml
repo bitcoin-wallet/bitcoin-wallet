@@ -259,6 +259,8 @@
   <string name="preferences_block_explorer_summary">Externe blokverkenner voor het browsen van transacties, adressen en blokken.</string>
   <string name="preferences_data_usage_title">Datagebruik</string>
   <string name="preferences_data_usage_summary">Toon opties om bandbreedte op mobiele netwerken te beperken.</string>
+  <string name="preferences_notifications_title">Notificaties</string>
+  <string name="preferences_notifications_summary">Toon opties om specifieke notificaties aan en uit te zetten.</string>
   <string name="preferences_remind_balance_title">Saldo herinnering</string>
   <string name="preferences_remind_balance_summary">Als de app een paar weken niet gebruikt is zal de wallet laten merken dat er nog steeds coins aanwezig.</string>
   <string name="preferences_show_disclaimer_title">Toon disclaimer</string>
@@ -304,6 +306,7 @@
   <string name="about_faq_title">FAQ</string>
   <string name="about_faq_summary">Vaakgestelde vragen over de app</string>
   <string name="notification_coins_received_msg">Ontvangen %s</string>
+  <string name="notification_connectivity_syncing_message">Met het netwerk aan het synchroniseren…</string>
   <string name="notification_peers_connected_msg">%d actieve verbindingen</string>
   <string name="notification_inactivity_title">Je hebt nog steeds Bitcoins op dit apparaat!</string>
   <string name="notification_inactivity_message">Onthou dat je saldo van %s verloren zal zijn als je de app verwijdert zonder de bitcoins eerst te verzenden.</string>
