@@ -259,6 +259,8 @@
   <string name="preferences_block_explorer_summary">トランザクション・アドレス・ブロックを閲覧するための外部のブロックエクスプローラ。</string>
   <string name="preferences_data_usage_title">データの使用方法</string>
   <string name="preferences_data_usage_summary">モバイルネットワークにおけるデータ使用制限のオプションを表示する。</string>
+  <string name="preferences_notifications_title">通知</string>
+  <string name="preferences_notifications_summary">特定の通知を有効/無効にするオプションを表示する。</string>
   <string name="preferences_remind_balance_title">残金通知</string>
   <string name="preferences_remind_balance_summary">数週間使われていない場合、まだウォレット内にコインが残っていればアプリが通知を出します。</string>
   <string name="preferences_show_disclaimer_title">免責条項を表示する</string>
