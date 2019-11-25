@@ -87,36 +87,11 @@ public final class WalletAddressesFragment extends FancyListFragment {
         setHasOptionsMenu(true);
 
         viewModel = ViewModelProviders.of(this).get(WalletAddressesViewModel.class);
-        viewModel.issuedReceiveAddresses.observe(this, new Observer<List<Address>>() {
-            @Override
-            public void onChanged(final List<Address> issuedReceiveAddresses) {
-                adapter.replaceDerivedAddresses(issuedReceiveAddresses);
-            }
-        });
-        viewModel.importedAddresses.observe(this, new Observer<List<Address>>() {
-            @Override
-            public void onChanged(final List<Address> importedAddresses) {
-                adapter.replaceRandomAddresses(importedAddresses);
-            }
-        });
-        viewModel.wallet.observe(this, new Observer<Wallet>() {
-            @Override
-            public void onChanged(final Wallet wallet) {
-                adapter.setWallet(wallet);
-            }
-        });
-        viewModel.addressBook.observe(this, new Observer<List<AddressBookEntry>>() {
-            @Override
-            public void onChanged(final List<AddressBookEntry> addressBook) {
-                adapter.setAddressBook(AddressBookEntry.asMap(addressBook));
-            }
-        });
-        viewModel.ownName.observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(final String ownName) {
-                adapter.notifyDataSetChanged();
-            }
-        });
+        viewModel.issuedReceiveAddresses.observe(this, issuedReceiveAddresses -> adapter.replaceDerivedAddresses(issuedReceiveAddresses));
+        viewModel.importedAddresses.observe(this, importedAddresses -> adapter.replaceRandomAddresses(importedAddresses));
+        viewModel.wallet.observe(this, wallet -> adapter.setWallet(wallet));
+        viewModel.addressBook.observe(this, addressBook -> adapter.setAddressBook(AddressBookEntry.asMap(addressBook)));
+        viewModel.ownName.observe(this, ownName -> adapter.notifyDataSetChanged());
         viewModel.showBitmapDialog.observe(this, new Event.Observer<Bitmap>() {
             @Override
             public void onEvent(final Bitmap bitmap) {
@@ -169,13 +144,12 @@ public final class WalletAddressesFragment extends FancyListFragment {
             @Override
             public boolean onActionItemClicked(final ActionMode mode, final MenuItem item) {
                 final Address address = getAddress(position);
-                switch (item.getItemId()) {
-                case R.id.wallet_addresses_context_edit:
+                int itemId = item.getItemId();
+                if (itemId == R.id.wallet_addresses_context_edit) {
                     viewModel.showEditAddressBookEntryDialog.setValue(new Event<>(address));
                     mode.finish();
                     return true;
-
-                case R.id.wallet_addresses_context_show_qr:
+                } else if (itemId == R.id.wallet_addresses_context_show_qr) {
                     final String label = viewModel.ownName.getValue();
                     final String uri;
                     if (address instanceof LegacyAddress || label != null)
@@ -183,16 +157,13 @@ public final class WalletAddressesFragment extends FancyListFragment {
                     else
                         uri = address.toString().toUpperCase(Locale.US);
                     viewModel.showBitmapDialog.setValue(new Event<>(Qr.bitmap(uri)));
-
                     mode.finish();
                     return true;
-
-                case R.id.wallet_addresses_context_copy_to_clipboard:
+                } else if (itemId == R.id.wallet_addresses_context_copy_to_clipboard) {
                     handleCopyToClipboard(address);
                     mode.finish();
                     return true;
-
-                case R.id.wallet_addresses_context_browse:
+                } else if (itemId == R.id.wallet_addresses_context_browse) {
                     final Uri blockExplorerUri = application.getConfiguration().getBlockExplorer();
                     final BlockExplorer explorer = application.getBlockExplorer(blockExplorerUri);
                     log.info("Viewing address {} on {}", address, blockExplorerUri);
@@ -201,7 +172,6 @@ public final class WalletAddressesFragment extends FancyListFragment {
                     mode.finish();
                     return true;
                 }
-
                 return false;
             }
 

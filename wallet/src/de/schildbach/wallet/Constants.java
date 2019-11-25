@@ -27,7 +27,6 @@ import org.bitcoinj.core.NetworkParameters;
 import org.bitcoinj.params.MainNetParams;
 import org.bitcoinj.params.TestNet3Params;
 import org.bitcoinj.script.Script;
-import org.bitcoinj.store.SPVBlockStore;
 import org.bitcoinj.utils.MonetaryFormat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,10 +44,10 @@ import okhttp3.logging.HttpLoggingInterceptor;
  * @author Andreas Schildbach
  */
 public final class Constants {
-    public static final boolean TEST = BuildConfig.APPLICATION_ID.contains("_test");
 
     /** Network this wallet is on (e.g. testnet or mainnet). */
-    public static final NetworkParameters NETWORK_PARAMETERS = TEST ? TestNet3Params.get() : MainNetParams.get();
+    public static final NetworkParameters NETWORK_PARAMETERS =
+            !BuildConfig.FLAVOR.equals("prod") ? TestNet3Params.get() : MainNetParams.get();
 
     /** Bitcoinj global context. */
     public static final Context CONTEXT = new Context(NETWORK_PARAMETERS);
@@ -90,16 +89,6 @@ public final class Constants {
         /** Filename of the automatic wallet backup. */
         public static final String WALLET_KEY_BACKUP_PROTOBUF = "key-backup-protobuf" + FILENAME_NETWORK_SUFFIX;
 
-        /** Path to external storage */
-        public static final File EXTERNAL_STORAGE_DIR = Environment.getExternalStorageDirectory();
-
-        /** Manual backups go here. */
-        public static final File EXTERNAL_WALLET_BACKUP_DIR = Environment
-                .getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
-
-        /** Filename of the manual key backup (old format, can only be read). */
-        public static final String EXTERNAL_WALLET_KEY_BACKUP = "groestlcoin-wallet-keys" + FILENAME_NETWORK_SUFFIX;
-
         /** Filename of the manual wallet backup. */
         public static final String EXTERNAL_WALLET_BACKUP = "groestlcoin-wallet-backup" + FILENAME_NETWORK_SUFFIX;
 
@@ -107,16 +96,19 @@ public final class Constants {
         public static final String BLOCKCHAIN_FILENAME = "blockchain" + FILENAME_NETWORK_SUFFIX;
 
         /** Capacity of the block store. */
-        public static final int BLOCKCHAIN_STORE_CAPACITY = SPVBlockStore.DEFAULT_CAPACITY * 2;
+        public static final int BLOCKCHAIN_STORE_CAPACITY = 10000;
 
-        /** Name of the block checkpoints asset. */
-        public static final String CHECKPOINTS_ASSET = "checkpoints" + FILENAME_NETWORK_SUFFIX + ".txt";
+        /** Name of the asset containing the block checkpoints. */
+        public static final String CHECKPOINTS_ASSET = "checkpoints.txt";
 
-        /** Name of the asset containing hardcoded fees. Also filename of the dynamic fees file. */
-        public static final String FEES_ASSET = "fees" + FILENAME_NETWORK_SUFFIX + ".txt";
+        /** Name of the asset containing hardcoded fees. */
+        public static final String FEES_ASSET = "fees.txt";
+
+        /** Filename of the dynamic fees file. */
+        public static final String FEES_FILENAME = "fees" + FILENAME_NETWORK_SUFFIX + ".txt";
 
         /** Name of the asset containing Electrum servers. */
-        public static final String ELECTRUM_SERVERS_ASSET = TEST ? "electrum-servers-testnet.txt" : "electrum-servers.txt";
+        public static final String ELECTRUM_SERVERS_ASSET = "electrum-servers.txt";
     }
 
     /** URL to fetch version alerts from. */
@@ -137,24 +129,21 @@ public final class Constants {
     /** User-agent to use for network access. */
     public static final String USER_AGENT = "Groestlcoin Wallet";
 
-	/** Default currency to use if all default mechanisms fail. */
-
     /** Default currency to use if all default mechanisms fail. */
     public static final String DEFAULT_EXCHANGE_CURRENCY = "USD";
 
-	/** Default currency to use if all default mechanisms fail. */
     /** Donation address for tip/donate action. */
     public static final String DONATION_ADDRESS = NETWORK_PARAMETERS.getId().equals(NetworkParameters.ID_MAINNET)
             ? "FkknEYnex1MeZyPRnEebFK5ZBHHsFZbvaf" : null;
 
     /** Recipient e-mail address for reports. */
-    public static final String REPORT_EMAIL = "hashengineeringsolutions@gmail.com";
+    public static final String REPORT_EMAIL = "support@groestlcoin.org";
 
     /** Subject line for manually reported issues. */
-    public static final String REPORT_SUBJECT_ISSUE = "Reported issue " + USER_AGENT;
+    public static final String REPORT_SUBJECT_ISSUE = "Reported issue";
 
     /** Subject line for crash reports. */
-    public static final String REPORT_SUBJECT_CRASH = "Crash report " + USER_AGENT;
+    public static final String REPORT_SUBJECT_CRASH = "Crash report";
 
     public static final char CHAR_HAIR_SPACE = '\u200a';
     public static final char CHAR_THIN_SPACE = '\u2009';
@@ -173,15 +162,13 @@ public final class Constants {
 
     public static final String SOURCE_URL = "https://github.com/Groestlcoin/groestlcoin-wallet";
     public static final String BINARY_URL = "https://github.com/Groestlcoin/groestlcoin-wallet/releases";
-    public static final String MARKET_APP_URL = "market://details?id=%s";
-    public static final String WEBMARKET_APP_URL = "https://play.google.com/store/apps/details?id=%s";
 
-    public static final int PEER_DISCOVERY_TIMEOUT_MS = 10 * (int) DateUtils.SECOND_IN_MILLIS;
+    public static final int PEER_DISCOVERY_TIMEOUT_MS = 5 * (int) DateUtils.SECOND_IN_MILLIS;
     public static final int PEER_TIMEOUT_MS = 15 * (int) DateUtils.SECOND_IN_MILLIS;
 
     public static final long LAST_USAGE_THRESHOLD_JUST_MS = DateUtils.HOUR_IN_MILLIS;
-    public static final long LAST_USAGE_THRESHOLD_2HOURS_MS = 2 + DateUtils.HOUR_IN_MILLIS;
-    public static final long LAST_USAGE_THRESHOLD_RECENTLY_MS = 2 * DateUtils.DAY_IN_MILLIS;
+    public static final long LAST_USAGE_THRESHOLD_TODAY_MS = DateUtils.DAY_IN_MILLIS;
+    public static final long LAST_USAGE_THRESHOLD_RECENTLY_MS = DateUtils.WEEK_IN_MILLIS;
     public static final long LAST_USAGE_THRESHOLD_INACTIVE_MS = 4 * DateUtils.WEEK_IN_MILLIS;
 
     public static final long DELAYED_TRANSACTION_THRESHOLD_MS = 2 * DateUtils.HOUR_IN_MILLIS;
@@ -194,11 +181,10 @@ public final class Constants {
     public static final int SDK_DEPRECATED_BELOW = Build.VERSION_CODES.LOLLIPOP;
     public static final String SECURITY_PATCH_INSECURE_BELOW = "2018-01-01";
 
-    public static final int NOTIFICATION_ID_CONNECTED = 1;
+    public static final int NOTIFICATION_ID_CONNECTIVITY = 1;
     public static final int NOTIFICATION_ID_COINS_RECEIVED = 2;
     public static final int NOTIFICATION_ID_MAINTENANCE = 3;
     public static final int NOTIFICATION_ID_INACTIVITY = 4;
-    public static final int NOTIFICATION_ID_BLOCKCHAIN_SYNC = 5;
     public static final String NOTIFICATION_GROUP_KEY_RECEIVED = "group-received";
     public static final String NOTIFICATION_CHANNEL_ID_RECEIVED = "received";
     public static final String NOTIFICATION_CHANNEL_ID_ONGOING = "ongoing";

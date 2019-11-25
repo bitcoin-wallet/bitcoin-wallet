@@ -49,7 +49,7 @@ public abstract class AppDatabase extends RoomDatabase {
         @Override
         public void migrate(final SupportSQLiteDatabase database) {
             database.execSQL(
-                    "CREATE TABLE address_book_new (address TEXT NOT NULL, label TEXT NULL, PRIMARY KEY(address))");
+                    "CREATE TABLE address_book_new (address TEXT NOT NULL, label TEXT, PRIMARY KEY(address))");
             database.execSQL(
                     "INSERT OR IGNORE INTO address_book_new (address, label) SELECT address, label FROM address_book");
             database.execSQL("DROP TABLE address_book");

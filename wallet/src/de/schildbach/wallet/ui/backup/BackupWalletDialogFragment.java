@@ -32,6 +32,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.TimeZone;
 
+import de.schildbach.wallet.util.WalletUtils;
 import org.bitcoinj.wallet.Protos;
 import org.bitcoinj.wallet.Wallet;
 import org.bitcoinj.wallet.WalletProtobufSerializer;
@@ -69,7 +70,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
-import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
@@ -155,77 +155,58 @@ public class BackupWalletDialogFragment extends DialogFragment {
         builder.setTitle(R.string.export_keys_dialog_title);
         builder.setView(view);
         // dummies, just to make buttons show
-        builder.setPositiveButton(R.string.button_ok, null);
+        builder.setPositiveButton(R.string.export_keys_dialog_button_export, null);
         builder.setNegativeButton(R.string.button_cancel, null);
 
         final AlertDialog dialog = builder.create();
         dialog.setCanceledOnTouchOutside(false);
-        dialog.setOnShowListener(new OnShowListener() {
-            @Override
-            public void onShow(final DialogInterface d) {
-                positiveButton = dialog.getButton(DialogInterface.BUTTON_POSITIVE);
-                positiveButton.setEnabled(false);
-                positiveButton.setTypeface(Typeface.DEFAULT_BOLD);
-                positiveButton.setOnClickListener(new OnClickListener() {
-                    @Override
-                    public void onClick(final View v) {
-                        handleGo();
-                    }
-                });
+        dialog.setOnShowListener(d -> {
+            positiveButton = dialog.getButton(DialogInterface.BUTTON_POSITIVE);
+            positiveButton.setEnabled(false);
+            positiveButton.setTypeface(Typeface.DEFAULT_BOLD);
+            positiveButton.setOnClickListener(v -> handleGo());
 
-                negativeButton = dialog.getButton(DialogInterface.BUTTON_NEGATIVE);
-                negativeButton.setOnClickListener(new OnClickListener() {
-                    @Override
-                    public void onClick(final View v) {
-                        dismissAllowingStateLoss();
-                        activity.finish();
-                    }
-                });
+            negativeButton = dialog.getButton(DialogInterface.BUTTON_NEGATIVE);
+            negativeButton.setOnClickListener(v -> {
+                dismissAllowingStateLoss();
+                activity.finish();
+            });
 
-                passwordView.addTextChangedListener(textWatcher);
-                passwordAgainView.addTextChangedListener(textWatcher);
+            passwordView.addTextChangedListener(textWatcher);
+            passwordAgainView.addTextChangedListener(textWatcher);
 
-                showView.setOnCheckedChangeListener(new ShowPasswordCheckListener(passwordView, passwordAgainView));
+            showView.setOnCheckedChangeListener(new ShowPasswordCheckListener(passwordView, passwordAgainView));
 
-                viewModel.wallet.observe(BackupWalletDialogFragment.this, new Observer<Wallet>() {
-                    @Override
-                    public void onChanged(final Wallet wallet) {
-                        warningView.setVisibility(wallet.isEncrypted() ? View.VISIBLE : View.GONE);
-                    }
-                });
-                viewModel.password.observe(BackupWalletDialogFragment.this, new Observer<String>() {
-                    @Override
-                    public void onChanged(final String password) {
-                        passwordMismatchView.setVisibility(View.INVISIBLE);
+            viewModel.wallet.observe(BackupWalletDialogFragment.this, wallet -> warningView.setVisibility(wallet.isEncrypted() ? View.VISIBLE : View.GONE));
+            viewModel.password.observe(BackupWalletDialogFragment.this, password -> {
+                passwordMismatchView.setVisibility(View.INVISIBLE);
 
-                        final int passwordLength = password.length();
-                        passwordStrengthView.setVisibility(passwordLength > 0 ? View.VISIBLE : View.INVISIBLE);
-                        if (passwordLength < 6) {
-                            passwordStrengthView.setText(R.string.encrypt_keys_dialog_password_strength_weak);
-                            passwordStrengthView
-                                    .setTextColor(ContextCompat.getColor(activity, R.color.fg_password_strength_weak));
-                        } else if (passwordLength < 8) {
-                            passwordStrengthView.setText(R.string.encrypt_keys_dialog_password_strength_fair);
-                            passwordStrengthView
-                                    .setTextColor(ContextCompat.getColor(activity, R.color.fg_password_strength_fair));
-                        } else if (passwordLength < 10) {
-                            passwordStrengthView.setText(R.string.encrypt_keys_dialog_password_strength_good);
-                            passwordStrengthView
-                                    .setTextColor(ContextCompat.getColor(activity, R.color.fg_password_strength_good));
-                        } else {
-                            passwordStrengthView.setText(R.string.encrypt_keys_dialog_password_strength_strong);
-                            passwordStrengthView.setTextColor(
-                                    ContextCompat.getColor(activity, R.color.fg_password_strength_strong));
-                        }
+                final int passwordLength = password.length();
+                passwordStrengthView.setVisibility(passwordLength > 0 ? View.VISIBLE : View.INVISIBLE);
+                if (passwordLength < 6) {
+                    passwordStrengthView.setText(R.string.encrypt_keys_dialog_password_strength_weak);
+                    passwordStrengthView
+                            .setTextColor(ContextCompat.getColor(activity, R.color.fg_password_strength_weak));
+                } else if (passwordLength < 8) {
+                    passwordStrengthView.setText(R.string.encrypt_keys_dialog_password_strength_fair);
+                    passwordStrengthView
+                            .setTextColor(ContextCompat.getColor(activity, R.color.fg_password_strength_fair));
+                } else if (passwordLength < 10) {
+                    passwordStrengthView.setText(R.string.encrypt_keys_dialog_password_strength_good);
+                    passwordStrengthView
+                            .setTextColor(ContextCompat.getColor(activity, R.color.fg_password_strength_good));
+                } else {
+                    passwordStrengthView.setText(R.string.encrypt_keys_dialog_password_strength_strong);
+                    passwordStrengthView.setTextColor(
+                            ContextCompat.getColor(activity, R.color.fg_password_strength_strong));
+                }
 
-                        final boolean hasPassword = !password.isEmpty();
-                        final boolean hasPasswordAgain = !passwordAgainView.getText().toString().trim().isEmpty();
-                        if (positiveButton != null)
-                            positiveButton
-                                    .setEnabled(viewModel.wallet.getValue() != null && hasPassword && hasPasswordAgain);
-                    }
-                });
-            }
+                final boolean hasPassword = !password.isEmpty();
+                final boolean hasPasswordAgain = !passwordAgainView.getText().toString().trim().isEmpty();
+                if (positiveButton != null)
+                    positiveButton
+                            .setEnabled(viewModel.wallet.getValue() != null && hasPassword && hasPasswordAgain);
+            });
         });
 
         return dialog;
@@ -293,7 +274,7 @@ public class BackupWalletDialogFragment extends DialogFragment {
                         viewModel.wallet.removeObserver(this);
 
                         final Uri targetUri = checkNotNull(intent.getData());
-                        final String target = uriToTarget(targetUri);
+                        final String targetProvider = WalletUtils.uriToProvider(targetUri);
                         final String password = passwordView.getText().toString().trim();
                         checkState(!password.isEmpty());
                         wipePasswords();
@@ -313,7 +294,7 @@ public class BackupWalletDialogFragment extends DialogFragment {
                             cipherOut.flush();
 
                             log.info("backed up wallet to: '{}'{}, {} characters written", targetUri,
-                                    target != null ? " (" + target + ")" : "", cipherText.length());
+                                    targetProvider != null ? " (" + targetProvider + ")" : "", cipherText.length());
                         } catch (final IOException x) {
                             log.error("problem backing up wallet to " + targetUri, x);
                             ErrorDialogFragment.showDialog(getFragmentManager(), x.toString());
@@ -334,7 +315,7 @@ public class BackupWalletDialogFragment extends DialogFragment {
                             log.info("verified successfully: '" + targetUri + "'");
                             application.getConfiguration().disarmBackupReminder();
                             SuccessDialogFragment.showDialog(getFragmentManager(),
-                                    target != null ? target : targetUri.toString());
+                                    targetProvider != null ? targetProvider : targetUri.toString());
                         } catch (final IOException x) {
                             log.error("problem verifying backup from " + targetUri, x);
                             ErrorDialogFragment.showDialog(getFragmentManager(), x.toString());
@@ -351,19 +332,6 @@ public class BackupWalletDialogFragment extends DialogFragment {
         } else {
             super.onActivityResult(requestCode, resultCode, intent);
         }
-    }
-
-    private @Nullable String uriToTarget(final Uri uri) {
-        if (!uri.getScheme().equals("content"))
-            return null;
-        final String host = uri.getHost();
-        if ("com.google.android.apps.docs.storage".equals(host))
-            return "Google Drive";
-        if ("com.box.android.documents".equals(host))
-            return "Box";
-        if ("com.android.providers.downloads.documents".equals(host))
-            return "internal storage";
-        return null;
     }
 
     public static class SuccessDialogFragment extends DialogFragment {
@@ -392,12 +360,7 @@ public class BackupWalletDialogFragment extends DialogFragment {
             final DialogBuilder dialog = new DialogBuilder(getContext());
             dialog.setTitle(R.string.export_keys_dialog_title);
             dialog.setMessage(Html.fromHtml(getString(R.string.export_keys_dialog_success, target)));
-            dialog.singleDismissButton(new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(final DialogInterface dialog, final int id) {
-                    activity.finish();
-                }
-            });
+            dialog.singleDismissButton((d, id) -> activity.finish());
             return dialog.create();
         }
     }
@@ -428,12 +391,7 @@ public class BackupWalletDialogFragment extends DialogFragment {
             final DialogBuilder dialog = DialogBuilder.warn(getContext(),
                     R.string.import_export_keys_dialog_failure_title);
             dialog.setMessage(getString(R.string.export_keys_dialog_failure, exceptionMessage));
-            dialog.singleDismissButton(new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(final DialogInterface dialog, final int id) {
-                    activity.finish();
-                }
-            });
+            dialog.singleDismissButton((d, id) -> activity.finish());
             return dialog.create();
         }
     }

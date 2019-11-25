@@ -166,9 +166,7 @@ public class BlockListAdapter extends ListAdapter<BlockListAdapter.ListItem, Blo
 
             @Override
             public boolean areContentsTheSame(final ListItem oldItem, final ListItem newItem) {
-                if (!Objects.equals(oldItem.time, newItem.time))
-                    return false;
-                return true;
+                return Objects.equals(oldItem.time, newItem.time);
             }
         });
 
@@ -211,12 +209,7 @@ public class BlockListAdapter extends ListAdapter<BlockListAdapter.ListItem, Blo
 
         final OnClickListener onClickListener = this.onClickListener;
         if (onClickListener != null) {
-            holder.menuView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(final View v) {
-                    onClickListener.onBlockMenuClick(v, listItem.blockHash);
-                }
-            });
+            holder.menuView.setOnClickListener(v -> onClickListener.onBlockMenuClick(v, listItem.blockHash));
         }
     }
 

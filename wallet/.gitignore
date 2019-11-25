@@ -1,3 +1,5 @@
 res/mipmap-*hdpi/
+res-prod/mipmap-*hdpi/
+
 testNet3/res/mipmap-*hdpi/
 .externalNativeBuild

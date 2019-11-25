@@ -45,7 +45,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 /**
@@ -88,27 +87,14 @@ public final class WalletBalanceFragment extends Fragment {
         activityViewModel = ViewModelProviders.of(activity).get(WalletActivityViewModel.class);
         viewModel = ViewModelProviders.of(this).get(WalletBalanceViewModel.class);
 
-        viewModel.getBlockchainState().observe(this, new Observer<BlockchainState>() {
-            @Override
-            public void onChanged(final BlockchainState blockchainState) {
-                updateView();
-            }
-        });
-        viewModel.getBalance().observe(this, new Observer<Coin>() {
-            @Override
-            public void onChanged(final Coin balance) {
-                activity.invalidateOptionsMenu();
-                updateView();
-                activityViewModel.balanceLoadingFinished();
-            }
+        application.blockchainState.observe(this, blockchainState -> updateView());
+        viewModel.getBalance().observe(this, balance -> {
+            activity.invalidateOptionsMenu();
+            updateView();
+            activityViewModel.balanceLoadingFinished();
         });
         if (Constants.ENABLE_EXCHANGE_RATES) {
-            viewModel.getExchangeRate().observe(this, new Observer<ExchangeRate>() {
-                @Override
-                public void onChanged(final ExchangeRate exchangeRate) {
-                    updateView();
-                }
-            });
+            viewModel.getExchangeRate().observe(this, exchangeRate -> updateView());
         }
     }
 
@@ -127,12 +113,7 @@ public final class WalletBalanceFragment extends Fragment {
 
         viewBalance = view.findViewById(R.id.wallet_balance);
         if (showExchangeRatesOption) {
-            viewBalance.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(final View v) {
-                    startActivity(new Intent(getActivity(), ExchangeRatesActivity.class));
-                }
-            });
+            viewBalance.setOnClickListener(v -> startActivity(new Intent(getActivity(), ExchangeRatesActivity.class)));
         } else {
             viewBalance.setEnabled(false);
         }
@@ -166,12 +147,10 @@ public final class WalletBalanceFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
-        switch (item.getItemId()) {
-        case R.id.wallet_balance_options_donate:
+        if (item.getItemId() == R.id.wallet_balance_options_donate) {
             handleDonate();
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -180,7 +159,7 @@ public final class WalletBalanceFragment extends Fragment {
     }
 
     private void updateView() {
-        final BlockchainState blockchainState = viewModel.getBlockchainState().getValue();
+        final BlockchainState blockchainState = application.blockchainState.getValue();
         final Coin balance = viewModel.getBalance().getValue();
         final ExchangeRate exchangeRate = viewModel.getExchangeRate().getValue();
 

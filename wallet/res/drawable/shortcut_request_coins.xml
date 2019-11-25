@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+<layer-list
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:targetApi="25">
 
     <item
         android:bottom="@dimen/shortcut_padding"
         android:left="@dimen/shortcut_padding"
         android:right="@dimen/shortcut_padding"
         android:top="@dimen/shortcut_padding">
-        <shape android:shape="oval" >
+        <shape android:shape="oval">
             <size
                 android:height="@dimen/shortcut_size"
                 android:width="@dimen/shortcut_size" />
-
             <solid android:color="@color/bg_shortcut" />
         </shape>
     </item>
@@ -18,6 +20,5 @@
         android:drawable="@drawable/ic_send_flipped_shortcut_24dp"
         android:gravity="center"
         android:height="@dimen/shortcut_icon_size"
-        android:width="@dimen/shortcut_icon_size"/>
-
+        android:width="@dimen/shortcut_icon_size" />
 </layer-list>

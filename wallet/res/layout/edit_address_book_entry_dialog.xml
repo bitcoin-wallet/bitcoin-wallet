@@ -16,6 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:labelFor="@id/edit_address_book_entry_address"
             android:text="@string/edit_address_book_entry_dialog_address_label"
             android:textSize="@dimen/font_size_small"
             android:textStyle="bold" />
@@ -36,6 +37,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:labelFor="@id/edit_address_book_entry_label"
             android:text="@string/edit_address_book_entry_dialog_label_label"
             android:textSize="@dimen/font_size_small"
             android:textStyle="bold" />

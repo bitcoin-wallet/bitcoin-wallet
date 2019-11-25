@@ -28,7 +28,10 @@ import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.service.BlockchainService;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -37,6 +40,7 @@ import android.preference.EditTextPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceFragment;
+import android.provider.Settings;
 
 /**
  * @author Andreas Schildbach
@@ -84,7 +88,16 @@ public final class SettingsFragment extends PreferenceFragment implements OnPref
         trustedPeerOnlyPreference.setOnPreferenceChangeListener(this);
 
         final Preference dataUsagePreference = findPreference(Configuration.PREFS_KEY_DATA_USAGE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+            dataUsagePreference.setIntent(new Intent(Settings.ACTION_IGNORE_BACKGROUND_DATA_RESTRICTIONS_SETTINGS,
+                    Uri.parse("package:" + application.getPackageName())));
         dataUsagePreference.setEnabled(pm.resolveActivity(dataUsagePreference.getIntent(), 0) != null);
+
+        final Preference notificationsPreference = findPreference(Configuration.PREFS_KEY_NOTIFICATIONS);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            notificationsPreference.setIntent(new Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS).putExtra(Settings.EXTRA_APP_PACKAGE, application.getPackageName()));
+            notificationsPreference.setEnabled(pm.resolveActivity(notificationsPreference.getIntent(), 0) != null);
+        }
 
         updateTrustedPeer();
     }
@@ -102,15 +115,12 @@ public final class SettingsFragment extends PreferenceFragment implements OnPref
     @Override
     public boolean onPreferenceChange(final Preference preference, final Object newValue) {
         // delay action because preference isn't persisted until after this method returns
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                if (preference.equals(trustedPeerPreference)) {
-                    BlockchainService.stop(activity);
-                    updateTrustedPeer();
-                } else if (preference.equals(trustedPeerOnlyPreference)) {
-                    BlockchainService.stop(activity);
-                }
+        handler.post(() -> {
+            if (preference.equals(trustedPeerPreference)) {
+                BlockchainService.stop(activity);
+                updateTrustedPeer();
+            } else if (preference.equals(trustedPeerOnlyPreference)) {
+                BlockchainService.stop(activity);
             }
         });
 

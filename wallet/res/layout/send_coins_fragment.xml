@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:divider="?android:attr/dividerHorizontal"
     android:dividerPadding="0dp"
     android:orientation="vertical"
-    android:showDividers="middle" >
+    android:showDividers="middle">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -24,6 +27,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:labelFor="@id/send_coins_payee_name"
                 android:text="@string/send_coins_fragment_receiving_address_label"
                 android:textSize="@dimen/font_size_small"
                 android:textStyle="bold" />
@@ -111,7 +115,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:imeOptions="flagNoExtractUi"
-                        android:textSize="@dimen/font_size_larger"
+                        android:textSize="@dimen/font_size_large"
                         tools:ignore="TextFields" />
                 </de.schildbach.wallet.ui.CurrencyAmountView>
 
@@ -126,7 +130,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:imeOptions="flagNoExtractUi"
-                        android:textSize="@dimen/font_size_larger"
+                        android:textSize="@dimen/font_size_large"
                         tools:ignore="TextFields" />
                 </de.schildbach.wallet.ui.CurrencyAmountView>
             </LinearLayout>

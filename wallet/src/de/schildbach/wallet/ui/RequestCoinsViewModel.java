@@ -67,84 +67,24 @@ public class RequestCoinsViewModel extends AndroidViewModel {
         this.freshReceiveAddress = new FreshReceiveAddressLiveData(this.application);
         this.ownName = new ConfigOwnNameLiveData(this.application);
         this.exchangeRate = new SelectedExchangeRateLiveData(this.application);
-        this.qrCode.addSource(freshReceiveAddress, new Observer<Address>() {
-            @Override
-            public void onChanged(final Address receiveAddress) {
-                maybeGenerateQrCode();
-            }
-        });
-        this.qrCode.addSource(ownName, new Observer<String>() {
-            @Override
-            public void onChanged(final String label) {
-                maybeGenerateQrCode();
-            }
-        });
-        this.qrCode.addSource(amount, new Observer<Coin>() {
-            @Override
-            public void onChanged(final Coin amount) {
-                maybeGenerateQrCode();
-            }
-        });
-        this.qrCode.addSource(bluetoothMac, new Observer<String>() {
-            @Override
-            public void onChanged(final String bluetoothMac) {
-                maybeGenerateQrCode();
-            }
-        });
-        this.paymentRequest.addSource(freshReceiveAddress, new Observer<Address>() {
-            @Override
-            public void onChanged(final Address receiveAddress) {
-                maybeGeneratePaymentRequest();
-            }
-        });
-        this.paymentRequest.addSource(ownName, new Observer<String>() {
-            @Override
-            public void onChanged(final String label) {
-                maybeGeneratePaymentRequest();
-            }
-        });
-        this.paymentRequest.addSource(amount, new Observer<Coin>() {
-            @Override
-            public void onChanged(final Coin amount) {
-                maybeGeneratePaymentRequest();
-            }
-        });
-        this.paymentRequest.addSource(bluetoothMac, new Observer<String>() {
-            @Override
-            public void onChanged(final String bluetoothMac) {
-                maybeGeneratePaymentRequest();
-            }
-        });
-        this.bitcoinUri.addSource(freshReceiveAddress, new Observer<Address>() {
-            @Override
-            public void onChanged(final Address receiveAddress) {
-                maybeGenerateBitcoinUri();
-            }
-        });
-        this.bitcoinUri.addSource(ownName, new Observer<String>() {
-            @Override
-            public void onChanged(final String label) {
-                maybeGenerateBitcoinUri();
-            }
-        });
-        this.bitcoinUri.addSource(amount, new Observer<Coin>() {
-            @Override
-            public void onChanged(final Coin amount) {
-                maybeGenerateBitcoinUri();
-            }
-        });
+        this.qrCode.addSource(freshReceiveAddress, receiveAddress -> maybeGenerateQrCode());
+        this.qrCode.addSource(ownName, label -> maybeGenerateQrCode());
+        this.qrCode.addSource(amount, amount -> maybeGenerateQrCode());
+        this.qrCode.addSource(bluetoothMac, bluetoothMac -> maybeGenerateQrCode());
+        this.paymentRequest.addSource(freshReceiveAddress, receiveAddress -> maybeGeneratePaymentRequest());
+        this.paymentRequest.addSource(ownName, label -> maybeGeneratePaymentRequest());
+        this.paymentRequest.addSource(amount, amount -> maybeGeneratePaymentRequest());
+        this.paymentRequest.addSource(bluetoothMac, bluetoothMac -> maybeGeneratePaymentRequest());
+        this.bitcoinUri.addSource(freshReceiveAddress, receiveAddress -> maybeGenerateBitcoinUri());
+        this.bitcoinUri.addSource(ownName, label -> maybeGenerateBitcoinUri());
+        this.bitcoinUri.addSource(amount, amount -> maybeGenerateBitcoinUri());
     }
 
     private void maybeGenerateQrCode() {
         final Address address = freshReceiveAddress.getValue();
         if (address != null) {
-            AsyncTask.execute(new Runnable() {
-                @Override
-                public void run() {
-                    qrCode.postValue(
-                            Qr.bitmap(uri(address, amount.getValue(), ownName.getValue(), bluetoothMac.getValue())));
-                }
-            });
+            AsyncTask.execute(() -> qrCode.postValue(
+                    Qr.bitmap(uri(address, amount.getValue(), ownName.getValue(), bluetoothMac.getValue()))));
         }
     }
 
@@ -199,13 +139,10 @@ public class RequestCoinsViewModel extends AndroidViewModel {
             if (getValue() == null) {
                 final Wallet wallet = getWallet();
                 final Script.ScriptType outputScriptType = this.outputScriptType;
-                AsyncTask.execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        org.bitcoinj.core.Context.propagate(Constants.CONTEXT);
-                        postValue(outputScriptType != null ? wallet.freshReceiveAddress(outputScriptType)
-                                : wallet.freshReceiveAddress());
-                    }
+                AsyncTask.execute(() -> {
+                    org.bitcoinj.core.Context.propagate(Constants.CONTEXT);
+                    postValue(outputScriptType != null ? wallet.freshReceiveAddress(outputScriptType)
+                            : wallet.freshReceiveAddress());
                 });
             }
         }

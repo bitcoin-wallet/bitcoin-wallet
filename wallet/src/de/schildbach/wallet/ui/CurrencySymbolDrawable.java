@@ -17,6 +17,7 @@
 
 package de.schildbach.wallet.ui;
 
+import android.graphics.PixelFormat;
 import de.schildbach.wallet.Constants;
 
 import android.graphics.Canvas;
@@ -53,7 +54,7 @@ public final class CurrencySymbolDrawable extends Drawable {
 
     @Override
     public int getOpacity() {
-        return 0;
+        return PixelFormat.TRANSLUCENT;
     }
 
     @Override

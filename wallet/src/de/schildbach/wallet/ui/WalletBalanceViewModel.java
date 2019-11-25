@@ -18,7 +18,6 @@
 package de.schildbach.wallet.ui;
 
 import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.data.BlockchainStateLiveData;
 import de.schildbach.wallet.data.SelectedExchangeRateLiveData;
 import de.schildbach.wallet.data.WalletBalanceLiveData;
 
@@ -30,19 +29,12 @@ import androidx.lifecycle.AndroidViewModel;
  */
 public class WalletBalanceViewModel extends AndroidViewModel {
     private final WalletApplication application;
-    private BlockchainStateLiveData blockchainState;
     private WalletBalanceLiveData balance;
     private SelectedExchangeRateLiveData exchangeRate;
 
     public WalletBalanceViewModel(final Application application) {
         super(application);
         this.application = (WalletApplication) application;
-    }
-
-    public BlockchainStateLiveData getBlockchainState() {
-        if (blockchainState == null)
-            blockchainState = new BlockchainStateLiveData(application);
-        return blockchainState;
     }
 
     public WalletBalanceLiveData getBalance() {

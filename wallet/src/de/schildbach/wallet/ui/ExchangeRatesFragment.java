@@ -27,13 +27,11 @@ import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.R;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.data.ExchangeRatesProvider;
-import de.schildbach.wallet.service.BlockchainState;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.database.Cursor;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -47,7 +45,6 @@ import android.widget.SearchView;
 import android.widget.SearchView.OnQueryTextListener;
 import android.widget.ViewAnimator;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -82,53 +79,40 @@ public final class ExchangeRatesFragment extends Fragment
 
         viewModel = ViewModelProviders.of(this).get(ExchangeRatesViewModel.class);
         if (Constants.ENABLE_EXCHANGE_RATES) {
-            viewModel.getExchangeRates().observe(this, new Observer<Cursor>() {
-                @Override
-                public void onChanged(final Cursor cursor) {
-                    if (cursor.getCount() == 0 && viewModel.query == null) {
-                        viewGroup.setDisplayedChild(1);
-                    } else if (cursor.getCount() == 0 && viewModel.query != null) {
-                        viewGroup.setDisplayedChild(2);
-                    } else {
-                        viewGroup.setDisplayedChild(3);
-                        maybeSubmitList();
+            viewModel.getExchangeRates().observe(this, cursor -> {
+                if (cursor.getCount() == 0 && viewModel.query == null) {
+                    viewGroup.setDisplayedChild(1);
+                } else if (cursor.getCount() == 0 && viewModel.query != null) {
+                    viewGroup.setDisplayedChild(2);
+                } else {
+                    viewGroup.setDisplayedChild(3);
+                    maybeSubmitList();
 
-                        final String defaultCurrency = config.getExchangeCurrencyCode();
-                        if (defaultCurrency != null) {
-                            cursor.moveToPosition(-1);
-                            while (cursor.moveToNext()) {
-                                if (cursor
-                                        .getString(
-                                                cursor.getColumnIndexOrThrow(ExchangeRatesProvider.KEY_CURRENCY_CODE))
-                                        .equals(defaultCurrency)) {
-                                    recyclerView.scrollToPosition(cursor.getPosition());
-                                    break;
-                                }
+                    final String defaultCurrency = config.getExchangeCurrencyCode();
+                    if (defaultCurrency != null) {
+                        cursor.moveToPosition(-1);
+                        while (cursor.moveToNext()) {
+                            if (cursor
+                                    .getString(
+                                            cursor.getColumnIndexOrThrow(ExchangeRatesProvider.KEY_CURRENCY_CODE))
+                                    .equals(defaultCurrency)) {
+                                recyclerView.scrollToPosition(cursor.getPosition());
+                                break;
                             }
                         }
+                    }
 
-                        if (activity instanceof ExchangeRatesActivity) {
-                            cursor.moveToPosition(0);
-                            final String source = ExchangeRatesProvider.getExchangeRate(cursor).source;
-                            activity.getActionBar().setSubtitle(
-                                    source != null ? getString(R.string.exchange_rates_fragment_source, source) : null);
-                        }
+                    if (activity instanceof ExchangeRatesActivity) {
+                        cursor.moveToPosition(0);
+                        final String source = ExchangeRatesProvider.getExchangeRate(cursor).source;
+                        activity.getActionBar().setSubtitle(
+                                source != null ? getString(R.string.exchange_rates_fragment_source, source) : null);
                     }
                 }
             });
         }
-        viewModel.getBalance().observe(this, new Observer<Coin>() {
-            @Override
-            public void onChanged(final Coin balance) {
-                maybeSubmitList();
-            }
-        });
-        viewModel.getBlockchainState().observe(this, new Observer<BlockchainState>() {
-            @Override
-            public void onChanged(final BlockchainState blockchainState) {
-                maybeSubmitList();
-            }
-        });
+        viewModel.getBalance().observe(this, balance -> maybeSubmitList());
+        application.blockchainState.observe(this, blockchainState -> maybeSubmitList());
 
         adapter = new ExchangeRatesAdapter(activity, this);
 
@@ -157,22 +141,19 @@ public final class ExchangeRatesFragment extends Fragment
         final Cursor exchangeRates = viewModel.getExchangeRates().getValue();
         if (exchangeRates != null)
             adapter.submitList(ExchangeRatesAdapter.buildListItems(exchangeRates, viewModel.getBalance().getValue(),
-                    viewModel.getBlockchainState().getValue(), config.getExchangeCurrencyCode(), config.getBtcBase()));
+                    application.blockchainState.getValue(), config.getExchangeCurrencyCode(), config.getBtcBase()));
     }
 
     @Override
     public void onExchangeRateMenuClick(final View view, final String currencyCode) {
         final PopupMenu popupMenu = new PopupMenu(activity, view);
         popupMenu.inflate(R.menu.exchange_rates_context);
-        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(final MenuItem item) {
-                if (item.getItemId() == R.id.exchange_rates_context_set_as_default) {
-                    config.setExchangeCurrencyCode(currencyCode);
-                    return true;
-                } else {
-                    return false;
-                }
+        popupMenu.setOnMenuItemClickListener(item -> {
+            if (item.getItemId() == R.id.exchange_rates_context_set_as_default) {
+                config.setExchangeCurrencyCode(currencyCode);
+                return true;
+            } else {
+                return false;
             }
         });
         popupMenu.show();
@@ -204,8 +185,8 @@ public final class ExchangeRatesFragment extends Fragment
             final int id = searchView.getContext().getResources().getIdentifier("android:id/search_src_text", null,
                     null);
             final EditText searchInput = searchView.findViewById(id);
-            searchInput.setTextColor(ContextCompat.getColor(activity, R.color.fg_network_significant));
-            searchInput.setHintTextColor(ContextCompat.getColor(activity, R.color.fg_network_insignificant));
+            searchInput.setTextColor(ContextCompat.getColor(activity, R.color.fg_on_dark_bg_network_significant));
+            searchInput.setHintTextColor(ContextCompat.getColor(activity, R.color.fg_on_dark_bg_network_insignificant));
         } else {
             searchMenuItem.setVisible(false);
         }

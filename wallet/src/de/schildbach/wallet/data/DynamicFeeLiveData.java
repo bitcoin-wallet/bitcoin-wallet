@@ -49,12 +49,12 @@ import android.os.AsyncTask;
 import androidx.lifecycle.LiveData;
 import okhttp3.Call;
 import okhttp3.ConnectionSpec;
+import okhttp3.Headers;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
-import okhttp3.internal.http.HttpDate;
 
 /**
  * @author Andreas Schildbach
@@ -81,12 +81,9 @@ public class DynamicFeeLiveData extends LiveData<Map<FeeCategory, Coin>> {
 
     @Override
     protected void onActive() {
-        AsyncTask.execute(new Runnable() {
-            @Override
-            public void run() {
-                final Map<FeeCategory, Coin> dynamicFees = loadInBackground();
-                postValue(dynamicFees);
-            }
+        AsyncTask.execute(() -> {
+            final Map<FeeCategory, Coin> dynamicFees = loadInBackground();
+            postValue(dynamicFees);
         });
     }
 
@@ -136,7 +133,7 @@ public class DynamicFeeLiveData extends LiveData<Map<FeeCategory, Coin>> {
     }
 
     private static Map<FeeCategory, Coin> parseFees(final InputStream is) throws IOException {
-        final Map<FeeCategory, Coin> dynamicFees = new HashMap<FeeCategory, Coin>();
+        final Map<FeeCategory, Coin> dynamicFees = new HashMap<>();
         String line = null;
         try (final BufferedReader reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.US_ASCII))) {
             while (true) {
@@ -170,9 +167,11 @@ public class DynamicFeeLiveData extends LiveData<Map<FeeCategory, Coin>> {
 
         final Request.Builder request = new Request.Builder();
         request.url(url);
-        request.header("User-Agent", userAgent);
+        final Headers.Builder headers = new Headers.Builder();
+        headers.add("User-Agent", userAgent);
         if (targetFile.exists())
-            request.header("If-Modified-Since", HttpDate.format(new Date(targetFile.lastModified())));
+            headers.add("If-Modified-Since", new Date(targetFile.lastModified()));
+        request.headers(headers.build());
 
         final OkHttpClient.Builder httpClientBuilder = Constants.HTTP_CLIENT.newBuilder();
         httpClientBuilder.connectionSpecs(Arrays.asList(ConnectionSpec.RESTRICTED_TLS));

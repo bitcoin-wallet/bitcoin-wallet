@@ -47,12 +47,9 @@ public abstract class ThrottelingLiveData<T> extends LiveData<T> {
     @MainThread
     protected void triggerLoad() {
         handler.removeCallbacksAndMessages(null);
-        final Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                lastMessageMs = System.currentTimeMillis();
-                load();
-            }
+        final Runnable runnable = () -> {
+            lastMessageMs = System.currentTimeMillis();
+            load();
         };
         final long lastMessageAgoMs = System.currentTimeMillis() - lastMessageMs;
         if (lastMessageAgoMs < throttleMs)

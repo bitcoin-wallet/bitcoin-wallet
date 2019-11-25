@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2015 the original author or authors.
+ * Copyright the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,9 +17,6 @@
 
 package de.schildbach.wallet.util;
 
-import java.io.File;
-import java.io.FileFilter;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -45,6 +42,7 @@ import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.service.BlockchainService;
 
 import android.content.Context;
+import android.net.Uri;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -220,18 +218,22 @@ public class WalletUtils {
         }
     }
 
-    public static final FileFilter BACKUP_FILE_FILTER = new FileFilter() {
-        @Override
-        public boolean accept(final File file) {
-            try (final InputStream is = new FileInputStream(file)) {
-                return WalletProtobufSerializer.isWallet(is);
-            } catch (final IOException x) {
-                return false;
-            }
-        }
-    };
-
     public static boolean isPayToManyTransaction(final Transaction transaction) {
         return transaction.getOutputs().size() > 20;
+    }
+
+    public static @Nullable String uriToProvider(final Uri uri) {
+        if (uri == null || !uri.getScheme().equals("content"))
+            return null;
+        final String host = uri.getHost();
+        if ("com.google.android.apps.docs.storage".equals(host) || "com.google.android.apps.docs.storage.legacy".equals(host))
+            return "Google Drive";
+        if ("org.nextcloud.documents".equals(host))
+            return "Nextcloud";
+        if ("com.box.android.documents".equals(host))
+            return "Box";
+        if ("com.android.providers.downloads.documents".equals(host))
+            return "internal storage";
+        return null;
     }
 }

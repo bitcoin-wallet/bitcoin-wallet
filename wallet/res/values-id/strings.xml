@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<resources>
 
 	<string name="toast_wallet_reset">Dompet diatur-ulang,\nakan memakan waktu utk dipulihkan</string>
 	<string name="wallet_disclaimer_fragment_remind_safety">Gunakan dlm resiko Anda. Baca &lt;u&gt;nota keamanan&lt;/u&gt;.</string>
@@ -91,13 +91,6 @@
 	<string name="peer_list_fragment_empty">Tidak ada peer yang terhubung</string>
 	<string name="peer_list_row_ping_time">⇆ %d ms</string>
 	<string name="import_keys_dialog_title">Kembalikan kunci pribadi</string>
-	<string name="import_keys_dialog_message">Pilih berkas kunci pribadi dari penyimpanan eksternal atau apl:</string>
-	<string name="import_keys_dialog_file_security_encrypted">kata sandi terenkripsi</string>
-	<string name="import_keys_dialog_file_security_unencrypted">tak terenkripsi</string>
-	<string name="import_keys_dialog_file_security_external">penyimpanan eksternal</string>
-	<string name="import_keys_dialog_file_security_internal">penyimpanan pribadi-apl</string>
-	<string name="import_keys_dialog_file_created_automatic">pencadangan otomatis %s</string>
-	<string name="import_keys_dialog_file_created_manual">dicadangkan manual %s</string>
 	<string name="import_keys_dialog_button_import">Pulihkan</string>
 	<string name="import_keys_dialog_failure">Kunci pribadi tidak dpt dipulihkan:\n\n%s\n\nKata sandi salah?</string>
 	<string name="export_keys_dialog_title">Cadangkan kunci pribadi</string>
@@ -116,8 +109,6 @@
 	<string name="preferences_activity_title">Pengaturan</string>
 	<string name="preferences_category_diagnostics">Diagnosa</string>
 	<string name="preferences_category_labs">Lab</string>
-	<string name="preferences_connectivity_notification_title">Indikator Konetivitas</string>
-	<string name="preferences_connectivity_notification_summary">Tampilkan jumlah peer yang terhubung pada area notifikasi.</string>
 	<string name="preferences_trusted_peer_title">Peer Terpercaya</string>
 	<string name="preferences_trusted_peer_summary">IP atau hostname dari satu peer untuk dihubungkan.</string>
 	<string name="preferences_trusted_peer_only_title">Lewati Pencarian Peer Reguler</string>

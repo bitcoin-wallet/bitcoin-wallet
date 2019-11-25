@@ -25,7 +25,6 @@ import org.bitcoinj.wallet.Wallet.BalanceType;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.data.AddressBookEntry;
 import de.schildbach.wallet.data.AppDatabase;
-import de.schildbach.wallet.data.BlockchainStateLiveData;
 import de.schildbach.wallet.data.DynamicFeeLiveData;
 import de.schildbach.wallet.data.PaymentIntent;
 import de.schildbach.wallet.data.SelectedExchangeRateLiveData;
@@ -54,7 +53,6 @@ public class SendCoinsViewModel extends AndroidViewModel {
     public final LiveData<List<AddressBookEntry>> addressBook;
     public final SelectedExchangeRateLiveData exchangeRate;
     public final DynamicFeeLiveData dynamicFees;
-    public final BlockchainStateLiveData blockchainState;
     public final WalletBalanceLiveData balance;
     public final MutableLiveData<String> progress = new MutableLiveData<>();
 
@@ -81,7 +79,6 @@ public class SendCoinsViewModel extends AndroidViewModel {
         this.addressBook = AppDatabase.getDatabase(this.application).addressBookDao().getAll();
         this.exchangeRate = new SelectedExchangeRateLiveData(this.application);
         this.dynamicFees = new DynamicFeeLiveData(this.application);
-        this.blockchainState = new BlockchainStateLiveData(this.application);
         this.balance = new WalletBalanceLiveData(this.application, BalanceType.AVAILABLE);
     }
 }

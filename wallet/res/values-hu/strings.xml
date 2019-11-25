@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<resources>
   <string name="toast_wallet_reset">A tárcád alapállapotba került!\nA visszaállítás némi időt vesz igénybe.</string>
   <string name="wallet_disclaimer_fragment_remind_safety">Csak saját felelősségre használd. Olvasd el a &lt;u&gt;biztonsági megjegyzéseket&lt;/u&gt;.</string>
   <string name="wallet_disclaimer_fragment_remind_backup">Szükséges &lt;u&gt;biztonsági mentést készítened a tárcádról&lt;/u&gt;!</string>
@@ -166,17 +166,9 @@
   <string name="block_row_now">csak most</string>
   <string name="peer_list_fragment_empty">Nincs kapcsolat</string>
   <string name="peer_list_row_ping_time">⇆ %d&#x2009;ms</string>
-  <string name="restore_wallet_permission_dialog_title">Olvasási engedély hiányzik</string>
   <string name="import_keys_dialog_title">Tárca visszaállítása</string>
-  <string name="import_keys_dialog_message">Válassz egy tárca biztonsági mentés fájlt a külső tárolóból (%s):</string>
   <string name="restore_wallet_dialog_replace_warning">Arra készülsz, hogy lecseréld a jelenlegi tárcád. A jelenlegi tárcában lévő minden érme el fog veszni, hacsak nincs egy különálló biztonsági mentésed róla.</string>
   <string name="import_keys_dialog_warning">Fontos: Ne tölts be privát kulcsokat kétes forrásokból! Mások átvehetik az irányítást a tőkéd felett, ha megteszed.</string>
-  <string name="import_keys_dialog_file_security_encrypted">jelszó titkosítva</string>
-  <string name="import_keys_dialog_file_security_unencrypted">titkosítatlan</string>
-  <string name="import_keys_dialog_file_security_external">külső tárhely</string>
-  <string name="import_keys_dialog_file_security_internal">az alkalmazás privát tárhelye</string>
-  <string name="import_keys_dialog_file_created_automatic">automatikus mentés %s</string>
-  <string name="import_keys_dialog_file_created_manual">kézi visszaállítás %s</string>
   <string name="import_keys_dialog_button_import">Visszaállítás</string>
   <string name="restore_wallet_dialog_success">Tárca visszaállítva.</string>
   <string name="restore_wallet_dialog_success_replay">A tárcád sikeresen visszaállítva. Az egyenleg visszaállítása következik. Ez eltarthat egy ideig.</string>
@@ -229,8 +221,6 @@
   <string name="preferences_own_name_summary">Saját elnevezésed, ami a fizetési kérelemhez adódik. Próbáld röviden.</string>
   <string name="preferences_send_coins_autoclose_title">Érmék küldése párbeszédpanel automatikus bezárása</string>
   <string name="preferences_send_coins_autoclose_summary">Amikor a fizetés megtörténik, a küldés párbeszédpanel automatikusan bezáródik.</string>
-  <string name="preferences_connectivity_notification_title">Kapcsolódásjelző</string>
-  <string name="preferences_connectivity_notification_summary">Mutassa a kapcsolódások aktuális számát az értesítési területen.</string>
   <string name="preferences_trusted_peer_title">Megbízható peer</string>
   <string name="preferences_trusted_peer_summary">IP cím, vagy állomásnév a közvetlen peer kapcsolódáshoz.</string>
   <string name="preferences_trusted_peer_resolve_progress">Megoldás…</string>

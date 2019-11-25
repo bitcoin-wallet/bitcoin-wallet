@@ -1,5 +1,5 @@
-/**
- * Copyright 2012-2014 the original author or authors.
+/*
+ * Copyright the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -79,7 +79,7 @@ public final class BitcoinIntegration {
 
     /**
      * Request any amount of Bitcoins (probably a donation) from user, with feedback from the app. Result
-     * intent can be received by overriding {@link android.app.Activity#onActivityResult()}. Result indicates
+     * intent can be received by overriding {@code Activity#onActivityResult(int, int, Intent)}. Result indicates
      * either {@link Activity#RESULT_OK} or {@link Activity#RESULT_CANCELED}. In the success case, use
      * {@link #transactionHashFromResult(Intent)} to read the transaction hash from the intent.
      * 
@@ -89,7 +89,7 @@ public final class BitcoinIntegration {
      * @param activity
      *            Calling Android activity
      * @param requestCode
-     *            Code identifying the call when {@link android.app.Activity#onActivityResult()} is called
+     *            Code identifying the call when {@code Activity#onActivityResult(int, int, Intent)} is called
      *            back
      * @param address
      *            Bitcoin address
@@ -102,7 +102,7 @@ public final class BitcoinIntegration {
 
     /**
      * Request specific amount of Bitcoins from user, with feedback from the app. Result intent can be
-     * received by overriding {@link android.app.Activity#onActivityResult()}. Result indicates either
+     * received by overriding {@code Activity#onActivityResult(int, int, Intent)}. Result indicates either
      * {@link Activity#RESULT_OK} or {@link Activity#RESULT_CANCELED}. In the success case, use
      * {@link #transactionHashFromResult(Intent)} to read the transaction hash from the intent.
      * 
@@ -112,7 +112,7 @@ public final class BitcoinIntegration {
      * @param activity
      *            Calling Android activity
      * @param requestCode
-     *            Code identifying the call when {@link android.app.Activity#onActivityResult()} is called
+     *            Code identifying the call when {@code Activity#onActivityResult(int, int, Intent)} is called
      *            back
      * @param address
      *            Bitcoin address
@@ -126,7 +126,7 @@ public final class BitcoinIntegration {
 
     /**
      * Request payment from user, with feedback from the app. Result intent can be received by overriding
-     * {@link android.app.Activity#onActivityResult()}. Result indicates either {@link Activity#RESULT_OK} or
+     * {@code Activity#onActivityResult(int, int, Intent)}. Result indicates either {@link Activity#RESULT_OK} or
      * {@link Activity#RESULT_CANCELED}. In the success case, use {@link #transactionHashFromResult(Intent)}
      * to read the transaction hash from the intent.
      * 
@@ -136,7 +136,7 @@ public final class BitcoinIntegration {
      * @param activity
      *            Calling Android activity
      * @param requestCode
-     *            Code identifying the call when {@link android.app.Activity#onActivityResult()} is called
+     *            Code identifying the call when {@code Activity#onActivityResult(int, int, Intent)} is called
      *            back
      * @param paymentRequest
      *            BIP70 formatted payment request
@@ -155,9 +155,8 @@ public final class BitcoinIntegration {
      * @return payment request or null
      */
     public static byte[] paymentRequestFromIntent(final Intent intent) {
-        final byte[] paymentRequest = intent.getByteArrayExtra(INTENT_EXTRA_PAYMENTREQUEST);
 
-        return paymentRequest;
+        return intent.getByteArrayExtra(INTENT_EXTRA_PAYMENTREQUEST);
     }
 
     /**
@@ -184,9 +183,8 @@ public final class BitcoinIntegration {
      * @return payment message
      */
     public static byte[] paymentFromResult(final Intent result) {
-        final byte[] payment = result.getByteArrayExtra(INTENT_EXTRA_PAYMENT);
 
-        return payment;
+        return result.getByteArrayExtra(INTENT_EXTRA_PAYMENT);
     }
 
     /**
@@ -213,9 +211,8 @@ public final class BitcoinIntegration {
      * @return transaction hash
      */
     public static String transactionHashFromResult(final Intent result) {
-        final String txHash = result.getStringExtra(INTENT_EXTRA_TRANSACTION_HASH);
 
-        return txHash;
+        return result.getStringExtra(INTENT_EXTRA_TRANSACTION_HASH);
     }
 
     private static final int SATOSHIS_PER_COIN = 100000000;
@@ -228,9 +225,7 @@ public final class BitcoinIntegration {
             uri.append("?amount=")
                     .append(String.format("%d.%08d", amount / SATOSHIS_PER_COIN, amount % SATOSHIS_PER_COIN));
 
-        final Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri.toString()));
-
-        return intent;
+        return new Intent(Intent.ACTION_VIEW, Uri.parse(uri.toString()));
     }
 
     private static Intent makePaymentRequestIntent(final byte[] paymentRequest) {

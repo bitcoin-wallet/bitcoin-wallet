@@ -114,16 +114,13 @@ public class WalletAddressDialogFragment extends DialogFragment {
                 Constants.ADDRESS_FORMAT_LINE_SIZE);
         labelView.setText(label);
         labelButtonView.setVisibility(View.VISIBLE);
-        labelButtonView.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                final ShareCompat.IntentBuilder builder = ShareCompat.IntentBuilder.from(activity);
-                builder.setType("text/plain");
-                builder.setText(addressStr);
-                builder.setChooserTitle(R.string.bitmap_fragment_share);
-                builder.startChooser();
-                log.info("wallet address shared via intent: {}", addressStr);
-            }
+        labelButtonView.setOnClickListener(v -> {
+            final ShareCompat.IntentBuilder builder = ShareCompat.IntentBuilder.from(activity);
+            builder.setType("text/plain");
+            builder.setText(addressStr);
+            builder.setChooserTitle(R.string.bitmap_fragment_share);
+            builder.startChooser();
+            log.info("wallet address shared via intent: {}", addressStr);
         });
 
         final View hintView = dialog.findViewById(R.id.wallet_address_dialog_hint);
@@ -131,12 +128,7 @@ public class WalletAddressDialogFragment extends DialogFragment {
                 getResources().getBoolean(R.bool.show_wallet_address_dialog_hint) ? View.VISIBLE : View.GONE);
 
         final View dialogView = dialog.findViewById(R.id.wallet_address_dialog_group);
-        dialogView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                dismissAllowingStateLoss();
-            }
-        });
+        dialogView.setOnClickListener(v -> dismissAllowingStateLoss());
 
         return dialog;
     }

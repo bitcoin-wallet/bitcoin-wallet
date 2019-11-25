@@ -50,12 +50,7 @@ public class CheatSheet {
      *            The view to add a cheat sheet for.
      */
     public static void setup(View view) {
-        view.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-                return showCheatSheet(view, view.getContentDescription());
-            }
-        });
+        view.setOnLongClickListener(v -> showCheatSheet(v, v.getContentDescription()));
     }
 
     /**
@@ -69,12 +64,7 @@ public class CheatSheet {
      *            The string resource containing the text to show on long-press.
      */
     public static void setup(View view, final int textResId) {
-        view.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-                return showCheatSheet(view, view.getContext().getString(textResId));
-            }
-        });
+        view.setOnLongClickListener(v -> showCheatSheet(v, v.getContext().getString(textResId)));
     }
 
     /**
@@ -88,12 +78,7 @@ public class CheatSheet {
      *            The text to show on long-press.
      */
     public static void setup(View view, final CharSequence text) {
-        view.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-                return showCheatSheet(view, text);
-            }
-        });
+        view.setOnLongClickListener(v -> showCheatSheet(v, text));
     }
 
     /**

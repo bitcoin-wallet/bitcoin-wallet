@@ -282,7 +282,7 @@ public abstract class InputParser {
                 throw new PaymentProtocolException.InvalidNetwork(
                         "cannot handle payment request network: " + paymentSession.getNetworkParameters());
 
-            final ArrayList<PaymentIntent.Output> outputs = new ArrayList<PaymentIntent.Output>(1);
+            final ArrayList<PaymentIntent.Output> outputs = new ArrayList<>(1);
             for (final PaymentProtocol.Output output : paymentSession.getOutputs())
                 outputs.add(PaymentIntent.Output.valueOf(output));
 
@@ -303,13 +303,9 @@ public abstract class InputParser {
                         "cannot handle payment url: " + paymentIntent.paymentUrl);
 
             return paymentIntent;
-        } catch (final InvalidProtocolBufferException x) {
+        } catch (final InvalidProtocolBufferException | UninitializedMessageException x) {
             throw new PaymentProtocolException(x);
-        } catch (final UninitializedMessageException x) {
-            throw new PaymentProtocolException(x);
-        } catch (final FileNotFoundException x) {
-            throw new RuntimeException(x);
-        } catch (final KeyStoreException x) {
+        } catch (final FileNotFoundException | KeyStoreException x) {
             throw new RuntimeException(x);
         }
     }

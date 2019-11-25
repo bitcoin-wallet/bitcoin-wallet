@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<resources>
   <string name="toast_wallet_reset">Kuleta juaj është resetuar!\nDo të duhet pak kohë derisa të rikthehet.</string>
   <string name="wallet_disclaimer_fragment_remind_safety">Përdoreni me përgjegjësinë tuaj, Lexoni &lt;u&gt;safety notes&lt;/u&gt;.</string>
   <string name="wallet_disclaimer_fragment_remind_backup">Ju duhet të &lt;u&gt;back kuletën tuaj&lt;/u&gt;!</string>
@@ -158,15 +158,8 @@
   <string name="peer_list_fragment_empty">Asnjë peers i konektuar</string>
   <string name="peer_list_row_ping_time">⇆ %d&#x2009;ms</string>
   <string name="import_keys_dialog_title">Rikthe kuletën</string>
-  <string name="import_keys_dialog_message">Zgjedh një kopje rezerë të kuletës nga memorja e jashtme (%s):</string>
   <string name="restore_wallet_dialog_replace_warning">Jeni duke zëvendësuar kuletën aktuale. Te gjitha monedhat që keni në kuletën aktuale do t\'i humisni përveҫ nëse keni një kopje rezerv të kuletës aktuale.</string>
   <string name="import_keys_dialog_warning">Kujdes: Mos ngarkoni ҫelësa privat nga burime të dyshimta! Të tjerët mund të marrin nën kontroll fondet tuaja.</string>
-  <string name="import_keys_dialog_file_security_encrypted">fjalëkalimi i enkriptuar</string>
-  <string name="import_keys_dialog_file_security_unencrypted">i pa enkriptuar</string>
-  <string name="import_keys_dialog_file_security_external">magazinim i jashtëm</string>
-  <string name="import_keys_dialog_file_security_internal">magazinim privat i aplikacionit</string>
-  <string name="import_keys_dialog_file_created_automatic">kopja rezervë automatike %s</string>
-  <string name="import_keys_dialog_file_created_manual">kopja rezervë manuale %s</string>
   <string name="import_keys_dialog_button_import">Rikthe</string>
   <string name="restore_wallet_dialog_success">Kuleta është rikthyer.</string>
   <string name="restore_wallet_dialog_success_replay">Kuleta juaj është rikthyer me sukses. Tani do të shfaqet bilanci. Kjo merr pak kohë.</string>
@@ -176,7 +169,7 @@
   <string name="backup_wallet_dialog_warning_encrypted">Kulaeta juaj është i mbrojtur nga një PIN. Sigurohuni që këtë PIN ta mbani në mend përveç fjalëkalimit të kopjes rezervë!</string>
   <string name="export_keys_dialog_button_export">Krijo kopje rezervë</string>
   <string name="export_keys_dialog_success"><![CDATA[<p>Kopja rezervë e kuletës suaj ndodhet në <tt>%s</tt></p><p><b>Nëse i vetmi vend që kopja juaj rezervë është në pajisjen tuaj, jeni në rrezik që të humbisni të dyjat në të njejtën kohë!</b></p><p>Për çdo rast sigurohuni që mbani në mend fjalëkalimin e kopjes rezervë.</p>]]></string>
-  <string name="export_keys_dialog_failure">Kuleta juaj nuk mund të krijohet njê kopje rezervë.</string>
+  <string name="export_keys_dialog_failure">Kuleta juaj nuk mund të krijohet njê kopje rezervë: %s</string>
   <string name="import_export_keys_dialog_password">fjalëkalimi</string>
   <string name="backup_wallet_dialog_password_again">prapë</string>
   <string name="backup_wallet_dialog_password_mismatch">mospërputhje</string>
@@ -209,8 +202,6 @@
   <string name="preferences_category_labs">Labs</string>
   <string name="preferences_precision_title">Njësit dhe preciziteti</string>
   <string name="preferences_precision_summary">Njësit që shfaqin shumën. Kjo nuk ndikon në përllogaritjet.</string>
-  <string name="preferences_connectivity_notification_title">Indikatori i lidhjes</string>
-  <string name="preferences_connectivity_notification_summary">Shfaq numrin e konektuar të peers në pjesën e njoftimeve.</string>
   <string name="preferences_trusted_peer_title">Peers të besueshëm</string>
   <string name="preferences_trusted_peer_summary">IP apo hostname e një peer për tu konektuar.</string>
   <string name="preferences_trusted_peer_only_title">Kalo kërkimin e rregullt të peer</string>

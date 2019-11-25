@@ -26,6 +26,7 @@ import org.bitcoinj.wallet.DeterministicKeyChain;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import de.schildbach.wallet.BuildConfig;
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.R;
@@ -69,7 +70,7 @@ public final class DiagnosticsFragment extends PreferenceFragment {
 
         addPreferencesFromResource(R.xml.preference_diagnostics);
 
-        if(Constants.TEST) {
+        if(BuildConfig.FLAVOR.contains("test")) {
             String title = findPreference(PREFS_KEY_EXTENDED_PUBLIC_KEY).getTitle().toString();
             title.replaceFirst("xpub", "tpub");
         }
@@ -105,15 +106,12 @@ public final class DiagnosticsFragment extends PreferenceFragment {
         final DialogBuilder dialog = new DialogBuilder(activity);
         dialog.setTitle(R.string.preferences_initiate_reset_title);
         dialog.setMessage(R.string.preferences_initiate_reset_dialog_message);
-        dialog.setPositiveButton(R.string.preferences_initiate_reset_dialog_positive, new OnClickListener() {
-            @Override
-            public void onClick(final DialogInterface dialog, final int which) {
-                log.info("manually initiated blockchain reset");
+        dialog.setPositiveButton(R.string.preferences_initiate_reset_dialog_positive, (d, which) -> {
+            log.info("manually initiated blockchain reset");
 
-                BlockchainService.resetBlockchain(activity);
-                config.updateLastBlockchainResetTime();
-                activity.finish(); // TODO doesn't fully finish prefs on single pane layouts
-            }
+            BlockchainService.resetBlockchain(activity);
+            config.updateLastBlockchainResetTime();
+            activity.finish(); // TODO doesn't fully finish prefs on single pane layouts
         });
         dialog.setNegativeButton(R.string.button_dismiss, null);
         dialog.show();

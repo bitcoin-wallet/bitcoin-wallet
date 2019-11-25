@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<resources>
 
 	<string name="toast_wallet_reset">Ví tiền đã được thiết lập lại,\nsẽ tốn chút ít thời gian để hồi phục lại</string>
 	<string name="wallet_disclaimer_fragment_remind_safety">Sử dụng với sự cẩn trọng. Đọc &lt;u&gt;ghi chú an toàn&lt;/u&gt;.</string>
@@ -86,13 +86,6 @@
 	<string name="peer_list_fragment_empty">Không có mạng ngang hàng nào kết nối</string>
 	<string name="peer_list_row_ping_time">⇆ %d phần nghìn giây</string>
 	<string name="import_keys_dialog_title">Nhập dữ liệu là các khóa cá nhân</string>
-	<string name="import_keys_dialog_message">Chọn một khóa cá nhân từ một tập tin trong thẻ nhớ hoặc ở phần lưu trên hệ thống:</string>
-	<string name="import_keys_dialog_file_security_encrypted">mã hóa mật khẩu</string>
-	<string name="import_keys_dialog_file_security_unencrypted">giải mã</string>
-	<string name="import_keys_dialog_file_security_external">thẻ nhớ</string>
-	<string name="import_keys_dialog_file_security_internal">phần lưu thông tin cá nhân</string>
-	<string name="import_keys_dialog_file_created_automatic">tự động sao lưu %s</string>
-	<string name="import_keys_dialog_file_created_manual">dữ liệu do người dùng xuất %s</string>
 	<string name="import_keys_dialog_button_import">Nhập dữ liệu</string>
 	<string name="import_keys_dialog_failure">Khóa cá nhân không thể được nhập vào:\n\n%s\n\nDo sai mật khẩu?</string>
 	<string name="export_keys_dialog_title">Xuất dữ liệu từ các khóa cá nhân</string>
@@ -111,8 +104,6 @@
 	<string name="preferences_activity_title">Thiết lập</string>
 	<string name="preferences_category_diagnostics">Chẩn đoán</string>
 	<string name="preferences_category_labs">Thí nghiệm</string>
-	<string name="preferences_connectivity_notification_title">Chỉ định kết nối</string>
-	<string name="preferences_connectivity_notification_summary">Hiển thị số lượng các kết nối ngang hàng hiện tại trong khu vực thông báo của thiết bị.</string>
 	<string name="preferences_trusted_peer_title">Kết nối ngang hàng đáng tin</string>
 	<string name="preferences_trusted_peer_summary">Địa chỉ IP hoặc hostname của kết nối ngang hàng để kết nối đến.</string>
 	<string name="preferences_trusted_peer_only_title">Bỏ qua việc tìm kiếm kết nối ngang hàng thông thường</string>

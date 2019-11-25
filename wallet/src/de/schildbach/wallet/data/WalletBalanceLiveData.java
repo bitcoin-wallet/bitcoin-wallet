@@ -83,12 +83,9 @@ public final class WalletBalanceLiveData extends AbstractWalletLiveData<Coin>
     @Override
     protected void load() {
         final Wallet wallet = getWallet();
-        AsyncTask.execute(new Runnable() {
-            @Override
-            public void run() {
-                org.bitcoinj.core.Context.propagate(Constants.CONTEXT);
-                postValue(wallet.getBalance(balanceType));
-            }
+        AsyncTask.execute(() -> {
+            org.bitcoinj.core.Context.propagate(Constants.CONTEXT);
+            postValue(wallet.getBalance(balanceType));
         });
     }
 

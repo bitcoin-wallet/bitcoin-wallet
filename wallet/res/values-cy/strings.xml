@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<resources>
   <string name="toast_wallet_reset">Cafodd dy waled ei ailosod!\nCymeriff ychydig o amser i\'w adfer.</string>
   <string name="wallet_disclaimer_fragment_remind_safety">Defnyddia gyda dy risg dy hun. Darllena\'r &lt;u&gt;nodiadau diogelwch&lt;/u&gt;.</string>
   <string name="wallet_disclaimer_fragment_remind_backup">Bydd angen &lt;u&gt;cadw copi wrth gefn o dy waled&lt;/u&gt;!</string>
@@ -192,19 +192,9 @@
   <string name="block_row_now">jyst nawr</string>
   <string name="peer_list_fragment_empty">Dim cyfoedion wedi cysylltu</string>
   <string name="peer_list_row_ping_time">⇆ %d&#x2009;me</string>
-  <string name="restore_wallet_permission_dialog_title">Caniatâd darllen ar goll</string>
-  <string name="restore_wallet_permission_dialog_message">I chwilio am gopïau wrth gefn o dy waled ar dy storfa allanol, rhaid rhoi caniatâd i\'w ddarllen.</string>
   <string name="import_keys_dialog_title">Adfer waled</string>
-  <string name="import_keys_dialog_message">Dewisa ffeil copi wrth gefn o\'r waled o storfa allanol (%s):</string>
-  <string name="restore_wallet_dialog_message_empty">Ni chanfuwyd copi wrth gefn. Gwiria ei fod wedi\'i osod mewn storfa allanol (%s).</string>
   <string name="restore_wallet_dialog_replace_warning">Rwyt ar fin newid dy waled gyfredol. Caiff unrhyw Fitcoin yn dy waled eu colli oni bai bod gennyt gopi wrth gefn gwahanol o\'r waled.</string>
   <string name="import_keys_dialog_warning">Pwysig: Paid â llwytho allweddau preifat o ffynhonellau amheus! Os wyt ti, gall eraill gael rheolaeth dros dy gyllid.</string>
-  <string name="import_keys_dialog_file_security_encrypted">cyfrinair wedi\'i amgryptio</string>
-  <string name="import_keys_dialog_file_security_unencrypted">dadamgryptiwyd</string>
-  <string name="import_keys_dialog_file_security_external">storfa allanol</string>
-  <string name="import_keys_dialog_file_security_internal">storfa ap-preifat</string>
-  <string name="import_keys_dialog_file_created_automatic">copi wrth gefn awtomatig %s</string>
-  <string name="import_keys_dialog_file_created_manual">cadwyd copi wrth gefn â llaw %s</string>
   <string name="import_keys_dialog_button_import">Adfer</string>
   <string name="restore_wallet_dialog_success">Adferwyd y waled.</string>
   <string name="restore_wallet_dialog_success_replay">Cafodd dy waled ei adfer yn llwyddiannus. Pennir y balans nesaf. Bydd hyn yn cymryd ychydig o amser.</string>
@@ -259,8 +249,6 @@
   <string name="preferences_own_name_summary">Dy enw dy hun, i\'w ychwanegu at geisiadau taliadau. Cadwa fo\'n fyr.</string>
   <string name="preferences_send_coins_autoclose_title">Deialog anfon Groestlcoin yn cau\'n awtomatig</string>
   <string name="preferences_send_coins_autoclose_summary">Pan gaiff y taliad ei wneud, bydd y deialog anfon yn cau yn awtomatig</string>
-  <string name="preferences_connectivity_notification_title">Dangosydd cysylltedd</string>
-  <string name="preferences_connectivity_notification_summary">Dangos y nifer o gyfoedion wedi cysylltu yn yr ardal hysbysiadau.</string>
   <string name="preferences_trusted_peer_title">Cyfoed ymddiriedir ynddo</string>
   <string name="preferences_trusted_peer_summary">IP neu enw gwesteiwr cyfoed unigol i gysylltu ato.</string>
   <string name="preferences_trusted_peer_resolve_progress">Yn datrys…</string>

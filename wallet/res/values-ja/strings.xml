@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<resources>
   <string name="toast_wallet_reset">ウォレットはリセットされました!\n復元には多少時間がかかります。</string>
   <string name="wallet_disclaimer_fragment_remind_safety">自己の責任においてご使用下さい。&lt;u&gt;安全に関する注意事項&lt;/u&gt;をお読み下さい。</string>
   <string name="wallet_disclaimer_fragment_remind_backup">&lt;u&gt;ウォレットをバックアップ&lt;/u&gt;する必要があります!</string>
@@ -192,19 +192,9 @@
   <string name="block_row_now">たった今</string>
   <string name="peer_list_fragment_empty">接続済みのピアはありません</string>
   <string name="peer_list_row_ping_time">⇆ %d&#x2009;ms</string>
-  <string name="restore_wallet_permission_dialog_title">読み取り許可がありません</string>
-  <string name="restore_wallet_permission_dialog_message">外部ストレージにあるウォレットのバックアップを検索するには、読み込み許可を与える必要があります。</string>
   <string name="import_keys_dialog_title">ウォレットのリストア</string>
-  <string name="import_keys_dialog_message">外部ストレージからウォレットのバックアップファイルを選択してください (%s):</string>
-  <string name="restore_wallet_dialog_message_empty">ウォレットのバックアップが見付かりませんでした。バックアップが外部ストレージ (%s) に置かれているのを確認してください。</string>
   <string name="restore_wallet_dialog_replace_warning">現在のウォレットを置き換えようとしています。現在ウォレットにあるコインは別途バックアップが無いかぎり全て失われます。</string>
   <string name="import_keys_dialog_warning">重要: 不審な出所からのプライベートキーを読込まないでください! 読み込んだ場合、他人があなたの資産を操作できてしまいます。</string>
-  <string name="import_keys_dialog_file_security_encrypted">パスワード暗号化済</string>
-  <string name="import_keys_dialog_file_security_unencrypted">パスワード未暗号化</string>
-  <string name="import_keys_dialog_file_security_external">外部ストレージ</string>
-  <string name="import_keys_dialog_file_security_internal">アプリ専用ストレージ</string>
-  <string name="import_keys_dialog_file_created_automatic">%s 自動バックアップ</string>
-  <string name="import_keys_dialog_file_created_manual">%s 手動バックアップ</string>
   <string name="import_keys_dialog_button_import">リストア</string>
   <string name="restore_wallet_dialog_success">ウォレットは復元されました。</string>
   <string name="restore_wallet_dialog_success_replay">あなたのウォレットは正常に復元されました。続いて残高を計算します。これには多少時間がかかる場合があります。</string>
@@ -259,8 +249,6 @@
   <string name="preferences_own_name_summary">支払いリクエストに含める、あなた自身の名前。短いものにしてください。</string>
   <string name="preferences_send_coins_autoclose_title">送金ダイアログを自動的に閉じる</string>
   <string name="preferences_send_coins_autoclose_summary">支払いが完了した際に、送金ダイアログを自動的に閉じます。</string>
-  <string name="preferences_connectivity_notification_title">接続インジゲーター</string>
-  <string name="preferences_connectivity_notification_summary">通知エリア内に現在の接続ピア数を表示する。</string>
   <string name="preferences_trusted_peer_title">信頼されたピア</string>
   <string name="preferences_trusted_peer_summary">接続する単一ピアのIPアドレスかホスト名。</string>
   <string name="preferences_trusted_peer_resolve_progress">解決中……</string>
@@ -271,6 +259,8 @@
   <string name="preferences_block_explorer_summary">トランザクション・アドレス・ブロックを閲覧するための外部のブロックエクスプローラ。</string>
   <string name="preferences_data_usage_title">データの使用方法</string>
   <string name="preferences_data_usage_summary">モバイルネットワークにおけるデータ使用制限のオプションを表示する。</string>
+  <string name="preferences_notifications_title">通知</string>
+  <string name="preferences_notifications_summary">特定の通知を有効/無効にするオプションを表示する。</string>
   <string name="preferences_remind_balance_title">残金通知</string>
   <string name="preferences_remind_balance_summary">数週間使われていない場合、まだウォレット内にコインが残っていればアプリが通知を出します。</string>
   <string name="preferences_show_disclaimer_title">免責条項を表示する</string>
@@ -316,6 +306,7 @@
   <string name="about_faq_title">よくある質問</string>
   <string name="about_faq_summary">このアプリに関するよくある質問</string>
   <string name="notification_coins_received_msg">%sを受け取りました</string>
+  <string name="notification_connectivity_syncing_message">ネットワークと同期しています……</string>
   <string name="notification_peers_connected_msg">%dピアが接続済</string>
   <string name="notification_inactivity_title">まだこの端末にグルシュルコインが残っています!</string>
   <string name="notification_inactivity_message">残金を他の場所に移さずにGroestlcoin Walletアプリをアンインストールした場合、%sの残金は失なわれてしまうことに注意してください。</string>
@@ -345,6 +336,7 @@
   <string name="button_send_coins">コインを送る</string>
   <string name="button_scan">スキャン</string>
   <string name="button_settings">設定</string>
+  <string name="button_options">詳細設定</string>
   <string name="action_show_qr">QRコードを表示</string>
   <string name="action_browse">ブラウズ</string>
   <!--generic strings-->
@@ -352,6 +344,7 @@
   <string name="address_unlabeled">(ラベルなし)</string>
   <string name="private_key_password">PIN</string>
   <string name="private_key_bad_password">PINが違います!</string>
+  <string name="qr_code">QRコード</string>
   <!--generic error messages-->
   <string name="error_io">入出力エラー: %s</string>
   <string name="error_parse">パースエラー:%s</string>

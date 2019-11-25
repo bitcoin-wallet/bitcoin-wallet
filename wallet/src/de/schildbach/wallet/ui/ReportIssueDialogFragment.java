@@ -28,6 +28,7 @@ import java.util.Locale;
 import java.util.Set;
 import java.util.TimeZone;
 
+import de.schildbach.wallet.BuildConfig;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.TransactionOutput;
 import org.bitcoinj.core.Utils;
@@ -170,19 +171,11 @@ public class ReportIssueDialogFragment extends DialogFragment {
         };
         final AlertDialog dialog = builder.create();
 
-        dialog.setOnShowListener(new OnShowListener() {
-            @Override
-            public void onShow(final DialogInterface d) {
-                positiveButton = dialog.getButton(DialogInterface.BUTTON_POSITIVE);
-                positiveButton.setEnabled(false);
+        dialog.setOnShowListener(d -> {
+            positiveButton = dialog.getButton(DialogInterface.BUTTON_POSITIVE);
+            positiveButton.setEnabled(false);
 
-                viewModel.wallet.observe(ReportIssueDialogFragment.this, new Observer<Wallet>() {
-                    @Override
-                    public void onChanged(final Wallet wallet) {
-                        positiveButton.setEnabled(true);
-                    }
-                });
-            }
+            viewModel.wallet.observe(ReportIssueDialogFragment.this, wallet -> positiveButton.setEnabled(true));
         });
 
         return dialog;
@@ -203,13 +196,14 @@ public class ReportIssueDialogFragment extends DialogFragment {
         report.append("Version: " + pi.versionName + " (" + pi.versionCode + ")\n");
         report.append("APK Hash: " + application.apkHash().toString() + "\n");
         report.append("Package: " + pi.packageName + "\n");
+        report.append("Flavor: " + BuildConfig.FLAVOR + "\n");
+        report.append("Build Type: " + BuildConfig.BUILD_TYPE + "\n");
         final String installerPackageName = Installer.installerPackageName(application);
         final Installer installer = Installer.from(installerPackageName);
         if (installer != null)
             report.append("Installer: " + installer.displayName + " (" + installerPackageName + ")\n");
         else
             report.append("Installer: unknown\n");
-        report.append("Test/Prod: " + (Constants.TEST ? "test" : "prod") + "\n");
         report.append("Timezone: " + TimeZone.getDefault().getID() + "\n");
         calendar.setTimeInMillis(System.currentTimeMillis());
         report.append("Current time: " + String.format(Locale.US, "%tF %tT %tZ", calendar, calendar, calendar) + "\n");
@@ -231,6 +225,12 @@ public class ReportIssueDialogFragment extends DialogFragment {
         calendar.setTimeInMillis(lastRestoreTime);
         report.append("Time of last restore: "
                 + (lastRestoreTime > 0 ? String.format(Locale.US, "%tF %tT %tZ", calendar, calendar, calendar) : "none")
+                + "\n");
+        final long lastEncryptKeysTime = configuration.getLastEncryptKeysTime();
+        calendar.setTimeInMillis(lastEncryptKeysTime);
+        report.append("Time of last encrypt keys: "
+                + (lastEncryptKeysTime > 0 ? String.format(Locale.US, "%tF %tT %tZ", calendar, calendar, calendar) :
+                "none")
                 + "\n");
         final long lastBlockchainResetTime = configuration.getLastBlockchainResetTime();
         calendar.setTimeInMillis(lastBlockchainResetTime);
@@ -274,6 +274,8 @@ public class ReportIssueDialogFragment extends DialogFragment {
         final File filesDir = application.getFilesDir();
         report.append("\nContents of FilesDir " + filesDir + ":\n");
         appendDir(report, filesDir, 0);
+        report.append("free/usable space: ").append(Long.toString(filesDir.getFreeSpace() / 1024))
+                .append("/").append(Long.toString(filesDir.getUsableSpace() / 1024)).append(" kB\n");
     }
 
     private static void appendDir(final Appendable report, final File file, final int indent) throws IOException {
@@ -283,7 +285,8 @@ public class ReportIssueDialogFragment extends DialogFragment {
         final Formatter formatter = new Formatter(report);
         final Calendar calendar = new GregorianCalendar(UTC);
         calendar.setTimeInMillis(file.lastModified());
-        formatter.format(Locale.US, "%tF %tT %8d  %s\n", calendar, calendar, file.length(), file.getName());
+        formatter.format(Locale.US, "%tF %tT %8d kB  %s\n",
+                calendar, calendar, file.length() / 1024, file.getName());
         formatter.close();
 
         final File[] files = file.listFiles();

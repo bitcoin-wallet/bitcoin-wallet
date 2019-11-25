@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<resources>
 
     <string name="toast_wallet_reset">Your wallet was reset!\nIt will take some time to recover.</string>
     <string name="wallet_disclaimer_fragment_remind_safety">Use at your own risk. Read the &lt;u&gt;safety notes&lt;/u&gt;.</string>
@@ -193,19 +193,9 @@
     <string name="block_row_now">just now</string>
     <string name="peer_list_fragment_empty">No peers connected</string>
     <string name="peer_list_row_ping_time">⇆ %d&#x2009;ms</string>
-    <string name="restore_wallet_permission_dialog_title">Read permission missing</string>
-    <string name="restore_wallet_permission_dialog_message">In order to search for wallet backups on your external storage, you need to grant read permission.</string>
     <string name="import_keys_dialog_title">Restore wallet</string>
-    <string name="import_keys_dialog_message">Pick a wallet backup file from external storage (%s):</string>
-    <string name="restore_wallet_dialog_message_empty">No wallet backup was found. Make sure it is placed in external storage (%s).</string>
     <string name="restore_wallet_dialog_replace_warning">You are about to replace your current wallet. Any coins in the current wallet will be lost unless you\'ve got a separate backup of that.</string>
     <string name="import_keys_dialog_warning">Important: Do not load private keys from dubious sources! Others can gain control over your funds if you do.</string>
-    <string name="import_keys_dialog_file_security_encrypted">password encrypted</string>
-    <string name="import_keys_dialog_file_security_unencrypted">unencrypted</string>
-    <string name="import_keys_dialog_file_security_external">external storage</string>
-    <string name="import_keys_dialog_file_security_internal">app-private storage</string>
-    <string name="import_keys_dialog_file_created_automatic">automatic backup %s</string>
-    <string name="import_keys_dialog_file_created_manual">manually backed up %s</string>
     <string name="import_keys_dialog_button_import">Restore</string>
     <string name="restore_wallet_dialog_success">Wallet was restored.</string>
     <string name="restore_wallet_dialog_success_replay">Your wallet was successfully restored. Its balance will be determined next. This will take some time.</string>
@@ -260,8 +250,6 @@
     <string name="preferences_own_name_summary">Name of yourself, to be added to payment requests. Try to keep it short.</string>
     <string name="preferences_send_coins_autoclose_title">Auto-close send coins dialog</string>
     <string name="preferences_send_coins_autoclose_summary">When the payment is made, the send dialog will close automatically.</string>
-    <string name="preferences_connectivity_notification_title">Connectivity indicator</string>
-    <string name="preferences_connectivity_notification_summary">Show current number of connected peers in the notification area.</string>
     <string name="preferences_trusted_peer_title">Trusted peer</string>
     <string name="preferences_trusted_peer_summary">IP or hostname of single peer to connect to.</string>
     <string name="preferences_trusted_peer_resolve_progress">Resolving…</string>
@@ -272,6 +260,8 @@
     <string name="preferences_block_explorer_summary">External block explorer to use for browsing transactions, addresses and blocks.</string>
     <string name="preferences_data_usage_title">Data usage</string>
     <string name="preferences_data_usage_summary">Show options to restrict data usage on mobile networks.</string>
+    <string name="preferences_notifications_title">Notifications</string>
+    <string name="preferences_notifications_summary">Show options to disable or enable specific notifications.</string>
     <string name="preferences_remind_balance_title">Balance reminder</string>
     <string name="preferences_remind_balance_summary">After a couple of weeks of not being used, the app will notify if there are still coins in the wallet.</string>
     <string name="preferences_show_disclaimer_title">Show disclaimer</string>
@@ -317,6 +307,7 @@
     <string name="about_faq_title">FAQ</string>
     <string name="about_faq_summary">Frequently asked questions about the app</string>
     <string name="notification_coins_received_msg">Received %s</string>
+    <string name="notification_connectivity_syncing_message">Synchronizing with the network…</string>
     <string name="notification_peers_connected_msg">%d peers connected</string>
     <string name="notification_inactivity_title">You\'ve still got Groestlcoins on this device!</string>
     <string name="notification_inactivity_message">Remember your balance of %s will be lost if you uninstall the Groestlcoin Wallet app without sending it away first.</string>
@@ -347,6 +338,7 @@
     <string name="button_send_coins">Send coins</string>
     <string name="button_scan">Scan</string>
     <string name="button_settings">Settings</string>
+    <string name="button_options">More options</string>
     <string name="action_show_qr">Show QR code</string>
     <string name="action_browse">Browse</string>
 
@@ -355,6 +347,7 @@
     <string name="address_unlabeled">(unlabeled)</string>
     <string name="private_key_password">PIN</string>
     <string name="private_key_bad_password">bad PIN!</string>
+    <string name="qr_code">QR code</string>
 
     <!-- generic error messages -->
     <string name="error_io">I/O error: %s</string>

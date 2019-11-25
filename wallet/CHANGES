@@ -104,6 +104,68 @@ v1.00
 
 Bitcoin Wallet
 =======
+v7.38
+
+* Improve design of app-widget.
+* Update translations from Transifex.
+
+v7.37
+
+* Directly link from the settings to the notification settings.
+
+v7.36
+
+* More improvements on blockchain sync.
+
+v7.35
+
+* Implement light mode for app-widget.
+
+v7.34
+
+* Directly link from the settings to the data usage settings.
+
+v7.33
+
+* Show progress in connectivity notification.
+* Update translations from Transifex.
+
+v7.32
+
+* Enabled Java 8 language features.
+
+v7.30-v7.31
+
+* Use storage access framework for restoring wallet backups.
+* More improvements on blockchain sync.
+
+v7.28-v7.29
+
+* Various improvements on blockchain sync.
+
+v7.27
+
+* Use Gradle build variants for testnet (dev) and mainnet (prod) flavors.
+* Notifications are now subtly colored.
+* On Android 10, when uninstalling the app users have the choice to keep their wallet in app-private storage.
+* Update translations from Transifex.
+
+v7.25-v7.26
+
+* Fix wallet not syncing in the background on modern devices.
+
+v7.24
+
+* Various optimizations.
+
+v7.23
+
+* Update Android Gradle plugin to 3.1.0.
+  This means it doesn't build reproducably without external help like 'disorderfs'.
+  See https://issuetracker.google.com/issues/110237303
+* Modernize the sample-integration-android subproject a bit.
+* Various small bugfixes.
+
 v7.22
 
 * Fix issue with confirmation of transactions that empty your wallet.
@@ -148,6 +210,7 @@ v7.13
 * Add confidence messages, helping users to understand the confidence state of their payments.
 
 v7.11-v7.12
+
 * Various small bugfixes.
 
 v7.10
@@ -997,7 +1060,7 @@ v3.41-v3.43
 
 v3.40
 
-* Support for µDGC denomination, for people who are used to low valued currencies.
+* Support for µBTC denomination, for people who are used to low valued currencies.
 * Always use BIP70 when sending payments directly via Bluetooth.
 * Small bugfixes.
 
@@ -1039,7 +1102,7 @@ v3.32
 
 v3.31
 
-* Default denomination has changed to millibitcoin (mDGC).
+* Default denomination has changed to millibitcoin (mBTC).
 * Cross-calculated exchange rates for currencies without Bitcoin volume. Thanks to BitcoinAverage.
 * Better handling of errors when sending coins, specifically when funds are exceeded.
 * Labs: Uses BIP70 payment protocol for tap-to-pay and scan-to-pay, if enabled in the settings.
@@ -1075,7 +1138,7 @@ v3.26
 
 v3.25
 
-* support for mDGC denomination
+* support for mBTC denomination
 * also use weighted exchange rates from BitcoinAverage
 * fixed issue with camera autofocus on some Samsung Galaxy devices
 

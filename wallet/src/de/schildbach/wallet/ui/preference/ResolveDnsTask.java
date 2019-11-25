@@ -36,26 +36,13 @@ public abstract class ResolveDnsTask {
     }
 
     public final void resolve(final String hostname) {
-        backgroundHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    final InetAddress address = InetAddress.getByName(hostname); // blocks on network
+        backgroundHandler.post(() -> {
+            try {
+                final InetAddress address = InetAddress.getByName(hostname); // blocks on network
 
-                    callbackHandler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            onSuccess(address);
-                        }
-                    });
-                } catch (final UnknownHostException x) {
-                    callbackHandler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            onUnknownHost();
-                        }
-                    });
-                }
+                callbackHandler.post(() -> onSuccess(address));
+            } catch (final UnknownHostException x) {
+                callbackHandler.post(() -> onUnknownHost());
             }
         });
     }

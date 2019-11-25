@@ -67,7 +67,7 @@ public class SendingAddressesViewModel extends AndroidViewModel {
         this.clip = new ClipLiveData(this.application);
     }
 
-    public class AddressesToExcludeLiveData extends AbstractWalletLiveData<Set<String>> {
+    public static class AddressesToExcludeLiveData extends AbstractWalletLiveData<Set<String>> {
         public AddressesToExcludeLiveData(final WalletApplication application) {
             super(application);
         }
@@ -79,18 +79,15 @@ public class SendingAddressesViewModel extends AndroidViewModel {
 
         private void loadAddressesToExclude() {
             final Wallet wallet = getWallet();
-            AsyncTask.execute(new Runnable() {
-                @Override
-                public void run() {
-                    final List<ECKey> derivedKeys = wallet.getIssuedReceiveKeys();
-                    Collections.sort(derivedKeys, DeterministicKey.CHILDNUM_ORDER);
-                    final List<ECKey> randomKeys = wallet.getImportedKeys();
+            AsyncTask.execute(() -> {
+                final List<ECKey> derivedKeys = wallet.getIssuedReceiveKeys();
+                Collections.sort(derivedKeys, DeterministicKey.CHILDNUM_ORDER);
+                final List<ECKey> randomKeys = wallet.getImportedKeys();
 
-                    final Set<String> addresses = new HashSet<>(derivedKeys.size() + randomKeys.size());
-                    for (final ECKey key : Iterables.concat(derivedKeys, randomKeys))
-                        addresses.add(LegacyAddress.fromKey(Constants.NETWORK_PARAMETERS, key).toString());
-                    postValue(addresses);
-                }
+                final Set<String> addresses = new HashSet<>(derivedKeys.size() + randomKeys.size());
+                for (final ECKey key : Iterables.concat(derivedKeys, randomKeys))
+                    addresses.add(LegacyAddress.fromKey(Constants.NETWORK_PARAMETERS, key).toString());
+                postValue(addresses);
             });
         }
     }

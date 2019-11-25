@@ -37,7 +37,9 @@
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="@dimen/list_entry_padding_horizontal_cram"
         android:layout_marginRight="@dimen/list_entry_padding_horizontal_cram"
+        android:backgroundTint="@color/fg_on_dark_bg_network_significant"
         android:contentDescription="@string/button_scan"
-        android:src="@drawable/ic_photo_camera_white_24dp" />
+        android:src="@drawable/ic_photo_camera_white_24dp"
+        android:tint="@color/bg_action_bar" />
 
 </LinearLayout>

@@ -1,4 +1,6 @@
-apply plugin: 'com.android.application'
+plugins {
+    id 'com.android.application'
+}
 
 repositories {
     mavenLocal()
@@ -8,18 +10,15 @@ configurations {
 }
 
 dependencies {
-    compile project(':integration-android')
-    compile 'org.groestlcoinj:groestlcoinj-core:0.15.2'
+    implementation project(':integration-android')
+    implementation 'org.groestlcoinj:groestlcoinj-core:0.15.2'
 }
 
 android {
-    compileSdkVersion 'android-15'
-    buildToolsVersion '28.0.3'
-
-    lintOptions { abortOnError false }
+    compileSdkVersion 'android-19'
+    buildToolsVersion '29.0.2'
 
     defaultConfig {
-        minSdkVersion 15
         dexOptions {
             preDexLibraries false
         }
@@ -34,11 +33,22 @@ android {
         }
     }
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+
     packagingOptions {
         exclude 'lib/x86_64/darwin/libscrypt.dylib'
-        exclude 'com/google/thirdparty/publicsuffix/PublicSuffixPatterns.gwt.xml'
-        exclude 'com/google/thirdparty/publicsuffix/PublicSuffixType.gwt.xml'
         exclude 'org/bitcoinj/crypto/mnemonic/wordlist/english.txt'
         exclude 'org/bitcoinj/crypto/cacerts'
+        exclude 'org.bitcoin.production.checkpoints.txt'
+        exclude 'org.bitcoin.test.checkpoints.txt'
+        exclude '**/*.java'
     }
 }

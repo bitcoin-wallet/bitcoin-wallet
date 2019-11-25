@@ -45,13 +45,10 @@ public class MaybeMaintenanceFragment extends Fragment {
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         viewModel = ViewModelProviders.of(this).get(MaybeMaintenanceViewModel.class);
-        viewModel.showDialog.observe(this, new Observer<Void>() {
-            @Override
-            public void onChanged(final Void v) {
-                if (!viewModel.getDialogWasShown()) {
-                    MaintenanceDialogFragment.show(getFragmentManager());
-                    viewModel.setDialogWasShown();
-                }
+        viewModel.showDialog.observe(this, v -> {
+            if (!viewModel.getDialogWasShown()) {
+                MaintenanceDialogFragment.show(getFragmentManager());
+                viewModel.setDialogWasShown();
             }
         });
     }

@@ -30,8 +30,7 @@ import androidx.annotation.Nullable;
 public class Nfc {
     public static NdefRecord createMime(final String mimeType, final byte[] payload) {
         final byte[] mimeBytes = mimeType.getBytes(StandardCharsets.US_ASCII);
-        final NdefRecord mimeRecord = new NdefRecord(NdefRecord.TNF_MIME_MEDIA, mimeBytes, new byte[0], payload);
-        return mimeRecord;
+        return new NdefRecord(NdefRecord.TNF_MIME_MEDIA, mimeBytes, new byte[0], payload);
     }
 
     @Nullable

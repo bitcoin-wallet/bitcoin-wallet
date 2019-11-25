@@ -53,6 +53,8 @@ import de.schildbach.wallet.data.blockexplorer.BlockchairExplorer;
 import de.schildbach.wallet.data.blockexplorer.CryptoIDExplorer;
 import de.schildbach.wallet.data.blockexplorer.InsightExplorer;
 import de.schildbach.wallet.service.BlockchainService;
+import de.schildbach.wallet.service.BlockchainState;
+import de.schildbach.wallet.ui.Event;
 import de.schildbach.wallet.util.Bluetooth;
 import de.schildbach.wallet.util.CrashReporter;
 import de.schildbach.wallet.util.Toast;
@@ -64,7 +66,6 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.media.AudioAttributes;
@@ -74,9 +75,9 @@ import android.os.Build;
 import android.os.Looper;
 import android.os.StrictMode;
 import android.preference.PreferenceManager;
-import androidx.annotation.MainThread;
+import androidx.annotation.AnyThread;
 import androidx.annotation.WorkerThread;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.lifecycle.MutableLiveData;
 
 /**
  * @author Andreas Schildbach
@@ -89,8 +90,9 @@ public class WalletApplication extends Application {
     private Configuration config;
     private BlockExplorers blockExplorers;
 
-    public static final String ACTION_WALLET_REFERENCE_CHANGED = WalletApplication.class.getPackage().getName()
-            + ".wallet_reference_changed";
+    public final MutableLiveData<BlockchainState> blockchainState = new MutableLiveData<>();
+    public final MutableLiveData<Integer> peerState = new MutableLiveData<>();
+    public final MutableLiveData<Event<Void>> walletChanged = new MutableLiveData<>();
 
     public static final long TIME_CREATE_APPLICATION = System.currentTimeMillis();
     private static final String BIP39_WORDLIST_FILENAME = "bip39-wordlist.txt";
@@ -110,8 +112,8 @@ public class WalletApplication extends Application {
         org.bitcoinj.core.Context.enableStrictMode();
         org.bitcoinj.core.Context.propagate(Constants.CONTEXT);
 
-        log.info("=== starting app using configuration: {}, {}", Constants.TEST ? "test" : "prod",
-                Constants.NETWORK_PARAMETERS.getId());
+        log.info("=== starting app using flavor: {}, build type: {}, network: {}", BuildConfig.FLAVOR,
+                BuildConfig.BUILD_TYPE, Constants.NETWORK_PARAMETERS.getId());
 
         super.onCreate();
 
@@ -119,12 +121,9 @@ public class WalletApplication extends Application {
 
         final PackageInfo packageInfo = packageInfo();
 
-        Threading.uncaughtExceptionHandler = new Thread.UncaughtExceptionHandler() {
-            @Override
-            public void uncaughtException(final Thread thread, final Throwable throwable) {
-                log.info("bitcoinj uncaught exception", throwable);
-                CrashReporter.saveBackgroundTrace(throwable, packageInfo);
-            }
+        Threading.uncaughtExceptionHandler = (thread, throwable) -> {
+            log.info("bitcoinj uncaught exception", throwable);
+            CrashReporter.saveBackgroundTrace(throwable, packageInfo);
         };
 
         activityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
@@ -155,19 +154,14 @@ public class WalletApplication extends Application {
     }
 
     public BlockExplorer getBlockExplorer(Uri explorer) {
-        return blockExplorers.getExplorer(explorer.toString(), Constants.TEST);
+        return blockExplorers.getExplorer(explorer.toString(), BuildConfig.FLAVOR.contains("test"));
     }
 
-    @MainThread
+    @WorkerThread
     public Wallet getWallet() {
         final Stopwatch watch = Stopwatch.createStarted();
         final SettableFuture<Wallet> future = SettableFuture.create();
-        getWalletAsync(new OnWalletLoadedListener() {
-            @Override
-            public void onWalletLoaded(Wallet wallet) {
-                future.set(wallet);
-            }
-        });
+        getWalletAsync(wallet -> future.set(wallet));
         try {
             return future.get();
         } catch (final InterruptedException | ExecutionException x) {
@@ -175,14 +169,14 @@ public class WalletApplication extends Application {
         } finally {
             watch.stop();
             if (Looper.myLooper() == Looper.getMainLooper())
-                log.warn("UI thread blocked for " + watch + " when using getWallet()", new RuntimeException());
+                log.warn("main thread blocked for " + watch + " when using getWallet()", new RuntimeException());
         }
     }
 
     private final Executor getWalletExecutor = Executors.newSingleThreadExecutor();
     private final Object getWalletLock = new Object();
 
-    @MainThread
+    @AnyThread
     public void getWalletAsync(final OnWalletLoadedListener listener) {
         getWalletExecutor.execute(new Runnable() {
             @Override
@@ -259,7 +253,7 @@ public class WalletApplication extends Application {
         });
     }
 
-    public static interface OnWalletLoadedListener {
+    public interface OnWalletLoadedListener {
         void onWalletLoaded(Wallet wallet);
     }
 
@@ -267,10 +261,10 @@ public class WalletApplication extends Application {
         final Stopwatch watch = Stopwatch.createStarted();
         synchronized (getWalletLock) {
             if (walletFiles != null) {
-                watch.stop();
-                log.info("wallet saved to: '{}', took {}", walletFile, watch);
                 try {
                     walletFiles.saveNow();
+                    watch.stop();
+                    log.info("wallet saved to: '{}', took {}", walletFile, watch);
                 } catch (final IOException x) {
                     log.warn("problem with forced autosaving of wallet", x);
                     CrashReporter.saveBackgroundTrace(x, packageInfo);
@@ -294,8 +288,7 @@ public class WalletApplication extends Application {
         config.maybeIncrementBestChainHeightEver(newWallet.getLastBlockSeenHeight());
         WalletUtils.autoBackupWallet(this, newWallet);
 
-        final Intent broadcast = new Intent(ACTION_WALLET_REFERENCE_CHANGED);
-        LocalBroadcastManager.getInstance(this).sendBroadcast(broadcast);
+        walletChanged.setValue(Event.simple());
     }
 
     private void cleanupFiles() {

@@ -96,34 +96,18 @@ public final class SendingAddressesFragment extends FancyListFragment {
         setHasOptionsMenu(true);
 
         viewModel = ViewModelProviders.of(this).get(SendingAddressesViewModel.class);
-        viewModel.wallet.observe(this, new Observer<Wallet>() {
-            @Override
-            public void onChanged(final Wallet wallet) {
-                activity.invalidateOptionsMenu();
-            }
+        viewModel.wallet.observe(this, wallet -> activity.invalidateOptionsMenu());
+        viewModel.addressesToExclude.observe(this, addressesToExclude -> {
+            viewModel.addressBook = addressBookDao.getAllExcept(addressesToExclude);
+            viewModel.addressBook.observe(SendingAddressesFragment.this, addressBook -> {
+                adapter.setNotifyOnChange(false);
+                adapter.clear();
+                adapter.addAll(addressBook);
+                adapter.notifyDataSetChanged();
+                setEmptyText(WholeStringBuilder.bold(getString(R.string.address_book_empty_text)));
+            });
         });
-        viewModel.addressesToExclude.observe(this, new Observer<Set<String>>() {
-            @Override
-            public void onChanged(final Set<String> addressesToExclude) {
-                viewModel.addressBook = addressBookDao.getAllExcept(addressesToExclude);
-                viewModel.addressBook.observe(SendingAddressesFragment.this, new Observer<List<AddressBookEntry>>() {
-                    @Override
-                    public void onChanged(final List<AddressBookEntry> addressBook) {
-                        adapter.setNotifyOnChange(false);
-                        adapter.clear();
-                        adapter.addAll(addressBook);
-                        adapter.notifyDataSetChanged();
-                        setEmptyText(WholeStringBuilder.bold(getString(R.string.address_book_empty_text)));
-                    }
-                });
-            }
-        });
-        viewModel.clip.observe(this, new Observer<ClipData>() {
-            @Override
-            public void onChanged(final ClipData clipData) {
-                activity.invalidateOptionsMenu();
-            }
-        });
+        viewModel.clip.observe(this, clipData -> activity.invalidateOptionsMenu());
         viewModel.showBitmapDialog.observe(this, new Event.Observer<Bitmap>() {
             @Override
             public void onEvent(final Bitmap bitmap) {
@@ -162,21 +146,18 @@ public final class SendingAddressesFragment extends FancyListFragment {
                 protected void handlePaymentIntent(final PaymentIntent paymentIntent) {
                     // workaround for "IllegalStateException: Can not perform this action after
                     // onSaveInstanceState"
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (paymentIntent.hasAddress()) {
-                                final Wallet wallet = viewModel.wallet.getValue();
-                                final Address address = paymentIntent.getAddress();
-                                if (!wallet.isAddressMine(address))
-                                    viewModel.showEditAddressBookEntryDialog.setValue(new Event<>(address));
-                                else
-                                    dialog(activity, null, R.string.address_book_options_scan_title,
-                                            R.string.address_book_options_scan_own_address);
-                            } else {
+                    handler.postDelayed(() -> {
+                        if (paymentIntent.hasAddress()) {
+                            final Wallet wallet = viewModel.wallet.getValue();
+                            final Address address = paymentIntent.getAddress();
+                            if (!wallet.isAddressMine(address))
+                                viewModel.showEditAddressBookEntryDialog.setValue(new Event<>(address));
+                            else
                                 dialog(activity, null, R.string.address_book_options_scan_title,
-                                        R.string.address_book_options_scan_invalid);
-                            }
+                                        R.string.address_book_options_scan_own_address);
+                        } else {
+                            dialog(activity, null, R.string.address_book_options_scan_title,
+                                    R.string.address_book_options_scan_invalid);
                         }
                     }, 500);
                 }
@@ -219,16 +200,14 @@ public final class SendingAddressesFragment extends FancyListFragment {
 
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
-        switch (item.getItemId()) {
-        case R.id.sending_addresses_options_paste:
+        int itemId = item.getItemId();
+        if (itemId == R.id.sending_addresses_options_paste) {
             handlePasteClipboard();
             return true;
-
-        case R.id.sending_addresses_options_scan:
+        } else if (itemId == R.id.sending_addresses_options_scan) {
             ScanActivity.startForResult(this, activity, REQUEST_CODE_SCAN);
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -273,41 +252,31 @@ public final class SendingAddressesFragment extends FancyListFragment {
 
             @Override
             public boolean onActionItemClicked(final ActionMode mode, final MenuItem item) {
-                switch (item.getItemId()) {
-                case R.id.sending_addresses_context_send:
+                int itemId = item.getItemId();
+                if (itemId == R.id.sending_addresses_context_send) {
                     handleSend(getAddress(position), getLabel(position));
-
                     mode.finish();
                     return true;
-
-                case R.id.sending_addresses_context_edit:
+                } else if (itemId == R.id.sending_addresses_context_edit) {
                     final Address address = Address.fromString(Constants.NETWORK_PARAMETERS, getAddress(position));
                     viewModel.showEditAddressBookEntryDialog.setValue(new Event<>(address));
-
                     mode.finish();
                     return true;
-
-                case R.id.sending_addresses_context_remove:
+                } else if (itemId == R.id.sending_addresses_context_remove) {
                     handleRemove(getAddress(position));
-
                     mode.finish();
                     return true;
-
-                case R.id.sending_addresses_context_show_qr:
+                } else if (itemId == R.id.sending_addresses_context_show_qr) {
                     final String uri = BitcoinURI.convertToBitcoinURI(Constants.NETWORK_PARAMETERS,
                             getAddress(position), null, getLabel(position), null);
                     viewModel.showBitmapDialog.setValue(new Event<>(Qr.bitmap(uri)));
-
                     mode.finish();
                     return true;
-
-                case R.id.sending_addresses_context_copy_to_clipboard:
+                } else if (itemId == R.id.sending_addresses_context_copy_to_clipboard) {
                     handleCopyToClipboard(getAddress(position));
-
                     mode.finish();
                     return true;
                 }
-
                 return false;
             }
 

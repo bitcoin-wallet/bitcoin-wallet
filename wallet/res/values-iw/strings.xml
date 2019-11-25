@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<resources>
 
 	<string name="toast_wallet_reset">הארנק אופס, התאוששת תקח זמן מה.</string>
 	<string name="wallet_disclaimer_fragment_remind_safety">השימוש באחריותך, קרא את הוראות השימוש</string>
@@ -110,16 +110,9 @@
 	<string name="peer_list_fragment_empty">אין עמיתים מחוברים</string>
 	<string name="peer_list_row_ping_time">⇆ %d&#x2009;ms</string>
 	<string name="import_keys_dialog_title">ייבא מפתחות פפרטיים</string>
-	<string name="import_keys_dialog_message">בחר מפתחות לייבוא מקובץ חיצוני או משטח האחסון הפנימי.</string>
 	<string name="import_keys_dialog_warning">חשוב: אל תטען מפתחות פרטיים ממקורות מפוקפקים! אחרים יכולים לקבל שליטה על כספי אם תעשה כן.</string>
-	<string name="import_keys_dialog_file_security_encrypted">סיסמה הוצפנה</string>
-	<string name="import_keys_dialog_file_security_unencrypted">לא הוצפנה</string>
-	<string name="import_keys_dialog_file_security_external">אחסון בהתקן חיצוני</string>
-	<string name="import_keys_dialog_file_security_internal">אחסון באפליקציה</string>
-	<string name="import_keys_dialog_file_created_automatic">גיבוי אוטומאטי %s</string>
-	<string name="import_keys_dialog_file_created_manual">ייצוא ידני %s</string>
 	<string name="import_keys_dialog_button_import">ייבא</string>
-	<string name="import_keys_dialog_failure">לא ניתן לייבא מפתחות פרטיים, בדקת סיסמא ?</string>
+	<string name="import_keys_dialog_failure">לא ניתן לייבא מפתחות פרטיים, בדקת סיסמא %s?</string>
 	<string name="export_keys_dialog_title">ייצא מפתחות פרטיים</string>
 	<string name="backup_wallet_dialog_message">המפתחות שלך יוצפנו בעזרת הסיסמא ויאוחסנו בהתקן החיצוני</string>
 	<string name="export_keys_dialog_button_export">ייצוא</string>
@@ -143,8 +136,6 @@
 	<string name="preferences_category_labs">מעבדות</string>
 	<string name="preferences_precision_title">מטבע ודיוק</string>
 	<string name="preferences_precision_summary">יחידה להציג כמויות בה. זה לא משפיע על חישובים.</string>
-	<string name="preferences_connectivity_notification_title">מצב קישוריות</string>
-	<string name="preferences_connectivity_notification_summary">הראה את מספר העמיתים הקשורים</string>
 	<string name="preferences_trusted_peer_title">עמית מהימן</string>
 	<string name="preferences_trusted_peer_summary">כתוובת IP או מארח של עמית שיש להתחבר לו.</string>
 	<string name="preferences_trusted_peer_only_title">דלג על מערכת גילוי עמיתים רגילה</string>

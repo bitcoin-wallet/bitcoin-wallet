@@ -87,7 +87,7 @@ public abstract class ReportIssueDialogBuilder extends DialogBuilder implements 
     @Override
     public void onClick(final DialogInterface dialog, final int which) {
         final StringBuilder text = new StringBuilder();
-        final List<Uri> attachments = new ArrayList<Uri>();
+        final List<Uri> attachments = new ArrayList<>();
         final File cacheDir = activity.getCacheDir();
         final File reportDir = new File(cacheDir, "report");
         reportDir.mkdir();

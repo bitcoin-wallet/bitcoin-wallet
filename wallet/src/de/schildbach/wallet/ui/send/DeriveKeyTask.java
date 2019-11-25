@@ -53,48 +53,40 @@ public abstract class DeriveKeyTask {
         checkState(wallet.isEncrypted());
         final KeyCrypter keyCrypter = checkNotNull(wallet.getKeyCrypter());
 
-        backgroundHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                org.bitcoinj.core.Context.propagate(Constants.CONTEXT);
+        backgroundHandler.post(() -> {
+            org.bitcoinj.core.Context.propagate(Constants.CONTEXT);
 
-                // Key derivation takes time.
-                KeyParameter key = keyCrypter.deriveKey(password);
-                boolean wasChanged = false;
+            // Key derivation takes time.
+            KeyParameter key = keyCrypter.deriveKey(password);
+            boolean wasChanged = false;
 
-                // If the key isn't derived using the desired parameters, derive a new key.
-                if (keyCrypter instanceof KeyCrypterScrypt) {
-                    final long scryptIterations = ((KeyCrypterScrypt) keyCrypter).getScryptParameters().getN();
+            // If the key isn't derived using the desired parameters, derive a new key.
+            if (keyCrypter instanceof KeyCrypterScrypt) {
+                final long scryptIterations = ((KeyCrypterScrypt) keyCrypter).getScryptParameters().getN();
 
-                    if (scryptIterations != scryptIterationsTarget) {
-                        log.info("upgrading scrypt iterations from {} to {}; re-encrypting wallet", scryptIterations,
-                                scryptIterationsTarget);
+                if (scryptIterations != scryptIterationsTarget) {
+                    log.info("upgrading scrypt iterations from {} to {}; re-encrypting wallet", scryptIterations,
+                            scryptIterationsTarget);
 
-                        final KeyCrypterScrypt newKeyCrypter = new KeyCrypterScrypt(scryptIterationsTarget);
-                        final KeyParameter newKey = newKeyCrypter.deriveKey(password);
+                    final KeyCrypterScrypt newKeyCrypter = new KeyCrypterScrypt(scryptIterationsTarget);
+                    final KeyParameter newKey = newKeyCrypter.deriveKey(password);
 
-                        // Re-encrypt wallet with new key.
-                        try {
-                            wallet.changeEncryptionKey(newKeyCrypter, key, newKey);
-                            key = newKey;
-                            wasChanged = true;
-                            log.info("scrypt upgrade succeeded");
-                        } catch (final KeyCrypterException x) {
-                            log.info("scrypt upgrade failed: {}", x.getMessage());
-                        }
+                    // Re-encrypt wallet with new key.
+                    try {
+                        wallet.changeEncryptionKey(newKeyCrypter, key, newKey);
+                        key = newKey;
+                        wasChanged = true;
+                        log.info("scrypt upgrade succeeded");
+                    } catch (final KeyCrypterException x) {
+                        log.info("scrypt upgrade failed: {}", x.getMessage());
                     }
                 }
-
-                // Hand back the (possibly changed) encryption key.
-                final KeyParameter keyToReturn = key;
-                final boolean keyToReturnWasChanged = wasChanged;
-                callbackHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        onSuccess(keyToReturn, keyToReturnWasChanged);
-                    }
-                });
             }
+
+            // Hand back the (possibly changed) encryption key.
+            final KeyParameter keyToReturn = key;
+            final boolean keyToReturnWasChanged = wasChanged;
+            callbackHandler.post(() -> onSuccess(keyToReturn, keyToReturnWasChanged));
         });
     }
 

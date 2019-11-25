@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2015 the original author or authors.
+ * Copyright the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,6 +33,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
+import android.os.Build;
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.Block;
 import org.bitcoinj.core.BlockChain;
@@ -75,7 +76,6 @@ import de.schildbach.wallet.data.AddressBookDao;
 import de.schildbach.wallet.data.AppDatabase;
 import de.schildbach.wallet.data.ExchangeRate;
 import de.schildbach.wallet.data.SelectedExchangeRateLiveData;
-import de.schildbach.wallet.data.TimeLiveData;
 import de.schildbach.wallet.data.WalletBalanceLiveData;
 import de.schildbach.wallet.data.WalletLiveData;
 import de.schildbach.wallet.service.BlockchainState.Impediment;
@@ -83,8 +83,6 @@ import de.schildbach.wallet.ui.WalletActivity;
 import de.schildbach.wallet.util.CrashReporter;
 import de.schildbach.wallet.util.WalletUtils;
 
-import android.app.AlarmManager;
-import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -93,8 +91,6 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -106,17 +102,24 @@ import android.os.IBinder;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
 import android.text.format.DateUtils;
+import androidx.annotation.MainThread;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.LifecycleService;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+
+import static androidx.core.util.Preconditions.checkState;
 
 /**
  * @author Andreas Schildbach
  */
 public class BlockchainService extends LifecycleService {
+    private PowerManager pm;
+    private NotificationManager nm;
+
     private WalletApplication application;
     private Configuration config;
     private AddressBookDao addressBookDao;
@@ -132,27 +135,19 @@ public class BlockchainService extends LifecycleService {
     private final Handler delayHandler = new Handler();
     private WakeLock wakeLock;
 
+    private final NotificationCompat.Builder connectivityNotification = new NotificationCompat.Builder(BlockchainService.this,
+            Constants.NOTIFICATION_CHANNEL_ID_ONGOING);
     private PeerConnectivityListener peerConnectivityListener;
-    private NotificationManager nm;
     private ImpedimentsLiveData impediments;
     private int notificationCount = 0;
     private Coin notificationAccumulatedAmount = Coin.ZERO;
-    private final List<Address> notificationAddresses = new LinkedList<Address>();
-    private AtomicInteger transactionsReceived = new AtomicInteger();
-    private long serviceCreatedAt;
+    private final List<Address> notificationAddresses = new LinkedList<>();
+    private Stopwatch serviceUpTime;
     private boolean resetBlockchainOnShutdown = false;
+    private final AtomicBoolean isBound = new AtomicBoolean(false);
 
-    private static final int MIN_COLLECT_HISTORY = 2;
-    private static final int IDLE_BLOCK_TIMEOUT_MIN = 2;
-    private static final int IDLE_TRANSACTION_TIMEOUT_MIN = 9;
-    private static final int MAX_HISTORY_SIZE = Math.max(IDLE_TRANSACTION_TIMEOUT_MIN, IDLE_BLOCK_TIMEOUT_MIN);
+    private static final int CONNECTIVITY_NOTIFICATION_PROGRESS_MIN_BLOCKS = 144 * 2; // approx. 2 days
     private static final long BLOCKCHAIN_STATE_BROADCAST_THROTTLE_MS = DateUtils.SECOND_IN_MILLIS;
-
-    public static final String ACTION_PEER_STATE = BlockchainService.class.getPackage().getName() + ".peer_state";
-    public static final String ACTION_PEER_STATE_NUM_PEERS = "num_peers";
-
-    public static final String ACTION_BLOCKCHAIN_STATE = BlockchainService.class.getPackage().getName()
-            + ".blockchain_state";
 
     private static final String ACTION_CANCEL_COINS_RECEIVED = BlockchainService.class.getPackage().getName()
             + ".cancel_coins_received";
@@ -168,13 +163,13 @@ public class BlockchainService extends LifecycleService {
 
     public static void start(final Context context, final boolean cancelCoinsReceived) {
         if (cancelCoinsReceived)
-            context.startService(
+            ContextCompat.startForegroundService(context,
                     new Intent(BlockchainService.ACTION_CANCEL_COINS_RECEIVED, null, context, BlockchainService.class));
         else
-            context.startService(new Intent(context, BlockchainService.class));
+            ContextCompat.startForegroundService(context, new Intent(context, BlockchainService.class));
     }
 
-
+/*
     public void startForeground() {
         //Shows ongoing notification promoting service to foreground service and
         //preventing it from being killed in Android 26 or later
@@ -183,7 +178,7 @@ public class BlockchainService extends LifecycleService {
         if (notification != null) {
             startForeground(Constants.NOTIFICATION_ID_BLOCKCHAIN_SYNC, notification);
         }
-    }
+    }*/
 
     private static final long BLOCKCHAIN_UPTODATE_THRESHOLD_MS = DateUtils.HOUR_IN_MILLIS;
 
@@ -221,7 +216,7 @@ public class BlockchainService extends LifecycleService {
     }
 
 
-    private Notification createNetworkSyncNotification(BlockchainState blockchainState) {
+    /*private Notification createNetworkSyncNotification(BlockchainState blockchainState) {
         Intent notificationIntent = new Intent(this, WalletActivity.class);
         PendingIntent pendingIntent=PendingIntent.getActivity(this, 0,
                 notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -240,54 +235,15 @@ public class BlockchainService extends LifecycleService {
                 .setWhen(System.currentTimeMillis())
                 .setOngoing(true)
                 .build();
-    }
+    }*/
 
     public static void stop(final Context context) {
         context.stopService(new Intent(context, BlockchainService.class));
     }
 
-    public static void scheduleStart(final WalletApplication application) {
-        final Configuration config = application.getConfiguration();
-        final long lastUsedAgo = config.getLastUsedAgo();
-
-        // apply some backoff
-        final long alarmInterval;
-        if (lastUsedAgo < Constants.LAST_USAGE_THRESHOLD_JUST_MS)
-            alarmInterval = AlarmManager.INTERVAL_FIFTEEN_MINUTES / 15;
-        else if (lastUsedAgo < Constants.LAST_USAGE_THRESHOLD_2HOURS_MS)
-            alarmInterval = AlarmManager.INTERVAL_FIFTEEN_MINUTES;
-        else if (lastUsedAgo < Constants.LAST_USAGE_THRESHOLD_RECENTLY_MS)
-            alarmInterval = AlarmManager.INTERVAL_HALF_DAY;
-        else
-            alarmInterval = AlarmManager.INTERVAL_DAY;
-
-        log.info("last used {} minutes ago, rescheduling blockchain sync in roughly {} minutes",
-                lastUsedAgo / DateUtils.MINUTE_IN_MILLIS, alarmInterval / DateUtils.MINUTE_IN_MILLIS);
-
-        AlarmManager alarmManager = (AlarmManager) application.getSystemService(Context.ALARM_SERVICE);
-        PendingIntent alarmIntent;
-        //final PendingIntent alarmIntent = PendingIntent.getService(application, 0,
-        //        new Intent(application, BlockchainService.class), 0);
-        Intent serviceIntent = new Intent(application, BlockchainService.class);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            serviceIntent.putExtra(BlockchainService.START_AS_FOREGROUND_EXTRA, true);
-            alarmIntent = PendingIntent.getForegroundService(application, 0, serviceIntent,
-                    PendingIntent.FLAG_UPDATE_CURRENT);
-        } else {
-            alarmIntent = PendingIntent.getService(application, 0, serviceIntent,
-                    PendingIntent.FLAG_UPDATE_CURRENT);
-        }
-        alarmManager.cancel(alarmIntent);
-
-        // workaround for no inexact set() before KitKat
-        final long now = System.currentTimeMillis();
-        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, now + alarmInterval, AlarmManager.INTERVAL_DAY,
-                alarmIntent);
-    }
-
     public static void resetBlockchain(final Context context) {
         // implicitly stops blockchain service
-        context.startService(
+        ContextCompat.startForegroundService(context,
                 new Intent(BlockchainService.ACTION_RESET_BLOCKCHAIN, null, context, BlockchainService.class));
     }
 
@@ -295,7 +251,7 @@ public class BlockchainService extends LifecycleService {
         final Intent intent = new Intent(BlockchainService.ACTION_BROADCAST_TRANSACTION, null, context,
                 BlockchainService.class);
         intent.putExtra(BlockchainService.ACTION_BROADCAST_TRANSACTION_HASH, tx.getTxId().getBytes());
-        context.startService(intent);
+        ContextCompat.startForegroundService(context, intent);
     }
 
     private static class NewTransactionLiveData extends LiveData<Transaction> {
@@ -377,6 +333,7 @@ public class BlockchainService extends LifecycleService {
         childNotification.setGroup(Constants.NOTIFICATION_GROUP_KEY_RECEIVED);
         childNotification.setGroupAlertBehavior(NotificationCompat.GROUP_ALERT_CHILDREN);
         childNotification.setWhen(System.currentTimeMillis());
+        childNotification.setColor(ContextCompat.getColor(this, R.color.fg_network_significant));
         childNotification.setSmallIcon(R.drawable.stat_notify_received_24dp);
         final String msg = getString(R.string.notification_coins_received_msg, btcFormat.format(amount)) + msgSuffix;
         childNotification.setTicker(msg);
@@ -396,96 +353,78 @@ public class BlockchainService extends LifecycleService {
     }
 
     private final class PeerConnectivityListener
-            implements PeerConnectedEventListener, PeerDisconnectedEventListener, OnSharedPreferenceChangeListener {
-        private int peerCount;
+            implements PeerConnectedEventListener, PeerDisconnectedEventListener {
         private AtomicBoolean stopped = new AtomicBoolean(false);
-
-        public PeerConnectivityListener() {
-            config.registerOnSharedPreferenceChangeListener(this);
-        }
 
         public void stop() {
             stopped.set(true);
-
-            config.unregisterOnSharedPreferenceChangeListener(this);
-
-            nm.cancel(Constants.NOTIFICATION_ID_CONNECTED);
         }
 
         @Override
         public void onPeerConnected(final Peer peer, final int peerCount) {
-            this.peerCount = peerCount;
+            postDelayedStopSelf(DateUtils.MINUTE_IN_MILLIS / 2);
             changed(peerCount);
         }
 
         @Override
         public void onPeerDisconnected(final Peer peer, final int peerCount) {
-            this.peerCount = peerCount;
             changed(peerCount);
-        }
-
-        @Override
-        public void onSharedPreferenceChanged(final SharedPreferences sharedPreferences, final String key) {
-            if (Configuration.PREFS_KEY_CONNECTIVITY_NOTIFICATION.equals(key))
-                changed(peerCount);
         }
 
         private void changed(final int numPeers) {
             if (stopped.get())
                 return;
 
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
-                    final boolean connectivityNotificationEnabled = config.getConnectivityNotificationEnabled();
-
-                    if (!connectivityNotificationEnabled || numPeers == 0) {
-                        stopForeground(true);
-                    } else {
-                        final NotificationCompat.Builder notification = new NotificationCompat.Builder(
-                                BlockchainService.this, Constants.NOTIFICATION_CHANNEL_ID_ONGOING);
-                        notification.setSmallIcon(R.drawable.stat_notify_peers, Math.min(numPeers, 4));
-                        notification.setContentTitle(getString(R.string.app_name));
-                        notification.setContentText(getString(R.string.notification_peers_connected_msg, numPeers));
-                        notification.setContentIntent(PendingIntent.getActivity(BlockchainService.this, 0,
-                                new Intent(BlockchainService.this, WalletActivity.class), 0));
-                        notification.setWhen(System.currentTimeMillis());
-                        notification.setOngoing(true);
-                        startForeground(Constants.NOTIFICATION_ID_CONNECTED, notification.build());
-                    }
-
-                    // send broadcast
-                    broadcastPeerState(numPeers);
-                }
+            handler.post(() -> {
+                startForeground(numPeers);
+                broadcastPeerState(numPeers);
             });
         }
     }
 
-    private final PeerDataEventListener blockchainDownloadListener = new AbstractPeerDataEventListener() {
+    private final PeerDataEventListener blockchainDownloadListener = new BlockchainDownloadListener();
+
+    private class BlockchainDownloadListener extends AbstractPeerDataEventListener implements Runnable {
         private final AtomicLong lastMessageTime = new AtomicLong(0);
+        private final AtomicInteger blocksToDownload = new AtomicInteger();
+        private final AtomicInteger blocksLeft = new AtomicInteger();
+
+        @Override
+        public void onChainDownloadStarted(final Peer peer, final int blocksToDownload) {
+            postDelayedStopSelf(DateUtils.MINUTE_IN_MILLIS / 2);
+            this.blocksToDownload.set(blocksToDownload);
+            config.maybeIncrementBestChainHeightEver(blockChain.getChainHead().getHeight() + blocksToDownload);
+            if (blocksToDownload >= CONNECTIVITY_NOTIFICATION_PROGRESS_MIN_BLOCKS)
+                startForegroundProgress(blocksToDownload, blocksToDownload);
+        }
 
         @Override
         public void onBlocksDownloaded(final Peer peer, final Block block, final FilteredBlock filteredBlock,
                 final int blocksLeft) {
-            delayHandler.removeCallbacksAndMessages(null);
+            this.blocksLeft.set(blocksLeft);
 
+            delayHandler.removeCallbacks(this);
             final long now = System.currentTimeMillis();
             if (now - lastMessageTime.get() > BLOCKCHAIN_STATE_BROADCAST_THROTTLE_MS)
-                delayHandler.post(runnable);
+                delayHandler.post(this);
             else
-                delayHandler.postDelayed(runnable, BLOCKCHAIN_STATE_BROADCAST_THROTTLE_MS);
+                delayHandler.postDelayed(this, BLOCKCHAIN_STATE_BROADCAST_THROTTLE_MS);
         }
 
-        private final Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                lastMessageTime.set(System.currentTimeMillis());
+        @Override
+        public void run() {
+            lastMessageTime.set(System.currentTimeMillis());
 
-                config.maybeIncrementBestChainHeightEver(blockChain.getChainHead().getHeight());
-                broadcastBlockchainState();
-            }
-        };
-    };
+            postDelayedStopSelf(DateUtils.MINUTE_IN_MILLIS / 2);
+            final int blocksToDownload = this.blocksToDownload.get();
+            final int blocksLeft = this.blocksLeft.get();
+            if (blocksToDownload >= CONNECTIVITY_NOTIFICATION_PROGRESS_MIN_BLOCKS)
+                startForegroundProgress(blocksToDownload, blocksLeft);
+
+            config.maybeIncrementBestChainHeightEver(blockChain.getChainHead().getHeight());
+            broadcastBlockchainState();
+        }
+    }
 
     private static class ImpedimentsLiveData extends LiveData<Set<Impediment>> {
         private final WalletApplication application;
@@ -527,14 +466,17 @@ public class BlockchainService extends LifecycleService {
             if (ConnectivityManager.CONNECTIVITY_ACTION.equals(action)) {
                 final NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
                 final boolean hasConnectivity = networkInfo != null && networkInfo.isConnected();
+                final boolean isMetered = hasConnectivity && connectivityManager.isActiveNetworkMetered();
                 if (hasConnectivity)
                     impediments.remove(Impediment.NETWORK);
                 else
                     impediments.add(Impediment.NETWORK);
 
                 if (log.isInfoEnabled()) {
-                    final StringBuilder s = new StringBuilder("active network is ")
-                            .append(hasConnectivity ? "up" : "down");
+                    final StringBuilder s = new StringBuilder("active network is ").append(hasConnectivity ? "up" :
+                            "down");
+                    if (isMetered)
+                        s.append(", metered");
                     if (networkInfo != null) {
                         s.append(", type: ").append(networkInfo.getTypeName());
                         s.append(", state: ").append(networkInfo.getState()).append('/')
@@ -559,6 +501,26 @@ public class BlockchainService extends LifecycleService {
         }
     }
 
+    private Runnable delayedStopSelfRunnable = () -> {
+        log.info("service idling detected, trying to stop");
+        stopSelf();
+        if (isBound.get())
+            log.info("stop is deferred because service still bound");
+    };
+
+    private void postDelayedStopSelf(final long ms) {
+        delayHandler.removeCallbacks(delayedStopSelfRunnable);
+        delayHandler.postDelayed(delayedStopSelfRunnable, ms);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private final BroadcastReceiver deviceIdleModeReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(final Context context, final Intent intent) {
+            log.info("device {} idle mode", pm.isDeviceIdleMode() ? "entering" : "exiting");
+        }
+    };
+
     public class LocalBinder extends Binder {
         public BlockchainService getService() {
             return BlockchainService.this;
@@ -569,31 +531,48 @@ public class BlockchainService extends LifecycleService {
 
     @Override
     public IBinder onBind(final Intent intent) {
-        log.debug(".onBind()");
-
+        log.info("onBind: {}", intent);
+        super.onBind(intent);
+        isBound.set(true);
         return mBinder;
     }
 
     @Override
     public boolean onUnbind(final Intent intent) {
-        log.debug(".onUnbind()");
-
+        log.info("onUnbind: {}", intent);
+        isBound.set(false);
         return super.onUnbind(intent);
     }
 
     @Override
     public void onCreate() {
-        serviceCreatedAt = System.currentTimeMillis();
+        serviceUpTime = Stopwatch.createStarted();
         log.debug(".onCreate()");
-
         super.onCreate();
+
+        pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
         nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        final PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+
         wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, getClass().getName());
+        log.info("acquiring {}", wakeLock);
+        wakeLock.acquire();
+
+        connectivityNotification.setColor(ContextCompat.getColor(this, R.color.fg_network_significant));
+        connectivityNotification.setContentTitle(getString(R.string.notification_connectivity_syncing_message));
+        connectivityNotification.setContentIntent(PendingIntent.getActivity(BlockchainService.this, 0,
+                new Intent(BlockchainService.this, WalletActivity.class), 0));
+        connectivityNotification.setWhen(System.currentTimeMillis());
+        connectivityNotification.setOngoing(true);
+        connectivityNotification.setPriority(NotificationCompat.PRIORITY_LOW);
+        startForeground(0);
+
         application = (WalletApplication) getApplication();
         config = application.getConfiguration();
         addressBookDao = AppDatabase.getDatabase(application).addressBookDao();
         blockChainFile = new File(getDir("blockstore", Context.MODE_PRIVATE), Constants.Files.BLOCKCHAIN_FILENAME);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+            registerReceiver(deviceIdleModeReceiver, new IntentFilter(PowerManager.ACTION_DEVICE_IDLE_MODE_CHANGED));
 
         peerConnectivityListener = new PeerConnectivityListener();
 
@@ -601,21 +580,14 @@ public class BlockchainService extends LifecycleService {
 
         final WalletBalanceLiveData walletBalance = new WalletBalanceLiveData(application);
         final SelectedExchangeRateLiveData exchangeRate = new SelectedExchangeRateLiveData(application);
-        walletBalance.observe(this, new Observer<Coin>() {
-            @Override
-            public void onChanged(final Coin walletBalance) {
-                WalletBalanceWidgetProvider.updateWidgets(BlockchainService.this, walletBalance,
-                        exchangeRate.getValue());
-            }
-        });
+        walletBalance.observe(this, balance -> WalletBalanceWidgetProvider.updateWidgets(BlockchainService.this,
+                balance,
+                exchangeRate.getValue()));
         if (Constants.ENABLE_EXCHANGE_RATES) {
-            exchangeRate.observe(this, new Observer<ExchangeRate>() {
-                @Override
-                public void onChanged(final ExchangeRate exchangeRate) {
-                    final Coin balance = walletBalance.getValue();
-                    if (balance != null)
-                        WalletBalanceWidgetProvider.updateWidgets(BlockchainService.this, balance, exchangeRate);
-                }
+            exchangeRate.observe(this, rate -> {
+                final Coin balance = walletBalance.getValue();
+                if (balance != null)
+                    WalletBalanceWidgetProvider.updateWidgets(BlockchainService.this, balance, rate);
             });
         }
         wallet = new WalletLiveData(application);
@@ -671,91 +643,17 @@ public class BlockchainService extends LifecycleService {
 
     private void observeLiveDatasThatAreDependentOnWalletAndBlockchain() {
         final NewTransactionLiveData newTransaction = new NewTransactionLiveData(wallet.getValue());
-        newTransaction.observe(this, new Observer<Transaction>() {
-            @Override
-            public void onChanged(final Transaction tx) {
-                final Wallet wallet = BlockchainService.this.wallet.getValue();
-                transactionsReceived.incrementAndGet();
-                final Coin amount = tx.getValue(wallet);
-                if (amount.isPositive()) {
-                    final Address address = WalletUtils.getWalletAddressOfReceived(tx, wallet);
-                    final ConfidenceType confidenceType = tx.getConfidence().getConfidenceType();
-                    final boolean replaying = blockChain.getBestChainHeight() < config.getBestChainHeightEver();
-                    final boolean isReplayedTx = confidenceType == ConfidenceType.BUILDING && replaying;
-                    if (!isReplayedTx)
-                        notifyCoinsReceived(address, amount, tx.getTxId());
-                }
-            }
-        });
-        final TimeLiveData time = new TimeLiveData(application);
-        time.observe(this, new Observer<Date>() {
-            private int lastChainHeight = 0;
-            private final List<ActivityHistoryEntry> activityHistory = new LinkedList<ActivityHistoryEntry>();
-
-            @Override
-            public void onChanged(final Date time) {
-                final int chainHeight = blockChain.getBestChainHeight();
-
-                if (lastChainHeight > 0) {
-                    final int numBlocksDownloaded = chainHeight - lastChainHeight;
-                    final int numTransactionsReceived = transactionsReceived.getAndSet(0);
-
-                    // push history
-                    activityHistory.add(0, new ActivityHistoryEntry(numTransactionsReceived, numBlocksDownloaded));
-
-                    // trim
-                    while (activityHistory.size() > MAX_HISTORY_SIZE)
-                        activityHistory.remove(activityHistory.size() - 1);
-
-                    // print
-                    final StringBuilder builder = new StringBuilder();
-                    for (final ActivityHistoryEntry entry : activityHistory) {
-                        if (builder.length() > 0)
-                            builder.append(", ");
-                        builder.append(entry);
-                    }
-                    log.info("History of transactions/blocks: " + builder);
-
-                    // determine if block and transaction activity is idling
-                    boolean isIdle = false;
-                    if (activityHistory.size() >= MIN_COLLECT_HISTORY) {
-                        isIdle = true;
-                        for (int i = 0; i < activityHistory.size(); i++) {
-                            final ActivityHistoryEntry entry = activityHistory.get(i);
-                            final boolean blocksActive = entry.numBlocksDownloaded > 0 && i <= IDLE_BLOCK_TIMEOUT_MIN;
-                            final boolean transactionsActive = entry.numTransactionsReceived > 0
-                                    && i <= IDLE_TRANSACTION_TIMEOUT_MIN;
-
-                            if (blocksActive || transactionsActive) {
-                                isIdle = false;
-                                break;
-                            }
-                        }
-                    }
-
-                    // if idling, shutdown service
-                    if (isIdle) {
-                        log.info("idling detected, stopping service");
-                        stopSelf();
-                    }
-                }
-
-                lastChainHeight = chainHeight;
-            }
-
-            final class ActivityHistoryEntry {
-                public final int numTransactionsReceived;
-                public final int numBlocksDownloaded;
-
-                public ActivityHistoryEntry(final int numTransactionsReceived, final int numBlocksDownloaded) {
-                    this.numTransactionsReceived = numTransactionsReceived;
-                    this.numBlocksDownloaded = numBlocksDownloaded;
-                }
-
-                @Override
-                public String toString() {
-                    return numTransactionsReceived + "/" + numBlocksDownloaded;
-                }
+        newTransaction.observe(this, tx -> {
+            final Wallet wallet = BlockchainService.this.wallet.getValue();
+            postDelayedStopSelf(5 * DateUtils.MINUTE_IN_MILLIS);
+            final Coin amount = tx.getValue(wallet);
+            if (amount.isPositive()) {
+                final Address address = WalletUtils.getWalletAddressOfReceived(tx, wallet);
+                final ConfidenceType confidenceType = tx.getConfidence().getConfidenceType();
+                final boolean replaying = blockChain.getBestChainHeight() < config.getBestChainHeightEver();
+                final boolean isReplayedTx = confidenceType == ConfidenceType.BUILDING && replaying;
+                if (!isReplayedTx)
+                    notifyCoinsReceived(address, amount, tx.getTxId());
             }
         });
         impediments = new ImpedimentsLiveData(application);
@@ -770,8 +668,6 @@ public class BlockchainService extends LifecycleService {
             }
 
             private void startup() {
-                log.debug("acquiring wakelock");
-                wakeLock.acquire();
                 final Wallet wallet = BlockchainService.this.wallet.getValue();
 
                 // consistency check
@@ -809,7 +705,7 @@ public class BlockchainService extends LifecycleService {
                     @Override
                     public InetSocketAddress[] getPeers(final long services, final long timeoutValue,
                             final TimeUnit timeoutUnit) throws PeerDiscoveryException {
-                        final List<InetSocketAddress> peers = new LinkedList<InetSocketAddress>();
+                        final List<InetSocketAddress> peers = new LinkedList<>();
 
                         boolean needsTrimPeersWorkaround = false;
 
@@ -847,6 +743,8 @@ public class BlockchainService extends LifecycleService {
                 log.info("starting {} asynchronously", peerGroup);
                 peerGroup.startAsync();
                 peerGroup.startBlockChainDownload(blockchainDownloadListener);
+
+                postDelayedStopSelf(DateUtils.MINUTE_IN_MILLIS / 2);
             }
 
             private void shutdown() {
@@ -855,12 +753,9 @@ public class BlockchainService extends LifecycleService {
                 peerGroup.removeDisconnectedEventListener(peerConnectivityListener);
                 peerGroup.removeConnectedEventListener(peerConnectivityListener);
                 peerGroup.removeWallet(wallet);
-                log.info("stopping {} asynchronously (shutdown)", peerGroup);
+                log.info("stopping {} asynchronously", peerGroup);
                 peerGroup.stopAsync();
                 peerGroup = null;
-
-                log.debug("releasing wakelock");
-                wakeLock.release();
             }
         });
     }
@@ -868,17 +763,11 @@ public class BlockchainService extends LifecycleService {
     @Override
     public int onStartCommand(final Intent intent, final int flags, final int startId) {
         super.onStartCommand(intent, flags, startId);
+        postDelayedStopSelf(DateUtils.MINUTE_IN_MILLIS);
 
         if (intent != null) {
-            log.info("service start command: " + intent + (intent.hasExtra(Intent.EXTRA_ALARM_COUNT)
-                    ? " (alarm count: " + intent.getIntExtra(Intent.EXTRA_ALARM_COUNT, 0) + ")" : ""));
-
-            Bundle extras = intent.getExtras();
-            if (extras != null && extras.containsKey(START_AS_FOREGROUND_EXTRA)) {
-                startForeground();
-            }
-
             final String action = intent.getAction();
+            log.info("service start command: {}", action);
 
             if (BlockchainService.ACTION_CANCEL_COINS_RECEIVED.equals(action)) {
                 notificationCount = 0;
@@ -888,9 +777,10 @@ public class BlockchainService extends LifecycleService {
                 nm.cancel(Constants.NOTIFICATION_ID_COINS_RECEIVED);
             } else if (BlockchainService.ACTION_RESET_BLOCKCHAIN.equals(action)) {
                 log.info("will remove blockchain on service shutdown");
-
                 resetBlockchainOnShutdown = true;
                 stopSelf();
+                if (isBound.get())
+                    log.info("stop is deferred because service still bound");
             } else if (BlockchainService.ACTION_BROADCAST_TRANSACTION.equals(action)) {
                 final Sha256Hash hash = Sha256Hash
                         .wrap(intent.getByteArrayExtra(BlockchainService.ACTION_BROADCAST_TRANSACTION_HASH));
@@ -919,7 +809,7 @@ public class BlockchainService extends LifecycleService {
             peerGroup.removeConnectedEventListener(peerConnectivityListener);
             peerGroup.removeWallet(wallet.getValue());
             peerGroup.stopAsync();
-            log.info("stopping {} asynchronously (onDestroy)", peerGroup);
+            log.info("stopping {} asynchronously", peerGroup);
         }
 
         peerConnectivityListener.stop();
@@ -936,32 +826,35 @@ public class BlockchainService extends LifecycleService {
 
         application.autosaveWalletNow();
 
-        if (wakeLock.isHeld()) {
-            log.debug("wakelock still held, releasing");
-            wakeLock.release();
-        }
-
         if (resetBlockchainOnShutdown) {
             log.info("removing blockchain");
             blockChainFile.delete();
         }
 
-        scheduleStart(application);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+            unregisterReceiver(deviceIdleModeReceiver);
 
-        stopForeground(true);
+        final boolean expectLargeData =
+                blockChain != null && (config.getBestChainHeightEver() - blockChain.getBestChainHeight()) > CONNECTIVITY_NOTIFICATION_PROGRESS_MIN_BLOCKS;
+        StartBlockchainService.schedule(application, expectLargeData);
+
+        wakeLock.release();
+        log.info("released {}", wakeLock);
+        checkState(!wakeLock.isHeld(), "still held: " + wakeLock);
 
         super.onDestroy();
 
-        log.info("service was up for " + ((System.currentTimeMillis() - serviceCreatedAt) / 1000 / 60) + " minutes");
+        log.info("service was up for {}", serviceUpTime.stop());
     }
 
     @Override
     public void onTrimMemory(final int level) {
         log.info("onTrimMemory({}) called", level);
-
         if (level >= ComponentCallbacks2.TRIM_MEMORY_BACKGROUND) {
-            log.warn("low memory detected, stopping service");
+            log.warn("low memory detected, trying to stop");
             stopSelf();
+            if (isBound.get())
+                log.info("stop is deferred because service still bound");
         }
     }
 
@@ -991,7 +884,7 @@ public class BlockchainService extends LifecycleService {
         if (blockChain == null)
             return null;
 
-        final List<StoredBlock> blocks = new ArrayList<StoredBlock>(maxBlocks);
+        final List<StoredBlock> blocks = new ArrayList<>(maxBlocks);
         try {
             StoredBlock block = blockChain.getChainHead();
             while (block != null) {
@@ -1006,33 +899,25 @@ public class BlockchainService extends LifecycleService {
         }
     }
 
-    private void broadcastPeerState(final int numPeers) {
-        final Intent broadcast = new Intent(ACTION_PEER_STATE);
-        broadcast.putExtra(ACTION_PEER_STATE_NUM_PEERS, numPeers);
-        LocalBroadcastManager.getInstance(this).sendBroadcast(broadcast);
+    private void startForeground(final int numPeers) {
+        connectivityNotification.setSmallIcon(R.drawable.stat_notify_peers, Math.min(numPeers, 4));
+        connectivityNotification.setContentText(getString(R.string.notification_peers_connected_msg, numPeers));
+        startForeground(Constants.NOTIFICATION_ID_CONNECTIVITY, connectivityNotification.build());
     }
 
-    private void broadcastBlockchainState() {
-        final Intent broadcast = new Intent(ACTION_BLOCKCHAIN_STATE);
-        final BlockchainState blockchainState = getBlockchainState();
-        if (blockchainState != null)
-            blockchainState.putExtras(broadcast);
-        LocalBroadcastManager.getInstance(this).sendBroadcast(broadcast);
+    private void startForegroundProgress(final int blocksToDownload, final int blocksLeft) {
+        connectivityNotification.setProgress(blocksToDownload, blocksToDownload - blocksLeft, false);
+        startForeground(Constants.NOTIFICATION_ID_CONNECTIVITY, connectivityNotification.build());
+    }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            //Handle Ongoing notification state
-            boolean syncing = blockchainState.bestChainDate.getTime() < (Utils.currentTimeMillis() - DateUtils.HOUR_IN_MILLIS); //1 hour
-            if (!syncing && blockchainState.bestChainHeight == config.getBestChainHeightEver()) {
-                //Remove ongoing notification if blockchain sync finished
-                stopForeground(true);
-                nm.cancel(Constants.NOTIFICATION_ID_BLOCKCHAIN_SYNC);
-            } else if (blockchainState.replaying || syncing) {
-                //Shows ongoing notification when synchronizing the blockchain
-                Notification notification = createNetworkSyncNotification(blockchainState);
-                if (notification != null) {
-                    nm.notify(Constants.NOTIFICATION_ID_BLOCKCHAIN_SYNC, notification);
-                }
-            }
-        }
+    @MainThread
+    private void broadcastPeerState(final int numPeers) {
+        application.peerState.setValue(numPeers);
+    }
+
+    @MainThread
+    private void broadcastBlockchainState() {
+        final BlockchainState blockchainState = getBlockchainState();
+        application.blockchainState.setValue(blockchainState);
     }
 }

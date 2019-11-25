@@ -34,7 +34,7 @@ import androidx.lifecycle.MutableLiveData;
  * @author Andreas Schildbach
  */
 public class WalletActivityViewModel extends AndroidViewModel implements OnFirstPreDraw.Callback {
-    public static enum EnterAnimationState {
+    public enum EnterAnimationState {
         WAITING, ANIMATING, FINISHED
     }
 
@@ -112,12 +112,9 @@ public class WalletActivityViewModel extends AndroidViewModel implements OnFirst
         @Override
         protected void load() {
             final Wallet wallet = getWallet();
-            AsyncTask.execute(new Runnable() {
-                @Override
-                public void run() {
-                    org.bitcoinj.core.Context.propagate(Constants.CONTEXT);
-                    postValue(wallet.isEncrypted());
-                }
+            AsyncTask.execute(() -> {
+                org.bitcoinj.core.Context.propagate(Constants.CONTEXT);
+                postValue(wallet.isEncrypted());
             });
         }
     }
@@ -135,13 +132,10 @@ public class WalletActivityViewModel extends AndroidViewModel implements OnFirst
         @Override
         protected void load() {
             final Wallet wallet = getWallet();
-            AsyncTask.execute(new Runnable() {
-                @Override
-                public void run() {
-                    org.bitcoinj.core.Context.propagate(Constants.CONTEXT);
-                    postValue(wallet.getActiveKeyChain().getOutputScriptType() == Script.ScriptType.P2WPKH
-                            && wallet.getActiveKeyChains().get(0).getOutputScriptType() != Script.ScriptType.P2WPKH);
-                }
+            AsyncTask.execute(() -> {
+                org.bitcoinj.core.Context.propagate(Constants.CONTEXT);
+                postValue(wallet.getActiveKeyChain().getOutputScriptType() == Script.ScriptType.P2WPKH
+                        && wallet.getActiveKeyChains().get(0).getOutputScriptType() != Script.ScriptType.P2WPKH);
             });
         }
     }

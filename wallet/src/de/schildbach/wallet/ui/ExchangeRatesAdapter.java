@@ -134,12 +134,7 @@ public class ExchangeRatesAdapter extends ListAdapter<ExchangeRatesAdapter.ListI
 
         final OnClickListener onClickListener = this.onClickListener;
         if (onClickListener != null) {
-            holder.menuView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(final View v) {
-                    onClickListener.onExchangeRateMenuClick(v, listItem.currencyCode);
-                }
-            });
+            holder.menuView.setOnClickListener(v -> onClickListener.onExchangeRateMenuClick(v, listItem.currencyCode));
         }
     }
 

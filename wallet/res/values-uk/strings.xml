@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<resources>
   <string name="toast_wallet_reset">Гаманець був скинутий,\nвідновлення займе трохи часу</string>
   <string name="wallet_disclaimer_fragment_remind_safety">Використовуйте на власний страх та ризик. Прочитайте &lt;u&gt;примітки по безпеці&lt;/u&gt;.</string>
   <string name="wallet_disclaimer_fragment_remind_backup">Вам необхідно &lt;u&gt;зробити резервну копію вашого гаманця&lt;/u&gt;!</string>
@@ -124,15 +124,8 @@
   <string name="peer_list_fragment_empty">Немає підключень</string>
   <string name="peer_list_row_ping_time">⇆ %d&#x2009;мс</string>
   <string name="import_keys_dialog_title">Відновити гаманець</string>
-  <string name="import_keys_dialog_message">Виберіть файл резервного копіювання гаманця з носія або внутрішньої пам\'яті:</string>
   <string name="restore_wallet_dialog_replace_warning">Ви збираєтесь замінити поточний гаманець. Будь які монети в поточному гаманці будуть втрачені, якщо у вас немає окремої резервної копії.</string>
   <string name="import_keys_dialog_warning">Важливо: Не завантажуйте приватні ключі із сумнівних джерел! Зловмисники можуть отримати контроль над вашими засобами.</string>
-  <string name="import_keys_dialog_file_security_encrypted">зашифровано паролем</string>
-  <string name="import_keys_dialog_file_security_unencrypted">незашифрованно</string>
-  <string name="import_keys_dialog_file_security_external">зовнішнє сховище</string>
-  <string name="import_keys_dialog_file_security_internal">приватне сховище</string>
-  <string name="import_keys_dialog_file_created_automatic">автоматичне резервне копіювання %s</string>
-  <string name="import_keys_dialog_file_created_manual">ручна резервна копія %s</string>
   <string name="import_keys_dialog_button_import">Відновити</string>
   <string name="restore_wallet_dialog_success">Гаманець був відновлений.</string>
   <string name="restore_wallet_dialog_success_replay">Ваш гаманець був успішно відновлений. Його баланс визначиться згодом. Це займе трохи часу.</string>
@@ -160,8 +153,6 @@
   <string name="preferences_category_labs">Лабораторія</string>
   <string name="preferences_precision_title">Деномінація і точність</string>
   <string name="preferences_precision_summary">Одиниці, в яких показуються суми. Не впливає на вирахування.</string>
-  <string name="preferences_connectivity_notification_title">Індикатор з\'єднання</string>
-  <string name="preferences_connectivity_notification_summary">Показати поточну кількість підключень в області сповіщень.</string>
   <string name="preferences_trusted_peer_title">Довірений учасник</string>
   <string name="preferences_trusted_peer_summary">IP або ім\'я хоста одного учасника для підключення</string>
   <string name="preferences_trusted_peer_only_title">Не виконувати звичайне виявлення учасників</string>

@@ -31,7 +31,7 @@ import android.view.ViewTreeObserver;
  * @author Andreas Schildbach
  */
 public class OnFirstPreDraw implements ViewTreeObserver.OnPreDrawListener {
-    public static interface Callback {
+    public interface Callback {
         boolean onFirstPreDraw();
     }
 

@@ -52,6 +52,7 @@ import android.text.format.DateUtils;
 import androidx.annotation.Nullable;
 import okhttp3.Call;
 import okhttp3.ConnectionSpec;
+import okhttp3.Headers;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient.Builder;
 import okhttp3.Request;
@@ -100,7 +101,7 @@ public class ExchangeRatesProvider extends ContentProvider {
 
         final ExchangeRate cachedExchangeRate = config.getCachedExchangeRate();
         if (cachedExchangeRate != null) {
-            exchangeRates = new TreeMap<String, ExchangeRate>();
+            exchangeRates = new TreeMap<>();
             exchangeRates.put(cachedExchangeRate.getCurrencyCode(), cachedExchangeRate);
         }
 
@@ -247,7 +248,9 @@ public class ExchangeRatesProvider extends ContentProvider {
 
         final Request.Builder request = new Request.Builder();
         request.url(BITCOINAVERAGE_URL);
-        request.header("User-Agent", userAgent);
+        final Headers.Builder headers = new Headers.Builder();
+        headers.add("User-Agent", userAgent);
+        request.headers(headers.build());
 
         final Builder httpClientBuilder = Constants.HTTP_CLIENT.newBuilder();
         httpClientBuilder.connectionSpecs(Arrays.asList(ConnectionSpec.RESTRICTED_TLS));
@@ -257,7 +260,7 @@ public class ExchangeRatesProvider extends ContentProvider {
             if (response.isSuccessful()) {
                 final String content = response.body().string();
                 final JSONObject head = new JSONObject(content);
-                final Map<String, ExchangeRate> rates = new TreeMap<String, ExchangeRate>();
+                final Map<String, ExchangeRate> rates = new TreeMap<>();
 
                 for (final Iterator<String> i = head.keys(); i.hasNext();) {
                     final String currencyCode = i.next();

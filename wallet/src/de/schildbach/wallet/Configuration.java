@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2015 the original author or authors.
+ * Copyright the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -46,12 +46,12 @@ public class Configuration {
     public static final String PREFS_KEY_BTC_PRECISION = "btc_precision";
     public static final String PREFS_KEY_OWN_NAME = "own_name";
     public static final String PREFS_KEY_SEND_COINS_AUTOCLOSE = "send_coins_autoclose";
-    public static final String PREFS_KEY_CONNECTIVITY_NOTIFICATION = "connectivity_notification";
     public static final String PREFS_KEY_EXCHANGE_CURRENCY = "exchange_currency";
     public static final String PREFS_KEY_TRUSTED_PEER = "trusted_peer";
     public static final String PREFS_KEY_TRUSTED_PEER_ONLY = "trusted_peer_only";
     public static final String PREFS_KEY_BLOCK_EXPLORER = "block_explorer";
     public static final String PREFS_KEY_DATA_USAGE = "data_usage";
+    public static final String PREFS_KEY_NOTIFICATIONS = "notifications";
     public static final String PREFS_KEY_REMIND_BALANCE = "remind_balance";
     public static final String PREFS_KEY_DISCLAIMER = "disclaimer";
 
@@ -66,6 +66,7 @@ public class Configuration {
     public static final String PREFS_KEY_REMIND_BACKUP = "remind_backup";
     private static final String PREFS_KEY_LAST_BACKUP = "last_backup";
     private static final String PREFS_KEY_LAST_RESTORE = "last_restore";
+    private static final String PREFS_KEY_LAST_ENCRYPT_KEYS = "last_encrypt_keys";
     private static final String PREFS_KEY_LAST_BLOCKCHAIN_RESET = "last_blockchain_reset";
     private static final String PREFS_KEY_LAST_BLUETOOTH_ADDRESS = "last_bluetooth_address";
 
@@ -135,10 +136,6 @@ public class Configuration {
         return prefs.getBoolean(PREFS_KEY_SEND_COINS_AUTOCLOSE, true);
     }
 
-    public boolean getConnectivityNotificationEnabled() {
-        return prefs.getBoolean(PREFS_KEY_CONNECTIVITY_NOTIFICATION, false);
-    }
-
     public String getTrustedPeerHost() {
         return Strings.emptyToNull(prefs.getString(PREFS_KEY_TRUSTED_PEER, "").trim());
     }
@@ -183,6 +180,14 @@ public class Configuration {
 
     public void updateLastRestoreTime() {
         prefs.edit().putLong(PREFS_KEY_LAST_RESTORE, System.currentTimeMillis()).apply();
+    }
+
+    public long getLastEncryptKeysTime() {
+        return prefs.getLong(PREFS_KEY_LAST_ENCRYPT_KEYS, 0);
+    }
+
+    public void updateLastEncryptKeysTime() {
+        prefs.edit().putLong(PREFS_KEY_LAST_ENCRYPT_KEYS, System.currentTimeMillis()).apply();
     }
 
     public long getLastBlockchainResetTime() {

@@ -96,12 +96,10 @@ public final class SendCoinsActivity extends AbstractWalletActivity {
 
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
-        switch (item.getItemId()) {
-        case R.id.send_coins_options_help:
+        if (item.getItemId() == R.id.send_coins_options_help) {
             viewModel.showHelpDialog.setValue(new Event<>(R.string.help_send_coins));
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 }

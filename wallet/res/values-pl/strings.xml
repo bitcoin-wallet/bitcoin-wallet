@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<resources>
   <string name="toast_wallet_reset">Twój portfel został zresetowany!\nTo zajmie trochę czasu, aby odzyskać.</string>
   <string name="wallet_disclaimer_fragment_remind_safety">Używaj na własne ryzyko. Przeczytaj &lt;u&gt;instrukcje bezpieczeństwa&lt;/u&gt;.</string>
   <string name="wallet_disclaimer_fragment_remind_backup">Musisz zrobić &lt;u&gt;kopię zapasową&lt;/u&gt; swojego portfela!</string>
@@ -157,16 +157,8 @@
   <string name="peer_list_fragment_empty">Brak połączonych partnerów</string>
   <string name="peer_list_row_ping_time">⇆ %d ms</string>
   <string name="import_keys_dialog_title">Odzyskaj portfel</string>
-  <string name="import_keys_dialog_message">Wybierz plik kopii zapasowej portfela z zewnętrznego nośnika (%s):</string>
-  <string name="restore_wallet_dialog_message_empty">Nie znaleziono pliku portfela. Upewnij się, że znajduję się w pamięci wewnętrznej (%s).</string>
   <string name="restore_wallet_dialog_replace_warning">Zamierzasz zastąpić aktualny portfel. Wszystkie monety z tego portfela zostaną utracone jeśli nie zrobiono jego kopii bezpieczeństwa.</string>
   <string name="import_keys_dialog_warning">Ważne: Nie importuj kluczy z niepewnych źródeł! W przeciwnym razie inni mogą przejąć kontrolę nad twoimi środkami.</string>
-  <string name="import_keys_dialog_file_security_encrypted">zaszyfrowane hasłem</string>
-  <string name="import_keys_dialog_file_security_unencrypted">niezaszyfrowane</string>
-  <string name="import_keys_dialog_file_security_external">zewnętrzny nośnik</string>
-  <string name="import_keys_dialog_file_security_internal">aplikacja przechowująca</string>
-  <string name="import_keys_dialog_file_created_automatic">automatyczna kopia bezpieczeństwa %s</string>
-  <string name="import_keys_dialog_file_created_manual">Ręcznie zapisano %s</string>
   <string name="import_keys_dialog_button_import">Odzyskaj</string>
   <string name="import_keys_dialog_failure">Nie udało się zaimportować kluczy prywatnych:\n\n%s\n\nBłędne hasło?</string>
   <string name="restore_wallet_dialog_success">Portfel został odzyskany.</string>
@@ -215,8 +207,6 @@
   <string name="preferences_own_name_title">Własna nazwa</string>
   <string name="preferences_send_coins_autoclose_title">Automatycznie zamknij okno wysyłania monet</string>
   <string name="preferences_send_coins_autoclose_summary">Po dokonaniu płatności okno wysyłania zostanie zamknięte automatycznie.</string>
-  <string name="preferences_connectivity_notification_title">Wskaźnik połączeń</string>
-  <string name="preferences_connectivity_notification_summary">Wyświetl obecną liczbę połączonych partnerów w przestrzeni powiadomień.</string>
   <string name="preferences_trusted_peer_title">Zaufany partner</string>
   <string name="preferences_trusted_peer_summary">IP lub nazwa hosta pojedynczego partnera z którym możesz się połączyć.</string>
   <string name="preferences_trusted_peer_resolve_progress">Rozwiązywanie…</string>

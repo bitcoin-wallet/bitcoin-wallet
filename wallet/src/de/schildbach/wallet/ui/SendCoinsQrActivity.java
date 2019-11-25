@@ -85,12 +85,7 @@ public final class SendCoinsQrActivity extends Activity {
                     dialog(SendCoinsQrActivity.this, dismissListener, 0, messageResId, messageArgs);
                 }
 
-                private final OnClickListener dismissListener = new OnClickListener() {
-                    @Override
-                    public void onClick(final DialogInterface dialog, final int which) {
-                        SendCoinsQrActivity.this.finish();
-                    }
-                };
+                private final OnClickListener dismissListener = (dialog, which) -> SendCoinsQrActivity.this.finish();
             }.parse();
         } else {
             finish();

@@ -20,6 +20,7 @@ package de.schildbach.wallet;
 import java.lang.reflect.Method;
 
 import org.bitcoinj.core.Coin;
+import org.bitcoinj.core.NetworkParameters;
 import org.bitcoinj.utils.Fiat;
 import org.bitcoinj.utils.MonetaryFormat;
 import org.bitcoinj.wallet.Wallet.BalanceType;
@@ -43,7 +44,9 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Spannable;
+import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
+import android.text.style.StrikethroughSpan;
 import android.view.View;
 import android.widget.RemoteViews;
 import androidx.annotation.Nullable;
@@ -53,20 +56,19 @@ import androidx.core.content.ContextCompat;
  * @author Andreas Schildbach
  */
 public class WalletBalanceWidgetProvider extends AppWidgetProvider {
+    private static final StrikethroughSpan STRIKE_THRU_SPAN = new StrikethroughSpan();
+
     private static final Logger log = LoggerFactory.getLogger(WalletBalanceWidgetProvider.class);
 
     @Override
     public void onUpdate(final Context context, final AppWidgetManager appWidgetManager, final int[] appWidgetIds) {
         final PendingResult result = goAsync();
-        AsyncTask.execute(new Runnable() {
-            @Override
-            public void run() {
-                final WalletApplication application = (WalletApplication) context.getApplicationContext();
-                final Coin balance = application.getWallet().getBalance(BalanceType.ESTIMATED);
-                final ExchangeRate exchangeRate = application.getConfiguration().getCachedExchangeRate();
-                updateWidgets(context, appWidgetManager, appWidgetIds, balance, exchangeRate);
-                result.finish();
-            }
+        AsyncTask.execute(() -> {
+            final WalletApplication application = (WalletApplication) context.getApplicationContext();
+            final Coin balance = application.getWallet().getBalance(BalanceType.ESTIMATED);
+            final ExchangeRate exchangeRate = application.getConfiguration().getCachedExchangeRate();
+            updateWidgets(context, appWidgetManager, appWidgetIds, balance, exchangeRate);
+            result.finish();
         });
     }
 
@@ -77,15 +79,12 @@ public class WalletBalanceWidgetProvider extends AppWidgetProvider {
             log.info("app widget {} options changed: minWidth={}", appWidgetId,
                     newOptions.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_WIDTH));
         final PendingResult result = goAsync();
-        AsyncTask.execute(new Runnable() {
-            @Override
-            public void run() {
-                final WalletApplication application = (WalletApplication) context.getApplicationContext();
-                final Coin balance = application.getWallet().getBalance(BalanceType.ESTIMATED);
-                final ExchangeRate exchangeRate = application.getConfiguration().getCachedExchangeRate();
-                updateWidget(context, appWidgetManager, appWidgetId, newOptions, balance, exchangeRate);
-                result.finish();
-            }
+        AsyncTask.execute(() -> {
+            final WalletApplication application = (WalletApplication) context.getApplicationContext();
+            final Coin balance = application.getWallet().getBalance(BalanceType.ESTIMATED);
+            final ExchangeRate exchangeRate = application.getConfiguration().getCachedExchangeRate();
+            updateWidget(context, appWidgetManager, appWidgetId, newOptions, balance, exchangeRate);
+            result.finish();
         });
     }
 
@@ -128,9 +127,11 @@ public class WalletBalanceWidgetProvider extends AppWidgetProvider {
             final MonetaryFormat localFormat = Constants.LOCAL_FORMAT.code(0,
                     Constants.PREFIX_ALMOST_EQUAL_TO + GenericUtils.currencySymbol(exchangeRate.getCurrencyCode()));
             final Object[] prefixSpans = new Object[] { MonetarySpannable.SMALLER_SPAN,
-                    new ForegroundColorSpan(ContextCompat.getColor(context, R.color.fg_less_significant)) };
+                    new ForegroundColorSpan(ContextCompat.getColor(context, R.color.fg_insignificant)) };
             localBalanceStr = new MonetarySpannable(localFormat, localBalance).applyMarkup(prefixSpans,
                     MonetarySpannable.STANDARD_INSIGNIFICANT_SPANS);
+            if (!Constants.NETWORK_PARAMETERS.getId().equals(NetworkParameters.ID_MAINNET))
+                localBalanceStr.setSpan(STRIKE_THRU_SPAN, 0, localBalanceStr.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         } else {
             localBalanceStr = null;
         }
@@ -172,8 +173,7 @@ public class WalletBalanceWidgetProvider extends AppWidgetProvider {
     private static Bundle getAppWidgetOptions(final AppWidgetManager appWidgetManager, final int appWidgetId) {
         try {
             final Method getAppWidgetOptions = AppWidgetManager.class.getMethod("getAppWidgetOptions", Integer.TYPE);
-            final Bundle options = (Bundle) getAppWidgetOptions.invoke(appWidgetManager, appWidgetId);
-            return options;
+            return (Bundle) getAppWidgetOptions.invoke(appWidgetManager, appWidgetId);
         } catch (final Exception x) {
             return null;
         }

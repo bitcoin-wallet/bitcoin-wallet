@@ -67,6 +67,7 @@ public final class AcceptBluetoothService extends LifecycleService {
 
     @Override
     public IBinder onBind(final Intent intent) {
+        super.onBind(intent);
         return null;
     }
 
@@ -116,12 +117,9 @@ public final class AcceptBluetoothService extends LifecycleService {
         }
 
         wallet = new WalletLiveData(application);
-        wallet.observe(this, new Observer<Wallet>() {
-            @Override
-            public void onChanged(final Wallet wallet) {
-                classicThread.start();
-                paymentProtocolThread.start();
-            }
+        wallet.observe(this, wallet -> {
+            classicThread.start();
+            paymentProtocolThread.start();
         });
     }
 
@@ -133,12 +131,7 @@ public final class AcceptBluetoothService extends LifecycleService {
             if (wallet.isTransactionRelevant(tx)) {
                 wallet.receivePending(tx, null);
 
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        BlockchainService.broadcastTransaction(AcceptBluetoothService.this, tx);
-                    }
-                });
+                handler.post(() -> BlockchainService.broadcastTransaction(AcceptBluetoothService.this, tx));
             } else {
                 log.info("tx {} irrelevant", tx.getTxId());
             }
@@ -182,12 +175,9 @@ public final class AcceptBluetoothService extends LifecycleService {
         }
     };
 
-    private final Runnable timeoutRunnable = new Runnable() {
-        @Override
-        public void run() {
-            log.info("timeout expired, stopping service");
+    private final Runnable timeoutRunnable = () -> {
+        log.info("timeout expired, stopping service");
 
-            stopSelf();
-        }
+        stopSelf();
     };
 }

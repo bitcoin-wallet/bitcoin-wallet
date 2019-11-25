@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<resources>
   <string name="toast_wallet_reset">Lommeboken ble nullstilt!\nDet vil ta litt tid å gjenopprette.</string>
   <string name="wallet_disclaimer_fragment_remind_safety">Bruk på egen risiko. Les &lt;u&gt;sikkerhetsnotatene&lt;/u&gt;.</string>
   <string name="wallet_disclaimer_fragment_remind_backup">Du bør &lt;u&gt;ta sikkerhetskopi av din lommebok&lt;/u&gt;!</string>
@@ -181,19 +181,9 @@
   <string name="block_row_now">akkurat nå</string>
   <string name="peer_list_fragment_empty">Ingen peers tilkoblet</string>
   <string name="peer_list_row_ping_time">⇆ %d&#x2009;ms</string>
-  <string name="restore_wallet_permission_dialog_title">Lesetillatelse mangler</string>
-  <string name="restore_wallet_permission_dialog_message">For å finne backup av din lommebok, må du gi tillatelse til å lese filene.</string>
   <string name="import_keys_dialog_title">Gjenopprett lommebok</string>
-  <string name="import_keys_dialog_message">Velg en fil med sikkerhetskopi av lommeboken fra et eksternt lager (%s):</string>
-  <string name="restore_wallet_dialog_message_empty">Ingen sikkerhetskopi av lommeboken funnet. Pass på at den er plassert i ekstern lagring (%s).</string>
   <string name="restore_wallet_dialog_replace_warning">Du er i gang med å erstatte din nåværende lommebok. Hvis den inneholder mynter, vil disse mistes, med mindre du har en separat sikkerhetskopi av lommeboken.</string>
   <string name="import_keys_dialog_warning">Viktig: Ikke last inn private nøkler fra tvilsomme kilder! Andre kan oppnå kontroll over dine midler hvis du gjør dette.</string>
-  <string name="import_keys_dialog_file_security_encrypted">passord kryptert</string>
-  <string name="import_keys_dialog_file_security_unencrypted">ukryptert</string>
-  <string name="import_keys_dialog_file_security_external">eksternt lager</string>
-  <string name="import_keys_dialog_file_security_internal">app-privat lager</string>
-  <string name="import_keys_dialog_file_created_automatic">automatisk sikkerhetskopi %s</string>
-  <string name="import_keys_dialog_file_created_manual">manuell sikkerhetskopi %s</string>
   <string name="import_keys_dialog_button_import">Gjenopprett</string>
   <string name="restore_wallet_dialog_success">Lommeboken ble gjenopprettet.</string>
   <string name="restore_wallet_dialog_success_replay">Din lommebok ble gjenopprettet. Saldoen vil nå bli bestemt. Dette vil ta litt tid.</string>
@@ -248,8 +238,6 @@
   <string name="preferences_own_name_summary">Ditt navn, som skal legges til betalingsforespørsler. Prøv å holde det kort.</string>
   <string name="preferences_send_coins_autoclose_title">Automatisk lukk dialogboksen send mynter</string>
   <string name="preferences_send_coins_autoclose_summary">Når betalingen er gjort, vil dialogboksen send lukkes automatisk.</string>
-  <string name="preferences_connectivity_notification_title">Tilkoblingsindikator</string>
-  <string name="preferences_connectivity_notification_summary">Vis nåværende antall tilkoblede peers i systemstatusfeltet.</string>
   <string name="preferences_trusted_peer_title">Klarert peer</string>
   <string name="preferences_trusted_peer_summary">IP eller vertsnavn for forbindelse til en enkelt peer.</string>
   <string name="preferences_trusted_peer_resolve_progress">Løser…</string>
@@ -267,7 +255,7 @@
   <string name="preferences_report_issue_title">Rapporter problem</string>
   <string name="preferences_initiate_reset_title">Tilbakestill blokkjeden</string>
   <string name="preferences_initiate_reset_summary">Tilbakestill blokkjeden, transaksjoner og lommebok-balansen. Gjennomgangen vil ta en stund, så bare gjør dette hvis du vet hvorfor.</string>
-  <string name="preferences_initiate_reset_dialog_message">Har du lyst til å nullstille og gjennomgå blokkjeden?\n\nDette vil midlertidig skjule din lommebok-balanse og fjerne transaksjoner. Begge vil gjenopprettes etter hvert som blokkjeden synkroniseres. Sørg for at du har en pålitelig tilkobling til internett.</string>
+  <string name="preferences_initiate_reset_dialog_message">Har du lyst til å nullstille og gjennomgå blokkjeden?\n\nDette vil midlertidig skjule din lommebok-balanse og fjerne transaksjoner. Begge vil gjenopprettes etter hvert som blokkjeden synkroniseres. Sørg for at du har en pålitelig tilkobling til Internett.</string>
   <string name="preferences_initiate_reset_dialog_positive">Nullstill</string>
   <string name="preferences_extended_public_key_title">Vis extended public key</string>
   <string name="preferences_extended_public_key_summary">Vis den utvidede offentlige nøkkelen til lommeboken din, slik at den kan importeres i andre programmer og tjenester. Vær forsiktig: dette vil utlevere dine transaksjoner og privatliv til det programmet.</string>

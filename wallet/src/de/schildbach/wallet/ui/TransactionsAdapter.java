@@ -603,18 +603,8 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
 
             final OnClickListener onClickListener = this.onClickListener;
             if (onClickListener != null) {
-                transactionHolder.itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(final View v) {
-                        onClickListener.onTransactionClick(v, transactionItem.transactionHash);
-                    }
-                });
-                transactionHolder.menuView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(final View v) {
-                        onClickListener.onTransactionMenuClick(v, transactionItem.transactionHash);
-                    }
-                });
+                transactionHolder.itemView.setOnClickListener(v -> onClickListener.onTransactionClick(v, transactionItem.transactionHash));
+                transactionHolder.menuView.setOnClickListener(v -> onClickListener.onTransactionMenuClick(v, transactionItem.transactionHash));
             }
         } else if (holder instanceof WarningViewHolder) {
             final WarningViewHolder warningHolder = (WarningViewHolder) holder;
@@ -643,12 +633,7 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
 
             final OnClickListener onClickListener = this.onClickListener;
             if (onClickListener != null) {
-                warningHolder.itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(final View v) {
-                        onClickListener.onWarningClick(v);
-                    }
-                });
+                warningHolder.itemView.setOnClickListener(v -> onClickListener.onWarningClick(v));
             }
         }
     }
@@ -821,7 +806,7 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
             extendFeeView.setVisibility(item.fee != null ? View.VISIBLE : View.GONE);
             feeView.setAlwaysSigned(true);
             feeView.setFormat(item.feeFormat);
-            feeView.setAmount(item.fee != null ? item.fee : null);
+            feeView.setAmount(item.fee);
         }
 
         private void bindValue(final TransactionItem item) {
