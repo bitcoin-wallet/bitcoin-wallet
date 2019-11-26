@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="fg_on_dark_bg_network_significant">#ffffcc99</color>
-    <color name="fg_on_dark_bg_network_insignificant">#ffddaa77</color>
-    <color name="fg_network_significant">#ff894b00</color>
-    <color name="fg_network_less_significant">#cc894b00</color>
-    <color name="fg_shortcut">#ffddaa77</color>
+    <color name="fg_on_dark_bg_network_significant">#85A6B1</color>
+    <color name="fg_on_dark_bg_network_insignificant">#6590A2</color>
+    <color name="fg_network_significant">#ffffffff</color>
+    <color name="fg_network_less_significant">#6590A2</color>
+    <color name="fg_shortcut">#ffffffff</color>
 
-    <color name="appicon_gradient_start">#f9b949</color>
-    <color name="appicon_gradient_end">#f7931a</color>
+    <color name="bg_action_bar">#ff181c22</color>
+
+    <color name="appicon_gradient_start">#008ba4</color>
+    <color name="appicon_gradient_end">#008ba4</color>
+
+    <!-- foreground -->
+
 
 </resources>

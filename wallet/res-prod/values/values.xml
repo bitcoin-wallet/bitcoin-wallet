@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Bitcoin Wallet</string>
-    <string name="app_name_short">Bitcoin</string>
+    <string name="app_name">Groestlcoin Wallet</string>
+    <string name="app_name_short">Groestlcoin</string>
 
     <string-array name="preferences_block_explorer_values">
-        <item>https://www.blockchain.com/btc/</item>
-        <item>https://live.blockcypher.com/btc/</item>
-        <item>https://coin.cz/btc/</item>
+        <item>https://chainz.cryptoid.info/grs/</item>
+        <item>https://groestlsight.groestlcoin.org/</item>
+        <item>https://blockbook.groestlcoin.org/</item>
+        <item>https://blockchair.com/groestlcoin/</item>
     </string-array>
     <string-array name="preferences_block_explorer_labels">
-        <item>blockchain.info</item>
-        <item>live.blockcypher.com</item>
-        <item>coin.cz</item>
+        <item>cryptoID:GRS</item>
+        <item>Groestlsight</item>
+        <item>Blockbook</item>
+        <item>Blockchair</item>
     </string-array>
 
 </resources>

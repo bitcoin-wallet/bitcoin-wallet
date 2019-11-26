@@ -4,8 +4,8 @@
 	<string name="symbol_to">→</string>
 	<string name="symbol_from">←</string>
 	<string name="symbol_internal">⇄</string>
-	<string name="app_name">Groestlcoin Wallet</string>
-	<string name="app_name_short">Groestlcoin</string>
+	<string name="app_name">Groestlcoin Wallet TestNet</string>
+	<string name="app_name_short">Groestlcoin [test]</string>
 
 
 	<string-array name="preferences_precision_values">
@@ -23,16 +23,14 @@
 		<item>@string/preferences_precision_labels_0_6</item>
 	</string-array>
 	<string-array name="preferences_block_explorer_values">
-		<item>https://chainz.cryptoid.info/grs/</item>
-		<item>https://groestlsight.groestlcoin.org/</item>
-		<item>https://blockbook.groestlcoin.org/</item>
-		<item>https://blockchair.com/groestlcoin/</item>
+		<item>https://chainz.cryptoid.info/grs-test/</item>
+		<item>https://groestlsight-test.groestlcoin.org/</item>
+		<item>https://blockbook-test.groestlcoin.org/</item>
 	</string-array>
 	<string-array name="preferences_block_explorer_labels">
-		<item>cryptoID:GRS</item>
-		<item>Groestlsight</item>
-		<item>Blockbook</item>
-		<item>Blockchair</item>
+		<item>cryptoID:GRS (testnet)</item>
+		<item>Groestlsight (testnet)</item>
+		<item>Blockbook (testnet)</item>
 	</string-array>
 
 </resources>
