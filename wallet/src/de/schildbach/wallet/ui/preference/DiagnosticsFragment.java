@@ -70,7 +70,7 @@ public final class DiagnosticsFragment extends PreferenceFragment {
 
         addPreferencesFromResource(R.xml.preference_diagnostics);
 
-        if(BuildConfig.FLAVOR.contains("test")) {
+        if(BuildConfig.FLAVOR.contains("dev")) {
             String title = findPreference(PREFS_KEY_EXTENDED_PUBLIC_KEY).getTitle().toString();
             title.replaceFirst("xpub", "tpub");
         }

@@ -154,7 +154,7 @@ public class WalletApplication extends Application {
     }
 
     public BlockExplorer getBlockExplorer(Uri explorer) {
-        return blockExplorers.getExplorer(explorer.toString(), BuildConfig.FLAVOR.contains("test"));
+        return blockExplorers.getExplorer(explorer.toString(), BuildConfig.FLAVOR.contains("dev"));
     }
 
     @WorkerThread
