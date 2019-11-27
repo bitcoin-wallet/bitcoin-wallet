@@ -25,7 +25,6 @@ import org.slf4j.LoggerFactory;
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.R;
 import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.service.BlockchainService;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -116,14 +115,9 @@ public final class SettingsFragment extends PreferenceFragment implements OnPref
     public boolean onPreferenceChange(final Preference preference, final Object newValue) {
         // delay action because preference isn't persisted until after this method returns
         handler.post(() -> {
-            if (preference.equals(trustedPeerPreference)) {
-                BlockchainService.stop(activity);
+            if (preference.equals(trustedPeerPreference))
                 updateTrustedPeer();
-            } else if (preference.equals(trustedPeerOnlyPreference)) {
-                BlockchainService.stop(activity);
-            }
         });
-
         return true;
     }
 

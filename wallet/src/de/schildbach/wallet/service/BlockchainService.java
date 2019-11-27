@@ -33,7 +33,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
-import android.os.Build;
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.Block;
 import org.bitcoinj.core.BlockChain;
@@ -89,10 +88,12 @@ import android.content.ComponentCallbacks2;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Binder;
+import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.PowerManager;
@@ -161,10 +162,6 @@ public class BlockchainService extends LifecycleService {
                     new Intent(BlockchainService.ACTION_CANCEL_COINS_RECEIVED, null, context, BlockchainService.class));
         else
             ContextCompat.startForegroundService(context, new Intent(context, BlockchainService.class));
-    }
-
-    public static void stop(final Context context) {
-        context.stopService(new Intent(context, BlockchainService.class));
     }
 
     public static void resetBlockchain(final Context context) {
@@ -427,6 +424,15 @@ public class BlockchainService extends LifecycleService {
         }
     }
 
+    private final SharedPreferences.OnSharedPreferenceChangeListener preferenceChangeListener =
+            new SharedPreferences.OnSharedPreferenceChangeListener() {
+        @Override
+        public void onSharedPreferenceChanged(final SharedPreferences sharedPreferences, final String key) {
+            if (Configuration.PREFS_KEY_TRUSTED_PEER.equals(key) || Configuration.PREFS_KEY_TRUSTED_PEER_ONLY.equals(key))
+                stopSelf();
+        }
+    };
+
     private Runnable delayedStopSelfRunnable = () -> {
         log.info("service idling detected, trying to stop");
         stopSelf();
@@ -496,6 +502,8 @@ public class BlockchainService extends LifecycleService {
         config = application.getConfiguration();
         addressBookDao = AppDatabase.getDatabase(application).addressBookDao();
         blockChainFile = new File(getDir("blockstore", Context.MODE_PRIVATE), Constants.Files.BLOCKCHAIN_FILENAME);
+
+        config.registerOnSharedPreferenceChangeListener(preferenceChangeListener);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
             registerReceiver(deviceIdleModeReceiver, new IntentFilter(PowerManager.ACTION_DEVICE_IDLE_MODE_CHANGED));
@@ -759,6 +767,8 @@ public class BlockchainService extends LifecycleService {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
             unregisterReceiver(deviceIdleModeReceiver);
+
+        config.unregisterOnSharedPreferenceChangeListener(preferenceChangeListener);
 
         final boolean expectLargeData =
                 blockChain != null && (config.getBestChainHeightEver() - blockChain.getBestChainHeight()) > CONNECTIVITY_NOTIFICATION_PROGRESS_MIN_BLOCKS;
