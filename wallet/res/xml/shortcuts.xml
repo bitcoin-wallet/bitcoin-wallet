@@ -10,7 +10,7 @@
         <intent
             android:action="android.intent.action.VIEW"
             android:targetClass="de.schildbach.wallet.ui.SendCoinsQrActivity"
-            android:targetPackage="hashengineering.groestlcoin.wallet" />
+            android:targetPackage="hashengineering.groestlcoin.wallet_test" />
     </shortcut>
     <shortcut
         android:icon="@drawable/shortcut_send_coins"
@@ -19,7 +19,7 @@
         <intent
             android:action="android.intent.action.VIEW"
             android:targetClass="de.schildbach.wallet.ui.send.SendCoinsActivity"
-            android:targetPackage="hashengineering.groestlcoin.wallet" />
+            android:targetPackage="hashengineering.groestlcoin.wallet_test" />
     </shortcut>
     <shortcut
         android:icon="@drawable/shortcut_request_coins"
@@ -28,6 +28,6 @@
         <intent
             android:action="android.intent.action.VIEW"
             android:targetClass="de.schildbach.wallet.ui.RequestCoinsActivity"
-            android:targetPackage="hashengineering.groestlcoin.wallet" />
+            android:targetPackage="hashengineering.groestlcoin.wallet_test" />
     </shortcut>
 </shortcuts>
