@@ -44,7 +44,7 @@
   <string name="wallet_options_safety">安全须知</string>
   <string name="wallet_options_technical_notes_title">技术手册</string>
   <string name="wallet_options_donate">技巧 / 捐助</string>
-  <string name="wallet_donate_address_label">向比特币钱包 (Bitcoin Wallet) 捐款</string>
+  <string name="wallet_donate_address_label">向比特币钱包 (Groestlcoin Wallet) 捐款</string>
   <string name="alert_dialogs_fragment_insecure_bluetooth_title">安全警告</string>
   <string name="alert_dialogs_fragment_insecure_bluetooth_message">您的设备的蓝牙模块是不可靠的。无论您使用何种应用来保存比特币，它们的安全都会受到威胁！\n\n我们建议您立即关闭蓝牙开关，并且检查Android的系统更新（安全补丁等级“%s”或者更高）。</string>
   <string name="wallet_low_storage_dialog_title">内部设备存储空间不足！</string>
@@ -240,11 +240,11 @@
   <string name="preferences_category_labs">实验</string>
   <string name="preferences_precision_title">面值和精度</string>
   <string name="preferences_precision_summary">金额的显示单位，不会影响计算。</string>
-  <string name="preferences_precision_labels_8">BTC, 8 位小数</string>
-  <string name="preferences_precision_labels_6">BTC, 6 位小数</string>
-  <string name="preferences_precision_labels_4">BTC, 4 位小数</string>
-  <string name="preferences_precision_labels_2_3">mBTC, 2位小数</string>
-  <string name="preferences_precision_labels_0_6">µBTC, 没有小数位</string>
+  <string name="preferences_precision_labels_8">GRS, 8 位小数</string>
+  <string name="preferences_precision_labels_6">GRS, 6 位小数</string>
+  <string name="preferences_precision_labels_4">GRS, 4 位小数</string>
+  <string name="preferences_precision_labels_2_3">mGRS, 2位小数</string>
+  <string name="preferences_precision_labels_0_6">µGRS, 没有小数位</string>
   <string name="preferences_own_name_title">你的名字</string>
   <string name="preferences_own_name_summary">您自己的姓名，要添加到付款请求中。尽量保持简短。</string>
   <string name="preferences_send_coins_autoclose_title">自动关闭支付对话框</string>
@@ -293,7 +293,7 @@
   <string name="about_license_title">许可协议</string>
   <string name="about_source_title">源代码</string>
   <string name="about_category_credits">此应用正在使用...</string>
-  <string name="about_credits_bitcoinj_title">bitcoinj %s, 一个比特币协议库</string>
+  <string name="about_credits_bitcoinj_title">Groestlcoinj %s, 一个比特币协议库</string>
   <string name="about_credits_zxing_title">ZXing，一个QR码处理库</string>
   <string name="about_credits_bouncycastle_title">Bouncy Castle，一个密码学函数库</string>
   <string name="about_credits_okhttp_title">OkHttp，一个HTTP客户端函数库</string>

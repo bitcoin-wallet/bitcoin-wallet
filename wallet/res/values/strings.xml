@@ -317,7 +317,7 @@
     <string name="notification_channel_received_name">Received payments</string>
     <string name="notification_channel_ongoing_name">Background activity</string>
     <string name="notification_channel_important_name">Important alerts</string>
-    <string name="appwidget_wallet_balance_title">Groestlcoin balance</string>
+    <string name="appwidget_wallet_balance_title">Groestlcoin Testnet balance</string>
 
     <!-- generic buttons -->
     <string name="button_ok">OK</string>

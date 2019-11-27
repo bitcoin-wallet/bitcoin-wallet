@@ -248,11 +248,11 @@
   <string name="about_faq_summary">Często zadawane pytania o aplikacji</string>
   <string name="notification_coins_received_msg">Otrzymano %s </string>
   <string name="notification_peers_connected_msg">%d połączonych partnerów</string>
-  <string name="notification_inactivity_title">Nadal posiadasz BTC na tym urządzeniu!</string>
+  <string name="notification_inactivity_title">Nadal posiadasz GRS na tym urządzeniu!</string>
   <string name="notification_inactivity_action_dismiss_forever">Nie przypominaj</string>
   <string name="notification_channel_received_name">Otrzymane płatności</string>
   <string name="notification_channel_ongoing_name">Aktywność aplikacji w tle</string>
-  <string name="appwidget_wallet_balance_title">Ilość BTC</string>
+  <string name="appwidget_wallet_balance_title">Ilość GRS</string>
   <!--generic buttons-->
   <string name="button_ok">OK</string>
   <string name="button_dismiss">Odrzuć</string>
