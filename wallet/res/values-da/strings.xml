@@ -259,6 +259,8 @@
   <string name="preferences_block_explorer_summary">Ekstern blokudforsker, der skal bruges til at gennemse transaktioner, adresser og blokke.</string>
   <string name="preferences_data_usage_title">Dataforbrug</string>
   <string name="preferences_data_usage_summary">Vis indstillinger for restriktion på dataforbrug på mobile netværk.</string>
+  <string name="preferences_notifications_title">Notifikationer</string>
+  <string name="preferences_notifications_summary">Vis muligheder for at aktivere eller deaktivere specifikke notifikationer.</string>
   <string name="preferences_remind_balance_title">Saldopåmindelse</string>
   <string name="preferences_remind_balance_summary">Efter et par uger uden brug vil app\'en give besked, hvis der stadig er penge i tegnebogen.</string>
   <string name="preferences_show_disclaimer_title">Vis ansvarsfraskrivelse</string>
