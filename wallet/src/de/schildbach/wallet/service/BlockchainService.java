@@ -316,9 +316,10 @@ public class BlockchainService extends LifecycleService {
         public void onChainDownloadStarted(final Peer peer, final int blocksToDownload) {
             postDelayedStopSelf(DateUtils.MINUTE_IN_MILLIS / 2);
             this.blocksToDownload.set(blocksToDownload);
-            config.maybeIncrementBestChainHeightEver(blockChain.getChainHead().getHeight() + blocksToDownload);
-            if (blocksToDownload >= CONNECTIVITY_NOTIFICATION_PROGRESS_MIN_BLOCKS)
+            if (blocksToDownload >= CONNECTIVITY_NOTIFICATION_PROGRESS_MIN_BLOCKS) {
+                config.maybeIncrementBestChainHeightEver(blockChain.getChainHead().getHeight() + blocksToDownload);
                 startForegroundProgress(blocksToDownload, blocksToDownload);
+            }
         }
 
         @Override
