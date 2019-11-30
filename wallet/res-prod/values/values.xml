@@ -3,6 +3,7 @@
 
     <string name="app_name">Groestlcoin Wallet</string>
     <string name="app_name_short">Groestlcoin</string>
+    <string name="appwidget_wallet_balance_title">Groestlcoin balance</string>
 
     <string-array name="preferences_block_explorer_values">
         <item>https://chainz.cryptoid.info/grs/</item>
