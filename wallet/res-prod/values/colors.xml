@@ -3,16 +3,14 @@
 
     <color name="fg_on_dark_bg_network_significant">#85A6B1</color>
     <color name="fg_on_dark_bg_network_insignificant">#6590A2</color>
-    <color name="fg_network_significant">#ffffffff</color>
+    <color name="fg_network_significant">#ff85A6B1</color>
     <color name="fg_network_less_significant">#6590A2</color>
     <color name="fg_shortcut">#ffffffff</color>
 
     <color name="bg_action_bar">#ff181c22</color>
+    <color name="bg_shortcut">#ff6590A2</color>
 
     <color name="appicon_gradient_start">#008ba4</color>
     <color name="appicon_gradient_end">#008ba4</color>
-
-    <!-- foreground -->
-
 
 </resources>
