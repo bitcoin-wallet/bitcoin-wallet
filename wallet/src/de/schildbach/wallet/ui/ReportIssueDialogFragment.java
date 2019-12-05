@@ -190,7 +190,7 @@ public class ReportIssueDialogFragment extends DialogFragment {
     private void appendApplicationInfo(final Appendable report, final WalletApplication application)
             throws IOException {
         final PackageInfo pi = application.packageInfo();
-        final Configuration configuration = application.getConfiguration();
+        final Configuration config = application.getConfiguration();
         final Calendar calendar = new GregorianCalendar(UTC);
 
         report.append("Version: " + pi.versionName + " (" + pi.versionCode + ")\n");
@@ -216,23 +216,23 @@ public class ReportIssueDialogFragment extends DialogFragment {
         calendar.setTimeInMillis(pi.lastUpdateTime);
         report.append("Time of last app update: "
                 + String.format(Locale.US, "%tF %tT %tZ", calendar, calendar, calendar) + "\n");
-        final long lastBackupTime = configuration.getLastBackupTime();
+        final long lastBackupTime = config.getLastBackupTime();
         calendar.setTimeInMillis(lastBackupTime);
         report.append("Time of last backup: "
                 + (lastBackupTime > 0 ? String.format(Locale.US, "%tF %tT %tZ", calendar, calendar, calendar) : "none")
                 + "\n");
-        final long lastRestoreTime = configuration.getLastRestoreTime();
+        final long lastRestoreTime = config.getLastRestoreTime();
         calendar.setTimeInMillis(lastRestoreTime);
         report.append("Time of last restore: "
                 + (lastRestoreTime > 0 ? String.format(Locale.US, "%tF %tT %tZ", calendar, calendar, calendar) : "none")
                 + "\n");
-        final long lastEncryptKeysTime = configuration.getLastEncryptKeysTime();
+        final long lastEncryptKeysTime = config.getLastEncryptKeysTime();
         calendar.setTimeInMillis(lastEncryptKeysTime);
         report.append("Time of last encrypt keys: "
                 + (lastEncryptKeysTime > 0 ? String.format(Locale.US, "%tF %tT %tZ", calendar, calendar, calendar) :
                 "none")
                 + "\n");
-        final long lastBlockchainResetTime = configuration.getLastBlockchainResetTime();
+        final long lastBlockchainResetTime = config.getLastBlockchainResetTime();
         calendar.setTimeInMillis(lastBlockchainResetTime);
         report.append(
                 "Time of last blockchain reset: "
