@@ -265,6 +265,8 @@ public class ReportIssueDialogFragment extends DialogFragment {
         report.append("Last block seen: " + lastBlockSeenHeight).append(" (")
                 .append(lastBlockSeenTime == null ? "time unknown" : Utils.dateTimeFormat(lastBlockSeenTime))
                 .append(")\n");
+        report.append("Best chain height ever: ").append(Integer.toString(config.getBestChainHeightEver()))
+                .append("\n");
 
         report.append("Databases:");
         for (final String db : application.databaseList())
