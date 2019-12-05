@@ -19,8 +19,8 @@ Certain actions cause automatic rolling backups of your wallet to app-private st
 
 Your wallet can be manually backed up to and restored from a share of the storage access framework (likely Google Drive):
 
-    Mainnet: bitcoin-wallet-backup-<yyyy-MM-dd>
-    Testnet: bitcoin-wallet-backup-testnet-<yyyy-MM-dd>
+    Mainnet: bitcoin-wallet-backup-<yyyy-MM-dd-HH-mm>
+    Testnet: bitcoin-wallet-backup-testnet-<yyyy-MM-dd-HH-mm>
 
 If you want to recover coins from manual backups and for whatever reason you cannot use the app
 itself to restore from the backup, see the separate [README.recover.md](README.recover.md) guide.
