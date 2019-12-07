@@ -818,22 +818,23 @@ public class BlockchainService extends LifecycleService {
 
     @Nullable
     public List<StoredBlock> getRecentBlocks(final int maxBlocks) {
-        if (blockChain == null)
+        if (blockChain == null || blockStore == null)
             return null;
 
         final List<StoredBlock> blocks = new ArrayList<>(maxBlocks);
-        try {
-            StoredBlock block = blockChain.getChainHead();
-            while (block != null) {
-                blocks.add(block);
-                if (blocks.size() >= maxBlocks)
-                    break;
+        StoredBlock block = blockChain.getChainHead();
+        while (block != null) {
+            blocks.add(block);
+            if (blocks.size() >= maxBlocks)
+                break;
+            try {
                 block = block.getPrev(blockStore);
+            } catch (final BlockStoreException x) {
+                log.info("skipping blocks because of exception", x);
+                break;
             }
-            return blocks;
-        } catch (final BlockStoreException x) {
-            throw new RuntimeException(x);
         }
+        return blocks.isEmpty() ? null : blocks;
     }
 
     private void startForeground(final int numPeers) {
