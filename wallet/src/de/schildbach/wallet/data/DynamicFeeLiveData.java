@@ -96,9 +96,9 @@ public class DynamicFeeLiveData extends LiveData<Map<FeeCategory, Coin>> {
 
             // Check dynamic fees for sanity, based on the hardcoded fees.
             // The bounds are as follows (h is the respective hardcoded fee):
-            // ECONOMIC: h/8 to h*4
-            // NORMAL: h/4 to h*4
-            // PRIORITY: h/4 to h*8
+            // ECONOMIC: h/8 to h*8
+            // NORMAL: h/8 to h*8
+            // PRIORITY: h/8 to h*8
             final Map<FeeCategory, Coin> dynamicFees = parseFees(new FileInputStream(dynamicFeesFile));
             for (final FeeCategory category : FeeCategory.values()) {
                 final Coin staticFee = staticFees.get(category);
@@ -109,14 +109,14 @@ public class DynamicFeeLiveData extends LiveData<Map<FeeCategory, Coin>> {
                             staticFee.toFriendlyString());
                     continue;
                 }
-                final Coin upperBound = staticFee.shiftLeft(category == FeeCategory.PRIORITY ? 3 : 2);
+                final Coin upperBound = staticFee.shiftLeft(3);
                 if (dynamicFee.isGreaterThan(upperBound)) {
                     dynamicFees.put(category, upperBound);
                     log.warn("Down-adjusting dynamic fee: category {} from {}/kB to {}/kB", category,
                             dynamicFee.toFriendlyString(), upperBound.toFriendlyString());
                     continue;
                 }
-                final Coin lowerBound = staticFee.shiftRight(category == FeeCategory.ECONOMIC ? 3 : 2);
+                final Coin lowerBound = staticFee.shiftRight(3);
                 if (dynamicFee.isLessThan(lowerBound)) {
                     dynamicFees.put(category, lowerBound);
                     log.warn("Up-adjusting dynamic fee: category {} from {}/kB to {}/kB", category,
