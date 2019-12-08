@@ -5,8 +5,6 @@ plugins {
 
 configurations {
     all*.exclude group: 'com.google.android', module: 'android'
-    all*.exclude group: 'androidx.legacy', module: 'legacy-support-core-ui'
-    all*.exclude group: 'androidx.legacy', module: 'legacy-support-core-utils'
 }
 
 dependencies {
