@@ -1,3 +1,8 @@
+v7.41
+
+* Fix issue with not being able to send due to blockchain replay.
+* Based on bitcoinj 0.15.6.
+
 v7.38-v7.40
 
 * Improve design of app-widget.
