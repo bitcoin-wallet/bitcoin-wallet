@@ -89,8 +89,8 @@ public final class DiagnosticsFragment extends PreferenceFragment {
         dialog.setMessage(R.string.preferences_initiate_reset_dialog_message);
         dialog.setPositiveButton(R.string.preferences_initiate_reset_dialog_positive, (d, which) -> {
             log.info("manually initiated blockchain reset");
-
             BlockchainService.resetBlockchain(activity);
+            config.resetBestChainHeightEver();
             config.updateLastBlockchainResetTime();
             activity.finish(); // TODO doesn't fully finish prefs on single pane layouts
         });

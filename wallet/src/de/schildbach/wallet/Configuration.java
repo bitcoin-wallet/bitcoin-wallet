@@ -254,6 +254,10 @@ public class Configuration {
             prefs.edit().putInt(PREFS_KEY_BEST_CHAIN_HEIGHT_EVER, bestChainHeightEver).apply();
     }
 
+    public void resetBestChainHeightEver() {
+        prefs.edit().remove(PREFS_KEY_BEST_CHAIN_HEIGHT_EVER).apply();
+    }
+
     public ExchangeRate getCachedExchangeRate() {
         if (prefs.contains(PREFS_KEY_CACHED_EXCHANGE_CURRENCY) && prefs.contains(PREFS_KEY_CACHED_EXCHANGE_RATE_COIN)
                 && prefs.contains(PREFS_KEY_CACHED_EXCHANGE_RATE_FIAT)) {
