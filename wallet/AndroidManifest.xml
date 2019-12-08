@@ -49,6 +49,9 @@
     <uses-feature
         android:name="android.hardware.bluetooth"
         android:required="false" />
+    <uses-feature
+        android:name="android.software.app_widgets"
+        android:required="false" />
 
     <supports-screens
         android:anyDensity="true"
