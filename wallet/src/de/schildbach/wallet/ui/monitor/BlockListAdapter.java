@@ -99,11 +99,11 @@ public class BlockListAdapter extends ListAdapter<BlockListAdapter.ListItem, Blo
             }
         }
 
-        private final boolean isMiningRewardHalvingPoint(final StoredBlock storedPrev) {
+        private boolean isMiningRewardHalvingPoint(final StoredBlock storedPrev) {
             return ((storedPrev.getHeight() + 1) % 210000) == 0;
         }
 
-        private final boolean isDifficultyTransitionPoint(final StoredBlock storedPrev) {
+        private boolean isDifficultyTransitionPoint(final StoredBlock storedPrev) {
             return ((storedPrev.getHeight() + 1) % Constants.NETWORK_PARAMETERS.getInterval()) == 0;
         }
 
