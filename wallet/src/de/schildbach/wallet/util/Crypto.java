@@ -282,7 +282,7 @@ public class Crypto {
                 if (in.read(buf) == -1)
                     return false;
                 final String str = new String(buf);
-                if (!str.toString().equals(OPENSSL_MAGIC_TEXT))
+                if (!str.equals(OPENSSL_MAGIC_TEXT))
                     return false;
                 return true;
             } catch (final IOException x) {
