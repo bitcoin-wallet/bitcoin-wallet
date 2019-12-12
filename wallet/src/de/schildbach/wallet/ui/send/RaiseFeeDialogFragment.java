@@ -153,11 +153,11 @@ public class RaiseFeeDialogFragment extends DialogFragment {
     public Dialog onCreateDialog(final Bundle savedInstanceState) {
         final View view = LayoutInflater.from(activity).inflate(R.layout.raise_fee_dialog, null);
 
-        messageView = (TextView) view.findViewById(R.id.raise_fee_dialog_message);
+        messageView = view.findViewById(R.id.raise_fee_dialog_message);
 
         passwordGroup = view.findViewById(R.id.raise_fee_dialog_password_group);
 
-        passwordView = (EditText) view.findViewById(R.id.raise_fee_dialog_password);
+        passwordView = view.findViewById(R.id.raise_fee_dialog_password);
         passwordView.setText(null);
 
         badPasswordView = view.findViewById(R.id.raise_fee_dialog_bad_password);

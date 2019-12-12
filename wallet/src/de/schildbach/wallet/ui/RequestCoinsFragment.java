@@ -156,27 +156,26 @@ public final class RequestCoinsFragment extends Fragment {
             final Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.request_coins_fragment, container, false);
 
-        qrView = (ImageView) view.findViewById(R.id.request_coins_qr);
+        qrView = view.findViewById(R.id.request_coins_qr);
 
-        qrCardView = (CardView) view.findViewById(R.id.request_coins_qr_card);
+        qrCardView = view.findViewById(R.id.request_coins_qr_card);
         qrCardView.setCardBackgroundColor(Color.WHITE);
         qrCardView.setPreventCornerOverlap(false);
         qrCardView.setUseCompatPadding(false);
         qrCardView.setMaxCardElevation(0); // we're using Lollipop elevation
 
-        final CurrencyAmountView btcAmountView = (CurrencyAmountView) view.findViewById(R.id.request_coins_amount_btc);
+        final CurrencyAmountView btcAmountView = view.findViewById(R.id.request_coins_amount_btc);
         btcAmountView.setCurrencySymbol(config.getFormat().code());
         btcAmountView.setInputFormat(config.getMaxPrecisionFormat());
         btcAmountView.setHintFormat(config.getFormat());
 
-        final CurrencyAmountView localAmountView = (CurrencyAmountView) view
-                .findViewById(R.id.request_coins_amount_local);
+        final CurrencyAmountView localAmountView = view.findViewById(R.id.request_coins_amount_local);
         localAmountView.setInputFormat(Constants.LOCAL_FORMAT);
         localAmountView.setHintFormat(Constants.LOCAL_FORMAT);
         amountCalculatorLink = new CurrencyCalculatorLink(btcAmountView, localAmountView);
 
         final BluetoothAdapter bluetoothAdapter = this.bluetoothAdapter;
-        acceptBluetoothPaymentView = (CheckBox) view.findViewById(R.id.request_coins_accept_bluetooth_payment);
+        acceptBluetoothPaymentView = view.findViewById(R.id.request_coins_accept_bluetooth_payment);
         acceptBluetoothPaymentView.setVisibility(
                 bluetoothAdapter != null && Bluetooth.getAddress(bluetoothAdapter) != null ? View.VISIBLE : View.GONE);
         acceptBluetoothPaymentView.setChecked(bluetoothAdapter != null && bluetoothAdapter.isEnabled());
@@ -194,7 +193,7 @@ public final class RequestCoinsFragment extends Fragment {
             }
         });
 
-        initiateRequestView = (TextView) view.findViewById(R.id.request_coins_fragment_initiate_request);
+        initiateRequestView = view.findViewById(R.id.request_coins_fragment_initiate_request);
 
         return view;
     }

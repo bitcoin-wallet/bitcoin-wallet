@@ -98,9 +98,9 @@ public final class WalletAddressFragment extends Fragment {
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
             final Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.wallet_address_fragment, container, false);
-        currentAddressQrView = (ImageView) view.findViewById(R.id.bitcoin_address_qr);
+        currentAddressQrView = view.findViewById(R.id.bitcoin_address_qr);
 
-        currentAddressQrCardView = (CardView) view.findViewById(R.id.bitcoin_address_qr_card);
+        currentAddressQrCardView = view.findViewById(R.id.bitcoin_address_qr_card);
         currentAddressQrCardView.setPreventCornerOverlap(false);
         currentAddressQrCardView.setUseCompatPadding(false);
         currentAddressQrCardView.setMaxCardElevation(0); // we're using Lollipop elevation

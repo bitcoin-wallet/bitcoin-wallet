@@ -38,7 +38,7 @@ public class FancyListFragment extends ListFragment {
 
     @Override
     public void setEmptyText(final CharSequence text) {
-        final TextView emptyView = (TextView) getView().findViewById(android.R.id.empty);
+        final TextView emptyView = getView().findViewById(android.R.id.empty);
         emptyView.setText(text);
     }
 }

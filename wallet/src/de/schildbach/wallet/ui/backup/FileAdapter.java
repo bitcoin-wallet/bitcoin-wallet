@@ -56,7 +56,7 @@ public abstract class FileAdapter extends ArrayAdapter<File> {
         if (row == null)
             row = inflater.inflate(R.layout.spinner_item, null);
 
-        final TextView textView = (TextView) row.findViewById(android.R.id.text1);
+        final TextView textView = row.findViewById(android.R.id.text1);
         textView.setText(file.getName());
 
         return row;

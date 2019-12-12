@@ -719,33 +719,25 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
             this.colorBackgroundSelected = ContextCompat.getColor(context, R.color.bg_level3);
 
             this.extendTimeView = itemView.findViewById(R.id.transaction_row_extend_time);
-            this.fullTimeView = (TextView) itemView.findViewById(R.id.transaction_row_full_time);
+            this.fullTimeView = itemView.findViewById(R.id.transaction_row_full_time);
             this.extendAddressView = itemView.findViewById(R.id.transaction_row_extend_address);
-            this.confidenceCircularNormalView = (CircularProgressView) itemView
-                    .findViewById(R.id.transaction_row_confidence_circular);
-            this.confidenceCircularSelectedView = (CircularProgressView) itemView
-                    .findViewById(R.id.transaction_row_confidence_circular_selected);
-            this.confidenceTextualNormalView = (TextView) itemView
-                    .findViewById(R.id.transaction_row_confidence_textual);
-            this.confidenceTextualSelectedView = (TextView) itemView
-                    .findViewById(R.id.transaction_row_confidence_textual_selected);
-            this.extendConfidenceMessageNormalView = itemView
-                    .findViewById(R.id.transaction_row_extend_confidence_message);
-            this.extendConfidenceMessageSelectedView = itemView
-                    .findViewById(R.id.transaction_row_extend_confidence_message_selected);
-            this.confidenceMessageNormalView = (TextView) itemView
-                    .findViewById(R.id.transaction_row_confidence_message);
-            this.confidenceMessageSelectedView = (TextView) itemView
-                    .findViewById(R.id.transaction_row_confidence_message_selected);
-            this.timeView = (TextView) itemView.findViewById(R.id.transaction_row_time);
-            this.addressView = (TextView) itemView.findViewById(R.id.transaction_row_address);
-            this.valueView = (CurrencyTextView) itemView.findViewById(R.id.transaction_row_value);
-            this.fiatView = (CurrencyTextView) itemView.findViewById(R.id.transaction_row_fiat);
+            this.confidenceCircularNormalView = itemView.findViewById(R.id.transaction_row_confidence_circular);
+            this.confidenceCircularSelectedView = itemView.findViewById(R.id.transaction_row_confidence_circular_selected);
+            this.confidenceTextualNormalView = itemView.findViewById(R.id.transaction_row_confidence_textual);
+            this.confidenceTextualSelectedView = itemView.findViewById(R.id.transaction_row_confidence_textual_selected);
+            this.extendConfidenceMessageNormalView = itemView.findViewById(R.id.transaction_row_extend_confidence_message);
+            this.extendConfidenceMessageSelectedView = itemView.findViewById(R.id.transaction_row_extend_confidence_message_selected);
+            this.confidenceMessageNormalView = itemView.findViewById(R.id.transaction_row_confidence_message);
+            this.confidenceMessageSelectedView = itemView.findViewById(R.id.transaction_row_confidence_message_selected);
+            this.timeView = itemView.findViewById(R.id.transaction_row_time);
+            this.addressView = itemView.findViewById(R.id.transaction_row_address);
+            this.valueView = itemView.findViewById(R.id.transaction_row_value);
+            this.fiatView = itemView.findViewById(R.id.transaction_row_fiat);
             this.extendFeeView = itemView.findViewById(R.id.transaction_row_extend_fee);
-            this.feeView = (CurrencyTextView) itemView.findViewById(R.id.transaction_row_fee);
+            this.feeView = itemView.findViewById(R.id.transaction_row_fee);
             this.extendMessageView = itemView.findViewById(R.id.transaction_row_extend_message);
-            this.messageView = (TextView) itemView.findViewById(R.id.transaction_row_message);
-            this.menuView = (ImageButton) itemView.findViewById(R.id.transaction_row_menu);
+            this.messageView = itemView.findViewById(R.id.transaction_row_message);
+            this.menuView = itemView.findViewById(R.id.transaction_row_menu);
         }
 
         public void bind(final TransactionItem item) {
@@ -848,7 +840,7 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
 
         private WarningViewHolder(final View itemView) {
             super(itemView);
-            messageView = (TextView) itemView.findViewById(R.id.transaction_row_warning_message);
+            messageView = itemView.findViewById(R.id.transaction_row_warning_message);
         }
     }
 }

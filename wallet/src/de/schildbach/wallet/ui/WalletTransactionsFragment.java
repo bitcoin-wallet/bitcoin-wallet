@@ -170,11 +170,11 @@ public class WalletTransactionsFragment extends Fragment implements Transactions
             final Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.wallet_transactions_fragment, container, false);
 
-        viewGroup = (ViewAnimator) view.findViewById(R.id.wallet_transactions_group);
+        viewGroup = view.findViewById(R.id.wallet_transactions_group);
 
-        emptyView = (TextView) view.findViewById(R.id.wallet_transactions_empty);
+        emptyView = view.findViewById(R.id.wallet_transactions_empty);
 
-        recyclerView = (RecyclerView) view.findViewById(R.id.wallet_transactions_list);
+        recyclerView = view.findViewById(R.id.wallet_transactions_list);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new StickToTopLinearLayoutManager(activity));
         recyclerView.setItemAnimator(new TransactionsAdapter.ItemAnimator());

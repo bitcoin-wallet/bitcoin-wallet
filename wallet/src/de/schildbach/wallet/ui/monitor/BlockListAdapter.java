@@ -215,16 +215,16 @@ public class BlockListAdapter extends ListAdapter<BlockListAdapter.ListItem, Blo
 
     private void bindTransactionView(final View row, final MonetaryFormat format, final ListItem.ListTransaction tx) {
         // receiving or sending
-        final TextView rowFromTo = (TextView) row.findViewById(R.id.block_row_transaction_fromto);
+        final TextView rowFromTo = row.findViewById(R.id.block_row_transaction_fromto);
         rowFromTo.setText(tx.fromTo);
 
         // address
-        final TextView rowAddress = (TextView) row.findViewById(R.id.block_row_transaction_address);
+        final TextView rowAddress = row.findViewById(R.id.block_row_transaction_address);
         rowAddress.setText(tx.label != null ? tx.label : tx.address.toString());
         rowAddress.setTypeface(tx.label != null ? Typeface.DEFAULT : Typeface.MONOSPACE);
 
         // value
-        final CurrencyTextView rowValue = (CurrencyTextView) row.findViewById(R.id.block_row_transaction_value);
+        final CurrencyTextView rowValue = row.findViewById(R.id.block_row_transaction_value);
         rowValue.setAlwaysSigned(true);
         rowValue.setFormat(format);
         rowValue.setAmount(tx.value);
@@ -245,13 +245,13 @@ public class BlockListAdapter extends ListAdapter<BlockListAdapter.ListItem, Blo
 
         private ViewHolder(final View itemView) {
             super(itemView);
-            transactionsViewGroup = (ViewGroup) itemView.findViewById(R.id.block_list_row_transactions_group);
+            transactionsViewGroup = itemView.findViewById(R.id.block_list_row_transactions_group);
             miningRewardAdjustmentView = itemView.findViewById(R.id.block_list_row_mining_reward_adjustment);
             miningDifficultyAdjustmentView = itemView.findViewById(R.id.block_list_row_mining_difficulty_adjustment);
-            heightView = (TextView) itemView.findViewById(R.id.block_list_row_height);
-            timeView = (TextView) itemView.findViewById(R.id.block_list_row_time);
-            hashView = (TextView) itemView.findViewById(R.id.block_list_row_hash);
-            menuView = (ImageButton) itemView.findViewById(R.id.block_list_row_menu);
+            heightView = itemView.findViewById(R.id.block_list_row_height);
+            timeView = itemView.findViewById(R.id.block_list_row_time);
+            hashView = itemView.findViewById(R.id.block_list_row_hash);
+            menuView = itemView.findViewById(R.id.block_list_row_menu);
         }
     }
 }

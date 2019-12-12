@@ -73,12 +73,12 @@ public final class AddressBookActivity extends AbstractWalletActivity {
             fragmentManager.executePendingTransactions();
         }
 
-        final ViewPager pager = (ViewPager) findViewById(R.id.address_book_pager);
+        final ViewPager pager = findViewById(R.id.address_book_pager);
         if (pager != null) {
             pager.setAdapter(
                     new TwoFragmentAdapter(fragmentManager, walletAddressesFragment, sendingAddressesFragment));
 
-            final ViewPagerTabs pagerTabs = (ViewPagerTabs) findViewById(R.id.address_book_pager_tabs);
+            final ViewPagerTabs pagerTabs = findViewById(R.id.address_book_pager_tabs);
             pagerTabs.addTabLabels(R.string.address_book_list_receiving_title,
                     R.string.address_book_list_sending_title);
 

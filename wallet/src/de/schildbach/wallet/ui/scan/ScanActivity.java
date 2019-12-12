@@ -182,8 +182,8 @@ public final class ScanActivity extends AbstractWalletActivity
 
         setContentView(R.layout.scan_activity);
         contentView = findViewById(android.R.id.content);
-        scannerView = (ScannerView) findViewById(R.id.scan_activity_mask);
-        previewView = (TextureView) findViewById(R.id.scan_activity_preview);
+        scannerView = findViewById(R.id.scan_activity_mask);
+        previewView = findViewById(R.id.scan_activity_preview);
         previewView.setSurfaceTextureListener(this);
 
         cameraThread = new HandlerThread("cameraThread", Process.THREAD_PRIORITY_BACKGROUND);

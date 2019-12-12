@@ -137,19 +137,19 @@ public class BackupWalletDialogFragment extends DialogFragment {
     public Dialog onCreateDialog(final Bundle savedInstanceState) {
         final View view = LayoutInflater.from(activity).inflate(R.layout.backup_wallet_dialog, null);
 
-        passwordView = (EditText) view.findViewById(R.id.backup_wallet_dialog_password);
+        passwordView = view.findViewById(R.id.backup_wallet_dialog_password);
         passwordView.setText(null);
 
-        passwordAgainView = (EditText) view.findViewById(R.id.backup_wallet_dialog_password_again);
+        passwordAgainView = view.findViewById(R.id.backup_wallet_dialog_password_again);
         passwordAgainView.setText(null);
 
-        passwordStrengthView = (TextView) view.findViewById(R.id.backup_wallet_dialog_password_strength);
+        passwordStrengthView = view.findViewById(R.id.backup_wallet_dialog_password_strength);
 
         passwordMismatchView = view.findViewById(R.id.backup_wallet_dialog_password_mismatch);
 
-        showView = (CheckBox) view.findViewById(R.id.backup_wallet_dialog_show);
+        showView = view.findViewById(R.id.backup_wallet_dialog_show);
 
-        warningView = (TextView) view.findViewById(R.id.backup_wallet_dialog_warning_encrypted);
+        warningView = view.findViewById(R.id.backup_wallet_dialog_warning_encrypted);
 
         final DialogBuilder builder = new DialogBuilder(activity);
         builder.setTitle(R.string.export_keys_dialog_title);

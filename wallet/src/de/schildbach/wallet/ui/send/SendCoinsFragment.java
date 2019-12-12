@@ -419,10 +419,10 @@ public final class SendCoinsFragment extends Fragment {
 
         payeeGroup = view.findViewById(R.id.send_coins_payee_group);
 
-        payeeNameView = (TextView) view.findViewById(R.id.send_coins_payee_name);
-        payeeVerifiedByView = (TextView) view.findViewById(R.id.send_coins_payee_verified_by);
+        payeeNameView = view.findViewById(R.id.send_coins_payee_name);
+        payeeVerifiedByView = view.findViewById(R.id.send_coins_payee_verified_by);
 
-        receivingAddressView = (AutoCompleteTextView) view.findViewById(R.id.send_coins_receiving_address);
+        receivingAddressView = view.findViewById(R.id.send_coins_receiving_address);
         receivingAddressViewAdapter = new ReceivingAddressViewAdapter(activity);
         receivingAddressView.setAdapter(receivingAddressViewAdapter);
         receivingAddressView.setOnFocusChangeListener(receivingAddressListener);
@@ -430,23 +430,23 @@ public final class SendCoinsFragment extends Fragment {
         receivingAddressView.setOnItemClickListener(receivingAddressListener);
 
         receivingStaticView = view.findViewById(R.id.send_coins_receiving_static);
-        receivingStaticAddressView = (TextView) view.findViewById(R.id.send_coins_receiving_static_address);
-        receivingStaticLabelView = (TextView) view.findViewById(R.id.send_coins_receiving_static_label);
+        receivingStaticAddressView = view.findViewById(R.id.send_coins_receiving_static_address);
+        receivingStaticLabelView = view.findViewById(R.id.send_coins_receiving_static_label);
 
         amountGroup = view.findViewById(R.id.send_coins_amount_group);
 
-        final CurrencyAmountView btcAmountView = (CurrencyAmountView) view.findViewById(R.id.send_coins_amount_btc);
+        final CurrencyAmountView btcAmountView = view.findViewById(R.id.send_coins_amount_btc);
         btcAmountView.setCurrencySymbol(config.getFormat().code());
         btcAmountView.setInputFormat(config.getMaxPrecisionFormat());
         btcAmountView.setHintFormat(config.getFormat());
 
-        final CurrencyAmountView localAmountView = (CurrencyAmountView) view.findViewById(R.id.send_coins_amount_local);
+        final CurrencyAmountView localAmountView = view.findViewById(R.id.send_coins_amount_local);
         localAmountView.setInputFormat(Constants.LOCAL_FORMAT);
         localAmountView.setHintFormat(Constants.LOCAL_FORMAT);
         amountCalculatorLink = new CurrencyCalculatorLink(btcAmountView, localAmountView);
         amountCalculatorLink.setExchangeDirection(config.getLastExchangeDirection());
 
-        directPaymentEnableView = (CheckBox) view.findViewById(R.id.send_coins_direct_payment_enable);
+        directPaymentEnableView = view.findViewById(R.id.send_coins_direct_payment_enable);
         directPaymentEnableView.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (viewModel.paymentIntent.isBluetoothPaymentUrl() && isChecked && !bluetoothAdapter.isEnabled()) {
                 // ask for permission to enable bluetooth
@@ -455,9 +455,9 @@ public final class SendCoinsFragment extends Fragment {
             }
         });
 
-        hintView = (TextView) view.findViewById(R.id.send_coins_hint);
+        hintView = view.findViewById(R.id.send_coins_hint);
 
-        directPaymentMessageView = (TextView) view.findViewById(R.id.send_coins_direct_payment_message);
+        directPaymentMessageView = view.findViewById(R.id.send_coins_direct_payment_message);
 
         sentTransactionViewGroup = (FrameLayout) view.findViewById(R.id.transaction_row);
         sentTransactionViewGroup
@@ -465,10 +465,10 @@ public final class SendCoinsFragment extends Fragment {
         sentTransactionViewHolder = new TransactionsAdapter.TransactionViewHolder(view);
 
         privateKeyPasswordViewGroup = view.findViewById(R.id.send_coins_private_key_password_group);
-        privateKeyPasswordView = (EditText) view.findViewById(R.id.send_coins_private_key_password);
+        privateKeyPasswordView = view.findViewById(R.id.send_coins_private_key_password);
         privateKeyBadPasswordView = view.findViewById(R.id.send_coins_private_key_bad_password);
 
-        viewGo = (Button) view.findViewById(R.id.send_coins_go);
+        viewGo = view.findViewById(R.id.send_coins_go);
         viewGo.setOnClickListener(v -> {
             validateReceivingAddress();
 
@@ -480,7 +480,7 @@ public final class SendCoinsFragment extends Fragment {
             updateView();
         });
 
-        viewCancel = (Button) view.findViewById(R.id.send_coins_cancel);
+        viewCancel = view.findViewById(R.id.send_coins_cancel);
         viewCancel.setOnClickListener(v -> handleCancel());
 
         return view;

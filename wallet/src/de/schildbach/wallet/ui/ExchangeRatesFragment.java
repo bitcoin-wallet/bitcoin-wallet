@@ -123,8 +123,8 @@ public final class ExchangeRatesFragment extends Fragment
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
             final Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.exchange_rates_fragment, container, false);
-        viewGroup = (ViewAnimator) view.findViewById(R.id.exchange_rates_list_group);
-        recyclerView = (RecyclerView) view.findViewById(R.id.exchange_rates_list);
+        viewGroup = view.findViewById(R.id.exchange_rates_list_group);
+        recyclerView = view.findViewById(R.id.exchange_rates_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(activity));
         recyclerView.setAdapter(adapter);
         recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST));

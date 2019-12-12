@@ -77,7 +77,7 @@ public class ExtendedPublicKeyFragment extends DialogFragment {
 
         final BitmapDrawable bitmap = new BitmapDrawable(getResources(), Qr.bitmap(base58));
         bitmap.setFilterBitmap(false);
-        final ImageView imageView = (ImageView) view.findViewById(R.id.extended_public_key_dialog_image);
+        final ImageView imageView = view.findViewById(R.id.extended_public_key_dialog_image);
         imageView.setImageDrawable(bitmap);
 
         final DialogBuilder dialog = new DialogBuilder(activity);

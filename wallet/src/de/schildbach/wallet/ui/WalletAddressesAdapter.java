@@ -153,12 +153,12 @@ public class WalletAddressesAdapter extends BaseAdapter {
         if (row == null)
             row = inflater.inflate(R.layout.address_book_row, null);
 
-        final TextView addressView = (TextView) row.findViewById(R.id.address_book_row_address);
+        final TextView addressView = row.findViewById(R.id.address_book_row_address);
         addressView.setText(WalletUtils.formatAddress(address, Constants.ADDRESS_FORMAT_GROUP_SIZE,
                 Constants.ADDRESS_FORMAT_LINE_SIZE));
         addressView.setTextColor(isRotateKey ? colorInsignificant : colorSignificant);
 
-        final TextView labelView = (TextView) row.findViewById(R.id.address_book_row_label);
+        final TextView labelView = row.findViewById(R.id.address_book_row_label);
         final Map<String, AddressBookEntry> addressBook = this.addressBook;
         if (addressBook != null) {
             final AddressBookEntry entry = addressBook.get(address.toString());
@@ -174,7 +174,7 @@ public class WalletAddressesAdapter extends BaseAdapter {
             labelView.setTextColor(colorInsignificant);
         }
 
-        final TextView messageView = (TextView) row.findViewById(R.id.address_book_row_message);
+        final TextView messageView = row.findViewById(R.id.address_book_row_message);
         messageView.setVisibility(isRotateKey ? View.VISIBLE : View.GONE);
 
         return row;
@@ -184,7 +184,7 @@ public class WalletAddressesAdapter extends BaseAdapter {
         if (row == null)
             row = inflater.inflate(R.layout.row_separator, null);
 
-        final TextView textView = (TextView) row.findViewById(android.R.id.text1);
+        final TextView textView = row.findViewById(android.R.id.text1);
         textView.setText(R.string.address_book_list_receiving_random);
 
         return row;

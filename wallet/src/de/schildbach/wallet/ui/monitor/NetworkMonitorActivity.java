@@ -40,12 +40,12 @@ public final class NetworkMonitorActivity extends AbstractWalletActivity {
 
         setContentView(R.layout.network_monitor_content);
 
-        final ViewPager pager = (ViewPager) findViewById(R.id.network_monitor_pager);
+        final ViewPager pager = findViewById(R.id.network_monitor_pager);
 
         final FragmentManager fm = getSupportFragmentManager();
 
         if (pager != null) {
-            final ViewPagerTabs pagerTabs = (ViewPagerTabs) findViewById(R.id.network_monitor_pager_tabs);
+            final ViewPagerTabs pagerTabs = findViewById(R.id.network_monitor_pager_tabs);
             pagerTabs.addTabLabels(R.string.network_monitor_peer_list_title, R.string.network_monitor_block_list_title);
 
             final PagerAdapter pagerAdapter = new PagerAdapter(fm);

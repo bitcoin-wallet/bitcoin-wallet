@@ -181,9 +181,9 @@ public class RestoreWalletDialogFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(final Bundle savedInstanceState) {
         final View view = LayoutInflater.from(activity).inflate(R.layout.restore_wallet_dialog, null);
-        messageView = (TextView) view.findViewById(R.id.restore_wallet_dialog_message);
-        passwordView = (EditText) view.findViewById(R.id.restore_wallet_dialog_password);
-        showView = (CheckBox) view.findViewById(R.id.restore_wallet_dialog_show);
+        messageView = view.findViewById(R.id.restore_wallet_dialog_message);
+        passwordView = view.findViewById(R.id.restore_wallet_dialog_password);
+        showView = view.findViewById(R.id.restore_wallet_dialog_show);
         replaceWarningView = view.findViewById(R.id.restore_wallet_dialog_replace_warning);
 
         final DialogBuilder builder = new DialogBuilder(activity);

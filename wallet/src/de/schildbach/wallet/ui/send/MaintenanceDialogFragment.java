@@ -128,13 +128,13 @@ public class MaintenanceDialogFragment extends DialogFragment {
             value = value.add(tx.getValueSentFromMe(wallet));
             fee = fee.add(tx.getFee());
         }
-        final TextView messageView = (TextView) view.findViewById(R.id.maintenance_dialog_message);
+        final TextView messageView = view.findViewById(R.id.maintenance_dialog_message);
         final MonetaryFormat format = application.getConfiguration().getFormat();
         messageView.setText(getString(R.string.maintenance_dialog_message, format.format(value), format.format(fee)));
 
         passwordGroup = view.findViewById(R.id.maintenance_dialog_password_group);
 
-        passwordView = (EditText) view.findViewById(R.id.maintenance_dialog_password);
+        passwordView = view.findViewById(R.id.maintenance_dialog_password);
         passwordView.setText(null);
 
         badPasswordView = view.findViewById(R.id.maintenance_dialog_bad_password);

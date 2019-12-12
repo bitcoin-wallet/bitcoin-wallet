@@ -152,10 +152,10 @@ public class ExchangeRatesAdapter extends ListAdapter<ExchangeRatesAdapter.ListI
         public ViewHolder(final View itemView) {
             super(itemView);
             defaultView = itemView.findViewById(R.id.exchange_rate_row_default);
-            currencyCodeView = (TextView) itemView.findViewById(R.id.exchange_rate_row_currency_code);
-            rateView = (CurrencyTextView) itemView.findViewById(R.id.exchange_rate_row_rate);
-            walletView = (CurrencyTextView) itemView.findViewById(R.id.exchange_rate_row_balance);
-            menuView = (ImageButton) itemView.findViewById(R.id.exchange_rate_row_menu);
+            currencyCodeView = itemView.findViewById(R.id.exchange_rate_row_currency_code);
+            rateView = itemView.findViewById(R.id.exchange_rate_row_rate);
+            walletView = itemView.findViewById(R.id.exchange_rate_row_balance);
+            menuView = itemView.findViewById(R.id.exchange_rate_row_menu);
         }
     }
 }

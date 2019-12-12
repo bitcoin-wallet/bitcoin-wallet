@@ -70,13 +70,12 @@ public abstract class ReportIssueDialogBuilder extends DialogBuilder implements 
 
         ((TextView) view.findViewById(R.id.report_issue_dialog_message)).setText(messageResId);
 
-        viewDescription = (EditText) view.findViewById(R.id.report_issue_dialog_description);
+        viewDescription = view.findViewById(R.id.report_issue_dialog_description);
 
-        viewCollectDeviceInfo = (CheckBox) view.findViewById(R.id.report_issue_dialog_collect_device_info);
-        viewCollectInstalledPackages = (CheckBox) view
-                .findViewById(R.id.report_issue_dialog_collect_installed_packages);
-        viewCollectApplicationLog = (CheckBox) view.findViewById(R.id.report_issue_dialog_collect_application_log);
-        viewCollectWalletDump = (CheckBox) view.findViewById(R.id.report_issue_dialog_collect_wallet_dump);
+        viewCollectDeviceInfo = view.findViewById(R.id.report_issue_dialog_collect_device_info);
+        viewCollectInstalledPackages = view.findViewById(R.id.report_issue_dialog_collect_installed_packages);
+        viewCollectApplicationLog = view.findViewById(R.id.report_issue_dialog_collect_application_log);
+        viewCollectWalletDump = view.findViewById(R.id.report_issue_dialog_collect_wallet_dump);
 
         setTitle(titleResId);
         setView(view);

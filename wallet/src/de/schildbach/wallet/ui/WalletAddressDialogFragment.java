@@ -105,11 +105,11 @@ public class WalletAddressDialogFragment extends DialogFragment {
 
         final BitmapDrawable bitmap = new BitmapDrawable(getResources(), Qr.bitmap(addressUri));
         bitmap.setFilterBitmap(false);
-        final ImageView imageView = (ImageView) dialog.findViewById(R.id.wallet_address_dialog_image);
+        final ImageView imageView = dialog.findViewById(R.id.wallet_address_dialog_image);
         imageView.setImageDrawable(bitmap);
 
         final View labelButtonView = dialog.findViewById(R.id.wallet_address_dialog_label_button);
-        final TextView labelView = (TextView) dialog.findViewById(R.id.wallet_address_dialog_label);
+        final TextView labelView = dialog.findViewById(R.id.wallet_address_dialog_label);
         final CharSequence label = WalletUtils.formatHash(addressStr, Constants.ADDRESS_FORMAT_GROUP_SIZE,
                 Constants.ADDRESS_FORMAT_LINE_SIZE);
         labelView.setText(label);

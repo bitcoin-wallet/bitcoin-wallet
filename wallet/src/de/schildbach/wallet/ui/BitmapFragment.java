@@ -82,7 +82,7 @@ public class BitmapFragment extends DialogFragment {
         dialog.setContentView(R.layout.bitmap_dialog);
         dialog.setCanceledOnTouchOutside(true);
 
-        final ImageView imageView = (ImageView) dialog.findViewById(R.id.bitmap_dialog_image);
+        final ImageView imageView = dialog.findViewById(R.id.bitmap_dialog_image);
         imageView.setImageDrawable(bitmap);
         imageView.setOnClickListener(v -> dismissAllowingStateLoss());
 

@@ -131,12 +131,12 @@ public class PeerListAdapter extends ListAdapter<PeerListAdapter.ListItem, PeerL
 
         private ViewHolder(final View itemView) {
             super(itemView);
-            ipView = (TextView) itemView.findViewById(R.id.peer_list_row_ip);
-            heightView = (TextView) itemView.findViewById(R.id.peer_list_row_height);
-            versionView = (TextView) itemView.findViewById(R.id.peer_list_row_version);
-            protocolView = (TextView) itemView.findViewById(R.id.peer_list_row_protocol);
-            servicesView = (TextView) itemView.findViewById(R.id.peer_list_row_services);
-            pingView = (TextView) itemView.findViewById(R.id.peer_list_row_ping);
+            ipView = itemView.findViewById(R.id.peer_list_row_ip);
+            heightView = itemView.findViewById(R.id.peer_list_row_height);
+            versionView = itemView.findViewById(R.id.peer_list_row_version);
+            protocolView = itemView.findViewById(R.id.peer_list_row_protocol);
+            servicesView = itemView.findViewById(R.id.peer_list_row_services);
+            pingView = itemView.findViewById(R.id.peer_list_row_ping);
         }
     }
 }
