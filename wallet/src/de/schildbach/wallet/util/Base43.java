@@ -17,6 +17,7 @@
 package de.schildbach.wallet.util;
 
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 
 /**
  * Base43, derived from bitcoinj Base58. It's meant to be used for efficiently stuffing binary data into QR
@@ -30,9 +31,7 @@ public class Base43 {
 
     private static final int[] INDEXES = new int[128];
     static {
-        for (int i = 0; i < INDEXES.length; i++)
-            INDEXES[i] = -1;
-
+        Arrays.fill(INDEXES, -1);
         for (int i = 0; i < ALPHABET.length; i++)
             INDEXES[ALPHABET[i]] = i;
     }
