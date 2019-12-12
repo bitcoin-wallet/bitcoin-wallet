@@ -760,7 +760,7 @@ public final class SendCoinsFragment extends Fragment {
                 final Address refundAddress = viewModel.paymentIntent.standard == Standard.BIP70
                         ? wallet.freshAddress(KeyPurpose.REFUND) : null;
                 final Payment payment = PaymentProtocol.createPaymentMessage(
-                        Arrays.asList(new Transaction[] { viewModel.sentTransaction }), finalAmount, refundAddress,
+                        Collections.singletonList(viewModel.sentTransaction), finalAmount, refundAddress,
                         null, viewModel.paymentIntent.payeeData);
 
                 if (directPaymentEnableView.isChecked())

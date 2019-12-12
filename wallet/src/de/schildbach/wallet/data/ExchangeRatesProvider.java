@@ -19,6 +19,7 @@ package de.schildbach.wallet.data;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Currency;
 import java.util.Iterator;
 import java.util.Locale;
@@ -242,7 +243,7 @@ public class ExchangeRatesProvider extends ContentProvider {
         request.headers(headers.build());
 
         final Builder httpClientBuilder = Constants.HTTP_CLIENT.newBuilder();
-        httpClientBuilder.connectionSpecs(Arrays.asList(ConnectionSpec.RESTRICTED_TLS));
+        httpClientBuilder.connectionSpecs(Collections.singletonList(ConnectionSpec.RESTRICTED_TLS));
         final Call call = httpClientBuilder.build().newCall(request.build());
         try {
             final Response response = call.execute();

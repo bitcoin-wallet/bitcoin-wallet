@@ -27,6 +27,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -172,7 +173,7 @@ public class DynamicFeeLiveData extends LiveData<Map<FeeCategory, Coin>> {
         request.headers(headers.build());
 
         final OkHttpClient.Builder httpClientBuilder = Constants.HTTP_CLIENT.newBuilder();
-        httpClientBuilder.connectionSpecs(Arrays.asList(ConnectionSpec.RESTRICTED_TLS));
+        httpClientBuilder.connectionSpecs(Collections.singletonList(ConnectionSpec.RESTRICTED_TLS));
         httpClientBuilder.connectTimeout(5, TimeUnit.SECONDS);
         httpClientBuilder.writeTimeout(5, TimeUnit.SECONDS);
         httpClientBuilder.readTimeout(5, TimeUnit.SECONDS);

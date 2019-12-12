@@ -22,6 +22,7 @@ import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -166,7 +167,7 @@ public class AlertDialogsFragment extends Fragment {
                 request.headers(headers.build());
 
                 final Builder httpClientBuilder = Constants.HTTP_CLIENT.newBuilder();
-                httpClientBuilder.connectionSpecs(Arrays.asList(ConnectionSpec.RESTRICTED_TLS));
+                httpClientBuilder.connectionSpecs(Collections.singletonList(ConnectionSpec.RESTRICTED_TLS));
                 final Call call = httpClientBuilder.build().newCall(request.build());
 
                 final Response response = call.execute();
