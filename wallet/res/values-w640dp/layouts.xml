@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="address_book_content" type="layout">@layout/address_book_twopanes</item>
+</resources>

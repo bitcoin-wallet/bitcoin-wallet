@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <item name="wallet_content" type="layout">@layout/wallet_activity_onepane_horizontal</item>
-    <item name="address_book_content" type="layout">@layout/address_book_twopanes</item>
     <item name="network_monitor_content" type="layout">@layout/network_monitor_twopanes</item>
     <item name="show_local_balance" type="bool">false</item>
 </resources>
