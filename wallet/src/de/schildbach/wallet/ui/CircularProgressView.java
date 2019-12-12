@@ -115,7 +115,7 @@ public class CircularProgressView extends View {
         if (progress == 0) {
             path.close();
         } else if (progress < maxProgress) {
-            final float angle = progress * 360 / maxProgress;
+            final float angle = (float) (progress * 360) / maxProgress;
             final float x = w / 2f;
             final float y = h / 2f;
 
