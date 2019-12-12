@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <dimen name="font_size_tiny">12sp</dimen>
-    <dimen name="font_size_small">15sp</dimen>
-    <dimen name="font_size_normal">18sp</dimen>
-    <dimen name="font_size_large">24sp</dimen>
-    <dimen name="font_size_huge">34sp</dimen>
-    <dimen name="symbol_size_normal">16sp</dimen>
+    <dimen name="font_size_tiny">11sp</dimen>
+    <dimen name="font_size_small">14sp</dimen>
+    <dimen name="font_size_normal">16sp</dimen>
+    <dimen name="font_size_large">20sp</dimen>
+    <dimen name="font_size_huge">30sp</dimen>
+    <dimen name="symbol_size_normal">14sp</dimen>
     <dimen name="list_entry_padding_horizontal_cram">6dp</dimen>
     <dimen name="list_entry_padding_horizontal">12dp</dimen>
     <dimen name="list_entry_padding_horizontal_lax">20dp</dimen>
@@ -17,7 +16,7 @@
     <dimen name="card_padding_vertical">5dp</dimen>
     <dimen name="exchange_rate_pane_width">352sp</dimen>
     <dimen name="divider_currency_padding">0dp</dimen>
-    <dimen name="wallet_address_qr_size">80dp</dimen>
+    <dimen name="wallet_address_qr_size">72dp</dimen>
     <dimen name="request_coins_qr_size">128dp</dimen>
     <dimen name="bitmap_dialog_qr_size">224dp</dimen>
     <dimen name="scan_laser_width">4dp</dimen>
@@ -25,5 +24,4 @@
     <dimen name="shortcut_padding">2dp</dimen>
     <dimen name="shortcut_size">48dp</dimen>
     <dimen name="shortcut_icon_size">32dp</dimen>
-
 </resources>

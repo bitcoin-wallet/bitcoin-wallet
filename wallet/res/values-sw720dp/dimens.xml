@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <dimen name="font_size_tiny">14sp</dimen>
     <dimen name="font_size_small">18sp</dimen>
     <dimen name="font_size_normal">22sp</dimen>
@@ -17,5 +16,4 @@
     <dimen name="wallet_address_qr_size">128dp</dimen>
     <dimen name="request_coins_qr_size">192dp</dimen>
     <dimen name="bitmap_dialog_qr_size">320dp</dimen>
-
 </resources>
