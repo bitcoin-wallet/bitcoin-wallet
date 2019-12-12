@@ -1,3 +1,7 @@
+v7.42
+
+* Fix layout on 10in tablets.
+
 v7.41
 
 * Fix issue with not being able to send due to blockchain replay.
