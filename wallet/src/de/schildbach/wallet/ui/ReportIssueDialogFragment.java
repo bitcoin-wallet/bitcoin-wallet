@@ -193,56 +193,51 @@ public class ReportIssueDialogFragment extends DialogFragment {
         final Configuration config = application.getConfiguration();
         final Calendar calendar = new GregorianCalendar(UTC);
 
-        report.append("Version: " + pi.versionName + " (" + pi.versionCode + ")\n");
-        report.append("APK Hash: " + application.apkHash().toString() + "\n");
-        report.append("Package: " + pi.packageName + "\n");
+        report.append("Version: ").append(pi.versionName).append(" (").append(String.valueOf(pi.versionCode)).append(
+                ")\n");
+        report.append("APK Hash: ").append(application.apkHash().toString()).append("\n");
+        report.append("Package: ").append(pi.packageName).append("\n");
         report.append("Flavor: " + BuildConfig.FLAVOR + "\n");
         report.append("Build Type: " + BuildConfig.BUILD_TYPE + "\n");
         final String installerPackageName = Installer.installerPackageName(application);
         final Installer installer = Installer.from(installerPackageName);
         if (installer != null)
-            report.append("Installer: " + installer.displayName + " (" + installerPackageName + ")\n");
+            report.append("Installer: ").append(installer.displayName).append(" (").append(installerPackageName).append(")\n");
         else
             report.append("Installer: unknown\n");
-        report.append("Timezone: " + TimeZone.getDefault().getID() + "\n");
+        report.append("Timezone: ").append(TimeZone.getDefault().getID()).append("\n");
         calendar.setTimeInMillis(System.currentTimeMillis());
-        report.append("Current time: " + String.format(Locale.US, "%tF %tT %tZ", calendar, calendar, calendar) + "\n");
+        report.append("Current time: ").append(String.format(Locale.US, "%tF %tT %tZ", calendar, calendar, calendar)).append("\n");
         calendar.setTimeInMillis(WalletApplication.TIME_CREATE_APPLICATION);
-        report.append(
-                "Time of app launch: " + String.format(Locale.US, "%tF %tT %tZ", calendar, calendar, calendar) + "\n");
+        report.append("Time of app launch: ").append(String.format(Locale.US, "%tF %tT %tZ", calendar, calendar,
+                calendar)).append("\n");
         calendar.setTimeInMillis(pi.firstInstallTime);
-        report.append("Time of first app install: "
-                + String.format(Locale.US, "%tF %tT %tZ", calendar, calendar, calendar) + "\n");
+        report.append("Time of first app install: ").append(String.format(Locale.US, "%tF %tT %tZ", calendar,
+                calendar, calendar)).append("\n");
         calendar.setTimeInMillis(pi.lastUpdateTime);
-        report.append("Time of last app update: "
-                + String.format(Locale.US, "%tF %tT %tZ", calendar, calendar, calendar) + "\n");
+        report.append("Time of last app update: ").append(String.format(Locale.US, "%tF %tT %tZ", calendar, calendar,
+                calendar)).append("\n");
         final long lastBackupTime = config.getLastBackupTime();
         calendar.setTimeInMillis(lastBackupTime);
-        report.append("Time of last backup: "
-                + (lastBackupTime > 0 ? String.format(Locale.US, "%tF %tT %tZ", calendar, calendar, calendar) : "none")
-                + "\n");
+        report.append("Time of last backup: ").append(lastBackupTime > 0 ? String.format(Locale.US, "%tF %tT %tZ",
+                calendar, calendar, calendar) : "none").append("\n");
         final long lastRestoreTime = config.getLastRestoreTime();
         calendar.setTimeInMillis(lastRestoreTime);
-        report.append("Time of last restore: "
-                + (lastRestoreTime > 0 ? String.format(Locale.US, "%tF %tT %tZ", calendar, calendar, calendar) : "none")
-                + "\n");
+        report.append("Time of last restore: ").append(lastRestoreTime > 0 ? String.format(Locale.US, "%tF %tT %tZ",
+                calendar, calendar, calendar) : "none").append("\n");
         final long lastEncryptKeysTime = config.getLastEncryptKeysTime();
         calendar.setTimeInMillis(lastEncryptKeysTime);
-        report.append("Time of last encrypt keys: "
-                + (lastEncryptKeysTime > 0 ? String.format(Locale.US, "%tF %tT %tZ", calendar, calendar, calendar) :
-                "none")
-                + "\n");
+        report.append("Time of last encrypt keys: ").append(lastEncryptKeysTime > 0 ? String.format(Locale.US, "%tF " +
+                "%tT %tZ", calendar, calendar, calendar) :
+                "none").append("\n");
         final long lastBlockchainResetTime = config.getLastBlockchainResetTime();
         calendar.setTimeInMillis(lastBlockchainResetTime);
-        report.append(
-                "Time of last blockchain reset: "
-                        + (lastBlockchainResetTime > 0
-                                ? String.format(Locale.US, "%tF %tT %tZ", calendar, calendar, calendar) : "none")
-                        + "\n");
-        report.append("Network: " + Constants.NETWORK_PARAMETERS.getId() + "\n");
+        report.append("Time of last blockchain reset: ").append(lastBlockchainResetTime > 0
+                ? String.format(Locale.US, "%tF %tT %tZ", calendar, calendar, calendar) : "none").append("\n");
+        report.append("Network: ").append(Constants.NETWORK_PARAMETERS.getId()).append("\n");
         final Wallet wallet = viewModel.wallet.getValue();
-        report.append("Encrypted: " + wallet.isEncrypted() + "\n");
-        report.append("Keychain size: " + wallet.getKeyChainGroupSize() + "\n");
+        report.append("Encrypted: ").append(String.valueOf(wallet.isEncrypted())).append("\n");
+        report.append("Keychain size: ").append(String.valueOf(wallet.getKeyChainGroupSize())).append("\n");
 
         final Set<Transaction> transactions = wallet.getTransactions(true);
         int numInputs = 0;
@@ -257,12 +252,12 @@ public class ReportIssueDialogFragment extends DialogFragment {
                     numSpentOutputs++;
             }
         }
-        report.append("Transactions: " + transactions.size() + "\n");
-        report.append("Inputs: " + numInputs + "\n");
-        report.append("Outputs: " + numOutputs + " (spent: " + numSpentOutputs + ")\n");
+        report.append("Transactions: ").append(String.valueOf(transactions.size())).append("\n");
+        report.append("Inputs: ").append(String.valueOf(numInputs)).append("\n");
+        report.append("Outputs: ").append(String.valueOf(numOutputs)).append(" (spent: ").append(String.valueOf(numSpentOutputs)).append(")\n");
         final int lastBlockSeenHeight = wallet.getLastBlockSeenHeight();
         final Date lastBlockSeenTime = wallet.getLastBlockSeenTime();
-        report.append("Last block seen: " + lastBlockSeenHeight).append(" (")
+        report.append("Last block seen: ").append(String.valueOf(lastBlockSeenHeight)).append(" (")
                 .append(lastBlockSeenTime == null ? "time unknown" : Utils.dateTimeFormat(lastBlockSeenTime))
                 .append(")\n");
         report.append("Best chain height ever: ").append(Integer.toString(config.getBestChainHeightEver()))
@@ -270,11 +265,11 @@ public class ReportIssueDialogFragment extends DialogFragment {
 
         report.append("Databases:");
         for (final String db : application.databaseList())
-            report.append(" " + db);
+            report.append(" ").append(db);
         report.append("\n");
 
         final File filesDir = application.getFilesDir();
-        report.append("\nContents of FilesDir " + filesDir + ":\n");
+        report.append("\nContents of FilesDir ").append(String.valueOf(filesDir)).append(":\n");
         appendDir(report, filesDir, 0);
         report.append("free/usable space: ").append(Long.toString(filesDir.getFreeSpace() / 1024))
                 .append("/").append(Long.toString(filesDir.getUsableSpace() / 1024)).append(" kB\n");
@@ -304,27 +299,28 @@ public class ReportIssueDialogFragment extends DialogFragment {
         final DevicePolicyManager devicePolicyManager = (DevicePolicyManager) context
                 .getSystemService(Context.DEVICE_POLICY_SERVICE);
 
-        report.append("Manufacturer: " + Build.MANUFACTURER + "\n");
-        report.append("Device Model: " + Build.MODEL + "\n");
-        report.append("Android Version: " + Build.VERSION.RELEASE + "\n");
+        report.append("Manufacturer: ").append(Build.MANUFACTURER).append("\n");
+        report.append("Device Model: ").append(Build.MODEL).append("\n");
+        report.append("Android Version: ").append(Build.VERSION.RELEASE).append("\n");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
             report.append("Android security patch level: ").append(Build.VERSION.SECURITY_PATCH).append("\n");
         report.append("ABIs: ").append(Joiner.on(", ").skipNulls().join(Build.SUPPORTED_ABIS)).append("\n");
-        report.append("Board: " + Build.BOARD + "\n");
-        report.append("Brand: " + Build.BRAND + "\n");
-        report.append("Device: " + Build.DEVICE + "\n");
-        report.append("Product: " + Build.PRODUCT + "\n");
-        report.append("Configuration: " + config + "\n");
-        report.append("Screen Layout:" //
-                + " size " + (config.screenLayout & android.content.res.Configuration.SCREENLAYOUT_SIZE_MASK) //
-                + " long " + (config.screenLayout & android.content.res.Configuration.SCREENLAYOUT_LONG_MASK) //
-                + " layoutdir " + (config.screenLayout & android.content.res.Configuration.SCREENLAYOUT_LAYOUTDIR_MASK) //
-                + " round " + (config.screenLayout & android.content.res.Configuration.SCREENLAYOUT_ROUND_MASK) + "\n");
-        report.append("Display Metrics: " + res.getDisplayMetrics() + "\n");
-        report.append("Memory Class: " + activityManager.getMemoryClass() + "/" + activityManager.getLargeMemoryClass()
-                + (activityManager.isLowRamDevice() ? " (low RAM device)" : "") + "\n");
-        report.append("Storage Encryption Status: " + devicePolicyManager.getStorageEncryptionStatus() + "\n");
-        report.append("Bluetooth MAC: " + bluetoothMac() + "\n");
+        report.append("Board: ").append(Build.BOARD).append("\n");
+        report.append("Brand: ").append(Build.BRAND).append("\n");
+        report.append("Device: ").append(Build.DEVICE).append("\n");
+        report.append("Product: ").append(Build.PRODUCT).append("\n");
+        report.append("Configuration: ").append(String.valueOf(config)).append("\n");
+        report.append("Screen Layout: size ").append(String.valueOf(config.screenLayout & android.content.res.Configuration.SCREENLAYOUT_SIZE_MASK))
+                .append(" long ").append(String.valueOf(config.screenLayout & android.content.res.Configuration.SCREENLAYOUT_LONG_MASK))
+                .append(" layoutdir ").append(String.valueOf(config.screenLayout & android.content.res.Configuration.SCREENLAYOUT_LAYOUTDIR_MASK))
+                .append(" round ").append(String.valueOf(config.screenLayout & android.content.res.Configuration.SCREENLAYOUT_ROUND_MASK))
+                .append("\n");
+        report.append("Display Metrics: ").append(String.valueOf(res.getDisplayMetrics())).append("\n");
+        report.append("Memory Class: ").append(String.valueOf(activityManager.getMemoryClass())).append("/")
+                .append(String.valueOf(activityManager.getLargeMemoryClass()))
+                .append(activityManager.isLowRamDevice() ? " (low RAM device)" : "").append("\n");
+        report.append("Storage Encryption Status: ").append(String.valueOf(devicePolicyManager.getStorageEncryptionStatus())).append("\n");
+        report.append("Bluetooth MAC: ").append(bluetoothMac()).append("\n");
         report.append("Runtime: ").append(System.getProperty("java.vm.name")).append(" ")
                 .append(System.getProperty("java.vm.version")).append("\n");
     }
