@@ -426,13 +426,10 @@ public class BlockchainService extends LifecycleService {
     }
 
     private final SharedPreferences.OnSharedPreferenceChangeListener preferenceChangeListener =
-            new SharedPreferences.OnSharedPreferenceChangeListener() {
-        @Override
-        public void onSharedPreferenceChanged(final SharedPreferences sharedPreferences, final String key) {
-            if (Configuration.PREFS_KEY_TRUSTED_PEER.equals(key) || Configuration.PREFS_KEY_TRUSTED_PEER_ONLY.equals(key))
-                stopSelf();
-        }
-    };
+            (sharedPreferences, key) -> {
+                if (Configuration.PREFS_KEY_TRUSTED_PEER.equals(key) || Configuration.PREFS_KEY_TRUSTED_PEER_ONLY.equals(key))
+                    stopSelf();
+            };
 
     private Runnable delayedStopSelfRunnable = () -> {
         log.info("service idling detected, trying to stop");
