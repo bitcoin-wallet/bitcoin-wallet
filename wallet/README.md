@@ -91,14 +91,19 @@ there is basically no warranty and liability. It's your responsibility to audit 
 for security issues and build, install and run the application in a secure way.
 
 The production version uses Mainnet, is built non-debuggable, space-optimized with ProGuard and the
-wallet file is protected against access from non-root users. In the code repository, it lives in a
-separate 'prod' flavor.
+wallet file is protected against access from non-root users. It is built from the same branch (or
+tag) as the development version. After you have cloned/updated the git repository as described above,
+use:
 
     # each time
-    cd bitcoin-wallet
-    git fetch origin
-    git checkout origin/prod
-    gradle clean test build
+    gradle clean assembleProdRelease
+
+You'll find the unsigned APK under this path:
+
+    wallet/build/outputs/apk/prod/release/bitcoin-wallet-prod-release-unsigned.apk
+
+Apart from the missing signature and checksums in `META-INF/`, it should be identical to the APKs
+provided via the app stores.
 
 
 ### SETTING UP FOR DEVELOPMENT
