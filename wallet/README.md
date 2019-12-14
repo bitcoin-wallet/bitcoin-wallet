@@ -103,7 +103,7 @@ separate 'prod' flavor.
 
 ### SETTING UP FOR DEVELOPMENT
 
-You should be able to import the project into Android Studio, as it uses Gradle for building.
+You can import the project into IntelliJ IDEA or Android Studio, as it uses Gradle for building.
 
 
 ### TRANSLATIONS
