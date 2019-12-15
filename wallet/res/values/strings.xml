@@ -308,7 +308,10 @@
     <string name="about_faq_summary">Frequently asked questions about the app</string>
     <string name="notification_coins_received_msg">Received %s</string>
     <string name="notification_connectivity_syncing_message">Synchronizing with the network…</string>
+    <string name="notification_connectivity_syncing_trusted_peer">Synchronizing with your trusted peer…</string>
     <string name="notification_peers_connected_msg">%d peers connected</string>
+    <string name="notification_peer_connected">connected</string>
+    <string name="notification_peer_not_connected">not connected</string>
     <string name="notification_inactivity_title">You\'ve still got Bitcoins on this device!</string>
     <string name="notification_inactivity_message">Remember your balance of %s will be lost if you uninstall the Bitcoin Wallet app without sending it away first.</string>
     <string name="notification_inactivity_message_donate">If you don\'t care about your coins, you could also donate them to the Bitcoin Wallet project.</string>

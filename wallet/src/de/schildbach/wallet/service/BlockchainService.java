@@ -480,6 +480,9 @@ public class BlockchainService extends LifecycleService {
         log.debug(".onCreate()");
         super.onCreate();
 
+        application = (WalletApplication) getApplication();
+        config = application.getConfiguration();
+
         pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
         nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
@@ -488,7 +491,9 @@ public class BlockchainService extends LifecycleService {
         wakeLock.acquire();
 
         connectivityNotification.setColor(ContextCompat.getColor(this, R.color.fg_network_significant));
-        connectivityNotification.setContentTitle(getString(R.string.notification_connectivity_syncing_message));
+        connectivityNotification.setContentTitle(getString(config.isTrustedPeerOnly() ?
+                R.string.notification_connectivity_syncing_trusted_peer :
+                R.string.notification_connectivity_syncing_message));
         connectivityNotification.setContentIntent(PendingIntent.getActivity(BlockchainService.this, 0,
                 new Intent(BlockchainService.this, WalletActivity.class), 0));
         connectivityNotification.setWhen(System.currentTimeMillis());
@@ -496,8 +501,6 @@ public class BlockchainService extends LifecycleService {
         connectivityNotification.setPriority(NotificationCompat.PRIORITY_LOW);
         startForeground(0);
 
-        application = (WalletApplication) getApplication();
-        config = application.getConfiguration();
         addressBookDao = AppDatabase.getDatabase(application).addressBookDao();
         blockChainFile = new File(getDir("blockstore", Context.MODE_PRIVATE), Constants.Files.BLOCKCHAIN_FILENAME);
 
@@ -832,8 +835,14 @@ public class BlockchainService extends LifecycleService {
     }
 
     private void startForeground(final int numPeers) {
-        connectivityNotification.setSmallIcon(R.drawable.stat_notify_peers, Math.min(numPeers, 4));
-        connectivityNotification.setContentText(getString(R.string.notification_peers_connected_msg, numPeers));
+        if (config.isTrustedPeerOnly()) {
+            connectivityNotification.setSmallIcon(R.drawable.stat_notify_peers, numPeers > 0 ? 4 : 0);
+            connectivityNotification.setContentText(getString(numPeers > 0 ? R.string.notification_peer_connected :
+                    R.string.notification_peer_not_connected));
+        } else {
+            connectivityNotification.setSmallIcon(R.drawable.stat_notify_peers, Math.min(numPeers, 4));
+            connectivityNotification.setContentText(getString(R.string.notification_peers_connected_msg, numPeers));
+        }
         startForeground(Constants.NOTIFICATION_ID_CONNECTIVITY, connectivityNotification.build());
     }
 
