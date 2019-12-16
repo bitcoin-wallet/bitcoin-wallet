@@ -144,6 +144,10 @@ public class Configuration {
         return prefs.getBoolean(PREFS_KEY_TRUSTED_PEER_ONLY, false);
     }
 
+    public boolean isTrustedPeerOnly() {
+        return getTrustedPeerHost() != null && getTrustedPeerOnly();
+    }
+
     public Uri getBlockExplorer() {
         return Uri.parse(prefs.getString(PREFS_KEY_BLOCK_EXPLORER,
                 res.getStringArray(R.array.preferences_block_explorer_values)[0]));
