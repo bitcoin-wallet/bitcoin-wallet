@@ -33,6 +33,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
@@ -332,7 +333,7 @@ public final class RequestWalletBalanceTask {
                         Constants.ELECTRUM_SERVER_DEFAULT_PORT_TLS);
             else
                 throw new IllegalStateException("Cannot handle: " + type);
-            this.certificateFingerprint = certificateFingerprint;
+            this.certificateFingerprint = certificateFingerprint.toLowerCase(Locale.US);
         }
     }
 
