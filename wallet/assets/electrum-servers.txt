@@ -1,4 +1,3 @@
 tls:testnet.hsmiths.com:53012:d1741a0ddecba02713a13bc8aa858d30eaf0a6c9068c2857346b21ef9f105feb
-tls:testnet1.bauerj.eu:50002
 tls:tn.not.fyi:55002:eac147ddf1cb86eb9706f35e181618b6a6e29bc6173939a921f5b0cb8b92bae8
 tls:bitcoin.cluelessperson.com::bcc078f2860537a0149f920050ffce15fb99591b34fb96fcfa1224558dbd709d
