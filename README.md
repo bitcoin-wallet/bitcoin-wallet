@@ -1,4 +1,4 @@
-Welcome to _GroestlCoin Wallet_, a standalone GroestlCoin payment app for your Android device!
+Welcome to _Groestlcoin Wallet_, a standalone GroestlCoin payment app for your Android device!
 
 This project contains several sub-projects:
 
@@ -20,8 +20,8 @@ You can build all sub-projects at once using Gradle:
 You can install the app from the app store of your choice:
 
  * __Testnet__:
-   <a href="https://f-droid.org/app/de.schildbach.wallet_test">F-Droid</a> |
-   <a href='https://play.google.com/store/apps/details?id=de.schildbach.wallet_test'>Google Play</a>
+   <a href="https://f-droid.org/app/hashengineering.groestlcoin.wallet_test">F-Droid</a> |
+   <a href='https://play.google.com/store/apps/details?id=hashengineering.groestlcoin.wallet_test'>Google Play</a>
  * __Mainnet__:
-   <a href="https://f-droid.org/app/de.schildbach.wallet">F-Droid</a> |
-   <a href='https://play.google.com/store/apps/details?id=de.schildbach.wallet'>Google Play</a>
+   <a href="https://f-droid.org/app/hashengineering.groestlcoin.wallet">F-Droid</a> |
+   <a href='https://play.google.com/store/apps/details?id=hashengineering.groestlcoin.wallet'>Google Play</a>
