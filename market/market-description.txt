@@ -11,6 +11,7 @@
 • System notification for received coins.
 • Sweeping of paper wallets (e.g. those used for cold storage).
 • App widget for Bitcoin balance.
+• Privacy: Supports Tor via the separate Orbot app.
 
 
 <b>CONTRIBUTE</b>

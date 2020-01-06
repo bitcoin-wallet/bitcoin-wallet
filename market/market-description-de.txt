@@ -11,6 +11,7 @@
 • System-Benachrichtigung für den Empfang von Zahlungen.
 • Entleeren von Paper-Wallets (die z.B. für Cold-Storage genutzt wurden).
 • App-Widget zeigt Bitcoin-Guthaben an.
+• Privatsphäre: Unterstützt Tor mittels der separaten Orbot App.
 
 
 <b>MITWIRKEN</b>
