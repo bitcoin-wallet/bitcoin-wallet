@@ -11,6 +11,7 @@
 • System notification for received coins.
 • Sweeping of paper wallets (e.g. those used for cold storage).
 • App widget for Bitcoin balance.
+• Safety: Supports SegWit and the new bech32 format.
 • Privacy: Supports Tor via the separate Orbot app.
 
 
