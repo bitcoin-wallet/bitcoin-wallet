@@ -7,7 +7,6 @@
 • Affichage du montant de bitcoins en BTC, mBTC et µBTC.
 • Conversion vers et à partir de monnaies nationales.
 • Envoi et réception de bitcoins par NFC, codes QR ou URL Bitcoin.
-• Un carnet d’adresses pour les adresses Bitcoin utilisées régulièrement.
 • Quand vous êtes hors ligne, vous pouvez quand même payer par Bluetooth.
 • Notification du système pour les pièces reçues.
 • Balayage des porte-monnaie papier (c.-à-d. ceux utilisés pour le stockage à froid).

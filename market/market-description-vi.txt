@@ -5,7 +5,6 @@ TÍNH NĂNG:
 • Không cần có cloud server hoặc dịch vụ web bổ sung nào cả! Ví tiền của bạn được kết nối thông qua sự lựa chọn của bạn trong kết nối mang ngang hàng lẫn nhau.
 • Hiển thị trạng thái cân bằng tài khoản giữa Bitcoin và các loại tiền tệ khác.
 • Gửi và nhận Bitcoin thông qua NFC, mã dạng QR hoặc đường dẫn liên kết dạng Bitcoin.
-• Sổ địa chỉ đối với các địa chỉ Bitcoin thường sử dụng.
 • Tham gia tiến trình giao dịch ngay khi không có kết nối mạng, và sẽ thực hiện kết nối ngay khi có mạng.
 • Thông báo trong hệ thống theo tính nhanh gọn về số lượng Bitcoin nhận và gửi đi.
 • Tiện ích dành riêng cho Bitcoin.

@@ -6,7 +6,6 @@ FUNKCIE:
 • Zobrazenie zostatku Bitcoinov v BTC alebo mBTC.
 • Prepočet hodnoty Bitcoinov do viacerých cudzích mien.
 • Posielanie a prijímanie Bitcoinov pomocou NFC, QR kódov alebo Bitcoin adries.
-• Adresár pre často používané Bitcoin adresy.
 • V offline režime je platba možná aj cez Bluetooth.
 • Notifikácie v stavovej lište pri prijatí Bitcoinov.
 • Widget s celkovým zostatkom.

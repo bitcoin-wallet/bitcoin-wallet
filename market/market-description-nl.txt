@@ -7,7 +7,6 @@
 • Toon Bitcoin bedrag in BTC, mBTC en µBTC.
 • Conversie van en naar nationale valuta.
 * Verzend en ontvang Bitcoin via NFC, QR-codes of Bitcoin-URL's
-• Adresboek voor regelmatig gebruikte Bitcoin-adressen.
 • Offline kun je nog steeds betalen via Bluetooth.
 • Systeemmelding wanneer je Bitcoins ontvangt
 • Opname van papieren portemonnee (b.v. voor cold storage).

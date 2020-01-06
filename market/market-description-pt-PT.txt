@@ -7,7 +7,6 @@
 • Exibir o valor Bitcoin em BTC, mBTC e µBTC.
 • Conversão de e para as moedas nacionais.
 • Enviar e receber Bitcoins via NFC, códigos QR ou URLs Bitcoin.
-• Livro de endereços para os endereços Bitcoin utilizados regularmente.
 • Quando estiver off-line, ainda pode pagar via Bluetooth.
 • Notificação do sistema para as moedas recebidas.
 • Limpeza de carteiras de papel (por exemplo, aquelas utilizadas para armazenamento reservado).

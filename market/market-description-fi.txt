@@ -7,7 +7,6 @@
 • Mahdollisuus näyttää Bitcoin-varat määrissä BTC, mBTC ja µBTC.
 • Yksikkömuunnos valtioiden valuuttojen välillä.
 • Bitcoinien lähettäminen ja vastaanottaminen NFC, QR-koodien tai Bitcoin-URL-osotteiden avulla.
-• Osoitekirja säännöllisesti käytettyjä Bitcoin-osoitteita varten.
 • Kun et ole verkkoyhteyden ulottuvilla, voit silti maksaa Bluetoothin välityksellä.
 • Järjestelmän ilmoitus vastaanotetuille Bitcoineille.
 • Paperisen lompakon pyyhkäisymahdollisuus (esim. näitä käytetään "kylmissä varastoissa").

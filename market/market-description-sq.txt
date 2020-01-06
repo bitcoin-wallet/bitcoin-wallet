@@ -7,7 +7,6 @@
 • Shfaq shumën e Bitcoins në BTC, mBTC dhe µBTC.
 • Konvertimi nga monedhat nacionale.
 • Dërgimi dhe pranimi i Bitcoin-ave me anë të NFC, QR kodeve ose Bircoin URL-ve.
-• Libri i adresave të cilat i përdorni rregullisht për monedha.
 • Kur jeni offline, ju prap mund të paguani përmes Bluetooth.
 • Sistemi i lajmërimit për pranimin e monedhave.
 • Shpenzimi i kuletave në letër (p.sh. ato të cilat përdoren për 'cold storage').

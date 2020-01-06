@@ -7,7 +7,6 @@
 • Bitcoin összeg megjelenítési módok: BTC, mBTC és µBTC.
 • Átváltás a saját valutádra, oda-vissza.
 • Bitcoin küldés és fogadás NFC-n, QR kódokon vagy Bitcoin URL-eken keresztül.
-• Címtár a rendszeresen használt Bitcoin címek számára.
 • Offline állapotban is fizethetsz - Bluetooth segítségével.
 • Rendszerüzenet Bitcoin érkezésekor.
 • Papírtárcák besöprése (pl. amik hűtőháznak vannak használva).

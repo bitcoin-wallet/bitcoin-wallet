@@ -7,7 +7,6 @@
 • Anzeige von Bitcoin-Werten in BTC, mBTC und µBTC.
 • Umrechnung von und zu den nationalen Währungen.
 • Senden und Empfangen von Bitcoin via NFC, QR-Codes oder Bitcoin URLs.
-• Adressbuch für regelmäßig genutzte Empfänger.
 • Wenn du offline bist, kannst du trotzdem über Bluetooth zahlen.
 • System-Benachrichtigung für den Empfang von Zahlungen.
 • Entleeren von Paper-Wallets (die z.B. für Cold-Storage genutzt wurden).

@@ -7,7 +7,6 @@
 • Prikaži Bitcoin iznos u BTC, mBTC i uBTC.
 • Pretvorba u ili iz nacionalnih valuta.
 • Slanje i primanje Bitcoina s NFC, QR kodom ili Bitcoin URL-om.
-• Adresar za često korištene Bitcoin adrese.
 • Kada si izvan mreže, možete još uvijek preko Bluetooth-a.
 • Sistemske obavjesti za primljene coin-ove.
 • Widgeti aplikacije za balansiranje Bitcoin-ova.

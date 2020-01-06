@@ -7,7 +7,6 @@
 • Visning af Bitcoin-beløb i BTC, mBTC og µBTC.
 • Konvertering til og fra lokale valutaer.
 • Afsendelse og modtagelse af Bitcoin via NFC, QR-koder eller Bitcoin-URLer.
-• Adressebog til ofte brugte Bitcoin-adresser.
 • Når du er offline, kan du stadig betale via Bluetooth.
 • Systemnotifikation for modtagne mønter.
 • Rydning af papirtegnebøger (fx de der bruges til kold opbevaring).

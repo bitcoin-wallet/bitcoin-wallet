@@ -7,7 +7,6 @@
 • Bitcoin miktarını BTC, mBTC ve µBTC olarak göster.
 • Ulusal para birimlerine ve bu para birimlerinden dönüştürme.
 • QR kodları, Bitcoin bağlantıları ve yakın alan iletişimi ile Bitcoin alımı ve gönderilmesi.
-• Sık kullanılan Bitcoin adresleri için adres defteri içerir.
 • Çevrimdışı olduğunuzda Bluetooth vasıtasıyla ödemeler.
 • Alınan bitcoin'ler için sistem bildirimleri.
 • Kağıt cüzdanların taranması (mesela soğuk depolama için kullanılanlar).

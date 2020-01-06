@@ -7,7 +7,6 @@
 • Mostra l'ammontare di Bitcoin in BTC, mBTC e µBTC.
 • Conversione verso e dalle monete nazionali.
 • Invio e ricevimento di Bitcoin tramite NFC, codici QR o URL Bitcoin.
-• Rubrica degli indirizzi per usare indirizzi Bitcoin regolarmente.
 • Quando sei offline, puoi comunque ancora pagare via Bluetooth.
 • Sistema di notifica per le monete ricevute.
 • Svuotamento di portafogli cartacei (es: quelli utilizzati come depositi offline)

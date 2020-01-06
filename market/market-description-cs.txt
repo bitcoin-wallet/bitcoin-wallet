@@ -7,7 +7,6 @@
 • Zobrazení Bitcoin částek v BTC, mBTC a µBTC.
 • Přepočet z a do národních měn.
 • Odesílání a přijímání plateb přes NFC, QR kódy nebo Bitcoin URL.
-• Adresář pro často používané Bitcoin adresy.
 • Pokud jste offline, stále můžete platit přes Bluetooth.
 • Systémové notifikace při přijaté platbě
 • Načítání papírových peněženek (např. ty co se používají u cold storage).

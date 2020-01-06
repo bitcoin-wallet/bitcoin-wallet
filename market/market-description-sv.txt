@@ -7,7 +7,6 @@
 • Visa summa bitcoin i BTC, mBTC eller µBTC.
 • Konventering till och från nationell valuta.
 • Skicka och ta emot bitcoin via NFC, QR-koder eller en Bitcoin-URL.
-• Adressbok för de Bitcoinadresser man använder ofta.
 • När du är nedkopplad kan du fortfarande betala via Bluetooth.
 • Meddelande om mottagna bitcoin.
 • Inläsning av pappersplånbok (tex. sådan som används för permanent lagring).

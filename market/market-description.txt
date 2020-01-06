@@ -7,7 +7,6 @@
 • Display of Bitcoin amount in BTC, mBTC and µBTC.
 • Conversion to and from national currencies.
 • Sending and receiving of Bitcoin via NFC, QR codes or Bitcoin URLs.
-• Address book for regularly used Bitcoin addresses.
 • When you're offline, you can still pay via Bluetooth.
 • System notification for received coins.
 • Sweeping of paper wallets (e.g. those used for cold storage).

@@ -6,7 +6,6 @@ LASTNOSTI:
 • Prikaz zneskov v BTC, mBTC ali µBTC.
 • Samodejna pretvorba v evre in druge lokalne valute.
 • Pošiljanje in prejemanje bitcoinov prek NFC, QR-kod ali bitcoin URL-jev.
-• Zasebni imenik bitcoin naslovov.
 • Z bitcoinom lahko plačujete tudi, če nimate povezave.
 • Sistemska obvestila ob prejetih novcih.
 • Widget, ki prikazuje stanje v denarnici.

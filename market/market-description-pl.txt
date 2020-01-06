@@ -7,7 +7,6 @@
 • Wyświetlaj ilość bitcoinów w BTC, mBTC lub µBTC.
 • Przelicznik z/do walut narodowych.
 • Wysyłaj i otrzymuj bitcoiny przy pomocy NFC, QRcode lub Bitcoin URL.
-• Książka adresowa dla regularnie używanych adresów bitcoin.
 • Kiedy jesteś offline możesz nadal płacić  przy pomocy Bluetooth.
 • Powiadomienia o otrzymaniu monet.
 • Zamiatanie portfeli papierowych (np. Używanych do przechowywania w chłodni).

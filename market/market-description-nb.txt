@@ -7,7 +7,6 @@
 • Visning av bitcoinbeløpet i BTC, mBTC og μBTC.
 • Konvertering til og fra nasjonale valutaer.
 • Sende og motta bitcoin via NFC, QR-koder eller Bitcoin-URLer.
-• Adressebok for regelmessig brukte Bitcoin-adresser.
 • Når du er frakoblet, kan du fortsatt betale via blåtann.
 • Systemvarsling for mottatte mynter.
 • Sveiping av papirlommebøker (f.eks. de som brukes til kaldlagring).

@@ -5,7 +5,6 @@ FITUR:
 • Tidak diperlukan server awan atau layanan web! Dompet ini benar-benar peer ke peer.
 • Tampilkan saldo dompet dalam Bitcoin dan mata uang lainnya.
 • Mengirim dan menerima Bitcoin via NFC, kode-QR atau Tautan Bitcoin.
-• Buku alamat untuk alamat penggunaan bitcoin secara reguler.
 • Masukkan transaksi saat offline, akan dilaksanakan ketika online.
 • Notifikasi sistem untuk konektivitas Bitcoin dan menerima koin.
 • Widget Apl untuk saldo Bitcoin.

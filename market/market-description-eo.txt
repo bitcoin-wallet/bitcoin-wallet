@@ -6,7 +6,6 @@ TRAJTOJ:
 • Montro de Bitmona kvanto en BTC kaj mBTC.
 • Konvertiĝo al kaj de la naciaj valutoj.
 • Sendado kaj ricevo de Bitmono tra NFC, QR-kodoj aŭ Bitmono URLoj.
-• Adreslibro por regule uzataj Bitmonadresoj.
 • Kiam vi estas senkonekta, vi ankoraŭ povas pagi per Bluetooth.
 • Sistema sciigo por ricevitaj moneroj.
 • Aplikaĵa fenestraĵo por Bitmona saldo.

@@ -7,7 +7,6 @@
 • Dangos swm Bitcoin mewn BTC, mBTC a µBTC.
 • Cyfnewid i ac o arian gwahanol gwledydd.
 • Anfon a derbyn Bitcoin trwy NFC, codau QR neu URLau Bitcoin.
-• Llyfr cyfeiriadau ar gyfer cyfeiriadau Bitcoin a ddefnyddir yn aml.
 • Gellir talu trwy Bluetooth pan nad oes cysylltiad rhyngrwyd.
 • Hysbysiad system pan dderbynnir Bitcoin.
 • Ysgubo dy waled bapur (e.e. y rhai a ddefnyddir am storfa oer).
