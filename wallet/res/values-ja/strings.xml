@@ -307,7 +307,10 @@
   <string name="about_faq_summary">このアプリに関するよくある質問</string>
   <string name="notification_coins_received_msg">%sを受け取りました</string>
   <string name="notification_connectivity_syncing_message">ネットワークと同期しています……</string>
+  <string name="notification_connectivity_syncing_trusted_peer">信頼しているピアと同期しています……</string>
   <string name="notification_peers_connected_msg">%dピアが接続済</string>
+  <string name="notification_peer_connected">接続されました</string>
+  <string name="notification_peer_not_connected">接続されていません</string>
   <string name="notification_inactivity_title">まだこの端末にビットコインが残っています!</string>
   <string name="notification_inactivity_message">残金を他の場所に移さずにBitcoin Walletアプリをアンインストールした場合、%sの残金は失なわれてしまうことに注意してください。</string>
   <string name="notification_inactivity_message_donate">もしコインが必要ないのであれば、Bitcoin Walletプロジェクトに寄付するという選択肢もあります。</string>
