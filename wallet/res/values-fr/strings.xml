@@ -190,7 +190,7 @@
   <string name="block_row_mining_difficulty_adjustment">Réglage de la difficulté de minage</string>
   <string name="block_row_mining_reward_adjustment">Réduction de moitié des récompenses de minage</string>
   <string name="block_row_now">à l’instant</string>
-  <string name="peer_list_fragment_empty">Aucun pair connecté</string>
+  <string name="peer_list_fragment_empty">Aucun pair n’est connecté</string>
   <string name="peer_list_row_ping_time">⇆ %d&#x2009;ms</string>
   <string name="import_keys_dialog_title">Restaurer le porte-monnaie</string>
   <string name="restore_wallet_dialog_replace_warning">Vous allez remplacer votre porte-monnaie actuel. Toutes les pièces du porte-monnaie actuel seront perdues à moins que vous n’en ayez une sauvegarde séparée.</string>
@@ -219,7 +219,7 @@
   <string name="encrypt_keys_dialog_password_strength_weak">faible</string>
   <string name="encrypt_keys_dialog_password_strength_fair">correct</string>
   <string name="encrypt_keys_dialog_password_strength_good">bon</string>
-  <string name="encrypt_keys_dialog_password_strength_strong">fort</string>
+  <string name="encrypt_keys_dialog_password_strength_strong">robuste</string>
   <string name="encrypt_keys_dialog_show">Montrer le NIP</string>
   <string name="encrypt_keys_dialog_state_encrypting">Chiffrement…</string>
   <string name="encrypt_keys_dialog_state_decrypting">Déchiffrement…</string>
@@ -250,11 +250,11 @@
   <string name="preferences_send_coins_autoclose_title">Fermer automatiquement la fenêtre d’envoi de pièces</string>
   <string name="preferences_send_coins_autoclose_summary">Une fois le paiement effectué, la fenêtre d’envoi sera fermée automatiquement.</string>
   <string name="preferences_trusted_peer_title">Pair de confiance</string>
-  <string name="preferences_trusted_peer_summary">L’IP ou le nom d’hôte d’un pair auquel se connecter.</string>
+  <string name="preferences_trusted_peer_summary">IP ou nom d’hôte d’un pair auquel se connecter.</string>
   <string name="preferences_trusted_peer_resolve_progress">Résolution…</string>
   <string name="preferences_trusted_peer_resolve_unknown_host">Le nom d’hôte est inconnu !</string>
-  <string name="preferences_trusted_peer_only_title">Ignorer la découverte régulière des pairs</string>
-  <string name="preferences_trusted_peer_only_summary">Empêche la connexion à des pairs autres que les pairs de confiance.</string>
+  <string name="preferences_trusted_peer_only_title">Ignorer la découverte des pairs ordinaires</string>
+  <string name="preferences_trusted_peer_only_summary">Empêche la connexion à des pairs autres que le pair de confiance.</string>
   <string name="preferences_block_explorer_title">Explorateur de blocs</string>
   <string name="preferences_block_explorer_summary">L’explorateur de blocs externe à utiliser pour consulter les transactions, les adresses et les blocs.</string>
   <string name="preferences_data_usage_title">Utilisation des données</string>
@@ -307,7 +307,10 @@
   <string name="about_faq_summary">Foire aux questions au sujet de l’appli</string>
   <string name="notification_coins_received_msg">%s reçu</string>
   <string name="notification_connectivity_syncing_message">Synchronisation avec le réseau…</string>
+  <string name="notification_connectivity_syncing_trusted_peer">Synchronisation avec votre pair de confiance…</string>
   <string name="notification_peers_connected_msg">%d pairs connectés</string>
+  <string name="notification_peer_connected">connecté</string>
+  <string name="notification_peer_not_connected">non connecté</string>
   <string name="notification_inactivity_title">Vous avez encore des bitcoins sur cet appareil !</string>
   <string name="notification_inactivity_message">Souvenez-vous que votre solde de %s sera perdu si vous désinstallez l’appli Bitcoin Wallet sans d’abord envoyer ce solde.</string>
   <string name="notification_inactivity_message_donate">Si ces quelques pièces vous importent peu, vous pourriez aussi en faire  le don au projet Bitcoin Wallet.</string>
@@ -318,7 +321,7 @@
   <string name="notification_channel_important_name">Alertes importantes</string>
   <string name="appwidget_wallet_balance_title">Solde en bitcoins</string>
   <!--generic buttons-->
-  <string name="button_ok">OK</string>
+  <string name="button_ok">Valider</string>
   <string name="button_dismiss">Fermer</string>
   <string name="button_cancel">Annuler</string>
   <string name="button_retry">Ressayer</string>
