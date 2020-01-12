@@ -37,6 +37,7 @@
   <string name="wallet_transactions_options_filter_all">Kaikki maksut</string>
   <string name="wallet_transactions_options_filter_received">Vastaanotetut maksut</string>
   <string name="wallet_transactions_options_filter_sent">Lähetetyt maksut</string>
+  <string name="wallet_options_request_legacy">Pyydä vanhanaikaiseen osoitteeseen</string>
   <string name="wallet_options_safety_menu">Turvallisuus</string>
   <string name="wallet_options_encrypt_keys_set">Aseta PIN-koodi maksamista varten</string>
   <string name="wallet_options_encrypt_keys_change">Vaihda maksamiseen käytettävä PIN-koodi</string>
@@ -123,6 +124,8 @@
   <string name="sweep_wallet_fragment_decrypt_progress">Puretaan salausta…\nKuluu enintään 2 minuuttia.</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_progress">Ladataan saldoa…</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_failed_title">Lompakon saldon lataaminen epäonnistui</string>
+  <string name="sweep_wallet_fragment_request_wallet_balance_failed_connection">Sinulla on huono yhteys Electrum-verkkoon.</string>
+  <string name="sweep_wallet_fragment_request_wallet_balance_empty">Paperinen lompakko on tyhjä.</string>
   <string name="sweep_wallet_fragment_insufficient_money_title">Varoja ei ole tarpeeksi</string>
   <string name="sweep_wallet_fragment_insufficient_money_msg">Lompakossa ei ole tarpeeksi varoja pyyhkäisyä varten.</string>
   <string name="sweep_wallet_options_reload">Uudelleenlataa saldo</string>
@@ -166,6 +169,10 @@
   <string name="edit_address_book_entry_dialog_button_edit">Tallenna</string>
   <string name="transaction_row_fee">Verkon rahansiirtokulu</string>
   <string name="transaction_row_confidence_message_sent_unbroadcasted">Tätä maksua ei ole lähetetty vielä.</string>
+  <string name="transaction_row_confidence_message_received_successful">Tämä maksu on välitetty lompakkoosi.</string>
+  <string name="transaction_row_confidence_message_sent_successful">Maksusi onnistui. Se on saavuttanut vastaanottajan.</string>
+  <string name="transaction_row_confidence_message_received_failed">Tämä maksu on epäonnistunut.</string>
+  <string name="transaction_row_confidence_message_sent_failed">Maksusi epäonnistui.</string>
   <string name="transaction_row_message_purpose_key_rotation">Tämä rahansiirto vahvistaa lompakkoasi varkauden varalta. &lt;u&gt;Lisää tietoa.&lt;/u&gt;</string>
   <string name="transaction_row_message_purpose_raise_fee">Tämä rahansiirto korottaa verkon rahansiirtokulua edeltävälle maksulle.</string>
   <string name="transaction_row_message_received_direct">Tämä maksu vastaanotettiin suoraan. On vaara, että sitä ei voida koskaan käyttää.</string>
@@ -252,6 +259,8 @@
   <string name="preferences_block_explorer_summary">Erillinen lohkoketjuselain jota käytetään rahansiirtojen, osoitteiden ja lohkojen selaamiseen.</string>
   <string name="preferences_data_usage_title">Tietojen käyttö</string>
   <string name="preferences_data_usage_summary">Näytä asetukset rajoittaaksesi datan käyttöä mobiiliverkoissa.</string>
+  <string name="preferences_notifications_title">Ilmoitukset</string>
+  <string name="preferences_notifications_summary">Näytä valinnat ottaaksesi käyttöön tiettyjä ilmoituksia.</string>
   <string name="preferences_remind_balance_title">Saldomuistutin</string>
   <string name="preferences_remind_balance_summary">Kun käyttöä ei ole muutamaan viikkoon, sovellus ilmoittaa mikäli lompakossa on vielä kolikoita jäljellä.</string>
   <string name="preferences_show_disclaimer_title">Näytä vastuuvapauslauseke</string>
@@ -280,6 +289,7 @@
   <string name="report_issue_dialog_mail_intent_chooser">Lähetä raportti käyttäen…</string>
   <string name="about_title">Tietoja</string>
   <string name="about_version_title">Versio</string>
+  <string name="about_version_apk_hash_title">APK:n SHA256-tarkiste</string>
   <string name="about_copyright_title">Tekijänoikeus</string>
   <string name="about_license_title">Lisenssi</string>
   <string name="about_source_title">Lähdekoodi</string>
@@ -296,7 +306,11 @@
   <string name="about_faq_title">UKK</string>
   <string name="about_faq_summary">Usein kysyttyjä kysymyksiä sovelluksesta</string>
   <string name="notification_coins_received_msg">Vastaanotettiin %s</string>
+  <string name="notification_connectivity_syncing_message">Synkronoidaan verkon kanssa…</string>
+  <string name="notification_connectivity_syncing_trusted_peer">Synkronoidaan luotetun vertaisesi kanssa…</string>
   <string name="notification_peers_connected_msg">%d vertaiseen yhdistetty</string>
+  <string name="notification_peer_connected">yhdistetty</string>
+  <string name="notification_peer_not_connected">ei yhdistetty</string>
   <string name="notification_inactivity_title">Sinulla on vielä Bitcoineja tässä laitteessa!</string>
   <string name="notification_inactivity_message">Muistathan että saldosi %s katoaa mikäli poistat Bitcoin Wallet-sovelluksen ilman, että lähetät sen ensin pois.</string>
   <string name="notification_inactivity_message_donate">Jos et välitä kolikoistasi, voit myös lahjoittaa ne Bitcoin Wallet-projektille.</string>
@@ -325,6 +339,7 @@
   <string name="button_send_coins">Lähetä</string>
   <string name="button_scan">Skannaa</string>
   <string name="button_settings">Asetukset</string>
+  <string name="button_options">Lisää asetuksia</string>
   <string name="action_show_qr">Näytä QR-koodi</string>
   <string name="action_browse">Selaa</string>
   <!--generic strings-->
@@ -332,6 +347,7 @@
   <string name="address_unlabeled">(nimeämätön)</string>
   <string name="private_key_password">PIN-koodi</string>
   <string name="private_key_bad_password">väärä PIN-koodi!</string>
+  <string name="qr_code">QR-koodi</string>
   <!--generic error messages-->
   <string name="error_io">I/O-virhe: %s</string>
   <string name="error_parse">Jäsennysvirhe: %s</string>
