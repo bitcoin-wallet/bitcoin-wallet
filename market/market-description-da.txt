@@ -11,6 +11,8 @@
 • Systemnotifikation for modtagne mønter.
 • Rydning af papirtegnebøger (fx de der bruges til kold opbevaring).
 • App-widget for Bitcoin-saldo.
+• Sikkerhed: Understøtter SegWit og det nye bech32-format.
+• Beskyttelse af privatliv: Understøtter Tor via den separate Orbot-app.
 
 
 <b>BIDRAG</b>
