@@ -55,7 +55,6 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Observer;
 
 /**
  * @author Andreas Schildbach
@@ -77,7 +76,7 @@ public class WalletTransactionsViewModel extends AndroidViewModel {
     public final MediatorLiveData<List<TransactionsAdapter.ListItem>> list = new MediatorLiveData<>();
     public final MutableLiveData<Event<Bitmap>> showBitmapDialog = new MutableLiveData<>();
     public final MutableLiveData<Event<Address>> showEditAddressBookEntryDialog = new MutableLiveData<>();
-    public final MutableLiveData<Event<String>> showReportIssueDialog = new MutableLiveData<>();
+    public final MutableLiveData<Event<Sha256Hash>> showReportIssueDialog = new MutableLiveData<>();
 
     public WalletTransactionsViewModel(final Application application) {
         super(application);

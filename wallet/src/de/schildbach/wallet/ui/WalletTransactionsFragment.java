@@ -17,14 +17,10 @@
 
 package de.schildbach.wallet.ui;
 
-import java.util.List;
-import java.util.Set;
-
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.Sha256Hash;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.Transaction.Purpose;
-import org.bitcoinj.script.ScriptException;
 import org.bitcoinj.wallet.Wallet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,7 +31,6 @@ import de.schildbach.wallet.R;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.data.AddressBookDao;
 import de.schildbach.wallet.data.AppDatabase;
-import de.schildbach.wallet.ui.TransactionsAdapter.ListItem;
 import de.schildbach.wallet.ui.TransactionsAdapter.WarningType;
 import de.schildbach.wallet.ui.send.RaiseFeeDialogFragment;
 import de.schildbach.wallet.util.Qr;
@@ -154,11 +149,11 @@ public class WalletTransactionsFragment extends Fragment implements Transactions
                 EditAddressBookEntryFragment.edit(getFragmentManager(), address);
             }
         });
-        viewModel.showReportIssueDialog.observe(this, new Event.Observer<String>() {
+        viewModel.showReportIssueDialog.observe(this, new Event.Observer<Sha256Hash>() {
             @Override
-            public void onEvent(final String contextualData) {
+            public void onEvent(final Sha256Hash transactionHash) {
                 ReportIssueDialogFragment.show(getFragmentManager(), R.string.report_issue_dialog_title_transaction,
-                        R.string.report_issue_dialog_message_issue, Constants.REPORT_SUBJECT_ISSUE, contextualData);
+                        R.string.report_issue_dialog_message_issue, Constants.REPORT_SUBJECT_ISSUE, transactionHash);
             }
         });
 
@@ -321,23 +316,7 @@ public class WalletTransactionsFragment extends Fragment implements Transactions
             }
 
             private void handleReportIssue(final Transaction tx) {
-                final StringBuilder contextualData = new StringBuilder();
-                try {
-                    contextualData.append(tx.getValue(wallet).toFriendlyString()).append(" total value");
-                } catch (final ScriptException x) {
-                    contextualData.append(x.getMessage());
-                }
-                contextualData.append('\n');
-                if (tx.hasConfidence())
-                    contextualData.append("  confidence: ").append(tx.getConfidence()).append('\n');
-                final String[] blockExplorers = activity.getResources()
-                        .getStringArray(R.array.preferences_block_explorer_values);
-                for (final String blockExplorer : blockExplorers)
-                    contextualData
-                            .append(Uri.withAppendedPath(Uri.parse(blockExplorer), "tx/" + tx.getTxId().toString()))
-                            .append('\n');
-                contextualData.append(tx.toString());
-                viewModel.showReportIssueDialog.setValue(new Event<>(contextualData.toString()));
+                viewModel.showReportIssueDialog.setValue(new Event<>(tx.getTxId()));
             }
         });
         popupMenu.show();

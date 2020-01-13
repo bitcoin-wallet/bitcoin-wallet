@@ -28,10 +28,14 @@ import java.util.Locale;
 import java.util.Set;
 import java.util.TimeZone;
 
+import android.net.Uri;
 import de.schildbach.wallet.BuildConfig;
+import de.schildbach.wallet.R;
+import org.bitcoinj.core.Sha256Hash;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.TransactionOutput;
 import org.bitcoinj.core.Utils;
+import org.bitcoinj.script.ScriptException;
 import org.bitcoinj.wallet.Wallet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,7 +56,6 @@ import android.app.admin.DevicePolicyManager;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.DialogInterface.OnShowListener;
 import android.content.pm.PackageInfo;
 import android.content.res.Resources;
 import android.os.Build;
@@ -60,7 +63,6 @@ import android.os.Bundle;
 import android.widget.Button;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 /**
@@ -71,18 +73,19 @@ public class ReportIssueDialogFragment extends DialogFragment {
     private static final String KEY_TITLE = "title";
     private static final String KEY_MESSAGE = "message";
     private static final String KEY_SUBJECT = "subject";
-    private static final String KEY_CONTEXTUAL_DATA = "contextual_data";
+    private static final String KEY_CONTEXTUAL_TRANSACTION_HASH = "contextual_transaction_hash";
 
     private static final TimeZone UTC = TimeZone.getTimeZone("UTC");
 
     public static void show(final FragmentManager fm, final int titleResId, final int messageResId,
-            final String subject, final String contextualData) {
+            final String subject, final Sha256Hash contextualTransactionHash) {
         final DialogFragment newFragment = new ReportIssueDialogFragment();
         final Bundle args = new Bundle();
         args.putInt(KEY_TITLE, titleResId);
         args.putInt(KEY_MESSAGE, messageResId);
         args.putString(KEY_SUBJECT, subject);
-        args.putString(KEY_CONTEXTUAL_DATA, contextualData);
+        if (contextualTransactionHash != null)
+            args.putByteArray(KEY_CONTEXTUAL_TRANSACTION_HASH, contextualTransactionHash.getBytes());
         newFragment.setArguments(args);
         newFragment.show(fm, FRAGMENT_TAG);
     }
@@ -117,7 +120,8 @@ public class ReportIssueDialogFragment extends DialogFragment {
         final int titleResId = args.getInt(KEY_TITLE);
         final int messageResId = args.getInt(KEY_MESSAGE);
         final String subject = args.getString(KEY_SUBJECT);
-        final String contextualData = args.getString(KEY_CONTEXTUAL_DATA);
+        final Sha256Hash contextualTransactionHash = args.containsKey(KEY_CONTEXTUAL_TRANSACTION_HASH) ?
+                Sha256Hash.wrap(args.getByteArray(KEY_CONTEXTUAL_TRANSACTION_HASH)) : null;
 
         final ReportIssueDialogBuilder builder = new ReportIssueDialogBuilder(activity, titleResId, messageResId) {
             @Override
@@ -161,6 +165,27 @@ public class ReportIssueDialogFragment extends DialogFragment {
 
             @Override
             protected CharSequence collectContextualData() {
+                if (contextualTransactionHash == null)
+                    return null;
+
+                final Wallet wallet = viewModel.wallet.getValue();
+                final Transaction tx = wallet.getTransaction(contextualTransactionHash);
+                final StringBuilder contextualData = new StringBuilder();
+                try {
+                    contextualData.append(tx.getValue(wallet).toFriendlyString()).append(" total value");
+                } catch (final ScriptException x) {
+                    contextualData.append(x.getMessage());
+                }
+                contextualData.append('\n');
+                if (tx.hasConfidence())
+                    contextualData.append("  confidence: ").append(tx.getConfidence()).append('\n');
+                final String[] blockExplorers = activity.getResources()
+                        .getStringArray(R.array.preferences_block_explorer_values);
+                for (final String blockExplorer : blockExplorers)
+                    contextualData
+                            .append(Uri.withAppendedPath(Uri.parse(blockExplorer), "tx/" + tx.getTxId().toString()))
+                            .append('\n');
+                contextualData.append(tx.toString());
                 return contextualData;
             }
 
