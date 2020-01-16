@@ -1,4 +1,4 @@
-v7.44
+v7.44-v7.45
 
 * Fix a build reproducibility issue.
 * Update translations from Transifex.
