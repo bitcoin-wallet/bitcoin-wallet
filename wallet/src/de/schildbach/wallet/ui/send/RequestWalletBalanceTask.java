@@ -81,6 +81,7 @@ import de.schildbach.wallet.util.Assets;
 import android.content.res.AssetManager;
 import android.os.Handler;
 import android.os.Looper;
+import androidx.annotation.Nullable;
 import okio.BufferedSink;
 import okio.BufferedSource;
 import okio.Okio;
@@ -318,10 +319,11 @@ public final class RequestWalletBalanceTask {
 
         public final InetSocketAddress socketAddress;
         public final Type type;
+        @Nullable
         public final String certificateFingerprint;
 
-        public ElectrumServer(final String type, final String host, final String port,
-                final String certificateFingerprint) {
+        public ElectrumServer(final String type, final String host, final @Nullable String port,
+                final @Nullable String certificateFingerprint) {
             this.type = Type.valueOf(type.toUpperCase());
             if (port != null)
                 this.socketAddress = InetSocketAddress.createUnresolved(host, Integer.parseInt(port));
@@ -333,7 +335,8 @@ public final class RequestWalletBalanceTask {
                         Constants.ELECTRUM_SERVER_DEFAULT_PORT_TLS);
             else
                 throw new IllegalStateException("Cannot handle: " + type);
-            this.certificateFingerprint = certificateFingerprint.toLowerCase(Locale.US);
+            this.certificateFingerprint = certificateFingerprint != null ?
+                    certificateFingerprint.toLowerCase(Locale.US) : null;
         }
     }
 
