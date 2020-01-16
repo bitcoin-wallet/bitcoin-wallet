@@ -18,7 +18,6 @@
 package de.schildbach.wallet.ui;
 
 import android.content.Context;
-import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -32,7 +31,6 @@ import androidx.annotation.Dimension;
 import androidx.annotation.MainThread;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
@@ -41,7 +39,6 @@ import com.google.common.hash.Hashing;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.R;
 import de.schildbach.wallet.addressbook.AddressBookEntry;
-import de.schildbach.wallet.util.Toolbars;
 import de.schildbach.wallet.util.WalletUtils;
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.ECKey;
@@ -76,10 +73,10 @@ public class AddressBookAdapter extends ListAdapter<AddressBookAdapter.ListItem,
                                      final Collection<Address> addresses, final Context context,
                                      @Nullable final Wallet wallet,
                                      @Nullable final Map<String, AddressBookEntry> addressBook) {
-        final int colorSignificant = ContextCompat.getColor(context, R.color.fg_significant);
-        final int colorInsignificant = ContextCompat.getColor(context, R.color.fg_insignificant);
-        final int colorLessSignificant = ContextCompat.getColor(context, R.color.fg_less_significant);
-        final int colorError = ContextCompat.getColor(context, R.color.fg_error);
+        final int colorSignificant = context.getColor(R.color.fg_significant);
+        final int colorInsignificant = context.getColor(R.color.fg_insignificant);
+        final int colorLessSignificant = context.getColor(R.color.fg_less_significant);
+        final int colorError = context.getColor(R.color.fg_error);
 
         final Address currentAddress = wallet != null ? wallet.currentReceiveAddress() : null;
         for (final Address address : addresses) {
@@ -118,8 +115,8 @@ public class AddressBookAdapter extends ListAdapter<AddressBookAdapter.ListItem,
     }
 
     public static List<ListItem> buildListItems(final Context context, final List<AddressBookEntry> addressBook) {
-        final int colorSignificant = ContextCompat.getColor(context, R.color.fg_significant);
-        final int colorLessSignificant = ContextCompat.getColor(context, R.color.fg_less_significant);
+        final int colorSignificant = context.getColor(R.color.fg_significant);
+        final int colorLessSignificant = context.getColor(R.color.fg_less_significant);
 
         final List<ListItem> items = new ArrayList<>(addressBook.size());
         for (final AddressBookEntry entry : addressBook) {
@@ -198,8 +195,6 @@ public class AddressBookAdapter extends ListAdapter<AddressBookAdapter.ListItem,
     private final String labelUnlabeled;
     @Dimension
     private final int cardElevationSelected;
-    @ColorInt
-    private final int colorInsignificant;
 
     @Nullable
     private final OnClickListener onClickListener;
@@ -249,7 +244,6 @@ public class AddressBookAdapter extends ListAdapter<AddressBookAdapter.ListItem,
         this.contextMenuCallback = contextMenuCallback;
         this.labelUnlabeled = context.getString(R.string.address_unlabeled);
         this.cardElevationSelected = context.getResources().getDimensionPixelOffset(R.dimen.card_elevation_selected);
-        this.colorInsignificant = ContextCompat.getColor(context, R.color.fg_insignificant);
 
         setHasStableIds(true);
     }
@@ -332,8 +326,6 @@ public class AddressBookAdapter extends ListAdapter<AddressBookAdapter.ListItem,
                 menu.clear();
                 contextMenuCallback.onInflateAddressContextMenu(menuInflater, menu);
                 if (menu.hasVisibleItems()) {
-                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
-                        Toolbars.colorize(addressHolder.contextBar, colorInsignificant);
                     addressHolder.contextBar.setVisibility(View.VISIBLE);
                     addressHolder.contextBar.setOnMenuItemClickListener(item ->
                             contextMenuCallback.onClickAddressContextMenuItem(item, addressItem.address, addressItem.label));

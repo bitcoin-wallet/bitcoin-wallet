@@ -18,15 +18,12 @@
 package de.schildbach.wallet.ui;
 
 import android.content.Context;
-import android.graphics.PorterDuff;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.widget.FrameLayout;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import de.schildbach.wallet.R;
 import de.schildbach.wallet.util.CheatSheet;
@@ -57,8 +54,6 @@ public final class WalletActionsFragment extends Fragment {
         final View sendQrButton = view.findViewById(R.id.wallet_actions_send_qr);
         sendQrButton.setOnClickListener(v -> activity.handleScan(v));
         CheatSheet.setup(sendQrButton);
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP_MR1)
-            sendQrButton.getBackground().setColorFilter(ContextCompat.getColor(activity, R.color.fg_on_dark_bg_network_significant), PorterDuff.Mode.SRC_ATOP);
 
         return view;
     }

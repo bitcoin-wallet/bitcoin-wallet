@@ -157,7 +157,7 @@ public final class ScanActivity extends AbstractWalletActivity
                         @Override
                         public void onAnimationEnd(Animator animation) {
                             getWindow().setBackgroundDrawable(new ColorDrawable(
-                                    ContextCompat.getColor(ScanActivity.this, android.R.color.black)));
+                                    getColor(android.R.color.black)));
                         }
                     });
                     sceneTransition.start();
@@ -198,7 +198,7 @@ public final class ScanActivity extends AbstractWalletActivity
                 // start up, so the animation will never start.
                 contentView.setAlpha(0);
                 getWindow().setBackgroundDrawable(
-                        new ColorDrawable(ContextCompat.getColor(this, android.R.color.transparent)));
+                        new ColorDrawable(getColor(android.R.color.transparent)));
                 OnFirstPreDraw.listen(contentView, () -> {
                     float finalRadius = (float) (Math.max(contentView.getWidth(), contentView.getHeight()));
                     final int duration = getResources().getInteger(android.R.integer.config_mediumAnimTime);

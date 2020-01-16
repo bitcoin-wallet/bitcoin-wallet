@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <style name="My.Theme" parent="@android:style/Theme.Material.Light.DarkActionBar">
@@ -65,7 +64,7 @@
         <item name="android:minHeight">?android:attr/actionBarSize</item>
         <item name="android:minWidth">48dp</item>
         <item name="android:drawablePadding">4dp</item>
-        <item name="android:drawableTint" tools:targetApi="23">@color/fg_on_dark_bg_network_significant</item>
+        <item name="android:drawableTint">@color/fg_on_dark_bg_network_significant</item>
         <item name="android:singleLine">true</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:textColor">@color/fg_on_dark_bg_network</item>
@@ -95,7 +94,7 @@
     </style>
 
     <style name="My.Widget.ActionButton.Context" parent="@android:style/Widget.Material.ActionButton">
-        <item name="android:drawableTint" tools:targetApi="23">@color/fg_insignificant</item>
+        <item name="android:drawableTint">@color/fg_insignificant</item>
     </style>
 
     <style name="My.Widget.ActionButton.Context.Overflow" parent="@android:style/Widget.Material.ActionButton.Overflow">

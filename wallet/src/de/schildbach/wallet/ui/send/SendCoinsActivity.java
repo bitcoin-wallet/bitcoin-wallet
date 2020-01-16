@@ -23,7 +23,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
 import androidx.lifecycle.ViewModelProvider;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.R;
@@ -71,7 +70,7 @@ public final class SendCoinsActivity extends AbstractWalletActivity {
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        log.info("Referrer: {}", ActivityCompat.getReferrer(this));
+        log.info("Referrer: {}", getReferrer());
         setContentView(R.layout.send_coins_content);
 
         viewModel = new ViewModelProvider(this).get(SendCoinsActivityViewModel.class);

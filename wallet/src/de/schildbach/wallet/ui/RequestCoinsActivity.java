@@ -23,7 +23,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
 import androidx.lifecycle.ViewModelProvider;
 import de.schildbach.wallet.R;
 import org.bitcoinj.script.Script;
@@ -54,7 +53,7 @@ public final class RequestCoinsActivity extends AbstractWalletActivity {
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        log.info("Referrer: {}", ActivityCompat.getReferrer(this));
+        log.info("Referrer: {}", getReferrer());
         setContentView(R.layout.request_coins_content);
 
         viewModel = new ViewModelProvider(this).get(RequestCoinsActivityViewModel.class);

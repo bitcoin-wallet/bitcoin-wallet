@@ -29,7 +29,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Binder;
-import android.os.Build;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.IBinder;
@@ -39,7 +38,6 @@ import android.os.Process;
 import android.text.format.DateUtils;
 import androidx.annotation.MainThread;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.LifecycleService;
@@ -246,7 +244,7 @@ public class BlockchainService extends LifecycleService {
         childNotification.setGroup(Constants.NOTIFICATION_GROUP_KEY_RECEIVED);
         childNotification.setGroupAlertBehavior(NotificationCompat.GROUP_ALERT_CHILDREN);
         childNotification.setWhen(System.currentTimeMillis());
-        childNotification.setColor(ContextCompat.getColor(this, R.color.fg_network_significant));
+        childNotification.setColor(getColor(R.color.fg_network_significant));
         childNotification.setSmallIcon(R.drawable.stat_notify_received_24dp);
         final String msg = getString(R.string.notification_coins_received_msg, btcFormat.format(amount)) + msgSuffix;
         childNotification.setTicker(msg);
@@ -433,7 +431,6 @@ public class BlockchainService extends LifecycleService {
         delayHandler.postDelayed(delayedStopSelfRunnable, ms);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
     private final BroadcastReceiver deviceIdleModeReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(final Context context, final Intent intent) {
@@ -480,7 +477,7 @@ public class BlockchainService extends LifecycleService {
         log.info("acquiring {}", wakeLock);
         wakeLock.acquire();
 
-        connectivityNotification.setColor(ContextCompat.getColor(this, R.color.fg_network_significant));
+        connectivityNotification.setColor(getColor(R.color.fg_network_significant));
         connectivityNotification.setContentTitle(getString(config.isTrustedPeersOnly() ?
                 R.string.notification_connectivity_syncing_trusted_peer :
                 R.string.notification_connectivity_syncing_message));
@@ -500,8 +497,7 @@ public class BlockchainService extends LifecycleService {
 
         config.registerOnSharedPreferenceChangeListener(preferenceChangeListener);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
-            registerReceiver(deviceIdleModeReceiver, new IntentFilter(PowerManager.ACTION_DEVICE_IDLE_MODE_CHANGED));
+        registerReceiver(deviceIdleModeReceiver, new IntentFilter(PowerManager.ACTION_DEVICE_IDLE_MODE_CHANGED));
 
         peerConnectivityListener = new PeerConnectivityListener();
 
@@ -734,8 +730,7 @@ public class BlockchainService extends LifecycleService {
             blockChainFile.delete();
         }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
-            unregisterReceiver(deviceIdleModeReceiver);
+        unregisterReceiver(deviceIdleModeReceiver);
 
         config.unregisterOnSharedPreferenceChangeListener(preferenceChangeListener);
 

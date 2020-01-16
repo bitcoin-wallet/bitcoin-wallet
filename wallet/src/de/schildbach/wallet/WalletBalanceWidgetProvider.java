@@ -32,7 +32,6 @@ import android.text.style.StrikethroughSpan;
 import android.view.View;
 import android.widget.RemoteViews;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import de.schildbach.wallet.exchangerate.ExchangeRateEntry;
 import de.schildbach.wallet.exchangerate.ExchangeRatesRepository;
 import de.schildbach.wallet.ui.RequestCoinsActivity;
@@ -135,7 +134,7 @@ public class WalletBalanceWidgetProvider extends AppWidgetProvider {
             final MonetaryFormat localFormat = Constants.LOCAL_FORMAT.code(0,
                     Constants.PREFIX_ALMOST_EQUAL_TO + GenericUtils.currencySymbol(exchangeRate.fiat.currencyCode));
             final Object[] prefixSpans = new Object[] { MonetarySpannable.SMALLER_SPAN,
-                    new ForegroundColorSpan(ContextCompat.getColor(context, R.color.fg_insignificant_darkdefault)) };
+                    new ForegroundColorSpan(context.getColor(R.color.fg_insignificant_darkdefault)) };
             localBalanceStr = new MonetarySpannable(localFormat, localBalance).applyMarkup(prefixSpans,
                     MonetarySpannable.STANDARD_INSIGNIFICANT_SPANS);
             if (!Constants.NETWORK_PARAMETERS.getId().equals(NetworkParameters.ID_MAINNET))

@@ -24,7 +24,6 @@ import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.text.SpannableStringBuilder;
@@ -215,13 +214,13 @@ public class WalletTransactionsFragment extends Fragment implements Transactions
         final WalletTransactionsViewModel.Direction direction = viewModel.direction.getValue();
         if (direction == null) {
             menu.findItem(R.id.wallet_transactions_options_filter_all).setChecked(true);
-            maybeSetFilterMenuItemIcon(R.drawable.ic_filter_list_white_24dp);
+            filterMenuItem.setIcon(R.drawable.ic_filter_list_white_24dp);
         } else if (direction == WalletTransactionsViewModel.Direction.RECEIVED) {
             menu.findItem(R.id.wallet_transactions_options_filter_received).setChecked(true);
-            maybeSetFilterMenuItemIcon(R.drawable.transactions_list_filter_received);
+            filterMenuItem.setIcon(R.drawable.transactions_list_filter_received);
         } else if (direction == WalletTransactionsViewModel.Direction.SENT) {
             menu.findItem(R.id.wallet_transactions_options_filter_sent).setChecked(true);
-            maybeSetFilterMenuItemIcon(R.drawable.transactions_list_filter_sent);
+            filterMenuItem.setIcon(R.drawable.transactions_list_filter_sent);
         }
         super.onPrepareOptionsMenu(menu);
     }
@@ -232,25 +231,19 @@ public class WalletTransactionsFragment extends Fragment implements Transactions
         final WalletTransactionsViewModel.Direction direction;
         if (itemId == R.id.wallet_transactions_options_filter_all) {
             direction = null;
-            maybeSetFilterMenuItemIcon(R.drawable.ic_filter_list_white_24dp);
+            filterMenuItem.setIcon(R.drawable.ic_filter_list_white_24dp);
         } else if (itemId == R.id.wallet_transactions_options_filter_received) {
             direction = WalletTransactionsViewModel.Direction.RECEIVED;
-            maybeSetFilterMenuItemIcon(R.drawable.transactions_list_filter_received);
+            filterMenuItem.setIcon(R.drawable.transactions_list_filter_received);
         } else if (itemId == R.id.wallet_transactions_options_filter_sent) {
             direction = WalletTransactionsViewModel.Direction.SENT;
-            maybeSetFilterMenuItemIcon(R.drawable.transactions_list_filter_sent);
+            filterMenuItem.setIcon(R.drawable.transactions_list_filter_sent);
         } else {
             return false;
         }
 
         viewModel.setDirection(direction);
         return true;
-    }
-
-    private void maybeSetFilterMenuItemIcon(final int iconResId) {
-        // Older Android versions can't deal with width and height in XML layer-list items.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
-            filterMenuItem.setIcon(iconResId);
     }
 
     @Override

@@ -27,7 +27,6 @@ import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.view.View;
 import androidx.annotation.ColorInt;
-import androidx.core.content.ContextCompat;
 import androidx.viewpager2.widget.ViewPager2;
 import de.schildbach.wallet.R;
 
@@ -61,9 +60,9 @@ public class ViewPagerTabs extends View {
         paint.setTextSize(getResources().getDimension(R.dimen.font_size_tiny));
         paint.setAntiAlias(true);
 
-        textColor = ContextCompat.getColor(context, R.color.fg_less_significant);
-        selectedTextColor = ContextCompat.getColor(context, R.color.fg_significant);
-        indicatorColor = ContextCompat.getColor(context, R.color.bg_level2);
+        textColor = context.getColor(R.color.fg_less_significant);
+        selectedTextColor = context.getColor(R.color.fg_significant);
+        indicatorColor = context.getColor(R.color.bg_level2);
     }
 
     public void setMode(final Mode mode) {

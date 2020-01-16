@@ -32,7 +32,6 @@ import android.widget.EditText;
 import android.widget.SearchView;
 import android.widget.SearchView.OnQueryTextListener;
 import android.widget.ViewAnimator;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -185,8 +184,8 @@ public final class ExchangeRatesFragment extends Fragment implements OnSharedPre
             final int id = searchView.getContext().getResources().getIdentifier("android:id/search_src_text", null,
                     null);
             final EditText searchInput = searchView.findViewById(id);
-            searchInput.setTextColor(ContextCompat.getColor(activity, R.color.fg_on_dark_bg_network_significant));
-            searchInput.setHintTextColor(ContextCompat.getColor(activity, R.color.fg_on_dark_bg_network_insignificant));
+            searchInput.setTextColor(activity.getColor(R.color.fg_on_dark_bg_network_significant));
+            searchInput.setHintTextColor(activity.getColor(R.color.fg_on_dark_bg_network_insignificant));
         } else {
             searchMenuItem.setVisible(false);
         }

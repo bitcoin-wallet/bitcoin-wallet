@@ -25,7 +25,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.WindowManager;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 import de.schildbach.wallet.R;
 import de.schildbach.wallet.WalletApplication;
@@ -44,7 +43,7 @@ public abstract class AbstractWalletActivity extends FragmentActivity {
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         application = (WalletApplication) getApplication();
-        setTaskDescription(new TaskDescription(null, null, ContextCompat.getColor(this, R.color.bg_action_bar)));
+        setTaskDescription(new TaskDescription(null, null, getColor(R.color.bg_action_bar)));
         super.onCreate(savedInstanceState);
     }
 

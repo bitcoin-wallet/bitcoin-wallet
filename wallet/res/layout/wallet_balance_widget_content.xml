@@ -89,11 +89,12 @@
 
     <ImageButton
         android:id="@+id/widget_button_send_qr"
+        style="@style/My.Widget.ActionButton.Floating.DarkDefault"
         android:layout_width="0px"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:background="?android:attr/selectableItemBackgroundBorderless"
         android:contentDescription="@string/button_scan"
         android:src="@drawable/ic_photo_camera_white_24dp"
-        android:tint="@color/fg_network_less_significant_darkdefault" />
+        android:tint="@color/bg_level1_darkdefault" />
+
 </LinearLayout>

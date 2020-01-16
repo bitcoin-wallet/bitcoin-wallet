@@ -36,7 +36,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
@@ -185,19 +184,19 @@ public class BackupWalletDialogFragment extends DialogFragment {
                 if (passwordLength < 6) {
                     passwordStrengthView.setText(R.string.encrypt_keys_dialog_password_strength_weak);
                     passwordStrengthView
-                            .setTextColor(ContextCompat.getColor(activity, R.color.fg_password_strength_weak));
+                            .setTextColor(activity.getColor(R.color.fg_password_strength_weak));
                 } else if (passwordLength < 8) {
                     passwordStrengthView.setText(R.string.encrypt_keys_dialog_password_strength_fair);
                     passwordStrengthView
-                            .setTextColor(ContextCompat.getColor(activity, R.color.fg_password_strength_fair));
+                            .setTextColor(activity.getColor(R.color.fg_password_strength_fair));
                 } else if (passwordLength < 10) {
                     passwordStrengthView.setText(R.string.encrypt_keys_dialog_password_strength_good);
                     passwordStrengthView
-                            .setTextColor(ContextCompat.getColor(activity, R.color.fg_password_strength_good));
+                            .setTextColor(activity.getColor(R.color.fg_password_strength_good));
                 } else {
                     passwordStrengthView.setText(R.string.encrypt_keys_dialog_password_strength_strong);
                     passwordStrengthView.setTextColor(
-                            ContextCompat.getColor(activity, R.color.fg_password_strength_strong));
+                            activity.getColor(R.color.fg_password_strength_strong));
                 }
 
                 if (positiveButton != null) {

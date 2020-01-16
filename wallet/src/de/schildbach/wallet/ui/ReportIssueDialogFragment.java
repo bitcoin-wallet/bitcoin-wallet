@@ -130,8 +130,7 @@ public class ReportIssueDialogFragment extends DialogFragment {
                 if (installer != null)
                     builder.append(", installer ").append(installer);
                 builder.append(", android ").append(Build.VERSION.RELEASE);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
-                    builder.append(" (").append(Build.VERSION.SECURITY_PATCH).append(")");
+                builder.append(" (").append(Build.VERSION.SECURITY_PATCH).append(")");
                 builder.append(", ").append(Build.MANUFACTURER);
                 if (!Build.BRAND.equalsIgnoreCase(Build.MANUFACTURER))
                     builder.append(' ').append(Build.BRAND);
@@ -326,8 +325,7 @@ public class ReportIssueDialogFragment extends DialogFragment {
         report.append("Device Model: ").append(Build.MODEL).append("\n");
         report.append("Android Version: ").append(Build.VERSION.RELEASE)
                 .append(" (").append(Integer.toString(Build.VERSION.SDK_INT)).append(")\n");
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
-            report.append("Android security patch level: ").append(Build.VERSION.SECURITY_PATCH).append("\n");
+        report.append("Android security patch level: ").append(Build.VERSION.SECURITY_PATCH).append("\n");
         report.append("ABIs: ").append(Joiner.on(", ").skipNulls().join(Build.SUPPORTED_ABIS)).append("\n");
         report.append("Board: ").append(Build.BOARD).append("\n");
         report.append("Brand: ").append(Build.BRAND).append("\n");

@@ -28,7 +28,6 @@ import androidx.annotation.Dimension;
 import androidx.annotation.MainThread;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
@@ -68,7 +67,7 @@ public class PeerListAdapter extends ListAdapter<PeerListAdapter.ListItem, PeerL
             final Drawable icon;
             if (peer.isDownloadData()) {
                 icon = context.getDrawable(R.drawable.ic_sync_white_24dp);
-                icon.setTint(ContextCompat.getColor(context, R.color.fg_significant));
+                icon.setTint(context.getColor(R.color.fg_significant));
             } else {
                 icon = null;
             }

@@ -28,7 +28,6 @@ import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
 import android.text.format.DateUtils;
 import androidx.core.app.NotificationCompat;
-import androidx.core.content.ContextCompat;
 import androidx.lifecycle.LifecycleService;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.R;
@@ -96,7 +95,7 @@ public final class AcceptBluetoothService extends LifecycleService {
 
         final NotificationCompat.Builder notification = new NotificationCompat.Builder(this,
                 Constants.NOTIFICATION_CHANNEL_ID_ONGOING);
-        notification.setColor(ContextCompat.getColor(this, R.color.fg_network_significant));
+        notification.setColor(getColor(R.color.fg_network_significant));
         notification.setSmallIcon(R.drawable.stat_notify_bluetooth_24dp);
         notification.setContentTitle(getString(R.string.notification_bluetooth_service_listening));
         notification.setWhen(System.currentTimeMillis());

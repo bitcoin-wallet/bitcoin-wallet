@@ -18,7 +18,6 @@
 package de.schildbach.wallet.ui;
 
 import android.content.Context;
-import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -27,12 +26,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toolbar;
-import androidx.annotation.ColorInt;
 import androidx.annotation.Dimension;
 import androidx.annotation.MainThread;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
@@ -42,7 +39,6 @@ import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.R;
 import de.schildbach.wallet.exchangerate.ExchangeRateEntry;
 import de.schildbach.wallet.service.BlockchainState;
-import de.schildbach.wallet.util.Toolbars;
 import org.bitcoinj.core.Coin;
 import org.bitcoinj.core.NetworkParameters;
 import org.bitcoinj.utils.ExchangeRate;
@@ -117,8 +113,6 @@ public class ExchangeRatesAdapter extends ListAdapter<ExchangeRatesAdapter.ListI
     private final MenuInflater menuInflater;
     @Dimension
     private final int cardElevationSelected;
-    @ColorInt
-    private final int colorInsignificant;
 
     @Nullable
     private final OnClickListener onClickListener;
@@ -171,7 +165,6 @@ public class ExchangeRatesAdapter extends ListAdapter<ExchangeRatesAdapter.ListI
         this.onClickListener = onClickListener;
         this.contextMenuCallback = contextMenuCallback;
         this.cardElevationSelected = context.getResources().getDimensionPixelOffset(R.dimen.card_elevation_selected);
-        this.colorInsignificant = ContextCompat.getColor(context, R.color.fg_insignificant);
 
         setHasStableIds(true);
     }
@@ -234,8 +227,6 @@ public class ExchangeRatesAdapter extends ListAdapter<ExchangeRatesAdapter.ListI
                 menu.clear();
                 contextMenuCallback.onInflateBlockContextMenu(menuInflater, menu);
                 if (menu.hasVisibleItems()) {
-                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
-                        Toolbars.colorize(holder.contextBar, colorInsignificant);
                     holder.contextBar.setVisibility(View.VISIBLE);
                     holder.contextBar.setOnMenuItemClickListener(item ->
                             contextMenuCallback.onClickBlockContextMenuItem(item, listItem.currencyCode));

@@ -25,7 +25,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import androidx.annotation.WorkerThread;
 import androidx.core.app.NotificationCompat;
-import androidx.core.content.ContextCompat;
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.R;
@@ -133,7 +132,7 @@ public class BootstrapReceiver extends BroadcastReceiver {
         final NotificationCompat.Builder notification = new NotificationCompat.Builder(application,
                 Constants.NOTIFICATION_CHANNEL_ID_IMPORTANT);
         notification.setStyle(new NotificationCompat.BigTextStyle().bigText(text));
-        notification.setColor(ContextCompat.getColor(application, R.color.fg_network_significant));
+        notification.setColor(application.getColor(R.color.fg_network_significant));
         notification.setSmallIcon(R.drawable.stat_notify_received_24dp);
         notification.setContentTitle(title);
         notification.setContentText(text);

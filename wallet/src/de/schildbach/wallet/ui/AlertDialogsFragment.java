@@ -236,8 +236,7 @@ public class AlertDialogsFragment extends Fragment {
                     if (minSecurityPatchLevel != null) {
                         log.info("according to \"{}\", minimum security patch level for bluetooth is {}",
                                 versionUrl, minSecurityPatchLevel);
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
-                                && Build.VERSION.SECURITY_PATCH.compareTo(minSecurityPatchLevel) < 0) {
+                        if (Build.VERSION.SECURITY_PATCH.compareTo(minSecurityPatchLevel) < 0) {
                             final BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
                             if (bluetoothAdapter != null && BluetoothAdapter.getDefaultAdapter().isEnabled()) {
                                 viewModel.showInsecureBluetoothAlertDialog

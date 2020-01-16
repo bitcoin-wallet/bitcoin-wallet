@@ -20,7 +20,6 @@ package de.schildbach.wallet.ui;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.os.Build;
 import android.text.Html;
 import android.text.Spanned;
 import android.text.SpannedString;
@@ -33,10 +32,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toolbar;
-import androidx.annotation.ColorInt;
 import androidx.annotation.MainThread;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.core.graphics.ColorUtils;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
@@ -46,7 +43,6 @@ import de.schildbach.wallet.R;
 import de.schildbach.wallet.addressbook.AddressBookEntry;
 import de.schildbach.wallet.ui.TransactionsAdapter.ListItem.TransactionItem;
 import de.schildbach.wallet.util.Formats;
-import de.schildbach.wallet.util.Toolbars;
 import de.schildbach.wallet.util.WalletUtils;
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.Coin;
@@ -133,12 +129,12 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
                 super(id(tx.getTxId()));
                 this.transactionId = tx.getTxId();
 
-                final int colorSignificant = ContextCompat.getColor(context, R.color.fg_significant);
-                final int colorLessSignificant = ContextCompat.getColor(context, R.color.fg_less_significant);
-                final int colorInsignificant = ContextCompat.getColor(context, R.color.fg_insignificant);
-                final int colorValuePositive = ContextCompat.getColor(context, R.color.fg_value_positive);
-                final int colorValueNegative = ContextCompat.getColor(context, R.color.fg_value_negative);
-                final int colorError = ContextCompat.getColor(context, R.color.fg_error);
+                final int colorSignificant = context.getColor(R.color.fg_significant);
+                final int colorLessSignificant = context.getColor(R.color.fg_less_significant);
+                final int colorInsignificant = context.getColor(R.color.fg_insignificant);
+                final int colorValuePositive = context.getColor(R.color.fg_value_positive);
+                final int colorValueNegative = context.getColor(R.color.fg_value_negative);
+                final int colorError = context.getColor(R.color.fg_error);
 
                 final Coin value = tx.getValue(wallet);
                 final boolean sent = value.signum() < 0;
@@ -408,8 +404,6 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
     private final Context context;
     private final LayoutInflater inflater;
     private final MenuInflater menuInflater;
-    @ColorInt
-    private final int colorInsignificant;
 
     @Nullable
     private final OnClickListener onClickListener;
@@ -576,7 +570,6 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
         this.context = context;
         this.inflater = LayoutInflater.from(context);
         this.menuInflater = new MenuInflater(context);
-        this.colorInsignificant = ContextCompat.getColor(context, R.color.fg_insignificant);
         this.onClickListener = onClickListener;
         this.contextMenuCallback = contextMenuCallback;
 
@@ -667,8 +660,6 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
                     contextMenuCallback.onInflateTransactionContextMenu(menuInflater, menu,
                             transactionItem.transactionId);
                     if (menu.hasVisibleItems()) {
-                        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
-                            Toolbars.colorize(transactionHolder.contextBar, colorInsignificant);
                         transactionHolder.contextBar.setVisibility(View.VISIBLE);
                         transactionHolder.contextBar.setOnMenuItemClickListener(item ->
                                 contextMenuCallback.onClickTransactionContextMenuItem(item, transactionItem.transactionId));

@@ -36,7 +36,6 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
@@ -304,16 +303,16 @@ public class EncryptKeysDialogFragment extends DialogFragment {
         passwordStrengthView.setVisibility(state == State.INPUT && passwordLength > 0 ? View.VISIBLE : View.INVISIBLE);
         if (passwordLength < 4) {
             passwordStrengthView.setText(R.string.encrypt_keys_dialog_password_strength_weak);
-            passwordStrengthView.setTextColor(ContextCompat.getColor(activity, R.color.fg_password_strength_weak));
+            passwordStrengthView.setTextColor(activity.getColor(R.color.fg_password_strength_weak));
         } else if (passwordLength < 6) {
             passwordStrengthView.setText(R.string.encrypt_keys_dialog_password_strength_fair);
-            passwordStrengthView.setTextColor(ContextCompat.getColor(activity, R.color.fg_password_strength_fair));
+            passwordStrengthView.setTextColor(activity.getColor(R.color.fg_password_strength_fair));
         } else if (passwordLength < 8) {
             passwordStrengthView.setText(R.string.encrypt_keys_dialog_password_strength_good);
-            passwordStrengthView.setTextColor(ContextCompat.getColor(activity, R.color.fg_password_strength_good));
+            passwordStrengthView.setTextColor(activity.getColor(R.color.fg_password_strength_good));
         } else {
             passwordStrengthView.setText(R.string.encrypt_keys_dialog_password_strength_strong);
-            passwordStrengthView.setTextColor(ContextCompat.getColor(activity, R.color.fg_password_strength_strong));
+            passwordStrengthView.setTextColor(activity.getColor(R.color.fg_password_strength_strong));
         }
 
         showView.setEnabled(state == State.INPUT);

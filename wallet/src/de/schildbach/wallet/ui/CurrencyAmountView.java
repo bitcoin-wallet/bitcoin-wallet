@@ -20,7 +20,6 @@ package de.schildbach.wallet.ui;
 import android.content.Context;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.text.Editable;
@@ -35,7 +34,6 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.R;
 import de.schildbach.wallet.util.GenericUtils;
@@ -80,10 +78,10 @@ public final class CurrencyAmountView extends FrameLayout {
     }
 
     private void init(final Context context) {
-        significantColor = ContextCompat.getColor(context, R.color.fg_significant);
-        lessSignificantColor = ContextCompat.getColor(context, R.color.fg_less_significant);
-        errorColor = ContextCompat.getColor(context, R.color.fg_error);
-        deleteButtonDrawable = ContextCompat.getDrawable(context, R.drawable.ic_clear_grey600_24dp);
+        significantColor = context.getColor(R.color.fg_significant);
+        lessSignificantColor = context.getColor(R.color.fg_less_significant);
+        errorColor = context.getColor(R.color.fg_error);
+        deleteButtonDrawable = context.getDrawable(R.drawable.ic_clear_grey600_24dp);
     }
 
     @Override
@@ -118,8 +116,7 @@ public final class CurrencyAmountView extends FrameLayout {
 
     public void setCurrencySymbol(@Nullable final String currencyCode) {
         final String bitcoinSymbol = Character.toString(Constants.CHAR_BITCOIN);
-        final boolean hasBitcoinSymbol = Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
-                && textView.getPaint().hasGlyph(bitcoinSymbol);
+        final boolean hasBitcoinSymbol = textView.getPaint().hasGlyph(bitcoinSymbol);
         final float textSize = textView.getTextSize();
         final float smallerTextSize = textSize * (20f / 24f);
         final float offset = textSize * 0.37f;
@@ -128,21 +125,21 @@ public final class CurrencyAmountView extends FrameLayout {
                 currencySymbolDrawable = new CurrencySymbolDrawable(bitcoinSymbol, smallerTextSize,
                         lessSignificantColor, offset);
             else
-                currencySymbolDrawable = ContextCompat.getDrawable(getContext(), R.drawable.currency_symbol_btc);
+                currencySymbolDrawable = getContext().getDrawable(R.drawable.currency_symbol_btc);
             localCurrencyCode = null;
         } else if (MonetaryFormat.CODE_MBTC.equals(currencyCode)) {
             if (hasBitcoinSymbol)
                 currencySymbolDrawable = new CurrencySymbolDrawable("m" + bitcoinSymbol, smallerTextSize,
                         lessSignificantColor, offset);
             else
-                currencySymbolDrawable = ContextCompat.getDrawable(getContext(), R.drawable.currency_symbol_mbtc);
+                currencySymbolDrawable = getContext().getDrawable(R.drawable.currency_symbol_mbtc);
             localCurrencyCode = null;
         } else if (MonetaryFormat.CODE_UBTC.equals(currencyCode)) {
             if (hasBitcoinSymbol)
                 currencySymbolDrawable = new CurrencySymbolDrawable("µ" + bitcoinSymbol, smallerTextSize,
                         lessSignificantColor, offset);
             else
-                currencySymbolDrawable = ContextCompat.getDrawable(getContext(), R.drawable.currency_symbol_ubtc);
+                currencySymbolDrawable = getContext().getDrawable(R.drawable.currency_symbol_ubtc);
             localCurrencyCode = null;
         } else if (currencyCode != null) {
             currencySymbolDrawable = new CurrencySymbolDrawable(GenericUtils.currencySymbol(currencyCode),
@@ -179,7 +176,7 @@ public final class CurrencyAmountView extends FrameLayout {
     }
 
     public void setContextButton(final int contextButtonResId, final OnClickListener contextButtonClickListener) {
-        this.contextButtonDrawable = ContextCompat.getDrawable(getContext(), contextButtonResId);
+        this.contextButtonDrawable = getContext().getDrawable(contextButtonResId);
         this.contextButtonClickListener = contextButtonClickListener;
 
         updateAppearance();

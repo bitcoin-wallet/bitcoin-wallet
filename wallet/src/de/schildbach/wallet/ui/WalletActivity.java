@@ -30,7 +30,6 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.nfc.NdefMessage;
 import android.nfc.NfcAdapter;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -216,14 +215,8 @@ public final class WalletActivity extends AbstractWalletActivity {
         final int duration = getResources().getInteger(android.R.integer.config_mediumAnimTime);
         final Animator splashBackgroundFadeOut = AnimatorInflater.loadAnimator(WalletActivity.this, R.animator.fade_out_drawable);
         final Animator splashForegroundFadeOut = AnimatorInflater.loadAnimator(WalletActivity.this, R.animator.fade_out_drawable);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            splashBackgroundFadeOut.setTarget(((LayerDrawable) background).getDrawable(1));
-            splashForegroundFadeOut.setTarget(((LayerDrawable) background).getDrawable(2));
-        } else {
-            // skip this animation, as there is no splash icon
-            splashBackgroundFadeOut.setDuration(0);
-            splashForegroundFadeOut.setDuration(0);
-        }
+        splashBackgroundFadeOut.setTarget(((LayerDrawable) background).getDrawable(1));
+        splashForegroundFadeOut.setTarget(((LayerDrawable) background).getDrawable(2));
         final AnimatorSet fragmentEnterAnimation = new AnimatorSet();
         final AnimatorSet.Builder fragmentEnterAnimationBuilder =
                 fragmentEnterAnimation.play(splashBackgroundFadeOut).with(splashForegroundFadeOut);

@@ -25,7 +25,6 @@ import android.text.style.ScaleXSpan;
 import android.util.AttributeSet;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.R;
 import de.schildbach.wallet.util.MonetarySpannable;
@@ -98,7 +97,7 @@ public final class CurrencyTextView extends TextView {
     protected void onFinishInflate() {
         super.onFinishInflate();
 
-        setPrefixColor(ContextCompat.getColor(getContext(), R.color.fg_less_significant));
+        setPrefixColor(getContext().getColor(R.color.fg_less_significant));
         setPrefixScaleX(1);
         setInsignificantRelativeSize(0.85f);
         setSingleLine();
