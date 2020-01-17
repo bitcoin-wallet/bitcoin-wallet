@@ -54,6 +54,7 @@ public class Configuration {
     public static final String PREFS_KEY_NOTIFICATIONS = "notifications";
     public static final String PREFS_KEY_REMIND_BALANCE = "remind_balance";
     public static final String PREFS_KEY_DISCLAIMER = "disclaimer";
+    public static final String PREFS_KEY_BLUETOOTH_ADDRESS = "bluetooth_address";
 
     private static final String PREFS_KEY_LAST_VERSION = "last_version";
     private static final String PREFS_KEY_LAST_USED = "last_used";
@@ -311,6 +312,14 @@ public class Configuration {
     public void updateLastBluetoothAddress(final String bluetoothAddress) {
         if (bluetoothAddress != null)
             prefs.edit().putString(PREFS_KEY_LAST_BLUETOOTH_ADDRESS, bluetoothAddress).apply();
+    }
+
+    public String getBluetoothAddress() {
+        return prefs.getString(PREFS_KEY_BLUETOOTH_ADDRESS, null);
+    }
+
+    public void setBluetoothAddress(final String bluetoothAddress) {
+        prefs.edit().putString(PREFS_KEY_BLUETOOTH_ADDRESS, bluetoothAddress).apply();
     }
 
     public void registerOnSharedPreferenceChangeListener(final OnSharedPreferenceChangeListener listener) {

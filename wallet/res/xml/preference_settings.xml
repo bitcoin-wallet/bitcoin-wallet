@@ -64,4 +64,9 @@
         android:summary="@string/preferences_show_disclaimer_summary"
         android:title="@string/preferences_show_disclaimer_title" />
 
+    <EditTextPreference
+        android:key="bluetooth_address"
+        android:title="@string/preferences_bluetooth_address_title"
+        android:summary="@string/preferences_bluetooth_address_summary" />
+
 </PreferenceScreen>

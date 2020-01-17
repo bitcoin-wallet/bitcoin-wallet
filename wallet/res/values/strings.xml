@@ -266,6 +266,8 @@
     <string name="preferences_remind_balance_summary">After a couple of weeks of not being used, the app will notify if there are still coins in the wallet.</string>
     <string name="preferences_show_disclaimer_title">Show disclaimer</string>
     <string name="preferences_show_disclaimer_summary">Have you really read the safety notes? Did you already back up your wallet to a safe place?</string>
+    <string name="preferences_bluetooth_address_title">Bluetooth address</string>
+    <string name="preferences_bluetooth_address_summary">Manually configure your own Bluetooth address so you can receive payments from payers without connectivity. You\'ll want to look up your device\'s address in the Android Bluetooth settings first.</string>
     <string name="preferences_report_issue_title">Report issue</string>
     <string name="preferences_initiate_reset_title">Reset block chain</string>
     <string name="preferences_initiate_reset_summary">Reset block chain, transactions and wallet balance. Replay will take a while, so only do this if you know why.</string>

@@ -18,6 +18,7 @@
 package de.schildbach.wallet.ui.preference;
 
 import java.net.InetAddress;
+import java.util.Locale;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,8 +26,10 @@ import org.slf4j.LoggerFactory;
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.R;
 import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.util.Bluetooth;
 
 import android.app.Activity;
+import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -56,6 +59,7 @@ public final class SettingsFragment extends PreferenceFragment implements OnPref
 
     private Preference trustedPeerPreference;
     private Preference trustedPeerOnlyPreference;
+    private Preference bluetoothAddressPreference;
 
     private static final Logger log = LoggerFactory.getLogger(SettingsFragment.class);
 
@@ -99,10 +103,27 @@ public final class SettingsFragment extends PreferenceFragment implements OnPref
         }
 
         updateTrustedPeer();
+
+        bluetoothAddressPreference = findPreference(Configuration.PREFS_KEY_BLUETOOTH_ADDRESS);
+        final BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        if (bluetoothAdapter != null) {
+            String bluetoothAddress = Bluetooth.getAddress(bluetoothAdapter);
+            if (bluetoothAddress == null)
+                bluetoothAddress = config.getLastBluetoothAddress();
+            if (bluetoothAddress != null) {
+                bluetoothAddressPreference.setSummary(bluetoothAddress);
+                bluetoothAddressPreference.setEnabled(false);
+            } else {
+                bluetoothAddressPreference.setOnPreferenceChangeListener(this);
+            }
+        } else {
+            bluetoothAddressPreference.getParent().removePreference(bluetoothAddressPreference);
+        }
     }
 
     @Override
     public void onDestroy() {
+        bluetoothAddressPreference.setOnPreferenceChangeListener(null);
         trustedPeerOnlyPreference.setOnPreferenceChangeListener(null);
         trustedPeerPreference.setOnPreferenceChangeListener(null);
 
@@ -117,6 +138,8 @@ public final class SettingsFragment extends PreferenceFragment implements OnPref
         handler.post(() -> {
             if (preference.equals(trustedPeerPreference))
                 updateTrustedPeer();
+            else if (preference.equals(bluetoothAddressPreference))
+                updateBluetoothAddress();
         });
         return true;
     }
@@ -146,5 +169,12 @@ public final class SettingsFragment extends PreferenceFragment implements OnPref
                 }
             }.resolve(trustedPeer);
         }
+    }
+
+    private void updateBluetoothAddress() {
+        final String bluetoothAddress = config.getBluetoothAddress();
+        final String normalizedBluetoothAddress =
+                Bluetooth.decompressMac(Bluetooth.compressMac(bluetoothAddress)).toUpperCase(Locale.US);
+        config.setBluetoothAddress(normalizedBluetoothAddress);
     }
 }
