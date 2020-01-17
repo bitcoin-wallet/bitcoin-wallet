@@ -166,23 +166,19 @@ public abstract class DirectPaymentTask {
                 final BluetoothDevice device = bluetoothAdapter
                         .getRemoteDevice(Bluetooth.decompressMac(bluetoothMac));
 
-                try (final BluetoothSocket socket = device
-                        .createInsecureRfcommSocketToServiceRecord(Bluetooth.BIP70_PAYMENT_PROTOCOL_UUID);
-                        final DataOutputStream os = new DataOutputStream(socket.getOutputStream());
-                        final DataInputStream is = new DataInputStream(socket.getInputStream())) {
+                try (final BluetoothSocket socket =
+                             device.createInsecureRfcommSocketToServiceRecord(Bluetooth.BIP70_PAYMENT_PROTOCOL_UUID)) {
                     socket.connect();
-
                     log.info("connected to payment protocol {}", bluetoothMac);
+                    final DataOutputStream os = new DataOutputStream(socket.getOutputStream());
+                    final DataInputStream is = new DataInputStream(socket.getInputStream());
 
                     payment.writeDelimitedTo(os);
                     os.flush();
-
                     log.info("tx sent via bluetooth");
 
                     final Protos.PaymentACK paymentAck = Protos.PaymentACK.parseDelimitedFrom(is);
-
                     final boolean ack = "ack".equals(PaymentProtocol.parsePaymentAck(paymentAck).getMemo());
-
                     log.info("received {} via bluetooth", ack ? "ack" : "nack");
 
                     onResult(ack);
