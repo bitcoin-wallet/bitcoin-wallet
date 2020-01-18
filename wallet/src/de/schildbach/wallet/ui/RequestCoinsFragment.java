@@ -177,7 +177,9 @@ public final class RequestCoinsFragment extends Fragment {
         final BluetoothAdapter bluetoothAdapter = this.bluetoothAdapter;
         acceptBluetoothPaymentView = view.findViewById(R.id.request_coins_accept_bluetooth_payment);
         acceptBluetoothPaymentView.setVisibility(
-                bluetoothAdapter != null && Bluetooth.getAddress(bluetoothAdapter) != null ? View.VISIBLE : View.GONE);
+                bluetoothAdapter != null &&
+                        (Bluetooth.getAddress(bluetoothAdapter) != null || config.getLastBluetoothAddress() != null) ?
+                        View.VISIBLE : View.GONE);
         acceptBluetoothPaymentView.setChecked(bluetoothAdapter != null && bluetoothAdapter.isEnabled());
         acceptBluetoothPaymentView.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (bluetoothAdapter != null && isChecked) {
@@ -272,7 +274,9 @@ public final class RequestCoinsFragment extends Fragment {
     }
 
     private boolean maybeStartBluetoothListening() {
-        final String bluetoothAddress = Bluetooth.getAddress(bluetoothAdapter);
+        String bluetoothAddress = Bluetooth.getAddress(bluetoothAdapter);
+        if (bluetoothAddress == null)
+            bluetoothAddress = config.getLastBluetoothAddress();
         if (bluetoothAddress != null && acceptBluetoothPaymentView.isChecked()) {
             viewModel.bluetoothServiceIntent = new Intent(activity, AcceptBluetoothService.class);
             activity.startService(viewModel.bluetoothServiceIntent);

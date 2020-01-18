@@ -304,6 +304,10 @@ public class Configuration {
         return /* wasUsedBefore && */wasBelow && isNowAbove;
     }
 
+    public String getLastBluetoothAddress() {
+        return prefs.getString(PREFS_KEY_LAST_BLUETOOTH_ADDRESS, null);
+    }
+
     public void updateLastBluetoothAddress(final String bluetoothAddress) {
         if (bluetoothAddress != null)
             prefs.edit().putString(PREFS_KEY_LAST_BLUETOOTH_ADDRESS, bluetoothAddress).apply();
