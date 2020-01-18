@@ -48,37 +48,24 @@ In the generated e-mail, replace the support address with yours.
 
 ### BUILDING THE DEVELOPMENT VERSION
 
+If you haven't done already, follow the **Prerequisites for Building** section in the [top-level README](../README.md).
+
 It's important to know that the development version uses Testnet, is debuggable and the wallet file
 is world readable/writeable. The goal is to be able to debug easily.
-
-You can probably skip some steps, especially if you built Android apps before.
-
-You'll need git, a Java 8 SDK (or later) and Gradle 4.4 (or later) for this. We'll assume Ubuntu 18.04 LTS (Bionic Beaver)
-for the package installs, which comes with OpenJDK 8 and Gradle 4.4.1 out of the box.
-
-    # first time only
-    sudo apt install git gradle openjdk-8-jdk
-
-Create a directory for the Android SDK (e.g. `android-sdk`) and point the `ANDROID_HOME` variable to it.
-
-Download the [Android SDK Tools](https://developer.android.com/studio/index.html#command-tools)
-and unpack it to `$ANDROID_HOME/`.
 
 Finally, you can build Bitcoin Wallet and sign it with your development key. Again in your workspace,
 use:
 
-    # first time only
-    git clone -b master https://github.com/bitcoin-wallet/bitcoin-wallet.git bitcoin-wallet
-
     # each time
-    cd bitcoin-wallet
-    git pull
-    gradle clean test build
+    gradle clean test :wallet:assembleDevDebug
+
+You'll find the signed APK under this path:
+
+    wallet/build/outputs/apk/dev/debug/bitcoin-wallet-dev-debug.apk
 
 To install the app on your Android device, use:
 
-    # each time
-    gradle installDevDebug
+    gradle :wallet:installDevDebug
 
 If installation fails, make sure "Developer options" and "USB debugging" are enabled on your Android device, and an ADB
 connection is established.
@@ -96,7 +83,7 @@ tag) as the development version. After you have cloned/updated the git repositor
 use:
 
     # each time
-    gradle clean assembleProdRelease
+    gradle clean test :wallet:assembleProdRelease
 
 You'll find the unsigned APK under this path:
 
