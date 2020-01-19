@@ -1,3 +1,8 @@
+v7.46
+
+* Improve offline payments via Bluetooth for Android 8.1 (Oreo) and up.
+  Merchants should configure their own Bluetooth address in the settings.
+
 v7.44-v7.45
 
 * Fix a build reproducibility issue.
