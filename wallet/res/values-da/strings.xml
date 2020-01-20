@@ -265,6 +265,8 @@
   <string name="preferences_remind_balance_summary">Efter et par uger uden brug vil app\'en give besked, hvis der stadig er penge i tegnebogen.</string>
   <string name="preferences_show_disclaimer_title">Vis ansvarsfraskrivelse</string>
   <string name="preferences_show_disclaimer_summary">Har du virkelig læst sikkerhedsnoterne? Har du allerede sikkerhedskopieret din tegnebog til et sikkert sted?</string>
+  <string name="preferences_bluetooth_address_title">Bluetooth-adresse</string>
+  <string name="preferences_bluetooth_address_summary">Konfigurér manuelt din egen Bluetooth-adresse, så du kan modtage betalinger fra betalere uden internetforbindelse. Du kan slå din enheds adresse op i Bluetooth-indstillingerne i Android først.</string>
   <string name="preferences_report_issue_title">Rapportér problem</string>
   <string name="preferences_initiate_reset_title">Nulstil blokkæde</string>
   <string name="preferences_initiate_reset_summary">Nulstil blokkæde, overførsler og saldo for tegnebogen. Gennemløb af blokkæden vil tage et stykke tid, så gør kun dette hvis du ved hvorfor.</string>
@@ -316,6 +318,7 @@
   <string name="notification_inactivity_message_donate">Hvis du ikke er interesseret i dine bitcoin, kan du også donere dem til Bitcoin Wallet-projektet.</string>
   <string name="notification_inactivity_action_dismiss">Påmind senere</string>
   <string name="notification_inactivity_action_dismiss_forever">Påmind mig ikke</string>
+  <string name="notification_bluetooth_service_listening">Klar til at modtage betalinger via Bluetooth</string>
   <string name="notification_channel_received_name">Modtagne betalinger</string>
   <string name="notification_channel_ongoing_name">Baggrundsaktivitet</string>
   <string name="notification_channel_important_name">Vigtige advarsler</string>
