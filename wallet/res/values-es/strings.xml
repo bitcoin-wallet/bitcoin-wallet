@@ -69,7 +69,7 @@
   <string name="send_coins_fragment_receiving_address_label">Pagar a</string>
   <string name="send_coins_fragment_receiving_address_hint">escriba dirección o nombre</string>
   <string name="send_coins_fragment_receiving_address_error">¡Dirección Bitcoin inválida!</string>
-  <string name="send_coins_fragment_receiving_address_own">¡Estás a punto de enviartelo a ti mismo!</string>
+  <string name="send_coins_fragment_receiving_address_own">¡Estás a punto de enviartelo a tí mismo!</string>
   <string name="send_coins_fragment_receiving_address_complex">dirección\ncompleja</string>
   <string name="send_coins_fragment_pending">(%s esperando confirmación)</string>
   <string name="send_coins_fragment_amount_label">Cantidad a pagar</string>
@@ -169,6 +169,10 @@
   <string name="edit_address_book_entry_dialog_button_edit">Guardar</string>
   <string name="transaction_row_fee">Comisión de red</string>
   <string name="transaction_row_confidence_message_sent_unbroadcasted">Este pago aún no se ha transmitido.</string>
+  <string name="transaction_row_confidence_message_received_successful">Este pago ha sido acreditado a su billetera.</string>
+  <string name="transaction_row_confidence_message_sent_successful">Su pago fue exitoso. Ha llegado al beneficiario.</string>
+  <string name="transaction_row_confidence_message_received_failed">Este pago a fallado.</string>
+  <string name="transaction_row_confidence_message_sent_failed">Su pago ha fallado.</string>
   <string name="transaction_row_message_purpose_key_rotation">Esta transacción fortalece tu monedero frente a robos. &lt;u&gt;Más información.&lt;/u&gt;</string>
   <string name="transaction_row_message_purpose_raise_fee">Esta transacción incrementa la cuota de red para un pago previo.</string>
   <string name="transaction_row_message_received_direct">Este pago se ha recibido directamente. Existe el riesgo de que no llegue a validarse.</string>
@@ -255,10 +259,14 @@
   <string name="preferences_block_explorer_summary">Explorador externo de bloques, para navegar por las transacciones, direcciones y bloques.</string>
   <string name="preferences_data_usage_title">Uso de datos</string>
   <string name="preferences_data_usage_summary">Mostrar opciones para limitar el uso de datos en redes móviles.</string>
+  <string name="preferences_notifications_title">Notificaciones</string>
+  <string name="preferences_notifications_summary">Mostrar opciones para deshabilitar o habilitar notificaciones específicas.</string>
   <string name="preferences_remind_balance_title">Aviso de balance</string>
   <string name="preferences_remind_balance_summary">Después de unas semanas sin uso, la aplicación te notificará que aún tienes Bitcoins en la billetera.</string>
   <string name="preferences_show_disclaimer_title">Mostrar disclaimer</string>
   <string name="preferences_show_disclaimer_summary">¿De verdad leíste las notas de seguridad? ¿Ya aseguraste tu monedero en un lugar seguro?</string>
+  <string name="preferences_bluetooth_address_title">Dirección bluethooth</string>
+  <string name="preferences_bluetooth_address_summary">Configure manualmente su dirección Bluetooth para que pueda recibir los pagos sin conectividad. Deberá buscar la dirección del dispositivo en la configuracion de Android primero.</string>
   <string name="preferences_report_issue_title">Informar de incidencia</string>
   <string name="preferences_initiate_reset_title">Bloque de la cadena de reinicio</string>
   <string name="preferences_initiate_reset_summary">Cambiar cadena de bloque, las transacciones y el equilibrio billetera. Replay tomará un tiempo.</string>
@@ -283,6 +291,7 @@
   <string name="report_issue_dialog_mail_intent_chooser">Enviar informe mediante…</string>
   <string name="about_title">Acerca de</string>
   <string name="about_version_title">Versión</string>
+  <string name="about_version_apk_hash_title">Suma HA256 de la APK</string>
   <string name="about_copyright_title">Copyright</string>
   <string name="about_license_title">Licencia</string>
   <string name="about_source_title">Código fuente</string>
@@ -299,12 +308,17 @@
   <string name="about_faq_title">Prefuntas Frecuentes</string>
   <string name="about_faq_summary">Preguntas frecuentes sobre la aplicación</string>
   <string name="notification_coins_received_msg">%s Recibidos</string>
+  <string name="notification_connectivity_syncing_message">Sincronizando con la red…</string>
+  <string name="notification_connectivity_syncing_trusted_peer">Sincronizando con sus pares de confianza…</string>
   <string name="notification_peers_connected_msg">%d pares conectados</string>
+  <string name="notification_peer_connected">conectado</string>
+  <string name="notification_peer_not_connected">no conectado</string>
   <string name="notification_inactivity_title">¡Aún tienes Bitcoins en este dispositivo!</string>
   <string name="notification_inactivity_message">Recuerda que tus %s Bitcoins se perderán si desinstalas la aplicación sin moverlos a otra billetera.</string>
   <string name="notification_inactivity_message_donate">Si no te importan tus Bitcoins, por favor considera donarlas al proyecto Bitcoin Wallet.</string>
   <string name="notification_inactivity_action_dismiss">Avísame después</string>
   <string name="notification_inactivity_action_dismiss_forever">No recordar</string>
+  <string name="notification_bluetooth_service_listening">Listo para recibir pagos mediante Bluetooth</string>
   <string name="notification_channel_received_name">Pagos recibidos</string>
   <string name="notification_channel_ongoing_name">Actividad de fondo</string>
   <string name="notification_channel_important_name">Alertas importantes</string>
@@ -328,6 +342,7 @@
   <string name="button_send_coins">Enviar</string>
   <string name="button_scan">Explorar</string>
   <string name="button_settings">Ajustes</string>
+  <string name="button_options">Más opciones</string>
   <string name="action_show_qr">Mostrar código QR</string>
   <string name="action_browse">Navegar</string>
   <!--generic strings-->
@@ -335,6 +350,7 @@
   <string name="address_unlabeled">(sin nombre)</string>
   <string name="private_key_password">PIN</string>
   <string name="private_key_bad_password">¡PIN incorrecto!</string>
+  <string name="qr_code">Código QR</string>
   <!--generic error messages-->
   <string name="error_io">Error de entrada/salida: %s</string>
   <string name="error_parse">Error de lectura: %s</string>

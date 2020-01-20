@@ -11,6 +11,8 @@
 • Notificación del sistema al recibir bitcoins.
 • Barrido de monederos de papel (por ejemplo, los que se utilizan para custodia en frio).
 • Widget para el saldo de bitcoins.
+• Seguridad: Soporta SegWit y el nuevo formato bech32.
+• Privacidad: Soporta Tor mediante Orbot app.
 
 
 <b>CONTRIBUIR</b>
