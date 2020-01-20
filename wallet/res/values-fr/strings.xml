@@ -265,6 +265,8 @@
   <string name="preferences_remind_balance_summary">Après quelques semaines sans utilisation, l’appli vous signalera s’il y a encore des pièces dans le porte-monnaie.</string>
   <string name="preferences_show_disclaimer_title">Afficher l’avis de non-responsabilité</string>
   <string name="preferences_show_disclaimer_summary">Avez-vous vraiment lu les consignes de sécurité ? Avez-vous déjà sauvegardé votre porte-monnaie en lieu sûr ?</string>
+  <string name="preferences_bluetooth_address_title">Adresse Bluetooth</string>
+  <string name="preferences_bluetooth_address_summary">Configurez manuellement votre propre adresse Bluetooth afin de recevoir des paiements de payeurs, sans connectivité. Il vous faudra d’abord chercher l’adresse de votre appareil dans les paramètres Bluetooth d’Android.</string>
   <string name="preferences_report_issue_title">Signaler un problème</string>
   <string name="preferences_initiate_reset_title">Réinitialiser la chaîne de blocs</string>
   <string name="preferences_initiate_reset_summary">Réinitialiser la chaîne de blocs et le solde du porte-monnaie. La relecture prendra du temps, ne le faites que si vous savez pourquoi.</string>
@@ -316,6 +318,7 @@
   <string name="notification_inactivity_message_donate">Si ces quelques pièces vous importent peu, vous pourriez aussi en faire  le don au projet Bitcoin Wallet.</string>
   <string name="notification_inactivity_action_dismiss">Rappeler + tard</string>
   <string name="notification_inactivity_action_dismiss_forever">Ne plus rappeler</string>
+  <string name="notification_bluetooth_service_listening">Vous êtes prêt à recevoir des paiements par Bluetooth</string>
   <string name="notification_channel_received_name">Paiements reçus</string>
   <string name="notification_channel_ongoing_name">Activité d’arrière-plan</string>
   <string name="notification_channel_important_name">Alertes importantes</string>

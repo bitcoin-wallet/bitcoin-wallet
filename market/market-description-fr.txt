@@ -6,7 +6,7 @@
 • Aucun inscription, service Web ou nuage n’est requis ! Ce porte-monnaie est décentralisé et pair à pair.
 • Affichage du montant de bitcoins en BTC, mBTC et µBTC.
 • Conversion vers et à partir de monnaies nationales.
-• Envoi et réception de bitcoins par NFC, codes QR ou URL Bitcoin.
+• Envoi et réception de bitcoins par NFC, codes QR ou URL Bitcoin.
 • Quand vous êtes hors ligne, vous pouvez quand même payer par Bluetooth.
 • Notification du système pour les pièces reçues.
 • Balayage des porte-monnaie de papier (c.-à-d. ceux utilisés pour le stockage à froid).
