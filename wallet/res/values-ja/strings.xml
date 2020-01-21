@@ -265,6 +265,8 @@
   <string name="preferences_remind_balance_summary">数週間使われていない場合、まだウォレット内にコインが残っていればアプリが通知を出します。</string>
   <string name="preferences_show_disclaimer_title">免責条項を表示する</string>
   <string name="preferences_show_disclaimer_summary">本当に安全に関する注意事項を読みましたか? ウォレットを安全な場所にバックアップしましたか?</string>
+  <string name="preferences_bluetooth_address_title">Bluetoothアドレス</string>
+  <string name="preferences_bluetooth_address_summary">ネットワークに接続していない支払い人から支払いを受け取るために、あなたのBluetoothアドレスを設定してください。デバイスのアドレスはAndroidのBluetooth設定で見られます。</string>
   <string name="preferences_report_issue_title">問題を報告</string>
   <string name="preferences_initiate_reset_title">ブロックチェーンのリセット</string>
   <string name="preferences_initiate_reset_summary">ブロックチェーン・トランザクション・ウォレットの残高をリセットします。再生にしばらくかかるため、必要な理由がわかる場合のみ実行してください。</string>
@@ -316,6 +318,7 @@
   <string name="notification_inactivity_message_donate">もしコインが必要ないのであれば、Bitcoin Walletプロジェクトに寄付するという選択肢もあります。</string>
   <string name="notification_inactivity_action_dismiss">後で再び通知する</string>
   <string name="notification_inactivity_action_dismiss_forever">後で通知しない</string>
+  <string name="notification_bluetooth_service_listening">Bluetoothで支払いを受け取る準備ができました</string>
   <string name="notification_channel_received_name">支払いの受け取り</string>
   <string name="notification_channel_ongoing_name">バックグラウンドでの動作</string>
   <string name="notification_channel_important_name">重要なお知らせ</string>
