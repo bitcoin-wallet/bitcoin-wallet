@@ -46,7 +46,7 @@ public class MaybeMaintenanceFragment extends Fragment {
         viewModel = new ViewModelProvider(this).get(MaybeMaintenanceViewModel.class);
         viewModel.showDialog.observe(this, v -> {
             if (!viewModel.getDialogWasShown()) {
-                MaintenanceDialogFragment.show(getFragmentManager());
+                MaintenanceDialogFragment.show(getParentFragmentManager());
                 viewModel.setDialogWasShown();
             }
         });

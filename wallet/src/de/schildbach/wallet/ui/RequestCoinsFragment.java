@@ -142,7 +142,7 @@ public final class RequestCoinsFragment extends Fragment {
         viewModel.showBitmapDialog.observe(this, new Event.Observer<Bitmap>() {
             @Override
             public void onEvent(final Bitmap bitmap) {
-                BitmapFragment.show(getFragmentManager(), bitmap);
+                BitmapFragment.show(getParentFragmentManager(), bitmap);
             }
         });
 

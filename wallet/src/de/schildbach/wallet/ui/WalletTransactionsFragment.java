@@ -139,19 +139,19 @@ public class WalletTransactionsFragment extends Fragment implements Transactions
         viewModel.showBitmapDialog.observe(this, new Event.Observer<Bitmap>() {
             @Override
             public void onEvent(final Bitmap bitmap) {
-                BitmapFragment.show(getFragmentManager(), bitmap);
+                BitmapFragment.show(getParentFragmentManager(), bitmap);
             }
         });
         viewModel.showEditAddressBookEntryDialog.observe(this, new Event.Observer<Address>() {
             @Override
             public void onEvent(final Address address) {
-                EditAddressBookEntryFragment.edit(getFragmentManager(), address);
+                EditAddressBookEntryFragment.edit(getParentFragmentManager(), address);
             }
         });
         viewModel.showReportIssueDialog.observe(this, new Event.Observer<Sha256Hash>() {
             @Override
             public void onEvent(final Sha256Hash transactionHash) {
-                ReportIssueDialogFragment.show(getFragmentManager(), R.string.report_issue_dialog_title_transaction,
+                ReportIssueDialogFragment.show(getParentFragmentManager(), R.string.report_issue_dialog_title_transaction,
                         R.string.report_issue_dialog_message_issue, Constants.REPORT_SUBJECT_ISSUE, transactionHash);
             }
         });
@@ -295,7 +295,7 @@ public class WalletTransactionsFragment extends Fragment implements Transactions
                     viewModel.showBitmapDialog.setValue(new Event<>(qrCodeBitmap));
                     return true;
                 } else if (itemId == R.id.wallet_transactions_context_raise_fee) {
-                    RaiseFeeDialogFragment.show(getFragmentManager(), tx);
+                    RaiseFeeDialogFragment.show(getParentFragmentManager(), tx);
                     return true;
                 } else if (itemId == R.id.wallet_transactions_context_report_issue) {
                     handleReportIssue(tx);

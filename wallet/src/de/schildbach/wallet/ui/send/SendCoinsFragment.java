@@ -345,7 +345,7 @@ public final class SendCoinsFragment extends Fragment {
         this.config = application.getConfiguration();
         this.addressBookDao = AppDatabase.getDatabase(context).addressBookDao();
         this.contentResolver = application.getContentResolver();
-        this.fragmentManager = getFragmentManager();
+        this.fragmentManager = getParentFragmentManager();
     }
 
     @Override

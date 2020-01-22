@@ -130,7 +130,7 @@ public class SweepWalletFragment extends Fragment {
         this.activity = (AbstractWalletActivity) context;
         this.application = activity.getWalletApplication();
         this.config = application.getConfiguration();
-        this.fragmentManager = getFragmentManager();
+        this.fragmentManager = getParentFragmentManager();
     }
 
     @Override

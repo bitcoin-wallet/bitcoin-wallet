@@ -297,7 +297,7 @@ public class BackupWalletDialogFragment extends DialogFragment {
                                     targetProvider != null ? " (" + targetProvider + ")" : "", cipherText.length());
                         } catch (final IOException x) {
                             log.error("problem backing up wallet to " + targetUri, x);
-                            ErrorDialogFragment.showDialog(getFragmentManager(), x.toString());
+                            ErrorDialogFragment.showDialog(getParentFragmentManager(), x.toString());
                             return;
                         }
 
@@ -314,11 +314,11 @@ public class BackupWalletDialogFragment extends DialogFragment {
 
                             log.info("verified successfully: '" + targetUri + "'");
                             application.getConfiguration().disarmBackupReminder();
-                            SuccessDialogFragment.showDialog(getFragmentManager(),
+                            SuccessDialogFragment.showDialog(getParentFragmentManager(),
                                     targetProvider != null ? targetProvider : targetUri.toString());
                         } catch (final IOException x) {
                             log.error("problem verifying backup from " + targetUri, x);
-                            ErrorDialogFragment.showDialog(getFragmentManager(), x.toString());
+                            ErrorDialogFragment.showDialog(getParentFragmentManager(), x.toString());
                             return;
                         }
                     }

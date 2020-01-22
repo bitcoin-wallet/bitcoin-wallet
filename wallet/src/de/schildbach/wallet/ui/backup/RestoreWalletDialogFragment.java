@@ -109,7 +109,7 @@ public class RestoreWalletDialogFragment extends DialogFragment {
         this.application = activity.getWalletApplication();
         this.contentResolver = application.getContentResolver();
         this.config = application.getConfiguration();
-        this.fragmentManager = getFragmentManager();
+        this.fragmentManager = getParentFragmentManager();
     }
 
     @Override
@@ -336,7 +336,7 @@ public class RestoreWalletDialogFragment extends DialogFragment {
                 if (activity instanceof RestoreWalletFromExternalActivity)
                     activity.finish();
             });
-            dialog.setNegativeButton(R.string.button_retry, (dialog1, id) -> RestoreWalletDialogFragment.show(getFragmentManager(), backupUri));
+            dialog.setNegativeButton(R.string.button_retry, (dialog1, id) -> RestoreWalletDialogFragment.show(getParentFragmentManager(), backupUri));
             return dialog.create();
         }
     }

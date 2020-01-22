@@ -91,13 +91,13 @@ public final class WalletAddressesFragment extends FancyListFragment {
         viewModel.showBitmapDialog.observe(this, new Event.Observer<Bitmap>() {
             @Override
             public void onEvent(final Bitmap bitmap) {
-                BitmapFragment.show(getFragmentManager(), bitmap);
+                BitmapFragment.show(getParentFragmentManager(), bitmap);
             }
         });
         viewModel.showEditAddressBookEntryDialog.observe(this, new Event.Observer<Address>() {
             @Override
             public void onEvent(final Address address) {
-                EditAddressBookEntryFragment.edit(getFragmentManager(), address);
+                EditAddressBookEntryFragment.edit(getParentFragmentManager(), address);
             }
         });
 
