@@ -77,7 +77,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 
 /**
  * @author Andreas Schildbach
@@ -139,7 +139,7 @@ public final class ScanActivity extends AbstractWalletActivity
         super.onCreate(savedInstanceState);
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
-        viewModel = ViewModelProviders.of(this).get(ScanViewModel.class);
+        viewModel = new ViewModelProvider(this).get(ScanViewModel.class);
         viewModel.showPermissionWarnDialog.observe(this, new Event.Observer<Void>() {
             @Override
             public void onEvent(final Void v) {

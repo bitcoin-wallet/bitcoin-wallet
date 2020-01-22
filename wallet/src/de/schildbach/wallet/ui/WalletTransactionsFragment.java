@@ -59,8 +59,7 @@ import android.widget.PopupMenu.OnMenuItemClickListener;
 import android.widget.TextView;
 import android.widget.ViewAnimator;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 /**
@@ -102,8 +101,8 @@ public class WalletTransactionsFragment extends Fragment implements Transactions
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
-        activityViewModel = ViewModelProviders.of(activity).get(WalletActivityViewModel.class);
-        viewModel = ViewModelProviders.of(this).get(WalletTransactionsViewModel.class);
+        activityViewModel = new ViewModelProvider(activity).get(WalletActivityViewModel.class);
+        viewModel = new ViewModelProvider(this).get(WalletTransactionsViewModel.class);
 
         viewModel.direction.observe(this, direction -> activity.invalidateOptionsMenu());
         viewModel.transactions.observe(this, transactions -> {

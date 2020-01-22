@@ -34,7 +34,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ViewAnimator;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -59,7 +59,7 @@ public final class PeerListFragment extends Fragment {
     @Override
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        viewModel = ViewModelProviders.of(this).get(PeerListViewModel.class);
+        viewModel = new ViewModelProvider(this).get(PeerListViewModel.class);
         viewModel.peers.observe(this, peers -> {
             viewGroup.setDisplayedChild((peers == null || peers.isEmpty()) ? 1 : 2);
             maybeSubmitList();

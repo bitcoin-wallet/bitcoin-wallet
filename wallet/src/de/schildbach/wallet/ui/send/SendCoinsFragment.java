@@ -120,7 +120,7 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 
 /**
  * @author Andreas Schildbach
@@ -353,7 +353,7 @@ public final class SendCoinsFragment extends Fragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
-        viewModel = ViewModelProviders.of(this).get(SendCoinsViewModel.class);
+        viewModel = new ViewModelProvider(this).get(SendCoinsViewModel.class);
         viewModel.wallet.observe(this, wallet -> updateView());
         viewModel.addressBook.observe(this, addressBook -> updateView());
         if (Constants.ENABLE_EXCHANGE_RATES) {

@@ -36,7 +36,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 
 /**
  * @author Andreas Schildbach
@@ -76,7 +76,7 @@ public final class SendCoinsActivity extends AbstractWalletActivity {
         log.info("Referrer: {}", ActivityCompat.getReferrer(this));
         setContentView(R.layout.send_coins_content);
 
-        viewModel = ViewModelProviders.of(this).get(SendCoinsActivityViewModel.class);
+        viewModel = new ViewModelProvider(this).get(SendCoinsActivityViewModel.class);
         viewModel.showHelpDialog.observe(this, new Event.Observer<Integer>() {
             @Override
             public void onEvent(final Integer messageResId) {

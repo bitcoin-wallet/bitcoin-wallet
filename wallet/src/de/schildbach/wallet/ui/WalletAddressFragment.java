@@ -39,8 +39,7 @@ import android.widget.ImageView;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 
 /**
  * @author Andreas Schildbach
@@ -69,8 +68,8 @@ public final class WalletAddressFragment extends Fragment {
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        activityViewModel = ViewModelProviders.of(activity).get(WalletActivityViewModel.class);
-        viewModel = ViewModelProviders.of(this).get(WalletAddressViewModel.class);
+        activityViewModel = new ViewModelProvider(activity).get(WalletActivityViewModel.class);
+        viewModel = new ViewModelProvider(this).get(WalletAddressViewModel.class);
 
         viewModel.qrCode.observe(this, qrCode -> {
             final BitmapDrawable qrDrawable = new BitmapDrawable(getResources(), qrCode);

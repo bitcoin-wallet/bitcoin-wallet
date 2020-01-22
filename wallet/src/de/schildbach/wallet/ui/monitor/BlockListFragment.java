@@ -50,8 +50,7 @@ import android.widget.PopupMenu;
 import android.widget.PopupMenu.OnMenuItemClickListener;
 import android.widget.ViewAnimator;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 /**
@@ -81,7 +80,7 @@ public final class BlockListFragment extends Fragment implements BlockListAdapte
     @Override
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        viewModel = ViewModelProviders.of(this).get(BlockListViewModel.class);
+        viewModel = new ViewModelProvider(this).get(BlockListViewModel.class);
         viewModel.blocks.observe(this, blocks -> {
             maybeSubmitList();
             viewGroup.setDisplayedChild(1);

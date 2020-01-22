@@ -45,7 +45,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 
 /**
  * @author Andreas Schildbach
@@ -83,8 +83,8 @@ public final class WalletBalanceFragment extends Fragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
-        activityViewModel = ViewModelProviders.of(activity).get(WalletActivityViewModel.class);
-        viewModel = ViewModelProviders.of(this).get(WalletBalanceViewModel.class);
+        activityViewModel = new ViewModelProvider(activity).get(WalletActivityViewModel.class);
+        viewModel = new ViewModelProvider(this).get(WalletBalanceViewModel.class);
 
         application.blockchainState.observe(this, blockchainState -> updateView());
         viewModel.getBalance().observe(this, balance -> {

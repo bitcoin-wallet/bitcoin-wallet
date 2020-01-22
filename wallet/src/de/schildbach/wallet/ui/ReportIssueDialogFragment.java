@@ -63,7 +63,7 @@ import android.os.Bundle;
 import android.widget.Button;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 
 /**
  * @author Andreas Schildbach
@@ -111,7 +111,7 @@ public class ReportIssueDialogFragment extends DialogFragment {
         super.onCreate(savedInstanceState);
         log.info("opening dialog {}", getClass().getName());
 
-        viewModel = ViewModelProviders.of(this).get(ReportIssueViewModel.class);
+        viewModel = new ViewModelProvider(this).get(ReportIssueViewModel.class);
     }
 
     @Override

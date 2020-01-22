@@ -39,8 +39,7 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import com.google.common.io.CharStreams;
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
@@ -118,7 +117,7 @@ public class RestoreWalletDialogFragment extends DialogFragment {
         super.onCreate(savedInstanceState);
         log.info("opening dialog {}", getClass().getName());
 
-        viewModel = ViewModelProviders.of(this).get(RestoreWalletViewModel.class);
+        viewModel = new ViewModelProvider(this).get(RestoreWalletViewModel.class);
         viewModel.showSuccessDialog.observe(this, new Event.Observer<Boolean>() {
             @Override
             public void onEvent(final Boolean showEncryptedMessage) {

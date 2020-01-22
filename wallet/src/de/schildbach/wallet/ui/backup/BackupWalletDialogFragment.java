@@ -74,7 +74,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 
 /**
  * @author Andreas Schildbach
@@ -130,7 +130,7 @@ public class BackupWalletDialogFragment extends DialogFragment {
         super.onCreate(savedInstanceState);
         log.info("opening dialog {}", getClass().getName());
 
-        viewModel = ViewModelProviders.of(this).get(BackupWalletViewModel.class);
+        viewModel = new ViewModelProvider(this).get(BackupWalletViewModel.class);
     }
 
     @Override

@@ -36,7 +36,7 @@ import android.view.ViewParent;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 
 /**
  * @author Andreas Schildbach
@@ -61,8 +61,8 @@ public final class WalletDisclaimerFragment extends Fragment {
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        activityViewModel = ViewModelProviders.of(activity).get(WalletActivityViewModel.class);
-        viewModel = ViewModelProviders.of(this).get(WalletDisclaimerViewModel.class);
+        activityViewModel = new ViewModelProvider(activity).get(WalletActivityViewModel.class);
+        viewModel = new ViewModelProvider(this).get(WalletDisclaimerViewModel.class);
 
         application.blockchainState.observe(this, blockchainState -> updateView());
         viewModel.getDisclaimerEnabled().observe(this, disclaimerEnabled -> updateView());

@@ -64,8 +64,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 
 /**
  * @author Andreas Schildbach
@@ -95,7 +94,7 @@ public final class SendingAddressesFragment extends FancyListFragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
-        viewModel = ViewModelProviders.of(this).get(SendingAddressesViewModel.class);
+        viewModel = new ViewModelProvider(this).get(SendingAddressesViewModel.class);
         viewModel.wallet.observe(this, wallet -> activity.invalidateOptionsMenu());
         viewModel.addressesToExclude.observe(this, addressesToExclude -> {
             viewModel.addressBook = addressBookDao.getAllExcept(addressesToExclude);

@@ -51,8 +51,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 
 /**
  * @author Andreas Schildbach
@@ -83,7 +82,7 @@ public final class WalletAddressesFragment extends FancyListFragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
-        viewModel = ViewModelProviders.of(this).get(WalletAddressesViewModel.class);
+        viewModel = new ViewModelProvider(this).get(WalletAddressesViewModel.class);
         viewModel.issuedReceiveAddresses.observe(this, issuedReceiveAddresses -> adapter.replaceDerivedAddresses(issuedReceiveAddresses));
         viewModel.importedAddresses.observe(this, importedAddresses -> adapter.replaceRandomAddresses(importedAddresses));
         viewModel.wallet.observe(this, wallet -> adapter.setWallet(wallet));

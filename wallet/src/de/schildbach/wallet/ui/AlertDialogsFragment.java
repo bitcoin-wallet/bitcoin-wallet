@@ -57,7 +57,7 @@ import android.text.format.DateUtils;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import okhttp3.Call;
 import okhttp3.ConnectionSpec;
 import okhttp3.Headers;
@@ -102,7 +102,7 @@ public class AlertDialogsFragment extends Fragment {
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        viewModel = ViewModelProviders.of(this).get(AlertDialogsViewModel.class);
+        viewModel = new ViewModelProvider(this).get(AlertDialogsViewModel.class);
         viewModel.showTimeskewAlertDialog.observe(this, new Event.Observer<Long>() {
             @Override
             public void onEvent(final Long diffMinutes) {
