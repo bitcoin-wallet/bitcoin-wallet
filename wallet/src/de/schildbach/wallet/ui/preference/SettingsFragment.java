@@ -38,10 +38,13 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Process;
+import android.preference.EditTextPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceFragment;
 import android.provider.Settings;
+import android.text.InputFilter;
+import android.text.Spanned;
 
 /**
  * @author Andreas Schildbach
@@ -58,8 +61,9 @@ public final class SettingsFragment extends PreferenceFragment implements OnPref
 
     private Preference trustedPeerPreference;
     private Preference trustedPeerOnlyPreference;
-    private Preference bluetoothAddressPreference;
+    private EditTextPreference bluetoothAddressPreference;
 
+    private static final int BLUETOOTH_ADDRESS_LENGTH = 6 * 2 + 5; // including the colons
     private static final Logger log = LoggerFactory.getLogger(SettingsFragment.class);
 
     @Override
@@ -100,8 +104,11 @@ public final class SettingsFragment extends PreferenceFragment implements OnPref
             notificationsPreference.setEnabled(pm.resolveActivity(notificationsPreference.getIntent(), 0) != null);
         }
 
-        bluetoothAddressPreference = findPreference(Configuration.PREFS_KEY_BLUETOOTH_ADDRESS);
+        bluetoothAddressPreference = (EditTextPreference) findPreference(Configuration.PREFS_KEY_BLUETOOTH_ADDRESS);
         bluetoothAddressPreference.setOnPreferenceChangeListener(this);
+        bluetoothAddressPreference.getEditText().setFilters(
+                new InputFilter[] { new InputFilter.LengthFilter(BLUETOOTH_ADDRESS_LENGTH),
+                        new InputFilter.AllCaps(Locale.US), new RestrictToHex() });
 
         updateTrustedPeer();
         updateBluetoothAddress();
@@ -176,6 +183,20 @@ public final class SettingsFragment extends PreferenceFragment implements OnPref
             }
         } else {
             bluetoothAddressPreference.getParent().removePreference(bluetoothAddressPreference);
+        }
+    }
+
+    private static class RestrictToHex implements InputFilter {
+        @Override
+        public CharSequence filter(final CharSequence source, final int start, final int end, final Spanned dest,
+                                   final int dstart, final int dend) {
+            final StringBuilder result = new StringBuilder();
+            for (int i = start; i < end; i++) {
+                final char c = source.charAt(i);
+                if ((c >= '0' && c <= '9') || (c >= 'a' && c <= 'f') || (c >= 'A' && c <= 'F') || c == ':')
+                    result.append(c);
+            }
+            return result;
         }
     }
 }
