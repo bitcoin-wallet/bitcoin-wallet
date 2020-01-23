@@ -43,8 +43,10 @@ import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceFragment;
 import android.provider.Settings;
+import android.text.Editable;
 import android.text.InputFilter;
 import android.text.Spanned;
+import android.text.TextWatcher;
 
 /**
  * @author Andreas Schildbach
@@ -109,6 +111,7 @@ public final class SettingsFragment extends PreferenceFragment implements OnPref
         bluetoothAddressPreference.getEditText().setFilters(
                 new InputFilter[] { new InputFilter.LengthFilter(BLUETOOTH_ADDRESS_LENGTH),
                         new InputFilter.AllCaps(Locale.US), new RestrictToHex() });
+        bluetoothAddressPreference.getEditText().addTextChangedListener(colonFormat);
 
         updateTrustedPeer();
         updateBluetoothAddress();
@@ -116,6 +119,7 @@ public final class SettingsFragment extends PreferenceFragment implements OnPref
 
     @Override
     public void onDestroy() {
+        bluetoothAddressPreference.getEditText().removeTextChangedListener(colonFormat);
         bluetoothAddressPreference.setOnPreferenceChangeListener(null);
         trustedPeerOnlyPreference.setOnPreferenceChangeListener(null);
         trustedPeerPreference.setOnPreferenceChangeListener(null);
@@ -199,4 +203,36 @@ public final class SettingsFragment extends PreferenceFragment implements OnPref
             return result;
         }
     }
+
+    private final TextWatcher colonFormat = new TextWatcher() {
+        private boolean inFlight = false;
+
+        @Override
+        public void afterTextChanged(final Editable s) {
+            if (inFlight)
+                return;
+
+            inFlight = true;
+            for (int i = 0; i < s.length(); i++) {
+                final boolean atColon = i % 3 == 2;
+                final char c = s.charAt(i);
+                if (atColon) {
+                    if (c != ':')
+                        s.insert(i, ":");
+                } else {
+                    if (c == ':')
+                        s.delete(i, i + 1);
+                }
+            }
+            inFlight = false;
+        }
+
+        @Override
+        public void beforeTextChanged(final CharSequence s, final int start, final int count, final int after) {
+        }
+
+        @Override
+        public void onTextChanged(final CharSequence s, final int start, final int before, final int count) {
+        }
+    };
 }
