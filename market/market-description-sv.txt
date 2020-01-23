@@ -1,16 +1,16 @@
-<b>Ha alltid dina bitcoin med dig i fickan!</b> Du gör betalningar genom att snabbt scanna en QR-kod. Handlare får betalningar tillförlitligt och omedelbart. Bitcoin Wallet är den första mobila bitcoin-appen, och utan tvekan den mest säkra!
+<b>Ha alltid dina bitcoin med dig i fickan!</b> Du betalar snabbt genom att skanna en QR-kod. Handlare får betalningar tillförlitligt och omedelbart. Bitcoin Wallet är den första mobila bitcoin-appen, och utan tvekan den mest säkra!
 
 
 <b>FUNKTIONER</b>
 
 • Ingen registrering, web- eller molntjänst behövs! Bitcoin Wallet är decentraliserad och peer-to-peer.
 • Visa summa bitcoin i BTC, mBTC eller µBTC.
-• Konventering till och från nationell valuta.
+• Konvertering till och från nationella valutor.
 • Skicka och ta emot bitcoin via NFC, QR-koder eller en Bitcoin-URL.
 • När du är nedkopplad kan du fortfarande betala via Bluetooth.
 • Meddelande om mottagna bitcoin.
-• Inläsning av pappersplånbok (tex. sådan som används för permanent lagring).
-• App widget som visar ditt saldo.
+• Inläsning av pappersplånbok (t.ex. sådan som används för permanent lagring).
+• App-widget som visar ditt saldo.
 
 
 <b>BIDRA</b>
