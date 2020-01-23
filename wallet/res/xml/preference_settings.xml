@@ -12,7 +12,8 @@
     <EditTextPreference
         android:key="own_name"
         android:summary="@string/preferences_own_name_summary"
-        android:title="@string/preferences_own_name_title" />
+        android:title="@string/preferences_own_name_title"
+        android:inputType="text" />
 
     <CheckBoxPreference
         android:defaultValue="true"
@@ -23,7 +24,8 @@
     <EditTextPreference
         android:key="trusted_peer"
         android:summary="@string/preferences_trusted_peer_summary"
-        android:title="@string/preferences_trusted_peer_title" />
+        android:title="@string/preferences_trusted_peer_title"
+        android:inputType="text|textNoSuggestions" />
 
     <CheckBoxPreference
         android:defaultValue="false"
@@ -67,6 +69,7 @@
     <EditTextPreference
         android:key="bluetooth_address"
         android:title="@string/preferences_bluetooth_address_title"
-        android:summary="@string/preferences_bluetooth_address_summary" />
+        android:summary="@string/preferences_bluetooth_address_summary"
+        android:inputType="text|textNoSuggestions" />
 
 </PreferenceScreen>

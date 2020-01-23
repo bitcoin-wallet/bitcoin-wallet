@@ -38,7 +38,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Process;
-import android.preference.EditTextPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceFragment;
@@ -84,7 +83,6 @@ public final class SettingsFragment extends PreferenceFragment implements OnPref
         backgroundHandler = new Handler(backgroundThread.getLooper());
 
         trustedPeerPreference = findPreference(Configuration.PREFS_KEY_TRUSTED_PEER);
-        ((EditTextPreference) trustedPeerPreference).getEditText().setSingleLine();
         trustedPeerPreference.setOnPreferenceChangeListener(this);
 
         trustedPeerOnlyPreference = findPreference(Configuration.PREFS_KEY_TRUSTED_PEER_ONLY);
