@@ -100,23 +100,11 @@ public final class SettingsFragment extends PreferenceFragment implements OnPref
             notificationsPreference.setEnabled(pm.resolveActivity(notificationsPreference.getIntent(), 0) != null);
         }
 
-        updateTrustedPeer();
-
         bluetoothAddressPreference = findPreference(Configuration.PREFS_KEY_BLUETOOTH_ADDRESS);
-        final BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-        if (bluetoothAdapter != null) {
-            String bluetoothAddress = Bluetooth.getAddress(bluetoothAdapter);
-            if (bluetoothAddress == null)
-                bluetoothAddress = config.getLastBluetoothAddress();
-            if (bluetoothAddress != null) {
-                bluetoothAddressPreference.setSummary(bluetoothAddress);
-                bluetoothAddressPreference.setEnabled(false);
-            } else {
-                bluetoothAddressPreference.setOnPreferenceChangeListener(this);
-            }
-        } else {
-            bluetoothAddressPreference.getParent().removePreference(bluetoothAddressPreference);
-        }
+        bluetoothAddressPreference.setOnPreferenceChangeListener(this);
+
+        updateTrustedPeer();
+        updateBluetoothAddress();
     }
 
     @Override
@@ -170,9 +158,24 @@ public final class SettingsFragment extends PreferenceFragment implements OnPref
     }
 
     private void updateBluetoothAddress() {
-        final String bluetoothAddress = config.getBluetoothAddress();
-        final String normalizedBluetoothAddress =
-                Bluetooth.decompressMac(Bluetooth.compressMac(bluetoothAddress)).toUpperCase(Locale.US);
-        config.setBluetoothAddress(normalizedBluetoothAddress);
+        final BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        if (bluetoothAdapter != null) {
+            String bluetoothAddress = Bluetooth.getAddress(bluetoothAdapter);
+            if (bluetoothAddress == null)
+                bluetoothAddress = config.getLastBluetoothAddress();
+            if (bluetoothAddress != null) {
+                bluetoothAddressPreference.setSummary(bluetoothAddress);
+                bluetoothAddressPreference.setEnabled(false);
+            } else {
+                bluetoothAddress = config.getBluetoothAddress();
+                if (bluetoothAddress != null) {
+                    final String normalizedBluetoothAddress =
+                            Bluetooth.decompressMac(Bluetooth.compressMac(bluetoothAddress)).toUpperCase(Locale.US);
+                    bluetoothAddressPreference.setSummary(normalizedBluetoothAddress);
+                }
+            }
+        } else {
+            bluetoothAddressPreference.getParent().removePreference(bluetoothAddressPreference);
+        }
     }
 }
