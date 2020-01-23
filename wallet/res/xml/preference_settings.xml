@@ -70,6 +70,7 @@
         android:key="bluetooth_address"
         android:title="@string/preferences_bluetooth_address_title"
         android:summary="@string/preferences_bluetooth_address_summary"
+        android:dialogMessage="@string/preferences_bluetooth_address_dialog_message"
         android:inputType="text|textNoSuggestions" />
 
 </PreferenceScreen>

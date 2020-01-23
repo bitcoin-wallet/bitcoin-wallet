@@ -269,7 +269,8 @@
     <string name="preferences_show_disclaimer_title">Disclaimer anzeigen</string>
     <string name="preferences_show_disclaimer_summary">Hast du wirklich die Sicherheitshinweise gelesen? Hast du deine Wallet bereits an einen sicheren Ort gesichert?</string>
     <string name="preferences_bluetooth_address_title">Bluetooth-Adresse</string>
-    <string name="preferences_bluetooth_address_summary">Stellt die eigene Blueooth-Adresse manuell ein, so daß du Zahlungen von Sendern ohne Konnektivität empfangen kannst. Du wirst erst die Adresse deines Geräts in den Android-Bluetooth-Einstellungen nachschauen wollen.</string>
+    <string name="preferences_bluetooth_address_summary">Stellt die eigene Blueooth-Adresse manuell ein, so daß du Zahlungen von Sendern ohne Konnektivität empfangen kannst.</string>
+    <string name="preferences_bluetooth_address_dialog_message">Leider verhindert Android die automatische Ermittlung der Bluetooth-Adresse deines Geräts. Du musst sie in den Android-Bluetooth-Einstellungen nachschauen und hier eintragen.\n\nAchte bitte darauf, daß jedes Zeichen richtig ist. Doppelpunkte können weggelassen werden, und die Groß- und Kleinschreibung ist nicht wichtig.</string>
     <string name="preferences_report_issue_title">Problem melden</string>
     <string name="preferences_initiate_reset_title">Blockchain zurücksetzen</string>
     <string name="preferences_initiate_reset_summary">Blockchain, Transaktionen und Guthaben werden zurückgesetzt. Das Wiedereinspielen wird eine Weile dauern, also mach das nur wenn du weisst warum.</string>
