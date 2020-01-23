@@ -78,7 +78,8 @@ public class Bluetooth {
         final StringBuilder mac = new StringBuilder();
         for (int i = 0; i < compressedMac.length(); i += 2)
             mac.append(compressedMac.substring(i, i + 2)).append(':');
-        mac.setLength(mac.length() - 1);
+        if (mac.length() > 0)
+            mac.setLength(mac.length() - 1);
 
         return mac.toString();
     }
