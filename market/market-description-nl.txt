@@ -11,6 +11,8 @@
 • Systeemmelding wanneer je Bitcoins ontvangt
 • Opname van papieren portemonnee (b.v. voor cold storage).
 • App widget voor Bitcoin saldo.
+• Veiligheid: Ondersteunt SegWit en het nieuwe bech32-format.
+• Privacy: Ondersteunt Tor via de externe Orbot-app.
 
 
 <b>HELP MEE</b>
