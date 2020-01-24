@@ -25,6 +25,7 @@
         android:key="trusted_peer"
         android:summary="@string/preferences_trusted_peer_summary"
         android:title="@string/preferences_trusted_peer_title"
+        android:dialogMessage="@string/preferences_trusted_peer_dialog_message"
         android:inputType="text|textNoSuggestions" />
 
     <CheckBoxPreference

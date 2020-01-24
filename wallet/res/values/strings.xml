@@ -252,6 +252,7 @@
     <string name="preferences_send_coins_autoclose_summary">When the payment is made, the send dialog will close automatically.</string>
     <string name="preferences_trusted_peer_title">Trusted peer</string>
     <string name="preferences_trusted_peer_summary">IP or hostname of single peer to connect to.</string>
+    <string name="preferences_trusted_peer_dialog_message">Please enter a valid IP address or hostname. If you have Tor set up, you can use an onion address here, too.</string>
     <string name="preferences_trusted_peer_resolve_progress">Resolving…</string>
     <string name="preferences_trusted_peer_resolve_unknown_host">Unknown hostname!</string>
     <string name="preferences_trusted_peer_only_title">Skip regular peer discovery</string>
