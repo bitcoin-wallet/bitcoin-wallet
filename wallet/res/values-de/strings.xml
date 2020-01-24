@@ -249,7 +249,7 @@
     <string name="preferences_precision_labels_2_3">mBTC, 2 Dezimalen</string>
     <string name="preferences_precision_labels_0_6">µBTC, keine Dezimalen</string>
     <string name="preferences_own_name_title">Eigener Name</string>
-    <string name="preferences_own_name_summary">Dein eigener Name oder der deiner Firma, der zu Zahlungsanforderungen an deine Kunden hinzugefügt wird.</string>
+    <string name="preferences_own_name_summary">Dein Name oder der deiner Firma, der zu Zahlungsanforderungen an deine Kunden hinzugefügt wird.</string>
     <string name="preferences_own_name_dialog_message">Bitte halte ihn kurz.</string>
     <string name="preferences_send_coins_autoclose_title">Senden-Dialog automatisch schließen</string>
     <string name="preferences_send_coins_autoclose_summary">Wenn die Zahlung gesendet ist, wird der Senden-Dialog automatisch geschlossen.</string>
