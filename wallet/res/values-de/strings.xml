@@ -239,6 +239,9 @@
     <string name="input_parser_invalid_paymentrequest">Ungültige Zahlungsanforderung:\n%s</string>
     <string name="input_parser_invalid_transaction">Ungültige Transaktion:\n%s</string>
     <string name="preferences_activity_title">Einstellungen</string>
+    <string name="preferences_category_general">Allgemein</string>
+    <string name="preferences_category_privacy">Kontrolle der Privatsphäre</string>
+    <string name="preferences_category_merchants">Händler</string>
     <string name="preferences_category_diagnostics">Diagnose</string>
     <string name="preferences_category_labs">Labor</string>
     <string name="preferences_precision_title">Stückelung und Genauigkeit</string>

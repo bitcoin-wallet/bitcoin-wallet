@@ -1,78 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <ListPreference
-        android:defaultValue="2/3"
-        android:entries="@array/preferences_precision_labels"
-        android:entryValues="@array/preferences_precision_values"
-        android:key="btc_precision"
-        android:summary="@string/preferences_precision_summary"
-        android:title="@string/preferences_precision_title" />
+    <PreferenceCategory android:title="@string/preferences_category_general">
+        <ListPreference
+            android:key="btc_precision"
+            android:title="@string/preferences_precision_title"
+            android:summary="@string/preferences_precision_summary"
+            android:defaultValue="2/3"
+            android:entries="@array/preferences_precision_labels"
+            android:entryValues="@array/preferences_precision_values" />
 
-    <EditTextPreference
-        android:key="own_name"
-        android:title="@string/preferences_own_name_title"
-        android:summary="@string/preferences_own_name_summary"
-        android:dialogMessage="@string/preferences_own_name_dialog_message"
-        android:inputType="text" />
+        <CheckBoxPreference
+            android:key="send_coins_autoclose"
+            android:title="@string/preferences_send_coins_autoclose_title"
+            android:summary="@string/preferences_send_coins_autoclose_summary"
+            android:defaultValue="true" />
 
-    <CheckBoxPreference
-        android:defaultValue="true"
-        android:key="send_coins_autoclose"
-        android:summary="@string/preferences_send_coins_autoclose_summary"
-        android:title="@string/preferences_send_coins_autoclose_title" />
+        <CheckBoxPreference
+            android:key="remind_balance"
+            android:title="@string/preferences_remind_balance_title"
+            android:summary="@string/preferences_remind_balance_summary"
+            android:defaultValue="true" />
 
-    <EditTextPreference
-        android:key="trusted_peer"
-        android:summary="@string/preferences_trusted_peer_summary"
-        android:title="@string/preferences_trusted_peer_title"
-        android:dialogMessage="@string/preferences_trusted_peer_dialog_message"
-        android:inputType="text|textNoSuggestions" />
+        <CheckBoxPreference
+            android:key="disclaimer"
+            android:title="@string/preferences_show_disclaimer_title"
+            android:summary="@string/preferences_show_disclaimer_summary"
+            android:defaultValue="true" />
 
-    <CheckBoxPreference
-        android:defaultValue="false"
-        android:key="trusted_peer_only"
-        android:summary="@string/preferences_trusted_peer_only_summary"
-        android:title="@string/preferences_trusted_peer_only_title" />
+        <Preference
+            android:key="data_usage"
+            android:title="@string/preferences_data_usage_title"
+            android:summary="@string/preferences_data_usage_summary">
+            <intent
+                android:targetClass="com.android.settings.Settings$DataUsageSummaryActivity"
+                android:targetPackage="com.android.settings" />
+        </Preference>
 
-    <ListPreference
-        android:entries="@array/preferences_block_explorer_labels"
-        android:entryValues="@array/preferences_block_explorer_values"
-        android:key="block_explorer"
-        android:summary="@string/preferences_block_explorer_summary"
-        android:title="@string/preferences_block_explorer_title" />
+        <Preference
+            android:enabled="false"
+            android:key="notifications"
+            android:title="@string/preferences_notifications_title"
+            android:summary="@string/preferences_notifications_summary" />
+    </PreferenceCategory>
 
-    <Preference
-        android:key="data_usage"
-        android:summary="@string/preferences_data_usage_summary"
-        android:title="@string/preferences_data_usage_title" >
-        <intent
-            android:targetClass="com.android.settings.Settings$DataUsageSummaryActivity"
-            android:targetPackage="com.android.settings" />
-    </Preference>
+    <PreferenceCategory android:title="@string/preferences_category_privacy">
+        <EditTextPreference
+            android:key="trusted_peer"
+            android:title="@string/preferences_trusted_peer_title"
+            android:summary="@string/preferences_trusted_peer_summary"
+            android:dialogMessage="@string/preferences_trusted_peer_dialog_message"
+            android:inputType="text|textNoSuggestions" />
 
-    <Preference
-        android:enabled="false"
-        android:key="notifications"
-        android:summary="@string/preferences_notifications_summary"
-        android:title="@string/preferences_notifications_title" />
+        <CheckBoxPreference
+            android:key="trusted_peer_only"
+            android:title="@string/preferences_trusted_peer_only_title"
+            android:summary="@string/preferences_trusted_peer_only_summary"
+            android:defaultValue="false" />
 
-    <CheckBoxPreference
-        android:defaultValue="true"
-        android:key="remind_balance"
-        android:summary="@string/preferences_remind_balance_summary"
-        android:title="@string/preferences_remind_balance_title" />
-    <CheckBoxPreference
-        android:defaultValue="true"
-        android:key="disclaimer"
-        android:summary="@string/preferences_show_disclaimer_summary"
-        android:title="@string/preferences_show_disclaimer_title" />
+        <ListPreference
+            android:key="block_explorer"
+            android:title="@string/preferences_block_explorer_title"
+            android:summary="@string/preferences_block_explorer_summary"
+            android:entries="@array/preferences_block_explorer_labels"
+            android:entryValues="@array/preferences_block_explorer_values" />
+    </PreferenceCategory>
 
-    <EditTextPreference
-        android:key="bluetooth_address"
-        android:title="@string/preferences_bluetooth_address_title"
-        android:summary="@string/preferences_bluetooth_address_summary"
-        android:dialogMessage="@string/preferences_bluetooth_address_dialog_message"
-        android:inputType="text|textNoSuggestions" />
+    <PreferenceCategory android:title="@string/preferences_category_merchants">
+        <EditTextPreference
+            android:key="own_name"
+            android:title="@string/preferences_own_name_title"
+            android:summary="@string/preferences_own_name_summary"
+            android:dialogMessage="@string/preferences_own_name_dialog_message"
+            android:inputType="text" />
 
+        <EditTextPreference
+            android:key="bluetooth_address"
+            android:title="@string/preferences_bluetooth_address_title"
+            android:summary="@string/preferences_bluetooth_address_summary"
+            android:dialogMessage="@string/preferences_bluetooth_address_dialog_message"
+            android:inputType="text|textNoSuggestions" />
+    </PreferenceCategory>
 </PreferenceScreen>

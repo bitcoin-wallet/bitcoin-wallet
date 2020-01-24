@@ -237,6 +237,9 @@
     <string name="input_parser_invalid_paymentrequest">Invalid payment request:\n%s</string>
     <string name="input_parser_invalid_transaction">Invalid transaction:\n%s</string>
     <string name="preferences_activity_title">Settings</string>
+    <string name="preferences_category_general">General</string>
+    <string name="preferences_category_privacy">Privacy control</string>
+    <string name="preferences_category_merchants">Merchants</string>
     <string name="preferences_category_diagnostics">Diagnostics</string>
     <string name="preferences_category_labs">Labs</string>
     <string name="preferences_precision_title">Denomination and precision</string>
