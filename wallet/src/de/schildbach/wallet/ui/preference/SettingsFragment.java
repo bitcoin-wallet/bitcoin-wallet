@@ -63,6 +63,7 @@ public final class SettingsFragment extends PreferenceFragment implements OnPref
 
     private Preference trustedPeerPreference;
     private Preference trustedPeerOnlyPreference;
+    private Preference ownNamePreference;
     private EditTextPreference bluetoothAddressPreference;
 
     private static final int BLUETOOTH_ADDRESS_LENGTH = 6 * 2 + 5; // including the colons
@@ -106,6 +107,9 @@ public final class SettingsFragment extends PreferenceFragment implements OnPref
             notificationsPreference.setEnabled(pm.resolveActivity(notificationsPreference.getIntent(), 0) != null);
         }
 
+        ownNamePreference = findPreference(Configuration.PREFS_KEY_OWN_NAME);
+        ownNamePreference.setOnPreferenceChangeListener(this);
+
         bluetoothAddressPreference = (EditTextPreference) findPreference(Configuration.PREFS_KEY_BLUETOOTH_ADDRESS);
         bluetoothAddressPreference.setOnPreferenceChangeListener(this);
         bluetoothAddressPreference.getEditText().setFilters(
@@ -114,6 +118,7 @@ public final class SettingsFragment extends PreferenceFragment implements OnPref
         bluetoothAddressPreference.getEditText().addTextChangedListener(colonFormat);
 
         updateTrustedPeer();
+        updateOwnName();
         updateBluetoothAddress();
     }
 
@@ -121,6 +126,7 @@ public final class SettingsFragment extends PreferenceFragment implements OnPref
     public void onDestroy() {
         bluetoothAddressPreference.getEditText().removeTextChangedListener(colonFormat);
         bluetoothAddressPreference.setOnPreferenceChangeListener(null);
+        ownNamePreference.setOnPreferenceChangeListener(null);
         trustedPeerOnlyPreference.setOnPreferenceChangeListener(null);
         trustedPeerPreference.setOnPreferenceChangeListener(null);
 
@@ -135,6 +141,8 @@ public final class SettingsFragment extends PreferenceFragment implements OnPref
         handler.post(() -> {
             if (preference.equals(trustedPeerPreference))
                 updateTrustedPeer();
+            else if (preference.equals(ownNamePreference))
+                updateOwnName();
             else if (preference.equals(bluetoothAddressPreference))
                 updateBluetoothAddress();
         });
@@ -166,6 +174,11 @@ public final class SettingsFragment extends PreferenceFragment implements OnPref
                 }
             }.resolve(trustedPeer);
         }
+    }
+
+    private void updateOwnName() {
+        final String ownName = config.getOwnName();
+        ownNamePreference.setSummary(ownName != null ? ownName : getText(R.string.preferences_own_name_summary));
     }
 
     private void updateBluetoothAddress() {
