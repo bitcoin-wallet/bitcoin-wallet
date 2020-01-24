@@ -72,7 +72,8 @@
             android:title="@string/preferences_own_name_title"
             android:summary="@string/preferences_own_name_summary"
             android:dialogMessage="@string/preferences_own_name_dialog_message"
-            android:inputType="text" />
+            android:inputType="text"
+            android:maxLength="32" />
 
         <EditTextPreference
             android:key="bluetooth_address"
