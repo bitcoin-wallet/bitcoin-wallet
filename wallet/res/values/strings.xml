@@ -247,7 +247,8 @@
     <string name="preferences_precision_labels_2_3">mBTC, 2 decimal places</string>
     <string name="preferences_precision_labels_0_6">µBTC, no decimal places</string>
     <string name="preferences_own_name_title">Own name</string>
-    <string name="preferences_own_name_summary">Name of yourself, to be added to payment requests. Try to keep it short.</string>
+    <string name="preferences_own_name_summary">Name of yourself or your company, to be added to payment requests you issue to your customers.</string>
+    <string name="preferences_own_name_dialog_message">Keep it short.</string>
     <string name="preferences_send_coins_autoclose_title">Auto-close send coins dialog</string>
     <string name="preferences_send_coins_autoclose_summary">When the payment is made, the send dialog will close automatically.</string>
     <string name="preferences_trusted_peer_title">Trusted peer</string>

@@ -11,8 +11,9 @@
 
     <EditTextPreference
         android:key="own_name"
-        android:summary="@string/preferences_own_name_summary"
         android:title="@string/preferences_own_name_title"
+        android:summary="@string/preferences_own_name_summary"
+        android:dialogMessage="@string/preferences_own_name_dialog_message"
         android:inputType="text" />
 
     <CheckBoxPreference
