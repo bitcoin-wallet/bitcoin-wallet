@@ -236,6 +236,9 @@
   <string name="input_parser_invalid_paymentrequest">無効な支払のリクエスト:\n%s</string>
   <string name="input_parser_invalid_transaction">無効なトランザクション:\n%s</string>
   <string name="preferences_activity_title">設定</string>
+  <string name="preferences_category_general">一般</string>
+  <string name="preferences_category_privacy">プライバシー制御</string>
+  <string name="preferences_category_merchants">店舗</string>
   <string name="preferences_category_diagnostics">診断</string>
   <string name="preferences_category_labs">ラボ</string>
   <string name="preferences_precision_title">通貨単位の切り下げと切り上げ</string>
@@ -246,11 +249,13 @@
   <string name="preferences_precision_labels_2_3">mBTC、小数点以下2桁</string>
   <string name="preferences_precision_labels_0_6">µBTC、小数点無し</string>
   <string name="preferences_own_name_title">自身の名前</string>
-  <string name="preferences_own_name_summary">支払いリクエストに含める、あなた自身の名前。短いものにしてください。</string>
+  <string name="preferences_own_name_summary">あなたが発行する支払いリクエストに含めるあなたの名前、またはあなたの会社の名前。</string>
+  <string name="preferences_own_name_dialog_message">短くしてください。</string>
   <string name="preferences_send_coins_autoclose_title">送金ダイアログを自動的に閉じる</string>
   <string name="preferences_send_coins_autoclose_summary">支払いが完了した際に、送金ダイアログを自動的に閉じます。</string>
   <string name="preferences_trusted_peer_title">信頼されたピア</string>
   <string name="preferences_trusted_peer_summary">接続する単一ピアのIPアドレスかホスト名。</string>
+  <string name="preferences_trusted_peer_dialog_message">有効なIPアドレスかホスト名を入力してください。Torをセットアップ済みの場合、onionアドレスも利用できます。</string>
   <string name="preferences_trusted_peer_resolve_progress">解決中……</string>
   <string name="preferences_trusted_peer_resolve_unknown_host">不明なホスト名です!</string>
   <string name="preferences_trusted_peer_only_title">通常のピア探索をスキップ</string>
@@ -266,7 +271,8 @@
   <string name="preferences_show_disclaimer_title">免責条項を表示する</string>
   <string name="preferences_show_disclaimer_summary">本当に安全に関する注意事項を読みましたか? ウォレットを安全な場所にバックアップしましたか?</string>
   <string name="preferences_bluetooth_address_title">Bluetoothアドレス</string>
-  <string name="preferences_bluetooth_address_summary">ネットワークに接続していない支払い人から支払いを受け取るために、あなたのBluetoothアドレスを設定してください。デバイスのアドレスはAndroidのBluetooth設定で見られます。</string>
+  <string name="preferences_bluetooth_address_summary">Bluetoothアドレスを手動で設定すると、ネットワークに繋がっていなくても支払いを受け取れます。</string>
+  <string name="preferences_bluetooth_address_dialog_message">残念ながら、AndroidではデバイスのBluetoothアドレスの自動検出は禁止されています。AndroidのBluetooth設定を見てここに入力する必要があります。\n\n全ての桁が正しいことを確認してください。コロンは省略してもかまいません。大文字小文字も区別しません。</string>
   <string name="preferences_report_issue_title">問題を報告</string>
   <string name="preferences_initiate_reset_title">ブロックチェーンのリセット</string>
   <string name="preferences_initiate_reset_summary">ブロックチェーン・トランザクション・ウォレットの残高をリセットします。再生にしばらくかかるため、必要な理由がわかる場合のみ実行してください。</string>
