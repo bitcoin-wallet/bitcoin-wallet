@@ -112,9 +112,11 @@ public final class SettingsFragment extends PreferenceFragment implements OnPref
 
         bluetoothAddressPreference = (EditTextPreference) findPreference(Configuration.PREFS_KEY_BLUETOOTH_ADDRESS);
         bluetoothAddressPreference.setOnPreferenceChangeListener(this);
-        bluetoothAddressPreference.getEditText().setFilters(
-                new InputFilter[] { new InputFilter.LengthFilter(BLUETOOTH_ADDRESS_LENGTH),
-                        new InputFilter.AllCaps(Locale.US), new RestrictToHex() });
+        final InputFilter.AllCaps allCaps = Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1 ?
+                new InputFilter.AllCaps(Locale.US) : new InputFilter.AllCaps();
+        final InputFilter.LengthFilter maxLength = new InputFilter.LengthFilter(BLUETOOTH_ADDRESS_LENGTH);
+        final RestrictToHex hex = new RestrictToHex();
+        bluetoothAddressPreference.getEditText().setFilters(new InputFilter[] { maxLength, allCaps, hex });
         bluetoothAddressPreference.getEditText().addTextChangedListener(colonFormat);
 
         updateTrustedPeer();
