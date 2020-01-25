@@ -247,10 +247,12 @@
   <string name="preferences_precision_labels_0_6">µBTC, pas de décimale</string>
   <string name="preferences_own_name_title">Votre nom</string>
   <string name="preferences_own_name_summary">Votre nom qui sera ajouté aux demandes de paiement. Il doit être court.</string>
+  <string name="preferences_own_name_dialog_message">Soyez bref.</string>
   <string name="preferences_send_coins_autoclose_title">Fermer automatiquement la fenêtre d’envoi de pièces</string>
   <string name="preferences_send_coins_autoclose_summary">Une fois le paiement effectué, la fenêtre d’envoi sera fermée automatiquement.</string>
   <string name="preferences_trusted_peer_title">Pair de confiance</string>
   <string name="preferences_trusted_peer_summary">IP ou nom d’hôte d’un pair auquel se connecter.</string>
+  <string name="preferences_trusted_peer_dialog_message">Veuillez saisir une adresse IP ou un nom d’hôte valides. Si vous utilisez Tor, vous pouvez aussi utiliser une adresse onion ici.</string>
   <string name="preferences_trusted_peer_resolve_progress">Résolution…</string>
   <string name="preferences_trusted_peer_resolve_unknown_host">Le nom d’hôte est inconnu !</string>
   <string name="preferences_trusted_peer_only_title">Ignorer la découverte des pairs ordinaires</string>
@@ -266,7 +268,8 @@
   <string name="preferences_show_disclaimer_title">Afficher l’avis de non-responsabilité</string>
   <string name="preferences_show_disclaimer_summary">Avez-vous vraiment lu les consignes de sécurité ? Avez-vous déjà sauvegardé votre porte-monnaie en lieu sûr ?</string>
   <string name="preferences_bluetooth_address_title">Adresse Bluetooth</string>
-  <string name="preferences_bluetooth_address_summary">Configurez manuellement votre propre adresse Bluetooth afin de recevoir des paiements de payeurs, sans connectivité. Il vous faudra d’abord chercher l’adresse de votre appareil dans les paramètres Bluetooth d’Android.</string>
+  <string name="preferences_bluetooth_address_summary">Configurez manuellement votre propre adresse Bluetooth afin de recevoir des paiements de payeurs, sans connectivité.</string>
+  <string name="preferences_bluetooth_address_dialog_message">Malheureusement, Android empêche la détection automatique de l’adresse Bluetooth de votre appareil. Vous devez la trouver dans les paramètres Bluetooth d’Android et la saisir ici.\n\nVeuillez vous assurer de la justesse de chaque caractère. Les deux-points peuvent être omis et la casse n’est pas importante.</string>
   <string name="preferences_report_issue_title">Signaler un problème</string>
   <string name="preferences_initiate_reset_title">Réinitialiser la chaîne de blocs</string>
   <string name="preferences_initiate_reset_summary">Réinitialiser la chaîne de blocs et le solde du porte-monnaie. La relecture prendra du temps, ne le faites que si vous savez pourquoi.</string>
