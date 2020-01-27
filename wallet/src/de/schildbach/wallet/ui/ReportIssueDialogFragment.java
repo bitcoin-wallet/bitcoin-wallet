@@ -185,7 +185,8 @@ public class ReportIssueDialogFragment extends DialogFragment {
                     contextualData
                             .append(Uri.withAppendedPath(Uri.parse(blockExplorer), "tx/" + tx.getTxId().toString()))
                             .append('\n');
-                contextualData.append(tx.toString());
+                contextualData.append(tx.toString()).append('\n');
+                contextualData.append(Constants.HEX.encode(tx.unsafeBitcoinSerialize())).append('\n');
                 return contextualData;
             }
 
