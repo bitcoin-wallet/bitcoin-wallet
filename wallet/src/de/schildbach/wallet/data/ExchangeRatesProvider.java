@@ -91,6 +91,8 @@ public class ExchangeRatesProvider extends ContentProvider {
         if (!Constants.ENABLE_EXCHANGE_RATES)
             return false;
 
+        WalletApplication.initStrictMode();
+
         final Stopwatch watch = Stopwatch.createStarted();
 
         final Context context = getContext();

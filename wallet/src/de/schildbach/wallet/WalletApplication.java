@@ -98,8 +98,7 @@ public class WalletApplication extends Application {
 
         Logging.init(getFilesDir());
 
-        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().detectAll().permitDiskReads()
-                .permitDiskWrites().penaltyLog().build());
+        initStrictMode();
 
         Threading.throwOnLockCycles();
         org.bitcoinj.core.Context.enableStrictMode();
@@ -284,6 +283,11 @@ public class WalletApplication extends Application {
                 file.delete();
             }
         }
+    }
+
+    public static void initStrictMode() {
+        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().detectAll().permitDiskReads()
+                .permitDiskWrites().penaltyLog().build());
     }
 
     private void initNotificationManager() {
