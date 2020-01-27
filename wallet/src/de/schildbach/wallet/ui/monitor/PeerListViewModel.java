@@ -17,23 +17,21 @@
 
 package de.schildbach.wallet.ui.monitor;
 
-import java.net.InetAddress;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.bitcoinj.core.Peer;
-
-import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.data.BlockchainServiceLiveData;
-import de.schildbach.wallet.service.BlockchainService;
-
 import android.app.Application;
 import android.os.AsyncTask;
 import android.os.Handler;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
+import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.data.BlockchainServiceLiveData;
+import de.schildbach.wallet.service.BlockchainService;
+import org.bitcoinj.core.Peer;
+
+import java.net.InetAddress;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author Andreas Schildbach

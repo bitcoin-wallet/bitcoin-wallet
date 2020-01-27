@@ -17,10 +17,18 @@
 
 package de.schildbach.wallet.ui;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
+import android.app.Application;
+import android.graphics.Bitmap;
+import android.os.AsyncTask;
+import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.addressbook.AddressBookDatabase;
+import de.schildbach.wallet.addressbook.AddressBookEntry;
+import de.schildbach.wallet.data.AbstractWalletLiveData;
+import de.schildbach.wallet.data.ConfigOwnNameLiveData;
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.ECKey;
 import org.bitcoinj.core.LegacyAddress;
@@ -28,20 +36,9 @@ import org.bitcoinj.utils.Threading;
 import org.bitcoinj.wallet.Wallet;
 import org.bitcoinj.wallet.listeners.KeyChainEventListener;
 
-import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.data.AbstractWalletLiveData;
-import de.schildbach.wallet.addressbook.AddressBookEntry;
-import de.schildbach.wallet.addressbook.AddressBookDatabase;
-import de.schildbach.wallet.data.ConfigOwnNameLiveData;
-import de.schildbach.wallet.data.WalletLiveData;
-
-import android.app.Application;
-import android.graphics.Bitmap;
-import android.os.AsyncTask;
-import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * @author Andreas Schildbach

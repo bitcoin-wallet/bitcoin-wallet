@@ -17,6 +17,27 @@
 
 package de.schildbach.wallet.data;
 
+import android.content.pm.PackageInfo;
+import android.content.res.AssetManager;
+import android.os.AsyncTask;
+import androidx.lifecycle.LiveData;
+import com.google.common.base.Stopwatch;
+import com.google.common.io.ByteStreams;
+import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.ui.send.FeeCategory;
+import okhttp3.Call;
+import okhttp3.ConnectionSpec;
+import okhttp3.Headers;
+import okhttp3.HttpUrl;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
+import org.bitcoinj.core.Coin;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -26,36 +47,11 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-
-import org.bitcoinj.core.Coin;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.google.common.base.Stopwatch;
-import com.google.common.io.ByteStreams;
-
-import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.ui.send.FeeCategory;
-
-import android.content.pm.PackageInfo;
-import android.content.res.AssetManager;
-import android.os.AsyncTask;
-import androidx.lifecycle.LiveData;
-import okhttp3.Call;
-import okhttp3.ConnectionSpec;
-import okhttp3.Headers;
-import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
 
 /**
  * @author Andreas Schildbach

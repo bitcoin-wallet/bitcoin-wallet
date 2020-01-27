@@ -17,12 +17,11 @@
 
 package de.schildbach.wallet.ui.backup;
 
-import de.schildbach.wallet.ui.AbstractWalletActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.core.app.ActivityCompat;
+import de.schildbach.wallet.ui.AbstractWalletActivity;
 
 /**
  * @author Andreas Schildbach

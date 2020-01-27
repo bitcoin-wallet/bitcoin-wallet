@@ -17,34 +17,9 @@
 
 package de.schildbach.wallet.ui;
 
-import java.io.BufferedReader;
-import java.net.SocketException;
-import java.net.SocketTimeoutException;
-import java.net.UnknownHostException;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Locale;
-import java.util.Map;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.google.common.base.Splitter;
-import com.google.common.primitives.Ints;
-
-import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.R;
-import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.util.CrashReporter;
-import de.schildbach.wallet.util.Installer;
-
 import android.app.Dialog;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageInfo;
@@ -58,6 +33,13 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
+import com.google.common.base.Splitter;
+import com.google.common.primitives.Ints;
+import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.R;
+import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.util.CrashReporter;
+import de.schildbach.wallet.util.Installer;
 import okhttp3.Call;
 import okhttp3.ConnectionSpec;
 import okhttp3.Headers;
@@ -65,6 +47,19 @@ import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient.Builder;
 import okhttp3.Request;
 import okhttp3.Response;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.BufferedReader;
+import java.net.SocketException;
+import java.net.SocketTimeoutException;
+import java.net.UnknownHostException;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Locale;
+import java.util.Map;
 
 /**
  * @author Andreas Schildbach

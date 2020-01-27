@@ -17,6 +17,16 @@
 
 package de.schildbach.wallet.util;
 
+import android.graphics.Bitmap;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.EncodeHintType;
+import com.google.zxing.WriterException;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
+import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -25,18 +35,6 @@ import java.nio.ByteBuffer;
 import java.util.Hashtable;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.EncodeHintType;
-import com.google.zxing.WriterException;
-import com.google.zxing.common.BitMatrix;
-import com.google.zxing.qrcode.QRCodeWriter;
-import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
-
-import android.graphics.Bitmap;
 
 /**
  * @author Andreas Schildbach

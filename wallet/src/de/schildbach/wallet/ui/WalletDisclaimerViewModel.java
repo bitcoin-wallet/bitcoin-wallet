@@ -17,14 +17,13 @@
 
 package de.schildbach.wallet.ui;
 
-import de.schildbach.wallet.Configuration;
-import de.schildbach.wallet.WalletApplication;
-
 import android.app.Application;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import de.schildbach.wallet.Configuration;
+import de.schildbach.wallet.WalletApplication;
 
 /**
  * @author Andreas Schildbach

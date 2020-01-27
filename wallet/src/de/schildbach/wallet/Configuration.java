@@ -17,20 +17,18 @@
 
 package de.schildbach.wallet;
 
-import de.schildbach.wallet.util.Formats;
-import org.bitcoinj.core.Coin;
-import org.bitcoinj.utils.MonetaryFormat;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.google.common.base.Splitter;
-import com.google.common.base.Strings;
-
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.text.format.DateUtils;
+import com.google.common.base.Splitter;
+import com.google.common.base.Strings;
+import de.schildbach.wallet.util.Formats;
+import org.bitcoinj.core.Coin;
+import org.bitcoinj.utils.MonetaryFormat;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Currency;
 import java.util.HashSet;

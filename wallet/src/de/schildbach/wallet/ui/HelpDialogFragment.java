@@ -17,9 +17,6 @@
 
 package de.schildbach.wallet.ui;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -27,6 +24,8 @@ import android.os.Bundle;
 import android.text.Html;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Andreas Schildbach

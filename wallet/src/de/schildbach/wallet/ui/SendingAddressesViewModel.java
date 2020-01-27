@@ -17,30 +17,24 @@
 
 package de.schildbach.wallet.ui;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import org.bitcoinj.core.Address;
-import org.bitcoinj.core.ECKey;
-import org.bitcoinj.core.LegacyAddress;
-import org.bitcoinj.crypto.DeterministicKey;
-import org.bitcoinj.wallet.Wallet;
-
-import com.google.common.collect.Iterables;
-
-import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.data.AbstractWalletLiveData;
-import de.schildbach.wallet.addressbook.AddressBookEntry;
-
 import android.app.Application;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.addressbook.AddressBookEntry;
+import de.schildbach.wallet.data.AbstractWalletLiveData;
+import org.bitcoinj.core.Address;
+import org.bitcoinj.core.ECKey;
+import org.bitcoinj.core.LegacyAddress;
+import org.bitcoinj.wallet.Wallet;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * @author Andreas Schildbach

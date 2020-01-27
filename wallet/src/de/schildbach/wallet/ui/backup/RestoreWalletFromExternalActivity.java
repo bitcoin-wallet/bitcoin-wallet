@@ -17,13 +17,11 @@
 
 package de.schildbach.wallet.ui.backup;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import de.schildbach.wallet.ui.AbstractWalletActivity;
-
 import android.os.Bundle;
 import androidx.core.app.ActivityCompat;
+import de.schildbach.wallet.ui.AbstractWalletActivity;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Andreas Schildbach

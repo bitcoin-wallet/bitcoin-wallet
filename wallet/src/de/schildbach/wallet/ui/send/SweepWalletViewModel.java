@@ -17,17 +17,15 @@
 
 package de.schildbach.wallet.ui.send;
 
-import org.bitcoinj.core.PrefixedChecksummedBytes;
-import org.bitcoinj.wallet.Wallet;
-
+import android.app.Application;
+import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.MutableLiveData;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.data.DynamicFeeLiveData;
 import de.schildbach.wallet.data.TransactionLiveData;
 import de.schildbach.wallet.ui.DialogEvent;
-
-import android.app.Application;
-import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.MutableLiveData;
+import org.bitcoinj.core.PrefixedChecksummedBytes;
+import org.bitcoinj.wallet.Wallet;
 
 /**
  * @author Andreas Schildbach

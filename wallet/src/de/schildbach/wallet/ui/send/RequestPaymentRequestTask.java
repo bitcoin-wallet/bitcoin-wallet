@@ -17,34 +17,31 @@
 
 package de.schildbach.wallet.ui.send;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-
-import org.bitcoinj.protocols.payments.PaymentProtocol;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.google.protobuf.CodedInputStream;
-import com.google.protobuf.CodedOutputStream;
-
-import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.R;
-import de.schildbach.wallet.data.PaymentIntent;
-import de.schildbach.wallet.ui.InputParser;
-import de.schildbach.wallet.util.Bluetooth;
-
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.os.Handler;
 import android.os.Looper;
 import androidx.annotation.Nullable;
+import com.google.protobuf.CodedInputStream;
+import com.google.protobuf.CodedOutputStream;
+import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.R;
+import de.schildbach.wallet.data.PaymentIntent;
+import de.schildbach.wallet.ui.InputParser;
+import de.schildbach.wallet.util.Bluetooth;
 import okhttp3.CacheControl;
 import okhttp3.Call;
 import okhttp3.Headers;
 import okhttp3.Request;
 import okhttp3.Response;
+import org.bitcoinj.protocols.payments.PaymentProtocol;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 /**
  * @author Andreas Schildbach

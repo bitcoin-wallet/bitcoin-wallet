@@ -17,22 +17,6 @@
 
 package de.schildbach.wallet.ui;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.R;
-import de.schildbach.wallet.util.CrashReporter;
-
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
@@ -45,6 +29,20 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.core.app.ShareCompat;
 import androidx.core.content.FileProvider;
+import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.R;
+import de.schildbach.wallet.util.CrashReporter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Andreas Schildbach

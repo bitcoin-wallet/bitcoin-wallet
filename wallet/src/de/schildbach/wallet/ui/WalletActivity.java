@@ -17,32 +17,6 @@
 
 package de.schildbach.wallet.ui;
 
-import org.bitcoinj.core.PrefixedChecksummedBytes;
-import org.bitcoinj.core.Transaction;
-import org.bitcoinj.core.VerificationException;
-import org.bitcoinj.script.Script;
-
-import com.google.common.primitives.Floats;
-
-import de.schildbach.wallet.Configuration;
-import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.R;
-import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.data.PaymentIntent;
-import de.schildbach.wallet.service.BlockchainService;
-import de.schildbach.wallet.ui.InputParser.BinaryInputParser;
-import de.schildbach.wallet.ui.InputParser.StringInputParser;
-import de.schildbach.wallet.ui.backup.BackupWalletActivity;
-import de.schildbach.wallet.ui.backup.RestoreWalletDialogFragment;
-import de.schildbach.wallet.ui.monitor.NetworkMonitorActivity;
-import de.schildbach.wallet.ui.preference.PreferenceActivity;
-import de.schildbach.wallet.ui.scan.ScanActivity;
-import de.schildbach.wallet.ui.send.SendCoinsActivity;
-import de.schildbach.wallet.ui.send.SweepWalletActivity;
-import de.schildbach.wallet.util.CrashReporter;
-import de.schildbach.wallet.util.Nfc;
-import de.schildbach.wallet.util.OnFirstPreDraw;
-
 import android.animation.Animator;
 import android.animation.AnimatorInflater;
 import android.animation.AnimatorListenerAdapter;
@@ -68,6 +42,29 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.view.ViewCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
+import com.google.common.primitives.Floats;
+import de.schildbach.wallet.Configuration;
+import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.R;
+import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.data.PaymentIntent;
+import de.schildbach.wallet.service.BlockchainService;
+import de.schildbach.wallet.ui.InputParser.BinaryInputParser;
+import de.schildbach.wallet.ui.InputParser.StringInputParser;
+import de.schildbach.wallet.ui.backup.BackupWalletActivity;
+import de.schildbach.wallet.ui.backup.RestoreWalletDialogFragment;
+import de.schildbach.wallet.ui.monitor.NetworkMonitorActivity;
+import de.schildbach.wallet.ui.preference.PreferenceActivity;
+import de.schildbach.wallet.ui.scan.ScanActivity;
+import de.schildbach.wallet.ui.send.SendCoinsActivity;
+import de.schildbach.wallet.ui.send.SweepWalletActivity;
+import de.schildbach.wallet.util.CrashReporter;
+import de.schildbach.wallet.util.Nfc;
+import de.schildbach.wallet.util.OnFirstPreDraw;
+import org.bitcoinj.core.PrefixedChecksummedBytes;
+import org.bitcoinj.core.Transaction;
+import org.bitcoinj.core.VerificationException;
+import org.bitcoinj.script.Script;
 
 /**
  * @author Andreas Schildbach

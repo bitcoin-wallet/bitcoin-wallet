@@ -17,35 +17,6 @@
 
 package de.schildbach.wallet.ui;
 
-import java.nio.ByteBuffer;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.EnumSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-
-import org.bitcoinj.core.Address;
-import org.bitcoinj.core.Coin;
-import org.bitcoinj.core.Sha256Hash;
-import org.bitcoinj.core.Transaction;
-import org.bitcoinj.core.Transaction.Purpose;
-import org.bitcoinj.core.TransactionConfidence;
-import org.bitcoinj.core.TransactionConfidence.ConfidenceType;
-import org.bitcoinj.utils.ExchangeRate;
-import org.bitcoinj.utils.Fiat;
-import org.bitcoinj.utils.MonetaryFormat;
-import org.bitcoinj.wallet.DefaultCoinSelector;
-import org.bitcoinj.wallet.Wallet;
-
-import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.R;
-import de.schildbach.wallet.addressbook.AddressBookEntry;
-import de.schildbach.wallet.ui.TransactionsAdapter.ListItem.TransactionItem;
-import de.schildbach.wallet.util.Formats;
-import de.schildbach.wallet.util.Toolbars;
-import de.schildbach.wallet.util.WalletUtils;
-
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -70,6 +41,33 @@ import androidx.core.graphics.ColorUtils;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
+import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.R;
+import de.schildbach.wallet.addressbook.AddressBookEntry;
+import de.schildbach.wallet.ui.TransactionsAdapter.ListItem.TransactionItem;
+import de.schildbach.wallet.util.Formats;
+import de.schildbach.wallet.util.Toolbars;
+import de.schildbach.wallet.util.WalletUtils;
+import org.bitcoinj.core.Address;
+import org.bitcoinj.core.Coin;
+import org.bitcoinj.core.Sha256Hash;
+import org.bitcoinj.core.Transaction;
+import org.bitcoinj.core.Transaction.Purpose;
+import org.bitcoinj.core.TransactionConfidence;
+import org.bitcoinj.core.TransactionConfidence.ConfidenceType;
+import org.bitcoinj.utils.ExchangeRate;
+import org.bitcoinj.utils.Fiat;
+import org.bitcoinj.utils.MonetaryFormat;
+import org.bitcoinj.wallet.DefaultCoinSelector;
+import org.bitcoinj.wallet.Wallet;
+
+import java.nio.ByteBuffer;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.EnumSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * @author Andreas Schildbach

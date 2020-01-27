@@ -17,8 +17,6 @@
 
 package de.schildbach.wallet.ui;
 
-import de.schildbach.wallet.R;
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface.OnClickListener;
@@ -30,6 +28,7 @@ import android.widget.TextView;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
+import de.schildbach.wallet.R;
 
 /**
  * @author Andreas Schildbach

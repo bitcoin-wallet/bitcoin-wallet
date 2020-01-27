@@ -17,15 +17,6 @@
 
 package de.schildbach.wallet.ui.monitor;
 
-import java.net.InetAddress;
-import java.util.List;
-import java.util.Map;
-
-import org.bitcoinj.core.Peer;
-
-import de.schildbach.wallet.R;
-import de.schildbach.wallet.ui.AbstractWalletActivity;
-
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -36,6 +27,12 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import de.schildbach.wallet.R;
+import de.schildbach.wallet.ui.AbstractWalletActivity;
+import org.bitcoinj.core.Peer;
+
+import java.net.InetAddress;
+import java.util.List;
 
 /**
  * @author Andreas Schildbach

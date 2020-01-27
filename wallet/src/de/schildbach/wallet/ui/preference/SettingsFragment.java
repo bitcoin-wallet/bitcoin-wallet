@@ -17,19 +17,6 @@
 
 package de.schildbach.wallet.ui.preference;
 
-import java.net.InetAddress;
-import java.util.Locale;
-import java.util.Set;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import de.schildbach.wallet.Configuration;
-import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.R;
-import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.util.Bluetooth;
-
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
@@ -49,6 +36,17 @@ import android.text.Editable;
 import android.text.InputFilter;
 import android.text.Spanned;
 import android.text.TextWatcher;
+import de.schildbach.wallet.Configuration;
+import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.R;
+import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.util.Bluetooth;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.net.InetAddress;
+import java.util.Locale;
+import java.util.Set;
 
 /**
  * @author Andreas Schildbach

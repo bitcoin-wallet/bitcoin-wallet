@@ -17,14 +17,20 @@
 
 package de.schildbach.wallet.ui;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
+import android.app.Application;
+import android.graphics.Bitmap;
+import android.os.AsyncTask;
+import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MediatorLiveData;
+import androidx.lifecycle.MutableLiveData;
+import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.addressbook.AddressBookDatabase;
+import de.schildbach.wallet.addressbook.AddressBookEntry;
+import de.schildbach.wallet.data.AbstractWalletLiveData;
+import de.schildbach.wallet.data.ConfigFormatLiveData;
+import de.schildbach.wallet.data.WalletLiveData;
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.Coin;
 import org.bitcoinj.core.Sha256Hash;
@@ -40,21 +46,13 @@ import org.bitcoinj.wallet.listeners.WalletCoinsReceivedEventListener;
 import org.bitcoinj.wallet.listeners.WalletCoinsSentEventListener;
 import org.bitcoinj.wallet.listeners.WalletReorganizeEventListener;
 
-import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.data.AbstractWalletLiveData;
-import de.schildbach.wallet.addressbook.AddressBookEntry;
-import de.schildbach.wallet.addressbook.AddressBookDatabase;
-import de.schildbach.wallet.data.ConfigFormatLiveData;
-import de.schildbach.wallet.data.WalletLiveData;
-
-import android.app.Application;
-import android.graphics.Bitmap;
-import android.os.AsyncTask;
-import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MediatorLiveData;
-import androidx.lifecycle.MutableLiveData;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * @author Andreas Schildbach

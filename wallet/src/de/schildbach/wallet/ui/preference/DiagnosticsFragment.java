@@ -17,28 +17,24 @@
 
 package de.schildbach.wallet.ui.preference;
 
-import java.util.Locale;
-
-import org.bitcoinj.crypto.DeterministicKey;
-import org.bitcoinj.script.Script;
-import org.bitcoinj.wallet.DeterministicKeyChain;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+import android.app.Activity;
+import android.os.Bundle;
+import android.preference.Preference;
+import android.preference.PreferenceFragment;
+import android.preference.PreferenceScreen;
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.R;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.ui.DialogBuilder;
+import org.bitcoinj.crypto.DeterministicKey;
+import org.bitcoinj.script.Script;
+import org.bitcoinj.wallet.DeterministicKeyChain;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import android.app.Activity;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
-import android.os.Bundle;
-import android.preference.Preference;
-import android.preference.PreferenceFragment;
-import android.preference.PreferenceScreen;
+import java.util.Locale;
 
 /**
  * @author Andreas Schildbach

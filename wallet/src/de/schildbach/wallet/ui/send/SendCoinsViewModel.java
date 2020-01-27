@@ -17,11 +17,11 @@
 
 package de.schildbach.wallet.ui.send;
 
-import java.util.List;
-
-import org.bitcoinj.core.Transaction;
-import org.bitcoinj.wallet.Wallet.BalanceType;
-
+import android.app.Application;
+import androidx.annotation.Nullable;
+import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.addressbook.AddressBookDatabase;
 import de.schildbach.wallet.addressbook.AddressBookEntry;
@@ -31,12 +31,10 @@ import de.schildbach.wallet.data.SelectedExchangeRateLiveData;
 import de.schildbach.wallet.data.TransactionLiveData;
 import de.schildbach.wallet.data.WalletBalanceLiveData;
 import de.schildbach.wallet.ui.AddressAndLabel;
+import org.bitcoinj.core.Transaction;
+import org.bitcoinj.wallet.Wallet.BalanceType;
 
-import android.app.Application;
-import androidx.annotation.Nullable;
-import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
+import java.util.List;
 
 /**
  * @author Andreas Schildbach

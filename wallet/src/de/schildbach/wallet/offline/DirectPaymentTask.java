@@ -17,27 +17,15 @@
 
 package de.schildbach.wallet.offline;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-
-import org.bitcoin.protocols.payments.Protos;
-import org.bitcoin.protocols.payments.Protos.Payment;
-import org.bitcoinj.protocols.payments.PaymentProtocol;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.R;
-import de.schildbach.wallet.util.Bluetooth;
-
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.os.Handler;
 import android.os.Looper;
 import androidx.annotation.Nullable;
+import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.R;
+import de.schildbach.wallet.util.Bluetooth;
 import okhttp3.CacheControl;
 import okhttp3.Call;
 import okhttp3.Headers;
@@ -46,6 +34,16 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import okio.BufferedSink;
+import org.bitcoin.protocols.payments.Protos;
+import org.bitcoin.protocols.payments.Protos.Payment;
+import org.bitcoinj.protocols.payments.PaymentProtocol;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * @author Andreas Schildbach

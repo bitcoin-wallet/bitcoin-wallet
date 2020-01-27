@@ -17,18 +17,17 @@
 
 package de.schildbach.wallet.util;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.util.Locale;
-import java.util.UUID;
-
+import android.bluetooth.BluetoothAdapter;
+import androidx.annotation.Nullable;
 import com.google.common.base.Splitter;
 import com.google.common.base.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import android.bluetooth.BluetoothAdapter;
-import androidx.annotation.Nullable;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.util.Locale;
+import java.util.UUID;
 
 /**
  * @author Andreas Schildbach

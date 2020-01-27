@@ -17,16 +17,12 @@
 
 package de.schildbach.wallet.data;
 
-import org.bitcoinj.wallet.Wallet;
-
+import android.os.Handler;
+import androidx.lifecycle.Observer;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.WalletApplication.OnWalletLoadedListener;
 import de.schildbach.wallet.ui.Event;
-
-import android.os.Handler;
-import androidx.annotation.NonNull;
-import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.Observer;
+import org.bitcoinj.wallet.Wallet;
 
 /**
  * @author Andreas Schildbach

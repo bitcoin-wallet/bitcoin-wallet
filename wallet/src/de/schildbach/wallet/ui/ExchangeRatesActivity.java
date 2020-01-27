@@ -17,9 +17,8 @@
 
 package de.schildbach.wallet.ui;
 
-import de.schildbach.wallet.R;
-
 import android.os.Bundle;
+import de.schildbach.wallet.R;
 
 /**
  * @author Andreas Schildbach

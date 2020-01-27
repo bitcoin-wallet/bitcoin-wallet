@@ -17,17 +17,16 @@
 
 package de.schildbach.wallet.ui.backup;
 
-import java.io.File;
-import java.util.List;
-
-import de.schildbach.wallet.R;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+import de.schildbach.wallet.R;
+
+import java.io.File;
+import java.util.List;
 
 /**
  * @author Andreas Schildbach

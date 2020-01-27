@@ -17,6 +17,46 @@
 
 package de.schildbach.wallet.ui.send;
 
+import android.content.res.AssetManager;
+import android.os.Handler;
+import android.os.Looper;
+import androidx.annotation.Nullable;
+import com.google.common.base.Splitter;
+import com.google.common.base.Strings;
+import com.google.common.collect.HashMultiset;
+import com.google.common.collect.Multiset;
+import com.google.common.hash.Hashing;
+import com.squareup.moshi.JsonAdapter;
+import com.squareup.moshi.JsonDataException;
+import com.squareup.moshi.Moshi;
+import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.R;
+import de.schildbach.wallet.util.Assets;
+import okio.BufferedSink;
+import okio.BufferedSource;
+import okio.Okio;
+import org.bitcoinj.core.Address;
+import org.bitcoinj.core.Coin;
+import org.bitcoinj.core.ECKey;
+import org.bitcoinj.core.LegacyAddress;
+import org.bitcoinj.core.SegwitAddress;
+import org.bitcoinj.core.Sha256Hash;
+import org.bitcoinj.core.UTXO;
+import org.bitcoinj.script.Script;
+import org.bitcoinj.script.ScriptBuilder;
+import org.bitcoinj.utils.ContextPropagatingThreadFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.net.SocketFactory;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLPeerUnverifiedException;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.SSLSocket;
+import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -41,50 +81,6 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
-
-import javax.net.SocketFactory;
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLPeerUnverifiedException;
-import javax.net.ssl.SSLSession;
-import javax.net.ssl.SSLSocket;
-import javax.net.ssl.SSLSocketFactory;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
-
-import org.bitcoinj.core.Address;
-import org.bitcoinj.core.Coin;
-import org.bitcoinj.core.ECKey;
-import org.bitcoinj.core.LegacyAddress;
-import org.bitcoinj.core.SegwitAddress;
-import org.bitcoinj.core.Sha256Hash;
-import org.bitcoinj.core.UTXO;
-import org.bitcoinj.script.Script;
-import org.bitcoinj.script.ScriptBuilder;
-import org.bitcoinj.utils.ContextPropagatingThreadFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.google.common.base.Splitter;
-import com.google.common.base.Strings;
-import com.google.common.collect.HashMultiset;
-import com.google.common.collect.Multiset;
-import com.google.common.hash.Hashing;
-import com.squareup.moshi.JsonAdapter;
-import com.squareup.moshi.JsonDataException;
-import com.squareup.moshi.Moshi;
-
-import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.R;
-import de.schildbach.wallet.util.Assets;
-
-import android.content.res.AssetManager;
-import android.os.Handler;
-import android.os.Looper;
-import androidx.annotation.Nullable;
-import okio.BufferedSink;
-import okio.BufferedSource;
-import okio.Okio;
 
 /**
  * @author Andreas Schildbach

@@ -17,6 +17,40 @@
 
 package de.schildbach.wallet.ui;
 
+import android.app.ActivityManager;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.admin.DevicePolicyManager;
+import android.bluetooth.BluetoothAdapter;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.pm.PackageInfo;
+import android.content.res.Resources;
+import android.net.Uri;
+import android.os.Build;
+import android.os.Bundle;
+import android.widget.Button;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewModelProvider;
+import com.google.common.base.Joiner;
+import de.schildbach.wallet.BuildConfig;
+import de.schildbach.wallet.Configuration;
+import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.R;
+import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.util.Bluetooth;
+import de.schildbach.wallet.util.CrashReporter;
+import de.schildbach.wallet.util.Installer;
+import org.bitcoinj.core.Sha256Hash;
+import org.bitcoinj.core.Transaction;
+import org.bitcoinj.core.TransactionOutput;
+import org.bitcoinj.core.Utils;
+import org.bitcoinj.script.ScriptException;
+import org.bitcoinj.wallet.Wallet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Calendar;
@@ -27,43 +61,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 import java.util.TimeZone;
-
-import android.net.Uri;
-import de.schildbach.wallet.BuildConfig;
-import de.schildbach.wallet.R;
-import org.bitcoinj.core.Sha256Hash;
-import org.bitcoinj.core.Transaction;
-import org.bitcoinj.core.TransactionOutput;
-import org.bitcoinj.core.Utils;
-import org.bitcoinj.script.ScriptException;
-import org.bitcoinj.wallet.Wallet;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.google.common.base.Joiner;
-
-import de.schildbach.wallet.Configuration;
-import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.util.Bluetooth;
-import de.schildbach.wallet.util.CrashReporter;
-import de.schildbach.wallet.util.Installer;
-
-import android.app.ActivityManager;
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.app.admin.DevicePolicyManager;
-import android.bluetooth.BluetoothAdapter;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.pm.PackageInfo;
-import android.content.res.Resources;
-import android.os.Build;
-import android.os.Bundle;
-import android.widget.Button;
-import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.ViewModelProvider;
 
 /**
  * @author Andreas Schildbach

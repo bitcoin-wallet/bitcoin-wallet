@@ -17,13 +17,12 @@
 
 package de.schildbach.wallet.ui;
 
-import android.graphics.PixelFormat;
-import de.schildbach.wallet.Constants;
-
 import android.graphics.Canvas;
 import android.graphics.ColorFilter;
 import android.graphics.Paint;
+import android.graphics.PixelFormat;
 import android.graphics.drawable.Drawable;
+import de.schildbach.wallet.Constants;
 
 /**
  * @author Andreas Schildbach

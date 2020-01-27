@@ -17,8 +17,47 @@
 
 package de.schildbach.wallet.ui.backup;
 
-import static androidx.core.util.Preconditions.checkNotNull;
-import static androidx.core.util.Preconditions.checkState;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.ActivityNotFoundException;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Typeface;
+import android.net.Uri;
+import android.os.Bundle;
+import android.text.Editable;
+import android.text.Html;
+import android.text.TextWatcher;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.TextView;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import com.google.common.io.CharStreams;
+import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.R;
+import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.ui.AbstractWalletActivity;
+import de.schildbach.wallet.ui.AbstractWalletActivityViewModel;
+import de.schildbach.wallet.ui.DialogBuilder;
+import de.schildbach.wallet.ui.ShowPasswordCheckListener;
+import de.schildbach.wallet.util.Crypto;
+import de.schildbach.wallet.util.Iso8601Format;
+import de.schildbach.wallet.util.Toast;
+import de.schildbach.wallet.util.WalletUtils;
+import org.bitcoinj.wallet.Protos;
+import org.bitcoinj.wallet.Wallet;
+import org.bitcoinj.wallet.WalletProtobufSerializer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -32,52 +71,8 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.TimeZone;
 
-import org.bitcoinj.wallet.Protos;
-import org.bitcoinj.wallet.Wallet;
-import org.bitcoinj.wallet.WalletProtobufSerializer;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.google.common.io.CharStreams;
-
-import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.R;
-import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.ui.AbstractWalletActivity;
-import de.schildbach.wallet.ui.AbstractWalletActivityViewModel;
-import de.schildbach.wallet.ui.DialogBuilder;
-import de.schildbach.wallet.ui.ShowPasswordCheckListener;
-import de.schildbach.wallet.util.Crypto;
-import de.schildbach.wallet.util.Iso8601Format;
-import de.schildbach.wallet.util.Toast;
-import de.schildbach.wallet.util.WalletUtils;
-
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.ActivityNotFoundException;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnShowListener;
-import android.content.Intent;
-import android.graphics.Typeface;
-import android.net.Uri;
-import android.os.Bundle;
-import android.text.Editable;
-import android.text.Html;
-import android.text.TextWatcher;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.TextView;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
+import static androidx.core.util.Preconditions.checkNotNull;
+import static androidx.core.util.Preconditions.checkState;
 
 /**
  * @author Andreas Schildbach

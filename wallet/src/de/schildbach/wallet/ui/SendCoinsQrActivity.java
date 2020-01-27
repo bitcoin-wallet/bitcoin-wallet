@@ -17,23 +17,20 @@
 
 package de.schildbach.wallet.ui;
 
-import org.bitcoinj.core.PrefixedChecksummedBytes;
-import org.bitcoinj.core.Transaction;
-import org.bitcoinj.core.VerificationException;
-
+import android.app.Activity;
+import android.content.DialogInterface.OnClickListener;
+import android.content.Intent;
+import android.os.Bundle;
+import androidx.lifecycle.ViewModelProvider;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.data.PaymentIntent;
 import de.schildbach.wallet.ui.InputParser.StringInputParser;
 import de.schildbach.wallet.ui.scan.ScanActivity;
 import de.schildbach.wallet.ui.send.SendCoinsActivity;
 import de.schildbach.wallet.ui.send.SweepWalletActivity;
-
-import android.app.Activity;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
-import android.content.Intent;
-import android.os.Bundle;
-import androidx.lifecycle.ViewModelProvider;
+import org.bitcoinj.core.PrefixedChecksummedBytes;
+import org.bitcoinj.core.Transaction;
+import org.bitcoinj.core.VerificationException;
 
 /**
  * @author Andreas Schildbach

@@ -17,6 +17,19 @@
 
 package de.schildbach.wallet.ui;
 
+import android.app.Application;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.AsyncTask;
+import androidx.annotation.Nullable;
+import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.MediatorLiveData;
+import androidx.lifecycle.MutableLiveData;
+import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.data.AbstractWalletLiveData;
+import de.schildbach.wallet.data.ConfigOwnNameLiveData;
+import de.schildbach.wallet.util.Qr;
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.Coin;
 import org.bitcoinj.core.LegacyAddress;
@@ -28,22 +41,6 @@ import org.bitcoinj.wallet.listeners.WalletChangeEventListener;
 import org.bitcoinj.wallet.listeners.WalletCoinsReceivedEventListener;
 import org.bitcoinj.wallet.listeners.WalletCoinsSentEventListener;
 import org.bitcoinj.wallet.listeners.WalletReorganizeEventListener;
-
-import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.data.AbstractWalletLiveData;
-import de.schildbach.wallet.data.ConfigOwnNameLiveData;
-import de.schildbach.wallet.util.Qr;
-
-import android.app.Application;
-import android.graphics.Bitmap;
-import android.net.Uri;
-import android.os.AsyncTask;
-import androidx.annotation.Nullable;
-import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.MediatorLiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Observer;
 
 import java.util.Locale;
 

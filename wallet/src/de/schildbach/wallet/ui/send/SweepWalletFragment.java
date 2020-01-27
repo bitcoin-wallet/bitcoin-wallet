@@ -17,14 +17,45 @@
 
 package de.schildbach.wallet.ui.send;
 
-import static androidx.core.util.Preconditions.checkState;
-
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
-
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.HandlerThread;
+import android.os.Process;
+import android.text.SpannableStringBuilder;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewModelProvider;
+import com.google.common.collect.ComparisonChain;
+import com.google.common.util.concurrent.ListenableFuture;
+import de.schildbach.wallet.Configuration;
+import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.R;
+import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.data.PaymentIntent;
+import de.schildbach.wallet.ui.AbstractWalletActivity;
+import de.schildbach.wallet.ui.AbstractWalletActivityViewModel;
+import de.schildbach.wallet.ui.DialogBuilder;
+import de.schildbach.wallet.ui.DialogEvent;
+import de.schildbach.wallet.ui.InputParser.StringInputParser;
+import de.schildbach.wallet.ui.ProgressDialogFragment;
+import de.schildbach.wallet.ui.TransactionsAdapter;
+import de.schildbach.wallet.ui.scan.ScanActivity;
+import de.schildbach.wallet.util.MonetarySpannable;
 import org.bitcoinj.core.Coin;
 import org.bitcoinj.core.DumpedPrivateKey;
 import org.bitcoinj.core.ECKey;
@@ -49,47 +80,13 @@ import org.bitcoinj.wallet.WalletTransaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.common.collect.ComparisonChain;
-import com.google.common.util.concurrent.ListenableFuture;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
-import de.schildbach.wallet.Configuration;
-import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.R;
-import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.data.PaymentIntent;
-import de.schildbach.wallet.ui.AbstractWalletActivity;
-import de.schildbach.wallet.ui.AbstractWalletActivityViewModel;
-import de.schildbach.wallet.ui.DialogBuilder;
-import de.schildbach.wallet.ui.DialogEvent;
-import de.schildbach.wallet.ui.InputParser.StringInputParser;
-import de.schildbach.wallet.ui.ProgressDialogFragment;
-import de.schildbach.wallet.ui.TransactionsAdapter;
-import de.schildbach.wallet.ui.scan.ScanActivity;
-import de.schildbach.wallet.util.MonetarySpannable;
-
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.HandlerThread;
-import android.os.Process;
-import android.text.SpannableStringBuilder;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.animation.AnimationUtils;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.ViewModelProvider;
+import static androidx.core.util.Preconditions.checkState;
 
 /**
  * @author Andreas Schildbach

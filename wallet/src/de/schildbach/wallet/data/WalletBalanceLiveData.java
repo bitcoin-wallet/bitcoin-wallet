@@ -17,6 +17,12 @@
 
 package de.schildbach.wallet.data;
 
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
+import android.os.AsyncTask;
+import de.schildbach.wallet.Configuration;
+import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.WalletApplication;
 import org.bitcoinj.core.Coin;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.utils.Threading;
@@ -26,14 +32,6 @@ import org.bitcoinj.wallet.listeners.WalletChangeEventListener;
 import org.bitcoinj.wallet.listeners.WalletCoinsReceivedEventListener;
 import org.bitcoinj.wallet.listeners.WalletCoinsSentEventListener;
 import org.bitcoinj.wallet.listeners.WalletReorganizeEventListener;
-
-import de.schildbach.wallet.Configuration;
-import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.WalletApplication;
-
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
-import android.os.AsyncTask;
 
 /**
  * @author Andreas Schildbach

@@ -17,16 +17,14 @@
 
 package de.schildbach.wallet.ui;
 
-import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.security.KeyStore;
-import java.security.KeyStoreException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.regex.Pattern;
-
+import com.google.common.hash.Hashing;
+import com.google.common.io.ByteStreams;
+import com.google.protobuf.InvalidProtocolBufferException;
+import com.google.protobuf.UninitializedMessageException;
+import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.R;
+import de.schildbach.wallet.data.PaymentIntent;
+import de.schildbach.wallet.util.Qr;
 import org.bitcoin.protocols.payments.Protos;
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.AddressFormatException;
@@ -47,15 +45,15 @@ import org.bitcoinj.uri.BitcoinURIParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.common.hash.Hashing;
-import com.google.common.io.ByteStreams;
-import com.google.protobuf.InvalidProtocolBufferException;
-import com.google.protobuf.UninitializedMessageException;
-
-import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.R;
-import de.schildbach.wallet.data.PaymentIntent;
-import de.schildbach.wallet.util.Qr;
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.security.KeyStore;
+import java.security.KeyStoreException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.regex.Pattern;
 
 /**
  * @author Andreas Schildbach

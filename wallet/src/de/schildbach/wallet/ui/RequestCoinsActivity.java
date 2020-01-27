@@ -17,12 +17,6 @@
 
 package de.schildbach.wallet.ui;
 
-import org.bitcoinj.script.Script;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import de.schildbach.wallet.R;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -31,6 +25,10 @@ import android.view.MenuItem;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.lifecycle.ViewModelProvider;
+import de.schildbach.wallet.R;
+import org.bitcoinj.script.Script;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Andreas Schildbach

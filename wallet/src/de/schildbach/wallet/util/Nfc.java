@@ -17,12 +17,12 @@
 
 package de.schildbach.wallet.util;
 
-import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
-
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import androidx.annotation.Nullable;
+
+import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 
 /**
  * @author Andreas Schildbach

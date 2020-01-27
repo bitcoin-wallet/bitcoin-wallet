@@ -17,21 +17,19 @@
 
 package de.schildbach.wallet.ui;
 
+import android.content.Context;
 import android.graphics.PorterDuff;
 import android.os.Build;
-import androidx.core.content.ContextCompat;
-import de.schildbach.wallet.R;
-import de.schildbach.wallet.util.CheatSheet;
-
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.widget.FrameLayout;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import de.schildbach.wallet.R;
+import de.schildbach.wallet.util.CheatSheet;
 
 /**
  * @author Andreas Schildbach

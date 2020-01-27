@@ -17,23 +17,14 @@
 
 package de.schildbach.wallet.ui;
 
-import org.bitcoinj.core.Address;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import de.schildbach.wallet.R;
-
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
-import android.net.Uri;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import androidx.annotation.Nullable;
@@ -41,6 +32,10 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
+import de.schildbach.wallet.R;
+import org.bitcoinj.core.Address;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Andreas Schildbach

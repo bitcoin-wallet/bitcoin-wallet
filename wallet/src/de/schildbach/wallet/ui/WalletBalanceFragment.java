@@ -17,19 +17,6 @@
 
 package de.schildbach.wallet.ui;
 
-import org.bitcoinj.core.Coin;
-import org.bitcoinj.core.NetworkParameters;
-import org.bitcoinj.utils.Fiat;
-
-import de.schildbach.wallet.Configuration;
-import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.R;
-import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.exchangerate.ExchangeRateEntry;
-import de.schildbach.wallet.service.BlockchainState;
-import de.schildbach.wallet.ui.send.FeeCategory;
-import de.schildbach.wallet.ui.send.SendCoinsActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -40,12 +27,22 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import de.schildbach.wallet.Configuration;
+import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.R;
+import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.exchangerate.ExchangeRateEntry;
+import de.schildbach.wallet.service.BlockchainState;
+import de.schildbach.wallet.ui.send.FeeCategory;
+import de.schildbach.wallet.ui.send.SendCoinsActivity;
+import org.bitcoinj.core.Coin;
+import org.bitcoinj.core.NetworkParameters;
+import org.bitcoinj.utils.Fiat;
 
 /**
  * @author Andreas Schildbach

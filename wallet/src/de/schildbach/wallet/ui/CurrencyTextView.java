@@ -17,13 +17,6 @@
 
 package de.schildbach.wallet.ui;
 
-import org.bitcoinj.core.Monetary;
-import org.bitcoinj.utils.MonetaryFormat;
-
-import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.R;
-import de.schildbach.wallet.util.MonetarySpannable;
-
 import android.content.Context;
 import android.graphics.Paint;
 import android.text.style.ForegroundColorSpan;
@@ -33,6 +26,11 @@ import android.util.AttributeSet;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
+import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.R;
+import de.schildbach.wallet.util.MonetarySpannable;
+import org.bitcoinj.core.Monetary;
+import org.bitcoinj.utils.MonetaryFormat;
 
 /**
  * @author Andreas Schildbach

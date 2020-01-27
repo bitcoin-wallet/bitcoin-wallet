@@ -17,21 +17,6 @@
 
 package de.schildbach.wallet.ui.monitor;
 
-import java.net.InetAddress;
-import java.util.ArrayList;
-import java.util.EnumSet;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Objects;
-
-import com.google.common.hash.HashFunction;
-import com.google.common.hash.Hashing;
-import org.bitcoinj.core.Peer;
-import org.bitcoinj.core.VersionMessage;
-
-import de.schildbach.wallet.R;
-
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
@@ -47,6 +32,19 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
+import com.google.common.hash.HashFunction;
+import com.google.common.hash.Hashing;
+import de.schildbach.wallet.R;
+import org.bitcoinj.core.Peer;
+import org.bitcoinj.core.VersionMessage;
+
+import java.net.InetAddress;
+import java.util.ArrayList;
+import java.util.EnumSet;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * @author Andreas Schildbach

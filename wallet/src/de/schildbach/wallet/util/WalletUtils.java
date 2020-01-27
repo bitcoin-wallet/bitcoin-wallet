@@ -17,10 +17,17 @@
 
 package de.schildbach.wallet.util;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-
+import android.content.Context;
+import android.net.Uri;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.SpannedString;
+import android.text.style.TypefaceSpan;
+import androidx.annotation.Nullable;
+import com.google.common.base.Stopwatch;
+import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.service.BlockchainService;
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.NetworkParameters;
 import org.bitcoinj.core.Sha256Hash;
@@ -36,19 +43,9 @@ import org.bitcoinj.wallet.WalletProtobufSerializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.common.base.Stopwatch;
-
-import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.service.BlockchainService;
-
-import android.content.Context;
-import android.net.Uri;
-import android.text.Spannable;
-import android.text.SpannableStringBuilder;
-import android.text.Spanned;
-import android.text.SpannedString;
-import android.text.style.TypefaceSpan;
-import androidx.annotation.Nullable;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 /**
  * @author Andreas Schildbach

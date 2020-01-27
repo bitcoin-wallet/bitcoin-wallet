@@ -17,15 +17,14 @@
 
 package de.schildbach.wallet.data;
 
-import java.util.Date;
-
-import de.schildbach.wallet.WalletApplication;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import androidx.lifecycle.LiveData;
+import de.schildbach.wallet.WalletApplication;
+
+import java.util.Date;
 
 /**
  * @author Andreas Schildbach

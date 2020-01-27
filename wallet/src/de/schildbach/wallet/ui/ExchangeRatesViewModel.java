@@ -17,18 +17,17 @@
 
 package de.schildbach.wallet.ui;
 
-import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.data.WalletBalanceLiveData;
-import de.schildbach.wallet.exchangerate.ExchangeRateDao;
-import de.schildbach.wallet.exchangerate.ExchangeRateEntry;
-import de.schildbach.wallet.exchangerate.ExchangeRatesRepository;
-
 import android.app.Application;
 import androidx.annotation.MainThread;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
+import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.data.WalletBalanceLiveData;
+import de.schildbach.wallet.exchangerate.ExchangeRateDao;
+import de.schildbach.wallet.exchangerate.ExchangeRateEntry;
+import de.schildbach.wallet.exchangerate.ExchangeRatesRepository;
 
 import java.util.List;
 import java.util.Locale;

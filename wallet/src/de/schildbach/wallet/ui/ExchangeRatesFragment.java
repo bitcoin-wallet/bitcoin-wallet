@@ -17,17 +17,6 @@
 
 package de.schildbach.wallet.ui;
 
-import androidx.core.content.ContextCompat;
-import org.bitcoinj.core.Coin;
-
-import com.google.common.base.Strings;
-
-import de.schildbach.wallet.Configuration;
-import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.R;
-import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.exchangerate.ExchangeRateEntry;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
@@ -43,10 +32,17 @@ import android.widget.EditText;
 import android.widget.SearchView;
 import android.widget.SearchView.OnQueryTextListener;
 import android.widget.ViewAnimator;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import com.google.common.base.Strings;
+import de.schildbach.wallet.Configuration;
+import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.R;
+import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.exchangerate.ExchangeRateEntry;
 
 import java.util.List;
 

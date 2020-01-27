@@ -17,11 +17,11 @@
 
 package de.schildbach.wallet.ui.preference;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-
 import android.os.Handler;
 import android.os.Looper;
+
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 /**
  * @author Andreas Schildbach

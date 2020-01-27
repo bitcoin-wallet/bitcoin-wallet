@@ -17,24 +17,6 @@
 
 package de.schildbach.wallet.ui;
 
-import org.bitcoinj.core.Address;
-import org.bitcoinj.core.Sha256Hash;
-import org.bitcoinj.core.Transaction;
-import org.bitcoinj.wallet.Wallet;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import de.schildbach.wallet.Configuration;
-import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.R;
-import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.addressbook.AddressBookDao;
-import de.schildbach.wallet.addressbook.AddressBookDatabase;
-import de.schildbach.wallet.ui.TransactionsAdapter.WarningType;
-import de.schildbach.wallet.ui.send.RaiseFeeDialogFragment;
-import de.schildbach.wallet.util.Qr;
-import de.schildbach.wallet.util.WalletUtils;
-
 import android.app.admin.DevicePolicyManager;
 import android.content.Context;
 import android.content.Intent;
@@ -59,6 +41,22 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
+import de.schildbach.wallet.Configuration;
+import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.R;
+import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.addressbook.AddressBookDao;
+import de.schildbach.wallet.addressbook.AddressBookDatabase;
+import de.schildbach.wallet.ui.TransactionsAdapter.WarningType;
+import de.schildbach.wallet.ui.send.RaiseFeeDialogFragment;
+import de.schildbach.wallet.util.Qr;
+import de.schildbach.wallet.util.WalletUtils;
+import org.bitcoinj.core.Address;
+import org.bitcoinj.core.Sha256Hash;
+import org.bitcoinj.core.Transaction;
+import org.bitcoinj.wallet.Wallet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Andreas Schildbach

@@ -17,28 +17,6 @@
 
 package de.schildbach.wallet.ui.scan;
 
-import java.util.EnumMap;
-import java.util.Map;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.google.zxing.BinaryBitmap;
-import com.google.zxing.DecodeHintType;
-import com.google.zxing.PlanarYUVLuminanceSource;
-import com.google.zxing.ReaderException;
-import com.google.zxing.Result;
-import com.google.zxing.ResultPoint;
-import com.google.zxing.ResultPointCallback;
-import com.google.zxing.common.HybridBinarizer;
-import com.google.zxing.qrcode.QRCodeReader;
-
-import de.schildbach.wallet.R;
-import de.schildbach.wallet.ui.AbstractWalletActivity;
-import de.schildbach.wallet.ui.DialogBuilder;
-import de.schildbach.wallet.ui.Event;
-import de.schildbach.wallet.util.OnFirstPreDraw;
-
 import android.Manifest;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -47,7 +25,6 @@ import android.app.ActivityOptions;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
@@ -57,7 +34,6 @@ import android.graphics.SurfaceTexture;
 import android.graphics.drawable.ColorDrawable;
 import android.hardware.Camera;
 import android.hardware.Camera.CameraInfo;
-import android.hardware.Camera.PreviewCallback;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -78,6 +54,24 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
+import com.google.zxing.BinaryBitmap;
+import com.google.zxing.DecodeHintType;
+import com.google.zxing.PlanarYUVLuminanceSource;
+import com.google.zxing.ReaderException;
+import com.google.zxing.Result;
+import com.google.zxing.ResultPointCallback;
+import com.google.zxing.common.HybridBinarizer;
+import com.google.zxing.qrcode.QRCodeReader;
+import de.schildbach.wallet.R;
+import de.schildbach.wallet.ui.AbstractWalletActivity;
+import de.schildbach.wallet.ui.DialogBuilder;
+import de.schildbach.wallet.ui.Event;
+import de.schildbach.wallet.util.OnFirstPreDraw;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.EnumMap;
+import java.util.Map;
 
 /**
  * @author Andreas Schildbach

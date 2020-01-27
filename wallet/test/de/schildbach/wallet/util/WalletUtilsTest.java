@@ -17,11 +17,11 @@
 
 package de.schildbach.wallet.util;
 
-import java.io.IOException;
-
 import org.bitcoinj.params.MainNetParams;
 import org.bitcoinj.params.TestNet3Params;
 import org.junit.Test;
+
+import java.io.IOException;
 
 /**
  * @author Andreas Schildbach

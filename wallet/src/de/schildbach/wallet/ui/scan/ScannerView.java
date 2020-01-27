@@ -17,14 +17,6 @@
 
 package de.schildbach.wallet.ui.scan;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-
-import com.google.zxing.ResultPoint;
-
-import de.schildbach.wallet.R;
-
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
@@ -37,6 +29,12 @@ import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.View;
 import androidx.core.content.ContextCompat;
+import com.google.zxing.ResultPoint;
+import de.schildbach.wallet.R;
+
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * @author Andreas Schildbach

@@ -17,17 +17,14 @@
 
 package de.schildbach.wallet.ui;
 
-import org.bitcoinj.core.Address;
-import org.bitcoinj.core.AddressFormatException;
-import org.bitcoinj.core.NetworkParameters;
-
-import com.google.common.base.Objects;
-
-import de.schildbach.wallet.Constants;
-
 import android.os.Parcel;
 import android.os.Parcelable;
 import androidx.annotation.Nullable;
+import com.google.common.base.Objects;
+import de.schildbach.wallet.Constants;
+import org.bitcoinj.core.Address;
+import org.bitcoinj.core.AddressFormatException;
+import org.bitcoinj.core.NetworkParameters;
 
 /**
  * @author Andreas Schildbach

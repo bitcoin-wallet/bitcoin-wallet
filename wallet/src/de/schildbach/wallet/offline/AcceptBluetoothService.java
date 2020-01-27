@@ -17,24 +17,6 @@
 
 package de.schildbach.wallet.offline;
 
-import static androidx.core.util.Preconditions.checkNotNull;
-
-import java.io.IOException;
-
-import org.bitcoinj.core.Transaction;
-import org.bitcoinj.core.VerificationException;
-import org.bitcoinj.wallet.Wallet;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.R;
-import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.data.BlockchainServiceLiveData;
-import de.schildbach.wallet.data.WalletLiveData;
-import de.schildbach.wallet.util.CrashReporter;
-import de.schildbach.wallet.util.Toast;
-
 import android.bluetooth.BluetoothAdapter;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -48,6 +30,22 @@ import android.text.format.DateUtils;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.LifecycleService;
+import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.R;
+import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.data.BlockchainServiceLiveData;
+import de.schildbach.wallet.data.WalletLiveData;
+import de.schildbach.wallet.util.CrashReporter;
+import de.schildbach.wallet.util.Toast;
+import org.bitcoinj.core.Transaction;
+import org.bitcoinj.core.VerificationException;
+import org.bitcoinj.wallet.Wallet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
+
+import static androidx.core.util.Preconditions.checkNotNull;
 
 /**
  * @author Andreas Schildbach

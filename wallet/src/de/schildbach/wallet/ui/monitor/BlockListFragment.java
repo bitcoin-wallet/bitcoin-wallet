@@ -17,27 +17,6 @@
 
 package de.schildbach.wallet.ui.monitor;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import org.bitcoinj.core.Sha256Hash;
-import org.bitcoinj.core.StoredBlock;
-import org.bitcoinj.core.Transaction;
-import org.bitcoinj.wallet.Wallet;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import de.schildbach.wallet.Configuration;
-import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.R;
-import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.addressbook.AddressBookEntry;
-import de.schildbach.wallet.ui.AbstractWalletActivity;
-import de.schildbach.wallet.ui.AbstractWalletActivityViewModel;
-import de.schildbach.wallet.ui.StickToTopLinearLayoutManager;
-
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -51,6 +30,22 @@ import android.widget.ViewAnimator;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
+import de.schildbach.wallet.Configuration;
+import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.R;
+import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.addressbook.AddressBookEntry;
+import de.schildbach.wallet.ui.AbstractWalletActivity;
+import de.schildbach.wallet.ui.AbstractWalletActivityViewModel;
+import de.schildbach.wallet.ui.StickToTopLinearLayoutManager;
+import org.bitcoinj.core.Sha256Hash;
+import org.bitcoinj.core.StoredBlock;
+import org.bitcoinj.wallet.Wallet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author Andreas Schildbach

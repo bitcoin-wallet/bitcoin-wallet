@@ -17,13 +17,6 @@
 
 package de.schildbach.wallet.ui;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import de.schildbach.wallet.R;
-import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.util.Toast;
-
 import android.app.ActivityManager.TaskDescription;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
@@ -34,6 +27,11 @@ import android.view.MenuItem;
 import android.view.WindowManager;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
+import de.schildbach.wallet.R;
+import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.util.Toast;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Andreas Schildbach

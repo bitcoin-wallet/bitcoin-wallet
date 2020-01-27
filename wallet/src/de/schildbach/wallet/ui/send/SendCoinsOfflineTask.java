@@ -17,6 +17,9 @@
 
 package de.schildbach.wallet.ui.send;
 
+import android.os.Handler;
+import android.os.Looper;
+import de.schildbach.wallet.Constants;
 import org.bitcoinj.core.Coin;
 import org.bitcoinj.core.ECKey;
 import org.bitcoinj.core.InsufficientMoneyException;
@@ -28,11 +31,6 @@ import org.bitcoinj.wallet.Wallet.CompletionException;
 import org.bitcoinj.wallet.Wallet.CouldNotAdjustDownwards;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import de.schildbach.wallet.Constants;
-
-import android.os.Handler;
-import android.os.Looper;
 
 /**
  * @author Andreas Schildbach

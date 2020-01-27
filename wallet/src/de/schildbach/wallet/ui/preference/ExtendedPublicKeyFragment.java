@@ -17,24 +17,21 @@
 
 package de.schildbach.wallet.ui.preference;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import de.schildbach.wallet.R;
-import de.schildbach.wallet.ui.DialogBuilder;
-import de.schildbach.wallet.util.Qr;
-
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.FragmentManager;
-import android.content.DialogInterface;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import androidx.core.app.ShareCompat;
+import de.schildbach.wallet.R;
+import de.schildbach.wallet.ui.DialogBuilder;
+import de.schildbach.wallet.util.Qr;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Andreas Schildbach

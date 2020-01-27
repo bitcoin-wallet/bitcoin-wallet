@@ -17,6 +17,12 @@
 
 package de.schildbach.wallet.util;
 
+import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -28,18 +34,10 @@ import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.Calendar;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import android.content.Context;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 
 /**
  * @author Andreas Schildbach

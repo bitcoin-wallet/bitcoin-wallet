@@ -17,11 +17,11 @@
 
 package de.schildbach.wallet.offline;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.util.concurrent.atomic.AtomicBoolean;
-
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothServerSocket;
+import android.bluetooth.BluetoothSocket;
+import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.util.Bluetooth;
 import org.bitcoin.protocols.payments.Protos;
 import org.bitcoin.protocols.payments.Protos.PaymentACK;
 import org.bitcoinj.core.ProtocolException;
@@ -30,12 +30,10 @@ import org.bitcoinj.protocols.payments.PaymentProtocol;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.util.Bluetooth;
-
-import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothServerSocket;
-import android.bluetooth.BluetoothSocket;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * @author Shahar Livne

@@ -17,10 +17,13 @@
 
 package de.schildbach.wallet.data;
 
-import static androidx.core.util.Preconditions.checkArgument;
-
-import java.util.Arrays;
-
+import android.os.Parcel;
+import android.os.Parcelable;
+import androidx.annotation.Nullable;
+import com.google.common.io.BaseEncoding;
+import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.util.Bluetooth;
+import de.schildbach.wallet.util.GenericUtils;
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.AddressFormatException;
 import org.bitcoinj.core.Coin;
@@ -36,15 +39,9 @@ import org.bitcoinj.wallet.SendRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.common.io.BaseEncoding;
+import java.util.Arrays;
 
-import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.util.Bluetooth;
-import de.schildbach.wallet.util.GenericUtils;
-
-import android.os.Parcel;
-import android.os.Parcelable;
-import androidx.annotation.Nullable;
+import static androidx.core.util.Preconditions.checkArgument;
 
 /**
  * @author Andreas Schildbach

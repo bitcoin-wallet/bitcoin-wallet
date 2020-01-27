@@ -17,30 +17,28 @@
 
 package de.schildbach.wallet.ui.monitor;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import org.bitcoinj.core.Sha256Hash;
-import org.bitcoinj.core.StoredBlock;
-import org.bitcoinj.core.Transaction;
-import org.bitcoinj.wallet.Wallet;
-
-import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.data.AbstractWalletLiveData;
-import de.schildbach.wallet.addressbook.AddressBookEntry;
-import de.schildbach.wallet.addressbook.AddressBookDatabase;
-import de.schildbach.wallet.data.BlockchainServiceLiveData;
-import de.schildbach.wallet.data.TimeLiveData;
-import de.schildbach.wallet.service.BlockchainService;
-
 import android.app.Application;
 import android.os.AsyncTask;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
+import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.addressbook.AddressBookDatabase;
+import de.schildbach.wallet.addressbook.AddressBookEntry;
+import de.schildbach.wallet.data.AbstractWalletLiveData;
+import de.schildbach.wallet.data.BlockchainServiceLiveData;
+import de.schildbach.wallet.data.TimeLiveData;
+import de.schildbach.wallet.service.BlockchainService;
+import org.bitcoinj.core.Sha256Hash;
+import org.bitcoinj.core.StoredBlock;
+import org.bitcoinj.core.Transaction;
+import org.bitcoinj.wallet.Wallet;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * @author Andreas Schildbach

@@ -17,21 +17,6 @@
 
 package de.schildbach.wallet.ui;
 
-import de.schildbach.wallet.Configuration;
-import org.bitcoinj.crypto.KeyCrypterException;
-import org.bitcoinj.crypto.KeyCrypterScrypt;
-import org.bitcoinj.wallet.Wallet;
-import org.bouncycastle.crypto.params.KeyParameter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.google.common.base.Strings;
-
-import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.R;
-import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.util.WalletUtils;
-
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -55,6 +40,18 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
+import com.google.common.base.Strings;
+import de.schildbach.wallet.Configuration;
+import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.R;
+import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.util.WalletUtils;
+import org.bitcoinj.crypto.KeyCrypterException;
+import org.bitcoinj.crypto.KeyCrypterScrypt;
+import org.bitcoinj.wallet.Wallet;
+import org.bouncycastle.crypto.params.KeyParameter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Andreas Schildbach

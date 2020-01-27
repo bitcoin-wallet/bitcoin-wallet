@@ -17,26 +17,24 @@
 
 package de.schildbach.wallet.ui;
 
-import java.util.Set;
-
 import android.content.Context;
-import de.schildbach.wallet.R;
-import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.service.BlockchainState;
-import de.schildbach.wallet.service.BlockchainState.Impediment;
-
 import android.os.Bundle;
 import android.text.Html;
 import android.text.SpannableStringBuilder;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import de.schildbach.wallet.R;
+import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.service.BlockchainState;
+import de.schildbach.wallet.service.BlockchainState.Impediment;
+
+import java.util.Set;
 
 /**
  * @author Andreas Schildbach

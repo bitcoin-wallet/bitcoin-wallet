@@ -17,10 +17,34 @@
 
 package de.schildbach.wallet.ui.send;
 
-import static androidx.core.util.Preconditions.checkNotNull;
-
-import java.util.Map;
-
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.graphics.Typeface;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.HandlerThread;
+import android.os.Process;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewModelProvider;
+import de.schildbach.wallet.Configuration;
+import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.R;
+import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.ui.AbstractWalletActivity;
+import de.schildbach.wallet.ui.AbstractWalletActivityViewModel;
+import de.schildbach.wallet.ui.DialogBuilder;
+import de.schildbach.wallet.util.WalletUtils;
 import org.bitcoinj.core.Coin;
 import org.bitcoinj.core.Sha256Hash;
 import org.bitcoinj.core.Transaction;
@@ -33,37 +57,7 @@ import org.bouncycastle.crypto.params.KeyParameter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import de.schildbach.wallet.Configuration;
-import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.R;
-import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.ui.AbstractWalletActivity;
-import de.schildbach.wallet.ui.AbstractWalletActivityViewModel;
-import de.schildbach.wallet.ui.DialogBuilder;
-import de.schildbach.wallet.util.WalletUtils;
-
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnShowListener;
-import android.graphics.Typeface;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.HandlerThread;
-import android.os.Process;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.ViewModelProvider;
+import static androidx.core.util.Preconditions.checkNotNull;
 
 /**
  * @author Andreas Schildbach

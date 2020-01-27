@@ -16,12 +16,6 @@
 
 package de.schildbach.wallet.integration.sample;
 
-import org.bitcoin.protocols.payments.Protos;
-import org.bitcoinj.core.Address;
-import org.bitcoinj.core.AddressFormatException;
-import org.bitcoinj.core.NetworkParameters;
-import org.bitcoinj.script.ScriptBuilder;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -29,15 +23,17 @@ import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.style.TypefaceSpan;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.protobuf.ByteString;
-
 import de.schildbach.wallet.integration.android.BitcoinIntegration;
+import org.bitcoin.protocols.payments.Protos;
+import org.bitcoinj.core.Address;
+import org.bitcoinj.core.AddressFormatException;
+import org.bitcoinj.core.NetworkParameters;
+import org.bitcoinj.script.ScriptBuilder;
 
 /**
  * @author Andreas Schildbach

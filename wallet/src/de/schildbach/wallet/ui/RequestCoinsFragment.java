@@ -17,22 +17,6 @@
 
 package de.schildbach.wallet.ui;
 
-import org.bitcoinj.core.Address;
-import org.bitcoinj.protocols.payments.PaymentProtocol;
-import org.bitcoinj.script.Script;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import de.schildbach.wallet.Configuration;
-import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.R;
-import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.offline.AcceptBluetoothService;
-import de.schildbach.wallet.ui.send.SendCoinsActivity;
-import de.schildbach.wallet.util.Bluetooth;
-import de.schildbach.wallet.util.Nfc;
-import de.schildbach.wallet.util.Toast;
-
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.content.ActivityNotFoundException;
@@ -56,11 +40,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
@@ -70,6 +51,20 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
+import de.schildbach.wallet.Configuration;
+import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.R;
+import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.offline.AcceptBluetoothService;
+import de.schildbach.wallet.ui.send.SendCoinsActivity;
+import de.schildbach.wallet.util.Bluetooth;
+import de.schildbach.wallet.util.Nfc;
+import de.schildbach.wallet.util.Toast;
+import org.bitcoinj.core.Address;
+import org.bitcoinj.protocols.payments.PaymentProtocol;
+import org.bitcoinj.script.Script;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Andreas Schildbach

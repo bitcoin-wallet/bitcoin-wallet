@@ -17,24 +17,6 @@
 
 package de.schildbach.wallet.ui;
 
-import java.util.ArrayList;
-import java.util.EnumSet;
-import java.util.List;
-import java.util.Objects;
-
-import com.google.common.hash.HashFunction;
-import com.google.common.hash.Hashing;
-import org.bitcoinj.core.Coin;
-import org.bitcoinj.core.NetworkParameters;
-import org.bitcoinj.utils.ExchangeRate;
-import org.bitcoinj.utils.Fiat;
-
-import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.R;
-import de.schildbach.wallet.exchangerate.ExchangeRateEntry;
-import de.schildbach.wallet.service.BlockchainState;
-import de.schildbach.wallet.util.Toolbars;
-
 import android.content.Context;
 import android.os.Build;
 import android.view.LayoutInflater;
@@ -54,6 +36,22 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
+import com.google.common.hash.HashFunction;
+import com.google.common.hash.Hashing;
+import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.R;
+import de.schildbach.wallet.exchangerate.ExchangeRateEntry;
+import de.schildbach.wallet.service.BlockchainState;
+import de.schildbach.wallet.util.Toolbars;
+import org.bitcoinj.core.Coin;
+import org.bitcoinj.core.NetworkParameters;
+import org.bitcoinj.utils.ExchangeRate;
+import org.bitcoinj.utils.Fiat;
+
+import java.util.ArrayList;
+import java.util.EnumSet;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * @author Andreas Schildbach

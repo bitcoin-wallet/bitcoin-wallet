@@ -17,15 +17,13 @@
 
 package de.schildbach.wallet.ui.send;
 
-import org.bitcoinj.core.PrefixedChecksummedBytes;
-
-import de.schildbach.wallet.R;
-import de.schildbach.wallet.service.BlockchainService;
-import de.schildbach.wallet.ui.AbstractWalletActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import de.schildbach.wallet.R;
+import de.schildbach.wallet.service.BlockchainService;
+import de.schildbach.wallet.ui.AbstractWalletActivity;
+import org.bitcoinj.core.PrefixedChecksummedBytes;
 
 /**
  * @author Andreas Schildbach

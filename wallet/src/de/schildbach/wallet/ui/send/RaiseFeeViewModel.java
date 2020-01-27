@@ -17,11 +17,10 @@
 
 package de.schildbach.wallet.ui.send;
 
-import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.data.DynamicFeeLiveData;
-
 import android.app.Application;
 import androidx.lifecycle.AndroidViewModel;
+import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.data.DynamicFeeLiveData;
 
 /**
  * @author Andreas Schildbach

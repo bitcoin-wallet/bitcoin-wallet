@@ -17,10 +17,10 @@
 
 package de.schildbach.wallet.util;
 
+import android.content.res.AssetManager;
+
 import java.io.IOException;
 import java.io.InputStream;
-
-import android.content.res.AssetManager;
 
 /**
  * @author Andreas Schildbach

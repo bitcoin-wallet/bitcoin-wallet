@@ -17,14 +17,14 @@
 
 package de.schildbach.wallet.addressbook;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author Andreas Schildbach
