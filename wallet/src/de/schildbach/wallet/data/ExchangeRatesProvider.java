@@ -17,8 +17,6 @@
 
 package de.schildbach.wallet.data;
 
-import java.math.BigDecimal;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Currency;
 import java.util.Iterator;
@@ -260,11 +258,11 @@ public class ExchangeRatesProvider extends ContentProvider {
                                 && !fiatCurrencyCode.equals(MonetaryFormat.CODE_UBTC)) {
                             final JSONObject exchangeRate = head.getJSONObject(currencyCode);
                             try {
-                                final Fiat rate = parseFiatInexact(fiatCurrencyCode, exchangeRate.getString("last"));
+                                final Fiat rate = Fiat.parseFiatInexact(fiatCurrencyCode, exchangeRate.getString("last"));
                                 if (rate.signum() > 0)
                                     rates.put(fiatCurrencyCode, new ExchangeRate(
                                             new org.bitcoinj.utils.ExchangeRate(rate), BITCOINAVERAGE_SOURCE));
-                            } catch (final IllegalArgumentException x) {
+                            } catch (final ArithmeticException x) {
                                 log.warn("problem fetching {} exchange rate from {}: {}", currencyCode,
                                         BITCOINAVERAGE_URL, x.getMessage());
                             }
@@ -285,11 +283,5 @@ public class ExchangeRatesProvider extends ContentProvider {
         }
 
         return null;
-    }
-
-    // backport from bitcoinj 0.15
-    private static Fiat parseFiatInexact(final String currencyCode, final String str) {
-        final long val = new BigDecimal(str).movePointRight(Fiat.SMALLEST_UNIT_EXPONENT).longValue();
-        return Fiat.valueOf(currencyCode, val);
     }
 }
