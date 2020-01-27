@@ -127,10 +127,7 @@ public class ExchangeRatesProvider extends ContentProvider {
         final boolean offline = uri.getQueryParameter(QUERY_PARAM_OFFLINE) != null;
 
         if (!offline && (lastUpdated == 0 || now - lastUpdated > UPDATE_FREQ_MS)) {
-            Map<String, ExchangeRate> newExchangeRates = null;
-            if (newExchangeRates == null)
-                newExchangeRates = requestExchangeRates();
-
+            final Map<String, ExchangeRate> newExchangeRates = requestExchangeRates();
             if (newExchangeRates != null) {
                 exchangeRates = newExchangeRates;
                 lastUpdated = now;
