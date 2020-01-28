@@ -129,7 +129,7 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
                 final int colorSignificant = ContextCompat.getColor(context, R.color.fg_significant);
                 final int colorLessSignificant = ContextCompat.getColor(context, R.color.fg_less_significant);
                 final int colorInsignificant = ContextCompat.getColor(context, R.color.fg_insignificant);
-                final int colorValuePositve = ContextCompat.getColor(context, R.color.fg_value_positive);
+                final int colorValuePositive = ContextCompat.getColor(context, R.color.fg_value_positive);
                 final int colorValueNegative = ContextCompat.getColor(context, R.color.fg_value_negative);
                 final int colorError = ContextCompat.getColor(context, R.color.fg_error);
 
@@ -150,7 +150,7 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
                 } else if (DefaultCoinSelector.isSelectable(tx)) {
                     textColor = colorSignificant;
                     lessSignificantColor = colorLessSignificant;
-                    valueColor = sent ? colorValueNegative : colorValuePositve;
+                    valueColor = sent ? colorValueNegative : colorValuePositive;
                 } else {
                     textColor = colorInsignificant;
                     lessSignificantColor = colorInsignificant;
