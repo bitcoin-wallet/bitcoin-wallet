@@ -60,6 +60,7 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
+import androidx.core.graphics.ColorUtils;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
@@ -189,7 +190,8 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
                             this.confidenceCircularMaxProgress);
                     this.confidenceCircularMaxSize = 1;
                     this.confidenceCircularSize = 1;
-                    this.confidenceCircularFillColor = valueColor;
+                    this.confidenceCircularFillColor = ColorUtils.blendARGB(colorValueNegative, colorValuePositive,
+                            (float) (this.confidenceCircularProgress - 1) / (this.confidenceCircularMaxProgress - 1));
                     this.confidenceCircularStrokeColor = Color.TRANSPARENT;
                     this.confidenceTextual = null;
                     this.confidenceTextualColor = 0;
