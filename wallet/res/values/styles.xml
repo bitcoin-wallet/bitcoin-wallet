@@ -85,6 +85,11 @@
         <item name="android:backgroundTint">@color/fg_network_significant</item>
     </style>
 
+    <style name="My.Widget.ActionButton.Floating.DarkDefault" parent="@android:style/Widget.Material.ActionButton">
+        <item name="android:background">@drawable/floating_action_button_background</item>
+        <item name="android:backgroundTint">@color/fg_network_significant_darkdefault</item>
+    </style>
+
     <style name="My.Widget.ActionMode" parent="@android:style/Widget.Material.Light.ActionMode">
         <item name="android:background">@drawable/action_mode_background</item>
         <item name="android:titleTextStyle">@style/My.TextAppearance.Widget.ActionMode.Title</item>

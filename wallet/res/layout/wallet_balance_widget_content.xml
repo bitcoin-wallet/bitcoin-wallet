@@ -38,7 +38,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:tint="@color/fg_less_significant"
+                android:tint="@color/fg_less_significant_darkdefault"
                 android:tintMode="src_in" />
 
             <TextView
@@ -50,7 +50,7 @@
                 android:fadingEdge="horizontal"
                 android:fadingEdgeLength="12dp"
                 android:singleLine="true"
-                android:textColor="@color/fg_significant"
+                android:textColor="@color/fg_significant_darkdefault"
                 android:textSize="@dimen/font_size_large" />
         </LinearLayout>
 
@@ -63,7 +63,7 @@
             android:fadingEdge="horizontal"
             android:fadingEdgeLength="12dp"
             android:singleLine="true"
-            android:textColor="@color/fg_insignificant"
+            android:textColor="@color/fg_insignificant_darkdefault"
             android:textSize="@dimen/font_size_normal" />
     </LinearLayout>
 
@@ -75,7 +75,7 @@
         android:background="?android:attr/selectableItemBackgroundBorderless"
         android:contentDescription="@string/button_request_coins"
         android:src="@drawable/ic_send_flipped_white_24dp"
-        android:tint="@color/fg_network_less_significant" />
+        android:tint="@color/fg_network_less_significant_darkdefault" />
 
     <ImageButton
         android:id="@+id/widget_button_send"
@@ -85,7 +85,7 @@
         android:background="?android:attr/selectableItemBackgroundBorderless"
         android:contentDescription="@string/button_send_coins"
         android:src="@drawable/ic_send_white_24dp"
-        android:tint="@color/fg_network_less_significant" />
+        android:tint="@color/fg_network_less_significant_darkdefault" />
 
     <ImageButton
         android:id="@+id/widget_button_send_qr"
@@ -95,6 +95,6 @@
         android:background="?android:attr/selectableItemBackgroundBorderless"
         android:contentDescription="@string/button_scan"
         android:src="@drawable/ic_photo_camera_white_24dp"
-        android:tint="@color/fg_network_less_significant" />
+        android:tint="@color/fg_network_less_significant_darkdefault" />
 
 </LinearLayout>

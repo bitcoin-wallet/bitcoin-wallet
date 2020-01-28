@@ -3,21 +3,27 @@
 
     <!-- foreground -->
     <color name="fg_significant">#ff000000</color>
+    <color name="fg_significant_darkdefault">#ffeceff4</color>
     <color name="fg_less_significant">#ff666666</color>
+    <color name="fg_less_significant_darkdefault">#ffe5e9f0</color>
     <color name="fg_insignificant">#ff999999</color>
+    <color name="fg_insignificant_darkdefault">#ffd8dee9</color>
     <color name="fg_value_positive">#ff009800</color>
     <color name="fg_value_negative">#ffb90000</color>
     <color name="fg_error">#ffff0000</color>
     <color name="fg_on_dark_bg_network_significant">#ffffffff</color>
     <color name="fg_on_dark_bg_network_insignificant">#ffa0a0a0</color>
     <color name="fg_network_significant">#ff000000</color>
+    <color name="fg_network_significant_darkdefault">#ffeceff4</color>
     <color name="fg_network_less_significant">#cc000000</color>
+    <color name="fg_network_less_significant_darkdefault">#cceceff4</color>
     <color name="fg_shortcut">#ffa0a0a0</color>
 
     <!-- background -->
     <color name="bg_level3">#ffffffff</color>
     <color name="bg_level2">#fff2f2f8</color>
     <color name="bg_level1">#ffeaeaf0</color>
+    <color name="bg_level1_darkdefault">#ff1a1e24</color>
     <color name="bg_level0">#ffe0e0e8</color>
     <color name="bg_action_bar">#ff181c22</color>
     <color name="bg_qr_thumb">@android:color/white</color>
