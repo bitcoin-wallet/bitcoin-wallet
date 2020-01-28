@@ -155,7 +155,7 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
                 } else {
                     textColor = colorInsignificant;
                     lessSignificantColor = colorInsignificant;
-                    valueColor = colorInsignificant;
+                    valueColor = sent ? colorValueNegative : colorValuePositive;
                 }
 
                 // confidence
@@ -287,7 +287,7 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
                 // value
                 this.valueFormat = format;
                 if (purpose == Purpose.RAISE_FEE) {
-                    this.valueColor = colorInsignificant;
+                    this.valueColor = valueColor;
                     this.value = fee.negate();
                 } else if (value.isZero()) {
                     this.valueColor = 0;
