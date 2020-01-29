@@ -99,13 +99,15 @@ public final class SettingsFragment extends PreferenceFragment implements OnPref
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
             dataUsagePreference.setIntent(new Intent(Settings.ACTION_IGNORE_BACKGROUND_DATA_RESTRICTIONS_SETTINGS,
                     Uri.parse("package:" + application.getPackageName())));
-        dataUsagePreference.setEnabled(pm.resolveActivity(dataUsagePreference.getIntent(), 0) != null);
+        if (dataUsagePreference.getIntent() == null || pm.resolveActivity(dataUsagePreference.getIntent(), 0) == null)
+            removeOrDisablePreference(dataUsagePreference);
 
         final Preference notificationsPreference = findPreference(Configuration.PREFS_KEY_NOTIFICATIONS);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            notificationsPreference.setIntent(new Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS).putExtra(Settings.EXTRA_APP_PACKAGE, application.getPackageName()));
-            notificationsPreference.setEnabled(pm.resolveActivity(notificationsPreference.getIntent(), 0) != null);
-        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+            notificationsPreference.setIntent(new Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS)
+                    .putExtra(Settings.EXTRA_APP_PACKAGE, application.getPackageName()));
+        if (notificationsPreference.getIntent() == null || pm.resolveActivity(notificationsPreference.getIntent(), 0) == null)
+            removeOrDisablePreference(notificationsPreference);
 
         ownNamePreference = findPreference(Configuration.PREFS_KEY_OWN_NAME);
         ownNamePreference.setOnPreferenceChangeListener(this);
@@ -201,8 +203,15 @@ public final class SettingsFragment extends PreferenceFragment implements OnPref
                 }
             }
         } else {
-            bluetoothAddressPreference.getParent().removePreference(bluetoothAddressPreference);
+            removeOrDisablePreference(bluetoothAddressPreference);
         }
+    }
+
+    private void removeOrDisablePreference(final Preference preference) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+            preference.getParent().removePreference(preference);
+        else
+            preference.setEnabled(false);
     }
 
     private static class RestrictToHex implements InputFilter {

@@ -38,7 +38,6 @@
         </Preference>
 
         <Preference
-            android:enabled="false"
             android:key="notifications"
             android:title="@string/preferences_notifications_title"
             android:summary="@string/preferences_notifications_summary" />
