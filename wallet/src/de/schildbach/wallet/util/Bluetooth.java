@@ -88,14 +88,19 @@ public class Bluetooth {
         return compressedMac.toString();
     }
 
-    public static String decompressMac(final String compressedMac) {
-        final StringBuilder mac = new StringBuilder();
-        for (int i = 0; i < compressedMac.length(); i += 2)
-            mac.append(compressedMac.substring(i, i + 2)).append(':');
-        if (mac.length() > 0)
-            mac.setLength(mac.length() - 1);
-
-        return mac.toString();
+    public static String decompressMac(final String compressedMac) throws IllegalArgumentException {
+        if (compressedMac.length() % 2 != 0)
+            throw new IllegalArgumentException("Impossible length: " + compressedMac);
+        final StringBuilder decompressedMac = new StringBuilder();
+        for (int i = 0; i < compressedMac.length(); i++) {
+            final char c = compressedMac.charAt(i);
+            if ((c < '0' || c > '9') && (c < 'a' || c > 'f') && (c < 'A' || c > 'F'))
+                throw new IllegalArgumentException("Illegal character '" + c + "' in: " + compressedMac);
+            if (i % 2 == 0 && decompressedMac.length() > 0)
+                decompressedMac.append(':');
+            decompressedMac.append(Character.toUpperCase(c));
+        }
+        return decompressedMac.toString();
     }
 
     public static boolean isBluetoothUrl(final String url) {

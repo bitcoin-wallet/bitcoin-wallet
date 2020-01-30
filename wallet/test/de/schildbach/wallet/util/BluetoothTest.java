@@ -45,6 +45,24 @@ public class BluetoothTest {
     }
 
     @Test
+    public void decompressMac() {
+        assertEquals("11:22:33:44:55:66:77", Bluetooth.decompressMac("11223344556677"));
+        assertEquals("11:0A:33:44:55:0B:00", Bluetooth.decompressMac("110A3344550B00"));
+        assertEquals("AA", Bluetooth.decompressMac("aa"));
+        assertEquals("", Bluetooth.decompressMac(""));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void decompressMac_impossibleLength() {
+        Bluetooth.decompressMac("123");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void decompressMac_illegalCharacter() {
+        Bluetooth.decompressMac("1z");
+    }
+
+    @Test
     public void compressDecompressMac() throws Exception {
         final String mac = "00:11:22:33:44:55:66";
         assertEquals(mac, Bluetooth.decompressMac(Bluetooth.compressMac(mac)));

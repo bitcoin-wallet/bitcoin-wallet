@@ -198,7 +198,7 @@ public final class SettingsFragment extends PreferenceFragment implements OnPref
                 bluetoothAddress = config.getBluetoothAddress();
                 if (bluetoothAddress != null) {
                     final String normalizedBluetoothAddress =
-                            Bluetooth.decompressMac(Bluetooth.compressMac(bluetoothAddress)).toUpperCase(Locale.US);
+                            Bluetooth.decompressMac(Bluetooth.compressMac(bluetoothAddress));
                     bluetoothAddressPreference.setSummary(normalizedBluetoothAddress);
                 }
             }
