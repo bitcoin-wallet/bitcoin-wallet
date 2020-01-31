@@ -198,7 +198,8 @@ public class DynamicFeeLiveData extends LiveData<Map<FeeCategory, Coin>> {
                 watch.stop();
                 log.info("Dynamic fees fetched from {}, took {}", url, watch);
             } else {
-                log.warn("HTTP status {} when fetching dynamic fees from {}", response.code(), url);
+                log.warn("HTTP status {} {} when fetching dynamic fees from {}", response.code(), response.message(),
+                        url);
             }
         } catch (final Exception x) {
             log.warn("Problem when fetching dynamic fees rates from " + url, x);
