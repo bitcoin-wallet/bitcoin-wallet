@@ -277,7 +277,8 @@ public class ExchangeRatesProvider extends ContentProvider {
 
                 return rates;
             } else {
-                log.warn("http status {} when fetching exchange rates from {}", response.code(), BITCOINAVERAGE_URL);
+                log.warn("http status {} {} when fetching exchange rates from {}", response.code(),
+                        response.message(), BITCOINAVERAGE_URL);
             }
         } catch (final Exception x) {
             log.warn("problem fetching exchange rates from " + BITCOINAVERAGE_URL, x);
