@@ -1,3 +1,10 @@
+v7.50
+
+* Use CoinGecko.com for exchange rates, as BitcoinAverage.com is currently broken.
+* The color of the transaction confirmation indicator has been changed. It now starts red with one confirmation,
+  slowly blending to green for 7 confirmations.
+* On Android 9 and older, switched the app-widget back to dark. On Android 10, use the dark/light system setting.
+
 v7.47-v7.49
 
 * Restructure the settings page.
