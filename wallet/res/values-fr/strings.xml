@@ -236,6 +236,9 @@
   <string name="input_parser_invalid_paymentrequest">La demande de paiement est invalide :\n%s</string>
   <string name="input_parser_invalid_transaction">La transaction est invalide :\n%s</string>
   <string name="preferences_activity_title">Paramètres</string>
+  <string name="preferences_category_general">Général</string>
+  <string name="preferences_category_privacy">Contrôle de la confidentialité</string>
+  <string name="preferences_category_merchants">Marchands</string>
   <string name="preferences_category_diagnostics">Diagnostics</string>
   <string name="preferences_category_labs">Labo</string>
   <string name="preferences_precision_title">Dénomination et précision</string>
@@ -246,7 +249,7 @@
   <string name="preferences_precision_labels_2_3">mBTC, 2 décimales</string>
   <string name="preferences_precision_labels_0_6">µBTC, pas de décimale</string>
   <string name="preferences_own_name_title">Votre nom</string>
-  <string name="preferences_own_name_summary">Votre nom qui sera ajouté aux demandes de paiement. Il doit être court.</string>
+  <string name="preferences_own_name_summary">Votre nom ou celui de votre entreprise, qui seront ajoutés aux demandes de paiements que vous envoyez à vos clients.</string>
   <string name="preferences_own_name_dialog_message">Soyez bref.</string>
   <string name="preferences_send_coins_autoclose_title">Fermer automatiquement la fenêtre d’envoi de pièces</string>
   <string name="preferences_send_coins_autoclose_summary">Une fois le paiement effectué, la fenêtre d’envoi sera fermée automatiquement.</string>
