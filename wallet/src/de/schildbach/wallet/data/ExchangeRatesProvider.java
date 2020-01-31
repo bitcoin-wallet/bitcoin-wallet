@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2015 the original author or authors.
+ * Copyright the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,24 +19,23 @@ package de.schildbach.wallet.data;
 
 import java.util.Collections;
 import java.util.Currency;
-import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
 import java.util.TreeMap;
 
 import org.bitcoinj.core.Coin;
 import org.bitcoinj.utils.Fiat;
-import org.bitcoinj.utils.MonetaryFormat;
-import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Stopwatch;
+import com.squareup.moshi.Moshi;
 
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.Logging;
 import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.exchangerate.CoinGecko;
 import de.schildbach.wallet.util.GenericUtils;
 
 import android.content.ContentProvider;
@@ -51,7 +50,6 @@ import androidx.annotation.Nullable;
 import okhttp3.Call;
 import okhttp3.ConnectionSpec;
 import okhttp3.Headers;
-import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient.Builder;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -75,10 +73,6 @@ public class ExchangeRatesProvider extends ContentProvider {
     @Nullable
     private Map<String, ExchangeRate> exchangeRates = null;
     private long lastUpdated = 0;
-
-    private static final HttpUrl BITCOINAVERAGE_URL = HttpUrl
-            .parse("https://apiv2.bitcoinaverage.com/indices/global/ticker/short?crypto=BTC");
-    private static final String BITCOINAVERAGE_SOURCE = "BitcoinAverage.com";
 
     private static final long UPDATE_FREQ_MS = 10 * DateUtils.MINUTE_IN_MILLIS;
 
@@ -233,8 +227,9 @@ public class ExchangeRatesProvider extends ContentProvider {
     private Map<String, ExchangeRate> requestExchangeRates() {
         final Stopwatch watch = Stopwatch.createStarted();
 
+        final CoinGecko coinGecko = new CoinGecko(new Moshi.Builder().build());
         final Request.Builder request = new Request.Builder();
-        request.url(BITCOINAVERAGE_URL);
+        request.url(coinGecko.url());
         final Headers.Builder headers = new Headers.Builder();
         headers.add("User-Agent", userAgent);
         headers.add("Accept", "application/json");
@@ -246,42 +241,16 @@ public class ExchangeRatesProvider extends ContentProvider {
         try {
             final Response response = call.execute();
             if (response.isSuccessful()) {
-                final String content = response.body().string();
-                final JSONObject head = new JSONObject(content);
-                final Map<String, ExchangeRate> rates = new TreeMap<>();
-
-                for (final Iterator<String> i = head.keys(); i.hasNext();) {
-                    final String currencyCode = i.next();
-                    if (currencyCode.startsWith("BTC")) {
-                        final String fiatCurrencyCode = currencyCode.substring(3);
-                        if (!fiatCurrencyCode.equals(MonetaryFormat.CODE_BTC)
-                                && !fiatCurrencyCode.equals(MonetaryFormat.CODE_MBTC)
-                                && !fiatCurrencyCode.equals(MonetaryFormat.CODE_UBTC)) {
-                            final JSONObject exchangeRate = head.getJSONObject(currencyCode);
-                            try {
-                                final Fiat rate = Fiat.parseFiatInexact(fiatCurrencyCode, exchangeRate.getString("last"));
-                                if (rate.signum() > 0)
-                                    rates.put(fiatCurrencyCode, new ExchangeRate(
-                                            new org.bitcoinj.utils.ExchangeRate(rate), BITCOINAVERAGE_SOURCE));
-                            } catch (final ArithmeticException x) {
-                                log.warn("problem fetching {} exchange rate from {}: {}", currencyCode,
-                                        BITCOINAVERAGE_URL, x.getMessage());
-                            }
-                        }
-                    }
-                }
-
+                final Map<String, ExchangeRate> rates = coinGecko.parse(response.body().source());
                 watch.stop();
-                log.info("fetched exchange rates from {}, {} chars, took {}", BITCOINAVERAGE_URL, content.length(),
-                        watch);
-
+                log.info("fetched exchange rates from {}, took {}", coinGecko.url(), watch);
                 return rates;
             } else {
                 log.warn("http status {} {} when fetching exchange rates from {}", response.code(),
-                        response.message(), BITCOINAVERAGE_URL);
+                        response.message(), coinGecko.url());
             }
         } catch (final Exception x) {
-            log.warn("problem fetching exchange rates from " + BITCOINAVERAGE_URL, x);
+            log.warn("problem fetching exchange rates from " + coinGecko.url(), x);
         }
 
         return null;

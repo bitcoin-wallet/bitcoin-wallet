@@ -157,9 +157,9 @@ Bitcoin Wallet uses [bitcoinj](https://bitcoinj.github.io/) for Bitcoin specific
 
 ### EXCHANGE RATES
 
-Bitcoin Wallet reads this feed from "BitcoinAverage" for getting exchange rates:
+Bitcoin Wallet reads this feed from "CoinGecko" for getting exchange rates:
 
-    https://apiv2.bitcoinaverage.com/indices/global/ticker/short?crypto=BTC
+    https://api.coingecko.com/api/v3/exchange_rates
 
 We chose this feed because it is not dependent on a single exchange. This feature can be disabled
 with the compile-time flag

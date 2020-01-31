@@ -13,7 +13,8 @@
     <domain-config cleartextTrafficPermitted="false">
         <!-- Our own domain to fetch new version notifications from. -->
         <domain includeSubdomains="true">wallet.schildbach.de</domain>
-        <!-- BitcoinAverage to fetch exchange rates from. -->
+        <!-- Various domains to fetch exchange rates from. -->
+        <domain includeSubdomains="true">coingecko.com</domain>
         <domain includeSubdomains="true">bitcoinaverage.com</domain>
 
         <trust-anchors>
