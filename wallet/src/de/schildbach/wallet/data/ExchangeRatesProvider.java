@@ -237,6 +237,7 @@ public class ExchangeRatesProvider extends ContentProvider {
         request.url(BITCOINAVERAGE_URL);
         final Headers.Builder headers = new Headers.Builder();
         headers.add("User-Agent", userAgent);
+        headers.add("Accept", "application/json");
         request.headers(headers.build());
 
         final Builder httpClientBuilder = Constants.HTTP_CLIENT.newBuilder();
