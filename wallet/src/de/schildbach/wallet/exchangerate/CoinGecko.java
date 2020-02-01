@@ -22,6 +22,7 @@ import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 import de.schildbach.wallet.data.ExchangeRate;
 import okhttp3.HttpUrl;
+import okhttp3.MediaType;
 import okio.BufferedSource;
 import org.bitcoinj.utils.Fiat;
 import org.slf4j.Logger;
@@ -37,6 +38,7 @@ import java.util.TreeMap;
  */
 public final class CoinGecko {
     private static final HttpUrl URL = HttpUrl.parse("https://api.coingecko.com/api/v3/exchange_rates");
+    private static final MediaType MEDIA_TYPE = MediaType.get("application/json");
     private static final String SOURCE = "CoinGecko.com";
 
     private static final Logger log = LoggerFactory.getLogger(CoinGecko.class);
@@ -45,6 +47,10 @@ public final class CoinGecko {
 
     public CoinGecko(final Moshi moshi) {
         this.moshi = moshi;
+    }
+
+    public MediaType mediaType() {
+        return MEDIA_TYPE;
     }
 
     public HttpUrl url() {

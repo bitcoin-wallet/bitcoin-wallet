@@ -232,7 +232,7 @@ public class ExchangeRatesProvider extends ContentProvider {
         request.url(coinGecko.url());
         final Headers.Builder headers = new Headers.Builder();
         headers.add("User-Agent", userAgent);
-        headers.add("Accept", "application/json");
+        headers.add("Accept", coinGecko.mediaType().toString());
         request.headers(headers.build());
 
         final Builder httpClientBuilder = Constants.HTTP_CLIENT.newBuilder();
