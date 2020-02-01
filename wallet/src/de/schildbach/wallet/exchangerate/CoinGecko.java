@@ -17,6 +17,7 @@
 
 package de.schildbach.wallet.exchangerate;
 
+import com.squareup.moshi.Json;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 import de.schildbach.wallet.data.ExchangeRate;
@@ -57,7 +58,7 @@ public final class CoinGecko {
         for (Map.Entry<String, ExchangeRateJson> entry : jsonResponse.rates.entrySet()) {
             final String symbol = entry.getKey().toUpperCase(Locale.US);
             final ExchangeRateJson exchangeRate = entry.getValue();
-            if (exchangeRate.type == Type.fiat) {
+            if (exchangeRate.type == Type.FIAT) {
                 try {
                     final Fiat rate = Fiat.parseFiatInexact(symbol, exchangeRate.value);
                     if (rate.signum() > 0)
@@ -70,7 +71,14 @@ public final class CoinGecko {
         return result;
     }
 
-    private enum Type { crypto, fiat, commodity }
+    private enum Type {
+        @Json(name = "crypto")
+        CRYPTO,
+        @Json(name = "fiat")
+        FIAT,
+        @Json(name = "commodity")
+        COMMODITY
+    }
 
     private static class Response {
         public Map<String, ExchangeRateJson> rates;
