@@ -25,6 +25,8 @@ import org.junit.Test;
 
 import java.util.Map;
 
+import static org.junit.Assert.assertEquals;
+
 /**
  * @author Andreas Schildbach
  */
@@ -35,5 +37,6 @@ public class CoinGeckoTest {
     public void parse() throws Exception {
         final BufferedSource json = Okio.buffer(Okio.source(getClass().getResourceAsStream("coingecko.json")));
         final Map<String, ExchangeRate> rates = coinGecko.parse(json);
+        assertEquals(45, rates.size());
     }
 }
