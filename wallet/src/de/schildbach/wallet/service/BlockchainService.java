@@ -45,6 +45,7 @@ import org.bitcoinj.core.Sha256Hash;
 import org.bitcoinj.core.StoredBlock;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.TransactionConfidence.ConfidenceType;
+import org.bitcoinj.core.Utils;
 import org.bitcoinj.core.listeners.AbstractPeerDataEventListener;
 import org.bitcoinj.core.listeners.PeerConnectedEventListener;
 import org.bitcoinj.core.listeners.PeerDataEventListener;
@@ -541,18 +542,20 @@ public class BlockchainService extends LifecycleService {
                             Constants.Files.BLOCKCHAIN_STORE_CAPACITY, true);
                     blockStore.getChainHead(); // detect corruptions as early as possible
 
-                    final long earliestKeyCreationTime = wallet.getEarliestKeyCreationTime();
+                    final long earliestKeyCreationTimeSecs = wallet.getEarliestKeyCreationTime();
 
-                    if (!blockChainFileExists && earliestKeyCreationTime > 0) {
+                    if (!blockChainFileExists && earliestKeyCreationTimeSecs > 0) {
                         try {
+                            log.info("loading checkpoints for birthdate {} from '{}'",
+                                    Utils.dateTimeFormat(earliestKeyCreationTimeSecs * 1000),
+                                    Constants.Files.CHECKPOINTS_ASSET);
                             final Stopwatch watch = Stopwatch.createStarted();
                             final InputStream checkpointsInputStream = getAssets()
                                     .open(Constants.Files.CHECKPOINTS_ASSET);
                             CheckpointManager.checkpoint(Constants.NETWORK_PARAMETERS, checkpointsInputStream,
-                                    blockStore, earliestKeyCreationTime);
+                                    blockStore, earliestKeyCreationTimeSecs);
                             watch.stop();
-                            log.info("checkpoints loaded from '{}', took {}", Constants.Files.CHECKPOINTS_ASSET,
-                                    watch);
+                            log.info("checkpoints loaded, took {}", watch);
                         } catch (final IOException x) {
                             log.error("problem reading checkpoints, continuing without", x);
                         }
