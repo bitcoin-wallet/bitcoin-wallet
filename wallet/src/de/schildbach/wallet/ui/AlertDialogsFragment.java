@@ -219,8 +219,6 @@ public class AlertDialogsFragment extends Fragment {
                         version = properties.get("version." + installer.name().toLowerCase(Locale.US));
                     if (version == null)
                         version = properties.get("version");
-                    if (version == null)
-                        version = properties.get(null);
                     if (version != null) {
                         log.info("according to \"{}\", strongly recommended minimum app version is \"{}\"",
                                 versionUrl, version);
