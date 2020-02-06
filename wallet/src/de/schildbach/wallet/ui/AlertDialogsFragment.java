@@ -214,14 +214,19 @@ public class AlertDialogsFragment extends Fragment {
                     }
 
                     // Maybe show version alert.
+                    String versionKey = null;
                     String version = null;
-                    if (installer != null)
-                        version = properties.get("version." + installer.name().toLowerCase(Locale.US));
-                    if (version == null)
-                        version = properties.get("version");
+                    if (installer != null) {
+                        versionKey = "version." + installer.name().toLowerCase(Locale.US);
+                        version = properties.get(versionKey);
+                    }
+                    if (version == null) {
+                        versionKey = "version";
+                        version = properties.get(versionKey);
+                    }
                     if (version != null) {
-                        log.info("according to \"{}\", strongly recommended minimum app version is \"{}\"",
-                                versionUrl, version);
+                        log.info("according to \"{}\", strongly recommended minimum app {} is \"{}\"", versionUrl,
+                                versionKey, version);
                         final Integer recommendedVersionCode = Ints.tryParse(version);
                         if (recommendedVersionCode != null) {
                             if (recommendedVersionCode > application.packageInfo().versionCode) {
