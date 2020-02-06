@@ -62,7 +62,7 @@ public class ExchangeRatesViewModel extends AndroidViewModel {
 
         public ExchangeRatesLiveData(final WalletApplication application) {
             this.loader = new CursorLoader(application,
-                    ExchangeRatesProvider.contentUri(application.getPackageName(), false), null,
+                    ExchangeRatesProvider.contentUri(application.getPackageName()), null,
                     ExchangeRatesProvider.QUERY_PARAM_Q, new String[] { "" }, null) {
                 @Override
                 public void deliverResult(final Cursor cursor) {

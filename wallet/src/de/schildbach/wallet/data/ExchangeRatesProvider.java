@@ -65,7 +65,6 @@ public class ExchangeRatesProvider extends ContentProvider {
     private static final String KEY_SOURCE = "source";
 
     public static final String QUERY_PARAM_Q = "q";
-    private static final String QUERY_PARAM_OFFLINE = "offline";
 
     private Configuration config;
     private String userAgent;
@@ -104,10 +103,8 @@ public class ExchangeRatesProvider extends ContentProvider {
         return true;
     }
 
-    public static Uri contentUri(final String packageName, final boolean offline) {
+    public static Uri contentUri(final String packageName) {
         final Uri.Builder uri = Uri.parse("content://" + packageName + '.' + "exchange_rates").buildUpon();
-        if (offline)
-            uri.appendQueryParameter(QUERY_PARAM_OFFLINE, "1");
         return uri.build();
     }
 
@@ -116,9 +113,7 @@ public class ExchangeRatesProvider extends ContentProvider {
             final String sortOrder) {
         final long now = System.currentTimeMillis();
 
-        final boolean offline = uri.getQueryParameter(QUERY_PARAM_OFFLINE) != null;
-
-        if (!offline && (lastUpdated == 0 || now - lastUpdated > UPDATE_FREQ_MS)) {
+        if (lastUpdated == 0 || now - lastUpdated > UPDATE_FREQ_MS) {
             final Map<String, ExchangeRate> newExchangeRates = requestExchangeRates();
             if (newExchangeRates != null) {
                 exchangeRates = newExchangeRates;

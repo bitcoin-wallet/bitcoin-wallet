@@ -37,7 +37,7 @@ public class SelectedExchangeRateLiveData extends LiveData<ExchangeRate> impleme
         this.config = application.getConfiguration();
         final String exchangeCurrency = config.getExchangeCurrencyCode();
         this.loader = new CursorLoader(application,
-                ExchangeRatesProvider.contentUri(application.getPackageName(), false), null,
+                ExchangeRatesProvider.contentUri(application.getPackageName()), null,
                 ExchangeRatesProvider.KEY_CURRENCY_CODE, new String[] { exchangeCurrency }, null) {
             @Override
             public void deliverResult(final Cursor cursor) {
