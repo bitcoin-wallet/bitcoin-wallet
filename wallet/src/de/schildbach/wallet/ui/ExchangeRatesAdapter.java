@@ -57,9 +57,10 @@ public class ExchangeRatesAdapter extends ListAdapter<ExchangeRatesAdapter.ListI
             final int baseRateMinDecimals = !rateBase.isLessThan(Coin.COIN) ? 2 : 4;
             final Fiat balanceAsFiat = balance != null && (blockchainState == null || !blockchainState.replaying)
                     ? exchangeRate.rate.coinToFiat(balance) : null;
-            final boolean isDefaultCurrency = exchangeRate.getCurrencyCode().equals(defaultCurrency);
-            items.add(
-                    new ListItem(exchangeRate, baseRateAsFiat, baseRateMinDecimals, balanceAsFiat, isDefaultCurrency));
+            final String currencyCode = exchangeRate.getCurrencyCode();
+            final boolean isDefaultCurrency = currencyCode.equals(defaultCurrency);
+            items.add(new ListItem(currencyCode, baseRateAsFiat, baseRateMinDecimals, balanceAsFiat,
+                    isDefaultCurrency));
         }
         return items;
     }
@@ -71,9 +72,9 @@ public class ExchangeRatesAdapter extends ListAdapter<ExchangeRatesAdapter.ListI
         public final Fiat balanceAsFiat;
         public final boolean isSelected;
 
-        public ListItem(final ExchangeRate exchangeRate, final Fiat baseRateAsFiat, final int baseRateMinDecimals,
+        public ListItem(final String currencyCode, final Fiat baseRateAsFiat, final int baseRateMinDecimals,
                 final Fiat balanceAsFiat, final boolean isSelected) {
-            this.currencyCode = exchangeRate.getCurrencyCode();
+            this.currencyCode = currencyCode;
             this.baseRateAsFiat = baseRateAsFiat;
             this.baseRateMinDecimals = baseRateMinDecimals;
             this.balanceAsFiat = balanceAsFiat;
