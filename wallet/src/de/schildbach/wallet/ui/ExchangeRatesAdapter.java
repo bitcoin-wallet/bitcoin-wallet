@@ -23,16 +23,15 @@ import java.util.Objects;
 
 import org.bitcoinj.core.Coin;
 import org.bitcoinj.core.NetworkParameters;
+import org.bitcoinj.utils.ExchangeRate;
 import org.bitcoinj.utils.Fiat;
 
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.R;
-import de.schildbach.wallet.data.ExchangeRate;
-import de.schildbach.wallet.data.ExchangeRatesProvider;
+import de.schildbach.wallet.exchangerate.ExchangeRateEntry;
 import de.schildbach.wallet.service.BlockchainState;
 
 import android.content.Context;
-import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,33 +46,35 @@ import androidx.recyclerview.widget.RecyclerView;
  * @author Andreas Schildbach
  */
 public class ExchangeRatesAdapter extends ListAdapter<ExchangeRatesAdapter.ListItem, ExchangeRatesAdapter.ViewHolder> {
-    public static List<ListItem> buildListItems(final Cursor cursor, final Coin balance,
-            final BlockchainState blockchainState, final String defaultCurrency, final Coin rateBase) {
-        final List<ListItem> items = new ArrayList<>(cursor.getCount());
-        cursor.moveToPosition(-1);
-        while (cursor.moveToNext()) {
-            final ExchangeRate exchangeRate = ExchangeRatesProvider.getExchangeRate(cursor);
-            final Fiat baseRateAsFiat = exchangeRate.rate.coinToFiat(rateBase);
+    public static List<ListItem> buildListItems(final List<ExchangeRateEntry> exchangeRates, final Coin balance,
+                                                final BlockchainState blockchainState, final String defaultCurrency,
+                                                final Coin rateBase) {
+        final List<ListItem> items = new ArrayList<>(exchangeRates.size());
+        for (final ExchangeRateEntry exchangeRate : exchangeRates) {
+            final ExchangeRate rate = exchangeRate.exchangeRate();
+            final Fiat baseRateAsFiat = rate.coinToFiat(rateBase);
             final int baseRateMinDecimals = !rateBase.isLessThan(Coin.COIN) ? 2 : 4;
             final Fiat balanceAsFiat = balance != null && (blockchainState == null || !blockchainState.replaying)
-                    ? exchangeRate.rate.coinToFiat(balance) : null;
-            final String currencyCode = exchangeRate.getCurrencyCode();
+                    ? rate.coinToFiat(balance) : null;
+            final String currencyCode = rate.fiat.currencyCode;
             final boolean isDefaultCurrency = currencyCode.equals(defaultCurrency);
-            items.add(new ListItem(currencyCode, baseRateAsFiat, baseRateMinDecimals, balanceAsFiat,
-                    isDefaultCurrency));
+            items.add(new ListItem(exchangeRate.getId(), currencyCode, baseRateAsFiat, baseRateMinDecimals,
+                    balanceAsFiat, isDefaultCurrency));
         }
         return items;
     }
 
     public static class ListItem {
+        public final long id;
         public final String currencyCode;
         public final Fiat baseRateAsFiat;
         public final int baseRateMinDecimals;
         public final Fiat balanceAsFiat;
         public final boolean isSelected;
 
-        public ListItem(final String currencyCode, final Fiat baseRateAsFiat, final int baseRateMinDecimals,
-                final Fiat balanceAsFiat, final boolean isSelected) {
+        public ListItem(final long id, final String currencyCode, final Fiat baseRateAsFiat,
+                        final int baseRateMinDecimals, final Fiat balanceAsFiat, final boolean isSelected) {
+            this.id = id;
             this.currencyCode = currencyCode;
             this.baseRateAsFiat = baseRateAsFiat;
             this.baseRateMinDecimals = baseRateMinDecimals;
@@ -109,6 +110,14 @@ public class ExchangeRatesAdapter extends ListAdapter<ExchangeRatesAdapter.ListI
 
         this.inflater = LayoutInflater.from(context);
         this.onClickListener = onClickListener;
+
+        setHasStableIds(true);
+    }
+
+    @Override
+    public long getItemId(final int position) {
+        final ListItem listItem = getItem(position);
+        return listItem.id;
     }
 
     @Override

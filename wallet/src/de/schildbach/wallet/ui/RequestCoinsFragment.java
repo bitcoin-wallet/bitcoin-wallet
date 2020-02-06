@@ -27,7 +27,6 @@ import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.R;
 import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.data.ExchangeRate;
 import de.schildbach.wallet.offline.AcceptBluetoothService;
 import de.schildbach.wallet.ui.send.SendCoinsActivity;
 import de.schildbach.wallet.util.Bluetooth;
@@ -137,7 +136,8 @@ public final class RequestCoinsFragment extends Fragment {
         });
         viewModel.bitcoinUri.observe(this, bitcoinUri -> activity.invalidateOptionsMenu());
         if (Constants.ENABLE_EXCHANGE_RATES) {
-            viewModel.exchangeRate.observe(this, exchangeRate -> amountCalculatorLink.setExchangeRate(exchangeRate.rate));
+            viewModel.exchangeRate.observe(this,
+                    exchangeRate -> amountCalculatorLink.setExchangeRate(exchangeRate.exchangeRate()));
         }
         viewModel.showBitmapDialog.observe(this, new Event.Observer<Bitmap>() {
             @Override

@@ -17,6 +17,7 @@
 
 package de.schildbach.wallet.exchangerate;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
@@ -33,11 +34,11 @@ public interface ExchangeRateDao {
     void insertOrUpdate(ExchangeRateEntry exchangeRateEntry);
 
     @Query("SELECT * FROM exchange_rates ORDER BY currency_code COLLATE LOCALIZED ASC")
-    List<ExchangeRateEntry> findAll();
+    LiveData<List<ExchangeRateEntry>> findAll();
 
     @Query("SELECT * FROM exchange_rates WHERE currency_code LIKE '%' || :constraint || '%' ORDER BY currency_code " +
             "COLLATE LOCALIZED ASC")
-    List<ExchangeRateEntry> findByConstraint(String constraint);
+    LiveData<List<ExchangeRateEntry>> findByConstraint(String constraint);
 
     @Query("SELECT * FROM exchange_rates WHERE currency_code = :currencyCode")
     ExchangeRateEntry findByCurrencyCode(String currencyCode);

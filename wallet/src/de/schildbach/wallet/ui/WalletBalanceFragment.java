@@ -25,7 +25,7 @@ import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.R;
 import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.data.ExchangeRate;
+import de.schildbach.wallet.exchangerate.ExchangeRateEntry;
 import de.schildbach.wallet.service.BlockchainState;
 import de.schildbach.wallet.ui.send.FeeCategory;
 import de.schildbach.wallet.ui.send.SendCoinsActivity;
@@ -160,7 +160,7 @@ public final class WalletBalanceFragment extends Fragment {
     private void updateView() {
         final BlockchainState blockchainState = application.blockchainState.getValue();
         final Coin balance = viewModel.getBalance().getValue();
-        final ExchangeRate exchangeRate = viewModel.getExchangeRate().getValue();
+        final ExchangeRateEntry exchangeRate = viewModel.getExchangeRate().getValue();
 
         final boolean showProgress;
 
@@ -204,7 +204,7 @@ public final class WalletBalanceFragment extends Fragment {
 
                 if (showLocalBalance) {
                     if (exchangeRate != null) {
-                        final Fiat localValue = exchangeRate.rate.coinToFiat(balance);
+                        final Fiat localValue = exchangeRate.exchangeRate().coinToFiat(balance);
                         viewBalanceLocal.setVisibility(View.VISIBLE);
                         viewBalanceLocal.setFormat(Constants.LOCAL_FORMAT.code(0,
                                 Constants.PREFIX_ALMOST_EQUAL_TO + exchangeRate.getCurrencyCode()));

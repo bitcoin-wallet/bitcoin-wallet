@@ -73,10 +73,10 @@ import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.WalletBalanceWidgetProvider;
 import de.schildbach.wallet.data.AddressBookDao;
 import de.schildbach.wallet.data.AppDatabase;
-import de.schildbach.wallet.data.ExchangeRate;
 import de.schildbach.wallet.data.SelectedExchangeRateLiveData;
 import de.schildbach.wallet.data.WalletBalanceLiveData;
 import de.schildbach.wallet.data.WalletLiveData;
+import de.schildbach.wallet.exchangerate.ExchangeRateEntry;
 import de.schildbach.wallet.service.BlockchainState.Impediment;
 import de.schildbach.wallet.ui.WalletActivity;
 import de.schildbach.wallet.util.CrashReporter;
@@ -517,17 +517,17 @@ public class BlockchainService extends LifecycleService {
         final WalletBalanceLiveData walletBalance = new WalletBalanceLiveData(application);
         final SelectedExchangeRateLiveData exchangeRate = new SelectedExchangeRateLiveData(application);
         walletBalance.observe(this, balance -> {
-            final ExchangeRate rate = exchangeRate.getValue();
+            final ExchangeRateEntry rate = exchangeRate.getValue();
             if (balance != null)
                 WalletBalanceWidgetProvider.updateWidgets(BlockchainService.this, balance,
-                        rate != null ? rate.rate : null);
+                        rate != null ? rate.exchangeRate() : null);
         });
         if (Constants.ENABLE_EXCHANGE_RATES) {
             exchangeRate.observe(this, rate -> {
                 final Coin balance = walletBalance.getValue();
                 if (balance != null)
                     WalletBalanceWidgetProvider.updateWidgets(BlockchainService.this, balance,
-                            rate != null ? rate.rate : null);
+                            rate != null ? rate.exchangeRate() : null);
             });
         }
         wallet = new WalletLiveData(application);

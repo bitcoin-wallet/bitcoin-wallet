@@ -26,12 +26,11 @@ import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.R;
 import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.data.ExchangeRatesProvider;
+import de.schildbach.wallet.exchangerate.ExchangeRateEntry;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -48,6 +47,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.List;
 
 /**
  * @author Andreas Schildbach
@@ -79,32 +80,28 @@ public final class ExchangeRatesFragment extends Fragment
 
         viewModel = new ViewModelProvider(this).get(ExchangeRatesViewModel.class);
         if (Constants.ENABLE_EXCHANGE_RATES) {
-            viewModel.getExchangeRates().observe(this, cursor -> {
-                if (cursor.getCount() != 0) {
+            viewModel.getExchangeRates().observe(this, exchangeRates -> {
+                if (!exchangeRates.isEmpty()) {
                     viewGroup.setDisplayedChild(2);
                     maybeSubmitList();
 
                     final String defaultCurrency = config.getExchangeCurrencyCode();
                     if (defaultCurrency != null) {
-                        cursor.moveToPosition(-1);
-                        while (cursor.moveToNext()) {
-                            if (cursor
-                                    .getString(
-                                            cursor.getColumnIndexOrThrow(ExchangeRatesProvider.KEY_CURRENCY_CODE))
-                                    .equals(defaultCurrency)) {
-                                recyclerView.scrollToPosition(cursor.getPosition());
+                        int i = 0;
+                        for (final ExchangeRateEntry exchangeRate : exchangeRates) {
+                            if (exchangeRate.getCurrencyCode().equals(defaultCurrency)) {
+                                recyclerView.scrollToPosition(i);
                                 break;
                             }
+                            i++;
                         }
                     }
 
                     if (activity instanceof ExchangeRatesActivity) {
-                        cursor.moveToPosition(0);
-                        final String source = ExchangeRatesProvider.getExchangeRate(cursor).source;
-                        activity.getActionBar().setSubtitle(
-                                source != null ? getString(R.string.exchange_rates_fragment_source, source) : null);
+                        final String source = exchangeRates.iterator().next().getSource();
+                        activity.getActionBar().setSubtitle(getString(R.string.exchange_rates_fragment_source, source));
                     }
-                } else if (cursor.getCount() == 0 && viewModel.query != null) {
+                } else if (exchangeRates.isEmpty() && viewModel.isConstrained()) {
                     viewGroup.setDisplayedChild(1);
                 } else {
                     viewGroup.setDisplayedChild(0);
@@ -138,7 +135,7 @@ public final class ExchangeRatesFragment extends Fragment
     }
 
     private void maybeSubmitList() {
-        final Cursor exchangeRates = viewModel.getExchangeRates().getValue();
+        final List<ExchangeRateEntry> exchangeRates = viewModel.getExchangeRates().getValue();
         if (exchangeRates != null)
             adapter.submitList(ExchangeRatesAdapter.buildListItems(exchangeRates, viewModel.getBalance().getValue(),
                     application.blockchainState.getValue(), config.getExchangeCurrencyCode(), config.getBtcBase()));
@@ -169,8 +166,8 @@ public final class ExchangeRatesFragment extends Fragment
             searchView.setOnQueryTextListener(new OnQueryTextListener() {
                 @Override
                 public boolean onQueryTextChange(final String newText) {
-                    viewModel.query = Strings.emptyToNull(newText.trim());
-                    viewModel.getExchangeRates().setQuery(viewModel.query);
+                    viewModel.setConstraint(Strings.emptyToNull(newText.trim()));
+                    maybeSubmitList();
                     return true;
                 }
 

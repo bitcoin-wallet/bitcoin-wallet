@@ -17,60 +17,68 @@
 
 package de.schildbach.wallet.data;
 
-import de.schildbach.wallet.Configuration;
-import de.schildbach.wallet.WalletApplication;
-
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
-import android.database.Cursor;
+import android.os.AsyncTask;
+import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
-import androidx.loader.content.CursorLoader;
+import androidx.room.InvalidationTracker;
+import de.schildbach.wallet.Configuration;
+import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.exchangerate.ExchangeRateDao;
+import de.schildbach.wallet.exchangerate.ExchangeRateEntry;
+import de.schildbach.wallet.exchangerate.ExchangeRatesRepository;
+
+import java.util.Set;
 
 /**
  * @author Andreas Schildbach
  */
-public class SelectedExchangeRateLiveData extends LiveData<ExchangeRate> implements OnSharedPreferenceChangeListener {
+public class SelectedExchangeRateLiveData extends LiveData<ExchangeRateEntry> implements OnSharedPreferenceChangeListener {
     private final Configuration config;
-    private final CursorLoader loader;
+    private final ExchangeRateDao dao;
+    private final InvalidationTracker invalidationTracker;
+
+    private final InvalidationTracker.Observer invalidationObserver =
+            new InvalidationTracker.Observer(ExchangeRateEntry.TABLE_NAME) {
+        @Override
+        public void onInvalidated(@NonNull final Set<String> tables) {
+            onChange();
+        }
+    };
 
     public SelectedExchangeRateLiveData(final WalletApplication application) {
         this.config = application.getConfiguration();
-        final String exchangeCurrency = config.getExchangeCurrencyCode();
-        this.loader = new CursorLoader(application,
-                ExchangeRatesProvider.contentUri(application.getPackageName()), null,
-                ExchangeRatesProvider.KEY_CURRENCY_CODE, new String[] { exchangeCurrency }, null) {
-            @Override
-            public void deliverResult(final Cursor cursor) {
-                if (cursor != null && cursor.getCount() > 0) {
-                    cursor.moveToFirst();
-                    setValue(ExchangeRatesProvider.getExchangeRate(cursor));
-                }
-            }
-        };
+        final ExchangeRatesRepository exchangeRatesRepository = ExchangeRatesRepository.get(application);
+        this.dao = exchangeRatesRepository != null ? exchangeRatesRepository.exchangeRateDao() : null;
+        this.invalidationTracker = exchangeRatesRepository != null ?
+                exchangeRatesRepository.exchangeRateInvalidationTracker() : null;
     }
 
     @Override
     protected void onActive() {
-        loader.startLoading();
+        invalidationTracker.addObserver(invalidationObserver);
         config.registerOnSharedPreferenceChangeListener(this);
-        onCurrencyChange();
+        onChange();
     }
 
     @Override
     protected void onInactive() {
         config.unregisterOnSharedPreferenceChangeListener(this);
-        loader.stopLoading();
+        invalidationTracker.removeObserver(invalidationObserver);
     }
 
     @Override
     public void onSharedPreferenceChanged(final SharedPreferences sharedPreferences, final String key) {
         if (Configuration.PREFS_KEY_EXCHANGE_CURRENCY.equals(key))
-            onCurrencyChange();
+            onChange();
     }
 
-    private void onCurrencyChange() {
-        final String exchangeCurrency = config.getExchangeCurrencyCode();
-        loader.setSelectionArgs(new String[] { exchangeCurrency });
-        loader.forceLoad();
+    private void onChange() {
+        AsyncTask.execute(() -> {
+            final String currencyCode = config.getExchangeCurrencyCode();
+            final ExchangeRateEntry exchangeRate = dao.findByCurrencyCode(currencyCode);
+            postValue(exchangeRate);
+        });
     }
 }

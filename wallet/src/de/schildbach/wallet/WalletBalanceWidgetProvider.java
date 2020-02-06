@@ -29,7 +29,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import de.schildbach.wallet.exchangerate.ExchangeRateEntry;
-import de.schildbach.wallet.exchangerate.ExchangeRatesDatabase;
+import de.schildbach.wallet.exchangerate.ExchangeRatesRepository;
 import de.schildbach.wallet.ui.RequestCoinsActivity;
 import de.schildbach.wallet.ui.SendCoinsQrActivity;
 import de.schildbach.wallet.ui.WalletActivity;
@@ -69,8 +69,9 @@ public class WalletBalanceWidgetProvider extends AppWidgetProvider {
             final WalletApplication application = (WalletApplication) context.getApplicationContext();
             final Coin balance = application.getWallet().getBalance(BalanceType.ESTIMATED);
             final Configuration config = application.getConfiguration();
-            final ExchangeRateEntry exchangeRate =
-                    ExchangeRatesDatabase.getDatabase(context).exchangeRateDao().findByCurrencyCode(config.getExchangeCurrencyCode());
+            final ExchangeRatesRepository exchangeRatesRepository = ExchangeRatesRepository.get(application);
+            final ExchangeRateEntry exchangeRate = exchangeRatesRepository != null ?
+                    exchangeRatesRepository.exchangeRateDao().findByCurrencyCode(config.getExchangeCurrencyCode()) : null;
             updateWidgets(context, appWidgetManager, appWidgetIds, balance, exchangeRate != null ?
                     exchangeRate.exchangeRate() : null);
             result.finish();
@@ -88,8 +89,9 @@ public class WalletBalanceWidgetProvider extends AppWidgetProvider {
             final WalletApplication application = (WalletApplication) context.getApplicationContext();
             final Coin balance = application.getWallet().getBalance(BalanceType.ESTIMATED);
             final Configuration config = application.getConfiguration();
-            final ExchangeRateEntry exchangeRate =
-                    ExchangeRatesDatabase.getDatabase(context).exchangeRateDao().findByCurrencyCode(config.getExchangeCurrencyCode());
+            final ExchangeRatesRepository exchangeRatesRepository = ExchangeRatesRepository.get(application);
+            final ExchangeRateEntry exchangeRate =exchangeRatesRepository != null ?
+                    exchangeRatesRepository.exchangeRateDao().findByCurrencyCode(config.getExchangeCurrencyCode()) : null;
             updateWidget(context, appWidgetManager, appWidgetId, newOptions, balance, exchangeRate != null ?
                     exchangeRate.exchangeRate() : null);
             result.finish();

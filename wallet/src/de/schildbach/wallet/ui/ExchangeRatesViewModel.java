@@ -17,74 +17,63 @@
 
 package de.schildbach.wallet.ui;
 
-import com.google.common.base.Strings;
-
 import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.data.ExchangeRatesProvider;
 import de.schildbach.wallet.data.WalletBalanceLiveData;
+import de.schildbach.wallet.exchangerate.ExchangeRateDao;
+import de.schildbach.wallet.exchangerate.ExchangeRateEntry;
+import de.schildbach.wallet.exchangerate.ExchangeRatesRepository;
 
 import android.app.Application;
-import android.database.Cursor;
-import androidx.annotation.Nullable;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.loader.content.CursorLoader;
+import androidx.lifecycle.MediatorLiveData;
+
+import java.util.List;
+import java.util.Locale;
 
 /**
  * @author Andreas Schildbach
  */
 public class ExchangeRatesViewModel extends AndroidViewModel {
     private final WalletApplication application;
-    private ExchangeRatesLiveData exchangeRates;
+    private final ExchangeRateDao exchangeRateDao;
+    private final MediatorLiveData<List<ExchangeRateEntry>> exchangeRateLiveData = new MediatorLiveData<>();
+    private LiveData<List<ExchangeRateEntry>> underlyingExchangeRateLiveData;
     private WalletBalanceLiveData balance;
-
-    public @Nullable String query = null;
+    private boolean isConstrained = false;
 
     public ExchangeRatesViewModel(final Application application) {
         super(application);
         this.application = (WalletApplication) application;
+        this.exchangeRateDao = ExchangeRatesRepository.get(this.application).exchangeRateDao();
+        setConstraint(null);
     }
 
-    public ExchangeRatesLiveData getExchangeRates() {
-        if (exchangeRates == null)
-            exchangeRates = new ExchangeRatesLiveData(application);
-        return exchangeRates;
+    public LiveData<List<ExchangeRateEntry>> getExchangeRates() {
+        return exchangeRateLiveData;
+    }
+
+    public void setConstraint(final String constraint) {
+        if (underlyingExchangeRateLiveData != null)
+            exchangeRateLiveData.removeSource(underlyingExchangeRateLiveData);
+        if (constraint != null) {
+            underlyingExchangeRateLiveData = exchangeRateDao.findByConstraint(constraint.toLowerCase(Locale.US));
+            isConstrained = true;
+        } else {
+            underlyingExchangeRateLiveData = exchangeRateDao.findAll();
+            isConstrained = false;
+        }
+        exchangeRateLiveData.addSource(underlyingExchangeRateLiveData,
+                exchangeRates -> exchangeRateLiveData.setValue(exchangeRates));
+    }
+
+    public boolean isConstrained() {
+        return isConstrained;
     }
 
     public WalletBalanceLiveData getBalance() {
         if (balance == null)
             balance = new WalletBalanceLiveData(application);
         return balance;
-    }
-
-    public static class ExchangeRatesLiveData extends LiveData<Cursor> {
-        private final CursorLoader loader;
-
-        public ExchangeRatesLiveData(final WalletApplication application) {
-            this.loader = new CursorLoader(application,
-                    ExchangeRatesProvider.contentUri(application.getPackageName()), null,
-                    ExchangeRatesProvider.QUERY_PARAM_Q, new String[] { "" }, null) {
-                @Override
-                public void deliverResult(final Cursor cursor) {
-                    if (cursor != null)
-                        setValue(cursor);
-                }
-            };
-        }
-
-        @Override
-        protected void onActive() {
-            loader.startLoading();
-        }
-
-        @Override
-        protected void onInactive() {
-            loader.stopLoading();
-        }
-
-        public void setQuery(final String query) {
-            loader.setSelectionArgs(new String[] { Strings.nullToEmpty(query) });
-            loader.forceLoad();
-        }
     }
 }

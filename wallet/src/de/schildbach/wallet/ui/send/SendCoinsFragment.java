@@ -56,7 +56,6 @@ import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.data.AddressBookDao;
 import de.schildbach.wallet.data.AddressBookEntry;
 import de.schildbach.wallet.data.AppDatabase;
-import de.schildbach.wallet.data.ExchangeRate;
 import de.schildbach.wallet.data.PaymentIntent;
 import de.schildbach.wallet.data.PaymentIntent.Standard;
 import de.schildbach.wallet.integration.android.BitcoinIntegration;
@@ -360,7 +359,7 @@ public final class SendCoinsFragment extends Fragment {
             viewModel.exchangeRate.observe(this, exchangeRate -> {
                 final SendCoinsViewModel.State state = viewModel.state;
                 if (state == null || state.compareTo(SendCoinsViewModel.State.INPUT) <= 0)
-                    amountCalculatorLink.setExchangeRate(exchangeRate.rate);
+                    amountCalculatorLink.setExchangeRate(exchangeRate.exchangeRate());
             });
         }
         viewModel.dynamicFees.observe(this, dynamicFees -> {
