@@ -21,13 +21,15 @@ import java.lang.reflect.Method;
 
 import org.bitcoinj.core.Coin;
 import org.bitcoinj.core.NetworkParameters;
+import org.bitcoinj.utils.ExchangeRate;
 import org.bitcoinj.utils.Fiat;
 import org.bitcoinj.utils.MonetaryFormat;
 import org.bitcoinj.wallet.Wallet.BalanceType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import de.schildbach.wallet.data.ExchangeRate;
+import de.schildbach.wallet.exchangerate.ExchangeRateEntry;
+import de.schildbach.wallet.exchangerate.ExchangeRatesDatabase;
 import de.schildbach.wallet.ui.RequestCoinsActivity;
 import de.schildbach.wallet.ui.SendCoinsQrActivity;
 import de.schildbach.wallet.ui.WalletActivity;
@@ -66,8 +68,11 @@ public class WalletBalanceWidgetProvider extends AppWidgetProvider {
         AsyncTask.execute(() -> {
             final WalletApplication application = (WalletApplication) context.getApplicationContext();
             final Coin balance = application.getWallet().getBalance(BalanceType.ESTIMATED);
-            final ExchangeRate exchangeRate = application.getConfiguration().getCachedExchangeRate();
-            updateWidgets(context, appWidgetManager, appWidgetIds, balance, exchangeRate);
+            final Configuration config = application.getConfiguration();
+            final ExchangeRateEntry exchangeRate =
+                    ExchangeRatesDatabase.getDatabase(context).exchangeRateDao().findByCurrencyCode(config.getExchangeCurrencyCode());
+            updateWidgets(context, appWidgetManager, appWidgetIds, balance, exchangeRate != null ?
+                    exchangeRate.exchangeRate() : null);
             result.finish();
         });
     }
@@ -82,8 +87,11 @@ public class WalletBalanceWidgetProvider extends AppWidgetProvider {
         AsyncTask.execute(() -> {
             final WalletApplication application = (WalletApplication) context.getApplicationContext();
             final Coin balance = application.getWallet().getBalance(BalanceType.ESTIMATED);
-            final ExchangeRate exchangeRate = application.getConfiguration().getCachedExchangeRate();
-            updateWidget(context, appWidgetManager, appWidgetId, newOptions, balance, exchangeRate);
+            final Configuration config = application.getConfiguration();
+            final ExchangeRateEntry exchangeRate =
+                    ExchangeRatesDatabase.getDatabase(context).exchangeRateDao().findByCurrencyCode(config.getExchangeCurrencyCode());
+            updateWidget(context, appWidgetManager, appWidgetId, newOptions, balance, exchangeRate != null ?
+                    exchangeRate.exchangeRate() : null);
             result.finish();
         });
     }
@@ -123,9 +131,9 @@ public class WalletBalanceWidgetProvider extends AppWidgetProvider {
                 MonetarySpannable.STANDARD_INSIGNIFICANT_SPANS);
         final Spannable localBalanceStr;
         if (exchangeRate != null) {
-            final Fiat localBalance = exchangeRate.rate.coinToFiat(balance);
+            final Fiat localBalance = exchangeRate.coinToFiat(balance);
             final MonetaryFormat localFormat = Constants.LOCAL_FORMAT.code(0,
-                    Constants.PREFIX_ALMOST_EQUAL_TO + GenericUtils.currencySymbol(exchangeRate.getCurrencyCode()));
+                    Constants.PREFIX_ALMOST_EQUAL_TO + GenericUtils.currencySymbol(exchangeRate.fiat.currencyCode));
             final Object[] prefixSpans = new Object[] { MonetarySpannable.SMALLER_SPAN,
                     new ForegroundColorSpan(ContextCompat.getColor(context, R.color.fg_insignificant_darkdefault)) };
             localBalanceStr = new MonetarySpannable(localFormat, localBalance).applyMarkup(prefixSpans,

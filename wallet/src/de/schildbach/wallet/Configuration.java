@@ -18,21 +18,20 @@
 package de.schildbach.wallet;
 
 import org.bitcoinj.core.Coin;
-import org.bitcoinj.utils.Fiat;
 import org.bitcoinj.utils.MonetaryFormat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Strings;
 
-import de.schildbach.wallet.data.ExchangeRate;
-
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.text.format.DateUtils;
+
+import java.util.Currency;
+import java.util.Locale;
 
 /**
  * @author Andreas Schildbach
@@ -59,9 +58,6 @@ public class Configuration {
     private static final String PREFS_KEY_LAST_VERSION = "last_version";
     private static final String PREFS_KEY_LAST_USED = "last_used";
     private static final String PREFS_KEY_BEST_CHAIN_HEIGHT_EVER = "best_chain_height_ever";
-    private static final String PREFS_KEY_CACHED_EXCHANGE_CURRENCY = "cached_exchange_currency";
-    private static final String PREFS_KEY_CACHED_EXCHANGE_RATE_COIN = "cached_exchange_rate_coin";
-    private static final String PREFS_KEY_CACHED_EXCHANGE_RATE_FIAT = "cached_exchange_rate_fiat";
     private static final String PREFS_KEY_LAST_EXCHANGE_DIRECTION = "last_exchange_direction";
     private static final String PREFS_KEY_CHANGE_LOG_VERSION = "change_log_version";
     public static final String PREFS_KEY_REMIND_BACKUP = "remind_backup";
@@ -207,8 +203,16 @@ public class Configuration {
         return prefs.getBoolean(PREFS_KEY_DISCLAIMER, true);
     }
 
+    private String defaultCurrencyCode() {
+        try {
+            return Currency.getInstance(Locale.getDefault()).getCurrencyCode();
+        } catch (final IllegalArgumentException x) {
+            return null;
+        }
+    }
+
     public String getExchangeCurrencyCode() {
-        return prefs.getString(PREFS_KEY_EXCHANGE_CURRENCY, null);
+        return prefs.getString(PREFS_KEY_EXCHANGE_CURRENCY, defaultCurrencyCode());
     }
 
     public void setExchangeCurrencyCode(final String exchangeCurrencyCode) {
@@ -261,28 +265,6 @@ public class Configuration {
 
     public void resetBestChainHeightEver() {
         prefs.edit().remove(PREFS_KEY_BEST_CHAIN_HEIGHT_EVER).apply();
-    }
-
-    public ExchangeRate getCachedExchangeRate() {
-        if (prefs.contains(PREFS_KEY_CACHED_EXCHANGE_CURRENCY) && prefs.contains(PREFS_KEY_CACHED_EXCHANGE_RATE_COIN)
-                && prefs.contains(PREFS_KEY_CACHED_EXCHANGE_RATE_FIAT)) {
-            final String cachedExchangeCurrency = prefs.getString(PREFS_KEY_CACHED_EXCHANGE_CURRENCY, null);
-            final Coin cachedExchangeRateCoin = Coin.valueOf(prefs.getLong(PREFS_KEY_CACHED_EXCHANGE_RATE_COIN, 0));
-            final Fiat cachedExchangeRateFiat = Fiat.valueOf(cachedExchangeCurrency,
-                    prefs.getLong(PREFS_KEY_CACHED_EXCHANGE_RATE_FIAT, 0));
-            return new ExchangeRate(new org.bitcoinj.utils.ExchangeRate(cachedExchangeRateCoin, cachedExchangeRateFiat),
-                    null);
-        } else {
-            return null;
-        }
-    }
-
-    public void setCachedExchangeRate(final ExchangeRate cachedExchangeRate) {
-        final Editor edit = prefs.edit();
-        edit.putString(PREFS_KEY_CACHED_EXCHANGE_CURRENCY, cachedExchangeRate.getCurrencyCode());
-        edit.putLong(PREFS_KEY_CACHED_EXCHANGE_RATE_COIN, cachedExchangeRate.rate.coin.value);
-        edit.putLong(PREFS_KEY_CACHED_EXCHANGE_RATE_FIAT, cachedExchangeRate.rate.fiat.value);
-        edit.apply();
     }
 
     public boolean getLastExchangeDirection() {

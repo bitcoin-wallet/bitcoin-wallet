@@ -17,25 +17,28 @@
 
 package de.schildbach.wallet.exchangerate;
 
-import com.squareup.moshi.Moshi;
-import okio.BufferedSource;
-import okio.Okio;
-import org.junit.Test;
+import androidx.room.Dao;
+import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
+import androidx.room.Query;
 
 import java.util.List;
-
-import static org.junit.Assert.assertEquals;
 
 /**
  * @author Andreas Schildbach
  */
-public class CoinGeckoTest {
-    private final CoinGecko coinGecko = new CoinGecko(new Moshi.Builder().build());
+@Dao
+public interface ExchangeRateDao {
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertOrUpdate(ExchangeRateEntry exchangeRateEntry);
 
-    @Test
-    public void parse() throws Exception {
-        final BufferedSource json = Okio.buffer(Okio.source(getClass().getResourceAsStream("coingecko.json")));
-        final List<ExchangeRateEntry> rates = coinGecko.parse(json);
-        assertEquals(45, rates.size());
-    }
+    @Query("SELECT * FROM exchange_rates ORDER BY currency_code COLLATE LOCALIZED ASC")
+    List<ExchangeRateEntry> findAll();
+
+    @Query("SELECT * FROM exchange_rates WHERE currency_code LIKE '%' || :constraint || '%' ORDER BY currency_code " +
+            "COLLATE LOCALIZED ASC")
+    List<ExchangeRateEntry> findByConstraint(String constraint);
+
+    @Query("SELECT * FROM exchange_rates WHERE currency_code = :currencyCode")
+    ExchangeRateEntry findByCurrencyCode(String currencyCode);
 }

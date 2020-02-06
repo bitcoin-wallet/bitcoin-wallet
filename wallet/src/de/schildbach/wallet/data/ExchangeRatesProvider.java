@@ -17,11 +17,10 @@
 
 package de.schildbach.wallet.data;
 
+import java.io.IOException;
 import java.util.Collections;
-import java.util.Currency;
 import java.util.Locale;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.concurrent.atomic.AtomicLong;
 
 import org.bitcoinj.core.Coin;
 import org.bitcoinj.utils.Fiat;
@@ -36,7 +35,9 @@ import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.Logging;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.exchangerate.CoinGecko;
-import de.schildbach.wallet.util.GenericUtils;
+import de.schildbach.wallet.exchangerate.ExchangeRateDao;
+import de.schildbach.wallet.exchangerate.ExchangeRateEntry;
+import de.schildbach.wallet.exchangerate.ExchangeRatesDatabase;
 
 import android.content.ContentProvider;
 import android.content.ContentValues;
@@ -46,8 +47,8 @@ import android.database.MatrixCursor;
 import android.net.Uri;
 import android.provider.BaseColumns;
 import android.text.format.DateUtils;
-import androidx.annotation.Nullable;
 import okhttp3.Call;
+import okhttp3.Callback;
 import okhttp3.ConnectionSpec;
 import okhttp3.Headers;
 import okhttp3.OkHttpClient.Builder;
@@ -58,7 +59,6 @@ import okhttp3.Response;
  * @author Andreas Schildbach
  */
 public class ExchangeRatesProvider extends ContentProvider {
-
     public static final String KEY_CURRENCY_CODE = "currency_code";
     private static final String KEY_RATE_COIN = "rate_coin";
     private static final String KEY_RATE_FIAT = "rate_fiat";
@@ -66,12 +66,12 @@ public class ExchangeRatesProvider extends ContentProvider {
 
     public static final String QUERY_PARAM_Q = "q";
 
+    private WalletApplication application;
     private Configuration config;
     private String userAgent;
-
-    @Nullable
-    private Map<String, ExchangeRate> exchangeRates = null;
-    private long lastUpdated = 0;
+    private ExchangeRatesDatabase db;
+    private ExchangeRateDao dao;
+    private final AtomicLong lastUpdated = new AtomicLong(0);
 
     private static final long UPDATE_FREQ_MS = 10 * DateUtils.MINUTE_IN_MILLIS;
 
@@ -88,15 +88,12 @@ public class ExchangeRatesProvider extends ContentProvider {
 
         final Context context = getContext();
         Logging.init(context.getFilesDir());
-        final WalletApplication application = (WalletApplication) context.getApplicationContext();
+        this.application = (WalletApplication) context.getApplicationContext();
         this.config = application.getConfiguration();
         this.userAgent = WalletApplication.httpUserAgent(application.packageInfo().versionName);
 
-        final ExchangeRate cachedExchangeRate = config.getCachedExchangeRate();
-        if (cachedExchangeRate != null) {
-            exchangeRates = new TreeMap<>();
-            exchangeRates.put(cachedExchangeRate.getCurrencyCode(), cachedExchangeRate);
-        }
+        this.db = ExchangeRatesDatabase.getDatabase(application);
+        this.dao = db.exchangeRateDao();
 
         watch.stop();
         log.info("{}.onCreate() took {}", getClass().getSimpleName(), watch);
@@ -111,80 +108,29 @@ public class ExchangeRatesProvider extends ContentProvider {
     @Override
     public Cursor query(final Uri uri, final String[] projection, final String selection, final String[] selectionArgs,
             final String sortOrder) {
-        final long now = System.currentTimeMillis();
-
-        if (lastUpdated == 0 || now - lastUpdated > UPDATE_FREQ_MS) {
-            final Map<String, ExchangeRate> newExchangeRates = requestExchangeRates();
-            if (newExchangeRates != null) {
-                exchangeRates = newExchangeRates;
-                lastUpdated = now;
-
-                final ExchangeRate exchangeRateToCache = bestExchangeRate(config.getExchangeCurrencyCode());
-                if (exchangeRateToCache != null)
-                    config.setCachedExchangeRate(exchangeRateToCache);
-            }
-        }
-
-        if (exchangeRates == null)
-            return null;
+        maybeRequestExchangeRates();
 
         final MatrixCursor cursor = new MatrixCursor(
                 new String[] { BaseColumns._ID, KEY_CURRENCY_CODE, KEY_RATE_COIN, KEY_RATE_FIAT, KEY_SOURCE });
 
         if (selection == null) {
-            for (final Map.Entry<String, ExchangeRate> entry : exchangeRates.entrySet()) {
-                final ExchangeRate exchangeRate = entry.getValue();
-                final org.bitcoinj.utils.ExchangeRate rate = exchangeRate.rate;
-                final String currencyCode = exchangeRate.getCurrencyCode();
-                cursor.newRow().add(currencyCode.hashCode()).add(currencyCode).add(rate.coin.value).add(rate.fiat.value)
-                        .add(exchangeRate.source);
-            }
+            for (final ExchangeRateEntry entry : dao.findAll())
+                cursor.newRow().add((int) entry.getId()).add(entry.getCurrencyCode()).add(entry.getRateCoin())
+                        .add(entry.getRateFiat()).add(entry.getSource());
         } else if (selection.equals(QUERY_PARAM_Q)) {
             final String selectionArg = selectionArgs[0].toLowerCase(Locale.US);
-            for (final Map.Entry<String, ExchangeRate> entry : exchangeRates.entrySet()) {
-                final ExchangeRate exchangeRate = entry.getValue();
-                final org.bitcoinj.utils.ExchangeRate rate = exchangeRate.rate;
-                final String currencyCode = exchangeRate.getCurrencyCode();
-                final String currencySymbol = GenericUtils.currencySymbol(currencyCode);
-                if (currencyCode.toLowerCase(Locale.US).contains(selectionArg)
-                        || currencySymbol.toLowerCase(Locale.US).contains(selectionArg))
-                    cursor.newRow().add(currencyCode.hashCode()).add(currencyCode).add(rate.coin.value)
-                            .add(rate.fiat.value).add(exchangeRate.source);
-            }
+            for (final ExchangeRateEntry entry : dao.findByConstraint(selectionArg))
+                cursor.newRow().add((int) entry.getId()).add(entry.getCurrencyCode()).add(entry.getRateCoin())
+                        .add(entry.getRateFiat()).add(entry.getSource());
         } else if (selection.equals(KEY_CURRENCY_CODE)) {
             final String selectionArg = selectionArgs[0];
-            final ExchangeRate exchangeRate = bestExchangeRate(selectionArg);
-            if (exchangeRate != null) {
-                final org.bitcoinj.utils.ExchangeRate rate = exchangeRate.rate;
-                final String currencyCode = exchangeRate.getCurrencyCode();
-                cursor.newRow().add(currencyCode.hashCode()).add(currencyCode).add(rate.coin.value).add(rate.fiat.value)
-                        .add(exchangeRate.source);
-            }
+            final ExchangeRateEntry entry = dao.findByCurrencyCode(selectionArg);
+            if (entry != null)
+                cursor.newRow().add((int) entry.getId()).add(entry.getCurrencyCode()).add(entry.getRateCoin())
+                        .add(entry.getRateFiat()).add(entry.getSource());
         }
 
         return cursor;
-    }
-
-    private ExchangeRate bestExchangeRate(final String currencyCode) {
-        ExchangeRate rate = currencyCode != null ? exchangeRates.get(currencyCode) : null;
-        if (rate != null)
-            return rate;
-
-        final String defaultCode = defaultCurrencyCode();
-        rate = defaultCode != null ? exchangeRates.get(defaultCode) : null;
-
-        if (rate != null)
-            return rate;
-
-        return exchangeRates.get(Constants.DEFAULT_EXCHANGE_CURRENCY);
-    }
-
-    private String defaultCurrencyCode() {
-        try {
-            return Currency.getInstance(Locale.getDefault()).getCurrencyCode();
-        } catch (final IllegalArgumentException x) {
-            return null;
-        }
     }
 
     public static ExchangeRate getExchangeRate(final Cursor cursor) {
@@ -219,8 +165,13 @@ public class ExchangeRatesProvider extends ContentProvider {
         throw new UnsupportedOperationException();
     }
 
-    private Map<String, ExchangeRate> requestExchangeRates() {
+    private void maybeRequestExchangeRates() {
         final Stopwatch watch = Stopwatch.createStarted();
+        final long now = System.currentTimeMillis();
+
+        final long lastUpdated = this.lastUpdated.get();
+        if (lastUpdated != 0 && now - lastUpdated <= UPDATE_FREQ_MS)
+            return;
 
         final CoinGecko coinGecko = new CoinGecko(new Moshi.Builder().build());
         final Request.Builder request = new Request.Builder();
@@ -233,21 +184,30 @@ public class ExchangeRatesProvider extends ContentProvider {
         final Builder httpClientBuilder = Constants.HTTP_CLIENT.newBuilder();
         httpClientBuilder.connectionSpecs(Collections.singletonList(ConnectionSpec.RESTRICTED_TLS));
         final Call call = httpClientBuilder.build().newCall(request.build());
-        try {
-            final Response response = call.execute();
-            if (response.isSuccessful()) {
-                final Map<String, ExchangeRate> rates = coinGecko.parse(response.body().source());
-                watch.stop();
-                log.info("fetched exchange rates from {}, took {}", coinGecko.url(), watch);
-                return rates;
-            } else {
-                log.warn("http status {} {} when fetching exchange rates from {}", response.code(),
-                        response.message(), coinGecko.url());
+        call.enqueue(new Callback() {
+            @Override
+            public void onResponse(final Call call, final Response response) throws IOException {
+                try {
+                    if (response.isSuccessful()) {
+                        for (final ExchangeRateEntry exchangeRate : coinGecko.parse(response.body().source()))
+                            dao.insertOrUpdate(exchangeRate);
+                        ExchangeRatesProvider.this.lastUpdated.set(now);
+                        getContext().getContentResolver().notifyChange(contentUri(application.getPackageName()), null);
+                        watch.stop();
+                        log.info("fetched exchange rates from {}, took {}", coinGecko.url(), watch);
+                    } else {
+                        log.warn("http status {} {} when fetching exchange rates from {}", response.code(),
+                                response.message(), coinGecko.url());
+                    }
+                } catch (final Exception x) {
+                    log.warn("problem fetching exchange rates from " + coinGecko.url(), x);
+                }
             }
-        } catch (final Exception x) {
-            log.warn("problem fetching exchange rates from " + coinGecko.url(), x);
-        }
 
-        return null;
+            @Override
+            public void onFailure(final Call call, final IOException x) {
+                log.warn("problem fetching exchange rates from " + coinGecko.url(), x);
+            }
+        });
     }
 }
