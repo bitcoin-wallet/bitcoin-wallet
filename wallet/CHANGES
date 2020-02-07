@@ -1,4 +1,4 @@
-v7.50
+v7.50-v7.51
 
 * Use CoinGecko.com for exchange rates, as BitcoinAverage.com is currently broken.
 * The color of the transaction confirmation indicator has been changed. It now starts red with one confirmation,
