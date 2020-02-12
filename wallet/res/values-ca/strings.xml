@@ -17,7 +17,6 @@
   <string name="wallet_balance_fragment_too_much">Aquesta quantitat de diners és molt elevada per portar-la a la butxaca, mou una part a un lloc segur.</string>
   <string name="wallet_balance_fragment_replaying">El saldo no està disponible durant la repetició.</string>
   <string name="exchange_rates_activity_title">Preus de canvi</string>
-  <string name="exchange_rates_fragment_empty_text">No es poden carregar el preus de canvi.</string>
   <string name="exchange_rates_fragment_empty_search">No es pot trobar el preu de canvi.</string>
   <string name="exchange_rates_fragment_default">(per defecte)</string>
   <string name="exchange_rates_fragment_rate">taxa</string>

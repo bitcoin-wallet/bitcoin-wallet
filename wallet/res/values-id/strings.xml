@@ -15,7 +15,6 @@
 	<string name="wallet_address_fragment_clipboard_msg">Alamat Bitcoin disalin</string>
 	<string name="wallet_balance_fragment_replaying">Saldo tidak tersedia saat pengulangan.</string>
 	<string name="exchange_rates_activity_title">Nilai Tukar</string>
-	<string name="exchange_rates_fragment_empty_text">Tidak dapat memuat nilai tukar</string>
 	<string name="exchange_rates_fragment_default">(standar)</string>
 	<string name="exchange_rates_fragment_rate">nilai</string>
 	<string name="exchange_rates_fragment_balance">saldo</string>

@@ -14,7 +14,6 @@
   <string name="wallet_address_fragment_clipboard_msg">Naslov kopiran na odložišče</string>
   <string name="wallet_balance_fragment_replaying">Pregled stanja med ponastavitvijo ni mogoč.</string>
   <string name="exchange_rates_activity_title">Menjalni tečaji</string>
-  <string name="exchange_rates_fragment_empty_text">Nalaganje menjalnih tečajev je spodletelo.</string>
   <string name="exchange_rates_fragment_empty_search">Ne najdem menjalnega tečaja.</string>
   <string name="exchange_rates_fragment_default">(privzeto)</string>
   <string name="exchange_rates_fragment_rate">tečaj</string>

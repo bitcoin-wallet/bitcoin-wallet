@@ -17,7 +17,6 @@
   <string name="wallet_balance_fragment_too_much">Dette beløpet er ganske høyt for å bære rundt i lommen din. Vennligst flytt noe til et tryggere sted.</string>
   <string name="wallet_balance_fragment_replaying">Saldo er ikke tilgjengelig under gjennomgangen.</string>
   <string name="exchange_rates_activity_title">Valutakurser</string>
-  <string name="exchange_rates_fragment_empty_text">Kunne ikke laste valutakurser.</string>
   <string name="exchange_rates_fragment_empty_search">Kunne ikke finne valutakurser.</string>
   <string name="exchange_rates_fragment_default">(standard)</string>
   <string name="exchange_rates_fragment_rate">kurs</string>

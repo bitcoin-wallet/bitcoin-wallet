@@ -16,7 +16,6 @@
   <string name="wallet_balance_fragment_too_much">Masz dość pokaźną sumę w portfelu. Proszę przenieś część w bezpieczniejsze miejsce.</string>
   <string name="wallet_balance_fragment_replaying">Saldo nie jest dostępne w trakcie odtwarzania.</string>
   <string name="exchange_rates_activity_title">Kursy wymiany</string>
-  <string name="exchange_rates_fragment_empty_text">Nie można było załadować kursów wymiany.</string>
   <string name="exchange_rates_fragment_empty_search">Nie odnaleziono kursu wymiany.</string>
   <string name="exchange_rates_fragment_default">(domyślnie)</string>
   <string name="exchange_rates_fragment_rate">kurs</string>

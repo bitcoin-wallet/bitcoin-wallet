@@ -17,7 +17,6 @@
   <string name="wallet_balance_fragment_too_much">该金额太庞大了，在您的口袋中随身携带存在安全风险。请将一部分资金转移到一个安全的地方。</string>
   <string name="wallet_balance_fragment_replaying">重放 (replay) 过程中无法显示余额。</string>
   <string name="exchange_rates_activity_title">汇率</string>
-  <string name="exchange_rates_fragment_empty_text">无法加载汇率。</string>
   <string name="exchange_rates_fragment_empty_search">汇率未找到。</string>
   <string name="exchange_rates_fragment_default">(默认)</string>
   <string name="exchange_rates_fragment_rate">汇率</string>

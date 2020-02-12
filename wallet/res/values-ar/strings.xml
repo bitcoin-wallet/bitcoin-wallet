@@ -17,7 +17,6 @@
   <string name="wallet_balance_fragment_too_much">هذه كمية مال عالية قليلة لحفظها في جيبك. نرجوا نقلها لمكان اكثر اماناً.</string>
   <string name="wallet_balance_fragment_replaying">الرصيد غير متاح في حالة إعادة التشغيل.</string>
   <string name="exchange_rates_activity_title">اسعار الصرف</string>
-  <string name="exchange_rates_fragment_empty_text">لا يمكن تحميل اسعار الصرف.</string>
   <string name="exchange_rates_fragment_empty_search">لا يمكن إيجاد اسعار الصرف.</string>
   <string name="exchange_rates_fragment_default">(افتراضي)</string>
   <string name="exchange_rates_fragment_rate">نسبة</string>

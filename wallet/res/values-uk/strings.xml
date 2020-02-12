@@ -14,7 +14,6 @@
   <string name="wallet_address_fragment_clipboard_msg">Адреса скопійована в буфер обміну</string>
   <string name="wallet_balance_fragment_replaying">Під час відтворення баланс недоступний.</string>
   <string name="exchange_rates_activity_title">Курси валют</string>
-  <string name="exchange_rates_fragment_empty_text">Не вдалося завантажити курси валют.</string>
   <string name="exchange_rates_fragment_empty_search">Не вдалося знайти обмінний курс.</string>
   <string name="exchange_rates_fragment_default">(за замовчуванням)</string>
   <string name="exchange_rates_fragment_rate">курс</string>

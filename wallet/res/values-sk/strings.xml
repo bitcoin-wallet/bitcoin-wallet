@@ -15,7 +15,6 @@
 	<string name="wallet_address_fragment_clipboard_msg">Adresa skopírovaná do schránky</string>
 	<string name="wallet_balance_fragment_replaying">Zostatok je nedostupný počas synchronizácie.</string>
 	<string name="exchange_rates_activity_title">Výmenné kurzy</string>
-	<string name="exchange_rates_fragment_empty_text">Nepodarilo sa načítať výmenné kurzy</string>
 	<string name="exchange_rates_fragment_default">(predvolené)</string>
 	<string name="exchange_rates_fragment_rate">kurz</string>
 	<string name="exchange_rates_fragment_balance">zostatok</string>

@@ -10,7 +10,6 @@
   <string name="blockchain_state_progress_problem_network">Sinkroniziranje: Mrežni problem</string>
   <string name="wallet_address_fragment_clipboard_msg">Bitcoin adresa je kopirana u međuspremnik</string>
   <string name="exchange_rates_activity_title">stopa konverzije</string>
-  <string name="exchange_rates_fragment_empty_text">Onemogućen dohvat konverzijskih stopa.</string>
   <string name="exchange_rates_fragment_empty_search">Konverzijska stopa nije pronađena.</string>
   <string name="exchange_rates_fragment_default">(zadano)</string>
   <string name="exchange_rates_fragment_rate">stopa</string>

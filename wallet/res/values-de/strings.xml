@@ -18,7 +18,6 @@
     <string name="wallet_balance_fragment_too_much">Dieser Wert ist recht hoch, um in der Tasche getragen zu werden. Bitte verschiebe etwas an einen sichereren Ort.</string>
     <string name="wallet_balance_fragment_replaying">Guthaben ist während des Replays nicht verfügbar.</string>
     <string name="exchange_rates_activity_title">Wechselkurse</string>
-    <string name="exchange_rates_fragment_empty_text">Kann Wechselkurse nicht laden.</string>
     <string name="exchange_rates_fragment_empty_search">Kann Wechselkurs nicht finden.</string>
     <string name="exchange_rates_fragment_default">(Standard)</string>
     <string name="exchange_rates_fragment_rate">Kurs</string>

@@ -15,7 +15,6 @@
   <string name="wallet_balance_fragment_too_much">Ume Sonko na pochi yako! Tafadhali hoja pesa mahala pa usalama.</string>
   <string name="wallet_balance_fragment_replaying">Mizani ni haipatikani kwa sasa</string>
   <string name="exchange_rates_activity_title">Viwango vya soko</string>
-  <string name="exchange_rates_fragment_empty_text">Haikuweza kupata viwango vya soko</string>
   <string name="exchange_rates_fragment_empty_search">Hakuweza kupata viwango vya soko</string>
   <string name="exchange_rates_fragment_default">(kawaida)</string>
   <string name="exchange_rates_fragment_rate">viwango</string>

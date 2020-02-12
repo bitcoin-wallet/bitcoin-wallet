@@ -17,7 +17,6 @@
   <string name="wallet_balance_fragment_too_much">Questo importo è alto per essere portato con se. Si prega di spostarne alcuni in un luogo più sicuro.</string>
   <string name="wallet_balance_fragment_replaying">Il conto non è disponibile durante la ripetizione.</string>
   <string name="exchange_rates_activity_title">Tasso di cambio</string>
-  <string name="exchange_rates_fragment_empty_text">Impossibile caricare tassi di cambio.</string>
   <string name="exchange_rates_fragment_empty_search">Impossibile trovare il tasso di cambio.</string>
   <string name="exchange_rates_fragment_default">(predefinito)</string>
   <string name="exchange_rates_fragment_rate">tasso</string>

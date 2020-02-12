@@ -17,7 +17,6 @@
   <string name="wallet_balance_fragment_too_much">Este montante é bastante elevado para transportar no seu bolso. Por favor mova algum para um sítio mais seguro.</string>
   <string name="wallet_balance_fragment_replaying">O saldo está indisponível durante o replay.</string>
   <string name="exchange_rates_activity_title">Taxas de câmbio</string>
-  <string name="exchange_rates_fragment_empty_text">Não foi possível carregar as taxas de câmbio.</string>
   <string name="exchange_rates_fragment_empty_search">Não foi possível encontrar as taxas de câmbio.</string>
   <string name="exchange_rates_fragment_default">(padrão)</string>
   <string name="exchange_rates_fragment_rate">taxa</string>

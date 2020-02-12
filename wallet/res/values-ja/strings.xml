@@ -17,7 +17,6 @@
   <string name="wallet_balance_fragment_too_much">この額はポケットに入れて運ぶには多すぎます。一部をもっと安全な場所に移してください。</string>
   <string name="wallet_balance_fragment_replaying">再生中は残高情報は利用できません。</string>
   <string name="exchange_rates_activity_title">為替レート</string>
-  <string name="exchange_rates_fragment_empty_text">為替レートを読み込めません。</string>
   <string name="exchange_rates_fragment_empty_search">為替レートが見つかりません。</string>
   <string name="exchange_rates_fragment_default">(既定外貨)</string>
   <string name="exchange_rates_fragment_rate">為替レート</string>

@@ -18,7 +18,6 @@
     <string name="wallet_balance_fragment_too_much">This amount is quite high for carrying in your pocket. Please move some to a safer place.</string>
     <string name="wallet_balance_fragment_replaying">Balance is unavailable during replay.</string>
     <string name="exchange_rates_activity_title">Exchange rates</string>
-    <string name="exchange_rates_fragment_empty_text">Could not load exchange rates.</string>
     <string name="exchange_rates_fragment_empty_search">Could not find exchange rate.</string>
     <string name="exchange_rates_fragment_default">(default)</string>
     <string name="exchange_rates_fragment_rate">rate</string>

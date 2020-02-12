@@ -17,7 +17,6 @@
   <string name="wallet_balance_fragment_too_much">在口袋裡放這麼多錢好像不是很好。建議拿一些出來到比較安全的地方。</string>
   <string name="wallet_balance_fragment_replaying">在重播時無法顯示餘額</string>
   <string name="exchange_rates_activity_title">匯率</string>
-  <string name="exchange_rates_fragment_empty_text">無法讀取匯率資料。</string>
   <string name="exchange_rates_fragment_empty_search">無法找到匯率資料。</string>
   <string name="exchange_rates_fragment_default">(預設值)</string>
   <string name="exchange_rates_fragment_rate">匯率</string>

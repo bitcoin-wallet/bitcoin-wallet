@@ -14,14 +14,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:text="@string/exchange_rates_fragment_empty_text"
-        android:textColor="@color/fg_less_significant"
-        android:textSize="@dimen/font_size_small" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
         android:text="@string/exchange_rates_fragment_empty_search"
         android:textColor="@color/fg_less_significant"
         android:textSize="@dimen/font_size_small" />

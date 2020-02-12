@@ -17,7 +17,6 @@
   <string name="wallet_balance_fragment_too_much">Сумма монет довольно существенная для карманного бумажника. Пожалуйста, перенесите её часть в более безопасное хранение.</string>
   <string name="wallet_balance_fragment_replaying">Во время воспроизведения баланс недоступен.</string>
   <string name="exchange_rates_activity_title">Обменный курс</string>
-  <string name="exchange_rates_fragment_empty_text">Не удалось загрузить курсы валют.</string>
   <string name="exchange_rates_fragment_empty_search">Не удалось найти обменный курс.</string>
   <string name="exchange_rates_fragment_default">(по умолчанию)</string>
   <string name="exchange_rates_fragment_rate">курс</string>

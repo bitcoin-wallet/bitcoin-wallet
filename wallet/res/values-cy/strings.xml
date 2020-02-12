@@ -17,7 +17,6 @@
   <string name="wallet_balance_fragment_too_much">Mae\'r swm hwn braidd yn fawr i\'w gario yn dy waled. Argymhellir ei symud i rywle mwy diogel.</string>
   <string name="wallet_balance_fragment_replaying">Dyw\'r balans ddim ar gael yn ystod ail-chwarae.</string>
   <string name="exchange_rates_activity_title">Cyfraddau cyfnewid</string>
-  <string name="exchange_rates_fragment_empty_text">Methwyd â llwytho cyfraddau cyfnewid.</string>
   <string name="exchange_rates_fragment_empty_search">Methwyd â chanfod cyfraddau cyfnewid.</string>
   <string name="exchange_rates_fragment_default">(arferol)</string>
   <string name="exchange_rates_fragment_rate">cyfradd</string>

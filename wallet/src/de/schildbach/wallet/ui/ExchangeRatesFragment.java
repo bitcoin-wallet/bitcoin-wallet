@@ -80,12 +80,8 @@ public final class ExchangeRatesFragment extends Fragment
         viewModel = new ViewModelProvider(this).get(ExchangeRatesViewModel.class);
         if (Constants.ENABLE_EXCHANGE_RATES) {
             viewModel.getExchangeRates().observe(this, cursor -> {
-                if (cursor.getCount() == 0 && viewModel.query == null) {
-                    viewGroup.setDisplayedChild(1);
-                } else if (cursor.getCount() == 0 && viewModel.query != null) {
+                if (cursor.getCount() != 0) {
                     viewGroup.setDisplayedChild(2);
-                } else {
-                    viewGroup.setDisplayedChild(3);
                     maybeSubmitList();
 
                     final String defaultCurrency = config.getExchangeCurrencyCode();
@@ -108,6 +104,10 @@ public final class ExchangeRatesFragment extends Fragment
                         activity.getActionBar().setSubtitle(
                                 source != null ? getString(R.string.exchange_rates_fragment_source, source) : null);
                     }
+                } else if (cursor.getCount() == 0 && viewModel.query != null) {
+                    viewGroup.setDisplayedChild(1);
+                } else {
+                    viewGroup.setDisplayedChild(0);
                 }
             });
         }

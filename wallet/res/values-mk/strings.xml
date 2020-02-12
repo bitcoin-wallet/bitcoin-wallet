@@ -15,7 +15,6 @@
 	<string name="wallet_address_fragment_clipboard_msg">Биткоин адресата е копирана во склад</string>
 	<string name="wallet_balance_fragment_replaying">Салдото е недостапно за време на повторена акција.</string>
 	<string name="exchange_rates_activity_title">Девизен курс</string>
-	<string name="exchange_rates_fragment_empty_text">Не може да го вчитам курсот на валутите</string>
 	<string name="exchange_rates_fragment_default">(главно)</string>
 	<string name="exchange_rates_fragment_rate">курс</string>
 	<string name="exchange_rates_fragment_balance">салдо</string>

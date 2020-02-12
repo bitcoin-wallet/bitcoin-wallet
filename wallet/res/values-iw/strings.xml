@@ -15,7 +15,6 @@
 	<string name="wallet_address_fragment_clipboard_msg">כתובת הביטקוין הועתקה ללוח</string>
 	<string name="wallet_balance_fragment_replaying">היתרה אינה זמינה במהלך שחזור</string>
 	<string name="exchange_rates_activity_title">שערי המרה</string>
-	<string name="exchange_rates_fragment_empty_text">לא ניתן לטעון שערי המרה</string>
 	<string name="exchange_rates_fragment_default">(ברירת מחדל)</string>
 	<string name="exchange_rates_fragment_rate">שער</string>
 	<string name="exchange_rates_fragment_balance">מאזן</string>

@@ -15,7 +15,6 @@
 	<string name="wallet_address_fragment_clipboard_msg">Bitmonadreso kopiita al tondujo</string>
 	<string name="wallet_balance_fragment_replaying">Saldo nedisponeblas dum ripeto.</string>
 	<string name="exchange_rates_activity_title">Kurzoj</string>
-	<string name="exchange_rates_fragment_empty_text">Ne eblis ŝargi kurzojn.</string>
 	<string name="exchange_rates_fragment_default">(defaŭlta)</string>
 	<string name="exchange_rates_fragment_rate">proporcio</string>
 	<string name="exchange_rates_fragment_balance">saldo</string>

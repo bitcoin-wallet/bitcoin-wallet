@@ -17,7 +17,6 @@
   <string name="wallet_balance_fragment_too_much">Esta cantidad es demasiado grande para llevar en tu bolsillo, por favor, muévela a un lugar más seguro.</string>
   <string name="wallet_balance_fragment_replaying">Saldo no disponible durante la reevaluación.</string>
   <string name="exchange_rates_activity_title">Tasas de cambio</string>
-  <string name="exchange_rates_fragment_empty_text">No se pueden cargar las tasas de cambio.</string>
   <string name="exchange_rates_fragment_empty_search">No se encuentra la tasa de cambio.</string>
   <string name="exchange_rates_fragment_default">(predeterminado)</string>
   <string name="exchange_rates_fragment_rate">tipo</string>

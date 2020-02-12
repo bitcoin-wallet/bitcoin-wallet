@@ -15,7 +15,6 @@
   <string name="wallet_balance_fragment_too_much">Το ποσό αυτό είναι αρκετά μεγάλο για να το έχετε σε ένα σημείο. Μετακινήστε μερικά νομίσματα σε άλλο πορτοφόλι για τη δική σας ασφάλεια.</string>
   <string name="wallet_balance_fragment_replaying">Το υπόλοιπο δεν είναι διαθέσιμο κατά τη διάρκεια της επανάληψης.</string>
   <string name="exchange_rates_activity_title">Ισοτιμίες</string>
-  <string name="exchange_rates_fragment_empty_text">Δεν ήταν δυνατή η φόρτωση των ισοτιμιών.</string>
   <string name="exchange_rates_fragment_empty_search">Δε βρέθηκε η ισοτιμία.</string>
   <string name="exchange_rates_fragment_default">(προεπιλογή)</string>
   <string name="exchange_rates_fragment_rate">ισοτιμία</string>

@@ -17,7 +17,6 @@
   <string name="wallet_balance_fragment_too_much">이 금액은 전자지갑에 보관하기에 너무 큰 금액입니다. 데스크탑 지갑으로 옮기거나 비밀키를 별도로 보관하세요.</string>
   <string name="wallet_balance_fragment_replaying">블럭체인 초기화 중, 잔액을 사용할 수 없습니다.</string>
   <string name="exchange_rates_activity_title">환율 목록</string>
-  <string name="exchange_rates_fragment_empty_text">환율 정보를 불러오지 못했습니다.</string>
   <string name="exchange_rates_fragment_empty_search">환율 정보를 찾지 못했습니다.</string>
   <string name="exchange_rates_fragment_default">(기본값)</string>
   <string name="exchange_rates_fragment_rate">평가 환율</string>

@@ -14,7 +14,6 @@
 	<string name="wallet_address_fragment_clipboard_msg">Địa chỉ Bitcoin đã được sao chép vào bộ nhớ ảo</string>
 	<string name="wallet_balance_fragment_replaying">Tính năng cân bằng tài khoản không thể được thao tác trong quá trình replay.</string>
 	<string name="exchange_rates_activity_title">Tỉ lệ hoán đổi</string>
-	<string name="exchange_rates_fragment_empty_text">Không thể tải tỉ lệ hoán đổi</string>
 	<string name="exchange_rates_fragment_default">(mặc định)</string>
 	<string name="exchange_rates_fragment_rate">tỉ lệ</string>
 	<string name="exchange_rates_fragment_balance">cân bằng</string>

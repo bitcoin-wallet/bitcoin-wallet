@@ -17,7 +17,6 @@
   <string name="wallet_balance_fragment_too_much">Det här är ett stort belopp att bära omkring på i fickan. Flytta gärna över en del till en säkrare plats.</string>
   <string name="wallet_balance_fragment_replaying">Saldot är otillgängligt under reprisen.</string>
   <string name="exchange_rates_activity_title">Växlingskurser</string>
-  <string name="exchange_rates_fragment_empty_text">Kunde inte hämta växlingskurser.</string>
   <string name="exchange_rates_fragment_empty_search">Kunde inte hitta växlingskurs.</string>
   <string name="exchange_rates_fragment_default">(standard)</string>
   <string name="exchange_rates_fragment_rate">kurs</string>

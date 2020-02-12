@@ -17,7 +17,6 @@
   <string name="wallet_balance_fragment_too_much">Tato částka je poměrně vysoká na nosení v kapse. Převeďte ji prosím na bezpečnější místo.</string>
   <string name="wallet_balance_fragment_replaying">Bilance je nedostupná během synchronizace.</string>
   <string name="exchange_rates_activity_title">Směnné kurzy</string>
-  <string name="exchange_rates_fragment_empty_text">Nepodařilo se nahrát směnné kurzy.</string>
   <string name="exchange_rates_fragment_empty_search">Nelze najít směnný kurz.</string>
   <string name="exchange_rates_fragment_default">(výchozí)</string>
   <string name="exchange_rates_fragment_rate">kurz</string>

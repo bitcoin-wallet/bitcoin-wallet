@@ -17,7 +17,6 @@
   <string name="wallet_balance_fragment_too_much">Bu meblağ cebinizde taşımak için oldukça fazladır. Birazını daha güvenli bir yere aktarınız.</string>
   <string name="wallet_balance_fragment_replaying">Tekrar sırasında bakiye kullanılamaz</string>
   <string name="exchange_rates_activity_title">Döviz kurları</string>
-  <string name="exchange_rates_fragment_empty_text">Döviz kurları yüklenemedi.</string>
   <string name="exchange_rates_fragment_empty_search">Değişim kuru bulunamadı.</string>
   <string name="exchange_rates_fragment_default">(varsayılan)</string>
   <string name="exchange_rates_fragment_rate">oran</string>

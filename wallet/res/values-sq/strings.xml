@@ -16,7 +16,6 @@
   <string name="wallet_balance_fragment_too_much">Kjo shumë është e madhe për tu mbajtur nê xhep. Ju lutem zhvendosni disa monedha në një vend më të sigurt.</string>
   <string name="wallet_balance_fragment_replaying">Bilanci nuk mund të shikohet gjatë përseritjes.</string>
   <string name="exchange_rates_activity_title">Kursi i këmbimit</string>
-  <string name="exchange_rates_fragment_empty_text">Nuk mund të ngarkohet kursi i këmbimit.</string>
   <string name="exchange_rates_fragment_empty_search">Nuk mund të gjej kursin e këmbimit.</string>
   <string name="exchange_rates_fragment_default">(normal)</string>
   <string name="exchange_rates_fragment_rate">çmimi</string>

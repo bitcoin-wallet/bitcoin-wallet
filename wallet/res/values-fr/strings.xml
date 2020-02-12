@@ -17,7 +17,6 @@
   <string name="wallet_balance_fragment_too_much">Ce montant est plutôt élevé pour être gardé dans votre poche. Veuillez en déplacer une partie en lieu sûr.</string>
   <string name="wallet_balance_fragment_replaying">Le solde n’est pas disponible durant la relecture.</string>
   <string name="exchange_rates_activity_title">Taux de change</string>
-  <string name="exchange_rates_fragment_empty_text">Impossible de charger les taux de change.</string>
   <string name="exchange_rates_fragment_empty_search">Taux de change introuvable.</string>
   <string name="exchange_rates_fragment_default">(par défaut)</string>
   <string name="exchange_rates_fragment_rate">taux</string>

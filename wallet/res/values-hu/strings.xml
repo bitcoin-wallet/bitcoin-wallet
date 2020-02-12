@@ -17,7 +17,6 @@
   <string name="wallet_balance_fragment_too_much">Ez az összeg igen magas ahhoz, hogy a zsebedben hordd. Kérlek helyezd át egy részét biztonságosabb helyre.</string>
   <string name="wallet_balance_fragment_replaying">A frissítés során az egyenleg nem elérhető.</string>
   <string name="exchange_rates_activity_title">Árfolyamok</string>
-  <string name="exchange_rates_fragment_empty_text">Az árfolyamok betöltése sikertelen</string>
   <string name="exchange_rates_fragment_empty_search">Árfolyam nem található.</string>
   <string name="exchange_rates_fragment_default">(alapértelmezett)</string>
   <string name="exchange_rates_fragment_rate">árfolyam</string>

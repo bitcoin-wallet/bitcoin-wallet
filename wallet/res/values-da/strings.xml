@@ -17,7 +17,6 @@
   <string name="wallet_balance_fragment_too_much">Dette beløb er ret stort at gå rundt med i din lomme. Du bør flytte noget af det til et mere sikkert sted.</string>
   <string name="wallet_balance_fragment_replaying">Saldo er ikke tilgængelig under gennemløb af blokkæden.</string>
   <string name="exchange_rates_activity_title">Valutakurser</string>
-  <string name="exchange_rates_fragment_empty_text">Kunne ikke indlæse vekselkurser.</string>
   <string name="exchange_rates_fragment_empty_search">Kunne ikke finde vekselkurs.</string>
   <string name="exchange_rates_fragment_default">(standard)</string>
   <string name="exchange_rates_fragment_rate">kurs</string>

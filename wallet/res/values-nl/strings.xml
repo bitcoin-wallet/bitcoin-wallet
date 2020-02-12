@@ -17,7 +17,6 @@
   <string name="wallet_balance_fragment_too_much">Dit is relatief veel om op zak te hebben. Verplaats iets naar een veiligere plek.</string>
   <string name="wallet_balance_fragment_replaying">Balans is onbeschikbaar tijdens herladen.</string>
   <string name="exchange_rates_activity_title">Wisselkoersen</string>
-  <string name="exchange_rates_fragment_empty_text">Kon geen wisselkoersen laden.</string>
   <string name="exchange_rates_fragment_empty_search">Wisselkoers niet gevonden.</string>
   <string name="exchange_rates_fragment_default">(standaard)</string>
   <string name="exchange_rates_fragment_rate">tarief</string>
