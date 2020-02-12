@@ -29,8 +29,10 @@ import androidx.room.PrimaryKey;
 /**
  * @author Andreas Schildbach
  */
-@Entity(tableName = "address_book")
+@Entity(tableName = AddressBookEntry.TABLE_NAME)
 public class AddressBookEntry {
+    public static final String TABLE_NAME = "address_book";
+
     @NonNull
     @PrimaryKey
     @ColumnInfo(name = "address")
