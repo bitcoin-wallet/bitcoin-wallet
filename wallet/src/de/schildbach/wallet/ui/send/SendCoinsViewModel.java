@@ -23,8 +23,8 @@ import org.bitcoinj.core.Transaction;
 import org.bitcoinj.wallet.Wallet.BalanceType;
 
 import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.data.AddressBookEntry;
-import de.schildbach.wallet.data.AppDatabase;
+import de.schildbach.wallet.addressbook.AddressBookEntry;
+import de.schildbach.wallet.addressbook.AppDatabase;
 import de.schildbach.wallet.data.DynamicFeeLiveData;
 import de.schildbach.wallet.data.PaymentIntent;
 import de.schildbach.wallet.data.SelectedExchangeRateLiveData;

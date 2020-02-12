@@ -32,8 +32,8 @@ import org.bitcoinj.wallet.listeners.KeyChainEventListener;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.data.AbstractWalletLiveData;
-import de.schildbach.wallet.data.AddressBookEntry;
-import de.schildbach.wallet.data.AppDatabase;
+import de.schildbach.wallet.addressbook.AddressBookEntry;
+import de.schildbach.wallet.addressbook.AppDatabase;
 import de.schildbach.wallet.data.ConfigOwnNameLiveData;
 import de.schildbach.wallet.data.WalletLiveData;
 

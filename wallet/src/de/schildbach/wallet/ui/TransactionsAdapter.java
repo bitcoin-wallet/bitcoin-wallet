@@ -39,7 +39,7 @@ import org.bitcoinj.wallet.Wallet;
 
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.R;
-import de.schildbach.wallet.data.AddressBookEntry;
+import de.schildbach.wallet.addressbook.AddressBookEntry;
 import de.schildbach.wallet.ui.TransactionsAdapter.ListItem.TransactionItem;
 import de.schildbach.wallet.ui.TransactionsAdapter.ListItem.WarningItem;
 import de.schildbach.wallet.util.Formats;

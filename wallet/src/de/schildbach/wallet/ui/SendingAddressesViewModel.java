@@ -33,7 +33,7 @@ import com.google.common.collect.Iterables;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.data.AbstractWalletLiveData;
-import de.schildbach.wallet.data.AddressBookEntry;
+import de.schildbach.wallet.addressbook.AddressBookEntry;
 import de.schildbach.wallet.data.WalletLiveData;
 
 import android.app.Application;

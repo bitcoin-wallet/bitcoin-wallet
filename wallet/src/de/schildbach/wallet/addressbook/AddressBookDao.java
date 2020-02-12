@@ -15,7 +15,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package de.schildbach.wallet.data;
+package de.schildbach.wallet.addressbook;
 
 import java.util.List;
 import java.util.Set;

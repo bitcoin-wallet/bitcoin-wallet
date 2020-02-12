@@ -28,7 +28,7 @@ import org.bitcoinj.wallet.Wallet;
 
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.R;
-import de.schildbach.wallet.data.AddressBookEntry;
+import de.schildbach.wallet.addressbook.AddressBookEntry;
 import de.schildbach.wallet.util.WalletUtils;
 
 import android.content.Context;
