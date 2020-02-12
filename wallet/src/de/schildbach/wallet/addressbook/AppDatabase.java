@@ -31,13 +31,14 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 public abstract class AppDatabase extends RoomDatabase {
     public abstract AddressBookDao addressBookDao();
 
+    private static final String DATABASE_NAME = "address_book";
     private static AppDatabase INSTANCE;
 
     public static AppDatabase getDatabase(final Context context) {
         if (INSTANCE == null) {
             synchronized (AppDatabase.class) {
                 if (INSTANCE == null) {
-                    INSTANCE = Room.databaseBuilder(context.getApplicationContext(), AppDatabase.class, "address_book")
+                    INSTANCE = Room.databaseBuilder(context.getApplicationContext(), AppDatabase.class, DATABASE_NAME)
                             .addMigrations(MIGRATION_1_2).allowMainThreadQueries().build();
                 }
             }
