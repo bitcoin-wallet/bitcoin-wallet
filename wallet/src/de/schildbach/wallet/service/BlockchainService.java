@@ -72,7 +72,7 @@ import de.schildbach.wallet.R;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.WalletBalanceWidgetProvider;
 import de.schildbach.wallet.addressbook.AddressBookDao;
-import de.schildbach.wallet.addressbook.AppDatabase;
+import de.schildbach.wallet.addressbook.AddressBookDatabase;
 import de.schildbach.wallet.data.SelectedExchangeRateLiveData;
 import de.schildbach.wallet.data.WalletBalanceLiveData;
 import de.schildbach.wallet.data.WalletLiveData;
@@ -502,7 +502,7 @@ public class BlockchainService extends LifecycleService {
         connectivityNotification.setPriority(NotificationCompat.PRIORITY_LOW);
         startForeground(0);
 
-        addressBookDao = AppDatabase.getDatabase(application).addressBookDao();
+        addressBookDao = AddressBookDatabase.getDatabase(application).addressBookDao();
         blockChainFile = new File(getDir("blockstore", Context.MODE_PRIVATE), Constants.Files.BLOCKCHAIN_FILENAME);
 
         config.registerOnSharedPreferenceChangeListener(preferenceChangeListener);

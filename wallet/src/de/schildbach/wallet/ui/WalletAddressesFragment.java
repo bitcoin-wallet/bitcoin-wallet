@@ -32,7 +32,7 @@ import de.schildbach.wallet.R;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.addressbook.AddressBookDao;
 import de.schildbach.wallet.addressbook.AddressBookEntry;
-import de.schildbach.wallet.addressbook.AppDatabase;
+import de.schildbach.wallet.addressbook.AddressBookDatabase;
 import de.schildbach.wallet.util.Qr;
 import de.schildbach.wallet.util.Toast;
 import de.schildbach.wallet.util.WalletUtils;
@@ -73,7 +73,7 @@ public final class WalletAddressesFragment extends FancyListFragment {
         super.onAttach(context);
         this.activity = (AbstractWalletActivity) context;
         this.application = activity.getWalletApplication();
-        this.addressBookDao = AppDatabase.getDatabase(context).addressBookDao();
+        this.addressBookDao = AddressBookDatabase.getDatabase(context).addressBookDao();
         this.clipboardManager = (ClipboardManager) activity.getSystemService(Context.CLIPBOARD_SERVICE);
     }
 

@@ -26,8 +26,8 @@ import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.R;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.addressbook.AddressBookDao;
+import de.schildbach.wallet.addressbook.AddressBookDatabase;
 import de.schildbach.wallet.addressbook.AddressBookEntry;
-import de.schildbach.wallet.addressbook.AppDatabase;
 import de.schildbach.wallet.util.WalletUtils;
 
 import android.app.Dialog;
@@ -83,7 +83,7 @@ public final class EditAddressBookEntryFragment extends DialogFragment {
         super.onAttach(context);
         this.activity = (AbstractWalletActivity) context;
         final WalletApplication application = activity.getWalletApplication();
-        this.addressBookDao = AppDatabase.getDatabase(context).addressBookDao();
+        this.addressBookDao = AddressBookDatabase.getDatabase(context).addressBookDao();
         this.wallet = application.getWallet();
     }
 

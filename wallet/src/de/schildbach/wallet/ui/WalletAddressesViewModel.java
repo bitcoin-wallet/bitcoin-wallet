@@ -33,7 +33,7 @@ import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.data.AbstractWalletLiveData;
 import de.schildbach.wallet.addressbook.AddressBookEntry;
-import de.schildbach.wallet.addressbook.AppDatabase;
+import de.schildbach.wallet.addressbook.AddressBookDatabase;
 import de.schildbach.wallet.data.ConfigOwnNameLiveData;
 import de.schildbach.wallet.data.WalletLiveData;
 
@@ -62,7 +62,7 @@ public class WalletAddressesViewModel extends AndroidViewModel {
         this.application = (WalletApplication) application;
         this.issuedReceiveAddresses = new IssuedReceiveAddressesLiveData(this.application);
         this.importedAddresses = new ImportedAddressesLiveData(this.application);
-        this.addressBook = AppDatabase.getDatabase(this.application).addressBookDao().getAll();
+        this.addressBook = AddressBookDatabase.getDatabase(this.application).addressBookDao().getAll();
         this.wallet = new WalletLiveData(this.application);
         this.ownName = new ConfigOwnNameLiveData(this.application);
     }

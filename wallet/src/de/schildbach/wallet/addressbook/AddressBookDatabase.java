@@ -28,17 +28,17 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
  * @author Andreas Schildbach
  */
 @Database(entities = { AddressBookEntry.class }, version = 2, exportSchema = false)
-public abstract class AppDatabase extends RoomDatabase {
+public abstract class AddressBookDatabase extends RoomDatabase {
     public abstract AddressBookDao addressBookDao();
 
     private static final String DATABASE_NAME = "address_book";
-    private static AppDatabase INSTANCE;
+    private static AddressBookDatabase INSTANCE;
 
-    public static AppDatabase getDatabase(final Context context) {
+    public static AddressBookDatabase getDatabase(final Context context) {
         if (INSTANCE == null) {
-            synchronized (AppDatabase.class) {
+            synchronized (AddressBookDatabase.class) {
                 if (INSTANCE == null) {
-                    INSTANCE = Room.databaseBuilder(context.getApplicationContext(), AppDatabase.class, DATABASE_NAME)
+                    INSTANCE = Room.databaseBuilder(context.getApplicationContext(), AddressBookDatabase.class, DATABASE_NAME)
                             .addMigrations(MIGRATION_1_2).allowMainThreadQueries().build();
                 }
             }

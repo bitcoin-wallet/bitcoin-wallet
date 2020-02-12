@@ -30,7 +30,7 @@ import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.R;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.addressbook.AddressBookDao;
-import de.schildbach.wallet.addressbook.AppDatabase;
+import de.schildbach.wallet.addressbook.AddressBookDatabase;
 import de.schildbach.wallet.ui.TransactionsAdapter.WarningType;
 import de.schildbach.wallet.ui.send.RaiseFeeDialogFragment;
 import de.schildbach.wallet.util.Qr;
@@ -92,7 +92,7 @@ public class WalletTransactionsFragment extends Fragment implements Transactions
         this.activity = (AbstractWalletActivity) context;
         this.application = activity.getWalletApplication();
         this.config = application.getConfiguration();
-        this.addressBookDao = AppDatabase.getDatabase(context).addressBookDao();
+        this.addressBookDao = AddressBookDatabase.getDatabase(context).addressBookDao();
         this.devicePolicyManager = (DevicePolicyManager) application.getSystemService(Context.DEVICE_POLICY_SERVICE);
     }
 

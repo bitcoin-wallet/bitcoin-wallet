@@ -34,7 +34,7 @@ import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.R;
 import de.schildbach.wallet.addressbook.AddressBookDao;
 import de.schildbach.wallet.addressbook.AddressBookEntry;
-import de.schildbach.wallet.addressbook.AppDatabase;
+import de.schildbach.wallet.addressbook.AddressBookDatabase;
 import de.schildbach.wallet.data.PaymentIntent;
 import de.schildbach.wallet.ui.InputParser.StringInputParser;
 import de.schildbach.wallet.ui.scan.ScanActivity;
@@ -86,7 +86,7 @@ public final class SendingAddressesFragment extends FancyListFragment {
     public void onAttach(final Context context) {
         super.onAttach(context);
         this.activity = (AbstractWalletActivity) context;
-        this.addressBookDao = AppDatabase.getDatabase(context).addressBookDao();
+        this.addressBookDao = AddressBookDatabase.getDatabase(context).addressBookDao();
     }
 
     @Override

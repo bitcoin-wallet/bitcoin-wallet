@@ -44,7 +44,7 @@ import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.data.AbstractWalletLiveData;
 import de.schildbach.wallet.addressbook.AddressBookEntry;
-import de.schildbach.wallet.addressbook.AppDatabase;
+import de.schildbach.wallet.addressbook.AddressBookDatabase;
 import de.schildbach.wallet.data.ConfigFormatLiveData;
 import de.schildbach.wallet.data.WalletLiveData;
 
@@ -84,7 +84,7 @@ public class WalletTransactionsViewModel extends AndroidViewModel {
         this.transactions = new TransactionsLiveData(this.application);
         this.wallet = new WalletLiveData(this.application);
         this.transactionsConfidence = new TransactionsConfidenceLiveData(this.application);
-        this.addressBook = AppDatabase.getDatabase(this.application).addressBookDao().getAll();
+        this.addressBook = AddressBookDatabase.getDatabase(this.application).addressBookDao().getAll();
         this.configFormat = new ConfigFormatLiveData(this.application);
         this.list.addSource(transactions, transactions -> maybePostList());
         this.list.addSource(wallet, wallet -> maybePostList());

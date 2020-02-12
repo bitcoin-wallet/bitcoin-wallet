@@ -31,7 +31,7 @@ import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.data.AbstractWalletLiveData;
 import de.schildbach.wallet.addressbook.AddressBookEntry;
-import de.schildbach.wallet.addressbook.AppDatabase;
+import de.schildbach.wallet.addressbook.AddressBookDatabase;
 import de.schildbach.wallet.data.BlockchainServiceLiveData;
 import de.schildbach.wallet.data.TimeLiveData;
 import de.schildbach.wallet.data.WalletLiveData;
@@ -64,7 +64,7 @@ public class BlockListViewModel extends AndroidViewModel {
         this.blocks = new MediatorLiveData<>();
         this.blocks.addSource(blockchainService, blockchainService -> maybeRefreshBlocks());
         this.blocks.addSource(this.application.blockchainState, blockchainState -> maybeRefreshBlocks());
-        this.addressBook = AppDatabase.getDatabase(this.application).addressBookDao().getAll();
+        this.addressBook = AddressBookDatabase.getDatabase(this.application).addressBookDao().getAll();
     }
 
     private void maybeRefreshBlocks() {
