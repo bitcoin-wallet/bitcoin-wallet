@@ -1,3 +1,7 @@
+v7.52
+
+* Get rid of the last internal content provider; replace it with a repository and an SQLite database.
+
 v7.50-v7.51
 
 * Use CoinGecko.com for exchange rates, as BitcoinAverage.com is currently broken.
