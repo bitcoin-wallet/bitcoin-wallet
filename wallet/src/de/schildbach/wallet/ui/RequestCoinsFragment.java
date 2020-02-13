@@ -137,7 +137,8 @@ public final class RequestCoinsFragment extends Fragment {
         viewModel.bitcoinUri.observe(this, bitcoinUri -> activity.invalidateOptionsMenu());
         if (Constants.ENABLE_EXCHANGE_RATES) {
             viewModel.exchangeRate.observe(this,
-                    exchangeRate -> amountCalculatorLink.setExchangeRate(exchangeRate.exchangeRate()));
+                    exchangeRate -> amountCalculatorLink.setExchangeRate(exchangeRate != null ?
+                            exchangeRate.exchangeRate() : null));
         }
         viewModel.showBitmapDialog.observe(this, new Event.Observer<Bitmap>() {
             @Override

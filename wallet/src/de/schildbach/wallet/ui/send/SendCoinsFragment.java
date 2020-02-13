@@ -359,7 +359,7 @@ public final class SendCoinsFragment extends Fragment {
             viewModel.exchangeRate.observe(this, exchangeRate -> {
                 final SendCoinsViewModel.State state = viewModel.state;
                 if (state == null || state.compareTo(SendCoinsViewModel.State.INPUT) <= 0)
-                    amountCalculatorLink.setExchangeRate(exchangeRate.exchangeRate());
+                    amountCalculatorLink.setExchangeRate(exchangeRate != null ? exchangeRate.exchangeRate() : null);
             });
         }
         viewModel.dynamicFees.observe(this, dynamicFees -> {
