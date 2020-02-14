@@ -38,7 +38,7 @@ ext {
 
 android {
     compileSdkVersion 'android-29'
-    buildToolsVersion '29.0.2'
+    buildToolsVersion '29.0.3'
 
     defaultConfig {
         applicationId 'de.schildbach'
