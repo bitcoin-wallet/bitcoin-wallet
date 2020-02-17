@@ -57,6 +57,7 @@ import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.data.PaymentIntent;
 import de.schildbach.wallet.ui.AbstractWalletActivity;
 import de.schildbach.wallet.ui.DialogBuilder;
+import de.schildbach.wallet.ui.Event;
 import de.schildbach.wallet.ui.InputParser.StringInputParser;
 import de.schildbach.wallet.ui.ProgressDialogFragment;
 import de.schildbach.wallet.ui.TransactionsAdapter;
@@ -144,6 +145,25 @@ public class SweepWalletFragment extends Fragment {
         viewModel = new ViewModelProvider(this).get(SweepWalletViewModel.class);
         viewModel.getDynamicFees().observe(this, dynamicFees -> updateView());
         viewModel.progress.observe(this, new ProgressDialogFragment.Observer(fragmentManager));
+        viewModel.showProblemSendingDialog.observe(this, new Event.Observer<String>() {
+            @Override
+            public void onEvent(final String message) {
+                final DialogBuilder dialog = DialogBuilder.warn(activity, R.string.send_coins_error_msg);
+                dialog.setMessage(message);
+                dialog.setNeutralButton(R.string.button_dismiss, null);
+                dialog.show();
+            }
+        });
+        viewModel.showInsufficientMoneyDialog.observe(this, new Event.Observer<Void>() {
+            @Override
+            public void onEvent(final Void v) {
+                final DialogBuilder dialog = DialogBuilder.warn(activity,
+                        R.string.sweep_wallet_fragment_insufficient_money_title);
+                dialog.setMessage(R.string.sweep_wallet_fragment_insufficient_money_msg);
+                dialog.setNeutralButton(R.string.button_dismiss, null);
+                dialog.show();
+            }
+        });
 
         backgroundThread = new HandlerThread("backgroundThread", Process.THREAD_PRIORITY_BACKGROUND);
         backgroundThread.start();
@@ -555,38 +575,24 @@ public class SweepWalletFragment extends Fragment {
             @Override
             protected void onInsufficientMoney(@Nullable final Coin missing) {
                 setState(SweepWalletViewModel.State.FAILED);
-
-                showInsufficientMoneyDialog();
+                viewModel.showInsufficientMoneyDialog.setValue(Event.simple());
             }
 
             @Override
             protected void onEmptyWalletFailed() {
                 setState(SweepWalletViewModel.State.FAILED);
-
-                showInsufficientMoneyDialog();
+                viewModel.showInsufficientMoneyDialog.setValue(Event.simple());
             }
 
             @Override
             protected void onFailure(final Exception exception) {
                 setState(SweepWalletViewModel.State.FAILED);
-
-                final DialogBuilder dialog = DialogBuilder.warn(activity, R.string.send_coins_error_msg);
-                dialog.setMessage(exception.toString());
-                dialog.setNeutralButton(R.string.button_dismiss, null);
-                dialog.show();
+                viewModel.showProblemSendingDialog.setValue(new Event(exception.toString()));
             }
 
             @Override
             protected void onInvalidEncryptionKey() {
                 throw new RuntimeException(); // cannot happen
-            }
-
-            private void showInsufficientMoneyDialog() {
-                final DialogBuilder dialog = DialogBuilder.warn(activity,
-                        R.string.sweep_wallet_fragment_insufficient_money_title);
-                dialog.setMessage(R.string.sweep_wallet_fragment_insufficient_money_msg);
-                dialog.setNeutralButton(R.string.button_dismiss, null);
-                dialog.show();
             }
         }.sendCoinsOffline(sendRequest); // send asynchronously
     }

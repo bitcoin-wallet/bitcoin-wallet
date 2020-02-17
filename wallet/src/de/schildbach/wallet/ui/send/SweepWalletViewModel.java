@@ -23,6 +23,7 @@ import org.bitcoinj.wallet.Wallet;
 
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.data.DynamicFeeLiveData;
+import de.schildbach.wallet.ui.Event;
 
 import android.app.Application;
 import androidx.annotation.Nullable;
@@ -47,6 +48,9 @@ public class SweepWalletViewModel extends AndroidViewModel {
     public @Nullable PrefixedChecksummedBytes privateKeyToSweep = null;
     public @Nullable Wallet walletToSweep = null;
     public @Nullable Transaction sentTransaction = null;
+
+    public final MutableLiveData<Event<String>> showProblemSendingDialog = new MutableLiveData<>();
+    public final MutableLiveData<Event<Void>> showInsufficientMoneyDialog = new MutableLiveData<>();
 
     public SweepWalletViewModel(final Application application) {
         super(application);
