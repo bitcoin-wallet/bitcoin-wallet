@@ -235,6 +235,9 @@
   <string name="input_parser_invalid_paymentrequest">Ugyldig betalingsforespørgsel:\n%s</string>
   <string name="input_parser_invalid_transaction">Ugyldig overførsel:\n%s</string>
   <string name="preferences_activity_title">Opsætning</string>
+  <string name="preferences_category_general">Generelt</string>
+  <string name="preferences_category_privacy">Privatlivskontrol</string>
+  <string name="preferences_category_merchants">Sælgere</string>
   <string name="preferences_category_diagnostics">Diagnostik</string>
   <string name="preferences_category_labs">Laboratoriet</string>
   <string name="preferences_precision_title">Denominering og præcision</string>
@@ -245,11 +248,13 @@
   <string name="preferences_precision_labels_2_3">mBTC, 2 decimaler</string>
   <string name="preferences_precision_labels_0_6">µBTC, uden decimaler</string>
   <string name="preferences_own_name_title">Eget navn</string>
-  <string name="preferences_own_name_summary">Dit eget navn, som skal føjes til betalingsforespørgsler. Prøv at holde det kort.</string>
+  <string name="preferences_own_name_summary">Dit navn eller din virksomheds navn. Føjes til betalingsanmodninger, som du sender til kunder.</string>
+  <string name="preferences_own_name_dialog_message">Hold det kort.</string>
   <string name="preferences_send_coins_autoclose_title">Luk automatisk dialogen Send coins</string>
   <string name="preferences_send_coins_autoclose_summary">Send-dialogen vil lukke automatisk, når betalingen er udført.</string>
   <string name="preferences_trusted_peer_title">Betroet peer</string>
   <string name="preferences_trusted_peer_summary">IP eller værtsnavn for forbindelse til en enkelt peer.</string>
+  <string name="preferences_trusted_peer_dialog_message">Indtast venligst en gyldig IP-adresse eller værtsnavn. Hvis du har Tor sat op, kan du også bruge en onion-adresse her.</string>
   <string name="preferences_trusted_peer_resolve_progress">Oversætter…</string>
   <string name="preferences_trusted_peer_resolve_unknown_host">Ukendt værtsnavn!</string>
   <string name="preferences_trusted_peer_only_title">Spring normal peer-søgning over</string>
@@ -265,7 +270,8 @@
   <string name="preferences_show_disclaimer_title">Vis ansvarsfraskrivelse</string>
   <string name="preferences_show_disclaimer_summary">Har du virkelig læst sikkerhedsnoterne? Har du allerede sikkerhedskopieret din tegnebog til et sikkert sted?</string>
   <string name="preferences_bluetooth_address_title">Bluetooth-adresse</string>
-  <string name="preferences_bluetooth_address_summary">Konfigurér manuelt din egen Bluetooth-adresse, så du kan modtage betalinger fra betalere uden internetforbindelse. Du kan slå din enheds adresse op i Bluetooth-indstillingerne i Android først.</string>
+  <string name="preferences_bluetooth_address_summary">Konfigurér manuelt din egen Bluetooth-adresse, så du kan modtage betalinger fra købere uden forbindelse.</string>
+  <string name="preferences_bluetooth_address_dialog_message">Desværre forhindrer Android den automatiske søgning efter din enheds Bluetooth-adresse. Du er nødt til at slå den op i Androids Bluetooth-indstillinger og indtaste den her.\n\nSørg venligst for at alle tegn er korrekte. Koloner kan udelades og der er ikke forskel på små og store bogstaver.</string>
   <string name="preferences_report_issue_title">Rapportér problem</string>
   <string name="preferences_initiate_reset_title">Nulstil blokkæde</string>
   <string name="preferences_initiate_reset_summary">Nulstil blokkæde, overførsler og saldo for tegnebogen. Gennemløb af blokkæden vil tage et stykke tid, så gør kun dette hvis du ved hvorfor.</string>
