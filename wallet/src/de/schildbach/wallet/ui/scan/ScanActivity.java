@@ -443,8 +443,8 @@ public final class ScanActivity extends AbstractWalletActivity
         @Override
         public Dialog onCreateDialog(final Bundle savedInstanceState) {
             final Bundle args = getArguments();
-            final DialogBuilder dialog = DialogBuilder.warn(getActivity(), args.getInt("title"));
-            dialog.setMessage(args.getString("message"));
+            final DialogBuilder dialog = DialogBuilder.warn(getActivity(), args.getInt("title"), args.getString(
+                    "message"));
             dialog.singleDismissButton((d, which) -> getActivity().finish());
             return dialog.create();
         }

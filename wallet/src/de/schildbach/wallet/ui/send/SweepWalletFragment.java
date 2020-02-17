@@ -148,8 +148,7 @@ public class SweepWalletFragment extends Fragment {
         viewModel.showProblemSendingDialog.observe(this, new Event.Observer<String>() {
             @Override
             public void onEvent(final String message) {
-                final DialogBuilder dialog = DialogBuilder.warn(activity, R.string.send_coins_error_msg);
-                dialog.setMessage(message);
+                final DialogBuilder dialog = DialogBuilder.warn(activity, R.string.send_coins_error_msg, message);
                 dialog.setNeutralButton(R.string.button_dismiss, null);
                 dialog.show();
             }
@@ -158,8 +157,8 @@ public class SweepWalletFragment extends Fragment {
             @Override
             public void onEvent(final Void v) {
                 final DialogBuilder dialog = DialogBuilder.warn(activity,
-                        R.string.sweep_wallet_fragment_insufficient_money_title);
-                dialog.setMessage(R.string.sweep_wallet_fragment_insufficient_money_msg);
+                        R.string.sweep_wallet_fragment_insufficient_money_title,
+                        R.string.sweep_wallet_fragment_insufficient_money_msg);
                 dialog.setNeutralButton(R.string.button_dismiss, null);
                 dialog.show();
             }
@@ -449,8 +448,7 @@ public class SweepWalletFragment extends Fragment {
                 viewModel.progress.setValue(null);
 
                 final DialogBuilder dialog = DialogBuilder.warn(activity,
-                        R.string.sweep_wallet_fragment_request_wallet_balance_failed_title);
-                dialog.setMessage(getString(messageResId, messageArgs));
+                        R.string.sweep_wallet_fragment_request_wallet_balance_failed_title, messageResId, messageArgs);
                 dialog.setPositiveButton(R.string.button_retry, (d, which) -> requestWalletBalance());
                 dialog.setNegativeButton(R.string.button_dismiss, null);
                 dialog.show();

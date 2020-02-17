@@ -53,14 +53,14 @@ public final class AboutFragment extends PreferenceFragment {
     public static class ApkHashFragment extends DialogFragment {
         @Override
         public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-            final DialogBuilder dialog = new DialogBuilder(getActivity());
-            dialog.setTitle(R.string.about_version_apk_hash_title);
+            CharSequence message;
             try {
                 final WalletApplication application = (WalletApplication) getActivity().getApplication();
-                dialog.setMessage(WalletUtils.formatHash(application.apkHash().toString(), 4, 0));
+                message = WalletUtils.formatHash(application.apkHash().toString(), 4, 0);
             } catch (final IOException x) {
-                dialog.setMessage("n/a");
+                message = "n/a";
             }
+            final DialogBuilder dialog = DialogBuilder.dialog(getActivity(), R.string.about_version_apk_hash_title, message);
             dialog.singleDismissButton(null);
             return dialog.create();
         }

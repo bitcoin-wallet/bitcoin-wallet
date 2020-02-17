@@ -734,9 +734,9 @@ public final class SendCoinsFragment extends Fragment {
 
             final MonetaryFormat btcFormat = config.getFormat();
             final DialogBuilder dialog = DialogBuilder.warn(activity,
-                    R.string.send_coins_fragment_significant_fee_title);
-            dialog.setMessage(getString(R.string.send_coins_fragment_significant_fee_message, btcFormat.format(fee),
-                    btcFormat.format(finalAmount)));
+                    R.string.send_coins_fragment_significant_fee_title,
+                    R.string.send_coins_fragment_significant_fee_message, btcFormat.format(fee),
+                    btcFormat.format(finalAmount));
             dialog.setPositiveButton(R.string.send_coins_fragment_button_send, (d, which) -> sendPayment(sendRequest, finalAmount));
             dialog.setNegativeButton(R.string.button_cancel, null);
             dialog.show();
@@ -794,8 +794,7 @@ public final class SendCoinsFragment extends Fragment {
                     @Override
                     public void onFail(final int messageResId, final Object... messageArgs) {
                         final DialogBuilder dialog = DialogBuilder.warn(activity,
-                                R.string.send_coins_fragment_direct_payment_failed_title);
-                        dialog.setMessage(
+                                R.string.send_coins_fragment_direct_payment_failed_title,
                                 viewModel.paymentIntent.paymentUrl + "\n" + getString(messageResId, messageArgs)
                                         + "\n\n" + getString(R.string.send_coins_fragment_direct_payment_failed_msg));
                         dialog.setPositiveButton(R.string.button_retry, (d, which) -> directPay(payment));
@@ -824,17 +823,15 @@ public final class SendCoinsFragment extends Fragment {
 
                 final MonetaryFormat btcFormat = config.getFormat();
 
-                final DialogBuilder dialog = DialogBuilder.warn(activity,
-                        R.string.send_coins_fragment_insufficient_money_title);
                 final StringBuilder msg = new StringBuilder();
                 msg.append(getString(R.string.send_coins_fragment_insufficient_money_msg1, btcFormat.format(missing)));
-
                 if (pending.signum() > 0)
                     msg.append("\n\n")
                             .append(getString(R.string.send_coins_fragment_pending, btcFormat.format(pending)));
                 if (viewModel.paymentIntent.mayEditAmount())
                     msg.append("\n\n").append(getString(R.string.send_coins_fragment_insufficient_money_msg2));
-                dialog.setMessage(msg);
+
+                final DialogBuilder dialog = DialogBuilder.warn(activity, R.string.send_coins_fragment_insufficient_money_title, msg);
                 if (viewModel.paymentIntent.mayEditAmount()) {
                     dialog.setPositiveButton(R.string.send_coins_options_empty, (d, which) -> handleEmpty());
                     dialog.setNegativeButton(R.string.button_cancel, null);
@@ -857,8 +854,8 @@ public final class SendCoinsFragment extends Fragment {
                 setState(SendCoinsViewModel.State.INPUT);
 
                 final DialogBuilder dialog = DialogBuilder.warn(activity,
-                        R.string.send_coins_fragment_empty_wallet_failed_title);
-                dialog.setMessage(R.string.send_coins_fragment_hint_empty_wallet_failed);
+                        R.string.send_coins_fragment_empty_wallet_failed_title,
+                        R.string.send_coins_fragment_hint_empty_wallet_failed);
                 dialog.setNeutralButton(R.string.button_dismiss, null);
                 dialog.show();
             }
@@ -867,8 +864,8 @@ public final class SendCoinsFragment extends Fragment {
             protected void onFailure(Exception exception) {
                 setState(SendCoinsViewModel.State.FAILED);
 
-                final DialogBuilder dialog = DialogBuilder.warn(activity, R.string.send_coins_error_msg);
-                dialog.setMessage(exception.toString());
+                final DialogBuilder dialog = DialogBuilder.warn(activity, R.string.send_coins_error_msg,
+                        exception.toString());
                 dialog.setNeutralButton(R.string.button_dismiss, null);
                 dialog.show();
             }
@@ -1279,9 +1276,9 @@ public final class SendCoinsFragment extends Fragment {
                         reasons.add("unknown");
 
                     final DialogBuilder dialog = DialogBuilder.warn(activity,
-                            R.string.send_coins_fragment_request_payment_request_failed_title);
-                    dialog.setMessage(getString(R.string.send_coins_fragment_request_payment_request_failed_message,
-                            paymentRequestHost, Joiner.on(", ").join(reasons)));
+                            R.string.send_coins_fragment_request_payment_request_failed_title,
+                            R.string.send_coins_fragment_request_payment_request_failed_message,
+                            paymentRequestHost, Joiner.on(", ").join(reasons));
                     dialog.singleDismissButton((d, which) -> handleCancel());
                     dialog.show();
 
@@ -1294,8 +1291,7 @@ public final class SendCoinsFragment extends Fragment {
                 viewModel.progress.setValue(null);
 
                 final DialogBuilder dialog = DialogBuilder.warn(activity,
-                        R.string.send_coins_fragment_request_payment_request_failed_title);
-                dialog.setMessage(getString(messageResId, messageArgs));
+                        R.string.send_coins_fragment_request_payment_request_failed_title, messageResId, messageArgs);
                 dialog.setPositiveButton(R.string.button_retry, (d, which) -> requestPaymentRequest());
                 dialog.setNegativeButton(R.string.button_dismiss, (d, which) -> {
                     if (!viewModel.paymentIntent.hasOutputs())

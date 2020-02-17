@@ -185,9 +185,7 @@ public class RestoreWalletDialogFragment extends DialogFragment {
         showView = view.findViewById(R.id.restore_wallet_dialog_show);
         replaceWarningView = view.findViewById(R.id.restore_wallet_dialog_replace_warning);
 
-        final DialogBuilder builder = new DialogBuilder(activity);
-        builder.setTitle(R.string.import_keys_dialog_title);
-        builder.setView(view);
+        final DialogBuilder builder = DialogBuilder.custom(activity, R.string.import_keys_dialog_title, view);
         builder.setPositiveButton(R.string.import_keys_dialog_button_import, (dialog, which) -> {
             final String password = passwordView.getText().toString().trim();
             passwordView.setText(null); // get rid of it asap
@@ -281,7 +279,6 @@ public class RestoreWalletDialogFragment extends DialogFragment {
         @Override
         public Dialog onCreateDialog(final Bundle savedInstanceState) {
             final boolean showEncryptedMessage = getArguments().getBoolean(KEY_SHOW_ENCRYPTED_MESSAGE);
-            final DialogBuilder dialog = new DialogBuilder(activity);
             final StringBuilder message = new StringBuilder();
             message.append(getString(R.string.restore_wallet_dialog_success));
             message.append("\n\n");
@@ -290,7 +287,7 @@ public class RestoreWalletDialogFragment extends DialogFragment {
                 message.append("\n\n");
                 message.append(getString(R.string.restore_wallet_dialog_success_encrypted));
             }
-            dialog.setMessage(message);
+            final DialogBuilder dialog = DialogBuilder.dialog(activity, 0, message);
             dialog.setNeutralButton(R.string.button_ok, (dialog1, id) -> {
                 BlockchainService.resetBlockchain(activity);
                 activity.finish();
@@ -325,9 +322,9 @@ public class RestoreWalletDialogFragment extends DialogFragment {
         public Dialog onCreateDialog(final Bundle savedInstanceState) {
             final String exceptionMessage = getArguments().getString(KEY_EXCEPTION_MESSAGE);
             final Uri backupUri = checkNotNull((Uri) getArguments().getParcelable(KEY_BACKUP_URI));
-            final DialogBuilder dialog = DialogBuilder.warn(getContext(),
-                    R.string.import_export_keys_dialog_failure_title);
-            dialog.setMessage(getString(R.string.import_keys_dialog_failure, exceptionMessage));
+            final DialogBuilder dialog = DialogBuilder.warn(activity,
+                    R.string.import_export_keys_dialog_failure_title, R.string.import_keys_dialog_failure,
+                    exceptionMessage);
             dialog.setPositiveButton(R.string.button_dismiss, (dialog13, which) -> {
                 if (activity instanceof RestoreWalletFromExternalActivity)
                     activity.finish();

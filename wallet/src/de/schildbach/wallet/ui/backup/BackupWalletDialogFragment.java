@@ -151,9 +151,7 @@ public class BackupWalletDialogFragment extends DialogFragment {
 
         warningView = view.findViewById(R.id.backup_wallet_dialog_warning_encrypted);
 
-        final DialogBuilder builder = new DialogBuilder(activity);
-        builder.setTitle(R.string.export_keys_dialog_title);
-        builder.setView(view);
+        final DialogBuilder builder = DialogBuilder.custom(activity, R.string.export_keys_dialog_title, view);
         // dummies, just to make buttons show
         builder.setPositiveButton(R.string.export_keys_dialog_button_export, null);
         builder.setNegativeButton(R.string.button_cancel, null);
@@ -357,9 +355,8 @@ public class BackupWalletDialogFragment extends DialogFragment {
         @Override
         public Dialog onCreateDialog(final Bundle savedInstanceState) {
             final String target = getArguments().getString(KEY_TARGET);
-            final DialogBuilder dialog = new DialogBuilder(getContext());
-            dialog.setTitle(R.string.export_keys_dialog_title);
-            dialog.setMessage(Html.fromHtml(getString(R.string.export_keys_dialog_success, target)));
+            final DialogBuilder dialog = DialogBuilder.dialog(activity, R.string.export_keys_dialog_title,
+                    Html.fromHtml(getString(R.string.export_keys_dialog_success, target)));
             dialog.singleDismissButton((d, id) -> activity.finish());
             return dialog.create();
         }
@@ -388,9 +385,9 @@ public class BackupWalletDialogFragment extends DialogFragment {
         @Override
         public Dialog onCreateDialog(final Bundle savedInstanceState) {
             final String exceptionMessage = getArguments().getString(KEY_EXCEPTION_MESSAGE);
-            final DialogBuilder dialog = DialogBuilder.warn(getContext(),
-                    R.string.import_export_keys_dialog_failure_title);
-            dialog.setMessage(getString(R.string.export_keys_dialog_failure, exceptionMessage));
+            final DialogBuilder dialog = DialogBuilder.warn(activity,
+                    R.string.import_export_keys_dialog_failure_title, R.string.export_keys_dialog_failure,
+                    exceptionMessage);
             dialog.singleDismissButton((d, id) -> activity.finish());
             return dialog.create();
         }

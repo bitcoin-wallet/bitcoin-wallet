@@ -152,9 +152,7 @@ public class EncryptKeysDialogFragment extends DialogFragment {
 
         showView = view.findViewById(R.id.encrypt_keys_dialog_show);
 
-        final DialogBuilder builder = new DialogBuilder(activity);
-        builder.setTitle(R.string.encrypt_keys_dialog_title);
-        builder.setView(view);
+        final DialogBuilder builder = DialogBuilder.custom(activity, R.string.encrypt_keys_dialog_title, view);
         // dummies, just to make buttons show
         builder.setPositiveButton(R.string.button_ok, null);
         builder.setNegativeButton(R.string.button_cancel, null);

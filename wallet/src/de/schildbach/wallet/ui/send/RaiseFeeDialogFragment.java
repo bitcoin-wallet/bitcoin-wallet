@@ -161,9 +161,7 @@ public class RaiseFeeDialogFragment extends DialogFragment {
 
         badPasswordView = view.findViewById(R.id.raise_fee_dialog_bad_password);
 
-        final DialogBuilder builder = new DialogBuilder(activity);
-        builder.setTitle(R.string.raise_fee_dialog_title);
-        builder.setView(view);
+        final DialogBuilder builder = DialogBuilder.custom(activity, R.string.raise_fee_dialog_title, view);
         // dummies, just to make buttons show
         builder.setPositiveButton(R.string.raise_fee_dialog_button_raise, null);
         builder.setNegativeButton(R.string.button_dismiss, null);

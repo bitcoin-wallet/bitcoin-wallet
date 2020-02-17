@@ -80,8 +80,7 @@ public class ExtendedPublicKeyFragment extends DialogFragment {
         final ImageView imageView = view.findViewById(R.id.extended_public_key_dialog_image);
         imageView.setImageDrawable(bitmap);
 
-        final DialogBuilder dialog = new DialogBuilder(activity);
-        dialog.setView(view);
+        final DialogBuilder dialog = DialogBuilder.custom(activity, 0, view);
         dialog.setNegativeButton(R.string.button_dismiss, (d, which) -> dismissAllowingStateLoss());
         dialog.setPositiveButton(R.string.button_share, (d, which) -> {
             final ShareCompat.IntentBuilder builder = ShareCompat.IntentBuilder.from(activity);

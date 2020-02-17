@@ -84,9 +84,8 @@ public final class DiagnosticsFragment extends PreferenceFragment {
     }
 
     private void handleInitiateReset() {
-        final DialogBuilder dialog = new DialogBuilder(activity);
-        dialog.setTitle(R.string.preferences_initiate_reset_title);
-        dialog.setMessage(R.string.preferences_initiate_reset_dialog_message);
+        final DialogBuilder dialog = DialogBuilder.dialog(activity, R.string.preferences_initiate_reset_title,
+                R.string.preferences_initiate_reset_dialog_message);
         dialog.setPositiveButton(R.string.preferences_initiate_reset_dialog_positive, (d, which) -> {
             log.info("manually initiated blockchain reset");
             BlockchainService.resetBlockchain(activity);

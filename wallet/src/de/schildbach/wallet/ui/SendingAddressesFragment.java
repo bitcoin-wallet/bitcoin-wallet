@@ -209,17 +209,17 @@ public final class SendingAddressesFragment extends FancyListFragment {
         final Wallet wallet = viewModel.wallet.getValue();
         final Address address = getAddressFromPrimaryClip();
         if (address == null) {
-            final DialogBuilder dialog = new DialogBuilder(activity);
-            dialog.setTitle(R.string.address_book_options_paste_from_clipboard_title);
-            dialog.setMessage(R.string.address_book_options_paste_from_clipboard_invalid);
+            final DialogBuilder dialog = DialogBuilder.dialog(activity,
+                    R.string.address_book_options_paste_from_clipboard_title,
+                    R.string.address_book_options_paste_from_clipboard_invalid);
             dialog.singleDismissButton(null);
             dialog.show();
         } else if (!wallet.isAddressMine(address)) {
             viewModel.showEditAddressBookEntryDialog.setValue(new Event<>(address));
         } else {
-            final DialogBuilder dialog = new DialogBuilder(activity);
-            dialog.setTitle(R.string.address_book_options_paste_from_clipboard_title);
-            dialog.setMessage(R.string.address_book_options_paste_from_clipboard_own_address);
+            final DialogBuilder dialog = DialogBuilder.dialog(activity,
+                    R.string.address_book_options_paste_from_clipboard_title,
+                    R.string.address_book_options_paste_from_clipboard_own_address);
             dialog.singleDismissButton(null);
             dialog.show();
         }

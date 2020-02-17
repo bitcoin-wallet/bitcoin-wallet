@@ -105,15 +105,13 @@ public final class EditAddressBookEntryFragment extends DialogFragment {
 
         final boolean isAdd = label == null;
         final boolean isOwn = wallet.isAddressMine(address);
-
-        final DialogBuilder dialog = new DialogBuilder(activity);
-
+        final int titleResId;
         if (isOwn)
-            dialog.setTitle(isAdd ? R.string.edit_address_book_entry_dialog_title_add_receive
-                    : R.string.edit_address_book_entry_dialog_title_edit_receive);
+            titleResId = isAdd ? R.string.edit_address_book_entry_dialog_title_add_receive
+                    : R.string.edit_address_book_entry_dialog_title_edit_receive;
         else
-            dialog.setTitle(isAdd ? R.string.edit_address_book_entry_dialog_title_add
-                    : R.string.edit_address_book_entry_dialog_title_edit);
+            titleResId = isAdd ? R.string.edit_address_book_entry_dialog_title_add
+                    : R.string.edit_address_book_entry_dialog_title_edit;
 
         final View view = inflater.inflate(R.layout.edit_address_book_entry_dialog, null);
 
@@ -124,7 +122,7 @@ public final class EditAddressBookEntryFragment extends DialogFragment {
         final TextView viewLabel = view.findViewById(R.id.edit_address_book_entry_label);
         viewLabel.setText(label != null ? label : suggestedAddressLabel);
 
-        dialog.setView(view);
+        final DialogBuilder dialog = DialogBuilder.custom(activity, titleResId, view);
 
         final DialogInterface.OnClickListener onClickListener = (d, which) -> {
             if (which == DialogInterface.BUTTON_POSITIVE) {

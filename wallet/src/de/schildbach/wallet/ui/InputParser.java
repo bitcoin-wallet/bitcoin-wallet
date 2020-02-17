@@ -322,10 +322,7 @@ public abstract class InputParser {
 
     protected void dialog(final Context context, @Nullable final OnClickListener dismissListener, final int titleResId,
             final int messageResId, final Object... messageArgs) {
-        final DialogBuilder dialog = new DialogBuilder(context);
-        if (titleResId != 0)
-            dialog.setTitle(titleResId);
-        dialog.setMessage(context.getString(messageResId, messageArgs));
+        final DialogBuilder dialog = DialogBuilder.dialog(context, titleResId, messageResId, messageArgs);
         dialog.singleDismissButton(dismissListener);
         dialog.show();
     }

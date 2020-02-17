@@ -39,14 +39,42 @@ public class DialogBuilder extends AlertDialog.Builder {
     private final ImageView iconView;
     private final TextView titleView;
 
-    public static DialogBuilder warn(final Context context, @StringRes final int titleResId) {
+    public static DialogBuilder dialog(final Context context, @StringRes final int titleResId,
+                                       @StringRes final int messageResId,
+                                       final Object... messageArgs) {
+        return dialog(context, titleResId, context.getString(messageResId, messageArgs));
+    }
+
+    public static DialogBuilder dialog(final Context context, @StringRes final int titleResId, final CharSequence message) {
         final DialogBuilder builder = new DialogBuilder(context);
-        builder.setIcon(R.drawable.ic_warning_grey600_24dp);
-        builder.setTitle(titleResId);
+        if (titleResId != 0)
+            builder.setTitle(titleResId);
+        builder.setMessage(message);
         return builder;
     }
 
-    public DialogBuilder(final Context context) {
+    public static DialogBuilder warn(final Context context, @StringRes final int titleResId,
+                                     @StringRes final int messageResId,
+                                     final Object... messageArgs) {
+        return warn(context, titleResId, context.getString(messageResId, messageArgs));
+    }
+
+    public static DialogBuilder warn(final Context context, @StringRes final int titleResId,
+                                     final CharSequence message) {
+        final DialogBuilder builder = dialog(context, titleResId, message);
+        builder.setIcon(R.drawable.ic_warning_grey600_24dp);
+        return builder;
+    }
+
+    public static DialogBuilder custom(final Context context, @StringRes final int titleResId, final View view) {
+        final DialogBuilder builder = new DialogBuilder(context);
+        if (titleResId != 0)
+            builder.setTitle(titleResId);
+        builder.setView(view);
+        return builder;
+    }
+
+    protected DialogBuilder(final Context context) {
         super(context, R.style.My_Theme_Dialog);
         this.customTitle = LayoutInflater.from(context).inflate(R.layout.dialog_title, null);
         this.iconView = customTitle.findViewById(android.R.id.icon);

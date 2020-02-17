@@ -72,8 +72,7 @@ public final class HelpDialogFragment extends DialogFragment {
         final Bundle args = getArguments();
         final int messageResId = args.getInt(KEY_MESSAGE);
 
-        final DialogBuilder dialog = new DialogBuilder(activity);
-        dialog.setMessage(Html.fromHtml(getString(messageResId)));
+        final DialogBuilder dialog = DialogBuilder.dialog(activity, 0, Html.fromHtml(getString(messageResId)));
         dialog.singleDismissButton(null);
         return dialog.create();
     }
