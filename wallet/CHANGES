@@ -1,4 +1,4 @@
-v7.52-v7.53
+v7.52-v7.54
 
 * Get rid of the last internal content provider; replace it with a repository and an SQLite database.
 
