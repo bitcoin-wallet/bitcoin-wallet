@@ -57,10 +57,6 @@ import de.schildbach.wallet.R;
 import de.schildbach.wallet.data.PaymentIntent;
 import de.schildbach.wallet.util.Qr;
 
-import android.content.Context;
-import android.content.DialogInterface.OnClickListener;
-import androidx.annotation.Nullable;
-
 /**
  * @author Andreas Schildbach
  */
@@ -318,13 +314,6 @@ public abstract class InputParser {
         log.info("cannot classify: '{}'", input);
 
         error(R.string.input_parser_cannot_classify, input);
-    }
-
-    protected void dialog(final Context context, @Nullable final OnClickListener dismissListener, final int titleResId,
-            final int messageResId, final Object... messageArgs) {
-        final DialogBuilder dialog = DialogBuilder.dialog(context, titleResId, messageResId, messageArgs);
-        dialog.singleDismissButton(dismissListener);
-        dialog.show();
     }
 
     private static final Pattern PATTERN_TRANSACTION = Pattern

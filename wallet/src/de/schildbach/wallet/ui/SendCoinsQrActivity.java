@@ -82,7 +82,9 @@ public final class SendCoinsQrActivity extends Activity {
 
                 @Override
                 protected void error(final int messageResId, final Object... messageArgs) {
-                    dialog(SendCoinsQrActivity.this, dismissListener, 0, messageResId, messageArgs);
+                    final DialogBuilder dialog = DialogBuilder.dialog(SendCoinsQrActivity.this, 0, messageResId, messageArgs);
+                    dialog.singleDismissButton(dismissListener);
+                    dialog.show();
                 }
 
                 private final OnClickListener dismissListener = (dialog, which) -> SendCoinsQrActivity.this.finish();

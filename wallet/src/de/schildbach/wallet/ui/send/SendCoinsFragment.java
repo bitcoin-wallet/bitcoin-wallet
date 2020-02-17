@@ -553,7 +553,9 @@ public final class SendCoinsFragment extends Fragment {
 
                     @Override
                     protected void error(final int messageResId, final Object... messageArgs) {
-                        dialog(activity, null, R.string.button_scan, messageResId, messageArgs);
+                        final DialogBuilder dialog = DialogBuilder.dialog(activity, R.string.button_scan, messageResId, messageArgs);
+                        dialog.singleDismissButton(null);
+                        dialog.show();
                     }
                 }.parse();
             }
@@ -1167,7 +1169,9 @@ public final class SendCoinsFragment extends Fragment {
 
             @Override
             protected void error(final int messageResId, final Object... messageArgs) {
-                dialog(activity, activityDismissListener, 0, messageResId, messageArgs);
+                final DialogBuilder dialog = DialogBuilder.dialog(activity, 0, messageResId, messageArgs);
+                dialog.singleDismissButton(activityDismissListener);
+                dialog.show();
             }
         }.parse();
     }
@@ -1181,7 +1185,9 @@ public final class SendCoinsFragment extends Fragment {
 
             @Override
             protected void error(final int messageResId, final Object... messageArgs) {
-                dialog(activity, activityDismissListener, 0, messageResId, messageArgs);
+                final DialogBuilder dialog = DialogBuilder.dialog(activity, 0, messageResId, messageArgs);
+                dialog.singleDismissButton(activityDismissListener);
+                dialog.show();
             }
         }.parse();
     }
@@ -1198,7 +1204,9 @@ public final class SendCoinsFragment extends Fragment {
 
                 @Override
                 protected void error(final int messageResId, final Object... messageArgs) {
-                    dialog(activity, activityDismissListener, 0, messageResId, messageArgs);
+                    final DialogBuilder dialog = DialogBuilder.dialog(activity, 0, messageResId, messageArgs);
+                    dialog.singleDismissButton(activityDismissListener);
+                    dialog.show();
                 }
             }.parse();
         } catch (final FileNotFoundException x) {

@@ -149,14 +149,17 @@ public final class SendingAddressesFragment extends FancyListFragment {
                         if (paymentIntent.hasAddress()) {
                             final Wallet wallet = viewModel.wallet.getValue();
                             final Address address = paymentIntent.getAddress();
-                            if (!wallet.isAddressMine(address))
+                            if (!wallet.isAddressMine(address)) {
                                 viewModel.showEditAddressBookEntryDialog.setValue(new Event<>(address));
-                            else
-                                dialog(activity, null, R.string.address_book_options_scan_title,
-                                        R.string.address_book_options_scan_own_address);
+                            } else {
+                                final DialogBuilder dialog = DialogBuilder.dialog(activity, R.string.address_book_options_scan_title, R.string.address_book_options_scan_own_address);
+                                dialog.singleDismissButton(null);
+                                dialog.show();
+                            }
                         } else {
-                            dialog(activity, null, R.string.address_book_options_scan_title,
-                                    R.string.address_book_options_scan_invalid);
+                            final DialogBuilder dialog = DialogBuilder.dialog(activity, R.string.address_book_options_scan_title, R.string.address_book_options_scan_invalid);
+                            dialog.singleDismissButton(null);
+                            dialog.show();
                         }
                     }, 500);
                 }
@@ -168,7 +171,9 @@ public final class SendingAddressesFragment extends FancyListFragment {
 
                 @Override
                 protected void error(final int messageResId, final Object... messageArgs) {
-                    dialog(activity, null, R.string.address_book_options_scan_title, messageResId, messageArgs);
+                    final DialogBuilder dialog = DialogBuilder.dialog(activity, R.string.address_book_options_scan_title, messageResId, messageArgs);
+                    dialog.singleDismissButton(null);
+                    dialog.show();
                 }
             }.parse();
         }

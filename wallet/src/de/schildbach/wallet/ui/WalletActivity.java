@@ -329,7 +329,9 @@ public final class WalletActivity extends AbstractWalletActivity {
 
                 @Override
                 protected void error(final int messageResId, final Object... messageArgs) {
-                    dialog(WalletActivity.this, null, 0, messageResId, messageArgs);
+                    final DialogBuilder dialog = DialogBuilder.dialog(WalletActivity.this, 0, messageResId, messageArgs);
+                    dialog.singleDismissButton(null);
+                    dialog.show();
                 }
             }.parse();
         }
@@ -362,7 +364,9 @@ public final class WalletActivity extends AbstractWalletActivity {
 
                     @Override
                     protected void error(final int messageResId, final Object... messageArgs) {
-                        dialog(WalletActivity.this, null, R.string.button_scan, messageResId, messageArgs);
+                        final DialogBuilder dialog = DialogBuilder.dialog(WalletActivity.this, R.string.button_scan, messageResId, messageArgs);
+                        dialog.singleDismissButton(null);
+                        dialog.show();
                     }
                 }.parse();
             }
