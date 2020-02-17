@@ -27,7 +27,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import androidx.annotation.DrawableRes;
 import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
 
 /**
  * @author Andreas Schildbach
@@ -37,7 +39,7 @@ public class DialogBuilder extends AlertDialog.Builder {
     private final ImageView iconView;
     private final TextView titleView;
 
-    public static DialogBuilder warn(final Context context, final int titleResId) {
+    public static DialogBuilder warn(final Context context, @StringRes final int titleResId) {
         final DialogBuilder builder = new DialogBuilder(context);
         builder.setIcon(R.drawable.ic_warning_grey600_24dp);
         builder.setTitle(titleResId);
@@ -63,7 +65,7 @@ public class DialogBuilder extends AlertDialog.Builder {
     }
 
     @Override
-    public DialogBuilder setIcon(final int iconResId) {
+    public DialogBuilder setIcon(@DrawableRes final int iconResId) {
         if (iconResId != 0) {
             setCustomTitle(customTitle);
             iconView.setImageResource(iconResId);
@@ -84,7 +86,7 @@ public class DialogBuilder extends AlertDialog.Builder {
     }
 
     @Override
-    public DialogBuilder setTitle(final int titleResId) {
+    public DialogBuilder setTitle(@StringRes final int titleResId) {
         if (titleResId != 0) {
             setCustomTitle(customTitle);
             titleView.setText(titleResId);
@@ -101,7 +103,7 @@ public class DialogBuilder extends AlertDialog.Builder {
     }
 
     @Override
-    public DialogBuilder setMessage(final int messageResId) {
+    public DialogBuilder setMessage(@StringRes final int messageResId) {
         super.setMessage(messageResId);
 
         return this;
