@@ -49,6 +49,8 @@ public class SweepWalletViewModel extends AndroidViewModel {
     public @Nullable Wallet walletToSweep = null;
     public @Nullable Transaction sentTransaction = null;
 
+    public final MutableLiveData<Event<CharSequence>> showParsePrivateKeyProblemDialog = new MutableLiveData<>();
+    public final MutableLiveData<Event<CharSequence>> showRequestWalletBalanceFailedDialog = new MutableLiveData<>();
     public final MutableLiveData<Event<String>> showProblemSendingDialog = new MutableLiveData<>();
     public final MutableLiveData<Event<Void>> showInsufficientMoneyDialog = new MutableLiveData<>();
 
