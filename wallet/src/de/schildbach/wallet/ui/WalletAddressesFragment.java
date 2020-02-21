@@ -41,7 +41,6 @@ import de.schildbach.wallet.util.WholeStringBuilder;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -162,8 +161,7 @@ public final class WalletAddressesFragment extends FancyListFragment {
                 } else if (itemId == R.id.wallet_addresses_context_browse) {
                     final Uri blockExplorerUri = application.getConfiguration().getBlockExplorer();
                     log.info("Viewing address {} on {}", address, blockExplorerUri);
-                    startActivity(new Intent(Intent.ACTION_VIEW,
-                            Uri.withAppendedPath(blockExplorerUri, "address/" + address)));
+                    activity.startExternalDocument(Uri.withAppendedPath(blockExplorerUri, "address/" + address));
                     mode.finish();
                     return true;
                 }

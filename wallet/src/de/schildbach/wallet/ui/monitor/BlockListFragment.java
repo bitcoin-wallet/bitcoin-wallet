@@ -39,7 +39,6 @@ import de.schildbach.wallet.ui.DividerItemDecoration;
 import de.schildbach.wallet.ui.StickToTopLinearLayoutManager;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -127,8 +126,7 @@ public final class BlockListFragment extends Fragment implements BlockListAdapte
             if (item.getItemId() == R.id.blocks_context_browse) {
                 final Uri blockExplorerUri = config.getBlockExplorer();
                 log.info("Viewing block {} on {}", blockHash, blockExplorerUri);
-                startActivity(new Intent(Intent.ACTION_VIEW,
-                        Uri.withAppendedPath(blockExplorerUri, "block/" + blockHash)));
+                activity.startExternalDocument(Uri.withAppendedPath(blockExplorerUri, "block/" + blockHash));
                 return true;
             }
             return false;

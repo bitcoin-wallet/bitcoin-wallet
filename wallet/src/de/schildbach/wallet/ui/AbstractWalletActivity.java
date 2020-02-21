@@ -22,8 +22,12 @@ import org.slf4j.LoggerFactory;
 
 import de.schildbach.wallet.R;
 import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.util.Toast;
 
 import android.app.ActivityManager.TaskDescription;
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -68,5 +72,14 @@ public abstract class AbstractWalletActivity extends FragmentActivity {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
         else
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
+    }
+
+    public void startExternalDocument(final Uri url) {
+        try {
+            startActivity(new Intent(Intent.ACTION_VIEW, url));
+        } catch (final ActivityNotFoundException x) {
+            log.info("Cannot view {}", url);
+            new Toast(this).longToast(R.string.toast_start_external_document_failed);
+        }
     }
 }

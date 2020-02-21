@@ -304,10 +304,9 @@ public class WalletTransactionsFragment extends Fragment implements Transactions
                     if (!txRotation) {
                         final Uri blockExplorerUri = config.getBlockExplorer();
                         log.info("Viewing transaction {} on {}", tx.getTxId(), blockExplorerUri);
-                        startActivity(new Intent(Intent.ACTION_VIEW,
-                                Uri.withAppendedPath(blockExplorerUri, "tx/" + tx.getTxId().toString())));
+                        activity.startExternalDocument(Uri.withAppendedPath(blockExplorerUri, "tx/" + tx.getTxId().toString()));
                     } else {
-                        startActivity(new Intent(Intent.ACTION_VIEW, KEY_ROTATION_URI));
+                        activity.startExternalDocument(KEY_ROTATION_URI);
                     }
                     return true;
                 }

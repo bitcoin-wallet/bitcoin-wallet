@@ -2,6 +2,7 @@
 <resources>
 
     <string name="toast_wallet_reset">Your wallet was reset!\nIt will take some time to recover.</string>
+    <string name="toast_start_external_document_failed">There is no web browser installed to open the external document.</string>
     <string name="wallet_disclaimer_fragment_remind_safety">Use at your own risk. Read the &lt;u&gt;safety notes&lt;/u&gt;.</string>
     <string name="wallet_disclaimer_fragment_remind_backup">You need to &lt;u&gt;back up your wallet&lt;/u&gt;!</string>
     <string name="blockchain_state_progress_hours">%1$s, %2$d hours behind</string>
