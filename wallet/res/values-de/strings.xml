@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
 
-    <string name="toast_wallet_reset">Wallet wurde zurückgesetzt,\nwird einige Zeit benötigen</string>
+    <string name="toast_wallet_reset">Deine Wallet wurde zurückgesetzt!\nDie Wiederherstellung wird einige Zeit benötigen.</string>
     <string name="toast_start_external_document_failed">Es ist kein Web-Browser installiert um das externe Dokument zu öffnen.</string>
     <string name="wallet_disclaimer_fragment_remind_safety">Nutzung auf eigene Gefahr. Lies die &lt;u&gt;Sicherheitshinweise&lt;/u&gt;.</string>
     <string name="wallet_disclaimer_fragment_remind_backup">Bitte &lt;u&gt;sichere deine Wallet&lt;/u&gt;!</string>
