@@ -96,17 +96,17 @@ public final class WalletActivity extends AbstractWalletActivity {
         levitateView = contentView.findViewWithTag("levitate");
 
         // Make view tagged with 'levitate' scroll away and quickly return.
-        final View targetList = findViewById(R.id.wallet_transactions_list);
-        final View targetEmpty = findViewById(R.id.wallet_transactions_empty);
-        if (levitateView != null && targetList != null && targetEmpty != null) {
+        if (levitateView != null) {
             final CoordinatorLayout.LayoutParams layoutParams = new CoordinatorLayout.LayoutParams(
                     levitateView.getLayoutParams().width, levitateView.getLayoutParams().height);
             layoutParams.setBehavior(new QuickReturnBehavior());
             levitateView.setLayoutParams(layoutParams);
             levitateView.addOnLayoutChangeListener((v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) -> {
                 final int height = bottom - top;
+                final View targetList = findViewById(R.id.wallet_transactions_list);
                 targetList.setPadding(targetList.getPaddingLeft(), height, targetList.getPaddingRight(),
                         targetList.getPaddingBottom());
+                final View targetEmpty = findViewById(R.id.wallet_transactions_empty);
                 targetEmpty.setPadding(targetEmpty.getPaddingLeft(), height, targetEmpty.getPaddingRight(),
                         targetEmpty.getPaddingBottom());
             });
