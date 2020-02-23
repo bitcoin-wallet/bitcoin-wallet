@@ -71,7 +71,7 @@ public final class WalletDisclaimerFragment extends Fragment {
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
             final Bundle savedInstanceState) {
-        messageView = (TextView) inflater.inflate(R.layout.wallet_disclaimer_fragment, container);
+        messageView = (TextView) inflater.inflate(R.layout.wallet_disclaimer_fragment, container, false);
         messageView.setOnClickListener(v -> activityViewModel.showHelpDialog.setValue(new Event<>(R.string.help_safety)));
         return messageView;
     }

@@ -48,7 +48,7 @@ public final class WalletActionsFragment extends Fragment {
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
             final Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.wallet_actions_fragment, container);
+        final View view = inflater.inflate(R.layout.wallet_actions_fragment, container, false);
 
         final View requestButton = view.findViewById(R.id.wallet_actions_request);
         requestButton.setOnClickListener(v -> activity.handleRequestCoins());
