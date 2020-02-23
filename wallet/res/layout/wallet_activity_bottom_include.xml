@@ -7,13 +7,13 @@
     android:orientation="vertical"
     android:showDividers="middle" >
 
-    <fragment
+    <androidx.fragment.app.FragmentContainerView
         android:id="@+id/wallet_actions_fragment"
         android:name="de.schildbach.wallet.ui.WalletActionsFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <fragment
+    <androidx.fragment.app.FragmentContainerView
         android:id="@+id/wallet_disclaimer_fragment"
         android:name="de.schildbach.wallet.ui.WalletDisclaimerFragment"
         android:layout_width="match_parent"

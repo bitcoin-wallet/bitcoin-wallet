@@ -6,7 +6,7 @@
     android:fillViewport="true"
     android:scrollbars="none" >
 
-    <fragment
+    <androidx.fragment.app.FragmentContainerView
         android:id="@+id/sweep_wallet_fragment"
         android:name="de.schildbach.wallet.ui.send.SweepWalletFragment"
         android:layout_width="match_parent"

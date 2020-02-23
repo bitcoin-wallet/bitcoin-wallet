@@ -19,7 +19,7 @@
             android:elevation="8dp"
             android:outlineProvider="bounds" >
 
-            <fragment
+            <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/exchange_rates_fragment"
                 android:name="de.schildbach.wallet.ui.ExchangeRatesFragment"
                 android:layout_width="match_parent"
@@ -40,7 +40,7 @@
                 android:elevation="3dp"
                 android:orientation="horizontal" >
 
-                <fragment
+                <androidx.fragment.app.FragmentContainerView
                     android:id="@+id/wallet_balance_fragment"
                     android:name="de.schildbach.wallet.ui.WalletBalanceFragment"
                     android:layout_width="0px"
@@ -48,7 +48,7 @@
                     android:layout_gravity="center"
                     android:layout_weight="1" />
 
-                <fragment
+                <androidx.fragment.app.FragmentContainerView
                     android:id="@+id/wallet_address_fragment"
                     android:name="de.schildbach.wallet.ui.WalletAddressFragment"
                     android:layout_width="wrap_content"
@@ -59,7 +59,7 @@
                     android:layout_marginTop="@dimen/list_entry_padding_vertical_lax" />
             </LinearLayout>
 
-            <fragment
+            <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/wallet_transactions_fragment"
                 android:name="de.schildbach.wallet.ui.WalletTransactionsFragment"
                 android:layout_width="match_parent"

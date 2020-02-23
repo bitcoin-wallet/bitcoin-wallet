@@ -25,7 +25,7 @@
             android:textSize="@dimen/font_size_small"
             android:textStyle="bold" />
 
-        <fragment
+        <androidx.fragment.app.FragmentContainerView
             android:id="@+id/peer_list_fragment"
             android:name="de.schildbach.wallet.ui.monitor.PeerListFragment"
             android:layout_width="match_parent"
@@ -54,7 +54,7 @@
             android:textSize="@dimen/font_size_small"
             android:textStyle="bold" />
 
-        <fragment
+        <androidx.fragment.app.FragmentContainerView
             android:id="@+id/block_list_fragment"
             android:name="de.schildbach.wallet.ui.monitor.BlockListFragment"
             android:layout_width="match_parent"
