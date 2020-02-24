@@ -148,6 +148,11 @@ public class CrashReporter {
         }
 
         private void saveCrashTrace(final Throwable throwable) {
+            // Don't bother the user and us with these Android system bugs; we cannot do anything about it.
+            if (/* throwable instanceof android.app.RemoteServiceException && */
+                    throwable.getMessage().contains("Context.startForegroundService() did not then call Service.startForeground()"))
+                return;
+
             try {
                 final PrintWriter writer = new PrintWriter(
                         new OutputStreamWriter(new FileOutputStream(crashTraceFile), StandardCharsets.UTF_8));
