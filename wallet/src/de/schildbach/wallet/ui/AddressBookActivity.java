@@ -17,19 +17,29 @@
 
 package de.schildbach.wallet.ui;
 
-import de.schildbach.wallet.R;
-import de.schildbach.wallet.util.ViewPagerTabs;
-
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
+import de.schildbach.wallet.R;
+import de.schildbach.wallet.data.PaymentIntent;
+import de.schildbach.wallet.ui.scan.ScanActivity;
+import de.schildbach.wallet.util.ViewPagerTabs;
+import org.bitcoinj.core.Address;
+import org.bitcoinj.core.Transaction;
+import org.bitcoinj.core.VerificationException;
+import org.bitcoinj.wallet.Wallet;
 
 /**
  * @author Andreas Schildbach
@@ -42,16 +52,46 @@ public final class AddressBookActivity extends AbstractWalletActivity {
     private WalletAddressesFragment walletAddressesFragment;
     private SendingAddressesFragment sendingAddressesFragment;
 
+    private AddressBookViewModel viewModel;
+
     private static final String TAG_LEFT = "wallet_addresses";
     private static final String TAG_RIGHT = "sending_addresses";
+
+    private static final int REQUEST_CODE_SCAN = 0;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.address_book_content);
 
         final FragmentManager fragmentManager = getSupportFragmentManager();
+
+        viewModel = new ViewModelProvider(this).get(AddressBookViewModel.class);
+        viewModel.wallet.observe(this, wallet -> invalidateOptionsMenu());
+        viewModel.showEditAddressBookEntryDialog.observe(this, new Event.Observer<Address>() {
+            @Override
+            public void onEvent(final Address address) {
+                EditAddressBookEntryFragment.edit(fragmentManager, address);
+            }
+        });
+        viewModel.showScanOwnAddressDialog.observe(this, new Event.Observer<Void>() {
+            @Override
+            public void onEvent(final Void v) {
+                final DialogBuilder dialog = DialogBuilder.dialog(AddressBookActivity.this,
+                        R.string.address_book_options_scan_title, R.string.address_book_options_scan_own_address);
+                dialog.singleDismissButton(null);
+                dialog.show();
+            }
+        });
+        viewModel.showScanInvalidDialog.observe(this, new Event.Observer<Void>() {
+            @Override
+            public void onEvent(final Void v) {
+                final DialogBuilder dialog = DialogBuilder.dialog(AddressBookActivity.this,
+                        R.string.address_book_options_scan_title, R.string.address_book_options_scan_invalid);
+                dialog.singleDismissButton(null);
+                dialog.show();
+            }
+        });
 
         walletAddressesFragment = (WalletAddressesFragment) fragmentManager.findFragmentByTag(TAG_LEFT);
         sendingAddressesFragment = (SendingAddressesFragment) fragmentManager.findFragmentByTag(TAG_RIGHT);
@@ -94,6 +134,63 @@ public final class AddressBookActivity extends AbstractWalletActivity {
             fragmentManager.beginTransaction().add(R.id.wallet_addresses_fragment, walletAddressesFragment, TAG_LEFT)
                     .add(R.id.sending_addresses_fragment, sendingAddressesFragment, TAG_RIGHT).commit();
         }
+    }
+
+    @Override
+    public void onActivityResult(final int requestCode, final int resultCode, final Intent intent) {
+        if (requestCode == REQUEST_CODE_SCAN) {
+            if (resultCode == Activity.RESULT_OK) {
+                final String input = intent.getStringExtra(ScanActivity.INTENT_EXTRA_RESULT);
+
+                new InputParser.StringInputParser(input) {
+                    @Override
+                    protected void handlePaymentIntent(final PaymentIntent paymentIntent) {
+                        if (paymentIntent.hasAddress()) {
+                            final Wallet wallet = viewModel.wallet.getValue();
+                            final Address address = paymentIntent.getAddress();
+                            if (!wallet.isAddressMine(address)) {
+                                viewModel.showEditAddressBookEntryDialog.setValue(new Event<>(address));
+                            } else {
+                                viewModel.showScanOwnAddressDialog.setValue(Event.simple());
+                            }
+                        } else {
+                            viewModel.showScanInvalidDialog.setValue(Event.simple());
+                        }
+                    }
+
+                    @Override
+                    protected void handleDirectTransaction(final Transaction transaction) throws VerificationException {
+                        cannotClassify(input);
+                    }
+
+                    @Override
+                    protected void error(final int messageResId, final Object... messageArgs) {
+                        viewModel.showScanInvalidDialog.setValue(Event.simple());
+                    }
+                }.parse();
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, intent);
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(final Menu menu) {
+        getMenuInflater().inflate(R.menu.address_book_activity_options, menu);
+        final PackageManager pm = getPackageManager();
+        menu.findItem(R.id.sending_addresses_options_scan).setVisible(pm.hasSystemFeature(PackageManager.FEATURE_CAMERA)
+                || pm.hasSystemFeature(PackageManager.FEATURE_CAMERA_FRONT));
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(final MenuItem item) {
+        int itemId = item.getItemId();
+        if (itemId == R.id.sending_addresses_options_scan) {
+            ScanActivity.startForResult(this, REQUEST_CODE_SCAN);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private static class TwoFragmentAdapter extends PagerAdapter {

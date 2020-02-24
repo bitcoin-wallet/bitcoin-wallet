@@ -17,14 +17,8 @@
 
 package de.schildbach.wallet.ui;
 
-import java.util.List;
-import java.util.Set;
-
 import org.bitcoinj.core.Address;
-import org.bitcoinj.core.Transaction;
-import org.bitcoinj.core.VerificationException;
 import org.bitcoinj.uri.BitcoinURI;
-import org.bitcoinj.wallet.Wallet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,23 +28,17 @@ import de.schildbach.wallet.addressbook.AddressBookDao;
 import de.schildbach.wallet.addressbook.AddressBookEntry;
 import de.schildbach.wallet.addressbook.AddressBookDatabase;
 import de.schildbach.wallet.data.PaymentIntent;
-import de.schildbach.wallet.ui.InputParser.StringInputParser;
-import de.schildbach.wallet.ui.scan.ScanActivity;
 import de.schildbach.wallet.ui.send.SendCoinsActivity;
 import de.schildbach.wallet.util.Qr;
 import de.schildbach.wallet.util.Toast;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet.util.WholeStringBuilder;
 
-import android.app.Activity;
 import android.content.ClipboardManager;
 import android.content.ClipData;
 import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -70,13 +58,10 @@ public final class SendingAddressesFragment extends FancyListFragment {
     private AbstractWalletActivity activity;
     private AddressBookDao addressBookDao;
     private ClipboardManager clipboardManager;
-    private final Handler handler = new Handler();
 
     private ArrayAdapter<AddressBookEntry> adapter;
 
     private SendingAddressesViewModel viewModel;
-
-    private static final int REQUEST_CODE_SCAN = 0;
 
     private static final Logger log = LoggerFactory.getLogger(SendingAddressesFragment.class);
 
@@ -91,10 +76,8 @@ public final class SendingAddressesFragment extends FancyListFragment {
     @Override
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
 
         viewModel = new ViewModelProvider(this).get(SendingAddressesViewModel.class);
-        viewModel.wallet.observe(this, wallet -> activity.invalidateOptionsMenu());
         viewModel.addressesToExclude.observe(this, addressesToExclude -> {
             viewModel.addressBook = addressBookDao.getAllExcept(addressesToExclude);
             viewModel.addressBook.observe(SendingAddressesFragment.this, addressBook -> {
@@ -131,71 +114,6 @@ public final class SendingAddressesFragment extends FancyListFragment {
             }
         };
         setListAdapter(adapter);
-    }
-
-    @Override
-    public void onActivityResult(final int requestCode, final int resultCode, final Intent intent) {
-        if (requestCode == REQUEST_CODE_SCAN && resultCode == Activity.RESULT_OK) {
-            final String input = intent.getStringExtra(ScanActivity.INTENT_EXTRA_RESULT);
-
-            new StringInputParser(input) {
-                @Override
-                protected void handlePaymentIntent(final PaymentIntent paymentIntent) {
-                    // workaround for "IllegalStateException: Can not perform this action after
-                    // onSaveInstanceState"
-                    handler.postDelayed(() -> {
-                        if (paymentIntent.hasAddress()) {
-                            final Wallet wallet = viewModel.wallet.getValue();
-                            final Address address = paymentIntent.getAddress();
-                            if (!wallet.isAddressMine(address)) {
-                                viewModel.showEditAddressBookEntryDialog.setValue(new Event<>(address));
-                            } else {
-                                final DialogBuilder dialog = DialogBuilder.dialog(activity, R.string.address_book_options_scan_title, R.string.address_book_options_scan_own_address);
-                                dialog.singleDismissButton(null);
-                                dialog.show();
-                            }
-                        } else {
-                            final DialogBuilder dialog = DialogBuilder.dialog(activity, R.string.address_book_options_scan_title, R.string.address_book_options_scan_invalid);
-                            dialog.singleDismissButton(null);
-                            dialog.show();
-                        }
-                    }, 500);
-                }
-
-                @Override
-                protected void handleDirectTransaction(final Transaction transaction) throws VerificationException {
-                    cannotClassify(input);
-                }
-
-                @Override
-                protected void error(final int messageResId, final Object... messageArgs) {
-                    final DialogBuilder dialog = DialogBuilder.dialog(activity, R.string.address_book_options_scan_title, messageResId, messageArgs);
-                    dialog.singleDismissButton(null);
-                    dialog.show();
-                }
-            }.parse();
-        }
-    }
-
-    @Override
-    public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
-        inflater.inflate(R.menu.sending_addresses_fragment_options, menu);
-
-        final PackageManager pm = activity.getPackageManager();
-        menu.findItem(R.id.sending_addresses_options_scan).setVisible(pm.hasSystemFeature(PackageManager.FEATURE_CAMERA)
-                || pm.hasSystemFeature(PackageManager.FEATURE_CAMERA_FRONT));
-
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(final MenuItem item) {
-        int itemId = item.getItemId();
-        if (itemId == R.id.sending_addresses_options_scan) {
-            ScanActivity.startForResult(this, activity, REQUEST_CODE_SCAN);
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     @Override

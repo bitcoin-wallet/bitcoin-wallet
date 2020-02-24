@@ -34,7 +34,6 @@ import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.data.AbstractWalletLiveData;
 import de.schildbach.wallet.addressbook.AddressBookEntry;
-import de.schildbach.wallet.data.WalletLiveData;
 
 import android.app.Application;
 import android.graphics.Bitmap;
@@ -48,7 +47,6 @@ import androidx.lifecycle.MutableLiveData;
  */
 public class SendingAddressesViewModel extends AndroidViewModel {
     private final WalletApplication application;
-    public final WalletLiveData wallet;
     public LiveData<List<AddressBookEntry>> addressBook;
     public final AddressesToExcludeLiveData addressesToExclude;
     public final MutableLiveData<Event<Bitmap>> showBitmapDialog = new MutableLiveData<>();
@@ -57,7 +55,6 @@ public class SendingAddressesViewModel extends AndroidViewModel {
     public SendingAddressesViewModel(final Application application) {
         super(application);
         this.application = (WalletApplication) application;
-        this.wallet = new WalletLiveData(this.application);
         this.addressesToExclude = new AddressesToExcludeLiveData(this.application);
     }
 
