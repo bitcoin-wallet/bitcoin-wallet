@@ -143,21 +143,20 @@ public class CrashReporter {
         @Override
         public synchronized void uncaughtException(final Thread t, final Throwable exception) {
             log.warn("crashing because of uncaught exception", exception);
-
-            try {
-                saveCrashTrace(exception);
-            } catch (final IOException x) {
-                log.info("problem writing crash trace", x);
-            }
-
+            saveCrashTrace(exception);
             previousHandler.uncaughtException(t, exception);
         }
 
-        private void saveCrashTrace(final Throwable throwable) throws IOException {
-            final PrintWriter writer = new PrintWriter(
-                    new OutputStreamWriter(new FileOutputStream(crashTraceFile), StandardCharsets.UTF_8));
-            appendTrace(writer, throwable);
-            writer.close();
+        private void saveCrashTrace(final Throwable throwable) {
+            try {
+                final PrintWriter writer = new PrintWriter(
+                        new OutputStreamWriter(new FileOutputStream(crashTraceFile), StandardCharsets.UTF_8));
+                appendTrace(writer, throwable);
+                writer.close();
+                log.info("saved crash trace to {}", crashTraceFile);
+            } catch (final IOException x) {
+                log.warn("problem saving crash trace", x);
+            }
         }
     }
 }
