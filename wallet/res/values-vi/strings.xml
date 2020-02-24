@@ -67,8 +67,6 @@
 	<string name="address_book_context_edit_title">Chỉnh sửa địa chỉ</string>
 	<string name="address_book_context_remove_title">Loại bỏ địa chỉ</string>
 	<string name="address_book_context_copy_to_clipboard_title">Sao chép vào bộ nhớ ảo</string>
-	<string name="address_book_options_paste_from_clipboard_title">Lấy thông tin từ bộ nhớ ảo</string>
-	<string name="address_book_options_paste_from_clipboard_empty">Bộ nhớ ảo hiện không chứa dữ liệu</string>
 	<string name="address_book_options_scan_title">Quét địa chỉ</string>
 	<string name="edit_address_book_entry_dialog_title_add">Thêm địa chỉ</string>
 	<string name="edit_address_book_entry_dialog_title_edit">Chỉnh sửa địa chỉ</string>

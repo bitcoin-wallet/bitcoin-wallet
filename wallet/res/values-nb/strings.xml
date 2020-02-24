@@ -144,10 +144,6 @@
   <string name="address_book_context_edit_title">Rediger adresse</string>
   <string name="address_book_context_remove_title">Fjern adresse</string>
   <string name="address_book_context_copy_to_clipboard_title">Kopier til utklippstavlen</string>
-  <string name="address_book_options_paste_from_clipboard_title">Lim inn fra utklippstavlen</string>
-  <string name="address_book_options_paste_from_clipboard_empty">Utklippstavlen er tom</string>
-  <string name="address_book_options_paste_from_clipboard_invalid">Data fra utklippstavlen kan ikke gjenkjennes</string>
-  <string name="address_book_options_paste_from_clipboard_own_address">Adressen på utklippstavlen er din egen.</string>
   <string name="address_book_options_scan_title">Skann adresse</string>
   <string name="address_book_options_scan_invalid">Skannet data kan ikke gjenkjennes</string>
   <string name="address_book_options_scan_own_address">Den skannede adressen er din egen.</string>

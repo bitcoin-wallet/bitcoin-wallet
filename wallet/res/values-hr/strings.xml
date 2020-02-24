@@ -49,7 +49,6 @@
   <string name="address_book_context_edit_title">Uredi adresu</string>
   <string name="address_book_context_remove_title">Ukloni adresu</string>
   <string name="address_book_context_copy_to_clipboard_title">Kopirano u međuspremnik</string>
-  <string name="address_book_options_paste_from_clipboard_title">Zalijepi iz međuspremnika</string>
   <string name="address_book_options_scan_title">Skeniraj adresi</string>
   <string name="edit_address_book_entry_dialog_address_label">Adresa</string>
   <string name="edit_address_book_entry_dialog_button_edit">Spremi</string>

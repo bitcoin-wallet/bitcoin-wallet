@@ -100,9 +100,6 @@
   <string name="address_book_context_edit_title">Змінити адресу</string>
   <string name="address_book_context_remove_title">Видалити адресу</string>
   <string name="address_book_context_copy_to_clipboard_title">Скопіювати в буфер обміну</string>
-  <string name="address_book_options_paste_from_clipboard_title">Вставити з буфера обміну</string>
-  <string name="address_book_options_paste_from_clipboard_empty">Буфер обміну порожній</string>
-  <string name="address_book_options_paste_from_clipboard_invalid">Неможливо розпізнати дані буфера обміну</string>
   <string name="address_book_options_scan_title">Сканувати адресу</string>
   <string name="address_book_options_scan_invalid">Дані сканування невпізнані</string>
   <string name="address_book_row_message_compromised_key">Ця адреса могла скомпрометуватися. Не використовуйте її більше для отримання коштів.</string>

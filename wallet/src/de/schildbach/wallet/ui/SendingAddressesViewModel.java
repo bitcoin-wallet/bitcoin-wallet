@@ -37,10 +37,6 @@ import de.schildbach.wallet.addressbook.AddressBookEntry;
 import de.schildbach.wallet.data.WalletLiveData;
 
 import android.app.Application;
-import android.content.ClipData;
-import android.content.ClipboardManager;
-import android.content.ClipboardManager.OnPrimaryClipChangedListener;
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import androidx.lifecycle.AndroidViewModel;
@@ -55,7 +51,6 @@ public class SendingAddressesViewModel extends AndroidViewModel {
     public final WalletLiveData wallet;
     public LiveData<List<AddressBookEntry>> addressBook;
     public final AddressesToExcludeLiveData addressesToExclude;
-    public final ClipLiveData clip;
     public final MutableLiveData<Event<Bitmap>> showBitmapDialog = new MutableLiveData<>();
     public final MutableLiveData<Event<Address>> showEditAddressBookEntryDialog = new MutableLiveData<>();
 
@@ -64,7 +59,6 @@ public class SendingAddressesViewModel extends AndroidViewModel {
         this.application = (WalletApplication) application;
         this.wallet = new WalletLiveData(this.application);
         this.addressesToExclude = new AddressesToExcludeLiveData(this.application);
-        this.clip = new ClipLiveData(this.application);
     }
 
     public static class AddressesToExcludeLiveData extends AbstractWalletLiveData<Set<String>> {
@@ -89,34 +83,6 @@ public class SendingAddressesViewModel extends AndroidViewModel {
                     addresses.add(LegacyAddress.fromKey(Constants.NETWORK_PARAMETERS, key).toString());
                 postValue(addresses);
             });
-        }
-    }
-
-    public static class ClipLiveData extends LiveData<ClipData> implements OnPrimaryClipChangedListener {
-        private final ClipboardManager clipboardManager;
-
-        public ClipLiveData(final WalletApplication application) {
-            clipboardManager = (ClipboardManager) application.getSystemService(Context.CLIPBOARD_SERVICE);
-        }
-
-        @Override
-        protected void onActive() {
-            clipboardManager.addPrimaryClipChangedListener(this);
-            onPrimaryClipChanged();
-        }
-
-        @Override
-        protected void onInactive() {
-            clipboardManager.removePrimaryClipChangedListener(this);
-        }
-
-        @Override
-        public void onPrimaryClipChanged() {
-            setValue(clipboardManager.getPrimaryClip());
-        }
-
-        public void setClipData(final ClipData clipData) {
-            clipboardManager.setPrimaryClip(clipData);
         }
     }
 }

@@ -151,10 +151,6 @@
   <string name="address_book_context_edit_title">Golygu\'r cyfeiriad</string>
   <string name="address_book_context_remove_title">Tynnu\'r cyfeiriad</string>
   <string name="address_book_context_copy_to_clipboard_title">Copïo i\'r clipfwrdd</string>
-  <string name="address_book_options_paste_from_clipboard_title">Gludo o\'r clipfwrdd</string>
-  <string name="address_book_options_paste_from_clipboard_empty">Mae\'r clipfwrdd yn wag</string>
-  <string name="address_book_options_paste_from_clipboard_invalid">Nid yw\'r data ar y clipfwrdd yn nealladwy</string>
-  <string name="address_book_options_paste_from_clipboard_own_address">Dy gyfeiriad dy hun sydd ar y clipfwrdd.</string>
   <string name="address_book_options_scan_title">Sganio\'r cyfeiriad</string>
   <string name="address_book_options_scan_invalid">Dyw\'r data a sganiwyd ddim yn nealladwy</string>
   <string name="address_book_options_scan_own_address">Dy gyfeiriad dy hun yw\'r un a sganiwyd.</string>

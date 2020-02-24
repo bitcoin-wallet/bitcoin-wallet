@@ -119,9 +119,6 @@
   <string name="address_book_context_edit_title">Mabadiliko ya anwani</string>
   <string name="address_book_context_remove_title">Kuondoa anwani</string>
   <string name="address_book_context_copy_to_clipboard_title">Nakala ya clipbard</string>
-  <string name="address_book_options_paste_from_clipboard_title">Kuweka kutoka clipboard</string>
-  <string name="address_book_options_paste_from_clipboard_empty">Cliboard ni tupu</string>
-  <string name="address_book_options_paste_from_clipboard_invalid">Habari kutoka clipboard ni haitambuliwi</string>
   <string name="address_book_options_scan_title">Bamba anwani</string>
   <string name="address_book_options_scan_invalid">Habari kutoka kubamba ni haitambuliwi</string>
   <string name="address_book_row_message_compromised_key">Anwani hii inweza kuwa uhaba. Tafadhali usitumie anwani hii tena.</string>

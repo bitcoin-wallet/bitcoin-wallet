@@ -70,8 +70,6 @@
 	<string name="address_book_context_edit_title">Уреди адреса</string>
 	<string name="address_book_context_remove_title">Отстрани адреса</string>
 	<string name="address_book_context_copy_to_clipboard_title">Копирај во склад</string>
-	<string name="address_book_options_paste_from_clipboard_title">Внеси од склад</string>
-	<string name="address_book_options_paste_from_clipboard_empty">Складот е празен</string>
 	<string name="address_book_options_scan_title">Скенирај адреса</string>
 	<string name="address_book_row_message_compromised_key">Оваа адреса можеби е компромитирана. Не треба да ја користиш за примање биткоини повеќе.</string>
 	<string name="edit_address_book_entry_dialog_title_add">Додади адреса</string>

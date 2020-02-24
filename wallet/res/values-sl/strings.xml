@@ -89,9 +89,6 @@
   <string name="address_book_context_edit_title">Uredi naslov</string>
   <string name="address_book_context_remove_title">Odstrani naslov</string>
   <string name="address_book_context_copy_to_clipboard_title">Kopiraj na odložišče</string>
-  <string name="address_book_options_paste_from_clipboard_title">Prilepi z odložišča</string>
-  <string name="address_book_options_paste_from_clipboard_empty">Odložišče je prazno</string>
-  <string name="address_book_options_paste_from_clipboard_invalid">Podatki na odložišču niso prepoznavni</string>
   <string name="address_book_options_scan_title">Prečitaj naslov</string>
   <string name="address_book_options_scan_invalid">Prečitani podatki niso prepoznavni</string>
   <string name="address_book_row_message_compromised_key">Ta naslov morda ni več varen. Ne uporabljajte ga več za prejemanje novcev.</string>

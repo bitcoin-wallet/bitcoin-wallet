@@ -21,11 +21,9 @@ import java.util.List;
 import java.util.Set;
 
 import org.bitcoinj.core.Address;
-import org.bitcoinj.core.AddressFormatException;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.VerificationException;
 import org.bitcoinj.uri.BitcoinURI;
-import org.bitcoinj.uri.BitcoinURIParseException;
 import org.bitcoinj.wallet.Wallet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,13 +43,12 @@ import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet.util.WholeStringBuilder;
 
 import android.app.Activity;
+import android.content.ClipboardManager;
 import android.content.ClipData;
-import android.content.ClipDescription;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.ActionMode;
@@ -72,6 +69,7 @@ import androidx.lifecycle.ViewModelProvider;
 public final class SendingAddressesFragment extends FancyListFragment {
     private AbstractWalletActivity activity;
     private AddressBookDao addressBookDao;
+    private ClipboardManager clipboardManager;
     private final Handler handler = new Handler();
 
     private ArrayAdapter<AddressBookEntry> adapter;
@@ -87,6 +85,7 @@ public final class SendingAddressesFragment extends FancyListFragment {
         super.onAttach(context);
         this.activity = (AbstractWalletActivity) context;
         this.addressBookDao = AddressBookDatabase.getDatabase(context).addressBookDao();
+        this.clipboardManager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
     }
 
     @Override
@@ -106,7 +105,6 @@ public final class SendingAddressesFragment extends FancyListFragment {
                 setEmptyText(WholeStringBuilder.bold(getString(R.string.address_book_empty_text)));
             });
         });
-        viewModel.clip.observe(this, clipData -> activity.invalidateOptionsMenu());
         viewModel.showBitmapDialog.observe(this, new Event.Observer<Bitmap>() {
             @Override
             public void onEvent(final Bitmap bitmap) {
@@ -191,43 +189,13 @@ public final class SendingAddressesFragment extends FancyListFragment {
     }
 
     @Override
-    public void onPrepareOptionsMenu(final Menu menu) {
-        menu.findItem(R.id.sending_addresses_options_paste)
-                .setEnabled(viewModel.wallet.getValue() != null && getAddressFromPrimaryClip() != null);
-        super.onPrepareOptionsMenu(menu);
-    }
-
-    @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
         int itemId = item.getItemId();
-        if (itemId == R.id.sending_addresses_options_paste) {
-            handlePasteClipboard();
-            return true;
-        } else if (itemId == R.id.sending_addresses_options_scan) {
+        if (itemId == R.id.sending_addresses_options_scan) {
             ScanActivity.startForResult(this, activity, REQUEST_CODE_SCAN);
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    private void handlePasteClipboard() {
-        final Wallet wallet = viewModel.wallet.getValue();
-        final Address address = getAddressFromPrimaryClip();
-        if (address == null) {
-            final DialogBuilder dialog = DialogBuilder.dialog(activity,
-                    R.string.address_book_options_paste_from_clipboard_title,
-                    R.string.address_book_options_paste_from_clipboard_invalid);
-            dialog.singleDismissButton(null);
-            dialog.show();
-        } else if (!wallet.isAddressMine(address)) {
-            viewModel.showEditAddressBookEntryDialog.setValue(new Event<>(address));
-        } else {
-            final DialogBuilder dialog = DialogBuilder.dialog(activity,
-                    R.string.address_book_options_paste_from_clipboard_title,
-                    R.string.address_book_options_paste_from_clipboard_own_address);
-            dialog.singleDismissButton(null);
-            dialog.show();
-        }
     }
 
     @Override
@@ -302,38 +270,8 @@ public final class SendingAddressesFragment extends FancyListFragment {
     }
 
     private void handleCopyToClipboard(final String address) {
-        viewModel.clip.setClipData(ClipData.newPlainText("Bitcoin address", address));
+        clipboardManager.setPrimaryClip(ClipData.newPlainText("Bitcoin address", address));
         log.info("sending address copied to clipboard: {}", address);
         new Toast(activity).toast(R.string.wallet_address_fragment_clipboard_msg);
-    }
-
-    private Address getAddressFromPrimaryClip() {
-        final ClipData clip = viewModel.clip.getValue();
-        if (clip == null)
-            return null;
-        final ClipDescription clipDescription = clip.getDescription();
-
-        if (clipDescription.hasMimeType(ClipDescription.MIMETYPE_TEXT_PLAIN)) {
-            final CharSequence clipText = clip.getItemAt(0).getText();
-            if (clipText == null)
-                return null;
-
-            try {
-                return Address.fromString(Constants.NETWORK_PARAMETERS, clipText.toString().trim());
-            } catch (final AddressFormatException x) {
-                return null;
-            }
-        } else if (clipDescription.hasMimeType(ClipDescription.MIMETYPE_TEXT_URILIST)) {
-            final Uri clipUri = clip.getItemAt(0).getUri();
-            if (clipUri == null)
-                return null;
-            try {
-                return new BitcoinURI(clipUri.toString()).getAddress();
-            } catch (final BitcoinURIParseException x) {
-                return null;
-            }
-        } else {
-            return null;
-        }
     }
 }

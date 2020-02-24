@@ -153,10 +153,6 @@
     <string name="address_book_context_edit_title">Edit address</string>
     <string name="address_book_context_remove_title">Remove address</string>
     <string name="address_book_context_copy_to_clipboard_title">Copy to clipboard</string>
-    <string name="address_book_options_paste_from_clipboard_title">Paste from clipboard</string>
-    <string name="address_book_options_paste_from_clipboard_empty">Clipboard is empty</string>
-    <string name="address_book_options_paste_from_clipboard_invalid">Data from clipboard is unrecognizable</string>
-    <string name="address_book_options_paste_from_clipboard_own_address">The address on the clipboard is your own.</string>
     <string name="address_book_options_scan_title">Scan address</string>
     <string name="address_book_options_scan_invalid">Scanned data is unrecognizable</string>
     <string name="address_book_options_scan_own_address">The scanned address is your own.</string>

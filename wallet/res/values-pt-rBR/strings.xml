@@ -141,10 +141,6 @@
   <string name="address_book_context_edit_title">Editar endereço</string>
   <string name="address_book_context_remove_title">Remover endereço</string>
   <string name="address_book_context_copy_to_clipboard_title">Copiar para o clipboard</string>
-  <string name="address_book_options_paste_from_clipboard_title">Colar</string>
-  <string name="address_book_options_paste_from_clipboard_empty">Área de transferência vazia</string>
-  <string name="address_book_options_paste_from_clipboard_invalid">Dados da área de transferência irreconhecíveis</string>
-  <string name="address_book_options_paste_from_clipboard_own_address">O endereço na área de transferência é o seu próprio.</string>
   <string name="address_book_options_scan_title">Escanear endereço</string>
   <string name="address_book_options_scan_invalid">Os dados digitalizados estão irreconhecíveis</string>
   <string name="address_book_options_scan_own_address">O endereço escaneado é o seu próprio.</string>

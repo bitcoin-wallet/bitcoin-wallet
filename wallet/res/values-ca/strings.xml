@@ -147,10 +147,6 @@
   <string name="address_book_context_edit_title">Edita l\'adreça</string>
   <string name="address_book_context_remove_title">Esborra l\'adreça</string>
   <string name="address_book_context_copy_to_clipboard_title">Copia al porta-retalls</string>
-  <string name="address_book_options_paste_from_clipboard_title">Enganxa des del porta-retalls</string>
-  <string name="address_book_options_paste_from_clipboard_empty">El porta-retalls està buit</string>
-  <string name="address_book_options_paste_from_clipboard_invalid">No es reconeixen les dades del porta-retalls.</string>
-  <string name="address_book_options_paste_from_clipboard_own_address">La direcció del porta-retalls és la teva.</string>
   <string name="address_book_options_scan_title">Escaneja l\'adreça</string>
   <string name="address_book_options_scan_invalid">No es reconeixen les dades escanejades</string>
   <string name="address_book_options_scan_own_address">L\'adreça escanejada és la teva.</string>

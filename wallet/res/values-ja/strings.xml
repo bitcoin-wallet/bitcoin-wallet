@@ -151,10 +151,6 @@
   <string name="address_book_context_edit_title">アドレスを編集</string>
   <string name="address_book_context_remove_title">アドレスを削除</string>
   <string name="address_book_context_copy_to_clipboard_title">クリップボードへコピー</string>
-  <string name="address_book_options_paste_from_clipboard_title">クリップボードから貼付け</string>
-  <string name="address_book_options_paste_from_clipboard_empty">クリップボートは空です</string>
-  <string name="address_book_options_paste_from_clipboard_invalid">クリップボードからのデータを認識できません</string>
-  <string name="address_book_options_paste_from_clipboard_own_address">クリップボードにあるアドレスはあなたのアドレスです。</string>
   <string name="address_book_options_scan_title">アドレスをスキャン</string>
   <string name="address_book_options_scan_invalid">スキャンしたデータが認識できません</string>
   <string name="address_book_options_scan_own_address">スキャンしたアドレスはあなたのアドレスです。</string>

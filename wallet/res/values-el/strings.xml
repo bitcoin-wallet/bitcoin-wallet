@@ -95,9 +95,6 @@
   <string name="address_book_context_edit_title">Επεξεργασία διεύθυνσης</string>
   <string name="address_book_context_remove_title">Αφαιρέστε τη διεύθυνση</string>
   <string name="address_book_context_copy_to_clipboard_title">Αντιγραφή στο πρόχειρο</string>
-  <string name="address_book_options_paste_from_clipboard_title">Επικόλληση από το πρόχειρο</string>
-  <string name="address_book_options_paste_from_clipboard_empty">το πρόχειρο είναι κενό</string>
-  <string name="address_book_options_paste_from_clipboard_invalid">Τα δεδομένα από το πρόχειρο είναι μη αναγνωρίσιμα</string>
   <string name="address_book_options_scan_title">Αναζήτηση διεύθυνσης</string>
   <string name="address_book_options_scan_invalid">Τα σαρωμένα δεδομένα είναι μη αναγνωρίσημα</string>
   <string name="edit_address_book_entry_dialog_title_add_receive">Προσθήκη ετικέτας στη διεύθυνση σας</string>

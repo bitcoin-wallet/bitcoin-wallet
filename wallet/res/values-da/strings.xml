@@ -151,10 +151,6 @@
   <string name="address_book_context_edit_title">Redigér adresse</string>
   <string name="address_book_context_remove_title">Fjern adresse</string>
   <string name="address_book_context_copy_to_clipboard_title">Kopiér til udklipsholder</string>
-  <string name="address_book_options_paste_from_clipboard_title">Indsæt fra udklipsholder</string>
-  <string name="address_book_options_paste_from_clipboard_empty">Udklipsholder er tom</string>
-  <string name="address_book_options_paste_from_clipboard_invalid">Data fra udklipsholder kan ikke genkendes</string>
-  <string name="address_book_options_paste_from_clipboard_own_address">Adressen i udklipsholderen er din egen.</string>
   <string name="address_book_options_scan_title">Scan adresse</string>
   <string name="address_book_options_scan_invalid">Scannet data kan ikke genkendes</string>
   <string name="address_book_options_scan_own_address">Den scannede adresse er din egen.</string>

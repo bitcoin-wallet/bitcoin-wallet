@@ -151,10 +151,6 @@
   <string name="address_book_context_edit_title">Muokkaa osoitetta</string>
   <string name="address_book_context_remove_title">Poista osoite</string>
   <string name="address_book_context_copy_to_clipboard_title">Kopioi leikepöydälle</string>
-  <string name="address_book_options_paste_from_clipboard_title">Liitä leikepöydältä</string>
-  <string name="address_book_options_paste_from_clipboard_empty">Leikepöytä on tyhjä</string>
-  <string name="address_book_options_paste_from_clipboard_invalid">Tieto leikepöydältä on tuntematonta</string>
-  <string name="address_book_options_paste_from_clipboard_own_address">Osoite leikepöydällä on oma osoitteesi.</string>
   <string name="address_book_options_scan_title">Skannaa osoite</string>
   <string name="address_book_options_scan_invalid">Skannattua tietoa ei tunnisteta</string>
   <string name="address_book_options_scan_own_address">Skannattu osoite on oma osoitteesi.</string>

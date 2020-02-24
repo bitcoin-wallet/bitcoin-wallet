@@ -151,10 +151,6 @@
   <string name="address_book_context_edit_title">Изменить адрес</string>
   <string name="address_book_context_remove_title">Удалить адрес</string>
   <string name="address_book_context_copy_to_clipboard_title">Скопировать в буфер обмена</string>
-  <string name="address_book_options_paste_from_clipboard_title">Вставить из буфера обмена</string>
-  <string name="address_book_options_paste_from_clipboard_empty">Буфер обмена пуст</string>
-  <string name="address_book_options_paste_from_clipboard_invalid">Невозможно распознать данные буфера обмена</string>
-  <string name="address_book_options_paste_from_clipboard_own_address">Адрес в буфере обмена принадлежит вам.</string>
   <string name="address_book_options_scan_title">Сканировать адрес</string>
   <string name="address_book_options_scan_invalid">Данные сканирования неузнаваемым</string>
   <string name="address_book_options_scan_own_address">Отсканированный адрес принадлежит вам.</string>

@@ -86,9 +86,6 @@
 	<string name="address_book_context_edit_title">ערוך כתובת</string>
 	<string name="address_book_context_remove_title">הסר כתובת</string>
 	<string name="address_book_context_copy_to_clipboard_title">העתק ללוח</string>
-	<string name="address_book_options_paste_from_clipboard_title">הדבק מהלוח</string>
-	<string name="address_book_options_paste_from_clipboard_empty">הלוח ריק</string>
-	<string name="address_book_options_paste_from_clipboard_invalid">המידע מהלוח (clipboard) אינו ניתן לזיהוי</string>
 	<string name="address_book_options_scan_title">סרוק כתובת</string>
 	<string name="address_book_options_scan_invalid">המידע הנסרק לא ניתן לזיהוי</string>
 	<string name="address_book_row_message_compromised_key">כתובת זו נגועה. לא מומלץ שתשתמש בה כדי לקבל מטבעות.</string>

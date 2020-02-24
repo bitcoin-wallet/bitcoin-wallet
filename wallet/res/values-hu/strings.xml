@@ -147,10 +147,6 @@
   <string name="address_book_context_edit_title">Cím szerkesztése</string>
   <string name="address_book_context_remove_title">Cím eltávolítása</string>
   <string name="address_book_context_copy_to_clipboard_title">Másolás</string>
-  <string name="address_book_options_paste_from_clipboard_title">Beillesztés</string>
-  <string name="address_book_options_paste_from_clipboard_empty">A vágólap üres</string>
-  <string name="address_book_options_paste_from_clipboard_invalid">Az adat a vágólapról nem felismerhető</string>
-  <string name="address_book_options_paste_from_clipboard_own_address">A vágólapon lévő cím a tied.</string>
   <string name="address_book_options_scan_title">Cím beolvasása</string>
   <string name="address_book_options_scan_invalid">A beolvasott adat felismerhetetlen</string>
   <string name="address_book_options_scan_own_address">A beolvasott cím a tiéd.</string>

@@ -70,8 +70,6 @@
 	<string name="address_book_context_edit_title">Mengubah alamat</string>
 	<string name="address_book_context_remove_title">Hapus alamat</string>
 	<string name="address_book_context_copy_to_clipboard_title">Salin</string>
-	<string name="address_book_options_paste_from_clipboard_title">Tempelkan</string>
-	<string name="address_book_options_paste_from_clipboard_empty">Salinan kosong</string>
 	<string name="address_book_options_scan_title">Pindai alamat</string>
 	<string name="address_book_row_message_compromised_key">Alamat ini mungkin telah dibajak. Anda seharusnya tidak lagi menggunakannya utk menerima koin.</string>
 	<string name="edit_address_book_entry_dialog_title_add">Tambahkan alamat</string>

@@ -155,10 +155,6 @@
     <string name="address_book_context_edit_title">Adresse ändern</string>
     <string name="address_book_context_remove_title">Adresse entfernen</string>
     <string name="address_book_context_copy_to_clipboard_title">Ins Clipboard kopieren</string>
-    <string name="address_book_options_paste_from_clipboard_title">Aus dem Clipboard einfügen</string>
-    <string name="address_book_options_paste_from_clipboard_empty">Clipboard ist leer</string>
-    <string name="address_book_options_paste_from_clipboard_invalid">Die Daten auf dem Clipboard sind nicht entzifferbar</string>
-    <string name="address_book_options_paste_from_clipboard_own_address">Die Adresse auf dem Clipboard ist eine deiner eigenen.</string>
     <string name="address_book_options_scan_title">Adresse scannen</string>
     <string name="address_book_options_scan_invalid">Gescannte Daten sind nicht entzifferbar</string>
     <string name="address_book_options_scan_own_address">Die gescannte Adresse ist eine deiner eigenen.</string>

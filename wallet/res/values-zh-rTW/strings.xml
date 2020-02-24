@@ -141,10 +141,6 @@
   <string name="address_book_context_edit_title">編輯位址</string>
   <string name="address_book_context_remove_title">移除位址</string>
   <string name="address_book_context_copy_to_clipboard_title">複製到剪貼簿</string>
-  <string name="address_book_options_paste_from_clipboard_title">從剪貼簿貼上</string>
-  <string name="address_book_options_paste_from_clipboard_empty">剪貼簿是空的。</string>
-  <string name="address_book_options_paste_from_clipboard_invalid">剪貼簿資料無法辨識</string>
-  <string name="address_book_options_paste_from_clipboard_own_address">剪貼簿中的位址是你自己的。</string>
   <string name="address_book_options_scan_title">掃描位址</string>
   <string name="address_book_options_scan_invalid">掃描資料無法辨識</string>
   <string name="address_book_options_scan_own_address">掃描進來的位址是你自己的。</string>

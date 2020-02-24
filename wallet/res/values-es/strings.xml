@@ -151,10 +151,6 @@
   <string name="address_book_context_edit_title">Editar dirección</string>
   <string name="address_book_context_remove_title">Eliminar dirección</string>
   <string name="address_book_context_copy_to_clipboard_title">Copiar al portapapeles</string>
-  <string name="address_book_options_paste_from_clipboard_title">Pegar desde el portapapeles</string>
-  <string name="address_book_options_paste_from_clipboard_empty">Portapapeles vacío</string>
-  <string name="address_book_options_paste_from_clipboard_invalid">No se reconocen los datos del portapapeles</string>
-  <string name="address_book_options_paste_from_clipboard_own_address">La dirección del portapapeles es la tuya.</string>
   <string name="address_book_options_scan_title">Escanear dirección</string>
   <string name="address_book_options_scan_invalid">No se reconocen los datos escaneados</string>
   <string name="address_book_options_scan_own_address">La dirección escaneada es la tuya</string>
