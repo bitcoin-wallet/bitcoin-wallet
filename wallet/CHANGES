@@ -1,3 +1,8 @@
+v7.56
+
+* Remove the ability to directly add an address to the address book from the clipboard due to safety concerns.
+  The QR code scanner can still be used, and addresses you've already sent to can be added as well.
+
 v7.55
 
 * Minor bugfixes.
