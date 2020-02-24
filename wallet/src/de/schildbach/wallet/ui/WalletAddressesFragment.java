@@ -79,7 +79,6 @@ public final class WalletAddressesFragment extends FancyListFragment {
     @Override
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
 
         viewModel = new ViewModelProvider(this).get(WalletAddressesViewModel.class);
         viewModel.issuedReceiveAddresses.observe(this, issuedReceiveAddresses -> adapter.replaceDerivedAddresses(issuedReceiveAddresses));
@@ -108,12 +107,6 @@ public final class WalletAddressesFragment extends FancyListFragment {
     public void onViewCreated(final View view, final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setEmptyText(WholeStringBuilder.bold(getString(R.string.address_book_empty_text)));
-    }
-
-    @Override
-    public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
-        inflater.inflate(R.menu.wallet_addresses_fragment_options, menu);
-        super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
