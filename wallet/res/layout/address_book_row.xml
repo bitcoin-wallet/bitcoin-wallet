@@ -8,7 +8,9 @@
     android:paddingBottom="@dimen/list_entry_padding_vertical"
     android:paddingLeft="@dimen/list_entry_padding_horizontal"
     android:paddingRight="@dimen/list_entry_padding_horizontal"
-    android:paddingTop="@dimen/list_entry_padding_vertical" >
+    android:paddingTop="@dimen/list_entry_padding_vertical"
+    android:focusable="true"
+    android:foreground="?android:attr/selectableItemBackground">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -38,8 +40,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="4dp"
-        android:text="@string/address_book_row_message_compromised_key"
-        android:textColor="@color/fg_error"
         android:textSize="@dimen/font_size_small"
         android:visibility="gone" />
 

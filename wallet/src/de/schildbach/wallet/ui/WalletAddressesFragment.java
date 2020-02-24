@@ -17,27 +17,6 @@
 
 package de.schildbach.wallet.ui;
 
-import java.util.List;
-import java.util.Locale;
-
-import org.bitcoinj.core.Address;
-import org.bitcoinj.core.LegacyAddress;
-import org.bitcoinj.uri.BitcoinURI;
-import org.bitcoinj.wallet.Wallet;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.R;
-import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.addressbook.AddressBookDao;
-import de.schildbach.wallet.addressbook.AddressBookEntry;
-import de.schildbach.wallet.addressbook.AddressBookDatabase;
-import de.schildbach.wallet.util.Qr;
-import de.schildbach.wallet.util.Toast;
-import de.schildbach.wallet.util.WalletUtils;
-import de.schildbach.wallet.util.WholeStringBuilder;
-
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -45,23 +24,49 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.ActionMode;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ListView;
+import android.view.ViewGroup;
+import android.widget.ViewAnimator;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.R;
+import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.addressbook.AddressBookDao;
+import de.schildbach.wallet.addressbook.AddressBookDatabase;
+import de.schildbach.wallet.addressbook.AddressBookEntry;
+import de.schildbach.wallet.util.Qr;
+import de.schildbach.wallet.util.Toast;
+import de.schildbach.wallet.util.WalletUtils;
+import org.bitcoinj.core.Address;
+import org.bitcoinj.core.LegacyAddress;
+import org.bitcoinj.uri.BitcoinURI;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.List;
+import java.util.Locale;
 
 /**
  * @author Andreas Schildbach
  */
-public final class WalletAddressesFragment extends FancyListFragment {
+public final class WalletAddressesFragment extends Fragment implements AddressBookAdapter.OnClickListener {
     private WalletApplication application;
     private AbstractWalletActivity activity;
     private AddressBookDao addressBookDao;
     private ClipboardManager clipboardManager;
 
-    private WalletAddressesAdapter adapter;
+    private ViewAnimator viewGroup;
+    private RecyclerView recyclerView;
+    private AddressBookAdapter adapter;
 
     private WalletAddressesViewModel viewModel;
 
@@ -81,11 +86,11 @@ public final class WalletAddressesFragment extends FancyListFragment {
         super.onCreate(savedInstanceState);
 
         viewModel = new ViewModelProvider(this).get(WalletAddressesViewModel.class);
-        viewModel.issuedReceiveAddresses.observe(this, issuedReceiveAddresses -> adapter.replaceDerivedAddresses(issuedReceiveAddresses));
-        viewModel.importedAddresses.observe(this, importedAddresses -> adapter.replaceRandomAddresses(importedAddresses));
-        viewModel.wallet.observe(this, wallet -> adapter.setWallet(wallet));
-        viewModel.addressBook.observe(this, addressBook -> adapter.setAddressBook(AddressBookEntry.asMap(addressBook)));
-        viewModel.ownName.observe(this, ownName -> adapter.notifyDataSetChanged());
+        viewModel.issuedReceiveAddresses.observe(this, issuedReceiveAddresses -> maybeSubmitList());
+        viewModel.importedAddresses.observe(this, importedAddresses -> maybeSubmitList());
+        viewModel.wallet.observe(this, wallet -> maybeSubmitList());
+        viewModel.addressBook.observe(this, addressBook -> maybeSubmitList());
+        viewModel.ownName.observe(this, ownName -> {});
         viewModel.showBitmapDialog.observe(this, new Event.Observer<Bitmap>() {
             @Override
             public void onEvent(final Bitmap bitmap) {
@@ -99,18 +104,34 @@ public final class WalletAddressesFragment extends FancyListFragment {
             }
         });
 
-        adapter = new WalletAddressesAdapter(activity);
-        setListAdapter(adapter);
+        adapter = new AddressBookAdapter(activity, this);
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull final LayoutInflater inflater, @Nullable final ViewGroup container,
+                             @Nullable final Bundle savedInstanceState) {
+        final View view = inflater.inflate(R.layout.wallet_addresses_fragment, container, false);
+        viewGroup = view.findViewById(R.id.wallet_addresses_list_group);
+        recyclerView = view.findViewById(R.id.wallet_addresses_list);
+        recyclerView.setLayoutManager(new LinearLayoutManager(activity));
+        recyclerView.setAdapter(adapter);
+        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST));
+        return view;
+    }
+
+    private void maybeSubmitList() {
+        final List<Address> derivedAddresses = viewModel.issuedReceiveAddresses.getValue();
+        final List<Address> randomAddresses = viewModel.importedAddresses.getValue();
+        if (derivedAddresses != null && randomAddresses != null) {
+            viewGroup.setDisplayedChild(1);
+            adapter.submitList(AddressBookAdapter.buildListItems(activity, derivedAddresses, randomAddresses,
+                    viewModel.wallet.getValue(), AddressBookEntry.asMap(viewModel.addressBook.getValue())));
+        }
     }
 
     @Override
-    public void onViewCreated(final View view, final Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        setEmptyText(WholeStringBuilder.bold(getString(R.string.address_book_empty_text)));
-    }
-
-    @Override
-    public void onListItemClick(final ListView l, final View v, final int position, final long id) {
+    public void onAddressClick(final View view, final Address address, final String label) {
         activity.startActionMode(new ActionMode.Callback() {
             @Override
             public boolean onCreateActionMode(final ActionMode mode, final Menu menu) {
@@ -122,26 +143,24 @@ public final class WalletAddressesFragment extends FancyListFragment {
 
             @Override
             public boolean onPrepareActionMode(final ActionMode mode, final Menu menu) {
-                final String address = getAddress(position).toString();
-                final String label = addressBookDao.resolveLabel(address);
-                mode.setTitle(label != null ? label
-                        : WalletUtils.formatHash(address, Constants.ADDRESS_FORMAT_GROUP_SIZE, 0));
+                final String label = addressBookDao.resolveLabel(address.toString());
+                mode.setTitle(label != null ? label : WalletUtils.formatAddress(address,
+                        Constants.ADDRESS_FORMAT_GROUP_SIZE, 0));
                 return true;
             }
 
             @Override
             public boolean onActionItemClicked(final ActionMode mode, final MenuItem item) {
-                final Address address = getAddress(position);
                 int itemId = item.getItemId();
                 if (itemId == R.id.wallet_addresses_context_edit) {
                     viewModel.showEditAddressBookEntryDialog.setValue(new Event<>(address));
                     mode.finish();
                     return true;
                 } else if (itemId == R.id.wallet_addresses_context_show_qr) {
-                    final String label = viewModel.ownName.getValue();
+                    final String ownName = viewModel.ownName.getValue();
                     final String uri;
-                    if (address instanceof LegacyAddress || label != null)
-                        uri = BitcoinURI.convertToBitcoinURI(address, null, label, null);
+                    if (address instanceof LegacyAddress || ownName != null)
+                        uri = BitcoinURI.convertToBitcoinURI(address, null, ownName, null);
                     else
                         uri = address.toString().toUpperCase(Locale.US);
                     viewModel.showBitmapDialog.setValue(new Event<>(Qr.bitmap(uri)));
@@ -163,10 +182,6 @@ public final class WalletAddressesFragment extends FancyListFragment {
 
             @Override
             public void onDestroyActionMode(final ActionMode mode) {
-            }
-
-            private Address getAddress(final int position) {
-                return (Address) getListAdapter().getItem(position);
             }
 
             private void handleCopyToClipboard(final Address address) {
