@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <dimen name="card_margin_horizontal">14dp</dimen>
-
+    <dimen name="card_margin_horizontal">12dp</dimen>
 </resources>
