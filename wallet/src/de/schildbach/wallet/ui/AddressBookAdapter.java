@@ -23,7 +23,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.ColorInt;
+import androidx.annotation.MainThread;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
@@ -149,9 +151,12 @@ public class AddressBookAdapter extends ListAdapter<AddressBookAdapter.ListItem,
 
     private final LayoutInflater inflater;
     private final String labelUnlabeled;
+    private final int cardElevationSelected;
 
     @Nullable
     private final OnClickListener onClickListener;
+    @Nullable
+    private Address selectedAddress;
 
     private static final int VIEW_TYPE_ADDRESS = 0;
     private static final int VIEW_TYPE_SEPARATOR = 1;
@@ -197,9 +202,34 @@ public class AddressBookAdapter extends ListAdapter<AddressBookAdapter.ListItem,
 
         this.inflater = LayoutInflater.from(context);
         this.labelUnlabeled = context.getString(R.string.address_unlabeled);
+        this.cardElevationSelected = context.getResources().getDimensionPixelOffset(R.dimen.card_elevation_selected);
         this.onClickListener = onClickListener;
 
         setHasStableIds(true);
+    }
+
+    @MainThread
+    public void setSelectedAddress(final Address newSelectedAddress) {
+        if (Objects.equals(newSelectedAddress, selectedAddress))
+            return;
+        if (selectedAddress != null)
+            notifyItemChanged(positionOf(selectedAddress));
+        if (newSelectedAddress != null)
+            notifyItemChanged(positionOf(newSelectedAddress));
+        this.selectedAddress = newSelectedAddress;
+    }
+
+    @MainThread
+    public int positionOf(final Address address) {
+        if (address != null) {
+            final List<ListItem> list = getCurrentList();
+            for (int i = 0; i < list.size(); i++) {
+                final ListItem item = list.get(i);
+                if (item instanceof ListItem.AddressItem && ((ListItem.AddressItem) item).address.equals(address))
+                    return i;
+            }
+        }
+        return RecyclerView.NO_POSITION;
     }
 
     @Override
@@ -249,6 +279,9 @@ public class AddressBookAdapter extends ListAdapter<AddressBookAdapter.ListItem,
             addressHolder.message.setVisibility(addressItem.message != null ? View.VISIBLE : View.GONE);
             addressHolder.message.setText(addressItem.message);
             addressHolder.message.setTextColor(addressItem.messageColor);
+            final boolean isSelected = addressItem.address.equals(selectedAddress);
+            addressHolder.itemView.setSelected(isSelected);
+            ((CardView) addressHolder.itemView).setCardElevation(isSelected ? cardElevationSelected : 0);
             if (onClickListener != null)
                 addressHolder.itemView.setOnClickListener(v -> onClickListener.onAddressClick(v, addressItem.address,
                         addressItem.label));

@@ -68,6 +68,7 @@ public final class WalletAddressesFragment extends Fragment implements AddressBo
     private RecyclerView recyclerView;
     private AddressBookAdapter adapter;
 
+    private AddressBookViewModel activityViewModel;
     private WalletAddressesViewModel viewModel;
 
     private static final Logger log = LoggerFactory.getLogger(WalletAddressesFragment.class);
@@ -85,6 +86,15 @@ public final class WalletAddressesFragment extends Fragment implements AddressBo
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        activityViewModel = new ViewModelProvider(activity).get(AddressBookViewModel.class);
+        activityViewModel.selectedAddress.observe(this, address -> {
+            adapter.setSelectedAddress(address);
+            final int position = adapter.positionOf(address);
+            if (position != RecyclerView.NO_POSITION) {
+                activityViewModel.pageTo.setValue(new Event(AddressBookActivity.POSITION_WALLET_ADDRESSES));
+                recyclerView.smoothScrollToPosition(position);
+            }
+        });
         viewModel = new ViewModelProvider(this).get(WalletAddressesViewModel.class);
         viewModel.issuedReceiveAddresses.observe(this, issuedReceiveAddresses -> maybeSubmitList());
         viewModel.importedAddresses.observe(this, importedAddresses -> maybeSubmitList());
@@ -116,7 +126,6 @@ public final class WalletAddressesFragment extends Fragment implements AddressBo
         recyclerView = view.findViewById(R.id.wallet_addresses_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(activity));
         recyclerView.setAdapter(adapter);
-        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST));
         return view;
     }
 
@@ -132,6 +141,7 @@ public final class WalletAddressesFragment extends Fragment implements AddressBo
 
     @Override
     public void onAddressClick(final View view, final Address address, final String label) {
+        activityViewModel.selectedAddress.setValue(address);
         activity.startActionMode(new ActionMode.Callback() {
             @Override
             public boolean onCreateActionMode(final ActionMode mode, final Menu menu) {

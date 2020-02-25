@@ -34,12 +34,14 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewModelProvider;
 
 /**
  * @author Andreas Schildbach
@@ -127,10 +129,12 @@ public final class EditAddressBookEntryFragment extends DialogFragment {
         final DialogInterface.OnClickListener onClickListener = (d, which) -> {
             if (which == DialogInterface.BUTTON_POSITIVE) {
                 final String newLabel = viewLabel.getText().toString().trim();
-                if (!newLabel.isEmpty())
+                if (!newLabel.isEmpty()) {
                     addressBookDao.insertOrUpdate(new AddressBookEntry(address.toString(), newLabel));
-                else if (!isAdd)
+                    maybeSelectAddress(address);
+                } else if (!isAdd) {
                     addressBookDao.delete(address.toString());
+                }
             } else if (which == DialogInterface.BUTTON_NEUTRAL) {
                 addressBookDao.delete(address.toString());
             }
@@ -145,5 +149,15 @@ public final class EditAddressBookEntryFragment extends DialogFragment {
         dialog.setNegativeButton(R.string.button_cancel, (d, which) -> dismissAllowingStateLoss());
 
         return dialog.create();
+    }
+
+    private void maybeSelectAddress(final Address address) {
+        // Yes, this is quite hacky. The delay is needed because if an address is added it takes a moment to appear
+        // in the address book.
+        if (activity instanceof AddressBookActivity) {
+            final AddressBookViewModel activityViewModel =
+                    new ViewModelProvider(activity).get(AddressBookViewModel.class);
+            new Handler().postDelayed(() -> activityViewModel.selectedAddress.setValue(address), 250);
+        }
     }
 }

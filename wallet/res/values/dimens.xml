@@ -14,6 +14,7 @@
     <dimen name="list_entry_padding_vertical_lax">10dp</dimen>
     <dimen name="card_margin_horizontal">8dp</dimen>
     <dimen name="card_margin_vertical">5dp</dimen>
+    <dimen name="card_elevation_selected">3dp</dimen>
     <dimen name="exchange_rate_pane_width">352sp</dimen>
     <dimen name="divider_currency_padding">0dp</dimen>
     <dimen name="wallet_address_qr_size">72dp</dimen>

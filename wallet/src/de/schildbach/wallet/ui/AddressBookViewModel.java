@@ -30,6 +30,8 @@ import org.bitcoinj.core.Address;
 public class AddressBookViewModel extends AndroidViewModel {
     private final WalletApplication application;
     public final WalletLiveData wallet;
+    public final MutableLiveData<Address> selectedAddress = new MutableLiveData<>();
+    public final MutableLiveData<Event<Integer>> pageTo = new MutableLiveData<>();
     public final MutableLiveData<Event<Address>> showEditAddressBookEntryDialog = new MutableLiveData<>();
     public final MutableLiveData<Event<Void>> showScanOwnAddressDialog = new MutableLiveData<>();
     public final MutableLiveData<Event<Void>> showScanInvalidDialog = new MutableLiveData<>();

@@ -61,6 +61,7 @@ public final class SendingAddressesFragment extends Fragment implements AddressB
     private RecyclerView recyclerView;
     private AddressBookAdapter adapter;
 
+    private AddressBookViewModel activityViewModel;
     private SendingAddressesViewModel viewModel;
 
     private static final Logger log = LoggerFactory.getLogger(SendingAddressesFragment.class);
@@ -77,6 +78,15 @@ public final class SendingAddressesFragment extends Fragment implements AddressB
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        activityViewModel = new ViewModelProvider(activity).get(AddressBookViewModel.class);
+        activityViewModel.selectedAddress.observe(this, address -> {
+            adapter.setSelectedAddress(address);
+            final int position = adapter.positionOf(address);
+            if (position != RecyclerView.NO_POSITION) {
+                activityViewModel.pageTo.setValue(new Event(AddressBookActivity.POSITION_SENDING_ADDRESSES));
+                recyclerView.smoothScrollToPosition(position);
+            }
+        });
         viewModel = new ViewModelProvider(this).get(SendingAddressesViewModel.class);
         viewModel.addressesToExclude.observe(this, addressesToExclude -> {
             viewModel.addressBook = addressBookDao.getAllExcept(addressesToExclude);
@@ -110,12 +120,12 @@ public final class SendingAddressesFragment extends Fragment implements AddressB
         recyclerView = view.findViewById(R.id.sending_addresses_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(activity));
         recyclerView.setAdapter(adapter);
-        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST));
         return view;
     }
 
     @Override
     public void onAddressClick(final View view, final Address address, final String label) {
+        activityViewModel.selectedAddress.setValue(address);
         activity.startActionMode(new ActionMode.Callback() {
             @Override
             public boolean onCreateActionMode(final ActionMode mode, final Menu menu) {

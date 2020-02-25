@@ -53,8 +53,8 @@ public final class AddressBookActivity extends AbstractWalletActivity {
 
     private static final int REQUEST_CODE_SCAN = 0;
 
-    private static final int POSITION_WALLET_ADDRESSES = 0;
-    private static final int POSITION_SENDING_ADDRESSES = 1;
+    public static final int POSITION_WALLET_ADDRESSES = 0;
+    public static final int POSITION_SENDING_ADDRESSES = 1;
     private static final int[] TAB_LABELS = { R.string.address_book_list_receiving_title,
             R.string.address_book_list_sending_title };
 
@@ -73,6 +73,13 @@ public final class AddressBookActivity extends AbstractWalletActivity {
 
         viewModel = new ViewModelProvider(this).get(AddressBookViewModel.class);
         viewModel.wallet.observe(this, wallet -> invalidateOptionsMenu());
+        viewModel.pageTo.observe(this, new Event.Observer<Integer>() {
+            @Override
+            public void onEvent(final Integer position) {
+                if (!twoPanes)
+                    pager.setCurrentItem(position, true);
+            }
+        });
         viewModel.showEditAddressBookEntryDialog.observe(this, new Event.Observer<Address>() {
             @Override
             public void onEvent(final Address address) {
