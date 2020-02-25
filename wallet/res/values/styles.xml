@@ -6,7 +6,6 @@
     <style name="My.Theme" parent="@android:style/Theme.Material.Light.DarkActionBar">
         <item name="android:actionBarTheme">@style/My.ThemeOverlay.ActionBar</item>
         <item name="android:actionBarStyle">@style/My.Widget.ActionBar</item>
-        <item name="android:actionModeStyle">@style/My.Widget.ActionMode</item>
         <item name="android:actionMenuTextColor">@color/fg_on_dark_bg_network</item>
         <item name="android:actionButtonStyle">@style/My.Widget.ActionButton</item>
         <item name="android:actionOverflowButtonStyle">@style/My.Widget.ActionButton.Overflow</item>
@@ -90,20 +89,17 @@
         <item name="android:backgroundTint">@color/fg_network_significant_darkdefault</item>
     </style>
 
-    <style name="My.Widget.ActionMode" parent="@android:style/Widget.Material.Light.ActionMode">
-        <item name="android:background">@drawable/action_mode_background</item>
-        <item name="android:titleTextStyle">@style/My.TextAppearance.Widget.ActionMode.Title</item>
-        <item name="android:subtitleTextStyle">@style/My.TextAppearance.Widget.ActionMode.Subtitle</item>
+    <style name="My.ThemeOverlay.ContextBar" parent="@android:style/ThemeOverlay.Material.ActionBar">
+        <item name="android:actionButtonStyle">@style/My.Widget.ActionButton.Context</item>
+        <item name="android:actionOverflowButtonStyle">@style/My.Widget.ActionButton.Context.Overflow</item>
     </style>
 
-    <style name="My.TextAppearance.Widget.ActionMode.Title" parent="@android:style/TextAppearance.Material.Widget.ActionMode.Title">
-        <item name="android:textColor">@android:color/white</item>
-        <item name="android:textStyle">bold</item>
+    <style name="My.Widget.ActionButton.Context" parent="@android:style/Widget.Material.ActionButton">
+        <item name="android:drawableTint" tools:targetApi="23">@color/fg_insignificant</item>
     </style>
 
-    <style name="My.TextAppearance.Widget.ActionMode.Subtitle" parent="@android:style/TextAppearance.Material.Widget.ActionMode.Subtitle">
-        <item name="android:textColor">@android:color/white</item>
-        <item name="android:textStyle">normal</item>
+    <style name="My.Widget.ActionButton.Context.Overflow" parent="@android:style/Widget.Material.ActionButton.Overflow">
+        <item name="android:tint">@color/fg_insignificant</item>
     </style>
 
     <style name="My.Widget.TextView" parent="@android:style/Widget.Material.Light.TextView">

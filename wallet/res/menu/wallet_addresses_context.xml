@@ -4,24 +4,24 @@
     <item
         android:id="@+id/wallet_addresses_context_edit"
         android:icon="@drawable/ic_create_white_24dp"
-        android:showAsAction="ifRoom|withText"
+        android:showAsAction="ifRoom"
         android:title="@string/address_book_context_edit_title"
         android:titleCondensed="@string/button_edit"/>
     <item
         android:id="@+id/wallet_addresses_context_copy_to_clipboard"
         android:icon="@drawable/ic_content_copy_white_24dp"
-        android:showAsAction="ifRoom|withText"
+        android:showAsAction="ifRoom"
         android:title="@string/address_book_context_copy_to_clipboard_title"
         android:titleCondensed="@string/button_copy"/>
     <item
         android:id="@+id/wallet_addresses_context_show_qr"
         android:icon="@drawable/ic_qrcode_white_24dp"
-        android:showAsAction="ifRoom|withText"
+        android:showAsAction="ifRoom"
         android:title="@string/action_show_qr"/>
     <item
         android:id="@+id/wallet_addresses_context_browse"
         android:icon="@drawable/ic_open_in_browser_white_24dp"
-        android:showAsAction="ifRoom|withText"
+        android:showAsAction="ifRoom"
         android:title="@string/action_browse"/>
 
 </menu>

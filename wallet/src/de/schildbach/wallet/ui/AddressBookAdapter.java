@@ -18,11 +18,17 @@
 package de.schildbach.wallet.ui;
 
 import android.content.Context;
+import android.os.Build;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toolbar;
 import androidx.annotation.ColorInt;
+import androidx.annotation.Dimension;
 import androidx.annotation.MainThread;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
@@ -33,6 +39,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.R;
 import de.schildbach.wallet.addressbook.AddressBookEntry;
+import de.schildbach.wallet.util.Toolbars;
 import de.schildbach.wallet.util.WalletUtils;
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.ECKey;
@@ -150,18 +157,25 @@ public class AddressBookAdapter extends ListAdapter<AddressBookAdapter.ListItem,
     }
 
     private final LayoutInflater inflater;
+    private final MenuInflater menuInflater;
     private final String labelUnlabeled;
+    @Dimension
     private final int cardElevationSelected;
+    @ColorInt
+    private final int colorInsignificant;
 
     @Nullable
     private final OnClickListener onClickListener;
+    @Nullable
+    private final ContextMenuCallback contextMenuCallback;
     @Nullable
     private Address selectedAddress;
 
     private static final int VIEW_TYPE_ADDRESS = 0;
     private static final int VIEW_TYPE_SEPARATOR = 1;
 
-    public AddressBookAdapter(final Context context, @Nullable final OnClickListener onClickListener) {
+    public AddressBookAdapter(final Context context, @Nullable final OnClickListener onClickListener,
+                              @Nullable final ContextMenuCallback contextMenuCallback) {
         super(new DiffUtil.ItemCallback<ListItem>() {
             @Override
             public boolean areItemsTheSame(final ListItem oldItem, final ListItem newItem) {
@@ -201,8 +215,11 @@ public class AddressBookAdapter extends ListAdapter<AddressBookAdapter.ListItem,
         });
 
         this.inflater = LayoutInflater.from(context);
+        this.menuInflater = new MenuInflater(context);
+        this.contextMenuCallback = contextMenuCallback;
         this.labelUnlabeled = context.getString(R.string.address_unlabeled);
         this.cardElevationSelected = context.getResources().getDimensionPixelOffset(R.dimen.card_elevation_selected);
+        this.colorInsignificant = ContextCompat.getColor(context, R.color.fg_insignificant);
         this.onClickListener = onClickListener;
 
         setHasStableIds(true);
@@ -285,6 +302,16 @@ public class AddressBookAdapter extends ListAdapter<AddressBookAdapter.ListItem,
             if (onClickListener != null)
                 addressHolder.itemView.setOnClickListener(v -> onClickListener.onAddressClick(v, addressItem.address,
                         addressItem.label));
+            if (contextMenuCallback != null && isSelected) {
+                contextMenuCallback.onInflateContextMenu(menuInflater, addressHolder.contextBar.getMenu());
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
+                    Toolbars.colorize(addressHolder.contextBar, colorInsignificant);
+                addressHolder.contextBar.setVisibility(View.VISIBLE);
+                addressHolder.contextBar.setOnMenuItemClickListener(item ->
+                        contextMenuCallback.onContextMenuItemClicked(item, addressItem.address, addressItem.label));
+            } else {
+                addressHolder.contextBar.setVisibility(View.GONE);
+            }
         } else if (holder instanceof SeparatorViewHolder) {
             final SeparatorViewHolder separatorHolder = (SeparatorViewHolder) holder;
             final ListItem.SeparatorItem separatorItem = (ListItem.SeparatorItem) listItem;
@@ -296,16 +323,24 @@ public class AddressBookAdapter extends ListAdapter<AddressBookAdapter.ListItem,
         void onAddressClick(View view, Address address, @Nullable String label);
     }
 
+    public interface ContextMenuCallback {
+        void onInflateContextMenu(MenuInflater inflater, Menu menu);
+
+        boolean onContextMenuItemClicked(MenuItem item, Address address, @Nullable String label);
+    }
+
     public static class AddressViewHolder extends RecyclerView.ViewHolder {
         private final TextView label;
         private final TextView address;
         private final TextView message;
+        private final Toolbar contextBar;
 
         private AddressViewHolder(final View itemView) {
             super(itemView);
             label = itemView.findViewById(R.id.address_book_row_label);
             address = itemView.findViewById(R.id.address_book_row_address);
             message = itemView.findViewById(R.id.address_book_row_message);
+            contextBar = itemView.findViewById(R.id.address_book_row_context_bar);
         }
     }
 

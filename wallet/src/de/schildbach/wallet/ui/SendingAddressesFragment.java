@@ -22,7 +22,6 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -52,7 +51,8 @@ import org.slf4j.LoggerFactory;
 /**
  * @author Andreas Schildbach
  */
-public final class SendingAddressesFragment extends Fragment implements AddressBookAdapter.OnClickListener {
+public final class SendingAddressesFragment extends Fragment implements AddressBookAdapter.OnClickListener,
+        AddressBookAdapter.ContextMenuCallback {
     private AbstractWalletActivity activity;
     private AddressBookDao addressBookDao;
     private ClipboardManager clipboardManager;
@@ -108,7 +108,7 @@ public final class SendingAddressesFragment extends Fragment implements AddressB
             }
         });
 
-        adapter = new AddressBookAdapter(activity, this);
+        adapter = new AddressBookAdapter(activity, this, this);
     }
 
     @Nullable
@@ -126,66 +126,37 @@ public final class SendingAddressesFragment extends Fragment implements AddressB
     @Override
     public void onAddressClick(final View view, final Address address, final String label) {
         activityViewModel.selectedAddress.setValue(address);
-        activity.startActionMode(new ActionMode.Callback() {
-            @Override
-            public boolean onCreateActionMode(final ActionMode mode, final Menu menu) {
-                final MenuInflater inflater = mode.getMenuInflater();
-                inflater.inflate(R.menu.sending_addresses_context, menu);
-                return true;
-            }
-
-            @Override
-            public boolean onPrepareActionMode(final ActionMode mode, final Menu menu) {
-                mode.setTitle(label);
-                return true;
-            }
-
-            @Override
-            public boolean onActionItemClicked(final ActionMode mode, final MenuItem item) {
-                int itemId = item.getItemId();
-                if (itemId == R.id.sending_addresses_context_send) {
-                    handleSend(address, label);
-                    mode.finish();
-                    return true;
-                } else if (itemId == R.id.sending_addresses_context_edit) {
-                    viewModel.showEditAddressBookEntryDialog.setValue(new Event<>(address));
-                    mode.finish();
-                    return true;
-                } else if (itemId == R.id.sending_addresses_context_remove) {
-                    handleRemove(address);
-                    mode.finish();
-                    return true;
-                } else if (itemId == R.id.sending_addresses_context_show_qr) {
-                    final String uri = BitcoinURI.convertToBitcoinURI(Constants.NETWORK_PARAMETERS,
-                            address.toString(), null, label, null);
-                    viewModel.showBitmapDialog.setValue(new Event<>(Qr.bitmap(uri)));
-                    mode.finish();
-                    return true;
-                } else if (itemId == R.id.sending_addresses_context_copy_to_clipboard) {
-                    handleCopyToClipboard(address);
-                    mode.finish();
-                    return true;
-                }
-                return false;
-            }
-
-            @Override
-            public void onDestroyActionMode(final ActionMode mode) {
-            }
-        });
     }
 
-    private void handleSend(final Address address, final String label) {
-        SendCoinsActivity.start(activity, PaymentIntent.fromAddress(address, label));
+    @Override
+    public void onInflateContextMenu(final MenuInflater inflater, final Menu menu) {
+        inflater.inflate(R.menu.sending_addresses_context, menu);
     }
 
-    private void handleRemove(final Address address) {
-        addressBookDao.delete(address.toString());
-    }
-
-    private void handleCopyToClipboard(final Address address) {
-        clipboardManager.setPrimaryClip(ClipData.newPlainText("Bitcoin address", address.toString()));
-        log.info("sending address copied to clipboard: {}", address);
-        new Toast(activity).toast(R.string.wallet_address_fragment_clipboard_msg);
+    @Override
+    public boolean onContextMenuItemClicked(final MenuItem item, final Address address, final String label) {
+        int itemId = item.getItemId();
+        if (itemId == R.id.sending_addresses_context_send) {
+            SendCoinsActivity.start(activity, PaymentIntent.fromAddress(address, label));
+            return true;
+        } else if (itemId == R.id.sending_addresses_context_edit) {
+            viewModel.showEditAddressBookEntryDialog.setValue(new Event<>(address));
+            return true;
+        } else if (itemId == R.id.sending_addresses_context_remove) {
+            addressBookDao.delete(address.toString());
+            return true;
+        } else if (itemId == R.id.sending_addresses_context_show_qr) {
+            final String uri = BitcoinURI.convertToBitcoinURI(Constants.NETWORK_PARAMETERS,
+                    address.toString(), null, label, null);
+            viewModel.showBitmapDialog.setValue(new Event<>(Qr.bitmap(uri)));
+            return true;
+        } else if (itemId == R.id.sending_addresses_context_copy_to_clipboard) {
+            clipboardManager.setPrimaryClip(ClipData.newPlainText("Bitcoin address", address.toString()));
+            log.info("sending address copied to clipboard: {}", address);
+            new Toast(activity).toast(R.string.wallet_address_fragment_clipboard_msg);
+            return true;
+        } else {
+            return false;
+        }
     }
 }

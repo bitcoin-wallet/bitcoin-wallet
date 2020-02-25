@@ -23,7 +23,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -45,7 +44,6 @@ import de.schildbach.wallet.addressbook.AddressBookDatabase;
 import de.schildbach.wallet.addressbook.AddressBookEntry;
 import de.schildbach.wallet.util.Qr;
 import de.schildbach.wallet.util.Toast;
-import de.schildbach.wallet.util.WalletUtils;
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.LegacyAddress;
 import org.bitcoinj.uri.BitcoinURI;
@@ -58,7 +56,8 @@ import java.util.Locale;
 /**
  * @author Andreas Schildbach
  */
-public final class WalletAddressesFragment extends Fragment implements AddressBookAdapter.OnClickListener {
+public final class WalletAddressesFragment extends Fragment implements AddressBookAdapter.OnClickListener,
+        AddressBookAdapter.ContextMenuCallback {
     private WalletApplication application;
     private AbstractWalletActivity activity;
     private AddressBookDao addressBookDao;
@@ -114,7 +113,7 @@ public final class WalletAddressesFragment extends Fragment implements AddressBo
             }
         });
 
-        adapter = new AddressBookAdapter(activity, this);
+        adapter = new AddressBookAdapter(activity, this, this);
     }
 
     @Nullable
@@ -142,63 +141,41 @@ public final class WalletAddressesFragment extends Fragment implements AddressBo
     @Override
     public void onAddressClick(final View view, final Address address, final String label) {
         activityViewModel.selectedAddress.setValue(address);
-        activity.startActionMode(new ActionMode.Callback() {
-            @Override
-            public boolean onCreateActionMode(final ActionMode mode, final Menu menu) {
-                final MenuInflater inflater = mode.getMenuInflater();
-                inflater.inflate(R.menu.wallet_addresses_context, menu);
-                menu.findItem(R.id.wallet_addresses_context_browse).setVisible(Constants.ENABLE_BROWSE);
-                return true;
-            }
+    }
 
-            @Override
-            public boolean onPrepareActionMode(final ActionMode mode, final Menu menu) {
-                final String label = addressBookDao.resolveLabel(address.toString());
-                mode.setTitle(label != null ? label : WalletUtils.formatAddress(address,
-                        Constants.ADDRESS_FORMAT_GROUP_SIZE, 0));
-                return true;
-            }
+    @Override
+    public void onInflateContextMenu(final MenuInflater inflater, final Menu menu) {
+        inflater.inflate(R.menu.wallet_addresses_context, menu);
+        menu.findItem(R.id.wallet_addresses_context_browse).setVisible(Constants.ENABLE_BROWSE);
+    }
 
-            @Override
-            public boolean onActionItemClicked(final ActionMode mode, final MenuItem item) {
-                int itemId = item.getItemId();
-                if (itemId == R.id.wallet_addresses_context_edit) {
-                    viewModel.showEditAddressBookEntryDialog.setValue(new Event<>(address));
-                    mode.finish();
-                    return true;
-                } else if (itemId == R.id.wallet_addresses_context_show_qr) {
-                    final String ownName = viewModel.ownName.getValue();
-                    final String uri;
-                    if (address instanceof LegacyAddress || ownName != null)
-                        uri = BitcoinURI.convertToBitcoinURI(address, null, ownName, null);
-                    else
-                        uri = address.toString().toUpperCase(Locale.US);
-                    viewModel.showBitmapDialog.setValue(new Event<>(Qr.bitmap(uri)));
-                    mode.finish();
-                    return true;
-                } else if (itemId == R.id.wallet_addresses_context_copy_to_clipboard) {
-                    handleCopyToClipboard(address);
-                    mode.finish();
-                    return true;
-                } else if (itemId == R.id.wallet_addresses_context_browse) {
-                    final Uri blockExplorerUri = application.getConfiguration().getBlockExplorer();
-                    log.info("Viewing address {} on {}", address, blockExplorerUri);
-                    activity.startExternalDocument(Uri.withAppendedPath(blockExplorerUri, "address/" + address));
-                    mode.finish();
-                    return true;
-                }
-                return false;
-            }
-
-            @Override
-            public void onDestroyActionMode(final ActionMode mode) {
-            }
-
-            private void handleCopyToClipboard(final Address address) {
-                clipboardManager.setPrimaryClip(ClipData.newPlainText("Bitcoin address", address.toString()));
-                log.info("wallet address copied to clipboard: {}", address);
-                new Toast(activity).toast(R.string.wallet_address_fragment_clipboard_msg);
-            }
-        });
+    @Override
+    public boolean onContextMenuItemClicked(final MenuItem item, final Address address, final String label) {
+        int itemId = item.getItemId();
+        if (itemId == R.id.wallet_addresses_context_edit) {
+            viewModel.showEditAddressBookEntryDialog.setValue(new Event<>(address));
+            return true;
+        } else if (itemId == R.id.wallet_addresses_context_show_qr) {
+            final String ownName = viewModel.ownName.getValue();
+            final String uri;
+            if (address instanceof LegacyAddress || ownName != null)
+                uri = BitcoinURI.convertToBitcoinURI(address, null, ownName, null);
+            else
+                uri = address.toString().toUpperCase(Locale.US);
+            viewModel.showBitmapDialog.setValue(new Event<>(Qr.bitmap(uri)));
+            return true;
+        } else if (itemId == R.id.wallet_addresses_context_copy_to_clipboard) {
+            clipboardManager.setPrimaryClip(ClipData.newPlainText("Bitcoin address", address.toString()));
+            log.info("wallet address copied to clipboard: {}", address);
+            new Toast(activity).toast(R.string.wallet_address_fragment_clipboard_msg);
+            return true;
+        } else if (itemId == R.id.wallet_addresses_context_browse) {
+            final Uri blockExplorerUri = application.getConfiguration().getBlockExplorer();
+            log.info("Viewing address {} on {}", address, blockExplorerUri);
+            activity.startExternalDocument(Uri.withAppendedPath(blockExplorerUri, "address/" + address));
+            return true;
+        } else {
+            return false;
+        }
     }
 }

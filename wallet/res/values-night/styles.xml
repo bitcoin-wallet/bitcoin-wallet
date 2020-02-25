@@ -4,7 +4,6 @@
     <style name="My.Theme" parent="@android:style/Theme.Material">
         <item name="android:actionBarTheme">@style/My.ThemeOverlay.ActionBar</item>
         <item name="android:actionBarStyle">@style/My.Widget.ActionBar</item>
-        <item name="android:actionModeStyle">@style/My.Widget.ActionMode</item>
         <item name="android:actionMenuTextColor">@color/fg_on_dark_bg_network</item>
         <item name="android:actionButtonStyle">@style/My.Widget.ActionButton</item>
         <item name="android:actionOverflowButtonStyle">@style/My.Widget.ActionButton.Overflow</item>
@@ -27,12 +26,6 @@
         <item name="android:titleTextStyle">@style/My.TextAppearance.Widget.ActionBar.Title</item>
         <item name="android:subtitleTextStyle">@style/My.TextAppearance.Widget.ActionBar.Subtitle</item>
         <item name="android:displayOptions">showTitle</item>
-    </style>
-
-    <style name="My.Widget.ActionMode" parent="@android:style/Widget.Material.ActionMode">
-        <item name="android:background">@drawable/action_mode_background</item>
-        <item name="android:titleTextStyle">@style/My.TextAppearance.Widget.ActionMode.Title</item>
-        <item name="android:subtitleTextStyle">@style/My.TextAppearance.Widget.ActionMode.Subtitle</item>
     </style>
 
     <style name="My.Widget.TextView" parent="@android:style/Widget.Material.TextView">
