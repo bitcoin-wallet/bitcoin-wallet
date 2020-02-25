@@ -175,7 +175,7 @@ public class WalletTransactionsFragment extends Fragment implements Transactions
         recyclerView.setAdapter(adapter);
         recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
             private final int PADDING = 2
-                    * activity.getResources().getDimensionPixelOffset(R.dimen.card_padding_vertical);
+                    * activity.getResources().getDimensionPixelOffset(R.dimen.card_margin_vertical);
 
             @Override
             public void getItemOffsets(final Rect outRect, final View view, final RecyclerView parent,
