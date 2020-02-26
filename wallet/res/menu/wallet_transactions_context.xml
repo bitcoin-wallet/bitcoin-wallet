@@ -22,7 +22,8 @@
         android:title="@string/preferences_report_issue_title"/>
     <item
         android:id="@+id/wallet_transactions_context_browse"
-        android:showAsAction="never"
+        android:icon="@drawable/ic_open_in_browser_white_24dp"
+        android:showAsAction="ifRoom|withText"
         android:title="@string/action_browse"/>
 
 </menu>
