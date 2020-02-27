@@ -1,3 +1,7 @@
+v7.57
+
+* Visual overhaul of the address book.
+
 v7.56
 
 * Remove the ability to directly add an address to the address book from the clipboard due to safety concerns.
