@@ -24,6 +24,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 
+import com.google.common.hash.HashFunction;
+import com.google.common.hash.Hashing;
 import org.bitcoinj.core.Peer;
 import org.bitcoinj.core.VersionMessage;
 
@@ -53,7 +55,9 @@ public class PeerListAdapter extends ListAdapter<PeerListAdapter.ListItem, PeerL
 
     public static class ListItem {
         public ListItem(final Context context, final Peer peer, final Map<InetAddress, String> hostnames) {
-            this.ip = peer.getAddress().getAddr();
+            final InetAddress ip = peer.getAddress().getAddr();
+            this.id = id(ip);
+            this.ip = ip;
             this.hostname = hostnames.get(ip);
             this.height = peer.getBestHeight();
             final VersionMessage versionMessage = peer.getPeerVersionMessage();
@@ -66,7 +70,17 @@ public class PeerListAdapter extends ListAdapter<PeerListAdapter.ListItem, PeerL
             this.isDownloading = peer.isDownloadData();
         }
 
+        private static long id(final InetAddress ip) {
+            return ID_HASH.newHasher().putBytes(ip.getAddress()).hash().asLong();
+        }
+
+        private static final HashFunction ID_HASH = Hashing.farmHashFingerprint64();
+
+        // internal item id
+        public final long id;
+        // external item id
         public final InetAddress ip;
+
         public final String hostname;
         public final long height;
         public final String version;
@@ -82,7 +96,7 @@ public class PeerListAdapter extends ListAdapter<PeerListAdapter.ListItem, PeerL
         super(new DiffUtil.ItemCallback<ListItem>() {
             @Override
             public boolean areItemsTheSame(final ListItem oldItem, final ListItem newItem) {
-                return oldItem.ip.equals(newItem.ip);
+                return oldItem.id == newItem.id;
             }
 
             @Override
@@ -98,6 +112,14 @@ public class PeerListAdapter extends ListAdapter<PeerListAdapter.ListItem, PeerL
         });
 
         this.inflater = LayoutInflater.from(context);
+
+        setHasStableIds(true);
+    }
+
+    @Override
+    public long getItemId(final int position) {
+        final ListItem listItem = getItem(position);
+        return listItem.id;
     }
 
     @Override
