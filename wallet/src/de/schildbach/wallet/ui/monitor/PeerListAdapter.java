@@ -19,6 +19,7 @@ package de.schildbach.wallet.ui.monitor;
 
 import java.net.InetAddress;
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -37,6 +38,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
@@ -102,6 +104,10 @@ public class PeerListAdapter extends ListAdapter<PeerListAdapter.ListItem, PeerL
 
     private final LayoutInflater inflater;
 
+    private enum ChangeType {
+        HOST, PING, DOWNLOADING
+    }
+
     public PeerListAdapter(final Context context) {
         super(new DiffUtil.ItemCallback<ListItem>() {
             @Override
@@ -118,6 +124,19 @@ public class PeerListAdapter extends ListAdapter<PeerListAdapter.ListItem, PeerL
                 if (!Objects.equals(oldItem.isDownloading, newItem.isDownloading))
                     return false;
                 return true;
+            }
+
+            @Nullable
+            @Override
+            public Object getChangePayload(final ListItem oldItem, final ListItem newItem) {
+                final EnumSet<ChangeType> changes = EnumSet.noneOf(ChangeType.class);
+                if (!Objects.equals(oldItem.host, newItem.host))
+                    changes.add(ChangeType.HOST);
+                if (!Objects.equals(oldItem.ping, newItem.ping))
+                    changes.add(ChangeType.PING);
+                if (!Objects.equals(oldItem.isDownloading, newItem.isDownloading))
+                    changes.add(ChangeType.DOWNLOADING);
+                return changes;
             }
         });
 
@@ -139,18 +158,34 @@ public class PeerListAdapter extends ListAdapter<PeerListAdapter.ListItem, PeerL
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void onBindViewHolder(final ViewHolder holder, final int position, final List<Object> payloads) {
+        final boolean fullBind = payloads.isEmpty();
+        final EnumSet<ChangeType> changes = EnumSet.noneOf(ChangeType.class);
+        for (final Object payload : payloads)
+            changes.addAll((EnumSet<ChangeType>) payload);
+
         final ListItem listItem = getItem(position);
-        holder.hostView.setText(listItem.host);
-        holder.heightView.setText(listItem.height > 0 ? listItem.height + " blocks" : null);
-        holder.heightView.setTypeface(listItem.isDownloading ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);
-        holder.versionView.setText(listItem.version);
-        holder.versionView.setTypeface(listItem.isDownloading ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);
-        holder.protocolView.setText(listItem.protocol);
-        holder.protocolView.setTypeface(listItem.isDownloading ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);
-        holder.servicesView.setText(listItem.services);
-        holder.servicesView.setTypeface(listItem.isDownloading ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);
-        holder.pingView.setText(listItem.ping);
-        holder.pingView.setTypeface(listItem.isDownloading ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);
+        if (fullBind || changes.contains(ChangeType.HOST) || changes.contains(ChangeType.DOWNLOADING)) {
+            holder.hostView.setText(listItem.host);
+        }
+        if (fullBind || changes.contains(ChangeType.DOWNLOADING)) {
+            holder.heightView.setText(listItem.height > 0 ? listItem.height + " blocks" : null);
+            holder.heightView.setTypeface(listItem.isDownloading ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);
+            holder.versionView.setText(listItem.version);
+            holder.versionView.setTypeface(listItem.isDownloading ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);
+            holder.protocolView.setText(listItem.protocol);
+            holder.protocolView.setTypeface(listItem.isDownloading ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);
+            holder.servicesView.setText(listItem.services);
+            holder.servicesView.setTypeface(listItem.isDownloading ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);
+        }
+        if (fullBind || changes.contains(ChangeType.PING) || changes.contains(ChangeType.DOWNLOADING)) {
+            holder.pingView.setText(listItem.ping);
+            holder.pingView.setTypeface(listItem.isDownloading ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);
+        }
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
