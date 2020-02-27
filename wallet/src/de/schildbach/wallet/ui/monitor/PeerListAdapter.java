@@ -33,12 +33,14 @@ import org.bitcoinj.core.VersionMessage;
 import de.schildbach.wallet.R;
 
 import android.content.Context;
-import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
@@ -62,8 +64,14 @@ public class PeerListAdapter extends ListAdapter<PeerListAdapter.ListItem, PeerL
             final long pingTime = peer.getPingTime();
             final String ping = pingTime < Long.MAX_VALUE ?
                     context.getString(R.string.peer_list_row_ping_time, pingTime) : null;
-            final boolean isDownloading = peer.isDownloadData();
-            items.add(new ListItem(ip, host, height, version, protocol, services, ping, isDownloading));
+            final Drawable icon;
+            if (peer.isDownloadData()) {
+                icon = context.getDrawable(R.drawable.ic_sync_white_24dp);
+                icon.setTint(ContextCompat.getColor(context, R.color.fg_significant));
+            } else {
+                icon = null;
+            }
+            items.add(new ListItem(ip, host, height, version, protocol, services, ping, icon));
         }
         return items;
     }
@@ -80,10 +88,10 @@ public class PeerListAdapter extends ListAdapter<PeerListAdapter.ListItem, PeerL
         public final String protocol;
         public final String services;
         public final String ping;
-        public final boolean isDownloading;
+        public final Drawable icon;
 
         public ListItem(final InetAddress ip, final String host, final long height, final String version,
-                        final String protocol, final String services, final String ping, final boolean isDownloading) {
+                        final String protocol, final String services, final String ping, final Drawable icon) {
             this.id = id(ip);
             this.ip = ip;
             this.host = host;
@@ -92,7 +100,7 @@ public class PeerListAdapter extends ListAdapter<PeerListAdapter.ListItem, PeerL
             this.protocol = protocol;
             this.services = services;
             this.ping = ping;
-            this.isDownloading = isDownloading;
+            this.icon = icon;
         }
 
         private static long id(final InetAddress ip) {
@@ -105,7 +113,7 @@ public class PeerListAdapter extends ListAdapter<PeerListAdapter.ListItem, PeerL
     private final LayoutInflater inflater;
 
     private enum ChangeType {
-        HOST, PING, DOWNLOADING
+        HOST, PING, ICON
     }
 
     public PeerListAdapter(final Context context) {
@@ -121,7 +129,7 @@ public class PeerListAdapter extends ListAdapter<PeerListAdapter.ListItem, PeerL
                     return false;
                 if (!Objects.equals(oldItem.ping, newItem.ping))
                     return false;
-                if (!Objects.equals(oldItem.isDownloading, newItem.isDownloading))
+                if (!Objects.equals(oldItem.icon, newItem.icon))
                     return false;
                 return true;
             }
@@ -134,8 +142,8 @@ public class PeerListAdapter extends ListAdapter<PeerListAdapter.ListItem, PeerL
                     changes.add(ChangeType.HOST);
                 if (!Objects.equals(oldItem.ping, newItem.ping))
                     changes.add(ChangeType.PING);
-                if (!Objects.equals(oldItem.isDownloading, newItem.isDownloading))
-                    changes.add(ChangeType.DOWNLOADING);
+                if (!Objects.equals(oldItem.icon, newItem.icon))
+                    changes.add(ChangeType.ICON);
                 return changes;
             }
         });
@@ -169,22 +177,20 @@ public class PeerListAdapter extends ListAdapter<PeerListAdapter.ListItem, PeerL
             changes.addAll((EnumSet<ChangeType>) payload);
 
         final ListItem listItem = getItem(position);
-        if (fullBind || changes.contains(ChangeType.HOST) || changes.contains(ChangeType.DOWNLOADING)) {
+        if (fullBind || changes.contains(ChangeType.HOST)) {
             holder.hostView.setText(listItem.host);
         }
-        if (fullBind || changes.contains(ChangeType.DOWNLOADING)) {
+        if (fullBind) {
             holder.heightView.setText(listItem.height > 0 ? listItem.height + " blocks" : null);
-            holder.heightView.setTypeface(listItem.isDownloading ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);
             holder.versionView.setText(listItem.version);
-            holder.versionView.setTypeface(listItem.isDownloading ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);
             holder.protocolView.setText(listItem.protocol);
-            holder.protocolView.setTypeface(listItem.isDownloading ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);
             holder.servicesView.setText(listItem.services);
-            holder.servicesView.setTypeface(listItem.isDownloading ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);
         }
-        if (fullBind || changes.contains(ChangeType.PING) || changes.contains(ChangeType.DOWNLOADING)) {
+        if (fullBind || changes.contains(ChangeType.PING)) {
             holder.pingView.setText(listItem.ping);
-            holder.pingView.setTypeface(listItem.isDownloading ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);
+        }
+        if (fullBind || changes.contains(ChangeType.ICON)) {
+            holder.iconView.setImageDrawable(listItem.icon);
         }
     }
 
@@ -195,6 +201,7 @@ public class PeerListAdapter extends ListAdapter<PeerListAdapter.ListItem, PeerL
         private final TextView protocolView;
         private final TextView servicesView;
         private final TextView pingView;
+        private final ImageView iconView;
 
         private ViewHolder(final View itemView) {
             super(itemView);
@@ -204,6 +211,7 @@ public class PeerListAdapter extends ListAdapter<PeerListAdapter.ListItem, PeerL
             protocolView = itemView.findViewById(R.id.peer_list_row_protocol);
             servicesView = itemView.findViewById(R.id.peer_list_row_services);
             pingView = itemView.findViewById(R.id.peer_list_row_ping);
+            iconView = itemView.findViewById(R.id.peer_list_row_icon);
         }
     }
 }
