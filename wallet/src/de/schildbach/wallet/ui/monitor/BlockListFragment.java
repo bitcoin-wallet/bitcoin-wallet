@@ -35,7 +35,6 @@ import de.schildbach.wallet.R;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.addressbook.AddressBookEntry;
 import de.schildbach.wallet.ui.AbstractWalletActivity;
-import de.schildbach.wallet.ui.DividerItemDecoration;
 import de.schildbach.wallet.ui.StickToTopLinearLayoutManager;
 
 import android.content.Context;
@@ -64,6 +63,7 @@ public final class BlockListFragment extends Fragment implements BlockListAdapte
     private RecyclerView recyclerView;
     private BlockListAdapter adapter;
 
+    private NetworkMonitorViewModel activityViewModel;
     private BlockListViewModel viewModel;
 
     private static final Logger log = LoggerFactory.getLogger(BlockListFragment.class);
@@ -79,6 +79,18 @@ public final class BlockListFragment extends Fragment implements BlockListAdapte
     @Override
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        activityViewModel = new ViewModelProvider(activity).get(NetworkMonitorViewModel.class);
+        activityViewModel.selectedItem.observe(this, item -> {
+            if (item instanceof Sha256Hash) {
+                final Sha256Hash blockHash = (Sha256Hash) item;
+                adapter.setSelectedBlock(blockHash);
+                final int position = adapter.positionOf(blockHash);
+                if (position != RecyclerView.NO_POSITION)
+                    recyclerView.smoothScrollToPosition(position);
+            } else {
+                adapter.setSelectedBlock(null);
+            }
+        });
         viewModel = new ViewModelProvider(this).get(BlockListViewModel.class);
         viewModel.blocks.observe(this, blocks -> {
             maybeSubmitList();
@@ -96,14 +108,10 @@ public final class BlockListFragment extends Fragment implements BlockListAdapte
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
             final Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.block_list_fragment, container, false);
-
         viewGroup = view.findViewById(R.id.block_list_group);
-
         recyclerView = view.findViewById(R.id.block_list);
         recyclerView.setLayoutManager(new StickToTopLinearLayoutManager(activity));
         recyclerView.setAdapter(adapter);
-        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST));
-
         return view;
     }
 
@@ -115,6 +123,11 @@ public final class BlockListFragment extends Fragment implements BlockListAdapte
                     config.getFormat(), viewModel.getTransactions().getValue(), viewModel.getWallet().getValue(),
                     addressBook));
         }
+    }
+
+    @Override
+    public void onBlockClick(final View view, final Sha256Hash blockHash) {
+        activityViewModel.selectedItem.setValue(blockHash);
     }
 
     @Override

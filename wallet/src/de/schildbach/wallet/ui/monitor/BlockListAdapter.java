@@ -25,7 +25,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import androidx.annotation.Dimension;
+import androidx.annotation.MainThread;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
@@ -206,21 +209,27 @@ public class BlockListAdapter extends ListAdapter<BlockListAdapter.ListItem, Rec
     }
 
     public interface OnClickListener {
+        void onBlockClick(View view, Sha256Hash blockHash);
+
         void onBlockMenuClick(View view, Sha256Hash blockHash);
     }
 
-    private static final int ROW_BASE_CHILD_COUNT = 2;
-    private static final int ROW_INSERT_INDEX = 1;
-
     private final LayoutInflater inflater;
+    @Dimension
+    private final int cardElevationSelected;
     @Nullable
     private final OnClickListener onClickListener;
+    @Nullable
+    private Sha256Hash selectedBlockHash;
 
     private static final int VIEW_TYPE_BLOCK = 0;
     private static final int VIEW_TYPE_SEPARATOR = 1;
 
+    private static final int ROW_BASE_CHILD_COUNT = 2;
+    private static final int ROW_INSERT_INDEX = 1;
+
     private enum ChangeType {
-        TIME, TRANSACTIONS
+        TIME, TRANSACTIONS, SELECTION
     }
 
     public BlockListAdapter(final Context context, final @Nullable OnClickListener onClickListener) {
@@ -257,10 +266,35 @@ public class BlockListAdapter extends ListAdapter<BlockListAdapter.ListItem, Rec
             }
         });
 
-        inflater = LayoutInflater.from(context);
+        this.inflater = LayoutInflater.from(context);
+        this.cardElevationSelected = context.getResources().getDimensionPixelOffset(R.dimen.card_elevation_selected);
         this.onClickListener = onClickListener;
 
         setHasStableIds(true);
+    }
+
+    @MainThread
+    public void setSelectedBlock(final Sha256Hash newSelectedBlockHash) {
+        if (Objects.equals(newSelectedBlockHash, selectedBlockHash))
+            return;
+        if (selectedBlockHash != null)
+            notifyItemChanged(positionOf(selectedBlockHash), EnumSet.of(ChangeType.SELECTION));
+        if (newSelectedBlockHash != null)
+            notifyItemChanged(positionOf(newSelectedBlockHash), EnumSet.of(ChangeType.SELECTION));
+        this.selectedBlockHash = newSelectedBlockHash;
+    }
+
+    @MainThread
+    public int positionOf(final Sha256Hash blockHash) {
+        if (blockHash != null) {
+            final List<ListItem> list = getCurrentList();
+            for (int i = 0; i < list.size(); i++) {
+                final ListItem item = list.get(i);
+                if (item instanceof ListItem.BlockItem && ((ListItem.BlockItem) item).blockHash.equals(blockHash))
+                    return i;
+            }
+        }
+        return RecyclerView.NO_POSITION;
     }
 
     @Override
@@ -307,6 +341,11 @@ public class BlockListAdapter extends ListAdapter<BlockListAdapter.ListItem, Rec
         if (holder instanceof BlockViewHolder) {
             final BlockViewHolder blockHolder = (BlockViewHolder) holder;
             final ListItem.BlockItem blockItem = (ListItem.BlockItem) listItem;
+            if (fullBind || changes.contains(ChangeType.SELECTION)) {
+                final boolean isSelected = ((ListItem.BlockItem) listItem).blockHash.equals(selectedBlockHash);
+                holder.itemView.setSelected(isSelected);
+                ((CardView) holder.itemView).setCardElevation(isSelected ? cardElevationSelected : 0);
+            }
             if (fullBind || changes.contains(ChangeType.TIME)) {
                 blockHolder.timeView.setText(blockItem.time);
             }
@@ -319,7 +358,8 @@ public class BlockListAdapter extends ListAdapter<BlockListAdapter.ListItem, Rec
                     if (iTransactionView < transactionChildCount) {
                         view = blockHolder.transactionsViewGroup.getChildAt(ROW_INSERT_INDEX + iTransactionView);
                     } else {
-                        view = inflater.inflate(R.layout.block_row_transaction, null);
+                        view = inflater.inflate(R.layout.block_row_transaction, blockHolder.transactionsViewGroup,
+                                false);
                         blockHolder.transactionsViewGroup.addView(view, ROW_INSERT_INDEX + iTransactionView);
                     }
                     bindTransactionView(view, blockItem.format, tx);
@@ -335,9 +375,11 @@ public class BlockListAdapter extends ListAdapter<BlockListAdapter.ListItem, Rec
                 blockHolder.hashView.setText(WalletUtils.formatHash(null, blockItem.blockHash.toString(), 8, 0, ' '));
 
                 final OnClickListener onClickListener = this.onClickListener;
-                if (onClickListener != null)
+                if (onClickListener != null) {
+                    holder.itemView.setOnClickListener(v -> onClickListener.onBlockClick(v, blockItem.blockHash));
                     blockHolder.menuView.setOnClickListener(v -> onClickListener.onBlockMenuClick(v,
                             blockItem.blockHash));
+                }
             }
         } else if (holder instanceof SeparatorViewHolder) {
             final SeparatorViewHolder separatorHolder = (SeparatorViewHolder) holder;

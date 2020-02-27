@@ -39,7 +39,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import androidx.annotation.Dimension;
+import androidx.annotation.MainThread;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
@@ -110,13 +113,24 @@ public class PeerListAdapter extends ListAdapter<PeerListAdapter.ListItem, PeerL
         private static final HashFunction ID_HASH = Hashing.farmHashFingerprint64();
     }
 
-    private final LayoutInflater inflater;
-
-    private enum ChangeType {
-        HOST, PING, ICON
+    public interface OnClickListener {
+        void onPeerClick(View view, InetAddress peerIp);
     }
 
-    public PeerListAdapter(final Context context) {
+    private final LayoutInflater inflater;
+    @Dimension
+    private final int cardElevationSelected;
+
+    private enum ChangeType {
+        HOST, PING, ICON, SELECTION
+    }
+
+    @Nullable
+    private final OnClickListener onClickListener;
+    @Nullable
+    private InetAddress selectedPeerIp;
+
+    public PeerListAdapter(final Context context, @Nullable final OnClickListener onClickListener) {
         super(new DiffUtil.ItemCallback<ListItem>() {
             @Override
             public boolean areItemsTheSame(final ListItem oldItem, final ListItem newItem) {
@@ -149,8 +163,34 @@ public class PeerListAdapter extends ListAdapter<PeerListAdapter.ListItem, PeerL
         });
 
         this.inflater = LayoutInflater.from(context);
+        this.cardElevationSelected = context.getResources().getDimensionPixelOffset(R.dimen.card_elevation_selected);
+        this.onClickListener = onClickListener;
 
         setHasStableIds(true);
+    }
+
+    @MainThread
+    public void setSelectedPeer(final InetAddress newSelectedPeerIp) {
+        if (Objects.equals(newSelectedPeerIp, selectedPeerIp))
+            return;
+        if (selectedPeerIp != null)
+            notifyItemChanged(positionOf(selectedPeerIp), EnumSet.of(ChangeType.SELECTION));
+        if (newSelectedPeerIp != null)
+            notifyItemChanged(positionOf(newSelectedPeerIp), EnumSet.of(ChangeType.SELECTION));
+        this.selectedPeerIp = newSelectedPeerIp;
+    }
+
+    @MainThread
+    public int positionOf(final InetAddress peerIp) {
+        if (peerIp != null) {
+            final List<ListItem> list = getCurrentList();
+            for (int i = 0; i < list.size(); i++) {
+                final ListItem item = list.get(i);
+                if (item.ip.equals(peerIp))
+                    return i;
+            }
+        }
+        return RecyclerView.NO_POSITION;
     }
 
     @Override
@@ -177,20 +217,27 @@ public class PeerListAdapter extends ListAdapter<PeerListAdapter.ListItem, PeerL
             changes.addAll((EnumSet<ChangeType>) payload);
 
         final ListItem listItem = getItem(position);
+        if (fullBind || changes.contains(ChangeType.SELECTION)) {
+            final boolean isSelected = listItem.ip.equals(selectedPeerIp);
+            holder.itemView.setSelected(isSelected);
+            ((CardView) holder.itemView).setCardElevation(isSelected ? cardElevationSelected : 0);
+        }
         if (fullBind || changes.contains(ChangeType.HOST)) {
             holder.hostView.setText(listItem.host);
-        }
-        if (fullBind) {
-            holder.heightView.setText(listItem.height > 0 ? listItem.height + " blocks" : null);
-            holder.versionView.setText(listItem.version);
-            holder.protocolView.setText(listItem.protocol);
-            holder.servicesView.setText(listItem.services);
         }
         if (fullBind || changes.contains(ChangeType.PING)) {
             holder.pingView.setText(listItem.ping);
         }
         if (fullBind || changes.contains(ChangeType.ICON)) {
             holder.iconView.setImageDrawable(listItem.icon);
+        }
+        if (fullBind) {
+            holder.heightView.setText(listItem.height > 0 ? listItem.height + " blocks" : null);
+            holder.versionView.setText(listItem.version);
+            holder.protocolView.setText(listItem.protocol);
+            holder.servicesView.setText(listItem.services);
+            if (onClickListener != null)
+                holder.itemView.setOnClickListener(v -> onClickListener.onPeerClick(v, listItem.ip));
         }
     }
 

@@ -1,64 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/bg_level1"
-    android:orientation="vertical" >
+    android:layout_marginTop="@dimen/card_margin_vertical"
+    android:layout_marginLeft="@dimen/card_margin_horizontal"
+    android:layout_marginRight="@dimen/card_margin_horizontal"
+    app:cardCornerRadius="16dp"
+    app:cardBackgroundColor="@color/bg_list_card">
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground">
 
-        <LinearLayout
-            android:id="@+id/block_list_row_transactions_group"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingBottom="@dimen/list_entry_padding_vertical"
-            android:paddingLeft="@dimen/list_entry_padding_horizontal"
-            android:paddingRight="@dimen/list_entry_padding_horizontal"
-            android:paddingTop="@dimen/list_entry_padding_vertical" >
+            android:layout_height="wrap_content">
 
             <LinearLayout
+                android:id="@+id/block_list_row_transactions_group"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:baselineAligned="true"
-                android:orientation="horizontal"
-                android:paddingBottom="2dp" >
+                android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/block_list_row_height"
-                    android:layout_width="0px"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textStyle="bold" />
+                    android:layout_marginTop="@dimen/list_entry_padding_vertical"
+                    android:layout_marginBottom="@dimen/list_entry_padding_vertical_cram"
+                    android:layout_marginLeft="@dimen/list_entry_padding_horizontal"
+                    android:layout_marginRight="@dimen/list_entry_padding_horizontal"
+                    android:baselineAligned="true"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/block_list_row_height"
+                        android:layout_width="0px"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/block_list_row_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <Space
+                        android:layout_width="24dp"
+                        android:layout_height="0px" />
+                </LinearLayout>
 
                 <TextView
-                    android:id="@+id/block_list_row_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <Space
-                    android:layout_width="24dp"
-                    android:layout_height="0px" />
+                    android:id="@+id/block_list_row_hash"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/list_entry_padding_vertical"
+                    android:layout_marginLeft="@dimen/list_entry_padding_horizontal"
+                    android:layout_marginRight="@dimen/list_entry_padding_horizontal" />
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/block_list_row_hash"
-                android:layout_width="match_parent"
+            <ImageButton
+                android:id="@+id/block_list_row_menu"
+                style="@style/My.Widget.Button.Borderless.Small"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingTop="2dp" />
-        </LinearLayout>
-
-        <ImageButton
-            android:id="@+id/block_list_row_menu"
-            style="@style/My.Widget.Button.Borderless.Small"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top|right"
-            android:contentDescription="@string/button_options"
-            android:src="@drawable/ic_more_vert_grey600_18dp"
-            android:tint="@color/fg_insignificant"/>
-    </FrameLayout>
-
-</LinearLayout>
+                android:layout_gravity="top|right"
+                android:contentDescription="@string/button_options"
+                android:src="@drawable/ic_more_vert_grey600_18dp"
+                android:tint="@color/fg_insignificant" />
+        </FrameLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
