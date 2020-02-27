@@ -1,6 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
   <string name="toast_wallet_reset">Votre porte-monnaie a été réinitialisé !\nLa récupération prendra un certain temps.</string>
+  <string name="toast_start_external_document_failed">Aucun navigateur Web n’est installé pour ouvrir le document externe.</string>
   <string name="wallet_disclaimer_fragment_remind_safety">Utilisez à vos propres risques. Lire les &lt;u&gt;notes de sécurité&lt;/u&gt;.</string>
   <string name="wallet_disclaimer_fragment_remind_backup">Vous devez &lt;u&gt;sauvegarder votre porte-monnaie&lt;/u&gt; !</string>
   <string name="blockchain_state_progress_hours">%1$s, %2$d heures en retard</string>
