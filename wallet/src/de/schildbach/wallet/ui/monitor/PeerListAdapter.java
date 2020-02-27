@@ -48,26 +48,49 @@ public class PeerListAdapter extends ListAdapter<PeerListAdapter.ListItem, PeerL
     public static List<ListItem> buildListItems(final Context context, final List<Peer> peers,
             final Map<InetAddress, String> hostnames) {
         final List<ListItem> items = new ArrayList<>(peers.size());
-        for (final Peer peer : peers)
-            items.add(new ListItem(context, peer, hostnames));
+        for (final Peer peer : peers) {
+            final InetAddress ip = peer.getAddress().getAddr();
+            final String hostname = hostnames.get(ip);
+            final String host = hostname != null ? hostname : ip.getHostAddress();
+            final long height = peer.getBestHeight();
+            final VersionMessage versionMessage = peer.getPeerVersionMessage();
+            final String version = versionMessage.subVer;
+            final String protocol = "protocol: " + versionMessage.clientVersion;
+            final String services = peer.toStringServices(versionMessage.localServices).toLowerCase(Locale.US);
+            final long pingTime = peer.getPingTime();
+            final String ping = pingTime < Long.MAX_VALUE ?
+                    context.getString(R.string.peer_list_row_ping_time, pingTime) : null;
+            final boolean isDownloading = peer.isDownloadData();
+            items.add(new ListItem(ip, host, height, version, protocol, services, ping, isDownloading));
+        }
         return items;
     }
 
     public static class ListItem {
-        public ListItem(final Context context, final Peer peer, final Map<InetAddress, String> hostnames) {
-            final InetAddress ip = peer.getAddress().getAddr();
+        // internal item id
+        public final long id;
+        // external item id
+        public final InetAddress ip;
+
+        public final String host;
+        public final long height;
+        public final String version;
+        public final String protocol;
+        public final String services;
+        public final String ping;
+        public final boolean isDownloading;
+
+        public ListItem(final InetAddress ip, final String host, final long height, final String version,
+                        final String protocol, final String services, final String ping, final boolean isDownloading) {
             this.id = id(ip);
             this.ip = ip;
-            this.hostname = hostnames.get(ip);
-            this.height = peer.getBestHeight();
-            final VersionMessage versionMessage = peer.getPeerVersionMessage();
-            this.version = versionMessage.subVer;
-            this.protocol = "protocol: " + versionMessage.clientVersion;
-            this.services = peer.toStringServices(versionMessage.localServices).toLowerCase(Locale.US);
-            final long pingTime = peer.getPingTime();
-            this.ping = pingTime < Long.MAX_VALUE ? context.getString(R.string.peer_list_row_ping_time, pingTime)
-                    : null;
-            this.isDownloading = peer.isDownloadData();
+            this.host = host;
+            this.height = height;
+            this.version = version;
+            this.protocol = protocol;
+            this.services = services;
+            this.ping = ping;
+            this.isDownloading = isDownloading;
         }
 
         private static long id(final InetAddress ip) {
@@ -75,19 +98,6 @@ public class PeerListAdapter extends ListAdapter<PeerListAdapter.ListItem, PeerL
         }
 
         private static final HashFunction ID_HASH = Hashing.farmHashFingerprint64();
-
-        // internal item id
-        public final long id;
-        // external item id
-        public final InetAddress ip;
-
-        public final String hostname;
-        public final long height;
-        public final String version;
-        public final String protocol;
-        public final String services;
-        public final String ping;
-        public final boolean isDownloading;
     }
 
     private final LayoutInflater inflater;
@@ -101,7 +111,7 @@ public class PeerListAdapter extends ListAdapter<PeerListAdapter.ListItem, PeerL
 
             @Override
             public boolean areContentsTheSame(final ListItem oldItem, final ListItem newItem) {
-                if (!Objects.equals(oldItem.hostname, newItem.hostname))
+                if (!Objects.equals(oldItem.host, newItem.host))
                     return false;
                 if (!Objects.equals(oldItem.ping, newItem.ping))
                     return false;
@@ -130,7 +140,7 @@ public class PeerListAdapter extends ListAdapter<PeerListAdapter.ListItem, PeerL
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         final ListItem listItem = getItem(position);
-        holder.ipView.setText(listItem.hostname != null ? listItem.hostname : listItem.ip.getHostAddress());
+        holder.hostView.setText(listItem.host);
         holder.heightView.setText(listItem.height > 0 ? listItem.height + " blocks" : null);
         holder.heightView.setTypeface(listItem.isDownloading ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);
         holder.versionView.setText(listItem.version);
@@ -144,7 +154,7 @@ public class PeerListAdapter extends ListAdapter<PeerListAdapter.ListItem, PeerL
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private final TextView ipView;
+        private final TextView hostView;
         private final TextView heightView;
         private final TextView versionView;
         private final TextView protocolView;
@@ -153,7 +163,7 @@ public class PeerListAdapter extends ListAdapter<PeerListAdapter.ListItem, PeerL
 
         private ViewHolder(final View itemView) {
             super(itemView);
-            ipView = itemView.findViewById(R.id.peer_list_row_ip);
+            hostView = itemView.findViewById(R.id.peer_list_row_host);
             heightView = itemView.findViewById(R.id.peer_list_row_height);
             versionView = itemView.findViewById(R.id.peer_list_row_version);
             protocolView = itemView.findViewById(R.id.peer_list_row_protocol);
