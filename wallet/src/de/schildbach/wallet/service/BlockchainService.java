@@ -429,7 +429,7 @@ public class BlockchainService extends LifecycleService {
 
     private final SharedPreferences.OnSharedPreferenceChangeListener preferenceChangeListener =
             (sharedPreferences, key) -> {
-                if (Configuration.PREFS_KEY_TRUSTED_PEER.equals(key) || Configuration.PREFS_KEY_TRUSTED_PEER_ONLY.equals(key))
+                if (Configuration.PREFS_KEY_TRUSTED_PEERS.equals(key) || Configuration.PREFS_KEY_TRUSTED_PEERS_ONLY.equals(key))
                     stopSelf();
             };
 
@@ -493,7 +493,7 @@ public class BlockchainService extends LifecycleService {
         wakeLock.acquire();
 
         connectivityNotification.setColor(ContextCompat.getColor(this, R.color.fg_network_significant));
-        connectivityNotification.setContentTitle(getString(config.isTrustedPeerOnly() ?
+        connectivityNotification.setContentTitle(getString(config.isTrustedPeersOnly() ?
                 R.string.notification_connectivity_syncing_trusted_peer :
                 R.string.notification_connectivity_syncing_message));
         connectivityNotification.setContentIntent(PendingIntent.getActivity(BlockchainService.this, 0,
@@ -632,10 +632,10 @@ public class BlockchainService extends LifecycleService {
                 peerGroup.addDisconnectedEventListener(peerConnectivityListener);
 
                 final int maxConnectedPeers = application.maxConnectedPeers();
-                final String trustedPeerHost = config.getTrustedPeerHost();
-                final boolean trustedPeerOnly = config.isTrustedPeerOnly();
+                final Set<String> trustedPeers = config.getTrustedPeers();
+                final boolean trustedPeerOnly = config.isTrustedPeersOnly();
 
-                peerGroup.setMaxConnections(trustedPeerOnly ? 1 : maxConnectedPeers);
+                peerGroup.setMaxConnections(trustedPeers.size() + (trustedPeerOnly ? 0 : maxConnectedPeers));
                 peerGroup.setConnectTimeoutMillis(Constants.PEER_TIMEOUT_MS);
                 peerGroup.setPeerDiscoveryTimeoutMillis(Constants.PEER_DISCOVERY_TIMEOUT_MS);
                 peerGroup.setRequiredServices(VersionMessage.NODE_BLOOM | VersionMessage.NODE_WITNESS);
@@ -648,29 +648,21 @@ public class BlockchainService extends LifecycleService {
                     public InetSocketAddress[] getPeers(final long services, final long timeoutValue,
                             final TimeUnit timeoutUnit) throws PeerDiscoveryException {
                         final List<InetSocketAddress> peers = new LinkedList<>();
-
-                        boolean needsTrimPeersWorkaround = false;
-
-                        if (trustedPeerHost != null) {
-                            log.info("trusted peer '" + trustedPeerHost + "'" + (trustedPeerOnly ? " only" : ""));
-
-                            final InetSocketAddress addr = new InetSocketAddress(trustedPeerHost,
+                        for (final String trustedPeer : trustedPeers) {
+                            final InetSocketAddress addr = new InetSocketAddress(trustedPeer,
                                     Constants.NETWORK_PARAMETERS.getPort());
-                            if (addr.getAddress() != null) {
+                            log.info("trusted peer '" + addr + "'" + (trustedPeerOnly ? " only" : ""));
+                            if (addr.getAddress() != null)
                                 peers.add(addr);
-                                needsTrimPeersWorkaround = true;
-                            }
                         }
 
                         if (!trustedPeerOnly)
                             peers.addAll(
                                     Arrays.asList(normalPeerDiscovery.getPeers(services, timeoutValue, timeoutUnit)));
-
-                        // workaround because PeerGroup will shuffle peers
-                        if (needsTrimPeersWorkaround)
-                            while (peers.size() >= maxConnectedPeers)
+                        else if (!trustedPeers.isEmpty())
+                            // workaround because PeerGroup will shuffle our trusted peers away
+                            while (peers.size() >= peerGroup.getMaxConnections())
                                 peers.remove(peers.size() - 1);
-
                         return peers.toArray(new InetSocketAddress[0]);
                     }
 
@@ -844,7 +836,7 @@ public class BlockchainService extends LifecycleService {
     }
 
     private void startForeground(final int numPeers) {
-        if (config.isTrustedPeerOnly()) {
+        if (config.isTrustedPeersOnly()) {
             connectivityNotification.setSmallIcon(R.drawable.stat_notify_peers, numPeers > 0 ? 4 : 0);
             connectivityNotification.setContentText(getString(numPeers > 0 ? R.string.notification_peer_connected :
                     R.string.notification_peer_not_connected));

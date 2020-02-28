@@ -256,6 +256,7 @@
     <string name="preferences_trusted_peer_title">Vertrauenswürdiger Peer</string>
     <string name="preferences_trusted_peer_summary">IP oder Hostname eines einzelnen Peers, der verbunden wird.</string>
     <string name="preferences_trusted_peer_dialog_message">Bitte gib eine gültige IP-Adresse oder einen Hostnamen ein. Wenn du Tor eingerichtet hast, kannst du hier auch eine Onion-Adresse verwenden.</string>
+    <string name="preferences_trusted_peer_dialog_message_multiple">Du kannst mehrere vertrauenswürdige Peers angeben, indem du sie mit einem Leerzeichen trennst.</string>
     <string name="preferences_trusted_peer_resolve_progress">Namensauflösung läuft…</string>
     <string name="preferences_trusted_peer_resolve_unknown_host">Unbekannter Hostname!</string>
     <string name="preferences_trusted_peer_only_title">Reguläre Peers übergehen</string>

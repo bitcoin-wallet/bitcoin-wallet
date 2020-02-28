@@ -19,11 +19,13 @@ package de.schildbach.wallet.ui.preference;
 
 import java.net.InetAddress;
 import java.util.Locale;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import de.schildbach.wallet.Configuration;
+import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.R;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.util.Bluetooth;
@@ -61,7 +63,7 @@ public final class SettingsFragment extends PreferenceFragment implements OnPref
     private HandlerThread backgroundThread;
     private Handler backgroundHandler;
 
-    private Preference trustedPeerPreference;
+    private EditTextPreference trustedPeerPreference;
     private Preference trustedPeerOnlyPreference;
     private Preference ownNamePreference;
     private EditTextPreference bluetoothAddressPreference;
@@ -89,10 +91,12 @@ public final class SettingsFragment extends PreferenceFragment implements OnPref
         backgroundThread.start();
         backgroundHandler = new Handler(backgroundThread.getLooper());
 
-        trustedPeerPreference = findPreference(Configuration.PREFS_KEY_TRUSTED_PEER);
+        trustedPeerPreference = (EditTextPreference) findPreference(Configuration.PREFS_KEY_TRUSTED_PEERS);
         trustedPeerPreference.setOnPreferenceChangeListener(this);
+        trustedPeerPreference.setDialogMessage(getString(R.string.preferences_trusted_peer_dialog_message) + "\n\n" +
+                getString(R.string.preferences_trusted_peer_dialog_message_multiple));
 
-        trustedPeerOnlyPreference = findPreference(Configuration.PREFS_KEY_TRUSTED_PEER_ONLY);
+        trustedPeerOnlyPreference = findPreference(Configuration.PREFS_KEY_TRUSTED_PEERS_ONLY);
         trustedPeerOnlyPreference.setOnPreferenceChangeListener(this);
 
         final Preference dataUsagePreference = findPreference(Configuration.PREFS_KEY_DATA_USAGE);
@@ -154,29 +158,42 @@ public final class SettingsFragment extends PreferenceFragment implements OnPref
     }
 
     private void updateTrustedPeer() {
-        final String trustedPeer = config.getTrustedPeerHost();
-
-        if (trustedPeer == null) {
+        final Set<String> trustedPeers = config.getTrustedPeers();
+        if (trustedPeers.isEmpty()) {
             trustedPeerPreference.setSummary(R.string.preferences_trusted_peer_summary);
             trustedPeerOnlyPreference.setEnabled(false);
         } else {
-            trustedPeerPreference.setSummary(
-                    trustedPeer + "\n[" + getString(R.string.preferences_trusted_peer_resolve_progress) + "]");
+            trustedPeerPreference.setSummary(R.string.preferences_trusted_peer_resolve_progress);
             trustedPeerOnlyPreference.setEnabled(true);
 
-            new ResolveDnsTask(backgroundHandler) {
-                @Override
-                protected void onSuccess(final InetAddress address) {
-                    trustedPeerPreference.setSummary(trustedPeer);
-                    log.info("trusted peer '{}' resolved to {}", trustedPeer, address);
-                }
+            for (final String trustedPeer : trustedPeers) {
+                new ResolveDnsTask(backgroundHandler) {
+                    @Override
+                    protected void onSuccess(final InetAddress address) {
+                        appendToTrustedPeerSummary(Constants.CHAR_CHECKMARK + " " + trustedPeer);
+                        log.info("trusted peer '{}' resolved to {}", trustedPeer, address);
+                    }
 
-                @Override
-                protected void onUnknownHost(final String hostname) {
-                    trustedPeerPreference.setSummary(hostname + "\n["
-                            + getString(R.string.preferences_trusted_peer_resolve_unknown_host) + "]");
-                }
-            }.resolve(trustedPeer);
+                    @Override
+                    protected void onUnknownHost(final String hostname) {
+                        appendToTrustedPeerSummary(Constants.CHAR_CROSSMARK + " " + hostname + " – " +
+                                getString(R.string.preferences_trusted_peer_resolve_unknown_host));
+                        log.info("trusted peer '{}' unknown host", hostname);
+                    }
+                }.resolve(trustedPeer);
+            }
+        }
+    }
+
+    private void appendToTrustedPeerSummary(final String line) {
+        // This is a hack, because we're too lazy to implement a sophisticated UI here.
+        synchronized (trustedPeerPreference) {
+            CharSequence summary = trustedPeerPreference.getSummary();
+            if (summary.equals(getString(R.string.preferences_trusted_peer_resolve_progress)))
+                summary = "";
+            else
+                summary = summary + "\n";
+            trustedPeerPreference.setSummary(summary + line);
         }
     }
 

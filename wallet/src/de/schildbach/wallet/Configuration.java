@@ -17,11 +17,13 @@
 
 package de.schildbach.wallet;
 
+import de.schildbach.wallet.util.Formats;
 import org.bitcoinj.core.Coin;
 import org.bitcoinj.utils.MonetaryFormat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.base.Splitter;
 import com.google.common.base.Strings;
 
 import android.content.SharedPreferences;
@@ -31,7 +33,9 @@ import android.net.Uri;
 import android.text.format.DateUtils;
 
 import java.util.Currency;
+import java.util.HashSet;
 import java.util.Locale;
+import java.util.Set;
 
 /**
  * @author Andreas Schildbach
@@ -46,8 +50,8 @@ public class Configuration {
     public static final String PREFS_KEY_OWN_NAME = "own_name";
     public static final String PREFS_KEY_SEND_COINS_AUTOCLOSE = "send_coins_autoclose";
     public static final String PREFS_KEY_EXCHANGE_CURRENCY = "exchange_currency";
-    public static final String PREFS_KEY_TRUSTED_PEER = "trusted_peer";
-    public static final String PREFS_KEY_TRUSTED_PEER_ONLY = "trusted_peer_only";
+    public static final String PREFS_KEY_TRUSTED_PEERS = "trusted_peer";
+    public static final String PREFS_KEY_TRUSTED_PEERS_ONLY = "trusted_peer_only";
     public static final String PREFS_KEY_BLOCK_EXPLORER = "block_explorer";
     public static final String PREFS_KEY_DATA_USAGE = "data_usage";
     public static final String PREFS_KEY_NOTIFICATIONS = "notifications";
@@ -133,16 +137,21 @@ public class Configuration {
         return prefs.getBoolean(PREFS_KEY_SEND_COINS_AUTOCLOSE, true);
     }
 
-    public String getTrustedPeerHost() {
-        return Strings.emptyToNull(prefs.getString(PREFS_KEY_TRUSTED_PEER, "").trim());
+    public Set<String> getTrustedPeers() {
+        final String trustedPeersStr = prefs.getString(PREFS_KEY_TRUSTED_PEERS, "");
+        final Set<String> trustedPeers = new HashSet<>();
+        for (final String trustedPeer :
+                Splitter.on(Formats.PATTERN_WHITESPACE).trimResults().omitEmptyStrings().split(trustedPeersStr))
+            trustedPeers.add(trustedPeer);
+        return trustedPeers;
     }
 
-    public boolean getTrustedPeerOnly() {
-        return prefs.getBoolean(PREFS_KEY_TRUSTED_PEER_ONLY, false);
+    public boolean getTrustedPeersOnly() {
+        return prefs.getBoolean(PREFS_KEY_TRUSTED_PEERS_ONLY, false);
     }
 
-    public boolean isTrustedPeerOnly() {
-        return getTrustedPeerHost() != null && getTrustedPeerOnly();
+    public boolean isTrustedPeersOnly() {
+        return getTrustedPeers() != null && getTrustedPeersOnly();
     }
 
     public Uri getBlockExplorer() {

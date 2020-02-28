@@ -149,6 +149,7 @@ public final class Constants {
     public static final char CHAR_BITCOIN = '\u20bf';
     public static final char CHAR_ALMOST_EQUAL_TO = '\u2248';
     public static final char CHAR_CHECKMARK = '\u2713';
+    public static final char CHAR_CROSSMARK = '\u2715';
     public static final char CURRENCY_PLUS_SIGN = '\uff0b';
     public static final char CURRENCY_MINUS_SIGN = '\uff0d';
     public static final String PREFIX_ALMOST_EQUAL_TO = Character.toString(CHAR_ALMOST_EQUAL_TO) + CHAR_THIN_SPACE;
