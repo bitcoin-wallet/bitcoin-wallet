@@ -17,6 +17,7 @@
 
 package de.schildbach.wallet.ui.monitor;
 
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
@@ -68,6 +69,9 @@ public class BlockListAdapter extends ListAdapter<BlockListAdapter.ListItem, Blo
     }
 
     public static class ListItem {
+        // internal item id
+        public final long id;
+
         public final Sha256Hash blockHash;
         public final int height;
         public final String time;
@@ -79,7 +83,9 @@ public class BlockListAdapter extends ListAdapter<BlockListAdapter.ListItem, Blo
         public ListItem(final Context context, final StoredBlock block, final Date time, final MonetaryFormat format,
                 final @Nullable Set<Transaction> transactions, final @Nullable Wallet wallet,
                 final @Nullable Map<String, AddressBookEntry> addressBook) {
-            this.blockHash = block.getHeader().getHash();
+            final Sha256Hash blockHash = block.getHeader().getHash();
+            this.id = id(blockHash);
+            this.blockHash = blockHash;
             this.height = block.getHeight();
             final long timeMs = block.getHeader().getTimeSeconds() * DateUtils.SECOND_IN_MILLIS;
             if (timeMs < time.getTime() - DateUtils.MINUTE_IN_MILLIS)
@@ -96,10 +102,15 @@ public class BlockListAdapter extends ListAdapter<BlockListAdapter.ListItem, Blo
             if (transactions != null && wallet != null) {
                 for (final Transaction tx : transactions) {
                     final Map<Sha256Hash, Integer> appearsInHashes = tx.getAppearsInHashes();
-                    if (appearsInHashes != null && appearsInHashes.containsKey(blockHash))
+                    if (appearsInHashes != null && appearsInHashes.containsKey(this.blockHash))
                         this.transactions.add(new ListTransaction(context, tx, wallet, addressBook));
                 }
             }
+        }
+
+        private static long id(final Sha256Hash blockHash) {
+            final byte[] bytes = blockHash.getBytes();
+            return ByteBuffer.wrap(bytes).getLong(bytes.length - Long.BYTES);
         }
 
         public static class ListTransaction {
@@ -156,7 +167,7 @@ public class BlockListAdapter extends ListAdapter<BlockListAdapter.ListItem, Blo
         super(new DiffUtil.ItemCallback<ListItem>() {
             @Override
             public boolean areItemsTheSame(final ListItem oldItem, final ListItem newItem) {
-                return oldItem.blockHash.equals(newItem.blockHash);
+                return oldItem.id == newItem.id;
             }
 
             @Override
@@ -167,6 +178,14 @@ public class BlockListAdapter extends ListAdapter<BlockListAdapter.ListItem, Blo
 
         inflater = LayoutInflater.from(context);
         this.onClickListener = onClickListener;
+
+        setHasStableIds(true);
+    }
+
+    @Override
+    public long getItemId(final int position) {
+        final ListItem listItem = getItem(position);
+        return listItem.id;
     }
 
     @Override
