@@ -31,6 +31,7 @@ import org.bitcoinj.core.Sha256Hash;
 import org.bitcoinj.core.StoredBlock;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.Transaction.Purpose;
+import org.bitcoinj.params.AbstractBitcoinNetParams;
 import org.bitcoinj.utils.MonetaryFormat;
 import org.bitcoinj.wallet.Wallet;
 
@@ -86,8 +87,10 @@ public class BlockListAdapter extends ListAdapter<BlockListAdapter.ListItem, Blo
                         DateUtils.WEEK_IN_MILLIS, 0).toString();
             else
                 this.time = context.getString(R.string.block_row_now);
-            this.isMiningRewardHalvingPoint = isMiningRewardHalvingPoint(block);
-            this.isDifficultyTransitionPoint = isDifficultyTransitionPoint(block);
+            this.isMiningRewardHalvingPoint =
+                    ((AbstractBitcoinNetParams) Constants.NETWORK_PARAMETERS).isRewardHalvingPoint(height);
+            this.isDifficultyTransitionPoint =
+                    ((AbstractBitcoinNetParams) Constants.NETWORK_PARAMETERS).isDifficultyTransitionPoint(height);
             this.format = format;
             this.transactions = new LinkedList<>();
             if (transactions != null && wallet != null) {
@@ -97,14 +100,6 @@ public class BlockListAdapter extends ListAdapter<BlockListAdapter.ListItem, Blo
                         this.transactions.add(new ListTransaction(context, tx, wallet, addressBook));
                 }
             }
-        }
-
-        private boolean isMiningRewardHalvingPoint(final StoredBlock storedPrev) {
-            return ((storedPrev.getHeight() + 1) % 210000) == 0;
-        }
-
-        private boolean isDifficultyTransitionPoint(final StoredBlock storedPrev) {
-            return ((storedPrev.getHeight() + 1) % Constants.NETWORK_PARAMETERS.getInterval()) == 0;
         }
 
         public static class ListTransaction {
