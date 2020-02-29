@@ -302,17 +302,18 @@ public class AddressBookAdapter extends ListAdapter<AddressBookAdapter.ListItem,
             if (onClickListener != null)
                 addressHolder.itemView.setOnClickListener(v -> onClickListener.onAddressClick(v, addressItem.address,
                         addressItem.label));
+            addressHolder.contextBar.setVisibility(View.GONE);
             if (contextMenuCallback != null && isSelected) {
                 final Menu menu = addressHolder.contextBar.getMenu();
                 menu.clear();
                 contextMenuCallback.onInflateContextMenu(menuInflater, menu);
-                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
-                    Toolbars.colorize(addressHolder.contextBar, colorInsignificant);
-                addressHolder.contextBar.setVisibility(View.VISIBLE);
-                addressHolder.contextBar.setOnMenuItemClickListener(item ->
-                        contextMenuCallback.onContextMenuItemClicked(item, addressItem.address, addressItem.label));
-            } else {
-                addressHolder.contextBar.setVisibility(View.GONE);
+                if (menu.hasVisibleItems()) {
+                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
+                        Toolbars.colorize(addressHolder.contextBar, colorInsignificant);
+                    addressHolder.contextBar.setVisibility(View.VISIBLE);
+                    addressHolder.contextBar.setOnMenuItemClickListener(item ->
+                            contextMenuCallback.onContextMenuItemClicked(item, addressItem.address, addressItem.label));
+                }
             }
         } else if (holder instanceof SeparatorViewHolder) {
             final SeparatorViewHolder separatorHolder = (SeparatorViewHolder) holder;
