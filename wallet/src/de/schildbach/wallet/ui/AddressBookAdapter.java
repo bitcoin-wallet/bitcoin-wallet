@@ -156,6 +156,16 @@ public class AddressBookAdapter extends ListAdapter<AddressBookAdapter.ListItem,
         }
     }
 
+    public interface OnClickListener {
+        void onAddressClick(View view, Address address, @Nullable String label);
+    }
+
+    public interface ContextMenuCallback {
+        void onInflateAddressContextMenu(MenuInflater inflater, Menu menu);
+
+        boolean onClickAddressContextMenuItem(MenuItem item, Address address, @Nullable String label);
+    }
+
     private final LayoutInflater inflater;
     private final MenuInflater menuInflater;
     private final String labelUnlabeled;
@@ -216,11 +226,11 @@ public class AddressBookAdapter extends ListAdapter<AddressBookAdapter.ListItem,
 
         this.inflater = LayoutInflater.from(context);
         this.menuInflater = new MenuInflater(context);
+        this.onClickListener = onClickListener;
         this.contextMenuCallback = contextMenuCallback;
         this.labelUnlabeled = context.getString(R.string.address_unlabeled);
         this.cardElevationSelected = context.getResources().getDimensionPixelOffset(R.dimen.card_elevation_selected);
         this.colorInsignificant = ContextCompat.getColor(context, R.color.fg_insignificant);
-        this.onClickListener = onClickListener;
 
         setHasStableIds(true);
     }
@@ -320,16 +330,6 @@ public class AddressBookAdapter extends ListAdapter<AddressBookAdapter.ListItem,
             final ListItem.SeparatorItem separatorItem = (ListItem.SeparatorItem) listItem;
             separatorHolder.label.setText(separatorItem.label);
         }
-    }
-
-    public interface OnClickListener {
-        void onAddressClick(View view, Address address, @Nullable String label);
-    }
-
-    public interface ContextMenuCallback {
-        void onInflateAddressContextMenu(MenuInflater inflater, Menu menu);
-
-        boolean onClickAddressContextMenuItem(MenuItem item, Address address, @Nullable String label);
     }
 
     public static class AddressViewHolder extends RecyclerView.ViewHolder {
