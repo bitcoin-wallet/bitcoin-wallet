@@ -29,10 +29,13 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
+import com.google.common.hash.HashFunction;
+import com.google.common.hash.Hashing;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.R;
 import de.schildbach.wallet.addressbook.AddressBookEntry;
 import de.schildbach.wallet.ui.CurrencyTextView;
+import de.schildbach.wallet.ui.SeparatorViewHolder;
 import de.schildbach.wallet.util.WalletUtils;
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.Coin;
@@ -45,6 +48,7 @@ import org.bitcoinj.utils.MonetaryFormat;
 import org.bitcoinj.wallet.Wallet;
 
 import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
@@ -56,7 +60,7 @@ import java.util.Set;
 /**
  * @author Andreas Schildbach
  */
-public class BlockListAdapter extends ListAdapter<BlockListAdapter.ListItem, BlockListAdapter.ViewHolder> {
+public class BlockListAdapter extends ListAdapter<BlockListAdapter.ListItem, RecyclerView.ViewHolder> {
     public static List<ListItem> buildListItems(final Context context, final List<StoredBlock> blocks, final Date currentTime,
             final MonetaryFormat format, final @Nullable Set<Transaction> transactions, final @Nullable Wallet wallet,
             final @Nullable Map<String, AddressBookEntry> addressBook) {
@@ -71,14 +75,13 @@ public class BlockListAdapter extends ListAdapter<BlockListAdapter.ListItem, Blo
                         DateUtils.WEEK_IN_MILLIS, 0).toString();
             else
                 time = context.getString(R.string.block_row_now);
-            final boolean isMiningRewardHalvingPoint =
-                    ((AbstractBitcoinNetParams) Constants.NETWORK_PARAMETERS).isRewardHalvingPoint(height);
-            final boolean isDifficultyTransitionPoint =
-                    ((AbstractBitcoinNetParams) Constants.NETWORK_PARAMETERS).isDifficultyTransitionPoint(height);
             final List<ListItem.TxItem> transactionItems = buildTransactionItems(context, blockHash, transactions,
                     wallet, addressBook);
-            items.add(new ListItem(blockHash, height, time, isMiningRewardHalvingPoint, isDifficultyTransitionPoint,
-                    format, transactionItems));
+            if (((AbstractBitcoinNetParams) Constants.NETWORK_PARAMETERS).isRewardHalvingPoint(height))
+                items.add(new ListItem.SeparatorItem(context.getString(R.string.block_row_mining_reward_adjustment)));
+            if (((AbstractBitcoinNetParams) Constants.NETWORK_PARAMETERS).isDifficultyTransitionPoint(height))
+                items.add(new ListItem.SeparatorItem(context.getString(R.string.block_row_mining_difficulty_adjustment)));
+            items.add(new ListItem.BlockItem(blockHash, height, time, format, transactionItems));
         }
         return items;
     }
@@ -137,34 +140,35 @@ public class BlockListAdapter extends ListAdapter<BlockListAdapter.ListItem, Blo
         return transactionItems;
     }
 
-    public static class ListItem {
+    public static abstract class ListItem {
         // internal item id
         public final long id;
 
-        public final Sha256Hash blockHash;
-        public final int height;
-        public final String time;
-        public final boolean isMiningRewardHalvingPoint;
-        public final boolean isDifficultyTransitionPoint;
-        public final List<TxItem> transactions;
-        public final MonetaryFormat format;
-
-        public ListItem(final Sha256Hash blockHash, final int height, final String time,
-                        final boolean isMiningRewardHalvingPoint, final boolean isDifficultyTransitionPoint,
-                        final MonetaryFormat format, final @Nullable List<TxItem> transactions) {
-            this.id = id(blockHash);
-            this.blockHash = blockHash;
-            this.height = height;
-            this.time = time;
-            this.isMiningRewardHalvingPoint = isMiningRewardHalvingPoint;
-            this.isDifficultyTransitionPoint = isDifficultyTransitionPoint;
-            this.format = format;
-            this.transactions = transactions;
+        private ListItem(final long id) {
+            this.id = id;
         }
 
-        private static long id(final Sha256Hash blockHash) {
-            final byte[] bytes = blockHash.getBytes();
-            return ByteBuffer.wrap(bytes).getLong(bytes.length - Long.BYTES);
+        public static class BlockItem extends ListItem {
+            public final Sha256Hash blockHash;
+            public final int height;
+            public final String time;
+            public final List<TxItem> transactions;
+            public final MonetaryFormat format;
+
+            public BlockItem(final Sha256Hash blockHash, final int height, final String time,
+                             final MonetaryFormat format, final @Nullable List<TxItem> transactions) {
+                super(id(blockHash));
+                this.blockHash = blockHash;
+                this.height = height;
+                this.time = time;
+                this.transactions = transactions;
+                this.format = format;
+            }
+
+            private static long id(final Sha256Hash blockHash) {
+                final byte[] bytes = blockHash.getBytes();
+                return ByteBuffer.wrap(bytes).getLong(bytes.length - Long.BYTES);
+            }
         }
 
         public static class TxItem {
@@ -183,6 +187,21 @@ public class BlockListAdapter extends ListAdapter<BlockListAdapter.ListItem, Blo
                 this.value = value;
             }
         }
+
+        public static class SeparatorItem extends ListItem {
+            public final CharSequence label;
+
+            public SeparatorItem(final CharSequence label) {
+                super(id(label));
+                this.label = label;
+            }
+
+            private static long id(final CharSequence label) {
+                return ID_HASH.newHasher().putString(label, StandardCharsets.UTF_8).hash().asLong();
+            }
+        }
+
+        private static final HashFunction ID_HASH = Hashing.farmHashFingerprint64();
     }
 
     private static final int ROW_BASE_CHILD_COUNT = 2;
@@ -191,6 +210,9 @@ public class BlockListAdapter extends ListAdapter<BlockListAdapter.ListItem, Blo
     private final LayoutInflater inflater;
     @Nullable
     private final OnClickListener onClickListener;
+
+    private static final int VIEW_TYPE_BLOCK = 0;
+    private static final int VIEW_TYPE_SEPARATOR = 1;
 
     public BlockListAdapter(final Context context, final @Nullable OnClickListener onClickListener) {
         super(new DiffUtil.ItemCallback<ListItem>() {
@@ -201,7 +223,13 @@ public class BlockListAdapter extends ListAdapter<BlockListAdapter.ListItem, Blo
 
             @Override
             public boolean areContentsTheSame(final ListItem oldItem, final ListItem newItem) {
-                return Objects.equals(oldItem.time, newItem.time);
+                if (oldItem instanceof ListItem.BlockItem)
+                    return Objects.equals(((ListItem.BlockItem) oldItem).time, ((ListItem.BlockItem) newItem).time);
+                else if (oldItem instanceof ListItem.SeparatorItem)
+                    return Objects.equals(((ListItem.SeparatorItem) oldItem).label,
+                            ((ListItem.SeparatorItem) newItem).label);
+                else
+                    throw new IllegalArgumentException();
             }
         });
 
@@ -212,47 +240,67 @@ public class BlockListAdapter extends ListAdapter<BlockListAdapter.ListItem, Blo
     }
 
     @Override
+    public int getItemViewType(final int position) {
+        final ListItem listItem = getItem(position);
+        if (listItem instanceof ListItem.BlockItem)
+            return VIEW_TYPE_BLOCK;
+        else if (listItem instanceof ListItem.SeparatorItem)
+            return VIEW_TYPE_SEPARATOR;
+        else
+            throw new IllegalStateException();
+    }
+
+    @Override
     public long getItemId(final int position) {
         final ListItem listItem = getItem(position);
         return listItem.id;
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
-        return new ViewHolder(inflater.inflate(R.layout.block_row, parent, false));
+    public RecyclerView.ViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
+        if (viewType == VIEW_TYPE_BLOCK)
+            return new BlockViewHolder(inflater.inflate(R.layout.block_row, parent, false));
+        else if (viewType == VIEW_TYPE_SEPARATOR)
+            return new SeparatorViewHolder(inflater.inflate(R.layout.row_separator, parent, false));
+        else
+            throw new IllegalStateException();
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, final int position) {
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
         final ListItem listItem = getItem(position);
-
-        holder.heightView.setText(Integer.toString(listItem.height));
-        holder.timeView.setText(listItem.time);
-        holder.miningRewardAdjustmentView.setVisibility(listItem.isMiningRewardHalvingPoint ? View.VISIBLE : View.GONE);
-        holder.miningDifficultyAdjustmentView
-                .setVisibility(listItem.isDifficultyTransitionPoint ? View.VISIBLE : View.GONE);
-        holder.hashView.setText(WalletUtils.formatHash(null, listItem.blockHash.toString(), 8, 0, ' '));
-
-        final int transactionChildCount = holder.transactionsViewGroup.getChildCount() - ROW_BASE_CHILD_COUNT;
-        int iTransactionView = 0;
-        for (final ListItem.TxItem tx : listItem.transactions) {
-            final View view;
-            if (iTransactionView < transactionChildCount) {
-                view = holder.transactionsViewGroup.getChildAt(ROW_INSERT_INDEX + iTransactionView);
-            } else {
-                view = inflater.inflate(R.layout.block_row_transaction, null);
-                holder.transactionsViewGroup.addView(view, ROW_INSERT_INDEX + iTransactionView);
+        if (holder instanceof BlockViewHolder) {
+            final BlockViewHolder blockHolder = (BlockViewHolder) holder;
+            final ListItem.BlockItem blockItem = (ListItem.BlockItem) listItem;
+            blockHolder.heightView.setText(Integer.toString(blockItem.height));
+            blockHolder.timeView.setText(blockItem.time);
+            blockHolder.hashView.setText(WalletUtils.formatHash(null, blockItem.blockHash.toString(), 8, 0, ' '));
+            final int transactionChildCount = blockHolder.transactionsViewGroup.getChildCount() - ROW_BASE_CHILD_COUNT;
+            int iTransactionView = 0;
+            for (final ListItem.TxItem tx : blockItem.transactions) {
+                final View view;
+                if (iTransactionView < transactionChildCount) {
+                    view = blockHolder.transactionsViewGroup.getChildAt(ROW_INSERT_INDEX + iTransactionView);
+                } else {
+                    view = inflater.inflate(R.layout.block_row_transaction, null);
+                    blockHolder.transactionsViewGroup.addView(view, ROW_INSERT_INDEX + iTransactionView);
+                }
+                bindTransactionView(view, blockItem.format, tx);
+                iTransactionView++;
             }
-            bindTransactionView(view, listItem.format, tx);
-            iTransactionView++;
-        }
-        final int leftoverTransactionViews = transactionChildCount - iTransactionView;
-        if (leftoverTransactionViews > 0)
-            holder.transactionsViewGroup.removeViews(ROW_INSERT_INDEX + iTransactionView, leftoverTransactionViews);
+            final int leftoverTransactionViews = transactionChildCount - iTransactionView;
+            if (leftoverTransactionViews > 0)
+                blockHolder.transactionsViewGroup.removeViews(ROW_INSERT_INDEX + iTransactionView,
+                        leftoverTransactionViews);
 
-        final OnClickListener onClickListener = this.onClickListener;
-        if (onClickListener != null) {
-            holder.menuView.setOnClickListener(v -> onClickListener.onBlockMenuClick(v, listItem.blockHash));
+            final OnClickListener onClickListener = this.onClickListener;
+            if (onClickListener != null) {
+                blockHolder.menuView.setOnClickListener(v -> onClickListener.onBlockMenuClick(v, blockItem.blockHash));
+            }
+        } else if (holder instanceof SeparatorViewHolder) {
+            final SeparatorViewHolder separatorHolder = (SeparatorViewHolder) holder;
+            final ListItem.SeparatorItem separatorItem = (ListItem.SeparatorItem) listItem;
+            separatorHolder.label.setText(separatorItem.label);
         }
     }
 
@@ -272,20 +320,16 @@ public class BlockListAdapter extends ListAdapter<BlockListAdapter.ListItem, Blo
         void onBlockMenuClick(View view, Sha256Hash blockHash);
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class BlockViewHolder extends RecyclerView.ViewHolder {
         private final ViewGroup transactionsViewGroup;
-        private final View miningRewardAdjustmentView;
-        private final View miningDifficultyAdjustmentView;
         private final TextView heightView;
         private final TextView timeView;
         private final TextView hashView;
         private final ImageButton menuView;
 
-        private ViewHolder(final View itemView) {
+        private BlockViewHolder(final View itemView) {
             super(itemView);
             transactionsViewGroup = itemView.findViewById(R.id.block_list_row_transactions_group);
-            miningRewardAdjustmentView = itemView.findViewById(R.id.block_list_row_mining_reward_adjustment);
-            miningDifficultyAdjustmentView = itemView.findViewById(R.id.block_list_row_mining_difficulty_adjustment);
             heightView = itemView.findViewById(R.id.block_list_row_height);
             timeView = itemView.findViewById(R.id.block_list_row_time);
             hashView = itemView.findViewById(R.id.block_list_row_hash);
