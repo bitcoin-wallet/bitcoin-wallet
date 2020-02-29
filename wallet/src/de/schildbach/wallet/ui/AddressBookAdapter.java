@@ -306,13 +306,13 @@ public class AddressBookAdapter extends ListAdapter<AddressBookAdapter.ListItem,
             if (contextMenuCallback != null && isSelected) {
                 final Menu menu = addressHolder.contextBar.getMenu();
                 menu.clear();
-                contextMenuCallback.onInflateContextMenu(menuInflater, menu);
+                contextMenuCallback.onInflateAddressContextMenu(menuInflater, menu);
                 if (menu.hasVisibleItems()) {
                     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
                         Toolbars.colorize(addressHolder.contextBar, colorInsignificant);
                     addressHolder.contextBar.setVisibility(View.VISIBLE);
                     addressHolder.contextBar.setOnMenuItemClickListener(item ->
-                            contextMenuCallback.onContextMenuItemClicked(item, addressItem.address, addressItem.label));
+                            contextMenuCallback.onClickAddressContextMenuItem(item, addressItem.address, addressItem.label));
                 }
             }
         } else if (holder instanceof SeparatorViewHolder) {
@@ -327,9 +327,9 @@ public class AddressBookAdapter extends ListAdapter<AddressBookAdapter.ListItem,
     }
 
     public interface ContextMenuCallback {
-        void onInflateContextMenu(MenuInflater inflater, Menu menu);
+        void onInflateAddressContextMenu(MenuInflater inflater, Menu menu);
 
-        boolean onContextMenuItemClicked(MenuItem item, Address address, @Nullable String label);
+        boolean onClickAddressContextMenuItem(MenuItem item, Address address, @Nullable String label);
     }
 
     public static class AddressViewHolder extends RecyclerView.ViewHolder {

@@ -129,12 +129,12 @@ public final class SendingAddressesFragment extends Fragment implements AddressB
     }
 
     @Override
-    public void onInflateContextMenu(final MenuInflater inflater, final Menu menu) {
+    public void onInflateAddressContextMenu(final MenuInflater inflater, final Menu menu) {
         inflater.inflate(R.menu.sending_addresses_context, menu);
     }
 
     @Override
-    public boolean onContextMenuItemClicked(final MenuItem item, final Address address, final String label) {
+    public boolean onClickAddressContextMenuItem(final MenuItem item, final Address address, final String label) {
         int itemId = item.getItemId();
         if (itemId == R.id.sending_addresses_context_send) {
             SendCoinsActivity.start(activity, PaymentIntent.fromAddress(address, label));

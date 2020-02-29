@@ -144,13 +144,13 @@ public final class WalletAddressesFragment extends Fragment implements AddressBo
     }
 
     @Override
-    public void onInflateContextMenu(final MenuInflater inflater, final Menu menu) {
+    public void onInflateAddressContextMenu(final MenuInflater inflater, final Menu menu) {
         inflater.inflate(R.menu.wallet_addresses_context, menu);
         menu.findItem(R.id.wallet_addresses_context_browse).setVisible(Constants.ENABLE_BROWSE);
     }
 
     @Override
-    public boolean onContextMenuItemClicked(final MenuItem item, final Address address, final String label) {
+    public boolean onClickAddressContextMenuItem(final MenuItem item, final Address address, final String label) {
         int itemId = item.getItemId();
         if (itemId == R.id.wallet_addresses_context_edit) {
             viewModel.showEditAddressBookEntryDialog.setValue(new Event<>(address));
