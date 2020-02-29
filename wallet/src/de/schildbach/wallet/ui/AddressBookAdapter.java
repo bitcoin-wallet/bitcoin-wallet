@@ -343,13 +343,4 @@ public class AddressBookAdapter extends ListAdapter<AddressBookAdapter.ListItem,
             contextBar = itemView.findViewById(R.id.address_book_row_context_bar);
         }
     }
-
-    public static class SeparatorViewHolder extends RecyclerView.ViewHolder {
-        private final TextView label;
-
-        private SeparatorViewHolder(final View itemView) {
-            super(itemView);
-            label = itemView.findViewById(android.R.id.text1);
-        }
-    }
 }
