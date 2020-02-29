@@ -205,6 +205,10 @@ public class BlockListAdapter extends ListAdapter<BlockListAdapter.ListItem, Rec
         private static final HashFunction ID_HASH = Hashing.farmHashFingerprint64();
     }
 
+    public interface OnClickListener {
+        void onBlockMenuClick(View view, Sha256Hash blockHash);
+    }
+
     private static final int ROW_BASE_CHILD_COUNT = 2;
     private static final int ROW_INSERT_INDEX = 1;
 
@@ -352,10 +356,6 @@ public class BlockListAdapter extends ListAdapter<BlockListAdapter.ListItem, Rec
         rowValue.setAlwaysSigned(true);
         rowValue.setFormat(format);
         rowValue.setAmount(tx.value);
-    }
-
-    public interface OnClickListener {
-        void onBlockMenuClick(View view, Sha256Hash blockHash);
     }
 
     public static class BlockViewHolder extends RecyclerView.ViewHolder {
