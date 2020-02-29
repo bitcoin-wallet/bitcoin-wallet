@@ -17,31 +17,6 @@
 
 package de.schildbach.wallet.ui.monitor;
 
-import java.nio.ByteBuffer;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
-
-import org.bitcoinj.core.Address;
-import org.bitcoinj.core.Coin;
-import org.bitcoinj.core.Sha256Hash;
-import org.bitcoinj.core.StoredBlock;
-import org.bitcoinj.core.Transaction;
-import org.bitcoinj.core.Transaction.Purpose;
-import org.bitcoinj.params.AbstractBitcoinNetParams;
-import org.bitcoinj.utils.MonetaryFormat;
-import org.bitcoinj.wallet.Wallet;
-
-import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.R;
-import de.schildbach.wallet.addressbook.AddressBookEntry;
-import de.schildbach.wallet.ui.CurrencyTextView;
-import de.schildbach.wallet.util.WalletUtils;
-
 import android.content.Context;
 import android.graphics.Typeface;
 import android.text.format.DateUtils;
@@ -54,18 +29,112 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
+import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.R;
+import de.schildbach.wallet.addressbook.AddressBookEntry;
+import de.schildbach.wallet.ui.CurrencyTextView;
+import de.schildbach.wallet.util.WalletUtils;
+import org.bitcoinj.core.Address;
+import org.bitcoinj.core.Coin;
+import org.bitcoinj.core.Sha256Hash;
+import org.bitcoinj.core.StoredBlock;
+import org.bitcoinj.core.Transaction;
+import org.bitcoinj.core.Transaction.Purpose;
+import org.bitcoinj.params.AbstractBitcoinNetParams;
+import org.bitcoinj.utils.MonetaryFormat;
+import org.bitcoinj.wallet.Wallet;
+
+import java.nio.ByteBuffer;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
 
 /**
  * @author Andreas Schildbach
  */
 public class BlockListAdapter extends ListAdapter<BlockListAdapter.ListItem, BlockListAdapter.ViewHolder> {
-    public static List<ListItem> buildListItems(final Context context, final List<StoredBlock> blocks, final Date time,
+    public static List<ListItem> buildListItems(final Context context, final List<StoredBlock> blocks, final Date currentTime,
             final MonetaryFormat format, final @Nullable Set<Transaction> transactions, final @Nullable Wallet wallet,
             final @Nullable Map<String, AddressBookEntry> addressBook) {
         final List<ListItem> items = new ArrayList<>(blocks.size());
-        for (final StoredBlock block : blocks)
-            items.add(new ListItem(context, block, time, format, transactions, wallet, addressBook));
+        for (final StoredBlock block : blocks) {
+            final Sha256Hash blockHash = block.getHeader().getHash();
+            final int height = block.getHeight();
+            final long timeMs = block.getHeader().getTimeSeconds() * DateUtils.SECOND_IN_MILLIS;
+            final String time;
+            if (timeMs < currentTime.getTime() - DateUtils.MINUTE_IN_MILLIS)
+                time = DateUtils.getRelativeDateTimeString(context, timeMs, DateUtils.MINUTE_IN_MILLIS,
+                        DateUtils.WEEK_IN_MILLIS, 0).toString();
+            else
+                time = context.getString(R.string.block_row_now);
+            final boolean isMiningRewardHalvingPoint =
+                    ((AbstractBitcoinNetParams) Constants.NETWORK_PARAMETERS).isRewardHalvingPoint(height);
+            final boolean isDifficultyTransitionPoint =
+                    ((AbstractBitcoinNetParams) Constants.NETWORK_PARAMETERS).isDifficultyTransitionPoint(height);
+            final List<ListItem.TxItem> transactionItems = buildTransactionItems(context, blockHash, transactions,
+                    wallet, addressBook);
+            items.add(new ListItem(blockHash, height, time, isMiningRewardHalvingPoint, isDifficultyTransitionPoint,
+                    format, transactionItems));
+        }
         return items;
+    }
+
+    private static List<ListItem.TxItem> buildTransactionItems(final Context context, final Sha256Hash blockHash,
+                                                               final @Nullable Set<Transaction> transactions,
+                                                               final @Nullable Wallet wallet,
+                                                               final @Nullable Map<String, AddressBookEntry> addressBook) {
+        final List<ListItem.TxItem> transactionItems = new LinkedList<>();
+        if (transactions != null && wallet != null) {
+            for (final Transaction tx : transactions) {
+                final Map<Sha256Hash, Integer> appearsInHashes = tx.getAppearsInHashes();
+                if (appearsInHashes != null && appearsInHashes.containsKey(blockHash)) {
+                    final boolean isCoinBase = tx.isCoinBase();
+                    final boolean isInternal = tx.getPurpose() == Purpose.KEY_ROTATION;
+
+                    final Coin value = tx.getValue(wallet);
+                    final boolean sent = value.signum() < 0;
+                    final boolean self = WalletUtils.isEntirelySelf(tx, wallet);
+                    final Address address;
+                    if (sent)
+                        address = WalletUtils.getToAddressOfSent(tx, wallet);
+                    else
+                        address = WalletUtils.getWalletAddressOfReceived(tx, wallet);
+
+                    final CharSequence fromTo;
+                    if (isInternal || self)
+                        fromTo = context.getString(R.string.symbol_internal);
+                    else if (sent)
+                        fromTo = context.getString(R.string.symbol_to);
+                    else
+                        fromTo = context.getString(R.string.symbol_from);
+
+                    final CharSequence label;
+                    if (isCoinBase) {
+                        label = context.getString(R.string.wallet_transactions_fragment_coinbase);
+                    } else if (isInternal || self) {
+                        label = context.getString(R.string.wallet_transactions_fragment_internal);
+                    } else if (address != null && addressBook != null) {
+                        final AddressBookEntry entry = addressBook.get(address.toString());
+                        if (entry != null)
+                            label = entry.getLabel();
+                        else
+                            label = "?";
+                    } else {
+                        label = "?";
+                    }
+
+                    final CharSequence addressText = label != null ? label : address.toString();
+                    final Typeface addressTypeface = label != null ? Typeface.DEFAULT : Typeface.MONOSPACE;
+
+                    transactionItems.add(new ListItem.TxItem(fromTo, addressText, addressTypeface, label, value));
+                }
+            }
+        }
+        return transactionItems;
     }
 
     public static class ListItem {
@@ -77,35 +146,20 @@ public class BlockListAdapter extends ListAdapter<BlockListAdapter.ListItem, Blo
         public final String time;
         public final boolean isMiningRewardHalvingPoint;
         public final boolean isDifficultyTransitionPoint;
+        public final List<TxItem> transactions;
         public final MonetaryFormat format;
-        public final List<ListTransaction> transactions;
 
-        public ListItem(final Context context, final StoredBlock block, final Date time, final MonetaryFormat format,
-                final @Nullable Set<Transaction> transactions, final @Nullable Wallet wallet,
-                final @Nullable Map<String, AddressBookEntry> addressBook) {
-            final Sha256Hash blockHash = block.getHeader().getHash();
+        public ListItem(final Sha256Hash blockHash, final int height, final String time,
+                        final boolean isMiningRewardHalvingPoint, final boolean isDifficultyTransitionPoint,
+                        final MonetaryFormat format, final @Nullable List<TxItem> transactions) {
             this.id = id(blockHash);
             this.blockHash = blockHash;
-            this.height = block.getHeight();
-            final long timeMs = block.getHeader().getTimeSeconds() * DateUtils.SECOND_IN_MILLIS;
-            if (timeMs < time.getTime() - DateUtils.MINUTE_IN_MILLIS)
-                this.time = DateUtils.getRelativeDateTimeString(context, timeMs, DateUtils.MINUTE_IN_MILLIS,
-                        DateUtils.WEEK_IN_MILLIS, 0).toString();
-            else
-                this.time = context.getString(R.string.block_row_now);
-            this.isMiningRewardHalvingPoint =
-                    ((AbstractBitcoinNetParams) Constants.NETWORK_PARAMETERS).isRewardHalvingPoint(height);
-            this.isDifficultyTransitionPoint =
-                    ((AbstractBitcoinNetParams) Constants.NETWORK_PARAMETERS).isDifficultyTransitionPoint(height);
+            this.height = height;
+            this.time = time;
+            this.isMiningRewardHalvingPoint = isMiningRewardHalvingPoint;
+            this.isDifficultyTransitionPoint = isDifficultyTransitionPoint;
             this.format = format;
-            this.transactions = new LinkedList<>();
-            if (transactions != null && wallet != null) {
-                for (final Transaction tx : transactions) {
-                    final Map<Sha256Hash, Integer> appearsInHashes = tx.getAppearsInHashes();
-                    if (appearsInHashes != null && appearsInHashes.containsKey(this.blockHash))
-                        this.transactions.add(new ListTransaction(context, tx, wallet, addressBook));
-                }
-            }
+            this.transactions = transactions;
         }
 
         private static long id(final Sha256Hash blockHash) {
@@ -113,45 +167,20 @@ public class BlockListAdapter extends ListAdapter<BlockListAdapter.ListItem, Blo
             return ByteBuffer.wrap(bytes).getLong(bytes.length - Long.BYTES);
         }
 
-        public static class ListTransaction {
-            public final String fromTo;
-            public final Address address;
-            public final String label;
+        public static class TxItem {
+            public final CharSequence fromTo;
+            public final CharSequence addressText;
+            public final Typeface addressTypeface;
+            public final CharSequence label;
             public final Coin value;
 
-            public ListTransaction(final Context context, final Transaction tx, final Wallet wallet,
-                    final @Nullable Map<String, AddressBookEntry> addressBook) {
-                final boolean isCoinBase = tx.isCoinBase();
-                final boolean isInternal = tx.getPurpose() == Purpose.KEY_ROTATION;
-
-                this.value = tx.getValue(wallet);
-                final boolean sent = value.signum() < 0;
-                final boolean self = WalletUtils.isEntirelySelf(tx, wallet);
-                if (sent)
-                    this.address = WalletUtils.getToAddressOfSent(tx, wallet);
-                else
-                    this.address = WalletUtils.getWalletAddressOfReceived(tx, wallet);
-
-                if (isInternal || self)
-                    this.fromTo = context.getString(R.string.symbol_internal);
-                else if (sent)
-                    this.fromTo = context.getString(R.string.symbol_to);
-                else
-                    this.fromTo = context.getString(R.string.symbol_from);
-
-                if (isCoinBase) {
-                    this.label = context.getString(R.string.wallet_transactions_fragment_coinbase);
-                } else if (isInternal || self) {
-                    this.label = context.getString(R.string.wallet_transactions_fragment_internal);
-                } else if (address != null && addressBook != null) {
-                    final AddressBookEntry entry = addressBook.get(address.toString());
-                    if (entry != null)
-                        this.label = entry.getLabel();
-                    else
-                        this.label = "?";
-                } else {
-                    this.label = "?";
-                }
+            public TxItem(final CharSequence fromTo, final CharSequence addressText, final Typeface addressTypeface,
+                          final CharSequence label, final Coin value) {
+                this.fromTo = fromTo;
+                this.addressText = addressText;
+                this.addressTypeface = addressTypeface;
+                this.label = label;
+                this.value = value;
             }
         }
     }
@@ -206,7 +235,7 @@ public class BlockListAdapter extends ListAdapter<BlockListAdapter.ListItem, Blo
 
         final int transactionChildCount = holder.transactionsViewGroup.getChildCount() - ROW_BASE_CHILD_COUNT;
         int iTransactionView = 0;
-        for (final BlockListAdapter.ListItem.ListTransaction tx : listItem.transactions) {
+        for (final ListItem.TxItem tx : listItem.transactions) {
             final View view;
             if (iTransactionView < transactionChildCount) {
                 view = holder.transactionsViewGroup.getChildAt(ROW_INSERT_INDEX + iTransactionView);
@@ -227,17 +256,12 @@ public class BlockListAdapter extends ListAdapter<BlockListAdapter.ListItem, Blo
         }
     }
 
-    private void bindTransactionView(final View row, final MonetaryFormat format, final ListItem.ListTransaction tx) {
-        // receiving or sending
+    private void bindTransactionView(final View row, final MonetaryFormat format, final ListItem.TxItem tx) {
         final TextView rowFromTo = row.findViewById(R.id.block_row_transaction_fromto);
         rowFromTo.setText(tx.fromTo);
-
-        // address
         final TextView rowAddress = row.findViewById(R.id.block_row_transaction_address);
-        rowAddress.setText(tx.label != null ? tx.label : tx.address.toString());
-        rowAddress.setTypeface(tx.label != null ? Typeface.DEFAULT : Typeface.MONOSPACE);
-
-        // value
+        rowAddress.setText(tx.addressText);
+        rowAddress.setTypeface(tx.addressTypeface);
         final CurrencyTextView rowValue = row.findViewById(R.id.block_row_transaction_value);
         rowValue.setAlwaysSigned(true);
         rowValue.setFormat(format);
