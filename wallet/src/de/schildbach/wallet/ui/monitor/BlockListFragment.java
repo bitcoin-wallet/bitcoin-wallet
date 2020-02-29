@@ -41,11 +41,11 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.PopupMenu;
-import android.widget.PopupMenu.OnMenuItemClickListener;
 import android.widget.ViewAnimator;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -54,7 +54,8 @@ import androidx.recyclerview.widget.RecyclerView;
 /**
  * @author Andreas Schildbach
  */
-public final class BlockListFragment extends Fragment implements BlockListAdapter.OnClickListener {
+public final class BlockListFragment extends Fragment implements BlockListAdapter.OnClickListener,
+        BlockListAdapter.ContextMenuCallback {
     private AbstractWalletActivity activity;
     private WalletApplication application;
     private Configuration config;
@@ -101,7 +102,7 @@ public final class BlockListFragment extends Fragment implements BlockListAdapte
         viewModel.getWallet().observe(this, wallet -> maybeSubmitList());
         viewModel.getTime().observe(this, time -> maybeSubmitList());
 
-        adapter = new BlockListAdapter(activity, this);
+        adapter = new BlockListAdapter(activity, this, this);
     }
 
     @Override
@@ -131,19 +132,21 @@ public final class BlockListFragment extends Fragment implements BlockListAdapte
     }
 
     @Override
-    public void onBlockMenuClick(final View view, final Sha256Hash blockHash) {
-        final PopupMenu popupMenu = new PopupMenu(activity, view);
-        popupMenu.inflate(R.menu.blocks_context);
-        popupMenu.getMenu().findItem(R.id.blocks_context_browse).setVisible(Constants.ENABLE_BROWSE);
-        popupMenu.setOnMenuItemClickListener(item -> {
-            if (item.getItemId() == R.id.blocks_context_browse) {
-                final Uri blockExplorerUri = config.getBlockExplorer();
-                log.info("Viewing block {} on {}", blockHash, blockExplorerUri);
-                activity.startExternalDocument(Uri.withAppendedPath(blockExplorerUri, "block/" + blockHash));
-                return true;
-            }
+    public void onInflateBlockContextMenu(final MenuInflater inflater, final Menu menu) {
+        inflater.inflate(R.menu.blocks_context, menu);
+        menu.findItem(R.id.blocks_context_browse).setVisible(Constants.ENABLE_BROWSE);
+    }
+
+    @Override
+    public boolean onClickBlockContextMenuItem(final MenuItem item, final Sha256Hash blockHash) {
+        final int itemId = item.getItemId();
+        if (itemId == R.id.blocks_context_browse) {
+            final Uri blockExplorerUri = config.getBlockExplorer();
+            log.info("Viewing block {} on {}", blockHash, blockExplorerUri);
+            activity.startExternalDocument(Uri.withAppendedPath(blockExplorerUri, "block/" + blockHash));
+            return true;
+        } else {
             return false;
-        });
-        popupMenu.show();
+        }
     }
 }

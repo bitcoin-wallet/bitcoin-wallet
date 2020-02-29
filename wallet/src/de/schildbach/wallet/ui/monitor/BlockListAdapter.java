@@ -19,16 +19,22 @@ package de.schildbach.wallet.ui.monitor;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toolbar;
+import androidx.annotation.ColorInt;
 import androidx.annotation.Dimension;
 import androidx.annotation.MainThread;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
@@ -39,6 +45,7 @@ import de.schildbach.wallet.R;
 import de.schildbach.wallet.addressbook.AddressBookEntry;
 import de.schildbach.wallet.ui.CurrencyTextView;
 import de.schildbach.wallet.ui.SeparatorViewHolder;
+import de.schildbach.wallet.util.Toolbars;
 import de.schildbach.wallet.util.WalletUtils;
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.Coin;
@@ -210,29 +217,40 @@ public class BlockListAdapter extends ListAdapter<BlockListAdapter.ListItem, Rec
 
     public interface OnClickListener {
         void onBlockClick(View view, Sha256Hash blockHash);
+    }
 
-        void onBlockMenuClick(View view, Sha256Hash blockHash);
+    public interface ContextMenuCallback {
+        void onInflateBlockContextMenu(MenuInflater inflater, Menu menu);
+
+        boolean onClickBlockContextMenuItem(MenuItem item, Sha256Hash blockHash);
     }
 
     private final LayoutInflater inflater;
+    private final MenuInflater menuInflater;
     @Dimension
     private final int cardElevationSelected;
+    @ColorInt
+    private final int colorInsignificant;
+
     @Nullable
     private final OnClickListener onClickListener;
+    @Nullable
+    private final ContextMenuCallback contextMenuCallback;
     @Nullable
     private Sha256Hash selectedBlockHash;
 
     private static final int VIEW_TYPE_BLOCK = 0;
     private static final int VIEW_TYPE_SEPARATOR = 1;
 
-    private static final int ROW_BASE_CHILD_COUNT = 2;
+    private static final int ROW_BASE_CHILD_COUNT = 3;
     private static final int ROW_INSERT_INDEX = 1;
 
     private enum ChangeType {
         TIME, TRANSACTIONS, SELECTION
     }
 
-    public BlockListAdapter(final Context context, final @Nullable OnClickListener onClickListener) {
+    public BlockListAdapter(final Context context, @Nullable final OnClickListener onClickListener,
+                            @Nullable final ContextMenuCallback contextMenuCallback) {
         super(new DiffUtil.ItemCallback<ListItem>() {
             @Override
             public boolean areItemsTheSame(final ListItem oldItem, final ListItem newItem) {
@@ -267,8 +285,11 @@ public class BlockListAdapter extends ListAdapter<BlockListAdapter.ListItem, Rec
         });
 
         this.inflater = LayoutInflater.from(context);
-        this.cardElevationSelected = context.getResources().getDimensionPixelOffset(R.dimen.card_elevation_selected);
+        this.menuInflater = new MenuInflater(context);
+        this.contextMenuCallback = contextMenuCallback;
         this.onClickListener = onClickListener;
+        this.cardElevationSelected = context.getResources().getDimensionPixelOffset(R.dimen.card_elevation_selected);
+        this.colorInsignificant = ContextCompat.getColor(context, R.color.fg_insignificant);
 
         setHasStableIds(true);
     }
@@ -345,6 +366,19 @@ public class BlockListAdapter extends ListAdapter<BlockListAdapter.ListItem, Rec
                 final boolean isSelected = ((ListItem.BlockItem) listItem).blockHash.equals(selectedBlockHash);
                 holder.itemView.setSelected(isSelected);
                 ((CardView) holder.itemView).setCardElevation(isSelected ? cardElevationSelected : 0);
+                blockHolder.contextBar.setVisibility(View.GONE);
+                if (contextMenuCallback != null && isSelected) {
+                    final Menu menu = blockHolder.contextBar.getMenu();
+                    menu.clear();
+                    contextMenuCallback.onInflateBlockContextMenu(menuInflater, menu);
+                    if (menu.hasVisibleItems()) {
+                        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
+                            Toolbars.colorize(blockHolder.contextBar, colorInsignificant);
+                        blockHolder.contextBar.setVisibility(View.VISIBLE);
+                        blockHolder.contextBar.setOnMenuItemClickListener(item ->
+                                contextMenuCallback.onClickBlockContextMenuItem(item, blockItem.blockHash));
+                    }
+                }
             }
             if (fullBind || changes.contains(ChangeType.TIME)) {
                 blockHolder.timeView.setText(blockItem.time);
@@ -375,11 +409,8 @@ public class BlockListAdapter extends ListAdapter<BlockListAdapter.ListItem, Rec
                 blockHolder.hashView.setText(WalletUtils.formatHash(null, blockItem.blockHash.toString(), 8, 0, ' '));
 
                 final OnClickListener onClickListener = this.onClickListener;
-                if (onClickListener != null) {
+                if (onClickListener != null)
                     holder.itemView.setOnClickListener(v -> onClickListener.onBlockClick(v, blockItem.blockHash));
-                    blockHolder.menuView.setOnClickListener(v -> onClickListener.onBlockMenuClick(v,
-                            blockItem.blockHash));
-                }
             }
         } else if (holder instanceof SeparatorViewHolder) {
             final SeparatorViewHolder separatorHolder = (SeparatorViewHolder) holder;
@@ -405,7 +436,7 @@ public class BlockListAdapter extends ListAdapter<BlockListAdapter.ListItem, Rec
         private final TextView heightView;
         private final TextView timeView;
         private final TextView hashView;
-        private final ImageButton menuView;
+        private final Toolbar contextBar;
 
         private BlockViewHolder(final View itemView) {
             super(itemView);
@@ -413,7 +444,7 @@ public class BlockListAdapter extends ListAdapter<BlockListAdapter.ListItem, Rec
             heightView = itemView.findViewById(R.id.block_list_row_height);
             timeView = itemView.findViewById(R.id.block_list_row_time);
             hashView = itemView.findViewById(R.id.block_list_row_hash);
-            menuView = itemView.findViewById(R.id.block_list_row_menu);
+            contextBar = itemView.findViewById(R.id.block_list_row_context_bar);
         }
     }
 }
