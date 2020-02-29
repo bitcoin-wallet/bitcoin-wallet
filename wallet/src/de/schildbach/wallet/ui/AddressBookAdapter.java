@@ -122,7 +122,7 @@ public class AddressBookAdapter extends ListAdapter<AddressBookAdapter.ListItem,
         return items;
     }
 
-    public static class ListItem {
+    public static abstract class ListItem {
         public static class AddressItem extends ListItem {
             public final Address address;
             @ColorInt
