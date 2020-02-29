@@ -36,6 +36,8 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
+import com.google.common.hash.HashFunction;
+import com.google.common.hash.Hashing;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.R;
 import de.schildbach.wallet.addressbook.AddressBookEntry;
@@ -46,6 +48,7 @@ import org.bitcoinj.core.ECKey;
 import org.bitcoinj.wallet.Wallet;
 
 import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -123,6 +126,13 @@ public class AddressBookAdapter extends ListAdapter<AddressBookAdapter.ListItem,
     }
 
     public static abstract class ListItem {
+        // internal item id
+        public final long id;
+
+        private ListItem(final long id) {
+            this.id = id;
+        }
+
         public static class AddressItem extends ListItem {
             public final Address address;
             @ColorInt
@@ -138,6 +148,7 @@ public class AddressBookAdapter extends ListAdapter<AddressBookAdapter.ListItem,
 
             public AddressItem(final Address address, @ColorInt final int addressColor, final String label,
                                @ColorInt final int labelColor, final String message, @ColorInt final int messageColor) {
+                super(id(address));
                 this.address = address;
                 this.addressColor = addressColor;
                 this.label = label;
@@ -145,15 +156,26 @@ public class AddressBookAdapter extends ListAdapter<AddressBookAdapter.ListItem,
                 this.message = message;
                 this.messageColor = messageColor;
             }
+
+            private static long id(final Address address) {
+                return ByteBuffer.wrap(address.getHash()).getLong();
+            }
         }
 
         public static class SeparatorItem extends ListItem {
-            public final String label;
+            public final CharSequence label;
 
-            public SeparatorItem(final String label) {
+            public SeparatorItem(final CharSequence label) {
+                super(id(label));
                 this.label = label;
             }
+
+            private static long id(final CharSequence label) {
+                return ID_HASH.newHasher().putString(label, StandardCharsets.UTF_8).hash().asLong();
+            }
         }
+
+        private static final HashFunction ID_HASH = Hashing.farmHashFingerprint64();
     }
 
     public interface OnClickListener {
@@ -189,15 +211,7 @@ public class AddressBookAdapter extends ListAdapter<AddressBookAdapter.ListItem,
         super(new DiffUtil.ItemCallback<ListItem>() {
             @Override
             public boolean areItemsTheSame(final ListItem oldItem, final ListItem newItem) {
-                if (oldItem instanceof ListItem.AddressItem) {
-                    if (!(newItem instanceof ListItem.AddressItem))
-                        return false;
-                    return ((ListItem.AddressItem) oldItem).address.equals(((ListItem.AddressItem) newItem).address);
-                } else {
-                    if (!(newItem instanceof ListItem.SeparatorItem))
-                        return false;
-                    return ((ListItem.SeparatorItem) oldItem).label.equals(((ListItem.SeparatorItem) newItem).label);
-                }
+                return oldItem.id == newItem.id;
             }
 
             @Override
@@ -273,12 +287,7 @@ public class AddressBookAdapter extends ListAdapter<AddressBookAdapter.ListItem,
     @Override
     public long getItemId(final int position) {
         final ListItem listItem = getItem(position);
-        if (listItem instanceof ListItem.AddressItem)
-            return ByteBuffer.wrap(((ListItem.AddressItem) listItem).address.getHash()).getLong();
-        else if (listItem instanceof ListItem.SeparatorItem)
-            return 0;
-        else
-            throw new IllegalStateException();
+        return listItem.id;
     }
 
     @Override
