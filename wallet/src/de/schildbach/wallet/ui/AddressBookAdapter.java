@@ -303,7 +303,9 @@ public class AddressBookAdapter extends ListAdapter<AddressBookAdapter.ListItem,
                 addressHolder.itemView.setOnClickListener(v -> onClickListener.onAddressClick(v, addressItem.address,
                         addressItem.label));
             if (contextMenuCallback != null && isSelected) {
-                contextMenuCallback.onInflateContextMenu(menuInflater, addressHolder.contextBar.getMenu());
+                final Menu menu = addressHolder.contextBar.getMenu();
+                menu.clear();
+                contextMenuCallback.onInflateContextMenu(menuInflater, menu);
                 if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
                     Toolbars.colorize(addressHolder.contextBar, colorInsignificant);
                 addressHolder.contextBar.setVisibility(View.VISIBLE);
