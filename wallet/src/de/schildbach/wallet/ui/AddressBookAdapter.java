@@ -86,22 +86,17 @@ public class AddressBookAdapter extends ListAdapter<AddressBookAdapter.ListItem,
             final boolean isRotateKey;
             if (wallet != null) {
                 final ECKey key = wallet.findKeyFromAddress(address);
-                isRotateKey = wallet != null && wallet.isKeyRotating(key);
+                isRotateKey = wallet.isKeyRotating(key);
             } else {
                 isRotateKey = false;
             }
             final int addressColor = isRotateKey ? colorInsignificant : colorSignificant;
             final String label;
             final int labelColor;
-            if (addressBook != null) {
-                final AddressBookEntry entry = addressBook.get(address.toString());
-                if (entry != null) {
-                    label = entry.getLabel();
-                    labelColor = isRotateKey ? colorInsignificant : colorLessSignificant;
-                } else {
-                    label = null;
-                    labelColor = colorInsignificant;
-                }
+            final AddressBookEntry entry = addressBook != null ? addressBook.get(address.toString()) : null;
+            if (entry != null) {
+                label = entry.getLabel();
+                labelColor = isRotateKey ? colorInsignificant : colorLessSignificant;
             } else {
                 label = null;
                 labelColor = colorInsignificant;
