@@ -51,6 +51,7 @@ import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.EnumSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -214,6 +215,10 @@ public class BlockListAdapter extends ListAdapter<BlockListAdapter.ListItem, Rec
     private static final int VIEW_TYPE_BLOCK = 0;
     private static final int VIEW_TYPE_SEPARATOR = 1;
 
+    private enum ChangeType {
+        TIME, TRANSACTIONS
+    }
+
     public BlockListAdapter(final Context context, final @Nullable OnClickListener onClickListener) {
         super(new DiffUtil.ItemCallback<ListItem>() {
             @Override
@@ -230,6 +235,21 @@ public class BlockListAdapter extends ListAdapter<BlockListAdapter.ListItem, Rec
                             ((ListItem.SeparatorItem) newItem).label);
                 else
                     throw new IllegalArgumentException();
+            }
+
+            @Nullable
+            @Override
+            public Object getChangePayload(final ListItem oldItem, final ListItem newItem) {
+                final EnumSet<ChangeType> changes = EnumSet.noneOf(ChangeType.class);
+                if (oldItem instanceof ListItem.BlockItem) {
+                    final ListItem.BlockItem oldBlockItem = (ListItem.BlockItem) oldItem;
+                    final ListItem.BlockItem newBlockItem = (ListItem.BlockItem) newItem;
+                    if (!Objects.equals(oldBlockItem.time, newBlockItem.time))
+                        changes.add(ChangeType.TIME);
+                    if (!Objects.equals(oldBlockItem.transactions, newBlockItem.transactions))
+                        changes.add(ChangeType.TRANSACTIONS);
+                }
+                return changes;
             }
         });
 
@@ -268,34 +288,52 @@ public class BlockListAdapter extends ListAdapter<BlockListAdapter.ListItem, Rec
 
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position,
+                                 final List<Object> payloads) {
+        final boolean fullBind = payloads.isEmpty();
+        final EnumSet<ChangeType> changes = EnumSet.noneOf(ChangeType.class);
+        for (final Object payload : payloads)
+            changes.addAll((EnumSet<ChangeType>) payload);
+
         final ListItem listItem = getItem(position);
         if (holder instanceof BlockViewHolder) {
             final BlockViewHolder blockHolder = (BlockViewHolder) holder;
             final ListItem.BlockItem blockItem = (ListItem.BlockItem) listItem;
-            blockHolder.heightView.setText(Integer.toString(blockItem.height));
-            blockHolder.timeView.setText(blockItem.time);
-            blockHolder.hashView.setText(WalletUtils.formatHash(null, blockItem.blockHash.toString(), 8, 0, ' '));
-            final int transactionChildCount = blockHolder.transactionsViewGroup.getChildCount() - ROW_BASE_CHILD_COUNT;
-            int iTransactionView = 0;
-            for (final ListItem.TxItem tx : blockItem.transactions) {
-                final View view;
-                if (iTransactionView < transactionChildCount) {
-                    view = blockHolder.transactionsViewGroup.getChildAt(ROW_INSERT_INDEX + iTransactionView);
-                } else {
-                    view = inflater.inflate(R.layout.block_row_transaction, null);
-                    blockHolder.transactionsViewGroup.addView(view, ROW_INSERT_INDEX + iTransactionView);
-                }
-                bindTransactionView(view, blockItem.format, tx);
-                iTransactionView++;
+            if (fullBind || changes.contains(ChangeType.TIME)) {
+                blockHolder.timeView.setText(blockItem.time);
             }
-            final int leftoverTransactionViews = transactionChildCount - iTransactionView;
-            if (leftoverTransactionViews > 0)
-                blockHolder.transactionsViewGroup.removeViews(ROW_INSERT_INDEX + iTransactionView,
-                        leftoverTransactionViews);
+            if (fullBind || changes.contains(ChangeType.TRANSACTIONS)) {
+                final int transactionChildCount =
+                        blockHolder.transactionsViewGroup.getChildCount() - ROW_BASE_CHILD_COUNT;
+                int iTransactionView = 0;
+                for (final ListItem.TxItem tx : blockItem.transactions) {
+                    final View view;
+                    if (iTransactionView < transactionChildCount) {
+                        view = blockHolder.transactionsViewGroup.getChildAt(ROW_INSERT_INDEX + iTransactionView);
+                    } else {
+                        view = inflater.inflate(R.layout.block_row_transaction, null);
+                        blockHolder.transactionsViewGroup.addView(view, ROW_INSERT_INDEX + iTransactionView);
+                    }
+                    bindTransactionView(view, blockItem.format, tx);
+                    iTransactionView++;
+                }
+                final int leftoverTransactionViews = transactionChildCount - iTransactionView;
+                if (leftoverTransactionViews > 0)
+                    blockHolder.transactionsViewGroup.removeViews(ROW_INSERT_INDEX + iTransactionView,
+                            leftoverTransactionViews);
+            }
+            if (fullBind) {
+                blockHolder.heightView.setText(Integer.toString(blockItem.height));
+                blockHolder.hashView.setText(WalletUtils.formatHash(null, blockItem.blockHash.toString(), 8, 0, ' '));
 
-            final OnClickListener onClickListener = this.onClickListener;
-            if (onClickListener != null) {
-                blockHolder.menuView.setOnClickListener(v -> onClickListener.onBlockMenuClick(v, blockItem.blockHash));
+                final OnClickListener onClickListener = this.onClickListener;
+                if (onClickListener != null)
+                    blockHolder.menuView.setOnClickListener(v -> onClickListener.onBlockMenuClick(v,
+                            blockItem.blockHash));
             }
         } else if (holder instanceof SeparatorViewHolder) {
             final SeparatorViewHolder separatorHolder = (SeparatorViewHolder) holder;
