@@ -156,6 +156,7 @@
     <string name="address_book_options_scan_title">Scan address</string>
     <string name="address_book_options_scan_invalid">Scanned data is unrecognizable</string>
     <string name="address_book_options_scan_own_address">The scanned address is your own.</string>
+    <string name="address_book_row_current_address">This is your current address for receiving.</string>
     <string name="address_book_row_message_compromised_key">This address might be compromised. You should not use it any more for receiving coins.</string>
     <string name="edit_address_book_entry_dialog_title_add">Add sending address</string>
     <string name="edit_address_book_entry_dialog_title_edit">Edit label of sending address</string>

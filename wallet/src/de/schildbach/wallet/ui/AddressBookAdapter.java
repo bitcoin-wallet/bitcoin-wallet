@@ -76,12 +76,12 @@ public class AddressBookAdapter extends ListAdapter<AddressBookAdapter.ListItem,
                                      final Collection<Address> addresses, final Context context,
                                      @Nullable final Wallet wallet,
                                      @Nullable final Map<String, AddressBookEntry> addressBook) {
-        final String messageCompromised = context.getString(R.string.address_book_row_message_compromised_key);
         final int colorSignificant = ContextCompat.getColor(context, R.color.fg_significant);
         final int colorInsignificant = ContextCompat.getColor(context, R.color.fg_insignificant);
         final int colorLessSignificant = ContextCompat.getColor(context, R.color.fg_less_significant);
         final int colorError = ContextCompat.getColor(context, R.color.fg_error);
 
+        final Address currentAddress = wallet != null ? wallet.currentReceiveAddress() : null;
         for (final Address address : addresses) {
             final boolean isRotateKey;
             if (wallet != null) {
@@ -101,8 +101,18 @@ public class AddressBookAdapter extends ListAdapter<AddressBookAdapter.ListItem,
                 label = null;
                 labelColor = colorInsignificant;
             }
-            final String message = isRotateKey ? messageCompromised : null;
-            final int messageColor = isRotateKey ? colorError : 0;
+            final String message;
+            final int messageColor;
+            if (address.equals(currentAddress)) {
+                message = context.getString(R.string.address_book_row_current_address);
+                messageColor = colorInsignificant;
+            } else if (isRotateKey) {
+                message = context.getString(R.string.address_book_row_message_compromised_key);
+                messageColor = colorError;
+            } else {
+                message = null;
+                messageColor = 0;
+            }
             items.add(new ListItem.AddressItem(address, addressColor, label, labelColor, message, messageColor));
         }
     }
