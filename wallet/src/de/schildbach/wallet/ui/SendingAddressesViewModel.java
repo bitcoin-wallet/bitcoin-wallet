@@ -71,12 +71,13 @@ public class SendingAddressesViewModel extends AndroidViewModel {
         private void loadAddressesToExclude() {
             final Wallet wallet = getWallet();
             AsyncTask.execute(() -> {
-                final List<ECKey> derivedKeys = wallet.getIssuedReceiveKeys();
-                Collections.sort(derivedKeys, DeterministicKey.CHILDNUM_ORDER);
+                final List<Address> derivedAddresses = wallet.getIssuedReceiveAddresses();
                 final List<ECKey> randomKeys = wallet.getImportedKeys();
 
-                final Set<String> addresses = new HashSet<>(derivedKeys.size() + randomKeys.size());
-                for (final ECKey key : Iterables.concat(derivedKeys, randomKeys))
+                final Set<String> addresses = new HashSet<>(derivedAddresses.size() + randomKeys.size());
+                for (final Address address : derivedAddresses)
+                    addresses.add(address.toString());
+                for (final ECKey key : randomKeys)
                     addresses.add(LegacyAddress.fromKey(Constants.NETWORK_PARAMETERS, key).toString());
                 postValue(addresses);
             });
