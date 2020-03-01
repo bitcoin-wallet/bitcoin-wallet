@@ -32,6 +32,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -85,16 +86,9 @@ public final class ExchangeRatesFragment extends Fragment implements OnSharedPre
                     maybeSubmitList();
 
                     final String defaultCurrency = config.getExchangeCurrencyCode();
-                    if (defaultCurrency != null) {
-                        int i = 0;
-                        for (final ExchangeRateEntry exchangeRate : exchangeRates) {
-                            if (exchangeRate.getCurrencyCode().equals(defaultCurrency)) {
-                                recyclerView.scrollToPosition(i);
-                                break;
-                            }
-                            i++;
-                        }
-                    }
+                    if (defaultCurrency != null)
+                        // The delay is needed because of the list needs time to populate.
+                        new Handler().postDelayed(() -> viewModel.selectedExchangeRate.setValue(defaultCurrency), 250);
 
                     if (activity instanceof ExchangeRatesActivity) {
                         final String source = exchangeRates.iterator().next().getSource();
