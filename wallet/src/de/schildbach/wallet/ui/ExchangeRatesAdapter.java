@@ -21,6 +21,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import com.google.common.hash.HashFunction;
+import com.google.common.hash.Hashing;
 import org.bitcoinj.core.Coin;
 import org.bitcoinj.core.NetworkParameters;
 import org.bitcoinj.utils.ExchangeRate;
@@ -52,35 +54,44 @@ public class ExchangeRatesAdapter extends ListAdapter<ExchangeRatesAdapter.ListI
         final List<ListItem> items = new ArrayList<>(exchangeRates.size());
         for (final ExchangeRateEntry exchangeRate : exchangeRates) {
             final ExchangeRate rate = exchangeRate.exchangeRate();
+            final String source = exchangeRate.getSource();
+            final String currencyCode = rate.fiat.currencyCode;
             final Fiat baseRateAsFiat = rate.coinToFiat(rateBase);
             final int baseRateMinDecimals = !rateBase.isLessThan(Coin.COIN) ? 2 : 4;
             final Fiat balanceAsFiat = balance != null && (blockchainState == null || !blockchainState.replaying)
                     ? rate.coinToFiat(balance) : null;
-            final String currencyCode = rate.fiat.currencyCode;
             final boolean isDefaultCurrency = currencyCode.equals(defaultCurrency);
-            items.add(new ListItem(exchangeRate.getId(), currencyCode, baseRateAsFiat, baseRateMinDecimals,
+            items.add(new ListItem(source, currencyCode, baseRateAsFiat, baseRateMinDecimals,
                     balanceAsFiat, isDefaultCurrency));
         }
         return items;
     }
 
     public static class ListItem {
+        // internal item id
         public final long id;
+
         public final String currencyCode;
         public final Fiat baseRateAsFiat;
         public final int baseRateMinDecimals;
         public final Fiat balanceAsFiat;
         public final boolean isSelected;
 
-        public ListItem(final long id, final String currencyCode, final Fiat baseRateAsFiat,
+        public ListItem(final String source, final String currencyCode, final Fiat baseRateAsFiat,
                         final int baseRateMinDecimals, final Fiat balanceAsFiat, final boolean isSelected) {
-            this.id = id;
+            this.id = id(source, currencyCode);
             this.currencyCode = currencyCode;
             this.baseRateAsFiat = baseRateAsFiat;
             this.baseRateMinDecimals = baseRateMinDecimals;
             this.balanceAsFiat = balanceAsFiat;
             this.isSelected = isSelected;
         }
+
+        private static long id(final String source, final String currencyCode) {
+            return ID_HASH.newHasher().putUnencodedChars(source).putUnencodedChars(currencyCode).hash().asLong();
+        }
+
+        private static final HashFunction ID_HASH = Hashing.farmHashFingerprint64();
     }
 
     private final LayoutInflater inflater;
@@ -91,7 +102,7 @@ public class ExchangeRatesAdapter extends ListAdapter<ExchangeRatesAdapter.ListI
         super(new DiffUtil.ItemCallback<ListItem>() {
             @Override
             public boolean areItemsTheSame(final ListItem oldItem, final ListItem newItem) {
-                return oldItem.currencyCode.equals(newItem.currencyCode);
+                return oldItem.id == newItem.id;
             }
 
             @Override
