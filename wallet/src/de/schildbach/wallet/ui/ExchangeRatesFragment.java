@@ -39,7 +39,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.PopupMenu;
 import android.widget.SearchView;
 import android.widget.SearchView.OnQueryTextListener;
 import android.widget.ViewAnimator;
@@ -53,8 +52,8 @@ import java.util.List;
 /**
  * @author Andreas Schildbach
  */
-public final class ExchangeRatesFragment extends Fragment
-        implements OnSharedPreferenceChangeListener, ExchangeRatesAdapter.OnClickListener {
+public final class ExchangeRatesFragment extends Fragment implements OnSharedPreferenceChangeListener,
+        ExchangeRatesAdapter.OnClickListener, ExchangeRatesAdapter.ContextMenuCallback {
     private AbstractWalletActivity activity;
     private WalletApplication application;
     private Configuration config;
@@ -117,7 +116,7 @@ public final class ExchangeRatesFragment extends Fragment
                 recyclerView.smoothScrollToPosition(position);
         });
 
-        adapter = new ExchangeRatesAdapter(activity, this);
+        adapter = new ExchangeRatesAdapter(activity, this, this);
 
         config.registerOnSharedPreferenceChangeListener(this);
     }
@@ -151,19 +150,19 @@ public final class ExchangeRatesFragment extends Fragment
         viewModel.selectedExchangeRate.setValue(exchangeRateCode);
     }
 
+    public void onInflateBlockContextMenu(final MenuInflater inflater, final Menu menu) {
+        inflater.inflate(R.menu.exchange_rates_context, menu);
+    }
+
     @Override
-    public void onExchangeRateMenuClick(final View view, final String currencyCode) {
-        final PopupMenu popupMenu = new PopupMenu(activity, view);
-        popupMenu.inflate(R.menu.exchange_rates_context);
-        popupMenu.setOnMenuItemClickListener(item -> {
-            if (item.getItemId() == R.id.exchange_rates_context_set_as_default) {
-                config.setExchangeCurrencyCode(currencyCode);
-                return true;
-            } else {
-                return false;
-            }
-        });
-        popupMenu.show();
+    public boolean onClickBlockContextMenuItem(final MenuItem item, final String exchangeRateCode) {
+        final int itemId = item.getItemId();
+        if (itemId == R.id.exchange_rates_context_set_as_default) {
+            config.setExchangeCurrencyCode(exchangeRateCode);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override

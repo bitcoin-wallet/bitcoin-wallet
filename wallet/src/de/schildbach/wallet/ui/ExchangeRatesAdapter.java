@@ -33,17 +33,24 @@ import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.R;
 import de.schildbach.wallet.exchangerate.ExchangeRateEntry;
 import de.schildbach.wallet.service.BlockchainState;
+import de.schildbach.wallet.util.Toolbars;
 
 import android.content.Context;
+import android.os.Build;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toolbar;
+import androidx.annotation.ColorInt;
 import androidx.annotation.Dimension;
 import androidx.annotation.MainThread;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
@@ -100,16 +107,25 @@ public class ExchangeRatesAdapter extends ListAdapter<ExchangeRatesAdapter.ListI
 
     public interface OnClickListener {
         void onExchangeRateClick(View view, String exchangeRateCode);
+    }
 
-        void onExchangeRateMenuClick(View view, String currencyCode);
+    public interface ContextMenuCallback {
+        void onInflateBlockContextMenu(MenuInflater inflater, Menu menu);
+
+        boolean onClickBlockContextMenuItem(MenuItem item, String exchangeRateCode);
     }
 
     private final LayoutInflater inflater;
+    private final MenuInflater menuInflater;
     @Dimension
     private final int cardElevationSelected;
+    @ColorInt
+    private final int colorInsignificant;
 
     @Nullable
     private final OnClickListener onClickListener;
+    @Nullable
+    private final ContextMenuCallback contextMenuCallback;
     @Nullable
     private String selectedExchangeRateCode;
 
@@ -117,7 +133,8 @@ public class ExchangeRatesAdapter extends ListAdapter<ExchangeRatesAdapter.ListI
         RATE, DEFAULT, SELECTION
     }
 
-    public ExchangeRatesAdapter(final Context context, final @Nullable OnClickListener onClickListener) {
+    public ExchangeRatesAdapter(final Context context, @Nullable final OnClickListener onClickListener,
+                                @Nullable final ContextMenuCallback contextMenuCallback) {
         super(new DiffUtil.ItemCallback<ListItem>() {
             @Override
             public boolean areItemsTheSame(final ListItem oldItem, final ListItem newItem) {
@@ -152,8 +169,11 @@ public class ExchangeRatesAdapter extends ListAdapter<ExchangeRatesAdapter.ListI
         });
 
         this.inflater = LayoutInflater.from(context);
-        this.cardElevationSelected = context.getResources().getDimensionPixelOffset(R.dimen.card_elevation_selected);
+        this.menuInflater = new MenuInflater(context);
         this.onClickListener = onClickListener;
+        this.contextMenuCallback = contextMenuCallback;
+        this.cardElevationSelected = context.getResources().getDimensionPixelOffset(R.dimen.card_elevation_selected);
+        this.colorInsignificant = ContextCompat.getColor(context, R.color.fg_insignificant);
 
         setHasStableIds(true);
     }
@@ -210,6 +230,19 @@ public class ExchangeRatesAdapter extends ListAdapter<ExchangeRatesAdapter.ListI
             final boolean isSelected = listItem.currencyCode.equals(selectedExchangeRateCode);
             holder.itemView.setSelected(isSelected);
             ((CardView) holder.itemView).setCardElevation(isSelected ? cardElevationSelected : 0);
+            holder.contextBar.setVisibility(View.GONE);
+            if (contextMenuCallback != null && isSelected) {
+                final Menu menu = holder.contextBar.getMenu();
+                menu.clear();
+                contextMenuCallback.onInflateBlockContextMenu(menuInflater, menu);
+                if (menu.hasVisibleItems()) {
+                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
+                        Toolbars.colorize(holder.contextBar, colorInsignificant);
+                    holder.contextBar.setVisibility(View.VISIBLE);
+                    holder.contextBar.setOnMenuItemClickListener(item ->
+                            contextMenuCallback.onClickBlockContextMenuItem(item, listItem.currencyCode));
+                }
+            }
         }
         if (fullBind || changes.contains(ChangeType.DEFAULT)) {
             holder.defaultView.setVisibility(listItem.isSelected ? View.VISIBLE : View.INVISIBLE);
@@ -229,10 +262,8 @@ public class ExchangeRatesAdapter extends ListAdapter<ExchangeRatesAdapter.ListI
         if (fullBind) {
             holder.currencyCodeView.setText(listItem.currencyCode);
             final OnClickListener onClickListener = this.onClickListener;
-            if (onClickListener != null) {
+            if (onClickListener != null)
                 holder.itemView.setOnClickListener(v -> onClickListener.onExchangeRateClick(v, listItem.currencyCode));
-                holder.menuView.setOnClickListener(v -> onClickListener.onExchangeRateMenuClick(v, listItem.currencyCode));
-            }
         }
     }
 
@@ -241,7 +272,7 @@ public class ExchangeRatesAdapter extends ListAdapter<ExchangeRatesAdapter.ListI
         private final TextView currencyCodeView;
         private final CurrencyTextView rateView;
         private final CurrencyTextView walletView;
-        private final ImageButton menuView;
+        private final Toolbar contextBar;
 
         public ViewHolder(final View itemView) {
             super(itemView);
@@ -249,7 +280,7 @@ public class ExchangeRatesAdapter extends ListAdapter<ExchangeRatesAdapter.ListI
             currencyCodeView = itemView.findViewById(R.id.exchange_rate_row_currency_code);
             rateView = itemView.findViewById(R.id.exchange_rate_row_rate);
             walletView = itemView.findViewById(R.id.exchange_rate_row_balance);
-            menuView = itemView.findViewById(R.id.exchange_rate_row_menu);
+            contextBar = itemView.findViewById(R.id.exchange_rate_row_context_bar);
         }
     }
 }
