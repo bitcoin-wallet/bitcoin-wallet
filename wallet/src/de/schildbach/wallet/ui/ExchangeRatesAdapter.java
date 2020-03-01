@@ -18,6 +18,7 @@
 package de.schildbach.wallet.ui;
 
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Objects;
 
@@ -98,6 +99,10 @@ public class ExchangeRatesAdapter extends ListAdapter<ExchangeRatesAdapter.ListI
     @Nullable
     private final OnClickListener onClickListener;
 
+    private enum ChangeType {
+        RATE, DEFAULT
+    }
+
     public ExchangeRatesAdapter(final Context context, final @Nullable OnClickListener onClickListener) {
         super(new DiffUtil.ItemCallback<ListItem>() {
             @Override
@@ -116,6 +121,19 @@ public class ExchangeRatesAdapter extends ListAdapter<ExchangeRatesAdapter.ListI
                 if (!Objects.equals(oldItem.isSelected, newItem.isSelected))
                     return false;
                 return true;
+            }
+
+            @Nullable
+            @Override
+            public Object getChangePayload(final ListItem oldItem, final ListItem newItem) {
+                final EnumSet<ChangeType> changes = EnumSet.noneOf(ChangeType.class);
+                if (!(Objects.equals(oldItem.baseRateAsFiat, newItem.baseRateAsFiat)
+                        && Objects.equals(oldItem.baseRateMinDecimals, newItem.baseRateMinDecimals)
+                        && Objects.equals(oldItem.balanceAsFiat, newItem.balanceAsFiat)))
+                    changes.add(ChangeType.RATE);
+                if (!Objects.equals(oldItem.isSelected, newItem.isSelected))
+                    changes.add(ChangeType.DEFAULT);
+                return changes;
             }
         });
 
@@ -138,24 +156,39 @@ public class ExchangeRatesAdapter extends ListAdapter<ExchangeRatesAdapter.ListI
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        final ListItem listItem = getItem(position);
-        holder.itemView.setBackgroundResource(listItem.isSelected ? R.color.bg_level3 : R.color.bg_level2);
-        holder.defaultView.setVisibility(listItem.isSelected ? View.VISIBLE : View.INVISIBLE);
-        holder.currencyCodeView.setText(listItem.currencyCode);
-        holder.rateView.setFormat(Constants.LOCAL_FORMAT.minDecimals(listItem.baseRateMinDecimals));
-        holder.rateView.setAmount(listItem.baseRateAsFiat);
-        holder.walletView.setFormat(Constants.LOCAL_FORMAT);
-        if (listItem.balanceAsFiat != null) {
-            holder.walletView.setAmount(listItem.balanceAsFiat);
-            holder.walletView.setStrikeThru(!Constants.NETWORK_PARAMETERS.getId().equals(NetworkParameters.ID_MAINNET));
-        } else {
-            holder.walletView.setText("n/a");
-            holder.walletView.setStrikeThru(false);
-        }
+        throw new UnsupportedOperationException();
+    }
 
-        final OnClickListener onClickListener = this.onClickListener;
-        if (onClickListener != null) {
-            holder.menuView.setOnClickListener(v -> onClickListener.onExchangeRateMenuClick(v, listItem.currencyCode));
+    @Override
+    public void onBindViewHolder(final ViewHolder holder, final int position, final List<Object> payloads) {
+        final boolean fullBind = payloads.isEmpty();
+        final EnumSet<ChangeType> changes = EnumSet.noneOf(ChangeType.class);
+        for (final Object payload : payloads)
+            changes.addAll((EnumSet<ChangeType>) payload);
+
+        final ListItem listItem = getItem(position);
+        if (fullBind || changes.contains(ChangeType.DEFAULT)) {
+            holder.itemView.setBackgroundResource(listItem.isSelected ? R.color.bg_level3 : R.color.bg_level2);
+            holder.defaultView.setVisibility(listItem.isSelected ? View.VISIBLE : View.INVISIBLE);
+        }
+        if (fullBind || changes.contains(ChangeType.RATE)) {
+            holder.rateView.setFormat(Constants.LOCAL_FORMAT.minDecimals(listItem.baseRateMinDecimals));
+            holder.rateView.setAmount(listItem.baseRateAsFiat);
+            holder.walletView.setFormat(Constants.LOCAL_FORMAT);
+            if (listItem.balanceAsFiat != null) {
+                holder.walletView.setAmount(listItem.balanceAsFiat);
+                holder.walletView.setStrikeThru(!Constants.NETWORK_PARAMETERS.getId().equals(NetworkParameters.ID_MAINNET));
+            } else {
+                holder.walletView.setText("n/a");
+                holder.walletView.setStrikeThru(false);
+            }
+        }
+        if (fullBind) {
+            holder.currencyCodeView.setText(listItem.currencyCode);
+            final OnClickListener onClickListener = this.onClickListener;
+            if (onClickListener != null) {
+                holder.menuView.setOnClickListener(v -> onClickListener.onExchangeRateMenuClick(v, listItem.currencyCode));
+            }
         }
     }
 
