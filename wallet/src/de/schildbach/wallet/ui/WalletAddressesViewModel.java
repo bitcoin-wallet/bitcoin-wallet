@@ -19,7 +19,6 @@ package de.schildbach.wallet.ui;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import org.bitcoinj.core.Address;
@@ -91,7 +90,11 @@ public class WalletAddressesViewModel extends AndroidViewModel {
 
         private void loadAddresses() {
             final Wallet wallet = getWallet();
-            AsyncTask.execute(() -> postValue(wallet.getIssuedReceiveAddresses()));
+            AsyncTask.execute(() -> {
+                final List<Address> addresses = wallet.getIssuedReceiveAddresses();
+                Collections.reverse(addresses);
+                postValue(addresses);
+            });
         }
     }
 
@@ -121,17 +124,8 @@ public class WalletAddressesViewModel extends AndroidViewModel {
             final Wallet wallet = getWallet();
             AsyncTask.execute(() -> {
                 final List<ECKey> importedKeys = wallet.getImportedKeys();
-                Collections.sort(importedKeys, (lhs, rhs) -> {
-                    final boolean lhsRotating = wallet.isKeyRotating(lhs);
-                    final boolean rhsRotating = wallet.isKeyRotating(rhs);
-
-                    if (lhsRotating != rhsRotating)
-                        return lhsRotating ? 1 : -1;
-                    if (lhs.getCreationTimeSeconds() != rhs.getCreationTimeSeconds())
-                        return lhs.getCreationTimeSeconds() > rhs.getCreationTimeSeconds() ? 1 : -1;
-                    return 0;
-                });
-                final List<Address> importedAddresses = new ArrayList<>();
+                Collections.reverse(importedKeys);
+                final List<Address> importedAddresses = new ArrayList<>(importedKeys.size());
                 for (final ECKey key : importedKeys)
                     importedAddresses.add(LegacyAddress.fromKey(Constants.NETWORK_PARAMETERS, key));
                 postValue(importedAddresses);
