@@ -27,6 +27,7 @@ import android.app.Application;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import java.util.List;
 import java.util.Locale;
@@ -41,6 +42,7 @@ public class ExchangeRatesViewModel extends AndroidViewModel {
     private LiveData<List<ExchangeRateEntry>> underlyingExchangeRateLiveData;
     private WalletBalanceLiveData balance;
     private boolean isConstrained = false;
+    public final MutableLiveData<String> selectedExchangeRate = new MutableLiveData<>();
 
     public ExchangeRatesViewModel(final Application application) {
         super(application);

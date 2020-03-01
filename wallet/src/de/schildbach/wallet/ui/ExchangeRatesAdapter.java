@@ -40,7 +40,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import androidx.annotation.Dimension;
+import androidx.annotation.MainThread;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
@@ -96,15 +99,22 @@ public class ExchangeRatesAdapter extends ListAdapter<ExchangeRatesAdapter.ListI
     }
 
     public interface OnClickListener {
+        void onExchangeRateClick(View view, String exchangeRateCode);
+
         void onExchangeRateMenuClick(View view, String currencyCode);
     }
 
     private final LayoutInflater inflater;
+    @Dimension
+    private final int cardElevationSelected;
+
     @Nullable
     private final OnClickListener onClickListener;
+    @Nullable
+    private String selectedExchangeRateCode;
 
     private enum ChangeType {
-        RATE, DEFAULT
+        RATE, DEFAULT, SELECTION
     }
 
     public ExchangeRatesAdapter(final Context context, final @Nullable OnClickListener onClickListener) {
@@ -142,9 +152,34 @@ public class ExchangeRatesAdapter extends ListAdapter<ExchangeRatesAdapter.ListI
         });
 
         this.inflater = LayoutInflater.from(context);
+        this.cardElevationSelected = context.getResources().getDimensionPixelOffset(R.dimen.card_elevation_selected);
         this.onClickListener = onClickListener;
 
         setHasStableIds(true);
+    }
+
+    @MainThread
+    public void setSelectedExchangeRate(final String newSelectedExchangeRateCode) {
+        if (Objects.equals(newSelectedExchangeRateCode, selectedExchangeRateCode))
+            return;
+        if (selectedExchangeRateCode != null)
+            notifyItemChanged(positionOf(selectedExchangeRateCode), EnumSet.of(ChangeType.SELECTION));
+        if (newSelectedExchangeRateCode != null)
+            notifyItemChanged(positionOf(newSelectedExchangeRateCode), EnumSet.of(ChangeType.SELECTION));
+        this.selectedExchangeRateCode = newSelectedExchangeRateCode;
+    }
+
+    @MainThread
+    public int positionOf(final String exchangeRateCode) {
+        if (exchangeRateCode != null) {
+            final List<ListItem> list = getCurrentList();
+            for (int i = 0; i < list.size(); i++) {
+                final ListItem item = list.get(i);
+                if (item.currencyCode.equals(exchangeRateCode))
+                    return i;
+            }
+        }
+        return RecyclerView.NO_POSITION;
     }
 
     @Override
@@ -171,8 +206,12 @@ public class ExchangeRatesAdapter extends ListAdapter<ExchangeRatesAdapter.ListI
             changes.addAll((EnumSet<ChangeType>) payload);
 
         final ListItem listItem = getItem(position);
+        if (fullBind || changes.contains(ChangeType.SELECTION)) {
+            final boolean isSelected = listItem.currencyCode.equals(selectedExchangeRateCode);
+            holder.itemView.setSelected(isSelected);
+            ((CardView) holder.itemView).setCardElevation(isSelected ? cardElevationSelected : 0);
+        }
         if (fullBind || changes.contains(ChangeType.DEFAULT)) {
-            holder.itemView.setBackgroundResource(listItem.isSelected ? R.color.bg_level3 : R.color.bg_level2);
             holder.defaultView.setVisibility(listItem.isSelected ? View.VISIBLE : View.INVISIBLE);
         }
         if (fullBind || changes.contains(ChangeType.RATE)) {
@@ -191,6 +230,7 @@ public class ExchangeRatesAdapter extends ListAdapter<ExchangeRatesAdapter.ListI
             holder.currencyCodeView.setText(listItem.currencyCode);
             final OnClickListener onClickListener = this.onClickListener;
             if (onClickListener != null) {
+                holder.itemView.setOnClickListener(v -> onClickListener.onExchangeRateClick(v, listItem.currencyCode));
                 holder.menuView.setOnClickListener(v -> onClickListener.onExchangeRateMenuClick(v, listItem.currencyCode));
             }
         }

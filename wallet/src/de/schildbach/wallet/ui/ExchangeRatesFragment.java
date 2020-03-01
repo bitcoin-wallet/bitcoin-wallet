@@ -110,6 +110,12 @@ public final class ExchangeRatesFragment extends Fragment
         }
         viewModel.getBalance().observe(this, balance -> maybeSubmitList());
         application.blockchainState.observe(this, blockchainState -> maybeSubmitList());
+        viewModel.selectedExchangeRate.observe(this, exchangeRateCode -> {
+            adapter.setSelectedExchangeRate(exchangeRateCode);
+            final int position = adapter.positionOf(exchangeRateCode);
+            if (position != RecyclerView.NO_POSITION)
+                recyclerView.smoothScrollToPosition(position);
+        });
 
         adapter = new ExchangeRatesAdapter(activity, this);
 
@@ -124,7 +130,6 @@ public final class ExchangeRatesFragment extends Fragment
         recyclerView = view.findViewById(R.id.exchange_rates_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(activity));
         recyclerView.setAdapter(adapter);
-        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST));
         return view;
     }
 
@@ -139,6 +144,11 @@ public final class ExchangeRatesFragment extends Fragment
         if (exchangeRates != null)
             adapter.submitList(ExchangeRatesAdapter.buildListItems(exchangeRates, viewModel.getBalance().getValue(),
                     application.blockchainState.getValue(), config.getExchangeCurrencyCode(), config.getBtcBase()));
+    }
+
+    @Override
+    public void onExchangeRateClick(final View view, final String exchangeRateCode) {
+        viewModel.selectedExchangeRate.setValue(exchangeRateCode);
     }
 
     @Override

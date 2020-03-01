@@ -3,7 +3,7 @@
     android:id="@+id/exchange_rates_list_group"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_level3" >
+    android:background="@color/bg_level1" >
 
     <ProgressBar
         android:layout_width="wrap_content"
