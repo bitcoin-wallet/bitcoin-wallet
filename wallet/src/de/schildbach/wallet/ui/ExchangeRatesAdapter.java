@@ -95,6 +95,10 @@ public class ExchangeRatesAdapter extends ListAdapter<ExchangeRatesAdapter.ListI
         private static final HashFunction ID_HASH = Hashing.farmHashFingerprint64();
     }
 
+    public interface OnClickListener {
+        void onExchangeRateMenuClick(View view, String currencyCode);
+    }
+
     private final LayoutInflater inflater;
     @Nullable
     private final OnClickListener onClickListener;
@@ -190,10 +194,6 @@ public class ExchangeRatesAdapter extends ListAdapter<ExchangeRatesAdapter.ListI
                 holder.menuView.setOnClickListener(v -> onClickListener.onExchangeRateMenuClick(v, listItem.currencyCode));
             }
         }
-    }
-
-    public interface OnClickListener {
-        void onExchangeRateMenuClick(View view, String currencyCode);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
