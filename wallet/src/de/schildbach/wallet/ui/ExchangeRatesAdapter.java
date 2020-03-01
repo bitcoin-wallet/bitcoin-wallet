@@ -71,9 +71,9 @@ public class ExchangeRatesAdapter extends ListAdapter<ExchangeRatesAdapter.ListI
             final int baseRateMinDecimals = !rateBase.isLessThan(Coin.COIN) ? 2 : 4;
             final Fiat balanceAsFiat = balance != null && (blockchainState == null || !blockchainState.replaying)
                     ? rate.coinToFiat(balance) : null;
-            final boolean isDefaultCurrency = currencyCode.equals(defaultCurrency);
+            final boolean isDefault = currencyCode.equals(defaultCurrency);
             items.add(new ListItem(source, currencyCode, baseRateAsFiat, baseRateMinDecimals,
-                    balanceAsFiat, isDefaultCurrency));
+                    balanceAsFiat, isDefault));
         }
         return items;
     }
@@ -86,16 +86,16 @@ public class ExchangeRatesAdapter extends ListAdapter<ExchangeRatesAdapter.ListI
         public final Fiat baseRateAsFiat;
         public final int baseRateMinDecimals;
         public final Fiat balanceAsFiat;
-        public final boolean isSelected;
+        public final boolean isDefault;
 
         public ListItem(final String source, final String currencyCode, final Fiat baseRateAsFiat,
-                        final int baseRateMinDecimals, final Fiat balanceAsFiat, final boolean isSelected) {
+                        final int baseRateMinDecimals, final Fiat balanceAsFiat, final boolean isDefault) {
             this.id = id(source, currencyCode);
             this.currencyCode = currencyCode;
             this.baseRateAsFiat = baseRateAsFiat;
             this.baseRateMinDecimals = baseRateMinDecimals;
             this.balanceAsFiat = balanceAsFiat;
-            this.isSelected = isSelected;
+            this.isDefault = isDefault;
         }
 
         private static long id(final String source, final String currencyCode) {
@@ -149,7 +149,7 @@ public class ExchangeRatesAdapter extends ListAdapter<ExchangeRatesAdapter.ListI
                     return false;
                 if (!Objects.equals(oldItem.balanceAsFiat, newItem.balanceAsFiat))
                     return false;
-                if (!Objects.equals(oldItem.isSelected, newItem.isSelected))
+                if (!Objects.equals(oldItem.isDefault, newItem.isDefault))
                     return false;
                 return true;
             }
@@ -162,7 +162,7 @@ public class ExchangeRatesAdapter extends ListAdapter<ExchangeRatesAdapter.ListI
                         && Objects.equals(oldItem.baseRateMinDecimals, newItem.baseRateMinDecimals)
                         && Objects.equals(oldItem.balanceAsFiat, newItem.balanceAsFiat)))
                     changes.add(ChangeType.RATE);
-                if (!Objects.equals(oldItem.isSelected, newItem.isSelected))
+                if (!Objects.equals(oldItem.isDefault, newItem.isDefault))
                     changes.add(ChangeType.DEFAULT);
                 return changes;
             }
@@ -245,7 +245,7 @@ public class ExchangeRatesAdapter extends ListAdapter<ExchangeRatesAdapter.ListI
             }
         }
         if (fullBind || changes.contains(ChangeType.DEFAULT)) {
-            holder.defaultView.setVisibility(listItem.isSelected ? View.VISIBLE : View.INVISIBLE);
+            holder.defaultView.setVisibility(listItem.isDefault ? View.VISIBLE : View.INVISIBLE);
         }
         if (fullBind || changes.contains(ChangeType.RATE)) {
             holder.rateView.setFormat(Constants.LOCAL_FORMAT.minDecimals(listItem.baseRateMinDecimals));
