@@ -405,8 +405,7 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
         CONFIDENCE, TIME, ADDRESS, FEE, VALUE, FIAT, MESSAGE, IS_SELECTED
     }
 
-    public TransactionsAdapter(final Context context, final int maxConnectedPeers,
-            final @Nullable OnClickListener onClickListener) {
+    public TransactionsAdapter(final Context context, final @Nullable OnClickListener onClickListener) {
         super(new DiffUtil.ItemCallback<ListItem>() {
             @Override
             public boolean areItemsTheSame(final ListItem oldItem, final ListItem newItem) {

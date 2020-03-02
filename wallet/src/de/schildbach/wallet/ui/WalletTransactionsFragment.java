@@ -158,7 +158,7 @@ public class WalletTransactionsFragment extends Fragment implements Transactions
             }
         });
 
-        adapter = new TransactionsAdapter(activity, application.maxConnectedPeers(), this);
+        adapter = new TransactionsAdapter(activity, this);
     }
 
     @Override
