@@ -72,16 +72,16 @@ public class RaiseFeeDialogFragment extends DialogFragment {
     private static final String FRAGMENT_TAG = RaiseFeeDialogFragment.class.getName();
     private static final String KEY_TRANSACTION = "transaction";
 
-    public static void show(final FragmentManager fm, final Transaction tx) {
-        final DialogFragment newFragment = instance(tx);
+    public static void show(final FragmentManager fm, final Sha256Hash transactionId) {
+        final DialogFragment newFragment = instance(transactionId);
         newFragment.show(fm, FRAGMENT_TAG);
     }
 
-    private static RaiseFeeDialogFragment instance(final Transaction tx) {
+    private static RaiseFeeDialogFragment instance(final Sha256Hash transactionId) {
         final RaiseFeeDialogFragment fragment = new RaiseFeeDialogFragment();
 
         final Bundle args = new Bundle();
-        args.putByteArray(KEY_TRANSACTION, tx.getTxId().getBytes());
+        args.putByteArray(KEY_TRANSACTION, transactionId.getBytes());
         fragment.setArguments(args);
 
         return fragment;

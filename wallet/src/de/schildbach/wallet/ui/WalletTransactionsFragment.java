@@ -299,7 +299,7 @@ public class WalletTransactionsFragment extends Fragment implements Transactions
                     viewModel.showBitmapDialog.setValue(new Event<>(qrCodeBitmap));
                     return true;
                 } else if (itemId == R.id.wallet_transactions_context_raise_fee) {
-                    RaiseFeeDialogFragment.show(fragmentManager, tx);
+                    RaiseFeeDialogFragment.show(fragmentManager, tx.getTxId());
                     return true;
                 } else if (itemId == R.id.wallet_transactions_context_report_issue) {
                     handleReportIssue(tx);
