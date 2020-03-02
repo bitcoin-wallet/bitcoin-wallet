@@ -68,6 +68,7 @@ import androidx.cardview.widget.CardView;
 import androidx.core.app.ShareCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 
 /**
@@ -77,6 +78,7 @@ public final class RequestCoinsFragment extends Fragment {
     private AbstractWalletActivity activity;
     private WalletApplication application;
     private Configuration config;
+    private FragmentManager fragmentManager;
     private ClipboardManager clipboardManager;
     @Nullable
     private BluetoothAdapter bluetoothAdapter;
@@ -110,6 +112,8 @@ public final class RequestCoinsFragment extends Fragment {
     @Override
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.fragmentManager = getChildFragmentManager();
+
         setHasOptionsMenu(true);
 
         viewModel = new ViewModelProvider(this).get(RequestCoinsViewModel.class);
@@ -143,7 +147,7 @@ public final class RequestCoinsFragment extends Fragment {
         viewModel.showBitmapDialog.observe(this, new Event.Observer<Bitmap>() {
             @Override
             protected void onEvent(final Bitmap bitmap) {
-                BitmapFragment.show(getParentFragmentManager(), bitmap);
+                BitmapFragment.show(fragmentManager, bitmap);
             }
         });
 

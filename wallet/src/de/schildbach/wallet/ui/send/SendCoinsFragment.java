@@ -344,12 +344,13 @@ public final class SendCoinsFragment extends Fragment {
         this.config = application.getConfiguration();
         this.addressBookDao = AddressBookDatabase.getDatabase(context).addressBookDao();
         this.contentResolver = application.getContentResolver();
-        this.fragmentManager = getParentFragmentManager();
     }
 
     @Override
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.fragmentManager = getChildFragmentManager();
+
         setHasOptionsMenu(true);
 
         viewModel = new ViewModelProvider(this).get(SendCoinsViewModel.class);

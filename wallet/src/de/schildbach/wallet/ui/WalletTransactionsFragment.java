@@ -59,6 +59,7 @@ import android.widget.PopupMenu.OnMenuItemClickListener;
 import android.widget.TextView;
 import android.widget.ViewAnimator;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -69,6 +70,7 @@ public class WalletTransactionsFragment extends Fragment implements Transactions
     private AbstractWalletActivity activity;
     private WalletApplication application;
     private Configuration config;
+    private FragmentManager fragmentManager;
     private AddressBookDao addressBookDao;
     private DevicePolicyManager devicePolicyManager;
 
@@ -99,6 +101,8 @@ public class WalletTransactionsFragment extends Fragment implements Transactions
     @Override
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.fragmentManager = getChildFragmentManager();
+
         setHasOptionsMenu(true);
 
         activityViewModel = new ViewModelProvider(activity).get(WalletActivityViewModel.class);
@@ -139,19 +143,19 @@ public class WalletTransactionsFragment extends Fragment implements Transactions
         viewModel.showBitmapDialog.observe(this, new Event.Observer<Bitmap>() {
             @Override
             protected void onEvent(final Bitmap bitmap) {
-                BitmapFragment.show(getParentFragmentManager(), bitmap);
+                BitmapFragment.show(fragmentManager, bitmap);
             }
         });
         viewModel.showEditAddressBookEntryDialog.observe(this, new Event.Observer<Address>() {
             @Override
             protected void onEvent(final Address address) {
-                EditAddressBookEntryFragment.edit(getParentFragmentManager(), address);
+                EditAddressBookEntryFragment.edit(fragmentManager, address);
             }
         });
         viewModel.showReportIssueDialog.observe(this, new Event.Observer<Sha256Hash>() {
             @Override
             protected void onEvent(final Sha256Hash transactionHash) {
-                ReportIssueDialogFragment.show(getParentFragmentManager(), R.string.report_issue_dialog_title_transaction,
+                ReportIssueDialogFragment.show(fragmentManager, R.string.report_issue_dialog_title_transaction,
                         R.string.report_issue_dialog_message_issue, Constants.REPORT_SUBJECT_ISSUE, transactionHash);
             }
         });
@@ -295,7 +299,7 @@ public class WalletTransactionsFragment extends Fragment implements Transactions
                     viewModel.showBitmapDialog.setValue(new Event<>(qrCodeBitmap));
                     return true;
                 } else if (itemId == R.id.wallet_transactions_context_raise_fee) {
-                    RaiseFeeDialogFragment.show(getParentFragmentManager(), tx);
+                    RaiseFeeDialogFragment.show(fragmentManager, tx);
                     return true;
                 } else if (itemId == R.id.wallet_transactions_context_report_issue) {
                     handleReportIssue(tx);

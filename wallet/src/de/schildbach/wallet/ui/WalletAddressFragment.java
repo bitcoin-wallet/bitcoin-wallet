@@ -39,6 +39,7 @@ import android.widget.ImageView;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 
 /**
@@ -46,6 +47,7 @@ import androidx.lifecycle.ViewModelProvider;
  */
 public final class WalletAddressFragment extends Fragment {
     private WalletActivity activity;
+    private FragmentManager fragmentManager;
     @Nullable
     private NfcAdapter nfcAdapter;
 
@@ -67,6 +69,7 @@ public final class WalletAddressFragment extends Fragment {
     @Override
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.fragmentManager = getChildFragmentManager();
 
         activityViewModel = new ViewModelProvider(activity).get(WalletActivityViewModel.class);
         viewModel = new ViewModelProvider(this).get(WalletAddressViewModel.class);
@@ -87,7 +90,7 @@ public final class WalletAddressFragment extends Fragment {
             @Override
             protected void onEvent(final Void v) {
                 final Address address = viewModel.currentAddress.getValue();
-                WalletAddressDialogFragment.show(getParentFragmentManager(), address, viewModel.ownName.getValue());
+                WalletAddressDialogFragment.show(fragmentManager, address, viewModel.ownName.getValue());
                 log.info("Current address enlarged: {}", address);
             }
         });

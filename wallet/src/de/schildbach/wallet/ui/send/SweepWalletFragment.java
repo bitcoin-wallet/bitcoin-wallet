@@ -130,12 +130,13 @@ public class SweepWalletFragment extends Fragment {
         this.activity = (AbstractWalletActivity) context;
         this.application = activity.getWalletApplication();
         this.config = application.getConfiguration();
-        this.fragmentManager = getParentFragmentManager();
     }
 
     @Override
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.fragmentManager = getChildFragmentManager();
+
         setHasOptionsMenu(true);
 
         if (!Constants.ENABLE_SWEEP_WALLET)

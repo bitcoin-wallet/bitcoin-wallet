@@ -32,6 +32,7 @@ import android.widget.ViewAnimator;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -54,6 +55,7 @@ import org.slf4j.LoggerFactory;
 public final class SendingAddressesFragment extends Fragment implements AddressBookAdapter.OnClickListener,
         AddressBookAdapter.ContextMenuCallback {
     private AbstractWalletActivity activity;
+    private FragmentManager fragmentManager;
     private AddressBookDao addressBookDao;
     private ClipboardManager clipboardManager;
 
@@ -77,6 +79,7 @@ public final class SendingAddressesFragment extends Fragment implements AddressB
     @Override
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.fragmentManager = getChildFragmentManager();
 
         activityViewModel = new ViewModelProvider(activity).get(AddressBookViewModel.class);
         activityViewModel.selectedAddress.observe(this, address -> {
@@ -98,13 +101,13 @@ public final class SendingAddressesFragment extends Fragment implements AddressB
         viewModel.showBitmapDialog.observe(this, new Event.Observer<Bitmap>() {
             @Override
             protected void onEvent(final Bitmap bitmap) {
-                BitmapFragment.show(getParentFragmentManager(), bitmap);
+                BitmapFragment.show(fragmentManager, bitmap);
             }
         });
         viewModel.showEditAddressBookEntryDialog.observe(this, new Event.Observer<Address>() {
             @Override
             protected void onEvent(final Address address) {
-                EditAddressBookEntryFragment.edit(getParentFragmentManager(), address);
+                EditAddressBookEntryFragment.edit(fragmentManager, address);
             }
         });
 
