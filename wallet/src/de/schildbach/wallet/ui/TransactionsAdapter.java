@@ -59,7 +59,6 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import androidx.annotation.MainThread;
 import androidx.annotation.Nullable;
-import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.ColorUtils;
 import androidx.recyclerview.widget.DiffUtil;
@@ -392,8 +391,6 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
 
     private final Context context;
     private final LayoutInflater inflater;
-    private final int colorBackground;
-    private final int colorBackgroundSelected;
 
     @Nullable
     private final OnClickListener onClickListener;
@@ -557,8 +554,6 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
         this.context = context;
         this.inflater = LayoutInflater.from(context);
         this.onClickListener = onClickListener;
-        this.colorBackground = ContextCompat.getColor(context, R.color.bg_level2);
-        this.colorBackgroundSelected = ContextCompat.getColor(context, R.color.bg_level3);
 
         setHasStableIds(true);
     }
@@ -606,17 +601,12 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
-        if (viewType == VIEW_TYPE_TRANSACTION) {
-            final CardView cardView = (CardView) inflater.inflate(R.layout.transaction_row_card, parent, false);
-            cardView.setPreventCornerOverlap(false);
-            cardView.setUseCompatPadding(false);
-            cardView.setMaxCardElevation(0); // we're using Lollipop elevation
-            return new TransactionViewHolder(cardView);
-        } else if (viewType == VIEW_TYPE_WARNING) {
+        if (viewType == VIEW_TYPE_TRANSACTION)
+            return new TransactionViewHolder(inflater.inflate(R.layout.transaction_row_card, parent, false));
+        else if (viewType == VIEW_TYPE_WARNING)
             return new WarningViewHolder(inflater.inflate(R.layout.transaction_row_warning, parent, false));
-        } else {
+        else
             throw new IllegalStateException("unknown type: " + viewType);
-        }
     }
 
     @Override
@@ -647,10 +637,7 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
                 }
             }
             if (fullBind || changes.contains(ChangeType.SELECTION)) {
-                transactionHolder.itemView.setActivated(isSelected);
-                if (transactionHolder.itemView instanceof CardView)
-                    ((CardView) transactionHolder.itemView)
-                            .setCardBackgroundColor(isSelected ? colorBackgroundSelected : colorBackground);
+                transactionHolder.itemView.setSelected(isSelected);
                 transactionHolder.menu.setVisibility(isSelected ? View.VISIBLE : View.GONE);
             }
             if (fullBind || changes.contains(ChangeType.CONFIDENCE) || changes.contains(ChangeType.SELECTION))

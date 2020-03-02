@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="@dimen/card_margin_vertical"
@@ -8,7 +10,11 @@
     android:layout_marginTop="@dimen/card_margin_vertical"
     android:elevation="1dp"
     android:focusable="true"
-    android:foreground="?android:attr/selectableItemBackground" >
+    android:foreground="?android:attr/selectableItemBackground"
+    app:cardElevation="0px"
+    app:cardBackgroundColor="@color/bg_list_card_transaction"
+    app:cardPreventCornerOverlap="false"
+    app:cardUseCompatPadding="false">
 
     <include layout="@layout/transaction_row" />
 
