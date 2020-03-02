@@ -57,7 +57,7 @@ import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.data.PaymentIntent;
 import de.schildbach.wallet.ui.AbstractWalletActivity;
 import de.schildbach.wallet.ui.DialogBuilder;
-import de.schildbach.wallet.ui.Event;
+import de.schildbach.wallet.ui.DialogEvent;
 import de.schildbach.wallet.ui.InputParser.StringInputParser;
 import de.schildbach.wallet.ui.ProgressDialogFragment;
 import de.schildbach.wallet.ui.TransactionsAdapter;
@@ -66,7 +66,6 @@ import de.schildbach.wallet.util.MonetarySpannable;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.media.RingtoneManager;
@@ -145,40 +144,12 @@ public class SweepWalletFragment extends Fragment {
         viewModel = new ViewModelProvider(this).get(SweepWalletViewModel.class);
         viewModel.getDynamicFees().observe(this, dynamicFees -> updateView());
         viewModel.progress.observe(this, new ProgressDialogFragment.Observer(fragmentManager));
-        viewModel.showParsePrivateKeyProblemDialog.observe(this, new Event.Observer<CharSequence>() {
+        viewModel.showDialog.observe(this, new DialogEvent.Observer(activity));
+        viewModel.showDialogWithRetryRequestBalance.observe(this, new DialogEvent.Observer(activity) {
             @Override
-            protected void onEvent(final CharSequence message) {
-                final DialogBuilder dialog = DialogBuilder.dialog(activity, R.string.button_scan, message);
-                dialog.singleDismissButton(null);
-                dialog.show();
-            }
-        });
-        viewModel.showRequestWalletBalanceFailedDialog.observe(this, new Event.Observer<CharSequence>() {
-            @Override
-            protected void onEvent(final CharSequence message) {
-                final DialogBuilder dialog = DialogBuilder.warn(activity,
-                        R.string.sweep_wallet_fragment_request_wallet_balance_failed_title, message);
+            protected void onBuildButtons(final DialogBuilder dialog) {
                 dialog.setPositiveButton(R.string.button_retry, (d, which) -> requestWalletBalance());
                 dialog.setNegativeButton(R.string.button_dismiss, null);
-                dialog.show();
-            }
-        });
-        viewModel.showProblemSendingDialog.observe(this, new Event.Observer<String>() {
-            @Override
-            protected void onEvent(final String message) {
-                final DialogBuilder dialog = DialogBuilder.warn(activity, R.string.send_coins_error_msg, message);
-                dialog.setNeutralButton(R.string.button_dismiss, null);
-                dialog.show();
-            }
-        });
-        viewModel.showInsufficientMoneyDialog.observe(this, new Event.Observer<Void>() {
-            @Override
-            protected void onEvent(final Void v) {
-                final DialogBuilder dialog = DialogBuilder.warn(activity,
-                        R.string.sweep_wallet_fragment_insufficient_money_title,
-                        R.string.sweep_wallet_fragment_insufficient_money_msg);
-                dialog.setNeutralButton(R.string.button_dismiss, null);
-                dialog.show();
             }
         });
 
@@ -269,8 +240,8 @@ public class SweepWalletFragment extends Fragment {
 
                     @Override
                     protected void error(final int messageResId, final Object... messageArgs) {
-                        viewModel.showParsePrivateKeyProblemDialog.setValue(new Event(getString(messageResId,
-                                messageArgs)));
+                        viewModel.showDialog.setValue(DialogEvent.dialog(R.string.button_scan,
+                                messageResId, messageArgs));
                     }
                 }.parse();
             }
@@ -465,7 +436,8 @@ public class SweepWalletFragment extends Fragment {
             @Override
             public void onFail(final int messageResId, final Object... messageArgs) {
                 viewModel.progress.setValue(null);
-                viewModel.showRequestWalletBalanceFailedDialog.setValue(new Event(getString(messageResId, messageArgs)));
+                viewModel.showDialogWithRetryRequestBalance.setValue(DialogEvent.warn(
+                        R.string.sweep_wallet_fragment_request_wallet_balance_failed_title, messageResId, messageArgs));
             }
         };
 
@@ -587,19 +559,27 @@ public class SweepWalletFragment extends Fragment {
             @Override
             protected void onInsufficientMoney(@Nullable final Coin missing) {
                 setState(SweepWalletViewModel.State.FAILED);
-                viewModel.showInsufficientMoneyDialog.setValue(Event.simple());
+                viewModel.showDialog.setValue(DialogEvent.warn(
+                        R.string.sweep_wallet_fragment_insufficient_money_title,
+                        R.string.sweep_wallet_fragment_insufficient_money_msg)
+                );
             }
 
             @Override
             protected void onEmptyWalletFailed() {
                 setState(SweepWalletViewModel.State.FAILED);
-                viewModel.showInsufficientMoneyDialog.setValue(Event.simple());
+                viewModel.showDialog.setValue(DialogEvent.warn(
+                        R.string.sweep_wallet_fragment_insufficient_money_title,
+                        R.string.sweep_wallet_fragment_insufficient_money_msg)
+                );
             }
 
             @Override
             protected void onFailure(final Exception exception) {
                 setState(SweepWalletViewModel.State.FAILED);
-                viewModel.showProblemSendingDialog.setValue(new Event(exception.toString()));
+                viewModel.showDialog.setValue(DialogEvent.warn(0, R.string.send_coins_error_msg,
+                        exception.toString())
+                );
             }
 
             @Override
