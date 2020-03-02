@@ -490,8 +490,8 @@ public class SweepWalletFragment extends Fragment {
         if (viewModel.sentTransaction != null) {
             sweepTransactionViewGroup.setVisibility(View.VISIBLE);
             sweepTransactionViewHolder
-                    .bind(new TransactionsAdapter.ListItem.TransactionItem(activity, viewModel.sentTransaction,
-                            application.getWallet(), null, btcFormat, application.maxConnectedPeers(), false));
+                    .fullBind(new TransactionsAdapter.ListItem.TransactionItem(activity, viewModel.sentTransaction,
+                            application.getWallet(), null, btcFormat, application.maxConnectedPeers()));
         } else {
             sweepTransactionViewGroup.setVisibility(View.GONE);
         }

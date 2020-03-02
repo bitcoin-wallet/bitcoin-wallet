@@ -134,6 +134,12 @@ public class WalletTransactionsFragment extends Fragment implements Transactions
                 viewGroup.setDisplayedChild(1);
             }
         });
+        viewModel.selectedTransaction.observe(this, transactionId -> {
+            adapter.setSelectedTransaction(transactionId);
+            final int position = adapter.positionOf(transactionId);
+            if (position != RecyclerView.NO_POSITION)
+                recyclerView.smoothScrollToPosition(position);
+        });
         viewModel.list.observe(this, listItems -> {
             adapter.submitList(listItems);
             activityViewModel.transactionsLoadingFinished();
@@ -173,7 +179,6 @@ public class WalletTransactionsFragment extends Fragment implements Transactions
         recyclerView = view.findViewById(R.id.wallet_transactions_list);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new StickToTopLinearLayoutManager(activity));
-        recyclerView.setItemAnimator(new TransactionsAdapter.ItemAnimator());
         recyclerView.setAdapter(adapter);
         recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
             private final int PADDING = 2
@@ -319,8 +324,8 @@ public class WalletTransactionsFragment extends Fragment implements Transactions
     }
 
     @Override
-    public void onTransactionClick(final View view, final Sha256Hash transactionHash) {
-        viewModel.setSelectedTransaction(transactionHash);
+    public void onTransactionClick(final View view, final Sha256Hash transactionId) {
+        viewModel.selectedTransaction.setValue(transactionId);
     }
 
     @Override

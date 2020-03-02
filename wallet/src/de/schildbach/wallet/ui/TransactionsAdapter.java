@@ -57,15 +57,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import androidx.annotation.MainThread;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.ColorUtils;
-import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 
 /**
  * @author Andreas Schildbach
@@ -74,14 +73,13 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
     public static List<ListItem> buildListItems(final Context context, final List<Transaction> transactions,
             final WarningType warning, final @Nullable Wallet wallet,
             final @Nullable Map<String, AddressBookEntry> addressBook, final MonetaryFormat format,
-            final int maxConnectedPeers, final @Nullable Sha256Hash selectedTransaction) {
+            final int maxConnectedPeers) {
         final MonetaryFormat noCodeFormat = format.noCode();
         final List<ListItem> items = new ArrayList<>(transactions.size() + 1);
         if (warning != null)
             items.add(new ListItem.WarningItem(warning));
         for (final Transaction tx : transactions)
-            items.add(new ListItem.TransactionItem(context, tx, wallet, addressBook, noCodeFormat, maxConnectedPeers,
-                    tx.getTxId().equals(selectedTransaction)));
+            items.add(new ListItem.TransactionItem(context, tx, wallet, addressBook, noCodeFormat, maxConnectedPeers));
         return items;
     }
 
@@ -94,7 +92,7 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
         }
 
         public static class TransactionItem extends ListItem {
-            public final Sha256Hash transactionHash;
+            public final Sha256Hash transactionId;
             public final int confidenceCircularProgress, confidenceCircularMaxProgress;
             public final int confidenceCircularSize, confidenceCircularMaxSize;
             public final int confidenceCircularFillColor, confidenceCircularStrokeColor;
@@ -103,13 +101,13 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
             public final int confidenceTextualColor;
             @Nullable
             public final Spanned confidenceMessage;
-            public final CharSequence time;
+            public final boolean confidenceMessageOnlyShownWhenSelected;
+            public final CharSequence time, timeSelected;
             public final int timeColor;
             @Nullable
             public final Spanned address;
             public final int addressColor;
             public final Typeface addressTypeface;
-            public final boolean addressSingleLine;
             @Nullable
             public final Coin fee;
             public final MonetaryFormat feeFormat;
@@ -125,15 +123,12 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
             @Nullable
             public final Spanned message;
             public final int messageColor;
-            public final boolean messageSingleLine;
-            public final boolean isSelected;
 
             public TransactionItem(final Context context, final Transaction tx, final @Nullable Wallet wallet,
                     final @Nullable Map<String, AddressBookEntry> addressBook, final MonetaryFormat format,
-                    final int maxConnectedPeers, final boolean isSelected) {
+                    final int maxConnectedPeers) {
                 super(id(tx.getTxId()));
-                this.transactionHash = tx.getTxId();
-                this.isSelected = isSelected;
+                this.transactionId = tx.getTxId();
 
                 final int colorSignificant = ContextCompat.getColor(context, R.color.fg_significant);
                 final int colorLessSignificant = ContextCompat.getColor(context, R.color.fg_less_significant);
@@ -180,6 +175,7 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
                             ? SpannedString.valueOf(
                                     context.getString(R.string.transaction_row_confidence_message_sent_unbroadcasted))
                             : null;
+                    this.confidenceMessageOnlyShownWhenSelected = false;
                 } else if (confidenceType == ConfidenceType.IN_CONFLICT) {
                     this.confidenceTextual = CONFIDENCE_SYMBOL_IN_CONFLICT;
                     this.confidenceTextualColor = colorError;
@@ -190,6 +186,7 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
                     this.confidenceCircularFillColor = 0;
                     this.confidenceCircularStrokeColor = 0;
                     this.confidenceMessage = null;
+                    this.confidenceMessageOnlyShownWhenSelected = false;
                 } else if (confidenceType == ConfidenceType.BUILDING) {
                     this.confidenceCircularMaxProgress = tx.isCoinBase()
                             ? Constants.NETWORK_PARAMETERS.getSpendableCoinbaseDepth()
@@ -203,10 +200,10 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
                     this.confidenceCircularStrokeColor = Color.TRANSPARENT;
                     this.confidenceTextual = null;
                     this.confidenceTextualColor = 0;
-                    this.confidenceMessage = isSelected ? SpannedString.valueOf(
+                    this.confidenceMessage = SpannedString.valueOf(
                             context.getString(sent ? R.string.transaction_row_confidence_message_sent_successful
-                                    : R.string.transaction_row_confidence_message_received_successful))
-                            : null;
+                                    : R.string.transaction_row_confidence_message_received_successful));
+                    this.confidenceMessageOnlyShownWhenSelected = true;
                 } else if (confidenceType == ConfidenceType.DEAD) {
                     this.confidenceTextual = CONFIDENCE_SYMBOL_DEAD;
                     this.confidenceTextualColor = colorError;
@@ -219,6 +216,7 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
                     this.confidenceMessage = SpannedString
                             .valueOf(context.getString(sent ? R.string.transaction_row_confidence_message_sent_failed
                                     : R.string.transaction_row_confidence_message_received_failed));
+                    this.confidenceMessageOnlyShownWhenSelected = false;
                 } else {
                     this.confidenceTextual = CONFIDENCE_SYMBOL_UNKNOWN;
                     this.confidenceTextualColor = colorInsignificant;
@@ -229,14 +227,14 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
                     this.confidenceCircularFillColor = 0;
                     this.confidenceCircularStrokeColor = 0;
                     this.confidenceMessage = null;
+                    this.confidenceMessageOnlyShownWhenSelected = false;
                 }
 
                 // time
                 final Date time = tx.getUpdateTime();
-                this.time = isSelected
-                        ? DateUtils.formatDateTime(context, time.getTime(),
-                                DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_TIME)
-                        : DateUtils.getRelativeTimeSpanString(context, time.getTime());
+                this.time = DateUtils.getRelativeTimeSpanString(context, time.getTime());
+                this.timeSelected = DateUtils.formatDateTime(context, time.getTime(),
+                        DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_TIME);
                 this.timeColor = textColor;
 
                 // address
@@ -284,13 +282,12 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
                     this.addressColor = lessSignificantColor;
                     this.addressTypeface = Typeface.DEFAULT;
                 }
-                this.addressSingleLine = !isSelected;
 
                 // fee
                 final Coin fee = tx.getFee();
                 final boolean showFee = sent && fee != null && !fee.isZero();
                 this.feeFormat = format;
-                this.fee = isSelected && showFee ? fee.negate() : null;
+                this.fee = showFee ? fee.negate() : null;
 
                 // value
                 this.valueFormat = format;
@@ -323,62 +320,50 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
                     this.message = Html
                             .fromHtml(context.getString(R.string.transaction_row_message_purpose_key_rotation));
                     this.messageColor = colorSignificant;
-                    this.messageSingleLine = false;
                 } else if (purpose == Purpose.RAISE_FEE) {
                     this.message = SpannedString
                             .valueOf(context.getString(R.string.transaction_row_message_purpose_raise_fee));
                     this.messageColor = colorInsignificant;
-                    this.messageSingleLine = false;
                 } else if (!isOwn && confidenceType == ConfidenceType.PENDING && confidence.numBroadcastPeers() == 0) {
                     this.message = SpannedString
                             .valueOf(context.getString(R.string.transaction_row_message_received_direct));
                     this.messageColor = colorInsignificant;
-                    this.messageSingleLine = false;
                 } else if (!sent && value.compareTo(Transaction.MIN_NONDUST_OUTPUT) < 0) {
                     this.message = SpannedString
                             .valueOf(context.getString(R.string.transaction_row_message_received_dust));
                     this.messageColor = colorInsignificant;
-                    this.messageSingleLine = false;
                 } else if (!sent && confidenceType == ConfidenceType.PENDING
                         && (tx.getUpdateTime() == null || wallet.getLastBlockSeenTimeSecs() * 1000
                                 - tx.getUpdateTime().getTime() > Constants.DELAYED_TRANSACTION_THRESHOLD_MS)) {
                     this.message = SpannedString
                             .valueOf(context.getString(R.string.transaction_row_message_received_unconfirmed_delayed));
                     this.messageColor = colorInsignificant;
-                    this.messageSingleLine = false;
                 } else if (!sent && confidenceType == ConfidenceType.PENDING) {
                     this.message = SpannedString
                             .valueOf(context.getString(R.string.transaction_row_message_received_unconfirmed_unlocked));
                     this.messageColor = colorInsignificant;
-                    this.messageSingleLine = false;
                 } else if (!sent && confidenceType == ConfidenceType.IN_CONFLICT) {
                     this.message = SpannedString
                             .valueOf(context.getString(R.string.transaction_row_message_received_in_conflict));
                     this.messageColor = colorInsignificant;
-                    this.messageSingleLine = false;
                 } else if (!sent && confidenceType == ConfidenceType.DEAD) {
                     this.message = SpannedString
                             .valueOf(context.getString(R.string.transaction_row_message_received_dead));
                     this.messageColor = colorError;
-                    this.messageSingleLine = false;
                 } else if (!sent && WalletUtils.isPayToManyTransaction(tx)) {
                     this.message = SpannedString
                             .valueOf(context.getString(R.string.transaction_row_message_received_pay_to_many));
                     this.messageColor = colorInsignificant;
-                    this.messageSingleLine = false;
                 } else if (!sent && tx.isOptInFullRBF()) {
                     this.message = SpannedString
                             .valueOf(context.getString(R.string.transaction_row_message_received_rbf));
                     this.messageColor = colorInsignificant;
-                    this.messageSingleLine = false;
                 } else if (memo != null) {
                     this.message = SpannedString.valueOf(memo[0]);
                     this.messageColor = colorInsignificant;
-                    this.messageSingleLine = isSelected;
                 } else {
                     this.message = null;
                     this.messageColor = 0;
-                    this.messageSingleLine = false;
                 }
             }
 
@@ -407,9 +392,13 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
 
     private final Context context;
     private final LayoutInflater inflater;
+    private final int colorBackground;
+    private final int colorBackgroundSelected;
 
     @Nullable
     private final OnClickListener onClickListener;
+    @Nullable
+    private Sha256Hash selectedTransactionId;
 
     private static final String CONFIDENCE_SYMBOL_IN_CONFLICT = "\u26A0"; // warning sign
     private static final String CONFIDENCE_SYMBOL_DEAD = "\u271D"; // latin cross
@@ -419,7 +408,7 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
     private static final int VIEW_TYPE_WARNING = 1;
 
     private enum ChangeType {
-        CONFIDENCE, TIME, ADDRESS, FEE, VALUE, FIAT, MESSAGE, IS_SELECTED
+        CONFIDENCE, TIME, ADDRESS, FEE, VALUE, FIAT, MESSAGE, SELECTION
     }
 
     public TransactionsAdapter(final Context context, final @Nullable OnClickListener onClickListener) {
@@ -459,7 +448,12 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
                         return false;
                     if (!Objects.equals(oldTransactionItem.confidenceMessage, newTransactionItem.confidenceMessage))
                         return false;
+                    if (!Objects.equals(oldTransactionItem.confidenceMessageOnlyShownWhenSelected,
+                            newTransactionItem.confidenceMessageOnlyShownWhenSelected))
+                        return false;
                     if (!Objects.equals(oldTransactionItem.time, newTransactionItem.time))
+                        return false;
+                    if (!Objects.equals(oldTransactionItem.timeSelected, newTransactionItem.timeSelected))
                         return false;
                     if (!Objects.equals(oldTransactionItem.timeColor, newTransactionItem.timeColor))
                         return false;
@@ -468,8 +462,6 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
                     if (!Objects.equals(oldTransactionItem.addressColor, newTransactionItem.addressColor))
                         return false;
                     if (!Objects.equals(oldTransactionItem.addressTypeface, newTransactionItem.addressTypeface))
-                        return false;
-                    if (!Objects.equals(oldTransactionItem.addressSingleLine, newTransactionItem.addressSingleLine))
                         return false;
                     if (!Objects.equals(oldTransactionItem.fee, newTransactionItem.fee))
                         return false;
@@ -496,10 +488,6 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
                     if (!Objects.equals(oldTransactionItem.message, newTransactionItem.message))
                         return false;
                     if (!Objects.equals(oldTransactionItem.messageColor, newTransactionItem.messageColor))
-                        return false;
-                    if (!Objects.equals(oldTransactionItem.messageSingleLine, newTransactionItem.messageSingleLine))
-                        return false;
-                    if (!Objects.equals(oldTransactionItem.isSelected, newTransactionItem.isSelected))
                         return false;
                     return true;
                 } else {
@@ -530,16 +518,17 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
                             && Objects.equals(oldTransactionItem.confidenceTextualColor,
                                     newTransactionItem.confidenceTextualColor)
                             && Objects.equals(oldTransactionItem.confidenceMessage,
-                                    newTransactionItem.confidenceMessage)))
+                                    newTransactionItem.confidenceMessage)
+                            && Objects.equals(oldTransactionItem.confidenceMessageOnlyShownWhenSelected,
+                                    newTransactionItem.confidenceMessageOnlyShownWhenSelected)))
                         changes.add(ChangeType.CONFIDENCE);
                     if (!(Objects.equals(oldTransactionItem.time, newTransactionItem.time)
+                            && Objects.equals(oldTransactionItem.timeSelected, newTransactionItem.timeSelected)
                             && Objects.equals(oldTransactionItem.timeColor, newTransactionItem.timeColor)))
                         changes.add(ChangeType.TIME);
                     if (!(Objects.equals(oldTransactionItem.address, newTransactionItem.address)
                             && Objects.equals(oldTransactionItem.addressColor, newTransactionItem.addressColor)
-                            && Objects.equals(oldTransactionItem.addressTypeface, newTransactionItem.addressTypeface)
-                            && Objects.equals(oldTransactionItem.addressSingleLine,
-                                    newTransactionItem.addressSingleLine)))
+                            && Objects.equals(oldTransactionItem.addressTypeface, newTransactionItem.addressTypeface)))
                         changes.add(ChangeType.ADDRESS);
                     if (!(Objects.equals(oldTransactionItem.fee, newTransactionItem.fee)
                             && Objects.equals(oldTransactionItem.feeFormat.format(Coin.COIN).toString(),
@@ -559,22 +548,43 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
                             && Objects.equals(oldTransactionItem.fiatPrefixColor, newTransactionItem.fiatPrefixColor)))
                         changes.add(ChangeType.FIAT);
                     if (!(Objects.equals(oldTransactionItem.message, newTransactionItem.message)
-                            && Objects.equals(oldTransactionItem.messageColor, newTransactionItem.messageColor)
-                            && Objects.equals(oldTransactionItem.messageSingleLine,
-                                    newTransactionItem.messageSingleLine)))
+                            && Objects.equals(oldTransactionItem.messageColor, newTransactionItem.messageColor)))
                         changes.add(ChangeType.MESSAGE);
-                    if (!(Objects.equals(oldTransactionItem.isSelected, newTransactionItem.isSelected)))
-                        changes.add(ChangeType.IS_SELECTED);
                 }
                 return changes;
             }
         });
         this.context = context;
         this.inflater = LayoutInflater.from(context);
-
         this.onClickListener = onClickListener;
+        this.colorBackground = ContextCompat.getColor(context, R.color.bg_level2);
+        this.colorBackgroundSelected = ContextCompat.getColor(context, R.color.bg_level3);
 
         setHasStableIds(true);
+    }
+
+    @MainThread
+    public void setSelectedTransaction(final Sha256Hash newSelectedTransactionId) {
+        if (Objects.equals(newSelectedTransactionId, selectedTransactionId))
+            return;
+        if (selectedTransactionId != null)
+            notifyItemChanged(positionOf(selectedTransactionId), EnumSet.of(ChangeType.SELECTION));
+        if (newSelectedTransactionId != null)
+            notifyItemChanged(positionOf(newSelectedTransactionId), EnumSet.of(ChangeType.SELECTION));
+        this.selectedTransactionId = newSelectedTransactionId;
+    }
+
+    @MainThread
+    public int positionOf(final Sha256Hash transactionId) {
+        if (transactionId != null) {
+            final List<ListItem> list = getCurrentList();
+            for (int i = 0; i < list.size(); i++) {
+                final ListItem item = list.get(i);
+                if (item instanceof ListItem.TransactionItem && ((TransactionItem) item).transactionId.equals(transactionId))
+                    return i;
+            }
+        }
+        return RecyclerView.NO_POSITION;
     }
 
     @Override
@@ -626,34 +636,37 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
         if (holder instanceof TransactionViewHolder) {
             final TransactionViewHolder transactionHolder = (TransactionViewHolder) holder;
             final ListItem.TransactionItem transactionItem = (ListItem.TransactionItem) listItem;
+            final boolean isSelected = transactionItem.transactionId.equals(selectedTransactionId);
             if (fullBind) {
-                transactionHolder.itemView.setActivated(transactionItem.isSelected);
-                transactionHolder.bind(transactionItem);
-
                 final OnClickListener onClickListener = this.onClickListener;
                 if (onClickListener != null) {
                     transactionHolder.itemView.setOnClickListener(v -> onClickListener.onTransactionClick(v,
-                            transactionItem.transactionHash));
+                            transactionItem.transactionId));
                     transactionHolder.menu.setOnClickListener(v -> onClickListener.onTransactionMenuClick(v,
-                            transactionItem.transactionHash));
+                            transactionItem.transactionId));
                 }
             }
-            if (fullBind || changes.contains(ChangeType.CONFIDENCE))
-                transactionHolder.bindConfidence(transactionItem);
-            if (fullBind || changes.contains(ChangeType.TIME))
-                transactionHolder.bindTime(transactionItem);
-            if (fullBind || changes.contains(ChangeType.ADDRESS))
-                transactionHolder.bindAddress(transactionItem);
-            if (fullBind || changes.contains(ChangeType.FEE))
-                transactionHolder.bindFee(transactionItem);
+            if (fullBind || changes.contains(ChangeType.SELECTION)) {
+                transactionHolder.itemView.setActivated(isSelected);
+                if (transactionHolder.itemView instanceof CardView)
+                    ((CardView) transactionHolder.itemView)
+                            .setCardBackgroundColor(isSelected ? colorBackgroundSelected : colorBackground);
+                transactionHolder.menu.setVisibility(isSelected ? View.VISIBLE : View.GONE);
+            }
+            if (fullBind || changes.contains(ChangeType.CONFIDENCE) || changes.contains(ChangeType.SELECTION))
+                transactionHolder.bindConfidence(transactionItem, isSelected);
+            if (fullBind || changes.contains(ChangeType.TIME) || changes.contains(ChangeType.SELECTION))
+                transactionHolder.bindTime(transactionItem, isSelected);
+            if (fullBind || changes.contains(ChangeType.ADDRESS) || changes.contains(ChangeType.SELECTION))
+                transactionHolder.bindAddress(transactionItem, isSelected);
+            if (fullBind || changes.contains(ChangeType.FEE) || changes.contains(ChangeType.SELECTION))
+                transactionHolder.bindFee(transactionItem, isSelected);
             if (fullBind || changes.contains(ChangeType.VALUE))
                 transactionHolder.bindValue(transactionItem);
             if (fullBind || changes.contains(ChangeType.FIAT))
                 transactionHolder.bindFiat(transactionItem);
-            if (fullBind || changes.contains(ChangeType.MESSAGE))
-                transactionHolder.bindMessage(transactionItem);
-            if (fullBind || changes.contains(ChangeType.IS_SELECTED))
-                transactionHolder.bindIsSelected(transactionItem);
+            if (fullBind || changes.contains(ChangeType.MESSAGE) || changes.contains(ChangeType.SELECTION))
+                transactionHolder.bindMessage(transactionItem, isSelected);
         } else if (holder instanceof WarningViewHolder) {
             final WarningViewHolder warningHolder = (WarningViewHolder) holder;
             final ListItem.WarningItem warningItem = (ListItem.WarningItem) listItem;
@@ -686,30 +699,15 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
         }
     }
 
-    public static class ItemAnimator extends DefaultItemAnimator {
-        @Override
-        public boolean canReuseUpdatedViewHolder(final ViewHolder viewHolder, final List<Object> payloads) {
-            for (final Object payload : payloads) {
-                final EnumSet<TransactionsAdapter.ChangeType> changes = (EnumSet<TransactionsAdapter.ChangeType>) payload;
-                if (changes.contains(TransactionsAdapter.ChangeType.IS_SELECTED))
-                    return false;
-            }
-            return super.canReuseUpdatedViewHolder(viewHolder, payloads);
-        }
-    }
-
     public interface OnClickListener {
-        void onTransactionClick(View view, Sha256Hash transactionHash);
+        void onTransactionClick(View view, Sha256Hash transactionId);
 
-        void onTransactionMenuClick(View view, Sha256Hash transactionHash);
+        void onTransactionMenuClick(View view, Sha256Hash transactionId);
 
         void onWarningClick(View view);
     }
 
     public static class TransactionViewHolder extends RecyclerView.ViewHolder {
-        private final int colorBackground;
-        private final int colorBackgroundSelected;
-
         private final View extendTime;
         private final TextView fullTime;
         private final View extendAddress;
@@ -729,10 +727,6 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
 
         public TransactionViewHolder(final View itemView) {
             super(itemView);
-            final Context context = itemView.getContext();
-            this.colorBackground = ContextCompat.getColor(context, R.color.bg_level2);
-            this.colorBackgroundSelected = ContextCompat.getColor(context, R.color.bg_level3);
-
             this.extendTime = itemView.findViewById(R.id.transaction_row_extend_time);
             this.fullTime = itemView.findViewById(R.id.transaction_row_full_time);
             this.extendAddress = itemView.findViewById(R.id.transaction_row_extend_address);
@@ -755,62 +749,83 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
             this.menu = itemView.findViewById(R.id.transaction_row_menu);
         }
 
-        public void bind(final TransactionItem item) {
-            bindConfidence(item);
-            bindTime(item);
-            bindAddress(item);
-            bindFee(item);
+        public void fullBind(final TransactionItem item) {
+            bindConfidence(item, false);
+            bindTime(item, false);
+            bindAddress(item, false);
+            bindFee(item, false);
             bindValue(item);
             bindFiat(item);
-            bindMessage(item);
-            bindIsSelected(item);
+            bindMessage(item, false);
         }
 
-        private void bindConfidence(final TransactionItem item) {
-            (item.isSelected ? confidenceCircularNormal : confidenceCircularSelected)
-                    .setVisibility(View.INVISIBLE);
-            (item.isSelected ? confidenceTextualNormal : confidenceTextualSelected).setVisibility(View.GONE);
-            final CircularProgressView confidenceCircularView = item.isSelected ? confidenceCircularSelected
-                    : confidenceCircularNormal;
-            final TextView confidenceTextualView = item.isSelected ? confidenceTextualSelected
-                    : confidenceTextualNormal;
-            confidenceCircularView
-                    .setVisibility(item.confidenceCircularMaxProgress > 0 || item.confidenceCircularMaxSize > 0
-                            ? View.VISIBLE : View.GONE);
-            confidenceCircularView.setMaxProgress(item.confidenceCircularMaxProgress);
-            confidenceCircularView.setProgress(item.confidenceCircularProgress);
-            confidenceCircularView.setMaxSize(item.confidenceCircularMaxSize);
-            confidenceCircularView.setSize(item.confidenceCircularSize);
-            confidenceCircularView.setColors(item.confidenceCircularFillColor, item.confidenceCircularStrokeColor);
-            confidenceTextualView.setVisibility(item.confidenceTextual != null ? View.VISIBLE : View.GONE);
-            confidenceTextualView.setText(item.confidenceTextual);
-            confidenceTextualView.setTextColor(item.confidenceTextualColor);
-            extendConfidenceMessageSelected
-                    .setVisibility(item.isSelected && item.confidenceMessage != null ? View.VISIBLE : View.GONE);
-            extendConfidenceMessageNormal
-                    .setVisibility(!item.isSelected && item.confidenceMessage != null ? View.VISIBLE : View.GONE);
-            (item.isSelected ? confidenceMessageSelected : confidenceMessageNormal)
-                    .setText(item.confidenceMessage);
+        private void bindConfidence(final TransactionItem item, final boolean isSelected) {
+            if (isSelected) {
+                confidenceCircularNormal.setVisibility(View.INVISIBLE);
+                confidenceTextualNormal.setVisibility(View.GONE);
+                confidenceCircularSelected.setVisibility(
+                        item.confidenceCircularMaxProgress > 0 || item.confidenceCircularMaxSize > 0 ? View.VISIBLE :
+                                View.GONE);
+                confidenceCircularSelected.setMaxProgress(item.confidenceCircularMaxProgress);
+                confidenceCircularSelected.setProgress(item.confidenceCircularProgress);
+                confidenceCircularSelected.setMaxSize(item.confidenceCircularMaxSize);
+                confidenceCircularSelected.setSize(item.confidenceCircularSize);
+                confidenceCircularSelected.setColors(item.confidenceCircularFillColor,
+                        item.confidenceCircularStrokeColor);
+                confidenceTextualSelected.setVisibility(item.confidenceTextual != null ? View.VISIBLE : View.GONE);
+                confidenceTextualSelected.setText(item.confidenceTextual);
+                confidenceTextualSelected.setTextColor(item.confidenceTextualColor);
+                extendConfidenceMessageSelected.setVisibility(item.confidenceMessage != null ? View.VISIBLE :
+                        View.GONE);
+                extendConfidenceMessageNormal.setVisibility(View.GONE);
+                confidenceMessageSelected.setText(item.confidenceMessage);
+            } else {
+                confidenceCircularSelected.setVisibility(View.INVISIBLE);
+                confidenceTextualSelected.setVisibility(View.GONE);
+                confidenceCircularNormal.setVisibility(
+                        item.confidenceCircularMaxProgress > 0 || item.confidenceCircularMaxSize > 0 ? View.VISIBLE :
+                                View.GONE);
+                confidenceCircularNormal.setMaxProgress(item.confidenceCircularMaxProgress);
+                confidenceCircularNormal.setProgress(item.confidenceCircularProgress);
+                confidenceCircularNormal.setMaxSize(item.confidenceCircularMaxSize);
+                confidenceCircularNormal.setSize(item.confidenceCircularSize);
+                confidenceCircularNormal.setColors(item.confidenceCircularFillColor,
+                        item.confidenceCircularStrokeColor);
+                confidenceTextualNormal.setVisibility(item.confidenceTextual != null ? View.VISIBLE : View.GONE);
+                confidenceTextualNormal.setText(item.confidenceTextual);
+                confidenceTextualNormal.setTextColor(item.confidenceTextualColor);
+                extendConfidenceMessageSelected.setVisibility(View.GONE);
+                extendConfidenceMessageNormal.setVisibility(
+                        item.confidenceMessage != null && !item.confidenceMessageOnlyShownWhenSelected ?
+                                View.VISIBLE : View.GONE);
+                confidenceMessageNormal.setText(item.confidenceMessage);
+            }
         }
 
-        private void bindTime(final TransactionItem item) {
-            (item.isSelected ? extendTime : time).setVisibility(View.VISIBLE);
-            (item.isSelected ? time : extendTime).setVisibility(View.GONE);
-            final TextView timeView = item.isSelected ? this.fullTime : this.time;
-            timeView.setText(item.time);
-            timeView.setTextColor(item.timeColor);
+        private void bindTime(final TransactionItem item, final boolean isSelected) {
+            if (isSelected) {
+                extendTime.setVisibility(View.VISIBLE);
+                fullTime.setText(item.timeSelected);
+                fullTime.setTextColor(item.timeColor);
+                time.setVisibility(View.GONE);
+            } else {
+                time.setVisibility(View.VISIBLE);
+                time.setText(item.time);
+                time.setTextColor(item.timeColor);
+                extendTime.setVisibility(View.GONE);
+            }
         }
 
-        private void bindAddress(final TransactionItem item) {
-            extendAddress.setVisibility(item.address != null || !item.isSelected ? View.VISIBLE : View.GONE);
+        private void bindAddress(final TransactionItem item, final boolean isSelected) {
+            extendAddress.setVisibility(item.address != null || !isSelected ? View.VISIBLE : View.GONE);
             address.setText(item.address);
             address.setTextColor(item.addressColor);
             address.setTypeface(item.addressTypeface);
-            address.setSingleLine(item.addressSingleLine);
+            address.setSingleLine(!isSelected);
         }
 
-        private void bindFee(final TransactionItem item) {
-            extendFee.setVisibility(item.fee != null ? View.VISIBLE : View.GONE);
+        private void bindFee(final TransactionItem item, final boolean isSelected) {
+            extendFee.setVisibility(item.fee != null && isSelected ? View.VISIBLE : View.GONE);
             fee.setAlwaysSigned(true);
             fee.setFormat(item.feeFormat);
             fee.setAmount(item.fee);
@@ -832,21 +847,11 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
             fiat.setPrefixColor(item.fiatPrefixColor);
         }
 
-        private void bindMessage(final TransactionItem item) {
+        private void bindMessage(final TransactionItem item, final boolean isSelected) {
             extendMessage.setVisibility(item.message != null ? View.VISIBLE : View.GONE);
             message.setText(item.message);
             message.setTextColor(item.messageColor);
-            message.setSingleLine(item.messageSingleLine);
-        }
-
-        private void bindIsSelected(final TransactionItem item) {
-            if (itemView instanceof CardView)
-                ((CardView) itemView)
-                        .setCardBackgroundColor(item.isSelected ? colorBackgroundSelected : colorBackground);
-            menu.setVisibility(item.isSelected ? View.VISIBLE : View.GONE);
-            bindConfidence(item);
-            bindTime(item);
-            bindAddress(item);
+            message.setSingleLine(!isSelected);
         }
     }
 

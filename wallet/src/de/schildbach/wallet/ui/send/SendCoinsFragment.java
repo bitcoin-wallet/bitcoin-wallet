@@ -1070,8 +1070,8 @@ public final class SendCoinsFragment extends Fragment {
             if (viewModel.sentTransaction != null && wallet != null) {
                 sentTransactionViewGroup.setVisibility(View.VISIBLE);
                 sentTransactionViewHolder
-                        .bind(new TransactionsAdapter.ListItem.TransactionItem(activity, viewModel.sentTransaction,
-                                wallet, addressBook, btcFormat, application.maxConnectedPeers(), false));
+                        .fullBind(new TransactionsAdapter.ListItem.TransactionItem(activity, viewModel.sentTransaction,
+                                wallet, addressBook, btcFormat, application.maxConnectedPeers()));
             } else {
                 sentTransactionViewGroup.setVisibility(View.GONE);
             }
