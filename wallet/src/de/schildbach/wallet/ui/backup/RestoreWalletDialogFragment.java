@@ -120,13 +120,13 @@ public class RestoreWalletDialogFragment extends DialogFragment {
         viewModel = new ViewModelProvider(this).get(RestoreWalletViewModel.class);
         viewModel.showSuccessDialog.observe(this, new Event.Observer<Boolean>() {
             @Override
-            public void onEvent(final Boolean showEncryptedMessage) {
+            protected void onEvent(final Boolean showEncryptedMessage) {
                 SuccessDialogFragment.showDialog(fragmentManager, showEncryptedMessage);
             }
         });
         viewModel.showFailureDialog.observe(this, new Event.Observer<String>() {
             @Override
-            public void onEvent(final String message) {
+            protected void onEvent(final String message) {
                 FailureDialogFragment.showDialog(fragmentManager, message, viewModel.backupUri.getValue());
             }
         });

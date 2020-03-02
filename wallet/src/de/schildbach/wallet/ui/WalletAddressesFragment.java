@@ -102,13 +102,13 @@ public final class WalletAddressesFragment extends Fragment implements AddressBo
         viewModel.ownName.observe(this, ownName -> {});
         viewModel.showBitmapDialog.observe(this, new Event.Observer<Bitmap>() {
             @Override
-            public void onEvent(final Bitmap bitmap) {
+            protected void onEvent(final Bitmap bitmap) {
                 BitmapFragment.show(getParentFragmentManager(), bitmap);
             }
         });
         viewModel.showEditAddressBookEntryDialog.observe(this, new Event.Observer<Address>() {
             @Override
-            public void onEvent(final Address address) {
+            protected void onEvent(final Address address) {
                 EditAddressBookEntryFragment.edit(getParentFragmentManager(), address);
             }
         });

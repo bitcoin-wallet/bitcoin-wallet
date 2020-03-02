@@ -147,7 +147,7 @@ public class SweepWalletFragment extends Fragment {
         viewModel.progress.observe(this, new ProgressDialogFragment.Observer(fragmentManager));
         viewModel.showParsePrivateKeyProblemDialog.observe(this, new Event.Observer<CharSequence>() {
             @Override
-            public void onEvent(final CharSequence message) {
+            protected void onEvent(final CharSequence message) {
                 final DialogBuilder dialog = DialogBuilder.dialog(activity, R.string.button_scan, message);
                 dialog.singleDismissButton(null);
                 dialog.show();
@@ -155,7 +155,7 @@ public class SweepWalletFragment extends Fragment {
         });
         viewModel.showRequestWalletBalanceFailedDialog.observe(this, new Event.Observer<CharSequence>() {
             @Override
-            public void onEvent(final CharSequence message) {
+            protected void onEvent(final CharSequence message) {
                 final DialogBuilder dialog = DialogBuilder.warn(activity,
                         R.string.sweep_wallet_fragment_request_wallet_balance_failed_title, message);
                 dialog.setPositiveButton(R.string.button_retry, (d, which) -> requestWalletBalance());
@@ -165,7 +165,7 @@ public class SweepWalletFragment extends Fragment {
         });
         viewModel.showProblemSendingDialog.observe(this, new Event.Observer<String>() {
             @Override
-            public void onEvent(final String message) {
+            protected void onEvent(final String message) {
                 final DialogBuilder dialog = DialogBuilder.warn(activity, R.string.send_coins_error_msg, message);
                 dialog.setNeutralButton(R.string.button_dismiss, null);
                 dialog.show();
@@ -173,7 +173,7 @@ public class SweepWalletFragment extends Fragment {
         });
         viewModel.showInsufficientMoneyDialog.observe(this, new Event.Observer<Void>() {
             @Override
-            public void onEvent(final Void v) {
+            protected void onEvent(final Void v) {
                 final DialogBuilder dialog = DialogBuilder.warn(activity,
                         R.string.sweep_wallet_fragment_insufficient_money_title,
                         R.string.sweep_wallet_fragment_insufficient_money_msg);

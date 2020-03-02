@@ -62,7 +62,7 @@ public final class RequestCoinsActivity extends AbstractWalletActivity {
         viewModel = new ViewModelProvider(this).get(RequestCoinsActivityViewModel.class);
         viewModel.showHelpDialog.observe(this, new Event.Observer<Integer>() {
             @Override
-            public void onEvent(final Integer messageResId) {
+            protected void onEvent(final Integer messageResId) {
                 HelpDialogFragment.page(getSupportFragmentManager(), messageResId);
             }
         });

@@ -75,20 +75,20 @@ public final class AddressBookActivity extends AbstractWalletActivity {
         viewModel.wallet.observe(this, wallet -> invalidateOptionsMenu());
         viewModel.pageTo.observe(this, new Event.Observer<Integer>() {
             @Override
-            public void onEvent(final Integer position) {
+            protected void onEvent(final Integer position) {
                 if (!twoPanes)
                     pager.setCurrentItem(position, true);
             }
         });
         viewModel.showEditAddressBookEntryDialog.observe(this, new Event.Observer<Address>() {
             @Override
-            public void onEvent(final Address address) {
+            protected void onEvent(final Address address) {
                 EditAddressBookEntryFragment.edit(fragmentManager, address);
             }
         });
         viewModel.showScanOwnAddressDialog.observe(this, new Event.Observer<Void>() {
             @Override
-            public void onEvent(final Void v) {
+            protected void onEvent(final Void v) {
                 final DialogBuilder dialog = DialogBuilder.dialog(AddressBookActivity.this,
                         R.string.address_book_options_scan_title, R.string.address_book_options_scan_own_address);
                 dialog.singleDismissButton(null);
@@ -97,7 +97,7 @@ public final class AddressBookActivity extends AbstractWalletActivity {
         });
         viewModel.showScanInvalidDialog.observe(this, new Event.Observer<Void>() {
             @Override
-            public void onEvent(final Void v) {
+            protected void onEvent(final Void v) {
                 final DialogBuilder dialog = DialogBuilder.dialog(AddressBookActivity.this,
                         R.string.address_book_options_scan_title, R.string.address_book_options_scan_invalid);
                 dialog.singleDismissButton(null);

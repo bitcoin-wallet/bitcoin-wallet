@@ -105,35 +105,35 @@ public class AlertDialogsFragment extends Fragment {
         viewModel = new ViewModelProvider(this).get(AlertDialogsViewModel.class);
         viewModel.showTimeskewAlertDialog.observe(this, new Event.Observer<Long>() {
             @Override
-            public void onEvent(final Long diffMinutes) {
+            protected void onEvent(final Long diffMinutes) {
                 log.info("showing timeskew alert dialog");
                 createTimeskewAlertDialog(diffMinutes).show();
             }
         });
         viewModel.showVersionAlertDialog.observe(this, new Event.Observer<Void>() {
             @Override
-            public void onEvent(final Void v) {
+            protected void onEvent(final Void v) {
                 log.info("showing version alert dialog");
                 createVersionAlertDialog().show();
             }
         });
         viewModel.showInsecureBluetoothAlertDialog.observe(this, new Event.Observer<String>() {
             @Override
-            public void onEvent(final String minSecurityPatchLevel) {
+            protected void onEvent(final String minSecurityPatchLevel) {
                 log.info("showing insecure bluetooth alert dialog");
                 createInsecureBluetoothAlertDialog(minSecurityPatchLevel).show();
             }
         });
         viewModel.showLowStorageAlertDialog.observe(this, new Event.Observer<Void>() {
             @Override
-            public void onEvent(final Void v) {
+            protected void onEvent(final Void v) {
                 log.info("showing low storage alert dialog");
                 createLowStorageAlertDialog().show();
             }
         });
         viewModel.showSettingsFailedDialog.observe(this, new Event.Observer<String>() {
             @Override
-            public void onEvent(final String message) {
+            protected void onEvent(final String message) {
                 log.info("showing settings failed dialog");
                 createSettingsFailedDialog(message).show();
             }

@@ -138,19 +138,19 @@ public class WalletTransactionsFragment extends Fragment implements Transactions
         });
         viewModel.showBitmapDialog.observe(this, new Event.Observer<Bitmap>() {
             @Override
-            public void onEvent(final Bitmap bitmap) {
+            protected void onEvent(final Bitmap bitmap) {
                 BitmapFragment.show(getParentFragmentManager(), bitmap);
             }
         });
         viewModel.showEditAddressBookEntryDialog.observe(this, new Event.Observer<Address>() {
             @Override
-            public void onEvent(final Address address) {
+            protected void onEvent(final Address address) {
                 EditAddressBookEntryFragment.edit(getParentFragmentManager(), address);
             }
         });
         viewModel.showReportIssueDialog.observe(this, new Event.Observer<Sha256Hash>() {
             @Override
-            public void onEvent(final Sha256Hash transactionHash) {
+            protected void onEvent(final Sha256Hash transactionHash) {
                 ReportIssueDialogFragment.show(getParentFragmentManager(), R.string.report_issue_dialog_title_transaction,
                         R.string.report_issue_dialog_message_issue, Constants.REPORT_SUBJECT_ISSUE, transactionHash);
             }

@@ -119,38 +119,38 @@ public final class WalletActivity extends AbstractWalletActivity {
         viewModel.walletLegacyFallback.observe(this, isLegacyFallback -> invalidateOptionsMenu());
         viewModel.showHelpDialog.observe(this, new Event.Observer<Integer>() {
             @Override
-            public void onEvent(final Integer messageResId) {
+            protected void onEvent(final Integer messageResId) {
                 HelpDialogFragment.page(getSupportFragmentManager(), messageResId);
             }
         });
         viewModel.showBackupWalletDialog.observe(this, new Event.Observer<Void>() {
             @Override
-            public void onEvent(final Void v) {
+            protected void onEvent(final Void v) {
                 BackupWalletActivity.start(WalletActivity.this);
             }
         });
         viewModel.showRestoreWalletDialog.observe(this, new Event.Observer<Void>() {
             @Override
-            public void onEvent(final Void v) {
+            protected void onEvent(final Void v) {
                 RestoreWalletDialogFragment.showPick(getSupportFragmentManager());
             }
         });
         viewModel.showEncryptKeysDialog.observe(this, new Event.Observer<Void>() {
             @Override
-            public void onEvent(final Void v) {
+            protected void onEvent(final Void v) {
                 EncryptKeysDialogFragment.show(getSupportFragmentManager());
             }
         });
         viewModel.showReportIssueDialog.observe(this, new Event.Observer<Void>() {
             @Override
-            public void onEvent(final Void v) {
+            protected void onEvent(final Void v) {
                 ReportIssueDialogFragment.show(getSupportFragmentManager(), R.string.report_issue_dialog_title_issue,
                         R.string.report_issue_dialog_message_issue, Constants.REPORT_SUBJECT_ISSUE, null);
             }
         });
         viewModel.showReportCrashDialog.observe(this, new Event.Observer<Void>() {
             @Override
-            public void onEvent(final Void v) {
+            protected void onEvent(final Void v) {
                 ReportIssueDialogFragment.show(getSupportFragmentManager(), R.string.report_issue_dialog_title_crash,
                         R.string.report_issue_dialog_message_crash, Constants.REPORT_SUBJECT_CRASH, null);
             }

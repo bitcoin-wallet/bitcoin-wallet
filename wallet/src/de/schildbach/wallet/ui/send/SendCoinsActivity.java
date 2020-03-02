@@ -79,7 +79,7 @@ public final class SendCoinsActivity extends AbstractWalletActivity {
         viewModel = new ViewModelProvider(this).get(SendCoinsActivityViewModel.class);
         viewModel.showHelpDialog.observe(this, new Event.Observer<Integer>() {
             @Override
-            public void onEvent(final Integer messageResId) {
+            protected void onEvent(final Integer messageResId) {
                 HelpDialogFragment.page(getSupportFragmentManager(), messageResId);
             }
         });

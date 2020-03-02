@@ -85,7 +85,7 @@ public final class WalletAddressFragment extends Fragment {
         });
         viewModel.showWalletAddressDialog.observe(this, new Event.Observer<Void>() {
             @Override
-            public void onEvent(final Void v) {
+            protected void onEvent(final Void v) {
                 final Address address = viewModel.currentAddress.getValue();
                 WalletAddressDialogFragment.show(getParentFragmentManager(), address, viewModel.ownName.getValue());
                 log.info("Current address enlarged: {}", address);
