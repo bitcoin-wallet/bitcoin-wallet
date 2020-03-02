@@ -611,18 +611,49 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
 
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position,
+                                 final List<Object> payloads) {
+        final boolean fullBind = payloads.isEmpty();
+        final EnumSet<ChangeType> changes = EnumSet.noneOf(ChangeType.class);
+        for (final Object payload : payloads)
+            changes.addAll((EnumSet<ChangeType>) payload);
+
         final ListItem listItem = getItem(position);
         if (holder instanceof TransactionViewHolder) {
             final TransactionViewHolder transactionHolder = (TransactionViewHolder) holder;
             final ListItem.TransactionItem transactionItem = (ListItem.TransactionItem) listItem;
-            transactionHolder.itemView.setActivated(transactionItem.isSelected);
-            transactionHolder.bind(transactionItem);
+            if (fullBind) {
+                transactionHolder.itemView.setActivated(transactionItem.isSelected);
+                transactionHolder.bind(transactionItem);
 
-            final OnClickListener onClickListener = this.onClickListener;
-            if (onClickListener != null) {
-                transactionHolder.itemView.setOnClickListener(v -> onClickListener.onTransactionClick(v, transactionItem.transactionHash));
-                transactionHolder.menu.setOnClickListener(v -> onClickListener.onTransactionMenuClick(v, transactionItem.transactionHash));
+                final OnClickListener onClickListener = this.onClickListener;
+                if (onClickListener != null) {
+                    transactionHolder.itemView.setOnClickListener(v -> onClickListener.onTransactionClick(v,
+                            transactionItem.transactionHash));
+                    transactionHolder.menu.setOnClickListener(v -> onClickListener.onTransactionMenuClick(v,
+                            transactionItem.transactionHash));
+                }
             }
+            if (fullBind || changes.contains(ChangeType.CONFIDENCE))
+                transactionHolder.bindConfidence(transactionItem);
+            if (fullBind || changes.contains(ChangeType.TIME))
+                transactionHolder.bindTime(transactionItem);
+            if (fullBind || changes.contains(ChangeType.ADDRESS))
+                transactionHolder.bindAddress(transactionItem);
+            if (fullBind || changes.contains(ChangeType.FEE))
+                transactionHolder.bindFee(transactionItem);
+            if (fullBind || changes.contains(ChangeType.VALUE))
+                transactionHolder.bindValue(transactionItem);
+            if (fullBind || changes.contains(ChangeType.FIAT))
+                transactionHolder.bindFiat(transactionItem);
+            if (fullBind || changes.contains(ChangeType.MESSAGE))
+                transactionHolder.bindMessage(transactionItem);
+            if (fullBind || changes.contains(ChangeType.IS_SELECTED))
+                transactionHolder.bindIsSelected(transactionItem);
         } else if (holder instanceof WarningViewHolder) {
             final WarningViewHolder warningHolder = (WarningViewHolder) holder;
             final ListItem.WarningItem warningItem = (ListItem.WarningItem) listItem;
@@ -651,39 +682,6 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
             final OnClickListener onClickListener = this.onClickListener;
             if (onClickListener != null) {
                 warningHolder.itemView.setOnClickListener(v -> onClickListener.onWarningClick(v));
-            }
-        }
-    }
-
-    @Override
-    public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position,
-            final List<Object> payloads) {
-        if (payloads.isEmpty()) { // Full bind
-            onBindViewHolder(holder, position);
-        } else { // Partial bind
-            final ListItem listItem = getItem(position);
-            final TransactionViewHolder transactionHolder = (TransactionViewHolder) holder;
-            final ListItem.TransactionItem transactionItem = (ListItem.TransactionItem) listItem;
-            for (final Object payload : payloads) {
-                final EnumSet<ChangeType> changes = (EnumSet<ChangeType>) payload;
-                for (final ChangeType change : changes) {
-                    if (change == ChangeType.CONFIDENCE)
-                        transactionHolder.bindConfidence(transactionItem);
-                    else if (change == ChangeType.TIME)
-                        transactionHolder.bindTime(transactionItem);
-                    else if (change == ChangeType.ADDRESS)
-                        transactionHolder.bindAddress(transactionItem);
-                    else if (change == ChangeType.FEE)
-                        transactionHolder.bindFee(transactionItem);
-                    else if (change == ChangeType.VALUE)
-                        transactionHolder.bindValue(transactionItem);
-                    else if (change == ChangeType.FIAT)
-                        transactionHolder.bindFiat(transactionItem);
-                    else if (change == ChangeType.MESSAGE)
-                        transactionHolder.bindMessage(transactionItem);
-                    else if (change == ChangeType.IS_SELECTED)
-                        transactionHolder.bindIsSelected(transactionItem);
-                }
             }
         }
     }
