@@ -17,6 +17,7 @@
 
 package de.schildbach.wallet.ui;
 
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.EnumSet;
@@ -41,7 +42,6 @@ import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.R;
 import de.schildbach.wallet.addressbook.AddressBookEntry;
 import de.schildbach.wallet.ui.TransactionsAdapter.ListItem.TransactionItem;
-import de.schildbach.wallet.ui.TransactionsAdapter.ListItem.WarningItem;
 import de.schildbach.wallet.util.Formats;
 import de.schildbach.wallet.util.WalletUtils;
 
@@ -85,7 +85,14 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
         return items;
     }
 
-    public static class ListItem {
+    public static abstract class ListItem {
+        // internal item id
+        public final long id;
+
+        private ListItem(final long id) {
+            this.id = id;
+        }
+
         public static class TransactionItem extends ListItem {
             public final Sha256Hash transactionHash;
             public final int confidenceCircularProgress, confidenceCircularMaxProgress;
@@ -124,6 +131,7 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
             public TransactionItem(final Context context, final Transaction tx, final @Nullable Wallet wallet,
                     final @Nullable Map<String, AddressBookEntry> addressBook, final MonetaryFormat format,
                     final int maxConnectedPeers, final boolean isSelected) {
+                super(id(tx.getTxId()));
                 this.transactionHash = tx.getTxId();
                 this.isSelected = isSelected;
 
@@ -373,13 +381,22 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
                     this.messageSingleLine = false;
                 }
             }
+
+            private static long id(final Sha256Hash txId) {
+                return ByteBuffer.wrap(txId.getBytes()).getLong();
+            }
         }
 
         public static class WarningItem extends ListItem {
             public final WarningType type;
 
             public WarningItem(final WarningType type) {
+                super(id(type));
                 this.type = type;
+            }
+
+            private static long id(final WarningType type) {
+                return type.ordinal();
             }
         }
     }
@@ -409,16 +426,7 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
         super(new DiffUtil.ItemCallback<ListItem>() {
             @Override
             public boolean areItemsTheSame(final ListItem oldItem, final ListItem newItem) {
-                if (oldItem instanceof TransactionItem) {
-                    if (!(newItem instanceof TransactionItem))
-                        return false;
-                    return Objects.equals(((TransactionItem) oldItem).transactionHash,
-                            ((TransactionItem) newItem).transactionHash);
-                } else {
-                    if (!(newItem instanceof WarningItem))
-                        return false;
-                    return Objects.equals(((WarningItem) oldItem).type, ((WarningItem) newItem).type);
-                }
+                return oldItem.id == newItem.id;
             }
 
             @Override
@@ -565,6 +573,8 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
         this.inflater = LayoutInflater.from(context);
 
         this.onClickListener = onClickListener;
+
+        setHasStableIds(true);
     }
 
     @Override
@@ -576,6 +586,12 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
             return VIEW_TYPE_TRANSACTION;
         else
             throw new IllegalStateException();
+    }
+
+    @Override
+    public long getItemId(final int position) {
+        final ListItem listItem = getItem(position);
+        return listItem.id;
     }
 
     @Override
