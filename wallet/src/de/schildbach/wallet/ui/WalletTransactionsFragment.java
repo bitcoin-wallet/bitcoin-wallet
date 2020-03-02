@@ -20,7 +20,6 @@ package de.schildbach.wallet.ui;
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.Sha256Hash;
 import org.bitcoinj.core.Transaction;
-import org.bitcoinj.core.Transaction.Purpose;
 import org.bitcoinj.wallet.Wallet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -83,7 +82,6 @@ public class WalletTransactionsFragment extends Fragment implements Transactions
     private WalletActivityViewModel activityViewModel;
     private WalletTransactionsViewModel viewModel;
 
-    private static final Uri KEY_ROTATION_URI = Uri.parse("https://bitcoin.org/en/alert/2013-08-11-android");
     private static final int SHOW_QR_THRESHOLD_BYTES = 2500;
 
     private static final Logger log = LoggerFactory.getLogger(WalletTransactionsFragment.class);
@@ -261,13 +259,12 @@ public class WalletTransactionsFragment extends Fragment implements Transactions
         final Address txAddress = txSent ? WalletUtils.getToAddressOfSent(tx, wallet)
                 : WalletUtils.getWalletAddressOfReceived(tx, wallet);
         final byte[] txSerialized = tx.unsafeBitcoinSerialize();
-        final boolean txRotation = tx.getPurpose() == Purpose.KEY_ROTATION;
 
         final PopupMenu popupMenu = new PopupMenu(activity, view);
         popupMenu.inflate(R.menu.wallet_transactions_context);
         final MenuItem editAddressMenuItem = popupMenu.getMenu()
                 .findItem(R.id.wallet_transactions_context_edit_address);
-        if (!txRotation && txAddress != null) {
+        if (txAddress != null) {
             editAddressMenuItem.setVisible(true);
             final boolean isAdd = addressBookDao.resolveLabel(txAddress.toString()) == null;
             final boolean isOwn = wallet.isAddressMine(txAddress);
@@ -283,7 +280,7 @@ public class WalletTransactionsFragment extends Fragment implements Transactions
         }
 
         popupMenu.getMenu().findItem(R.id.wallet_transactions_context_show_qr)
-                .setVisible(!txRotation && txSerialized.length < SHOW_QR_THRESHOLD_BYTES);
+                .setVisible(txSerialized.length < SHOW_QR_THRESHOLD_BYTES);
         popupMenu.getMenu().findItem(R.id.wallet_transactions_context_raise_fee)
                 .setVisible(RaiseFeeDialogFragment.feeCanLikelyBeRaised(wallet, tx));
         popupMenu.getMenu().findItem(R.id.wallet_transactions_context_browse).setVisible(Constants.ENABLE_BROWSE);
@@ -305,13 +302,10 @@ public class WalletTransactionsFragment extends Fragment implements Transactions
                     handleReportIssue(tx);
                     return true;
                 } else if (itemId == R.id.wallet_transactions_context_browse) {
-                    if (!txRotation) {
-                        final Uri blockExplorerUri = config.getBlockExplorer();
-                        log.info("Viewing transaction {} on {}", tx.getTxId(), blockExplorerUri);
-                        activity.startExternalDocument(Uri.withAppendedPath(blockExplorerUri, "tx/" + tx.getTxId().toString()));
-                    } else {
-                        activity.startExternalDocument(KEY_ROTATION_URI);
-                    }
+                    final Uri blockExplorerUri = config.getBlockExplorer();
+                    log.info("Viewing transaction {} on {}", tx.getTxId(), blockExplorerUri);
+                    activity.startExternalDocument(Uri.withAppendedPath(blockExplorerUri,
+                            "tx/" + tx.getTxId().toString()));
                     return true;
                 }
                 return false;
