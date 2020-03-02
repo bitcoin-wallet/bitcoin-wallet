@@ -363,7 +363,7 @@ public class BlockListAdapter extends ListAdapter<BlockListAdapter.ListItem, Rec
             final BlockViewHolder blockHolder = (BlockViewHolder) holder;
             final ListItem.BlockItem blockItem = (ListItem.BlockItem) listItem;
             if (fullBind || changes.contains(ChangeType.SELECTION)) {
-                final boolean isSelected = ((ListItem.BlockItem) listItem).blockHash.equals(selectedBlockHash);
+                final boolean isSelected = blockItem.blockHash.equals(selectedBlockHash);
                 holder.itemView.setSelected(isSelected);
                 ((CardView) holder.itemView).setCardElevation(isSelected ? cardElevationSelected : 0);
                 blockHolder.contextBar.setVisibility(View.GONE);
