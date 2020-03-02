@@ -621,30 +621,30 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
             final OnClickListener onClickListener = this.onClickListener;
             if (onClickListener != null) {
                 transactionHolder.itemView.setOnClickListener(v -> onClickListener.onTransactionClick(v, transactionItem.transactionHash));
-                transactionHolder.menuView.setOnClickListener(v -> onClickListener.onTransactionMenuClick(v, transactionItem.transactionHash));
+                transactionHolder.menu.setOnClickListener(v -> onClickListener.onTransactionMenuClick(v, transactionItem.transactionHash));
             }
         } else if (holder instanceof WarningViewHolder) {
             final WarningViewHolder warningHolder = (WarningViewHolder) holder;
             final ListItem.WarningItem warningItem = (ListItem.WarningItem) listItem;
             if (warningItem.type == WarningType.BACKUP) {
                 if (getItemCount() == 2 /* 1 transaction, 1 warning */) {
-                    warningHolder.messageView.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-                    warningHolder.messageView
+                    warningHolder.message.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+                    warningHolder.message
                             .setText(Html.fromHtml(context.getString(R.string.wallet_transactions_row_warning_backup)));
                 } else {
-                    warningHolder.messageView
+                    warningHolder.message
                             .setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_warning_grey600_24dp, 0, 0, 0);
-                    warningHolder.messageView.setText(
+                    warningHolder.message.setText(
                             Html.fromHtml(context.getString(R.string.wallet_disclaimer_fragment_remind_backup)));
                 }
             } else if (warningItem.type == WarningType.STORAGE_ENCRYPTION) {
-                warningHolder.messageView.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-                warningHolder.messageView.setText(
+                warningHolder.message.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+                warningHolder.message.setText(
                         Html.fromHtml(context.getString(R.string.wallet_transactions_row_warning_storage_encryption)));
             } else if (warningItem.type == WarningType.CHAIN_FORKING) {
-                warningHolder.messageView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_warning_grey600_24dp, 0,
+                warningHolder.message.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_warning_grey600_24dp, 0,
                         0, 0);
-                warningHolder.messageView.setText(
+                warningHolder.message.setText(
                         Html.fromHtml(context.getString(R.string.wallet_transactions_row_warning_chain_forking)));
             }
 
@@ -712,22 +712,22 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
         private final int colorBackground;
         private final int colorBackgroundSelected;
 
-        private final View extendTimeView;
-        private final TextView fullTimeView;
-        private final View extendAddressView;
-        private final CircularProgressView confidenceCircularNormalView, confidenceCircularSelectedView;
-        private final TextView confidenceTextualNormalView, confidenceTextualSelectedView;
-        private final View extendConfidenceMessageNormalView, extendConfidenceMessageSelectedView;
-        private final TextView confidenceMessageNormalView, confidenceMessageSelectedView;
-        private final TextView timeView;
-        private final TextView addressView;
-        private final CurrencyTextView valueView;
-        private final CurrencyTextView fiatView;
-        private final View extendFeeView;
-        private final CurrencyTextView feeView;
-        private final View extendMessageView;
-        private final TextView messageView;
-        private final ImageButton menuView;
+        private final View extendTime;
+        private final TextView fullTime;
+        private final View extendAddress;
+        private final CircularProgressView confidenceCircularNormal, confidenceCircularSelected;
+        private final TextView confidenceTextualNormal, confidenceTextualSelected;
+        private final View extendConfidenceMessageNormal, extendConfidenceMessageSelected;
+        private final TextView confidenceMessageNormal, confidenceMessageSelected;
+        private final TextView time;
+        private final TextView address;
+        private final CurrencyTextView value;
+        private final CurrencyTextView fiat;
+        private final View extendFee;
+        private final CurrencyTextView fee;
+        private final View extendMessage;
+        private final TextView message;
+        private final ImageButton menu;
 
         public TransactionViewHolder(final View itemView) {
             super(itemView);
@@ -735,26 +735,26 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
             this.colorBackground = ContextCompat.getColor(context, R.color.bg_level2);
             this.colorBackgroundSelected = ContextCompat.getColor(context, R.color.bg_level3);
 
-            this.extendTimeView = itemView.findViewById(R.id.transaction_row_extend_time);
-            this.fullTimeView = itemView.findViewById(R.id.transaction_row_full_time);
-            this.extendAddressView = itemView.findViewById(R.id.transaction_row_extend_address);
-            this.confidenceCircularNormalView = itemView.findViewById(R.id.transaction_row_confidence_circular);
-            this.confidenceCircularSelectedView = itemView.findViewById(R.id.transaction_row_confidence_circular_selected);
-            this.confidenceTextualNormalView = itemView.findViewById(R.id.transaction_row_confidence_textual);
-            this.confidenceTextualSelectedView = itemView.findViewById(R.id.transaction_row_confidence_textual_selected);
-            this.extendConfidenceMessageNormalView = itemView.findViewById(R.id.transaction_row_extend_confidence_message);
-            this.extendConfidenceMessageSelectedView = itemView.findViewById(R.id.transaction_row_extend_confidence_message_selected);
-            this.confidenceMessageNormalView = itemView.findViewById(R.id.transaction_row_confidence_message);
-            this.confidenceMessageSelectedView = itemView.findViewById(R.id.transaction_row_confidence_message_selected);
-            this.timeView = itemView.findViewById(R.id.transaction_row_time);
-            this.addressView = itemView.findViewById(R.id.transaction_row_address);
-            this.valueView = itemView.findViewById(R.id.transaction_row_value);
-            this.fiatView = itemView.findViewById(R.id.transaction_row_fiat);
-            this.extendFeeView = itemView.findViewById(R.id.transaction_row_extend_fee);
-            this.feeView = itemView.findViewById(R.id.transaction_row_fee);
-            this.extendMessageView = itemView.findViewById(R.id.transaction_row_extend_message);
-            this.messageView = itemView.findViewById(R.id.transaction_row_message);
-            this.menuView = itemView.findViewById(R.id.transaction_row_menu);
+            this.extendTime = itemView.findViewById(R.id.transaction_row_extend_time);
+            this.fullTime = itemView.findViewById(R.id.transaction_row_full_time);
+            this.extendAddress = itemView.findViewById(R.id.transaction_row_extend_address);
+            this.confidenceCircularNormal = itemView.findViewById(R.id.transaction_row_confidence_circular);
+            this.confidenceCircularSelected = itemView.findViewById(R.id.transaction_row_confidence_circular_selected);
+            this.confidenceTextualNormal = itemView.findViewById(R.id.transaction_row_confidence_textual);
+            this.confidenceTextualSelected = itemView.findViewById(R.id.transaction_row_confidence_textual_selected);
+            this.extendConfidenceMessageNormal = itemView.findViewById(R.id.transaction_row_extend_confidence_message);
+            this.extendConfidenceMessageSelected = itemView.findViewById(R.id.transaction_row_extend_confidence_message_selected);
+            this.confidenceMessageNormal = itemView.findViewById(R.id.transaction_row_confidence_message);
+            this.confidenceMessageSelected = itemView.findViewById(R.id.transaction_row_confidence_message_selected);
+            this.time = itemView.findViewById(R.id.transaction_row_time);
+            this.address = itemView.findViewById(R.id.transaction_row_address);
+            this.value = itemView.findViewById(R.id.transaction_row_value);
+            this.fiat = itemView.findViewById(R.id.transaction_row_fiat);
+            this.extendFee = itemView.findViewById(R.id.transaction_row_extend_fee);
+            this.fee = itemView.findViewById(R.id.transaction_row_fee);
+            this.extendMessage = itemView.findViewById(R.id.transaction_row_extend_message);
+            this.message = itemView.findViewById(R.id.transaction_row_message);
+            this.menu = itemView.findViewById(R.id.transaction_row_menu);
         }
 
         public void bind(final TransactionItem item) {
@@ -769,13 +769,13 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
         }
 
         private void bindConfidence(final TransactionItem item) {
-            (item.isSelected ? confidenceCircularNormalView : confidenceCircularSelectedView)
+            (item.isSelected ? confidenceCircularNormal : confidenceCircularSelected)
                     .setVisibility(View.INVISIBLE);
-            (item.isSelected ? confidenceTextualNormalView : confidenceTextualSelectedView).setVisibility(View.GONE);
-            final CircularProgressView confidenceCircularView = item.isSelected ? confidenceCircularSelectedView
-                    : confidenceCircularNormalView;
-            final TextView confidenceTextualView = item.isSelected ? confidenceTextualSelectedView
-                    : confidenceTextualNormalView;
+            (item.isSelected ? confidenceTextualNormal : confidenceTextualSelected).setVisibility(View.GONE);
+            final CircularProgressView confidenceCircularView = item.isSelected ? confidenceCircularSelected
+                    : confidenceCircularNormal;
+            final TextView confidenceTextualView = item.isSelected ? confidenceTextualSelected
+                    : confidenceTextualNormal;
             confidenceCircularView
                     .setVisibility(item.confidenceCircularMaxProgress > 0 || item.confidenceCircularMaxSize > 0
                             ? View.VISIBLE : View.GONE);
@@ -787,65 +787,65 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
             confidenceTextualView.setVisibility(item.confidenceTextual != null ? View.VISIBLE : View.GONE);
             confidenceTextualView.setText(item.confidenceTextual);
             confidenceTextualView.setTextColor(item.confidenceTextualColor);
-            extendConfidenceMessageSelectedView
+            extendConfidenceMessageSelected
                     .setVisibility(item.isSelected && item.confidenceMessage != null ? View.VISIBLE : View.GONE);
-            extendConfidenceMessageNormalView
+            extendConfidenceMessageNormal
                     .setVisibility(!item.isSelected && item.confidenceMessage != null ? View.VISIBLE : View.GONE);
-            (item.isSelected ? confidenceMessageSelectedView : confidenceMessageNormalView)
+            (item.isSelected ? confidenceMessageSelected : confidenceMessageNormal)
                     .setText(item.confidenceMessage);
         }
 
         private void bindTime(final TransactionItem item) {
-            (item.isSelected ? extendTimeView : timeView).setVisibility(View.VISIBLE);
-            (item.isSelected ? timeView : extendTimeView).setVisibility(View.GONE);
-            final TextView timeView = item.isSelected ? this.fullTimeView : this.timeView;
+            (item.isSelected ? extendTime : time).setVisibility(View.VISIBLE);
+            (item.isSelected ? time : extendTime).setVisibility(View.GONE);
+            final TextView timeView = item.isSelected ? this.fullTime : this.time;
             timeView.setText(item.time);
             timeView.setTextColor(item.timeColor);
         }
 
         private void bindAddress(final TransactionItem item) {
-            extendAddressView.setVisibility(item.address != null || !item.isSelected ? View.VISIBLE : View.GONE);
-            addressView.setText(item.address);
-            addressView.setTextColor(item.addressColor);
-            addressView.setTypeface(item.addressTypeface);
-            addressView.setSingleLine(item.addressSingleLine);
+            extendAddress.setVisibility(item.address != null || !item.isSelected ? View.VISIBLE : View.GONE);
+            address.setText(item.address);
+            address.setTextColor(item.addressColor);
+            address.setTypeface(item.addressTypeface);
+            address.setSingleLine(item.addressSingleLine);
         }
 
         private void bindFee(final TransactionItem item) {
-            extendFeeView.setVisibility(item.fee != null ? View.VISIBLE : View.GONE);
-            feeView.setAlwaysSigned(true);
-            feeView.setFormat(item.feeFormat);
-            feeView.setAmount(item.fee);
+            extendFee.setVisibility(item.fee != null ? View.VISIBLE : View.GONE);
+            fee.setAlwaysSigned(true);
+            fee.setFormat(item.feeFormat);
+            fee.setAmount(item.fee);
         }
 
         private void bindValue(final TransactionItem item) {
-            valueView.setVisibility(item.value != null ? View.VISIBLE : View.GONE);
-            valueView.setAlwaysSigned(true);
-            valueView.setAmount(item.value);
-            valueView.setFormat(item.valueFormat);
-            valueView.setTextColor(item.valueColor);
+            value.setVisibility(item.value != null ? View.VISIBLE : View.GONE);
+            value.setAlwaysSigned(true);
+            value.setAmount(item.value);
+            value.setFormat(item.valueFormat);
+            value.setTextColor(item.valueColor);
         }
 
         private void bindFiat(final TransactionItem item) {
-            fiatView.setVisibility(item.fiat != null ? View.VISIBLE : View.GONE);
-            fiatView.setAlwaysSigned(true);
-            fiatView.setAmount(item.fiat);
-            fiatView.setFormat(item.fiatFormat);
-            fiatView.setPrefixColor(item.fiatPrefixColor);
+            fiat.setVisibility(item.fiat != null ? View.VISIBLE : View.GONE);
+            fiat.setAlwaysSigned(true);
+            fiat.setAmount(item.fiat);
+            fiat.setFormat(item.fiatFormat);
+            fiat.setPrefixColor(item.fiatPrefixColor);
         }
 
         private void bindMessage(final TransactionItem item) {
-            extendMessageView.setVisibility(item.message != null ? View.VISIBLE : View.GONE);
-            messageView.setText(item.message);
-            messageView.setTextColor(item.messageColor);
-            messageView.setSingleLine(item.messageSingleLine);
+            extendMessage.setVisibility(item.message != null ? View.VISIBLE : View.GONE);
+            message.setText(item.message);
+            message.setTextColor(item.messageColor);
+            message.setSingleLine(item.messageSingleLine);
         }
 
         private void bindIsSelected(final TransactionItem item) {
             if (itemView instanceof CardView)
                 ((CardView) itemView)
                         .setCardBackgroundColor(item.isSelected ? colorBackgroundSelected : colorBackground);
-            menuView.setVisibility(item.isSelected ? View.VISIBLE : View.GONE);
+            menu.setVisibility(item.isSelected ? View.VISIBLE : View.GONE);
             bindConfidence(item);
             bindTime(item);
             bindAddress(item);
@@ -853,11 +853,11 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
     }
 
     public static class WarningViewHolder extends RecyclerView.ViewHolder {
-        private final TextView messageView;
+        private final TextView message;
 
         private WarningViewHolder(final View itemView) {
             super(itemView);
-            messageView = itemView.findViewById(R.id.transaction_row_warning_message);
+            message = itemView.findViewById(R.id.transaction_row_warning_message);
         }
     }
 }
