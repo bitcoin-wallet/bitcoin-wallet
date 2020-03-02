@@ -344,7 +344,6 @@
   <string name="button_send_coins">Envoi de BTC</string>
   <string name="button_scan">Balayer</string>
   <string name="button_settings">Paramètres</string>
-  <string name="button_options">Plus d’options</string>
   <string name="action_show_qr">Montrer le code QR</string>
   <string name="action_browse">Parcourir</string>
   <!--generic strings-->

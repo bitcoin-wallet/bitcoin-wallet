@@ -331,7 +331,6 @@
   <string name="button_send_coins">Enviar moedas</string>
   <string name="button_scan">Digitalizar</string>
   <string name="button_settings">Configurações</string>
-  <string name="button_options">Mais opções</string>
   <string name="action_show_qr">Mostar código QR</string>
   <string name="action_browse">Explorar</string>
   <!--generic strings-->

@@ -337,7 +337,6 @@
   <string name="button_send_coins">Verzend Bitcoins</string>
   <string name="button_scan">Scan QR</string>
   <string name="button_settings">Instellingen</string>
-  <string name="button_options">Meer opties</string>
   <string name="action_show_qr">Toon QR-code</string>
   <string name="action_browse">Bladeren</string>
   <!--generic strings-->

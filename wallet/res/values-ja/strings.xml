@@ -344,7 +344,6 @@
   <string name="button_send_coins">コインを送る</string>
   <string name="button_scan">スキャン</string>
   <string name="button_settings">設定</string>
-  <string name="button_options">詳細設定</string>
   <string name="action_show_qr">QRコードを表示</string>
   <string name="action_browse">ブラウズ</string>
   <!--generic strings-->

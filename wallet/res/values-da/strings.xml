@@ -343,7 +343,6 @@
   <string name="button_send_coins">Send bitcoin</string>
   <string name="button_scan">Scan</string>
   <string name="button_settings">Opsætning</string>
-  <string name="button_options">Flere indstillinger</string>
   <string name="action_show_qr">Vis QR-kode</string>
   <string name="action_browse">Gennemse</string>
   <!--generic strings-->

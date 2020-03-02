@@ -320,7 +320,6 @@
   <string name="button_send_coins">Érmék küldése</string>
   <string name="button_scan">Beolvasás</string>
   <string name="button_settings">Beállítások</string>
-  <string name="button_options">További lehetőségek</string>
   <string name="action_show_qr">QR-kód megtekintése</string>
   <string name="action_browse">Böngészés</string>
   <!--generic strings-->

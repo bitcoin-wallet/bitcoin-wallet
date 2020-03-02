@@ -334,7 +334,6 @@
   <string name="button_send_coins">Lähetä</string>
   <string name="button_scan">Skannaa</string>
   <string name="button_settings">Asetukset</string>
-  <string name="button_options">Lisää asetuksia</string>
   <string name="action_show_qr">Näytä QR-koodi</string>
   <string name="action_browse">Selaa</string>
   <!--generic strings-->

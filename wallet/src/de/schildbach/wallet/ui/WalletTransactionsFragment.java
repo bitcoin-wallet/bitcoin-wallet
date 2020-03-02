@@ -53,8 +53,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.PopupMenu;
-import android.widget.PopupMenu.OnMenuItemClickListener;
 import android.widget.TextView;
 import android.widget.ViewAnimator;
 import androidx.fragment.app.Fragment;
@@ -65,7 +63,8 @@ import androidx.recyclerview.widget.RecyclerView;
 /**
  * @author Andreas Schildbach
  */
-public class WalletTransactionsFragment extends Fragment implements TransactionsAdapter.OnClickListener {
+public class WalletTransactionsFragment extends Fragment implements TransactionsAdapter.OnClickListener,
+        TransactionsAdapter.ContextMenuCallback {
     private AbstractWalletActivity activity;
     private WalletApplication application;
     private Configuration config;
@@ -164,7 +163,7 @@ public class WalletTransactionsFragment extends Fragment implements Transactions
             }
         });
 
-        adapter = new TransactionsAdapter(activity, this);
+        adapter = new TransactionsAdapter(activity, this, this);
     }
 
     @Override
@@ -257,17 +256,22 @@ public class WalletTransactionsFragment extends Fragment implements Transactions
     }
 
     @Override
-    public void onTransactionMenuClick(final View view, final Sha256Hash transactionHash) {
+    public void onTransactionClick(final View view, final Sha256Hash transactionId) {
+        viewModel.selectedTransaction.setValue(transactionId);
+    }
+
+    @Override
+    public void onInflateTransactionContextMenu(final MenuInflater inflater, final Menu menu,
+                                                final Sha256Hash transactionId) {
         final Wallet wallet = viewModel.wallet.getValue();
-        final Transaction tx = wallet.getTransaction(transactionHash);
+        final Transaction tx = wallet.getTransaction(transactionId);
         final boolean txSent = tx.getValue(wallet).signum() < 0;
         final Address txAddress = txSent ? WalletUtils.getToAddressOfSent(tx, wallet)
                 : WalletUtils.getWalletAddressOfReceived(tx, wallet);
         final byte[] txSerialized = tx.unsafeBitcoinSerialize();
 
-        final PopupMenu popupMenu = new PopupMenu(activity, view);
-        popupMenu.inflate(R.menu.wallet_transactions_context);
-        final MenuItem editAddressMenuItem = popupMenu.getMenu()
+        inflater.inflate(R.menu.wallet_transactions_context, menu);
+        final MenuItem editAddressMenuItem = menu
                 .findItem(R.id.wallet_transactions_context_edit_address);
         if (txAddress != null) {
             editAddressMenuItem.setVisible(true);
@@ -284,48 +288,43 @@ public class WalletTransactionsFragment extends Fragment implements Transactions
             editAddressMenuItem.setVisible(false);
         }
 
-        popupMenu.getMenu().findItem(R.id.wallet_transactions_context_show_qr)
+        menu.findItem(R.id.wallet_transactions_context_show_qr)
                 .setVisible(txSerialized.length < SHOW_QR_THRESHOLD_BYTES);
-        popupMenu.getMenu().findItem(R.id.wallet_transactions_context_raise_fee)
+        menu.findItem(R.id.wallet_transactions_context_raise_fee)
                 .setVisible(RaiseFeeDialogFragment.feeCanLikelyBeRaised(wallet, tx));
-        popupMenu.getMenu().findItem(R.id.wallet_transactions_context_browse).setVisible(Constants.ENABLE_BROWSE);
-        popupMenu.setOnMenuItemClickListener(new OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(final MenuItem item) {
-                int itemId = item.getItemId();
-                if (itemId == R.id.wallet_transactions_context_edit_address) {
-                    viewModel.showEditAddressBookEntryDialog.setValue(new Event<>(txAddress));
-                    return true;
-                } else if (itemId == R.id.wallet_transactions_context_show_qr) {
-                    final Bitmap qrCodeBitmap = Qr.bitmap(Qr.encodeCompressBinary(txSerialized));
-                    viewModel.showBitmapDialog.setValue(new Event<>(qrCodeBitmap));
-                    return true;
-                } else if (itemId == R.id.wallet_transactions_context_raise_fee) {
-                    RaiseFeeDialogFragment.show(fragmentManager, tx.getTxId());
-                    return true;
-                } else if (itemId == R.id.wallet_transactions_context_report_issue) {
-                    handleReportIssue(tx);
-                    return true;
-                } else if (itemId == R.id.wallet_transactions_context_browse) {
-                    final Uri blockExplorerUri = config.getBlockExplorer();
-                    log.info("Viewing transaction {} on {}", tx.getTxId(), blockExplorerUri);
-                    activity.startExternalDocument(Uri.withAppendedPath(blockExplorerUri,
-                            "tx/" + tx.getTxId().toString()));
-                    return true;
-                }
-                return false;
-            }
-
-            private void handleReportIssue(final Transaction tx) {
-                viewModel.showReportIssueDialog.setValue(new Event<>(tx.getTxId()));
-            }
-        });
-        popupMenu.show();
+        menu.findItem(R.id.wallet_transactions_context_browse).setVisible(Constants.ENABLE_BROWSE);
     }
 
     @Override
-    public void onTransactionClick(final View view, final Sha256Hash transactionId) {
-        viewModel.selectedTransaction.setValue(transactionId);
+    public boolean onClickTransactionContextMenuItem(final MenuItem item, final Sha256Hash transactionId) {
+        final Wallet wallet = viewModel.wallet.getValue();
+        final Transaction tx = wallet.getTransaction(transactionId);
+        final int itemId = item.getItemId();
+        if (itemId == R.id.wallet_transactions_context_edit_address) {
+            final boolean txSent = tx.getValue(wallet).signum() < 0;
+            final Address txAddress = txSent ? WalletUtils.getToAddressOfSent(tx, wallet)
+                    : WalletUtils.getWalletAddressOfReceived(tx, wallet);
+            viewModel.showEditAddressBookEntryDialog.setValue(new Event<>(txAddress));
+            return true;
+        } else if (itemId == R.id.wallet_transactions_context_show_qr) {
+            final byte[] txSerialized = tx.unsafeBitcoinSerialize();
+            final Bitmap qrCodeBitmap = Qr.bitmap(Qr.encodeCompressBinary(txSerialized));
+            viewModel.showBitmapDialog.setValue(new Event<>(qrCodeBitmap));
+            return true;
+        } else if (itemId == R.id.wallet_transactions_context_raise_fee) {
+            RaiseFeeDialogFragment.show(fragmentManager, transactionId);
+            return true;
+        } else if (itemId == R.id.wallet_transactions_context_report_issue) {
+            viewModel.showReportIssueDialog.setValue(new Event<>(transactionId));
+            return true;
+        } else if (itemId == R.id.wallet_transactions_context_browse) {
+            final Uri blockExplorerUri = config.getBlockExplorer();
+            log.info("Viewing transaction {} on {}", transactionId, blockExplorerUri);
+            activity.startExternalDocument(Uri.withAppendedPath(blockExplorerUri, "tx/" + transactionId.toString()));
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override

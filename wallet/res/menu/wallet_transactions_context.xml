@@ -4,13 +4,13 @@
     <item
         android:id="@+id/wallet_transactions_context_edit_address"
         android:icon="@drawable/ic_create_white_24dp"
-        android:showAsAction="ifRoom|withText"
+        android:showAsAction="ifRoom"
         android:title="@null"
         android:titleCondensed="@string/button_edit"/>
     <item
         android:id="@+id/wallet_transactions_context_show_qr"
         android:icon="@drawable/ic_qrcode_white_24dp"
-        android:showAsAction="ifRoom|withText"
+        android:showAsAction="ifRoom"
         android:title="@string/action_show_qr"/>
     <item
         android:id="@+id/wallet_transactions_context_raise_fee"
@@ -23,7 +23,7 @@
     <item
         android:id="@+id/wallet_transactions_context_browse"
         android:icon="@drawable/ic_open_in_browser_white_24dp"
-        android:showAsAction="ifRoom|withText"
+        android:showAsAction="ifRoom"
         android:title="@string/action_browse"/>
 
 </menu>

@@ -43,20 +43,26 @@ import de.schildbach.wallet.R;
 import de.schildbach.wallet.addressbook.AddressBookEntry;
 import de.schildbach.wallet.ui.TransactionsAdapter.ListItem.TransactionItem;
 import de.schildbach.wallet.util.Formats;
+import de.schildbach.wallet.util.Toolbars;
 import de.schildbach.wallet.util.WalletUtils;
 
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.text.Html;
 import android.text.Spanned;
 import android.text.SpannedString;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toolbar;
+import androidx.annotation.ColorInt;
 import androidx.annotation.MainThread;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
@@ -389,11 +395,28 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
         BACKUP, STORAGE_ENCRYPTION, CHAIN_FORKING
     }
 
+    public interface OnClickListener {
+        void onTransactionClick(View view, Sha256Hash transactionId);
+
+        void onWarningClick(View view);
+    }
+
+    public interface ContextMenuCallback {
+        void onInflateTransactionContextMenu(MenuInflater inflater, Menu menu, Sha256Hash transactionId);
+
+        boolean onClickTransactionContextMenuItem(MenuItem item, Sha256Hash transactionId);
+    }
+
     private final Context context;
     private final LayoutInflater inflater;
+    private final MenuInflater menuInflater;
+    @ColorInt
+    private final int colorInsignificant;
 
     @Nullable
     private final OnClickListener onClickListener;
+    @Nullable
+    private final ContextMenuCallback contextMenuCallback;
     @Nullable
     private Sha256Hash selectedTransactionId;
 
@@ -408,7 +431,8 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
         CONFIDENCE, TIME, ADDRESS, FEE, VALUE, FIAT, MESSAGE, SELECTION
     }
 
-    public TransactionsAdapter(final Context context, final @Nullable OnClickListener onClickListener) {
+    public TransactionsAdapter(final Context context, @Nullable final OnClickListener onClickListener,
+                               @Nullable final ContextMenuCallback contextMenuCallback) {
         super(new DiffUtil.ItemCallback<ListItem>() {
             @Override
             public boolean areItemsTheSame(final ListItem oldItem, final ListItem newItem) {
@@ -553,7 +577,10 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
         });
         this.context = context;
         this.inflater = LayoutInflater.from(context);
+        this.menuInflater = new MenuInflater(context);
+        this.colorInsignificant = ContextCompat.getColor(context, R.color.fg_insignificant);
         this.onClickListener = onClickListener;
+        this.contextMenuCallback = contextMenuCallback;
 
         setHasStableIds(true);
     }
@@ -629,16 +656,26 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
             final boolean isSelected = transactionItem.transactionId.equals(selectedTransactionId);
             if (fullBind) {
                 final OnClickListener onClickListener = this.onClickListener;
-                if (onClickListener != null) {
+                if (onClickListener != null)
                     transactionHolder.itemView.setOnClickListener(v -> onClickListener.onTransactionClick(v,
                             transactionItem.transactionId));
-                    transactionHolder.menu.setOnClickListener(v -> onClickListener.onTransactionMenuClick(v,
-                            transactionItem.transactionId));
-                }
             }
             if (fullBind || changes.contains(ChangeType.SELECTION)) {
                 transactionHolder.itemView.setSelected(isSelected);
-                transactionHolder.menu.setVisibility(isSelected ? View.VISIBLE : View.GONE);
+                transactionHolder.contextBar.setVisibility(View.GONE);
+                if (contextMenuCallback != null && isSelected) {
+                    final Menu menu = transactionHolder.contextBar.getMenu();
+                    menu.clear();
+                    contextMenuCallback.onInflateTransactionContextMenu(menuInflater, menu,
+                            transactionItem.transactionId);
+                    if (menu.hasVisibleItems()) {
+                        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
+                            Toolbars.colorize(transactionHolder.contextBar, colorInsignificant);
+                        transactionHolder.contextBar.setVisibility(View.VISIBLE);
+                        transactionHolder.contextBar.setOnMenuItemClickListener(item ->
+                                contextMenuCallback.onClickTransactionContextMenuItem(item, transactionItem.transactionId));
+                    }
+                }
             }
             if (fullBind || changes.contains(ChangeType.CONFIDENCE) || changes.contains(ChangeType.SELECTION))
                 transactionHolder.bindConfidence(transactionItem, isSelected);
@@ -686,14 +723,6 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
         }
     }
 
-    public interface OnClickListener {
-        void onTransactionClick(View view, Sha256Hash transactionId);
-
-        void onTransactionMenuClick(View view, Sha256Hash transactionId);
-
-        void onWarningClick(View view);
-    }
-
     public static class TransactionViewHolder extends RecyclerView.ViewHolder {
         private final View extendTime;
         private final TextView fullTime;
@@ -710,7 +739,7 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
         private final CurrencyTextView fee;
         private final View extendMessage;
         private final TextView message;
-        private final ImageButton menu;
+        private final Toolbar contextBar;
 
         public TransactionViewHolder(final View itemView) {
             super(itemView);
@@ -733,7 +762,7 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
             this.fee = itemView.findViewById(R.id.transaction_row_fee);
             this.extendMessage = itemView.findViewById(R.id.transaction_row_extend_message);
             this.message = itemView.findViewById(R.id.transaction_row_message);
-            this.menu = itemView.findViewById(R.id.transaction_row_menu);
+            this.contextBar = itemView.findViewById(R.id.transaction_row_context_bar);
         }
 
         public void fullBind(final TransactionItem item) {
