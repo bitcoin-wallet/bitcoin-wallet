@@ -766,13 +766,13 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
         }
 
         public void fullBind(final TransactionItem item) {
-            bindConfidence(item, false);
-            bindTime(item, false);
-            bindAddress(item, false);
-            bindFee(item, false);
+            bindConfidence(item, true);
+            bindTime(item, true);
+            bindAddress(item, true);
+            bindFee(item, true);
             bindValue(item);
             bindFiat(item);
-            bindMessage(item, false);
+            bindMessage(item, true);
         }
 
         private void bindConfidence(final TransactionItem item, final boolean isSelected) {

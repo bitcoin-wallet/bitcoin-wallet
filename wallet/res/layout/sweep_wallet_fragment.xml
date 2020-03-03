@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="0px"
         android:layout_weight="1"
+        android:layout_marginBottom="@dimen/list_entry_padding_vertical"
         android:orientation="vertical" >
 
         <TextView
