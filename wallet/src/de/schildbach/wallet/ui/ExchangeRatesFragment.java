@@ -85,10 +85,11 @@ public final class ExchangeRatesFragment extends Fragment implements OnSharedPre
                     viewGroup.setDisplayedChild(2);
                     maybeSubmitList();
 
-                    final String defaultCurrency = config.getExchangeCurrencyCode();
-                    if (defaultCurrency != null)
+                    final String initialExchangeRate = viewModel.getInitialExchangeRate();
+                    if (initialExchangeRate != null)
                         // The delay is needed because of the list needs time to populate.
-                        new Handler().postDelayed(() -> viewModel.selectedExchangeRate.setValue(defaultCurrency), 250);
+                        new Handler().postDelayed(() -> viewModel.selectedExchangeRate.setValue(initialExchangeRate),
+                                250);
 
                     if (activity instanceof ExchangeRatesActivity) {
                         final String source = exchangeRates.iterator().next().getSource();
@@ -113,6 +114,8 @@ public final class ExchangeRatesFragment extends Fragment implements OnSharedPre
         adapter = new ExchangeRatesAdapter(activity, this, this);
 
         config.registerOnSharedPreferenceChangeListener(this);
+
+        viewModel.setInitialExchangeRate(config.getExchangeCurrencyCode());
     }
 
     @Override

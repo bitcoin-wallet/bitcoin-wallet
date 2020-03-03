@@ -24,6 +24,7 @@ import de.schildbach.wallet.exchangerate.ExchangeRateEntry;
 import de.schildbach.wallet.exchangerate.ExchangeRatesRepository;
 
 import android.app.Application;
+import androidx.annotation.MainThread;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
@@ -43,6 +44,7 @@ public class ExchangeRatesViewModel extends AndroidViewModel {
     private WalletBalanceLiveData balance;
     private boolean isConstrained = false;
     public final MutableLiveData<String> selectedExchangeRate = new MutableLiveData<>();
+    private Event<String> initialExchangeRate;
 
     public ExchangeRatesViewModel(final Application application) {
         super(application);
@@ -77,5 +79,15 @@ public class ExchangeRatesViewModel extends AndroidViewModel {
         if (balance == null)
             balance = new WalletBalanceLiveData(application);
         return balance;
+    }
+
+    @MainThread
+    public void setInitialExchangeRate(final String exchangeRateCode) {
+        initialExchangeRate = new Event<>(exchangeRateCode);
+    }
+
+    @MainThread
+    public String getInitialExchangeRate() {
+        return initialExchangeRate.getContentIfNotHandled();
     }
 }
