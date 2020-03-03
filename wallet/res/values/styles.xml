@@ -123,11 +123,6 @@
         <item name="android:drawablePadding">8dp</item>
     </style>
 
-    <style name="My.Widget.Button.Borderless.Unpadded" parent="@android:style/Widget.Material.Button.Borderless">
-        <item name="android:padding">0px</item>
-        <item name="android:drawablePadding">0px</item>
-    </style>
-
     <style name="My.Widget.CompoundButton.CheckBox" parent="@android:style/Widget.Material.Light.CompoundButton.CheckBox">
         <item name="android:textColor">@color/fg_significant</item>
         <item name="android:textSize">@dimen/font_size_normal</item>

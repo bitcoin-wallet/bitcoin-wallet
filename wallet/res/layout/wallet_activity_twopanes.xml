@@ -53,8 +53,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/list_entry_padding_vertical_lax"
-                    android:layout_marginLeft="@dimen/list_entry_padding_horizontal_lax"
-                    android:layout_marginRight="@dimen/list_entry_padding_horizontal_lax"
+                    android:layout_marginLeft="@dimen/list_entry_padding_horizontal"
+                    android:layout_marginRight="@dimen/list_entry_padding_horizontal"
                     android:layout_marginTop="@dimen/list_entry_padding_vertical_lax" />
             </de.schildbach.wallet.util.FillGapsLinearLayout>
 
