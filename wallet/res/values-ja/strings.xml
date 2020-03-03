@@ -155,6 +155,7 @@
   <string name="address_book_options_scan_title">アドレスをスキャン</string>
   <string name="address_book_options_scan_invalid">スキャンしたデータが認識できません</string>
   <string name="address_book_options_scan_own_address">スキャンしたアドレスはあなたのアドレスです。</string>
+  <string name="address_book_row_current_address">これはあなたの現在の受け取り用アドレスです。</string>
   <string name="address_book_row_message_compromised_key">このアドレスは信頼されていません。コインの受取にはこれ以上使用しない方が良いでしょう。</string>
   <string name="edit_address_book_entry_dialog_title_add">送金用アドレスを追加</string>
   <string name="edit_address_book_entry_dialog_title_edit">送金用アドレスのラベルを編集</string>
