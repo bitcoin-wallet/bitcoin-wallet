@@ -32,7 +32,7 @@
             android:layout_weight="1"
             android:orientation="vertical" >
 
-            <LinearLayout
+            <de.schildbach.wallet.util.FillGapsLinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/bg_level1"
@@ -45,7 +45,6 @@
                     android:name="de.schildbach.wallet.ui.WalletBalanceFragment"
                     android:layout_width="0px"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
                     android:layout_weight="1" />
 
                 <androidx.fragment.app.FragmentContainerView
@@ -57,7 +56,7 @@
                     android:layout_marginLeft="@dimen/list_entry_padding_horizontal_lax"
                     android:layout_marginRight="@dimen/list_entry_padding_horizontal_lax"
                     android:layout_marginTop="@dimen/list_entry_padding_vertical_lax" />
-            </LinearLayout>
+            </de.schildbach.wallet.util.FillGapsLinearLayout>
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/wallet_transactions_fragment"

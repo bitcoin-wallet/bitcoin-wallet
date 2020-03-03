@@ -48,7 +48,6 @@
                     android:name="de.schildbach.wallet.ui.WalletBalanceFragment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
                     android:tag="slide_in_top" />
             </FrameLayout>
 
