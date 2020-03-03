@@ -37,7 +37,6 @@
                     android:layout_height="0px"
                     android:layout_weight="1"
                     android:ellipsize="end"
-                    android:maxLines="2"
                     android:singleLine="false"
                     android:textStyle="bold" />
 
@@ -45,7 +44,7 @@
                     android:id="@+id/address_book_row_message"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/font_size_tiny"
+                    android:textSize="@dimen/font_size_small"
                     android:visibility="gone" />
             </LinearLayout>
 
