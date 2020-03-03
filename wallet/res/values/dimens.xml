@@ -8,7 +8,7 @@
     <dimen name="symbol_size_normal">14sp</dimen>
     <dimen name="list_entry_padding_horizontal_cram">6dp</dimen>
     <dimen name="list_entry_padding_horizontal">12dp</dimen>
-    <dimen name="list_entry_padding_horizontal_lax">20dp</dimen>
+    <dimen name="list_entry_padding_horizontal_lax">18dp</dimen>
     <dimen name="list_entry_padding_vertical_cram">3dp</dimen>
     <dimen name="list_entry_padding_vertical">6dp</dimen>
     <dimen name="list_entry_padding_vertical_lax">10dp</dimen>

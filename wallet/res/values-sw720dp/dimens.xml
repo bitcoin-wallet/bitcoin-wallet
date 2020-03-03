@@ -8,10 +8,10 @@
     <dimen name="symbol_size_normal">19sp</dimen>
     <dimen name="list_entry_padding_horizontal_cram">8dp</dimen>
     <dimen name="list_entry_padding_horizontal">16dp</dimen>
-    <dimen name="list_entry_padding_horizontal_lax">25dp</dimen>
+    <dimen name="list_entry_padding_horizontal_lax">22dp</dimen>
     <dimen name="list_entry_padding_vertical_cram">6dp</dimen>
     <dimen name="list_entry_padding_vertical">12dp</dimen>
-    <dimen name="list_entry_padding_vertical_lax">18dp</dimen>
+    <dimen name="list_entry_padding_vertical_lax">16dp</dimen>
     <dimen name="divider_currency_padding">16dp</dimen>
     <dimen name="wallet_address_qr_size">128dp</dimen>
     <dimen name="request_coins_qr_size">192dp</dimen>
