@@ -84,7 +84,6 @@ import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -110,7 +109,7 @@ public class SweepWalletFragment extends Fragment {
     private View badPasswordView;
     private TextView balanceView;
     private View hintView;
-    private ViewGroup sweepTransactionViewGroup;
+    private View sweepTransactionView;
     private TransactionsAdapter.TransactionViewHolder sweepTransactionViewHolder;
     private Button viewGo;
     private Button viewCancel;
@@ -186,9 +185,8 @@ public class SweepWalletFragment extends Fragment {
 
         hintView = view.findViewById(R.id.sweep_wallet_fragment_hint);
 
-        sweepTransactionViewGroup = (FrameLayout) view.findViewById(R.id.transaction_row);
-        sweepTransactionViewGroup
-                .setLayoutAnimation(AnimationUtils.loadLayoutAnimation(activity, R.anim.transaction_layout_anim));
+        sweepTransactionView = view.findViewById(R.id.transaction_row);
+        sweepTransactionView.setVisibility(View.GONE);
         sweepTransactionViewHolder = new TransactionsAdapter.TransactionViewHolder(view);
 
         viewGo = view.findViewById(R.id.send_coins_go);
@@ -488,12 +486,12 @@ public class SweepWalletFragment extends Fragment {
                         ? View.VISIBLE : View.GONE);
 
         if (viewModel.sentTransaction != null) {
-            sweepTransactionViewGroup.setVisibility(View.VISIBLE);
+            sweepTransactionView.setVisibility(View.VISIBLE);
             sweepTransactionViewHolder
                     .fullBind(new TransactionsAdapter.ListItem.TransactionItem(activity, viewModel.sentTransaction,
                             application.getWallet(), null, btcFormat, application.maxConnectedPeers()));
         } else {
-            sweepTransactionViewGroup.setVisibility(View.GONE);
+            sweepTransactionView.setVisibility(View.GONE);
         }
 
         if (viewModel.state == SweepWalletViewModel.State.DECODE_KEY) {

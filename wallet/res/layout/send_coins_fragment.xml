@@ -193,9 +193,7 @@
             android:layout_marginBottom="@dimen/list_entry_padding_vertical"
             android:visibility="gone" />
 
-        <include
-            layout="@layout/transaction_row"
-            android:visibility="gone" />
+        <include layout="@layout/transaction_row" />
     </LinearLayout>
 
     <include layout="@layout/send_coins_buttons_include" />

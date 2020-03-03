@@ -91,9 +91,7 @@
             android:textColor="@color/fg_less_significant"
             android:textSize="@dimen/font_size_small" />
 
-        <include
-            layout="@layout/transaction_row"
-            android:visibility="gone" />
+        <include layout="@layout/transaction_row" />
     </LinearLayout>
 
     <include layout="@layout/send_coins_buttons_include" />

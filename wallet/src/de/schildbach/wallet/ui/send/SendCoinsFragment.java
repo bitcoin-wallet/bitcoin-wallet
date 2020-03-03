@@ -103,7 +103,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
 import android.view.ViewGroup;
-import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -113,7 +112,6 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.Filter;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
@@ -152,7 +150,7 @@ public final class SendCoinsFragment extends Fragment {
 
     private TextView hintView;
     private TextView directPaymentMessageView;
-    private ViewGroup sentTransactionViewGroup;
+    private View sentTransactionView;
     private TransactionsAdapter.TransactionViewHolder sentTransactionViewHolder;
     private View privateKeyPasswordViewGroup;
     private EditText privateKeyPasswordView;
@@ -459,9 +457,8 @@ public final class SendCoinsFragment extends Fragment {
 
         directPaymentMessageView = view.findViewById(R.id.send_coins_direct_payment_message);
 
-        sentTransactionViewGroup = (FrameLayout) view.findViewById(R.id.transaction_row);
-        sentTransactionViewGroup
-                .setLayoutAnimation(AnimationUtils.loadLayoutAnimation(activity, R.anim.transaction_layout_anim));
+        sentTransactionView = view.findViewById(R.id.transaction_row);
+        sentTransactionView.setVisibility(View.GONE);
         sentTransactionViewHolder = new TransactionsAdapter.TransactionViewHolder(view);
 
         privateKeyPasswordViewGroup = view.findViewById(R.id.send_coins_private_key_password_group);
@@ -1068,12 +1065,12 @@ public final class SendCoinsFragment extends Fragment {
             }
 
             if (viewModel.sentTransaction != null && wallet != null) {
-                sentTransactionViewGroup.setVisibility(View.VISIBLE);
+                sentTransactionView.setVisibility(View.VISIBLE);
                 sentTransactionViewHolder
                         .fullBind(new TransactionsAdapter.ListItem.TransactionItem(activity, viewModel.sentTransaction,
                                 wallet, addressBook, btcFormat, application.maxConnectedPeers()));
             } else {
-                sentTransactionViewGroup.setVisibility(View.GONE);
+                sentTransactionView.setVisibility(View.GONE);
             }
 
             if (viewModel.directPaymentAck != null) {
