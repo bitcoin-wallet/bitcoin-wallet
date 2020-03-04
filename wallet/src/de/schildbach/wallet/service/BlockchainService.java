@@ -20,15 +20,13 @@ package de.schildbach.wallet.service;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.InetSocketAddress;
+import java.net.InetAddress;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.EnumSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
@@ -51,9 +49,6 @@ import org.bitcoinj.core.listeners.AbstractPeerDataEventListener;
 import org.bitcoinj.core.listeners.PeerConnectedEventListener;
 import org.bitcoinj.core.listeners.PeerDataEventListener;
 import org.bitcoinj.core.listeners.PeerDisconnectedEventListener;
-import org.bitcoinj.net.discovery.MultiplexingDiscovery;
-import org.bitcoinj.net.discovery.PeerDiscovery;
-import org.bitcoinj.net.discovery.PeerDiscoveryException;
 import org.bitcoinj.store.BlockStore;
 import org.bitcoinj.store.BlockStoreException;
 import org.bitcoinj.store.SPVBlockStore;
@@ -79,6 +74,7 @@ import de.schildbach.wallet.data.WalletBalanceLiveData;
 import de.schildbach.wallet.data.WalletLiveData;
 import de.schildbach.wallet.exchangerate.ExchangeRateEntry;
 import de.schildbach.wallet.service.BlockchainState.Impediment;
+import de.schildbach.wallet.ui.preference.ResolveDnsTask;
 import de.schildbach.wallet.ui.WalletActivity;
 import de.schildbach.wallet.util.CrashReporter;
 import de.schildbach.wallet.util.WalletUtils;
@@ -97,9 +93,11 @@ import android.net.Uri;
 import android.os.Binder;
 import android.os.Build;
 import android.os.Handler;
+import android.os.HandlerThread;
 import android.os.IBinder;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
+import android.os.Process;
 import android.text.format.DateUtils;
 import androidx.annotation.MainThread;
 import androidx.annotation.Nullable;
@@ -131,6 +129,8 @@ public class BlockchainService extends LifecycleService {
     private PeerGroup peerGroup;
 
     private final Handler handler = new Handler();
+    private HandlerThread backgroundThread;
+    private Handler backgroundHandler;
     private final Handler delayHandler = new Handler();
     private WakeLock wakeLock;
 
@@ -503,6 +503,10 @@ public class BlockchainService extends LifecycleService {
         connectivityNotification.setPriority(NotificationCompat.PRIORITY_LOW);
         startForeground(0);
 
+        backgroundThread = new HandlerThread("backgroundThread", Process.THREAD_PRIORITY_BACKGROUND);
+        backgroundThread.start();
+        backgroundHandler = new Handler(backgroundThread.getLooper());
+
         addressBookDao = AddressBookDatabase.getDatabase(application).addressBookDao();
         blockChainFile = new File(getDir("blockstore", Context.MODE_PRIVATE), Constants.Files.BLOCKCHAIN_FILENAME);
 
@@ -635,42 +639,28 @@ public class BlockchainService extends LifecycleService {
                 final Set<String> trustedPeers = config.getTrustedPeers();
                 final boolean trustedPeerOnly = config.isTrustedPeersOnly();
 
-                peerGroup.setMaxConnections(trustedPeers.size() + (trustedPeerOnly ? 0 : maxConnectedPeers));
+                peerGroup.setMaxConnections(trustedPeerOnly ? 0 : maxConnectedPeers);
                 peerGroup.setConnectTimeoutMillis(Constants.PEER_TIMEOUT_MS);
                 peerGroup.setPeerDiscoveryTimeoutMillis(Constants.PEER_DISCOVERY_TIMEOUT_MS);
-                peerGroup.setRequiredServices(VersionMessage.NODE_BLOOM | VersionMessage.NODE_WITNESS);
 
-                peerGroup.addPeerDiscovery(new PeerDiscovery() {
-                    private final PeerDiscovery normalPeerDiscovery = MultiplexingDiscovery
-                            .forServices(Constants.NETWORK_PARAMETERS, 0);
-
+                final ResolveDnsTask resolveDnsTask = new ResolveDnsTask(backgroundHandler) {
                     @Override
-                    public InetSocketAddress[] getPeers(final long services, final long timeoutValue,
-                            final TimeUnit timeoutUnit) throws PeerDiscoveryException {
-                        final List<InetSocketAddress> peers = new LinkedList<>();
-                        for (final String trustedPeer : trustedPeers) {
-                            final InetSocketAddress addr = new InetSocketAddress(trustedPeer,
-                                    Constants.NETWORK_PARAMETERS.getPort());
-                            log.info("trusted peer '" + addr + "'" + (trustedPeerOnly ? " only" : ""));
-                            if (addr.getAddress() != null)
-                                peers.add(addr);
-                        }
-
-                        if (!trustedPeerOnly)
-                            peers.addAll(
-                                    Arrays.asList(normalPeerDiscovery.getPeers(services, timeoutValue, timeoutUnit)));
-                        else if (!trustedPeers.isEmpty())
-                            // workaround because PeerGroup will shuffle our trusted peers away
-                            while (peers.size() >= peerGroup.getMaxConnections())
-                                peers.remove(peers.size() - 1);
-                        return peers.toArray(new InetSocketAddress[0]);
+                    protected void onSuccess(final InetAddress address) {
+                        log.info("trusted peer '{}'" + (trustedPeerOnly ? " only" : ""), address);
+                        if (address != null)
+                            peerGroup.addAddress(address);
                     }
 
                     @Override
-                    public void shutdown() {
-                        normalPeerDiscovery.shutdown();
+                    protected void onUnknownHost(final String hostname) {
+                        log.info("trusted peer '{}' unknown host", hostname);
                     }
-                });
+                };
+                for (final String trustedPeer : trustedPeers)
+                    resolveDnsTask.resolve(trustedPeer);
+
+                if (!trustedPeerOnly)
+                    peerGroup.setRequiredServices(VersionMessage.NODE_BLOOM | VersionMessage.NODE_WITNESS);
 
                 // start peergroup
                 log.info("starting {} asynchronously", peerGroup);
@@ -748,6 +738,9 @@ public class BlockchainService extends LifecycleService {
         peerConnectivityListener.stop();
 
         delayHandler.removeCallbacksAndMessages(null);
+
+        backgroundHandler.removeCallbacksAndMessages(null);
+        backgroundThread.getLooper().quit();
 
         if (blockStore != null) {
             try {
