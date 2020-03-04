@@ -42,12 +42,12 @@ public abstract class ResolveDnsTask {
 
                 callbackHandler.post(() -> onSuccess(address));
             } catch (final UnknownHostException x) {
-                callbackHandler.post(() -> onUnknownHost());
+                callbackHandler.post(() -> onUnknownHost(hostname));
             }
         });
     }
 
     protected abstract void onSuccess(InetAddress address);
 
-    protected abstract void onUnknownHost();
+    protected abstract void onUnknownHost(String hostname);
 }

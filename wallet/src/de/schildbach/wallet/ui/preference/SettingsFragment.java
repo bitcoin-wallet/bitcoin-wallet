@@ -172,8 +172,8 @@ public final class SettingsFragment extends PreferenceFragment implements OnPref
                 }
 
                 @Override
-                protected void onUnknownHost() {
-                    trustedPeerPreference.setSummary(trustedPeer + "\n["
+                protected void onUnknownHost(final String hostname) {
+                    trustedPeerPreference.setSummary(hostname + "\n["
                             + getString(R.string.preferences_trusted_peer_resolve_unknown_host) + "]");
                 }
             }.resolve(trustedPeer);
