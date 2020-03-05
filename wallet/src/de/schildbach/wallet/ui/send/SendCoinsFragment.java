@@ -85,7 +85,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.media.RingtoneManager;
 import android.net.Uri;
 import android.nfc.NdefMessage;
 import android.nfc.NfcAdapter;
@@ -237,47 +236,6 @@ public final class SendCoinsFragment extends Fragment {
         }
     };
 
-    private final TransactionConfidence.Listener sentTransactionConfidenceListener = new TransactionConfidence.Listener() {
-        @Override
-        public void onConfidenceChanged(final TransactionConfidence confidence,
-                final TransactionConfidence.Listener.ChangeReason reason) {
-            activity.runOnUiThread(() -> {
-                if (!isResumed())
-                    return;
-
-                final TransactionConfidence confidence1 = viewModel.sentTransaction.getConfidence();
-                final ConfidenceType confidenceType = confidence1.getConfidenceType();
-                final int numBroadcastPeers = confidence1.numBroadcastPeers();
-
-                if (viewModel.state == SendCoinsViewModel.State.SENDING) {
-                    if (confidenceType == ConfidenceType.DEAD) {
-                        setState(SendCoinsViewModel.State.FAILED);
-                    } else if (numBroadcastPeers > 1 || confidenceType == ConfidenceType.BUILDING) {
-                        setState(SendCoinsViewModel.State.SENT);
-
-                        // Auto-close the dialog after a short delay
-                        if (config.getSendCoinsAutoclose()) {
-                            handler.postDelayed(() -> activity.finish(), 500);
-                        }
-                    }
-                }
-
-                if (reason == ChangeReason.SEEN_PEERS && confidenceType == ConfidenceType.PENDING) {
-                    // play sound effect
-                    final int soundResId = getResources().getIdentifier("send_coins_broadcast_" + numBroadcastPeers,
-                            "raw", activity.getPackageName());
-                    if (soundResId > 0)
-                        RingtoneManager
-                                .getRingtone(activity, Uri.parse(
-                                        "android.resource://" + activity.getPackageName() + "/" + soundResId))
-                                .play();
-                }
-
-                updateView();
-            });
-        }
-    };
-
     private final class ReceivingAddressViewAdapter extends ArrayAdapter<AddressBookEntry> {
         private final LayoutInflater inflater;
 
@@ -368,6 +326,23 @@ public final class SendCoinsFragment extends Fragment {
         application.blockchainState.observe(this, blockchainState -> updateView());
         viewModel.balance.observe(this, coin -> activity.invalidateOptionsMenu());
         viewModel.progress.observe(this, new ProgressDialogFragment.Observer(fragmentManager));
+        viewModel.sentTransaction.observe(this, transaction -> {
+            if (viewModel.state == SendCoinsViewModel.State.SENDING) {
+                final TransactionConfidence confidence = transaction.getConfidence();
+                final ConfidenceType confidenceType = confidence.getConfidenceType();
+                final int numBroadcastPeers = confidence.numBroadcastPeers();
+                if (confidenceType == ConfidenceType.DEAD) {
+                    setState(SendCoinsViewModel.State.FAILED);
+                } else if (numBroadcastPeers > 1 || confidenceType == ConfidenceType.BUILDING) {
+                    setState(SendCoinsViewModel.State.SENT);
+
+                    // Auto-close the dialog after a short delay
+                    if (config.getSendCoinsAutoclose())
+                        handler.postDelayed(() -> activity.finish(), 500);
+                }
+            }
+            updateView();
+        });
 
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
@@ -519,10 +494,6 @@ public final class SendCoinsFragment extends Fragment {
     @Override
     public void onDestroy() {
         backgroundThread.getLooper().quit();
-
-        if (viewModel.sentTransaction != null)
-            viewModel.sentTransaction.getConfidence().removeEventListener(sentTransactionConfidenceListener);
-
         super.onDestroy();
     }
 
@@ -750,29 +721,25 @@ public final class SendCoinsFragment extends Fragment {
         new SendCoinsOfflineTask(wallet, backgroundHandler) {
             @Override
             protected void onSuccess(final Transaction transaction) {
-                viewModel.sentTransaction = transaction;
-
+                viewModel.sentTransaction.setValue(transaction);
                 setState(SendCoinsViewModel.State.SENDING);
-
-                viewModel.sentTransaction.getConfidence().addEventListener(sentTransactionConfidenceListener);
 
                 final Address refundAddress = viewModel.paymentIntent.standard == Standard.BIP70
                         ? wallet.freshAddress(KeyPurpose.REFUND) : null;
-                final Payment payment = PaymentProtocol.createPaymentMessage(
-                        Collections.singletonList(viewModel.sentTransaction), finalAmount, refundAddress,
-                        null, viewModel.paymentIntent.payeeData);
+                final Payment payment = PaymentProtocol.createPaymentMessage(Collections.singletonList(transaction),
+                        finalAmount, refundAddress, null, viewModel.paymentIntent.payeeData);
 
                 if (directPaymentEnableView.isChecked())
                     directPay(payment);
 
-                BlockchainService.broadcastTransaction(activity, viewModel.sentTransaction);
+                BlockchainService.broadcastTransaction(activity, transaction);
 
                 final ComponentName callingActivity = activity.getCallingActivity();
                 if (callingActivity != null) {
                     log.info("returning result to calling activity: {}", callingActivity.flattenToString());
 
                     final Intent result = new Intent();
-                    BitcoinIntegration.transactionHashToResult(result, viewModel.sentTransaction.getTxId().toString());
+                    BitcoinIntegration.transactionHashToResult(result, transaction.getTxId().toString());
                     if (viewModel.paymentIntent.standard == Standard.BIP70)
                         BitcoinIntegration.paymentToResult(result, payment.toByteArray());
                     activity.setResult(Activity.RESULT_OK, result);
@@ -1064,10 +1031,11 @@ public final class SendCoinsFragment extends Fragment {
                 }
             }
 
-            if (viewModel.sentTransaction != null && wallet != null) {
+            final Transaction sentTransaction = viewModel.sentTransaction.getValue();
+            if (sentTransaction != null && wallet != null) {
                 sentTransactionView.setVisibility(View.VISIBLE);
                 sentTransactionViewHolder
-                        .fullBind(new TransactionsAdapter.ListItem.TransactionItem(activity, viewModel.sentTransaction,
+                        .fullBind(new TransactionsAdapter.ListItem.TransactionItem(activity, sentTransaction,
                                 wallet, addressBook, btcFormat, application.maxConnectedPeers()));
             } else {
                 sentTransactionView.setVisibility(View.GONE);
