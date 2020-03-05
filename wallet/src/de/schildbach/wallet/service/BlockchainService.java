@@ -648,7 +648,7 @@ public class BlockchainService extends LifecycleService {
                     protected void onSuccess(final InetAddress address) {
                         log.info("trusted peer '{}'" + (trustedPeerOnly ? " only" : ""), address);
                         if (address != null)
-                            peerGroup.addAddress(address);
+                            peerGroup.addAddress(address, 10);
                     }
 
                     @Override
