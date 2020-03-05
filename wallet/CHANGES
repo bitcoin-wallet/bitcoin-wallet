@@ -1,3 +1,7 @@
+v7.62
+
+* Allow multiple trusted peers by separating them with a space character.
+
 v7.60-v7.61
 
 * Visual overhaul of the transactions list.
