@@ -151,6 +151,10 @@ public class SweepWalletFragment extends Fragment {
                     setState(SweepWalletViewModel.State.FAILED);
                 } else if (numBroadcastPeers > 1 || confidenceType == ConfidenceType.BUILDING) {
                     setState(SweepWalletViewModel.State.SENT);
+
+                    // Auto-close the dialog after a short delay
+                    if (config.getSendCoinsAutoclose())
+                        handler.postDelayed(() -> activity.finish(), 500);
                 }
             }
             updateView();
