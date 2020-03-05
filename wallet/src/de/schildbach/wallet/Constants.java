@@ -172,6 +172,8 @@ public final class Constants {
 
     public static final long DELAYED_TRANSACTION_THRESHOLD_MS = 2 * DateUtils.HOUR_IN_MILLIS;
 
+    public static final long AUTOCLOSE_DELAY_MS = 1000;
+
     /** A balance above this amount will show a warning */
     public static final Coin TOO_MUCH_BALANCE_THRESHOLD = Coin.COIN.divide(8);
     /** A balance above this amount will cause the donate option to be shown */

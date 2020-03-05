@@ -154,7 +154,7 @@ public class SweepWalletFragment extends Fragment {
 
                     // Auto-close the dialog after a short delay
                     if (config.getSendCoinsAutoclose())
-                        handler.postDelayed(() -> activity.finish(), 500);
+                        handler.postDelayed(() -> activity.finish(), Constants.AUTOCLOSE_DELAY_MS);
                 }
             }
             updateView();
