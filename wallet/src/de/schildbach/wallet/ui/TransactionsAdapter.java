@@ -398,7 +398,7 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
     public interface OnClickListener {
         void onTransactionClick(View view, Sha256Hash transactionId);
 
-        void onWarningClick(View view);
+        void onWarningClick(View view, WarningType warning);
     }
 
     public interface ContextMenuCallback {
@@ -716,10 +716,8 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
                         Html.fromHtml(context.getString(R.string.wallet_transactions_row_warning_chain_forking)));
             }
 
-            final OnClickListener onClickListener = this.onClickListener;
-            if (onClickListener != null) {
-                warningHolder.itemView.setOnClickListener(v -> onClickListener.onWarningClick(v));
-            }
+            if (onClickListener != null)
+                warningHolder.itemView.setOnClickListener(v -> onClickListener.onWarningClick(v, warningItem.type));
         }
     }
 
