@@ -62,10 +62,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
                 android:layout_marginLeft="@dimen/list_entry_padding_horizontal" />
-
-            <Space
-                android:layout_width="24dp"
-                android:layout_height="0px" />
         </LinearLayout>
 
         <LinearLayout
@@ -104,10 +100,6 @@
                 android:layout_gravity="right"
                 android:layout_marginLeft="@dimen/list_entry_padding_horizontal"
                 android:textColor="@color/fg_less_significant" />
-
-            <Space
-                android:layout_width="24dp"
-                android:layout_height="0px" />
         </LinearLayout>
 
         <Toolbar
