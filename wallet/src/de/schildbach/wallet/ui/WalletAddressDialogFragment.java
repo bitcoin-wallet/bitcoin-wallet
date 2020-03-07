@@ -17,58 +17,44 @@
 
 package de.schildbach.wallet.ui;
 
-import java.util.Locale;
-
-import org.bitcoinj.core.Address;
-import org.bitcoinj.core.LegacyAddress;
-import org.bitcoinj.uri.BitcoinURI;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.R;
-import de.schildbach.wallet.util.Qr;
-import de.schildbach.wallet.util.WalletUtils;
-
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
-import androidx.annotation.Nullable;
 import androidx.core.app.ShareCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewModelProvider;
+import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.R;
+import de.schildbach.wallet.util.WalletUtils;
+import org.bitcoinj.core.Address;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Andreas Schildbach
  */
 public class WalletAddressDialogFragment extends DialogFragment {
     private static final String FRAGMENT_TAG = WalletAddressDialogFragment.class.getName();
-    private static final String KEY_ADDRESS = "address";
-    private static final String KEY_ADDRESS_LABEL = "address_label";
+
+    private ImageView imageView;
+    private TextView labelView;
+    private WalletAddressViewModel viewModel;
 
     private static final Logger log = LoggerFactory.getLogger(WalletAddressDialogFragment.class);
 
-    public static void show(final FragmentManager fm, final Address address, @Nullable final String addressLabel) {
-        instance(address, addressLabel).show(fm, FRAGMENT_TAG);
+    public static void show(final FragmentManager fm) {
+        instance().show(fm, FRAGMENT_TAG);
     }
 
-    private static WalletAddressDialogFragment instance(final Address address, @Nullable final String addressLabel) {
-        final WalletAddressDialogFragment fragment = new WalletAddressDialogFragment();
-
-        final Bundle args = new Bundle();
-        args.putString(KEY_ADDRESS, address.toString());
-        if (addressLabel != null)
-            args.putString(KEY_ADDRESS_LABEL, addressLabel);
-        fragment.setArguments(args);
-
-        return fragment;
+    private static WalletAddressDialogFragment instance() {
+        return new WalletAddressDialogFragment();
     }
 
     private Activity activity;
@@ -83,44 +69,42 @@ public class WalletAddressDialogFragment extends DialogFragment {
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         log.info("opening dialog {}", getClass().getName());
+
+        viewModel = new ViewModelProvider(getParentFragment()).get(WalletAddressViewModel.class);
+        viewModel.qrCode.observe(this, qrCode -> {
+            final BitmapDrawable qrDrawable = new BitmapDrawable(getResources(), qrCode);
+            qrDrawable.setFilterBitmap(false);
+            imageView.setImageDrawable(qrDrawable);
+        });
+        viewModel.currentAddress.observe(this, currentAddress -> {
+            final CharSequence label = WalletUtils.formatAddress(currentAddress, Constants.ADDRESS_FORMAT_GROUP_SIZE,
+                    Constants.ADDRESS_FORMAT_LINE_SIZE);
+            labelView.setText(label);
+        });
     }
 
     @Override
     public Dialog onCreateDialog(final Bundle savedInstanceState) {
-        final Bundle args = getArguments();
-        final Address address = Address.fromString(Constants.NETWORK_PARAMETERS, args.getString(KEY_ADDRESS));
-        final String addressStr = address.toString();
-        final String addressLabel = args.getString(KEY_ADDRESS_LABEL);
-
         final Dialog dialog = new Dialog(activity);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.wallet_address_dialog);
         dialog.setCanceledOnTouchOutside(true);
 
-        final String addressUri;
-        if (address instanceof LegacyAddress || addressLabel != null)
-            addressUri = BitcoinURI.convertToBitcoinURI(address, null, addressLabel, null);
-        else
-            addressUri = address.toString().toUpperCase(Locale.US);
-
-        final BitmapDrawable bitmap = new BitmapDrawable(getResources(), Qr.bitmap(addressUri));
-        bitmap.setFilterBitmap(false);
-        final ImageView imageView = dialog.findViewById(R.id.wallet_address_dialog_image);
-        imageView.setImageDrawable(bitmap);
+        imageView = dialog.findViewById(R.id.wallet_address_dialog_image);
+        labelView = dialog.findViewById(R.id.wallet_address_dialog_label);
 
         final View labelButtonView = dialog.findViewById(R.id.wallet_address_dialog_label_button);
-        final TextView labelView = dialog.findViewById(R.id.wallet_address_dialog_label);
-        final CharSequence label = WalletUtils.formatHash(addressStr, Constants.ADDRESS_FORMAT_GROUP_SIZE,
-                Constants.ADDRESS_FORMAT_LINE_SIZE);
-        labelView.setText(label);
         labelButtonView.setVisibility(View.VISIBLE);
         labelButtonView.setOnClickListener(v -> {
-            final ShareCompat.IntentBuilder builder = ShareCompat.IntentBuilder.from(activity);
-            builder.setType("text/plain");
-            builder.setText(addressStr);
-            builder.setChooserTitle(R.string.bitmap_fragment_share);
-            builder.startChooser();
-            log.info("wallet address shared via intent: {}", addressStr);
+            final Address address = viewModel.currentAddress.getValue();
+            if (address != null) {
+                final ShareCompat.IntentBuilder builder = ShareCompat.IntentBuilder.from(activity);
+                builder.setType("text/plain");
+                builder.setText(address.toString());
+                builder.setChooserTitle(R.string.bitmap_fragment_share);
+                builder.startChooser();
+                log.info("wallet address shared via intent: {}", address.toString());
+            }
         });
 
         final View hintView = dialog.findViewById(R.id.wallet_address_dialog_hint);
