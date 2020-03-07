@@ -121,6 +121,7 @@ public final class SendingAddressesFragment extends Fragment implements AddressB
         final View view = inflater.inflate(R.layout.sending_addresses_fragment, container, false);
         viewGroup = view.findViewById(R.id.sending_addresses_list_group);
         recyclerView = view.findViewById(R.id.sending_addresses_list);
+        recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(activity));
         recyclerView.setAdapter(adapter);
         return view;

@@ -111,6 +111,7 @@ public final class BlockListFragment extends Fragment implements BlockListAdapte
         final View view = inflater.inflate(R.layout.block_list_fragment, container, false);
         viewGroup = view.findViewById(R.id.block_list_group);
         recyclerView = view.findViewById(R.id.block_list);
+        recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new StickToTopLinearLayoutManager(activity));
         recyclerView.setAdapter(adapter);
         return view;

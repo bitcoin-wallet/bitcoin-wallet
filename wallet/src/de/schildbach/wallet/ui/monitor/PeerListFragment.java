@@ -90,6 +90,7 @@ public final class PeerListFragment extends Fragment implements PeerListAdapter.
         final View view = inflater.inflate(R.layout.peer_list_fragment, container, false);
         viewGroup = view.findViewById(R.id.peer_list_group);
         recyclerView = view.findViewById(R.id.peer_list);
+        recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(activity));
         recyclerView.setAdapter(adapter);
         return view;

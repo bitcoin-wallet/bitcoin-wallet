@@ -126,6 +126,7 @@ public final class WalletAddressesFragment extends Fragment implements AddressBo
         final View view = inflater.inflate(R.layout.wallet_addresses_fragment, container, false);
         viewGroup = view.findViewById(R.id.wallet_addresses_list_group);
         recyclerView = view.findViewById(R.id.wallet_addresses_list);
+        recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(activity));
         recyclerView.setAdapter(adapter);
         return view;

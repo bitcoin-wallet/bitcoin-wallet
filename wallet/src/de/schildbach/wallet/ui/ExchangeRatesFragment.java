@@ -124,6 +124,7 @@ public final class ExchangeRatesFragment extends Fragment implements OnSharedPre
         final View view = inflater.inflate(R.layout.exchange_rates_fragment, container, false);
         viewGroup = view.findViewById(R.id.exchange_rates_list_group);
         recyclerView = view.findViewById(R.id.exchange_rates_list);
+        recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(activity));
         recyclerView.setAdapter(adapter);
         return view;
