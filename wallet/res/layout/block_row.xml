@@ -39,10 +39,6 @@
                 android:id="@+id/block_list_row_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
-
-            <Space
-                android:layout_width="24dp"
-                android:layout_height="0px" />
         </LinearLayout>
 
         <TextView
