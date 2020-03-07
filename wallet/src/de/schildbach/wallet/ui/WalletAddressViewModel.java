@@ -19,6 +19,7 @@ package de.schildbach.wallet.ui;
 
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.Coin;
+import org.bitcoinj.core.LegacyAddress;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.uri.BitcoinURI;
 import org.bitcoinj.utils.Threading;
@@ -38,10 +39,13 @@ import android.app.Application;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
+import androidx.annotation.Nullable;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
+
+import java.util.Locale;
 
 /**
  * @author Andreas Schildbach
@@ -79,8 +83,12 @@ public class WalletAddressViewModel extends AndroidViewModel {
         }
     }
 
-    private String uri(final Address address, final String label) {
-        return BitcoinURI.convertToBitcoinURI(address, null, label, null);
+    private String uri(final Address address, @Nullable final String label) {
+        final String addressUri;
+        if (address instanceof LegacyAddress || label != null)
+            return BitcoinURI.convertToBitcoinURI(address, null, label, null);
+        else
+            return address.toString().toUpperCase(Locale.US);
     }
 
     public static class CurrentAddressLiveData extends AbstractWalletLiveData<Address> {
