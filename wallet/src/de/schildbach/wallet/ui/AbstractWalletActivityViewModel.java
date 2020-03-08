@@ -29,6 +29,7 @@ import de.schildbach.wallet.service.BlockchainService;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.TransactionBroadcast;
 import org.bitcoinj.core.VerificationException;
+import org.bitcoinj.utils.Threading;
 import org.bitcoinj.wallet.Wallet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -61,6 +62,10 @@ public class AbstractWalletActivityViewModel extends AndroidViewModel {
                         if (wallet.isTransactionRelevant(tx)) {
                             wallet.receivePending(tx, null);
                             final TransactionBroadcast broadcast = blockchainService.broadcastTransaction(tx);
+                            broadcast.future().addListener(() -> {
+                                log.info("broadcasting transaction {} complete, dropping all peers", tx.getTxId());
+                                blockchainService.dropAllPeers();
+                            }, Threading.SAME_THREAD);
                             future.setFuture(broadcast.future());
                         } else {
                             log.info("tx {} irrelevant", tx.getTxId());

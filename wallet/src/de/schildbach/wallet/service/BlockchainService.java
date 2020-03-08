@@ -798,6 +798,12 @@ public class BlockchainService extends LifecycleService {
         return peerGroup.getConnectedPeers();
     }
 
+    public void dropAllPeers() {
+        if (peerGroup == null)
+            return;
+        peerGroup.dropAllPeers();
+    }
+
     @Nullable
     public List<StoredBlock> getRecentBlocks(final int maxBlocks) {
         if (blockChain == null || blockStore == null)
