@@ -56,6 +56,7 @@ import de.schildbach.wallet.R;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.data.PaymentIntent;
 import de.schildbach.wallet.ui.AbstractWalletActivity;
+import de.schildbach.wallet.ui.AbstractWalletActivityViewModel;
 import de.schildbach.wallet.ui.DialogBuilder;
 import de.schildbach.wallet.ui.DialogEvent;
 import de.schildbach.wallet.ui.InputParser.StringInputParser;
@@ -115,6 +116,7 @@ public class SweepWalletFragment extends Fragment {
     private MenuItem reloadAction;
     private MenuItem scanAction;
 
+    private AbstractWalletActivityViewModel walletActivityViewModel;
     private SweepWalletViewModel viewModel;
 
     private static final int REQUEST_CODE_SCAN = 0;
@@ -139,6 +141,8 @@ public class SweepWalletFragment extends Fragment {
         if (!Constants.ENABLE_SWEEP_WALLET)
             throw new IllegalStateException("ENABLE_SWEEP_WALLET is disabled");
 
+        walletActivityViewModel = new ViewModelProvider(activity).get(AbstractWalletActivityViewModel.class);
+        walletActivityViewModel.wallet.observe(this, wallet -> updateView());
         viewModel = new ViewModelProvider(this).get(SweepWalletViewModel.class);
         viewModel.getDynamicFees().observe(this, dynamicFees -> updateView());
         viewModel.progress.observe(this, new ProgressDialogFragment.Observer(fragmentManager));
@@ -357,10 +361,12 @@ public class SweepWalletFragment extends Fragment {
         final RequestWalletBalanceTask.ResultCallback callback = new RequestWalletBalanceTask.ResultCallback() {
             @Override
             public void onResult(final Set<UTXO> utxos) {
+                final Wallet wallet = walletActivityViewModel.wallet.getValue();
+
                 viewModel.progress.setValue(null);
 
                 // Filter UTXOs we've already spent and sort the rest.
-                final Set<Transaction> walletTxns = application.getWallet().getTransactions(false);
+                final Set<Transaction> walletTxns = wallet.getTransactions(false);
                 final Set<UTXO> sortedUtxos = new TreeSet<>(UTXO_COMPARATOR);
                 for (final UTXO utxo : utxos)
                     if (!utxoSpentBy(walletTxns, utxo))
@@ -425,6 +431,7 @@ public class SweepWalletFragment extends Fragment {
     }
 
     private void updateView() {
+        final Wallet wallet = walletActivityViewModel.wallet.getValue();
         final Map<FeeCategory, Coin> fees = viewModel.getDynamicFees().getValue();
         final MonetaryFormat btcFormat = config.getFormat();
 
@@ -463,8 +470,8 @@ public class SweepWalletFragment extends Fragment {
         if (sentTransaction != null) {
             sweepTransactionView.setVisibility(View.VISIBLE);
             sweepTransactionViewHolder
-                    .fullBind(new TransactionsAdapter.ListItem.TransactionItem(activity, sentTransaction,
-                            application.getWallet(), null, btcFormat, application.maxConnectedPeers()));
+                    .fullBind(new TransactionsAdapter.ListItem.TransactionItem(activity, sentTransaction, wallet,
+                            null, btcFormat, application.maxConnectedPeers()));
         } else {
             sweepTransactionView.setVisibility(View.GONE);
         }
@@ -476,7 +483,7 @@ public class SweepWalletFragment extends Fragment {
         } else if (viewModel.state == SweepWalletViewModel.State.CONFIRM_SWEEP) {
             viewCancel.setText(R.string.button_cancel);
             viewGo.setText(R.string.sweep_wallet_fragment_button_sweep);
-            viewGo.setEnabled(viewModel.walletToSweep != null
+            viewGo.setEnabled(wallet != null && viewModel.walletToSweep != null
                     && viewModel.walletToSweep.getBalance(BalanceType.ESTIMATED).signum() > 0 && fees != null);
         } else if (viewModel.state == SweepWalletViewModel.State.PREPARATION) {
             viewCancel.setText(R.string.button_cancel);
@@ -514,8 +521,9 @@ public class SweepWalletFragment extends Fragment {
     private void handleSweep() {
         setState(SweepWalletViewModel.State.PREPARATION);
 
+        final Wallet wallet = walletActivityViewModel.wallet.getValue();
         final Map<FeeCategory, Coin> fees = viewModel.getDynamicFees().getValue();
-        final SendRequest sendRequest = SendRequest.emptyWallet(application.getWallet().freshReceiveAddress());
+        final SendRequest sendRequest = SendRequest.emptyWallet(wallet.freshReceiveAddress());
         sendRequest.feePerKb = fees.get(FeeCategory.NORMAL);
 
         new SendCoinsOfflineTask(viewModel.walletToSweep, backgroundHandler) {
