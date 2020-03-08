@@ -39,6 +39,7 @@ import de.schildbach.wallet.R;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.ui.AbstractWalletActivity;
+import de.schildbach.wallet.ui.AbstractWalletActivityViewModel;
 import de.schildbach.wallet.ui.DialogBuilder;
 import de.schildbach.wallet.util.WalletUtils;
 
@@ -90,10 +91,11 @@ public class RaiseFeeDialogFragment extends DialogFragment {
     private AbstractWalletActivity activity;
     private WalletApplication application;
     private Configuration config;
-    private Wallet wallet;
 
+    @Nullable
     private Coin feeRaise = null;
-    private Transaction transaction;
+    @Nullable
+    private Transaction transaction = null;
 
     @Nullable
     private AlertDialog dialog;
@@ -104,6 +106,7 @@ public class RaiseFeeDialogFragment extends DialogFragment {
     private View badPasswordView;
     private Button positiveButton, negativeButton;
 
+    private AbstractWalletActivityViewModel walletActivityViewModel;
     private RaiseFeeViewModel viewModel;
 
     private HandlerThread backgroundThread;
@@ -123,7 +126,6 @@ public class RaiseFeeDialogFragment extends DialogFragment {
         this.activity = (AbstractWalletActivity) context;
         this.application = activity.getWalletApplication();
         this.config = application.getConfiguration();
-        this.wallet = application.getWallet();
     }
 
     @Override
@@ -131,17 +133,21 @@ public class RaiseFeeDialogFragment extends DialogFragment {
         super.onCreate(savedInstanceState);
         log.info("opening dialog {}", getClass().getName());
 
-        viewModel = new ViewModelProvider(this).get(RaiseFeeViewModel.class);
-        viewModel.getDynamicFees().observe(this, dynamicFees -> {
-            // We basically have to pay fee for two transactions:
-            // The transaction to raise the fee of and the CPFP transaction we're about to create.
-            final int size = transaction.getMessageSize() + 192;
-            feeRaise = dynamicFees.get(FeeCategory.PRIORITY).multiply(size).divide(1000);
+        walletActivityViewModel = new ViewModelProvider(activity).get(AbstractWalletActivityViewModel.class);
+        walletActivityViewModel.wallet.observe(this, wallet -> {
+            final Bundle args = getArguments();
+            transaction = checkNotNull(wallet.getTransaction(Sha256Hash.wrap(args.getByteArray(KEY_TRANSACTION))));
             updateView();
-        });
 
-        final Bundle args = getArguments();
-        transaction = checkNotNull(wallet.getTransaction(Sha256Hash.wrap(args.getByteArray(KEY_TRANSACTION))));
+            viewModel.getDynamicFees().observe(this, dynamicFees -> {
+                // We basically have to pay fee for two transactions:
+                // The transaction to raise the fee of and the CPFP transaction we're about to create.
+                final int size = transaction.getMessageSize() + 192;
+                feeRaise = dynamicFees.get(FeeCategory.PRIORITY).multiply(size).divide(1000);
+                updateView();
+            });
+        });
+        viewModel = new ViewModelProvider(this).get(RaiseFeeViewModel.class);
 
         backgroundThread = new HandlerThread("backgroundThread", Process.THREAD_PRIORITY_BACKGROUND);
         backgroundThread.start();
@@ -209,23 +215,25 @@ public class RaiseFeeDialogFragment extends DialogFragment {
         state = State.DECRYPTING;
         updateView();
 
+        final Wallet wallet = walletActivityViewModel.wallet.getValue();
+
         if (wallet.isEncrypted()) {
             new DeriveKeyTask(backgroundHandler, application.scryptIterationsTarget()) {
                 @Override
                 protected void onSuccess(final KeyParameter encryptionKey, final boolean wasChanged) {
                     if (wasChanged)
                         WalletUtils.autoBackupWallet(activity, wallet);
-                    doRaiseFee(encryptionKey);
+                    doRaiseFee(wallet, encryptionKey);
                 }
             }.deriveKey(wallet, passwordView.getText().toString().trim());
 
             updateView();
         } else {
-            doRaiseFee(null);
+            doRaiseFee(wallet, null);
         }
     }
 
-    private void doRaiseFee(final KeyParameter encryptionKey) {
+    private void doRaiseFee(final Wallet wallet, final KeyParameter encryptionKey) {
         // construct child-pays-for-parent
         final TransactionOutput outputToSpend = checkNotNull(findSpendableOutput(wallet, transaction, feeRaise));
         final Transaction transactionToSend = new Transaction(Constants.NETWORK_PARAMETERS);
@@ -266,12 +274,10 @@ public class RaiseFeeDialogFragment extends DialogFragment {
     }
 
     private void updateView() {
-        if (dialog == null)
-            return;
+        final Wallet wallet = walletActivityViewModel.wallet.getValue();
+        final boolean needsPassword = wallet != null && wallet.isEncrypted();
 
-        final boolean needsPassword = wallet.isEncrypted();
-
-        if (feeRaise == null) {
+        if (wallet == null || transaction == null || feeRaise == null) {
             messageView.setText(R.string.raise_fee_dialog_determining_fee);
             passwordGroup.setVisibility(View.GONE);
         } else if (findSpendableOutput(wallet, transaction, feeRaise) == null) {
@@ -285,7 +291,8 @@ public class RaiseFeeDialogFragment extends DialogFragment {
         if (state == State.INPUT) {
             positiveButton.setText(R.string.raise_fee_dialog_button_raise);
             positiveButton.setEnabled((!needsPassword || passwordView.getText().toString().trim().length() > 0)
-                    && feeRaise != null && findSpendableOutput(wallet, transaction, feeRaise) != null);
+                    && wallet != null && transaction != null && feeRaise != null && findSpendableOutput(wallet,
+                    transaction, feeRaise) != null);
             negativeButton.setEnabled(true);
         } else if (state == State.DECRYPTING) {
             positiveButton.setText(R.string.raise_fee_dialog_state_decrypting);
