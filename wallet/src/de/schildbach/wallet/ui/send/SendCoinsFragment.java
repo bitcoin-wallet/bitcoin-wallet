@@ -250,10 +250,10 @@ public final class SendCoinsFragment extends Fragment {
         @Override
         public View getView(final int position, View view, final ViewGroup parent) {
             if (view == null)
-                view = inflater.inflate(R.layout.address_book_row, parent, false);
+                view = inflater.inflate(R.layout.send_coins_address_row, parent, false);
             final AddressBookEntry entry = getItem(position);
-            ((TextView) view.findViewById(R.id.address_book_row_label)).setText(entry.getLabel());
-            ((TextView) view.findViewById(R.id.address_book_row_address)).setText(WalletUtils.formatHash(
+            ((TextView) view.findViewById(R.id.send_coins_address_row_label)).setText(entry.getLabel());
+            ((TextView) view.findViewById(R.id.send_coins_address_row_address)).setText(WalletUtils.formatHash(
                     entry.getAddress(), Constants.ADDRESS_FORMAT_GROUP_SIZE, Constants.ADDRESS_FORMAT_LINE_SIZE));
             return view;
         }
