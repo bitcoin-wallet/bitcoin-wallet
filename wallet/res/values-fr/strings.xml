@@ -155,6 +155,7 @@
   <string name="address_book_options_scan_title">Balayer l’adresse</string>
   <string name="address_book_options_scan_invalid">Les données balayées ne peuvent pas être reconnues</string>
   <string name="address_book_options_scan_own_address">L’adresse balayée est la vôtre.</string>
+  <string name="address_book_row_current_address">C’est votre adresse actuelle de réception.</string>
   <string name="address_book_row_message_compromised_key">Cette adresse pourrait être compromise. Vous ne devriez plus l’utiliser pour recevoir des bitcoins.</string>
   <string name="edit_address_book_entry_dialog_title_add">Ajouter une adresse d’envoi</string>
   <string name="edit_address_book_entry_dialog_title_edit">Modifier l’étiquette de l’adresse d’envoi</string>
@@ -252,6 +253,7 @@
   <string name="preferences_trusted_peer_title">Pair de confiance</string>
   <string name="preferences_trusted_peer_summary">IP ou nom d’hôte d’un pair auquel se connecter.</string>
   <string name="preferences_trusted_peer_dialog_message">Veuillez saisir une adresse IP ou un nom d’hôte valides. Si vous utilisez Tor, vous pouvez aussi utiliser une adresse onion ici.</string>
+  <string name="preferences_trusted_peer_dialog_message_multiple">Vous pouvez indiquer plusieurs pairs de confiance en les séparant par une espace.</string>
   <string name="preferences_trusted_peer_resolve_progress">Résolution…</string>
   <string name="preferences_trusted_peer_resolve_unknown_host">Le nom d’hôte est inconnu !</string>
   <string name="preferences_trusted_peer_only_title">Ignorer la découverte des pairs ordinaires</string>
@@ -286,7 +288,7 @@
   <string name="report_issue_dialog_message_crash">Souhaitez-vous envoyer un rapport de plantage pour aider à corriger ce problème dans le futur ?</string>
   <string name="report_issue_dialog_description">description du problème</string>
   <string name="report_issue_dialog_report">Signaler</string>
-  <string name="report_issue_dialog_collect_device_info">Ajouter les informations de l’appareil</string>
+  <string name="report_issue_dialog_collect_device_info">Ajouter les renseignements relatifs à l’appareil</string>
   <string name="report_issue_dialog_collect_installed_packages">Ajouter la liste des paquets installés</string>
   <string name="report_issue_dialog_collect_application_log">Ajouter le journal de l’application</string>
   <string name="report_issue_dialog_collect_wallet_dump">Ajouter un vidage du porte-monnaie</string>
