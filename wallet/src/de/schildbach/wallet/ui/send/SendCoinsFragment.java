@@ -37,6 +37,7 @@ import org.bitcoinj.core.TransactionConfidence.ConfidenceType;
 import org.bitcoinj.core.VerificationException;
 import org.bitcoinj.protocols.payments.PaymentProtocol;
 import org.bitcoinj.utils.MonetaryFormat;
+import org.bitcoinj.utils.Threading;
 import org.bitcoinj.wallet.KeyChain.KeyPurpose;
 import org.bitcoinj.wallet.SendRequest;
 import org.bitcoinj.wallet.Wallet;
@@ -48,6 +49,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Joiner;
+import com.google.common.util.concurrent.ListenableFuture;
 
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
@@ -333,15 +335,10 @@ public final class SendCoinsFragment extends Fragment {
                 final TransactionConfidence confidence = transaction.getConfidence();
                 final ConfidenceType confidenceType = confidence.getConfidenceType();
                 final int numBroadcastPeers = confidence.numBroadcastPeers();
-                if (confidenceType == ConfidenceType.DEAD) {
+                if (confidenceType == ConfidenceType.DEAD)
                     setState(SendCoinsViewModel.State.FAILED);
-                } else if (numBroadcastPeers > 1 || confidenceType == ConfidenceType.BUILDING) {
+                else if (numBroadcastPeers > 1 || confidenceType == ConfidenceType.BUILDING)
                     setState(SendCoinsViewModel.State.SENT);
-
-                    // Auto-close the dialog after a short delay
-                    if (config.getSendCoinsAutoclose())
-                        handler.postDelayed(() -> activity.finish(), Constants.AUTOCLOSE_DELAY_MS);
-                }
             }
             updateView();
         });
@@ -734,7 +731,12 @@ public final class SendCoinsFragment extends Fragment {
                 if (directPaymentEnableView.isChecked())
                     directPay(payment);
 
-                walletActivityViewModel.broadcastTransaction(transaction);
+                final ListenableFuture<Transaction> future = walletActivityViewModel.broadcastTransaction(transaction);
+                future.addListener(() -> {
+                    // Auto-close the dialog after a short delay
+                    if (config.getSendCoinsAutoclose())
+                        handler.postDelayed(() -> activity.finish(), Constants.AUTOCLOSE_DELAY_MS);
+                }, Threading.THREAD_POOL);
 
                 final ComponentName callingActivity = activity.getCallingActivity();
                 if (callingActivity != null) {

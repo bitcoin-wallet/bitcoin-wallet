@@ -41,6 +41,7 @@ import org.bitcoinj.core.UTXO;
 import org.bitcoinj.core.VerificationException;
 import org.bitcoinj.crypto.BIP38PrivateKey;
 import org.bitcoinj.utils.MonetaryFormat;
+import org.bitcoinj.utils.Threading;
 import org.bitcoinj.wallet.SendRequest;
 import org.bitcoinj.wallet.Wallet;
 import org.bitcoinj.wallet.Wallet.BalanceType;
@@ -49,6 +50,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.collect.ComparisonChain;
+import com.google.common.util.concurrent.ListenableFuture;
 
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
@@ -151,15 +153,10 @@ public class SweepWalletFragment extends Fragment {
                 final TransactionConfidence confidence = transaction.getConfidence();
                 final ConfidenceType confidenceType = confidence.getConfidenceType();
                 final int numBroadcastPeers = confidence.numBroadcastPeers();
-                if (confidenceType == ConfidenceType.DEAD) {
+                if (confidenceType == ConfidenceType.DEAD)
                     setState(SweepWalletViewModel.State.FAILED);
-                } else if (numBroadcastPeers > 1 || confidenceType == ConfidenceType.BUILDING) {
+                else if (numBroadcastPeers > 1 || confidenceType == ConfidenceType.BUILDING)
                     setState(SweepWalletViewModel.State.SENT);
-
-                    // Auto-close the dialog after a short delay
-                    if (config.getSendCoinsAutoclose())
-                        handler.postDelayed(() -> activity.finish(), Constants.AUTOCLOSE_DELAY_MS);
-                }
             }
             updateView();
         });
@@ -531,7 +528,13 @@ public class SweepWalletFragment extends Fragment {
             protected void onSuccess(final Transaction transaction) {
                 viewModel.sentTransaction.setValue(transaction);
                 setState(SweepWalletViewModel.State.SENDING);
-                walletActivityViewModel.broadcastTransaction(transaction);
+
+                final ListenableFuture<Transaction> future = walletActivityViewModel.broadcastTransaction(transaction);
+                future.addListener(() -> {
+                    // Auto-close the dialog after a short delay
+                    if (config.getSendCoinsAutoclose())
+                        handler.postDelayed(() -> activity.finish(), Constants.AUTOCLOSE_DELAY_MS);
+                }, Threading.THREAD_POOL);
             }
 
             @Override

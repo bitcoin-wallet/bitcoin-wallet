@@ -20,11 +20,14 @@ package de.schildbach.wallet.ui;
 import android.app.Application;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.Observer;
+import com.google.common.util.concurrent.ListenableFuture;
+import com.google.common.util.concurrent.SettableFuture;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.data.BlockchainServiceLiveData;
 import de.schildbach.wallet.data.WalletLiveData;
 import de.schildbach.wallet.service.BlockchainService;
 import org.bitcoinj.core.Transaction;
+import org.bitcoinj.core.TransactionBroadcast;
 import org.bitcoinj.core.VerificationException;
 import org.bitcoinj.wallet.Wallet;
 import org.slf4j.Logger;
@@ -47,7 +50,8 @@ public class AbstractWalletActivityViewModel extends AndroidViewModel {
         this.wallet = new WalletLiveData(this.application);
     }
 
-    public void broadcastTransaction(final Transaction tx) throws VerificationException {
+    public ListenableFuture<Transaction> broadcastTransaction(final Transaction tx) throws VerificationException {
+        final SettableFuture<Transaction> future = SettableFuture.create();
         wallet.observeForever(new Observer<Wallet>() {
             @Override
             public void onChanged(final Wallet wallet) {
@@ -56,9 +60,11 @@ public class AbstractWalletActivityViewModel extends AndroidViewModel {
                     public void onChanged(final BlockchainService blockchainService) {
                         if (wallet.isTransactionRelevant(tx)) {
                             wallet.receivePending(tx, null);
-                            blockchainService.broadcastTransaction(tx);
+                            final TransactionBroadcast broadcast = blockchainService.broadcastTransaction(tx);
+                            future.setFuture(broadcast.future());
                         } else {
                             log.info("tx {} irrelevant", tx.getTxId());
+                            future.cancel(false);
                         }
                         AbstractWalletActivityViewModel.this.blockchainService.removeObserver(this);
                     }
@@ -66,5 +72,6 @@ public class AbstractWalletActivityViewModel extends AndroidViewModel {
                 AbstractWalletActivityViewModel.this.wallet.removeObserver(this);
             }
         });
+        return future;
     }
 }
