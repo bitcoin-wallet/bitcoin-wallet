@@ -17,20 +17,19 @@
 
 package de.schildbach.wallet.ui;
 
-import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.data.WalletLiveData;
-
 import android.app.Application;
 import androidx.lifecycle.AndroidViewModel;
+import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.data.WalletLiveData;
 
 /**
  * @author Andreas Schildbach
  */
-public class ReportIssueViewModel extends AndroidViewModel {
+public class AbstractWalletActivityViewModel extends AndroidViewModel {
     private final WalletApplication application;
     public final WalletLiveData wallet;
 
-    public ReportIssueViewModel(final Application application) {
+    public AbstractWalletActivityViewModel(final Application application) {
         super(application);
         this.application = (WalletApplication) application;
         this.wallet = new WalletLiveData(this.application);

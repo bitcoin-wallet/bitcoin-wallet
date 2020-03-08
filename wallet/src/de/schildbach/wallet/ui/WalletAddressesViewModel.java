@@ -51,7 +51,6 @@ public class WalletAddressesViewModel extends AndroidViewModel {
     public final IssuedReceiveAddressesLiveData issuedReceiveAddresses;
     public final ImportedAddressesLiveData importedAddresses;
     public final LiveData<List<AddressBookEntry>> addressBook;
-    public final WalletLiveData wallet;
     public final ConfigOwnNameLiveData ownName;
     public final MutableLiveData<Event<Bitmap>> showBitmapDialog = new MutableLiveData<>();
     public final MutableLiveData<Event<Address>> showEditAddressBookEntryDialog = new MutableLiveData<>();
@@ -62,7 +61,6 @@ public class WalletAddressesViewModel extends AndroidViewModel {
         this.issuedReceiveAddresses = new IssuedReceiveAddressesLiveData(this.application);
         this.importedAddresses = new ImportedAddressesLiveData(this.application);
         this.addressBook = AddressBookDatabase.getDatabase(this.application).addressBookDao().getAll();
-        this.wallet = new WalletLiveData(this.application);
         this.ownName = new ConfigOwnNameLiveData(this.application);
     }
 

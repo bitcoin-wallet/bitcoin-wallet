@@ -63,6 +63,7 @@ import de.schildbach.wallet.offline.DirectPaymentTask;
 import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.service.BlockchainState;
 import de.schildbach.wallet.ui.AbstractWalletActivity;
+import de.schildbach.wallet.ui.AbstractWalletActivityViewModel;
 import de.schildbach.wallet.ui.AddressAndLabel;
 import de.schildbach.wallet.ui.CurrencyAmountView;
 import de.schildbach.wallet.ui.CurrencyCalculatorLink;
@@ -161,6 +162,7 @@ public final class SendCoinsFragment extends Fragment {
     private static final int REQUEST_CODE_ENABLE_BLUETOOTH_FOR_PAYMENT_REQUEST = 1;
     private static final int REQUEST_CODE_ENABLE_BLUETOOTH_FOR_DIRECT_PAYMENT = 2;
 
+    private AbstractWalletActivityViewModel walletActivityViewModel;
     private SendCoinsViewModel viewModel;
 
     private static final Logger log = LoggerFactory.getLogger(SendCoinsFragment.class);
@@ -309,8 +311,9 @@ public final class SendCoinsFragment extends Fragment {
 
         setHasOptionsMenu(true);
 
+        walletActivityViewModel = new ViewModelProvider(activity).get(AbstractWalletActivityViewModel.class);
+        walletActivityViewModel.wallet.observe(this, wallet -> updateView());
         viewModel = new ViewModelProvider(this).get(SendCoinsViewModel.class);
-        viewModel.wallet.observe(this, wallet -> updateView());
         viewModel.addressBook.observe(this, addressBook -> updateView());
         if (Constants.ENABLE_EXCHANGE_RATES) {
             viewModel.exchangeRate.observe(this, exchangeRate -> {
@@ -633,7 +636,7 @@ public final class SendCoinsFragment extends Fragment {
     }
 
     private boolean isPasswordPlausible() {
-        final Wallet wallet = viewModel.wallet.getValue();
+        final Wallet wallet = walletActivityViewModel.wallet.getValue();
         if (wallet == null)
             return false;
         if (!wallet.isEncrypted())
@@ -662,7 +665,7 @@ public final class SendCoinsFragment extends Fragment {
     private void handleGo() {
         privateKeyBadPasswordView.setVisibility(View.INVISIBLE);
 
-        final Wallet wallet = viewModel.wallet.getValue();
+        final Wallet wallet = walletActivityViewModel.wallet.getValue();
         if (wallet.isEncrypted()) {
             new DeriveKeyTask(backgroundHandler, application.scryptIterationsTarget()) {
                 @Override
@@ -690,7 +693,7 @@ public final class SendCoinsFragment extends Fragment {
 
         // prepare send request
         final Map<FeeCategory, Coin> fees = viewModel.dynamicFees.getValue();
-        final Wallet wallet = viewModel.wallet.getValue();
+        final Wallet wallet = walletActivityViewModel.wallet.getValue();
         final SendRequest sendRequest = finalPaymentIntent.toSendRequest();
         sendRequest.emptyWallet = viewModel.paymentIntent.mayEditAmount()
                 && finalAmount.equals(wallet.getBalance(BalanceType.AVAILABLE));
@@ -717,7 +720,7 @@ public final class SendCoinsFragment extends Fragment {
     }
 
     private void sendPayment(final SendRequest sendRequest, final Coin finalAmount) {
-        final Wallet wallet = viewModel.wallet.getValue();
+        final Wallet wallet = walletActivityViewModel.wallet.getValue();
         new SendCoinsOfflineTask(wallet, backgroundHandler) {
             @Override
             protected void onSuccess(final Transaction transaction) {
@@ -868,7 +871,7 @@ public final class SendCoinsFragment extends Fragment {
             viewModel.dryrunTransaction = null;
             viewModel.dryrunException = null;
 
-            final Wallet wallet = viewModel.wallet.getValue();
+            final Wallet wallet = walletActivityViewModel.wallet.getValue();
             final Map<FeeCategory, Coin> fees = viewModel.dynamicFees.getValue();
             final Coin amount = amountCalculatorLink.getAmount();
             if (amount != null && fees != null) {
@@ -898,7 +901,7 @@ public final class SendCoinsFragment extends Fragment {
     }
 
     private void updateView() {
-        final Wallet wallet = viewModel.wallet.getValue();
+        final Wallet wallet = walletActivityViewModel.wallet.getValue();
         final Map<FeeCategory, Coin> fees = viewModel.dynamicFees.getValue();
         final BlockchainState blockchainState = application.blockchainState.getValue();
         final Map<String, AddressBookEntry> addressBook = AddressBookEntry.asMap(viewModel.addressBook.getValue());

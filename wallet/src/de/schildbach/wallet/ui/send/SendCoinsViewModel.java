@@ -30,7 +30,6 @@ import de.schildbach.wallet.data.PaymentIntent;
 import de.schildbach.wallet.data.SelectedExchangeRateLiveData;
 import de.schildbach.wallet.data.TransactionLiveData;
 import de.schildbach.wallet.data.WalletBalanceLiveData;
-import de.schildbach.wallet.data.WalletLiveData;
 import de.schildbach.wallet.ui.AddressAndLabel;
 
 import android.app.Application;
@@ -50,7 +49,6 @@ public class SendCoinsViewModel extends AndroidViewModel {
     }
 
     private final WalletApplication application;
-    public final WalletLiveData wallet;
     public final LiveData<List<AddressBookEntry>> addressBook;
     public final SelectedExchangeRateLiveData exchangeRate;
     public final DynamicFeeLiveData dynamicFees;
@@ -75,7 +73,6 @@ public class SendCoinsViewModel extends AndroidViewModel {
     public SendCoinsViewModel(final Application application) {
         super(application);
         this.application = (WalletApplication) application;
-        this.wallet = new WalletLiveData(this.application);
         this.addressBook = AddressBookDatabase.getDatabase(this.application).addressBookDao().getAll();
         this.exchangeRate = new SelectedExchangeRateLiveData(this.application);
         this.dynamicFees = new DynamicFeeLiveData(this.application);

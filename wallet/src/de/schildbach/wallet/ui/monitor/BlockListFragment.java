@@ -35,6 +35,7 @@ import de.schildbach.wallet.R;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.addressbook.AddressBookEntry;
 import de.schildbach.wallet.ui.AbstractWalletActivity;
+import de.schildbach.wallet.ui.AbstractWalletActivityViewModel;
 import de.schildbach.wallet.ui.StickToTopLinearLayoutManager;
 
 import android.content.Context;
@@ -64,6 +65,7 @@ public final class BlockListFragment extends Fragment implements BlockListAdapte
     private RecyclerView recyclerView;
     private BlockListAdapter adapter;
 
+    private AbstractWalletActivityViewModel walletActivityViewModel;
     private NetworkMonitorViewModel activityViewModel;
     private BlockListViewModel viewModel;
 
@@ -80,6 +82,8 @@ public final class BlockListFragment extends Fragment implements BlockListAdapte
     @Override
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        walletActivityViewModel = new ViewModelProvider(activity).get(AbstractWalletActivityViewModel.class);
+        walletActivityViewModel.wallet.observe(this, wallet -> maybeSubmitList());
         activityViewModel = new ViewModelProvider(activity).get(NetworkMonitorViewModel.class);
         activityViewModel.selectedItem.observe(this, item -> {
             if (item instanceof Sha256Hash) {
@@ -99,7 +103,6 @@ public final class BlockListFragment extends Fragment implements BlockListAdapte
             viewModel.getTransactions().loadTransactions();
         });
         viewModel.getTransactions().observe(this, transactions -> maybeSubmitList());
-        viewModel.getWallet().observe(this, wallet -> maybeSubmitList());
         viewModel.getTime().observe(this, time -> maybeSubmitList());
 
         adapter = new BlockListAdapter(activity, this, this);
@@ -119,11 +122,11 @@ public final class BlockListFragment extends Fragment implements BlockListAdapte
 
     private void maybeSubmitList() {
         final List<StoredBlock> blocks = viewModel.blocks.getValue();
+        final Wallet wallet = walletActivityViewModel.wallet.getValue();
         if (blocks != null) {
             final Map<String, AddressBookEntry> addressBook = AddressBookEntry.asMap(viewModel.addressBook.getValue());
             adapter.submitList(BlockListAdapter.buildListItems(activity, blocks, viewModel.getTime().getValue(),
-                    config.getFormat(), viewModel.getTransactions().getValue(), viewModel.getWallet().getValue(),
-                    addressBook));
+                    config.getFormat(), viewModel.getTransactions().getValue(), wallet, addressBook));
         }
     }
 

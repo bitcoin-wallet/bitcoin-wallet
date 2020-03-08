@@ -49,6 +49,7 @@ public final class AddressBookActivity extends AbstractWalletActivity {
         context.startActivity(new Intent(context, AddressBookActivity.class));
     }
 
+    private AbstractWalletActivityViewModel walletActivityViewModel;
     private AddressBookViewModel viewModel;
 
     private static final int REQUEST_CODE_SCAN = 0;
@@ -71,8 +72,9 @@ public final class AddressBookActivity extends AbstractWalletActivity {
 
         final boolean twoPanes = getResources().getBoolean(R.bool.address_book_two_panes);
 
+        walletActivityViewModel = new ViewModelProvider(this).get(AbstractWalletActivityViewModel.class);
+        walletActivityViewModel.wallet.observe(this, wallet -> invalidateOptionsMenu());
         viewModel = new ViewModelProvider(this).get(AddressBookViewModel.class);
-        viewModel.wallet.observe(this, wallet -> invalidateOptionsMenu());
         viewModel.pageTo.observe(this, new Event.Observer<Integer>() {
             @Override
             protected void onEvent(final Integer position) {
@@ -135,7 +137,7 @@ public final class AddressBookActivity extends AbstractWalletActivity {
                     @Override
                     protected void handlePaymentIntent(final PaymentIntent paymentIntent) {
                         if (paymentIntent.hasAddress()) {
-                            final Wallet wallet = viewModel.wallet.getValue();
+                            final Wallet wallet = walletActivityViewModel.wallet.getValue();
                             final Address address = paymentIntent.getAddress();
                             if (!wallet.isAddressMine(address)) {
                                 viewModel.showEditAddressBookEntryDialog.setValue(new Event<>(address));

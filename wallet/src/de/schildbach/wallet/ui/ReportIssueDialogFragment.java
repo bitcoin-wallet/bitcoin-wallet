@@ -95,7 +95,7 @@ public class ReportIssueDialogFragment extends DialogFragment {
 
     private Button positiveButton;
 
-    private ReportIssueViewModel viewModel;
+    private AbstractWalletActivityViewModel walletActivityViewModel;
 
     private static final Logger log = LoggerFactory.getLogger(ReportIssueDialogFragment.class);
 
@@ -111,7 +111,7 @@ public class ReportIssueDialogFragment extends DialogFragment {
         super.onCreate(savedInstanceState);
         log.info("opening dialog {}", getClass().getName());
 
-        viewModel = new ViewModelProvider(this).get(ReportIssueViewModel.class);
+        walletActivityViewModel = new ViewModelProvider(this).get(AbstractWalletActivityViewModel.class);
     }
 
     @Override
@@ -168,7 +168,7 @@ public class ReportIssueDialogFragment extends DialogFragment {
                 if (contextualTransactionHash == null)
                     return null;
 
-                final Wallet wallet = viewModel.wallet.getValue();
+                final Wallet wallet = walletActivityViewModel.wallet.getValue();
                 final Transaction tx = wallet.getTransaction(contextualTransactionHash);
                 final StringBuilder contextualData = new StringBuilder();
                 try {
@@ -192,7 +192,7 @@ public class ReportIssueDialogFragment extends DialogFragment {
 
             @Override
             protected CharSequence collectWalletDump() {
-                return viewModel.wallet.getValue().toString(false, false, null, true, true, null);
+                return walletActivityViewModel.wallet.getValue().toString(false, false, null, true, true, null);
             }
         };
         final AlertDialog dialog = builder.create();
@@ -201,7 +201,7 @@ public class ReportIssueDialogFragment extends DialogFragment {
             positiveButton = dialog.getButton(DialogInterface.BUTTON_POSITIVE);
             positiveButton.setEnabled(false);
 
-            viewModel.wallet.observe(ReportIssueDialogFragment.this, wallet -> positiveButton.setEnabled(true));
+            walletActivityViewModel.wallet.observe(ReportIssueDialogFragment.this, wallet -> positiveButton.setEnabled(true));
         });
 
         return dialog;
@@ -261,7 +261,7 @@ public class ReportIssueDialogFragment extends DialogFragment {
         report.append("Time of last blockchain reset: ").append(lastBlockchainResetTime > 0
                 ? String.format(Locale.US, "%tF %tT %tZ", calendar, calendar, calendar) : "none").append("\n");
         report.append("Network: ").append(Constants.NETWORK_PARAMETERS.getId()).append("\n");
-        final Wallet wallet = viewModel.wallet.getValue();
+        final Wallet wallet = walletActivityViewModel.wallet.getValue();
         report.append("Encrypted: ").append(String.valueOf(wallet.isEncrypted())).append("\n");
         report.append("Keychain size: ").append(String.valueOf(wallet.getKeyChainGroupSize())).append("\n");
 

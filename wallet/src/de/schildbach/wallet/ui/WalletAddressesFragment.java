@@ -48,6 +48,7 @@ import de.schildbach.wallet.util.Toast;
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.LegacyAddress;
 import org.bitcoinj.uri.BitcoinURI;
+import org.bitcoinj.wallet.Wallet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -69,6 +70,7 @@ public final class WalletAddressesFragment extends Fragment implements AddressBo
     private RecyclerView recyclerView;
     private AddressBookAdapter adapter;
 
+    private AbstractWalletActivityViewModel walletActivityViewModel;
     private AddressBookViewModel activityViewModel;
     private WalletAddressesViewModel viewModel;
 
@@ -88,6 +90,8 @@ public final class WalletAddressesFragment extends Fragment implements AddressBo
         super.onCreate(savedInstanceState);
         this.fragmentManager = getChildFragmentManager();
 
+        walletActivityViewModel = new ViewModelProvider(this).get(AbstractWalletActivityViewModel.class);
+        walletActivityViewModel.wallet.observe(this, wallet -> maybeSubmitList());
         activityViewModel = new ViewModelProvider(activity).get(AddressBookViewModel.class);
         activityViewModel.selectedAddress.observe(this, address -> {
             adapter.setSelectedAddress(address);
@@ -100,7 +104,6 @@ public final class WalletAddressesFragment extends Fragment implements AddressBo
         viewModel = new ViewModelProvider(this).get(WalletAddressesViewModel.class);
         viewModel.issuedReceiveAddresses.observe(this, issuedReceiveAddresses -> maybeSubmitList());
         viewModel.importedAddresses.observe(this, importedAddresses -> maybeSubmitList());
-        viewModel.wallet.observe(this, wallet -> maybeSubmitList());
         viewModel.addressBook.observe(this, addressBook -> maybeSubmitList());
         viewModel.ownName.observe(this, ownName -> {});
         viewModel.showBitmapDialog.observe(this, new Event.Observer<Bitmap>() {
@@ -135,10 +138,11 @@ public final class WalletAddressesFragment extends Fragment implements AddressBo
     private void maybeSubmitList() {
         final List<Address> derivedAddresses = viewModel.issuedReceiveAddresses.getValue();
         final List<Address> randomAddresses = viewModel.importedAddresses.getValue();
+        final Wallet wallet = walletActivityViewModel.wallet.getValue();
         if (derivedAddresses != null && randomAddresses != null) {
             viewGroup.setDisplayedChild(1);
-            adapter.submitList(AddressBookAdapter.buildListItems(activity, derivedAddresses, randomAddresses,
-                    viewModel.wallet.getValue(), AddressBookEntry.asMap(viewModel.addressBook.getValue())));
+            adapter.submitList(AddressBookAdapter.buildListItems(activity, derivedAddresses, randomAddresses, wallet,
+                    AddressBookEntry.asMap(viewModel.addressBook.getValue())));
         }
     }
 

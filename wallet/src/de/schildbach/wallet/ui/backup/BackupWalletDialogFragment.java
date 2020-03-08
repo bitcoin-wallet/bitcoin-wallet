@@ -32,7 +32,6 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.TimeZone;
 
-import de.schildbach.wallet.util.WalletUtils;
 import org.bitcoinj.wallet.Protos;
 import org.bitcoinj.wallet.Wallet;
 import org.bitcoinj.wallet.WalletProtobufSerializer;
@@ -45,10 +44,12 @@ import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.R;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.ui.AbstractWalletActivity;
+import de.schildbach.wallet.ui.AbstractWalletActivityViewModel;
 import de.schildbach.wallet.ui.DialogBuilder;
 import de.schildbach.wallet.ui.ShowPasswordCheckListener;
 import de.schildbach.wallet.util.Crypto;
 import de.schildbach.wallet.util.Iso8601Format;
+import de.schildbach.wallet.util.WalletUtils;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -97,6 +98,7 @@ public class BackupWalletDialogFragment extends DialogFragment {
     private TextView warningView;
     private Button positiveButton, negativeButton;
 
+    private AbstractWalletActivityViewModel walletActivityViewModel;
     private BackupWalletViewModel viewModel;
 
     private static final int REQUEST_CODE_CREATE_DOCUMENT = 0;
@@ -130,6 +132,7 @@ public class BackupWalletDialogFragment extends DialogFragment {
         super.onCreate(savedInstanceState);
         log.info("opening dialog {}", getClass().getName());
 
+        walletActivityViewModel = new ViewModelProvider(activity).get(AbstractWalletActivityViewModel.class);
         viewModel = new ViewModelProvider(this).get(BackupWalletViewModel.class);
     }
 
@@ -175,7 +178,8 @@ public class BackupWalletDialogFragment extends DialogFragment {
 
             showView.setOnCheckedChangeListener(new ShowPasswordCheckListener(passwordView, passwordAgainView));
 
-            viewModel.wallet.observe(BackupWalletDialogFragment.this, wallet -> warningView.setVisibility(wallet.isEncrypted() ? View.VISIBLE : View.GONE));
+            walletActivityViewModel.wallet.observe(BackupWalletDialogFragment.this,
+                    wallet -> warningView.setVisibility(wallet.isEncrypted() ? View.VISIBLE : View.GONE));
             viewModel.password.observe(BackupWalletDialogFragment.this, password -> {
                 passwordMismatchView.setVisibility(View.INVISIBLE);
 
@@ -199,11 +203,12 @@ public class BackupWalletDialogFragment extends DialogFragment {
                             ContextCompat.getColor(activity, R.color.fg_password_strength_strong));
                 }
 
-                final boolean hasPassword = !password.isEmpty();
-                final boolean hasPasswordAgain = !passwordAgainView.getText().toString().trim().isEmpty();
-                if (positiveButton != null)
-                    positiveButton
-                            .setEnabled(viewModel.wallet.getValue() != null && hasPassword && hasPasswordAgain);
+                if (positiveButton != null) {
+                    final Wallet wallet = walletActivityViewModel.wallet.getValue();
+                    final boolean hasPassword = !password.isEmpty();
+                    final boolean hasPasswordAgain = !passwordAgainView.getText().toString().trim().isEmpty();
+                    positiveButton.setEnabled(wallet != null && hasPassword && hasPasswordAgain);
+                }
             });
         });
 
@@ -266,10 +271,10 @@ public class BackupWalletDialogFragment extends DialogFragment {
     public void onActivityResult(final int requestCode, final int resultCode, final Intent intent) {
         if (requestCode == REQUEST_CODE_CREATE_DOCUMENT) {
             if (resultCode == Activity.RESULT_OK) {
-                viewModel.wallet.observe(BackupWalletDialogFragment.this, new Observer<Wallet>() {
+                walletActivityViewModel.wallet.observe(activity, new Observer<Wallet>() {
                     @Override
                     public void onChanged(final Wallet wallet) {
-                        viewModel.wallet.removeObserver(this);
+                        walletActivityViewModel.wallet.removeObserver(this);
 
                         final Uri targetUri = checkNotNull(intent.getData());
                         final String targetProvider = WalletUtils.uriToProvider(targetUri);

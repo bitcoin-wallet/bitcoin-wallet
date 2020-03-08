@@ -17,24 +17,12 @@
 
 package de.schildbach.wallet.ui.backup;
 
-import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.data.WalletLiveData;
-
-import android.app.Application;
-import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
 
 /**
  * @author Andreas Schildbach
  */
-public class BackupWalletViewModel extends AndroidViewModel {
-    private final WalletApplication application;
-    public final WalletLiveData wallet;
+public class BackupWalletViewModel extends ViewModel {
     public final MutableLiveData<String> password = new MutableLiveData<>();
-
-    public BackupWalletViewModel(final Application application) {
-        super(application);
-        this.application = (WalletApplication) application;
-        this.wallet = new WalletLiveData(this.application);
-    }
 }

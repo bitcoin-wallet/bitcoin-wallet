@@ -17,28 +17,17 @@
 
 package de.schildbach.wallet.ui;
 
-import android.app.Application;
-import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
-import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.data.WalletLiveData;
+import androidx.lifecycle.ViewModel;
 import org.bitcoinj.core.Address;
 
 /**
  * @author Andreas Schildbach
  */
-public class AddressBookViewModel extends AndroidViewModel {
-    private final WalletApplication application;
-    public final WalletLiveData wallet;
+public class AddressBookViewModel extends ViewModel {
     public final MutableLiveData<Address> selectedAddress = new MutableLiveData<>();
     public final MutableLiveData<Event<Integer>> pageTo = new MutableLiveData<>();
     public final MutableLiveData<Event<Address>> showEditAddressBookEntryDialog = new MutableLiveData<>();
     public final MutableLiveData<Event<Void>> showScanOwnAddressDialog = new MutableLiveData<>();
     public final MutableLiveData<Event<Void>> showScanInvalidDialog = new MutableLiveData<>();
-
-    public AddressBookViewModel(final Application application) {
-        super(application);
-        this.application = (WalletApplication) application;
-        this.wallet = new WalletLiveData(this.application);
-    }
 }

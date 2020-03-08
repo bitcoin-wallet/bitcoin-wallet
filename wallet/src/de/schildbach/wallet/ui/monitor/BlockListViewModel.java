@@ -34,7 +34,6 @@ import de.schildbach.wallet.addressbook.AddressBookEntry;
 import de.schildbach.wallet.addressbook.AddressBookDatabase;
 import de.schildbach.wallet.data.BlockchainServiceLiveData;
 import de.schildbach.wallet.data.TimeLiveData;
-import de.schildbach.wallet.data.WalletLiveData;
 import de.schildbach.wallet.service.BlockchainService;
 
 import android.app.Application;
@@ -51,7 +50,6 @@ public class BlockListViewModel extends AndroidViewModel {
     private final BlockchainServiceLiveData blockchainService;
     public final MediatorLiveData<List<StoredBlock>> blocks;
     private TransactionsLiveData transactions;
-    private WalletLiveData wallet;
     public final LiveData<List<AddressBookEntry>> addressBook;
     private TimeLiveData time;
 
@@ -77,12 +75,6 @@ public class BlockListViewModel extends AndroidViewModel {
         if (transactions == null)
             transactions = new TransactionsLiveData(application);
         return transactions;
-    }
-
-    public WalletLiveData getWallet() {
-        if (wallet == null)
-            wallet = new WalletLiveData(application);
-        return wallet;
     }
 
     public TimeLiveData getTime() {
