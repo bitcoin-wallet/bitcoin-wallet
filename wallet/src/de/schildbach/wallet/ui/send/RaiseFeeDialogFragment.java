@@ -37,7 +37,6 @@ import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.R;
 import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.ui.AbstractWalletActivity;
 import de.schildbach.wallet.ui.AbstractWalletActivityViewModel;
 import de.schildbach.wallet.ui.DialogBuilder;
@@ -250,8 +249,7 @@ public class RaiseFeeDialogFragment extends DialogFragment {
 
             log.info("raise fee: cpfp {}", transactionToSend);
 
-            wallet.commitTx(transactionToSend);
-            BlockchainService.broadcastTransaction(activity, transactionToSend);
+            walletActivityViewModel.broadcastTransaction(transactionToSend);
 
             state = State.DONE;
             updateView();
