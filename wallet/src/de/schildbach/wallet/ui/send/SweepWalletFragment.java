@@ -531,8 +531,7 @@ public class SweepWalletFragment extends Fragment {
             protected void onSuccess(final Transaction transaction) {
                 viewModel.sentTransaction.setValue(transaction);
                 setState(SweepWalletViewModel.State.SENDING);
-
-                application.processDirectTransaction(transaction);
+                walletActivityViewModel.broadcastTransaction(transaction);
             }
 
             @Override

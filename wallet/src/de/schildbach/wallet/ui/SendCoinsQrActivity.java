@@ -22,7 +22,6 @@ import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.VerificationException;
 
 import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.data.PaymentIntent;
 import de.schildbach.wallet.ui.InputParser.StringInputParser;
 import de.schildbach.wallet.ui.scan.ScanActivity;
@@ -34,16 +33,21 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.os.Bundle;
+import androidx.lifecycle.ViewModelProvider;
 
 /**
  * @author Andreas Schildbach
  */
-public final class SendCoinsQrActivity extends Activity {
+public final class SendCoinsQrActivity extends AbstractWalletActivity {
+    private AbstractWalletActivityViewModel walletActivityViewModel;
+
     private static final int REQUEST_CODE_SCAN = 0;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        walletActivityViewModel = new ViewModelProvider(this).get(AbstractWalletActivityViewModel.class);
 
         if (savedInstanceState == null)
             ScanActivity.startForResult(this, REQUEST_CODE_SCAN);
@@ -74,9 +78,7 @@ public final class SendCoinsQrActivity extends Activity {
 
                 @Override
                 protected void handleDirectTransaction(final Transaction transaction) throws VerificationException {
-                    final WalletApplication application = (WalletApplication) getApplication();
-                    application.processDirectTransaction(transaction);
-
+                    walletActivityViewModel.broadcastTransaction(transaction);
                     SendCoinsQrActivity.this.finish();
                 }
 

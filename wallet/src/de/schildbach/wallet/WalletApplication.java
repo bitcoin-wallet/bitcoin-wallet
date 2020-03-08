@@ -315,14 +315,6 @@ public class WalletApplication extends Application {
         }
     }
 
-    public void processDirectTransaction(final Transaction tx) throws VerificationException {
-        final Wallet wallet = getWallet();
-        if (wallet.isTransactionRelevant(tx)) {
-            wallet.receivePending(tx, null);
-            BlockchainService.broadcastTransaction(this, tx);
-        }
-    }
-
     private PackageInfo packageInfo;
 
     public synchronized PackageInfo packageInfo() {

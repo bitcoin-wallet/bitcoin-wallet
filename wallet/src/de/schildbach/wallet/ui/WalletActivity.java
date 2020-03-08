@@ -76,10 +76,12 @@ public final class WalletActivity extends AbstractWalletActivity {
     private WalletApplication application;
     private Handler handler = new Handler();
 
-    private WalletActivityViewModel viewModel;
     private AnimatorSet enterAnimation;
     private View contentView;
     private View levitateView;
+
+    private AbstractWalletActivityViewModel walletActivityViewModel;
+    private WalletActivityViewModel viewModel;
 
     private static final int REQUEST_CODE_SCAN = 0;
 
@@ -89,6 +91,7 @@ public final class WalletActivity extends AbstractWalletActivity {
         application = getWalletApplication();
         final Configuration config = application.getConfiguration();
 
+        walletActivityViewModel = new ViewModelProvider(this).get(AbstractWalletActivityViewModel.class);
         viewModel = new ViewModelProvider(this).get(WalletActivityViewModel.class);
 
         setContentView(R.layout.wallet_content);
@@ -359,7 +362,7 @@ public final class WalletActivity extends AbstractWalletActivity {
 
                     @Override
                     protected void handleDirectTransaction(final Transaction tx) throws VerificationException {
-                        application.processDirectTransaction(tx);
+                        walletActivityViewModel.broadcastTransaction(tx);
                     }
 
                     @Override
