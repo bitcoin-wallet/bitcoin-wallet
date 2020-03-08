@@ -21,6 +21,7 @@ import android.app.Application;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.Observer;
 import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.data.BlockchainServiceLiveData;
 import de.schildbach.wallet.data.WalletLiveData;
 import de.schildbach.wallet.service.BlockchainService;
 import org.bitcoinj.core.Transaction;
@@ -34,6 +35,7 @@ import org.slf4j.LoggerFactory;
  */
 public class AbstractWalletActivityViewModel extends AndroidViewModel {
     private final WalletApplication application;
+    public final BlockchainServiceLiveData blockchainService;
     public final WalletLiveData wallet;
 
     private static final Logger log = LoggerFactory.getLogger(AbstractWalletActivityViewModel.class);
@@ -41,6 +43,7 @@ public class AbstractWalletActivityViewModel extends AndroidViewModel {
     public AbstractWalletActivityViewModel(final Application application) {
         super(application);
         this.application = (WalletApplication) application;
+        this.blockchainService = new BlockchainServiceLiveData(this.application);
         this.wallet = new WalletLiveData(this.application);
     }
 
@@ -48,12 +51,18 @@ public class AbstractWalletActivityViewModel extends AndroidViewModel {
         wallet.observeForever(new Observer<Wallet>() {
             @Override
             public void onChanged(final Wallet wallet) {
-                if (wallet.isTransactionRelevant(tx)) {
-                    wallet.receivePending(tx, null);
-                    BlockchainService.broadcastTransaction(application, tx);
-                } else {
-                    log.info("tx {} irrelevant", tx.getTxId());
-                }
+                blockchainService.observeForever(new Observer<BlockchainService>() {
+                    @Override
+                    public void onChanged(final BlockchainService blockchainService) {
+                        if (wallet.isTransactionRelevant(tx)) {
+                            wallet.receivePending(tx, null);
+                            blockchainService.broadcastTransaction(tx);
+                        } else {
+                            log.info("tx {} irrelevant", tx.getTxId());
+                        }
+                        AbstractWalletActivityViewModel.this.blockchainService.removeObserver(this);
+                    }
+                });
                 AbstractWalletActivityViewModel.this.wallet.removeObserver(this);
             }
         });

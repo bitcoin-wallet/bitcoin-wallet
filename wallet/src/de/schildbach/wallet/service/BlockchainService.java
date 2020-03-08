@@ -42,6 +42,7 @@ import org.bitcoinj.core.PeerGroup;
 import org.bitcoinj.core.Sha256Hash;
 import org.bitcoinj.core.StoredBlock;
 import org.bitcoinj.core.Transaction;
+import org.bitcoinj.core.TransactionBroadcast;
 import org.bitcoinj.core.TransactionConfidence.ConfidenceType;
 import org.bitcoinj.core.Utils;
 import org.bitcoinj.core.VersionMessage;
@@ -152,9 +153,6 @@ public class BlockchainService extends LifecycleService {
             + ".cancel_coins_received";
     private static final String ACTION_RESET_BLOCKCHAIN = BlockchainService.class.getPackage().getName()
             + ".reset_blockchain";
-    private static final String ACTION_BROADCAST_TRANSACTION = BlockchainService.class.getPackage().getName()
-            + ".broadcast_transaction";
-    private static final String ACTION_BROADCAST_TRANSACTION_HASH = "hash";
 
     private static final Logger log = LoggerFactory.getLogger(BlockchainService.class);
 
@@ -170,13 +168,6 @@ public class BlockchainService extends LifecycleService {
         // implicitly stops blockchain service
         ContextCompat.startForegroundService(context,
                 new Intent(BlockchainService.ACTION_RESET_BLOCKCHAIN, null, context, BlockchainService.class));
-    }
-
-    public static void broadcastTransaction(final Context context, final Transaction tx) {
-        final Intent intent = new Intent(BlockchainService.ACTION_BROADCAST_TRANSACTION, null, context,
-                BlockchainService.class);
-        intent.putExtra(BlockchainService.ACTION_BROADCAST_TRANSACTION_HASH, tx.getTxId().getBytes());
-        ContextCompat.startForegroundService(context, intent);
     }
 
     private static class NewTransactionLiveData extends LiveData<Transaction> {
@@ -704,17 +695,6 @@ public class BlockchainService extends LifecycleService {
                 stopSelf();
                 if (isBound.get())
                     log.info("stop is deferred because service still bound");
-            } else if (BlockchainService.ACTION_BROADCAST_TRANSACTION.equals(action)) {
-                final Sha256Hash hash = Sha256Hash
-                        .wrap(intent.getByteArrayExtra(BlockchainService.ACTION_BROADCAST_TRANSACTION_HASH));
-                final Transaction tx = application.getWallet().getTransaction(hash);
-
-                if (peerGroup != null) {
-                    log.info("broadcasting transaction {}", tx.getTxId());
-                    peerGroup.broadcastTransaction(tx);
-                } else {
-                    log.info("peergroup not available, not broadcasting transaction {}", tx.getTxId());
-                }
             }
         } else {
             log.warn("service restart, although it was started as non-sticky");
@@ -783,6 +763,17 @@ public class BlockchainService extends LifecycleService {
             stopSelf();
             if (isBound.get())
                 log.info("stop is deferred because service still bound");
+        }
+    }
+
+    @Nullable
+    public TransactionBroadcast broadcastTransaction(final Transaction tx) {
+        if (peerGroup != null) {
+            log.info("broadcasting transaction {}", tx.getTxId());
+            return peerGroup.broadcastTransaction(tx);
+        } else {
+            log.info("peergroup not available, not broadcasting transaction {}", tx.getTxId());
+            return null;
         }
     }
 

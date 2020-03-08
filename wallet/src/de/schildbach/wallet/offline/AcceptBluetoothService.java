@@ -30,8 +30,8 @@ import org.slf4j.LoggerFactory;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.R;
 import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.data.BlockchainServiceLiveData;
 import de.schildbach.wallet.data.WalletLiveData;
-import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.util.CrashReporter;
 import de.schildbach.wallet.util.Toast;
 
@@ -142,8 +142,8 @@ public final class AcceptBluetoothService extends LifecycleService {
         try {
             if (wallet.isTransactionRelevant(tx)) {
                 wallet.receivePending(tx, null);
-
-                handler.post(() -> BlockchainService.broadcastTransaction(AcceptBluetoothService.this, tx));
+                new BlockchainServiceLiveData(this).observe(this,
+                        blockchainService -> blockchainService.broadcastTransaction(tx));
             } else {
                 log.info("tx {} irrelevant", tx.getTxId());
             }
