@@ -91,10 +91,11 @@ public final class CameraManager {
 
         final Camera.Parameters parameters = camera.getParameters();
 
-        cameraResolution = findBestPreviewSizeValue(parameters, textureView.getWidth(), textureView.getHeight());
-
         final int width = textureView.getWidth();
         final int height = textureView.getHeight();
+        cameraResolution = findBestPreviewSizeValue(parameters, width, height);
+        log.info("texture size is {}/{}, picked preview size is {}/{}", width, height, cameraResolution.width,
+                cameraResolution.height);
 
         final int rawSize = Math.min(width * 2 / 3, height * 2 / 3);
         final int frameSize = Math.max(MIN_FRAME_SIZE, Math.min(MAX_FRAME_SIZE, rawSize));
