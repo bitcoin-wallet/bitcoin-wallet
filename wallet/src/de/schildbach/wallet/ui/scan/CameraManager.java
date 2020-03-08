@@ -44,8 +44,8 @@ import android.view.TextureView;
 public final class CameraManager {
     private static final int MIN_FRAME_SIZE = 240;
     private static final int MAX_FRAME_SIZE = 600;
-    private static final int MIN_PREVIEW_PIXELS = 470 * 320; // normal screen
-    private static final int MAX_PREVIEW_PIXELS = 1280 * 720;
+    private static final int MIN_PREVIEW_PIXELS = 640 * 480; // normal screen
+    private static final int MAX_PREVIEW_PIXELS = 1920 * 1080;
 
     private Camera camera;
     private CameraInfo cameraInfo = new CameraInfo();
