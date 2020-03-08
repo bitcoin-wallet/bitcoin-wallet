@@ -1,6 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
   <string name="toast_wallet_reset">Din tegnebog blev nulstillet!\nDet tager nogen tid at genoprette.</string>
+  <string name="toast_start_external_document_failed">Der er ingen webbrowser installeret til at åbne det eksterne dokument.</string>
   <string name="wallet_disclaimer_fragment_remind_safety">Brug for egen risiko. Læs &lt;u&gt;sikkerhedsnoterne&lt;/u&gt;.</string>
   <string name="wallet_disclaimer_fragment_remind_backup">Du bør &lt;u&gt;tage sikkerhedskopi af din tegnebog&lt;/u&gt;!</string>
   <string name="blockchain_state_progress_hours">%1$s, %2$d timer bagefter</string>
@@ -154,6 +155,7 @@
   <string name="address_book_options_scan_title">Scan adresse</string>
   <string name="address_book_options_scan_invalid">Scannet data kan ikke genkendes</string>
   <string name="address_book_options_scan_own_address">Den scannede adresse er din egen.</string>
+  <string name="address_book_row_current_address">Dette er din aktuelle modtagelsesadresse.</string>
   <string name="address_book_row_message_compromised_key">Denne adresse kan være blevet misbrugt. Du bør ikke bruge den til at modtage bitcoin længere.</string>
   <string name="edit_address_book_entry_dialog_title_add">Tilføj afsenderadresse</string>
   <string name="edit_address_book_entry_dialog_title_edit">Redigér mærke for afsenderadresse</string>
