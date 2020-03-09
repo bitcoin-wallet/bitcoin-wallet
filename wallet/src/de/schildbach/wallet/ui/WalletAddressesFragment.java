@@ -90,7 +90,7 @@ public final class WalletAddressesFragment extends Fragment implements AddressBo
         super.onCreate(savedInstanceState);
         this.fragmentManager = getChildFragmentManager();
 
-        walletActivityViewModel = new ViewModelProvider(this).get(AbstractWalletActivityViewModel.class);
+        walletActivityViewModel = new ViewModelProvider(activity).get(AbstractWalletActivityViewModel.class);
         walletActivityViewModel.wallet.observe(this, wallet -> maybeSubmitList());
         activityViewModel = new ViewModelProvider(activity).get(AddressBookViewModel.class);
         activityViewModel.selectedAddress.observe(this, address -> {

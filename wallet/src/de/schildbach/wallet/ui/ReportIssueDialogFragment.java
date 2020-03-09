@@ -111,7 +111,7 @@ public class ReportIssueDialogFragment extends DialogFragment {
         super.onCreate(savedInstanceState);
         log.info("opening dialog {}", getClass().getName());
 
-        walletActivityViewModel = new ViewModelProvider(this).get(AbstractWalletActivityViewModel.class);
+        walletActivityViewModel = new ViewModelProvider(activity).get(AbstractWalletActivityViewModel.class);
     }
 
     @Override
