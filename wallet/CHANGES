@@ -1,4 +1,4 @@
-v7.62-v7.63
+v7.62-v7.64
 
 * Allow multiple trusted peers by separating them with a space character.
 
