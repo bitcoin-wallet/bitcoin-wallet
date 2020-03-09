@@ -47,19 +47,8 @@ public abstract class AbstractWalletLiveData<T> extends ThrottelingLiveData<T> i
     }
 
     @Override
-    public void observe(@NonNull final LifecycleOwner owner, @NonNull final Observer<? super T> observer) {
-        super.observe(owner, observer);
-        application.walletChanged.observe(owner, this);
-    }
-
-    @Override
-    public void removeObservers(@NonNull final LifecycleOwner owner) {
-        application.walletChanged.removeObservers(owner);
-        super.removeObservers(owner);
-    }
-
-    @Override
     protected final void onActive() {
+        application.walletChanged.observeForever(this);
         loadWallet();
     }
 
@@ -68,6 +57,7 @@ public abstract class AbstractWalletLiveData<T> extends ThrottelingLiveData<T> i
         // TODO cancel async loading
         if (wallet != null)
             onWalletInactive(wallet);
+        application.walletChanged.removeObserver(this);
     }
 
     private void loadWallet() {
