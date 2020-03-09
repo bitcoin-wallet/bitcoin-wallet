@@ -271,7 +271,7 @@ public class BackupWalletDialogFragment extends DialogFragment {
     public void onActivityResult(final int requestCode, final int resultCode, final Intent intent) {
         if (requestCode == REQUEST_CODE_CREATE_DOCUMENT) {
             if (resultCode == Activity.RESULT_OK) {
-                walletActivityViewModel.wallet.observe(activity, new Observer<Wallet>() {
+                walletActivityViewModel.wallet.observe(this, new Observer<Wallet>() {
                     @Override
                     public void onChanged(final Wallet wallet) {
                         walletActivityViewModel.wallet.removeObserver(this);
