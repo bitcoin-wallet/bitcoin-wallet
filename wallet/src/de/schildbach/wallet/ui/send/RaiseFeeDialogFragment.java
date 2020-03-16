@@ -272,6 +272,9 @@ public class RaiseFeeDialogFragment extends DialogFragment {
     }
 
     private void updateView() {
+        if (dialog == null)
+            return;
+
         final Wallet wallet = walletActivityViewModel.wallet.getValue();
         final boolean needsPassword = wallet != null && wallet.isEncrypted();
 
