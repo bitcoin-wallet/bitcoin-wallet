@@ -110,7 +110,7 @@ public class SweepWalletFragment extends Fragment {
     private View badPasswordView;
     private TextView balanceView;
     private View hintView;
-    private View sweepTransactionView;
+    private ViewGroup sweepTransactionView;
     private TransactionsAdapter.TransactionViewHolder sweepTransactionViewHolder;
     private Button viewGo;
     private Button viewCancel;
@@ -203,6 +203,8 @@ public class SweepWalletFragment extends Fragment {
 
         sweepTransactionView = view.findViewById(R.id.transaction_row);
         sweepTransactionView.setVisibility(View.GONE);
+        sweepTransactionView.setLayoutAnimation(AnimationUtils.loadLayoutAnimation(activity,
+                R.anim.transaction_layout_anim));
         sweepTransactionViewHolder = new TransactionsAdapter.TransactionViewHolder(view);
 
         viewGo = view.findViewById(R.id.send_coins_go);

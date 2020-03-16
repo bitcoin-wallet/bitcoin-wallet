@@ -104,6 +104,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -151,7 +152,7 @@ public final class SendCoinsFragment extends Fragment {
 
     private TextView hintView;
     private TextView directPaymentMessageView;
-    private View sentTransactionView;
+    private ViewGroup sentTransactionView;
     private TransactionsAdapter.TransactionViewHolder sentTransactionViewHolder;
     private View privateKeyPasswordViewGroup;
     private EditText privateKeyPasswordView;
@@ -433,6 +434,8 @@ public final class SendCoinsFragment extends Fragment {
 
         sentTransactionView = view.findViewById(R.id.transaction_row);
         sentTransactionView.setVisibility(View.GONE);
+        sentTransactionView.setLayoutAnimation(AnimationUtils.loadLayoutAnimation(activity,
+                R.anim.transaction_layout_anim));
         sentTransactionViewHolder = new TransactionsAdapter.TransactionViewHolder(view);
 
         privateKeyPasswordViewGroup = view.findViewById(R.id.send_coins_private_key_password_group);

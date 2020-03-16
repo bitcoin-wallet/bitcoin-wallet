@@ -4,7 +4,6 @@
     android:id="@+id/transaction_row"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layoutAnimation="@anim/transaction_layout_anim"
     android:orientation="vertical">
 
     <LinearLayout
