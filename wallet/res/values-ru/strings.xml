@@ -254,6 +254,7 @@
   <string name="preferences_block_explorer_summary">Внешний обозреватель блоков для просмотра транзакций, адресов и блоков.</string>
   <string name="preferences_data_usage_title">Использование данных</string>
   <string name="preferences_data_usage_summary">Показать опции ограничения использования данных в мобильных сетях.</string>
+  <string name="preferences_notifications_title">Уведомления</string>
   <string name="preferences_remind_balance_title">Напоминание баланса</string>
   <string name="preferences_remind_balance_summary">Если приложение не использовалось несколько недель, вам придёт напоминание, если в бумажнике есть монеты.</string>
   <string name="preferences_show_disclaimer_title">Показать отказ от ответственности</string>
@@ -305,6 +306,7 @@
   <string name="notification_inactivity_message_donate">Если вам не нужны монеты, вы можете пожертвовать их проекту Bitcoin Wallet.</string>
   <string name="notification_inactivity_action_dismiss">Напомнить позже</string>
   <string name="notification_inactivity_action_dismiss_forever">Не напоминать</string>
+  <string name="notification_bluetooth_service_listening">Готов принимать платежи через Bluetooth</string>
   <string name="notification_channel_received_name">Полученные выплаты</string>
   <string name="notification_channel_ongoing_name">Фоновая активность</string>
   <string name="notification_channel_important_name">Важные предупреждения</string>
@@ -335,6 +337,7 @@
   <string name="address_unlabeled">(без метки)</string>
   <string name="private_key_password">ПИН</string>
   <string name="private_key_bad_password">ПИН не подходит!</string>
+  <string name="qr_code">QR код</string>
   <!--generic error messages-->
   <string name="error_io">Ошибка I/O: %s</string>
   <string name="error_parse">Ошибка обработки: %s</string>
