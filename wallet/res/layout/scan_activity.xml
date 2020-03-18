@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<merge xmlns:android="http://schemas.android.com/apk/res/android"
+<merge
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent">
 
     <TextureView
         android:id="@+id/scan_activity_preview"
@@ -13,5 +14,4 @@
         android:id="@+id/scan_activity_mask"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-
 </merge>

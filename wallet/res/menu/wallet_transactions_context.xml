@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
         android:id="@+id/wallet_transactions_context_edit_address"
         android:icon="@drawable/ic_create_white_24dp"
         android:showAsAction="ifRoom"
         android:title="@null"
-        android:titleCondensed="@string/button_edit"/>
+        android:titleCondensed="@string/button_edit" />
     <item
         android:id="@+id/wallet_transactions_context_show_qr"
         android:icon="@drawable/ic_qrcode_white_24dp"
         android:showAsAction="ifRoom"
-        android:title="@string/action_show_qr"/>
+        android:title="@string/action_show_qr" />
     <item
         android:id="@+id/wallet_transactions_context_raise_fee"
         android:showAsAction="never"
-        android:title="@string/raise_fee_dialog_title"/>
+        android:title="@string/raise_fee_dialog_title" />
     <item
         android:id="@+id/wallet_transactions_context_report_issue"
         android:showAsAction="never"
-        android:title="@string/preferences_report_issue_title"/>
+        android:title="@string/preferences_report_issue_title" />
     <item
         android:id="@+id/wallet_transactions_context_browse"
         android:icon="@drawable/ic_open_in_browser_white_24dp"
         android:showAsAction="ifRoom"
-        android:title="@string/action_browse"/>
-
+        android:title="@string/action_browse" />
 </menu>

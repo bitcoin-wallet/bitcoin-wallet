@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
         android:id="@+id/sweep_wallet_options_reload"
         android:icon="@drawable/ic_refresh_white_24dp"
         android:showAsAction="always|withText"
-        android:title="@string/sweep_wallet_options_reload"/>
+        android:title="@string/sweep_wallet_options_reload" />
     <item
         android:id="@+id/sweep_wallet_options_scan"
         android:icon="@drawable/ic_photo_camera_white_24dp"
         android:showAsAction="always|withText"
-        android:title="@string/button_scan"/>
-
+        android:title="@string/button_scan" />
 </menu>

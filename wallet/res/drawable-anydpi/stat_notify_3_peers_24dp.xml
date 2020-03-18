@@ -1,13 +1,14 @@
-<vector xmlns:android="http://schemas.android.com/apk/res/android"
+<vector
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:height="24dp"
     android:viewportHeight="24"
     android:viewportWidth="24"
-    android:width="24dp" >
+    android:width="24dp">
 
     <group
         android:pivotX="12"
         android:pivotY="12"
-        android:rotation="270" >
+        android:rotation="270">
         <path
             android:fillColor="#6FFF"
             android:pathData="M18,21H21V3H18V21Z" />
@@ -15,5 +16,4 @@
             android:fillColor="#FFFF"
             android:pathData="M3,21H6V18H3M8,21H11V14H8M13,21H16V9H13Z" />
     </group>
-
 </vector>

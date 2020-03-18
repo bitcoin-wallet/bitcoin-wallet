@@ -141,5 +141,4 @@
         <item name="android:overlapAnchor">false</item>
         <item name="android:popupBackground">@color/bg_level3</item>
     </style>
-
 </resources>

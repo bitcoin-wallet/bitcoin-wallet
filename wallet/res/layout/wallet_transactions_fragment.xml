@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ViewAnimator xmlns:android="http://schemas.android.com/apk/res/android"
+<ViewAnimator
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/wallet_transactions_group"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_level0" >
+    android:background="@color/bg_level0">
 
     <TextView
         android:id="@+id/wallet_transactions_empty"
@@ -18,5 +19,4 @@
         android:layout_height="match_parent"
         android:clipToPadding="false"
         android:scrollbars="vertical" />
-
 </ViewAnimator>

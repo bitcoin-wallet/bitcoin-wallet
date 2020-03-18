@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@color/bg_level0" >
+    android:background="@color/bg_level0">
 
     <ImageView
         android:id="@+id/extended_public_key_dialog_image"
@@ -16,5 +17,4 @@
         android:keepScreenOn="true"
         android:padding="6dp"
         android:scaleType="fitXY" />
-
 </FrameLayout>

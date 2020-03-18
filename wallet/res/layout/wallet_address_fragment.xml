@@ -18,5 +18,4 @@
         android:focusable="true"
         android:padding="4dp"
         android:scaleType="fitXY" />
-
 </androidx.cardview.widget.CardView>

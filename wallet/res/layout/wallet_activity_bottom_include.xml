@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/bg_action_bar"
     android:divider="@drawable/divider_dark"
     android:orientation="vertical"
-    android:showDividers="middle" >
+    android:showDividers="middle">
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/wallet_actions_fragment"
@@ -18,5 +19,4 @@
         android:name="de.schildbach.wallet.ui.WalletDisclaimerFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-
 </LinearLayout>

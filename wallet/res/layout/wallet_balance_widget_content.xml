@@ -96,5 +96,4 @@
         android:contentDescription="@string/button_scan"
         android:src="@drawable/ic_photo_camera_white_24dp"
         android:tint="@color/fg_network_less_significant_darkdefault" />
-
 </LinearLayout>

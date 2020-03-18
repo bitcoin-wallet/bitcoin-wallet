@@ -30,5 +30,4 @@
         android:textAllCaps="true"
         android:textSize="@dimen/font_size_small"
         android:textStyle="bold" />
-
 </LinearLayout>

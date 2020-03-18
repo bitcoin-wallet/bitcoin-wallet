@@ -30,5 +30,4 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/list_entry_padding_horizontal_cram"
         android:layout_gravity="right" />
-
 </LinearLayout>

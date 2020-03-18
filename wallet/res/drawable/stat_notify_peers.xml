@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<level-list xmlns:android="http://schemas.android.com/apk/res/android" >
+<level-list
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
         android:drawable="@drawable/stat_notify_0_peers_24dp"
-        android:maxLevel="0"/>
+        android:maxLevel="0" />
     <item
         android:drawable="@drawable/stat_notify_1_peers_24dp"
-        android:maxLevel="1"/>
+        android:maxLevel="1" />
     <item
         android:drawable="@drawable/stat_notify_2_peers_24dp"
-        android:maxLevel="2"/>
+        android:maxLevel="2" />
     <item
         android:drawable="@drawable/stat_notify_3_peers_24dp"
-        android:maxLevel="3"/>
+        android:maxLevel="3" />
     <item
         android:drawable="@drawable/stat_notify_4_peers_24dp"
-        android:maxLevel="4"/>
-
+        android:maxLevel="4" />
 </level-list>

@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0px"
         android:layout_weight="1"
         android:baselineAligned="false"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
         <FrameLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="top"
             android:background="@color/bg_level1"
-            android:elevation="8dp" >
+            android:elevation="8dp">
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/wallet_address_fragment"
@@ -33,7 +34,7 @@
         <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="0px"
             android:layout_height="match_parent"
-            android:layout_weight="1" >
+            android:layout_weight="1">
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -41,7 +42,7 @@
                 android:layout_gravity="top"
                 android:background="@color/bg_level1"
                 android:elevation="3dp"
-                android:tag="levitate" >
+                android:tag="levitate">
 
                 <androidx.fragment.app.FragmentContainerView
                     android:id="@+id/wallet_balance_fragment"
@@ -61,5 +62,4 @@
     </LinearLayout>
 
     <include layout="@layout/wallet_activity_bottom_include" />
-
 </LinearLayout>

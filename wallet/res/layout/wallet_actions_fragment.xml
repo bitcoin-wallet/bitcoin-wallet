@@ -1,10 +1,11 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     style="?android:attr/actionBarSplitStyle"
     android:theme="@android:style/ThemeOverlay.Material.Dark.ActionBar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:measureWithLargestChild="true"
-    android:orientation="horizontal" >
+    android:orientation="horizontal">
 
     <Button
         android:id="@+id/wallet_actions_request"
@@ -41,5 +42,4 @@
         android:contentDescription="@string/button_scan"
         android:src="@drawable/ic_photo_camera_white_24dp"
         android:tint="@color/bg_action_bar" />
-
 </LinearLayout>

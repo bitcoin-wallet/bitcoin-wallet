@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
         android:id="@+id/send_coins_options_scan"
         android:icon="@drawable/ic_photo_camera_white_24dp"
         android:showAsAction="always|withText"
-        android:title="@string/button_scan"/>
+        android:title="@string/button_scan" />
     <item
         android:id="@+id/send_coins_options_fee_category"
         android:showAsAction="never"
         android:title="@string/send_coins_options_fee_category">
         <menu>
-            <group android:checkableBehavior="single" >
+            <group android:checkableBehavior="single">
                 <item
                     android:id="@+id/send_coins_options_fee_category_economic"
-                    android:title="@string/send_coins_options_fee_category_economic"/>
+                    android:title="@string/send_coins_options_fee_category_economic" />
                 <item
                     android:id="@+id/send_coins_options_fee_category_normal"
-                    android:title="@string/send_coins_options_fee_category_normal"/>
+                    android:title="@string/send_coins_options_fee_category_normal" />
                 <item
                     android:id="@+id/send_coins_options_fee_category_priority"
-                    android:title="@string/send_coins_options_fee_category_priority"/>
+                    android:title="@string/send_coins_options_fee_category_priority" />
             </group>
         </menu>
     </item>
     <item
         android:id="@+id/send_coins_options_empty"
         android:showAsAction="never"
-        android:title="@string/send_coins_options_empty"/>
-
+        android:title="@string/send_coins_options_empty" />
 </menu>

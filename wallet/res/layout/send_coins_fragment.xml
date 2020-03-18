@@ -16,14 +16,14 @@
         android:layout_marginBottom="@dimen/list_entry_padding_vertical"
         android:layout_marginLeft="@dimen/list_entry_padding_horizontal_lax"
         android:layout_marginRight="@dimen/list_entry_padding_horizontal_lax"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <LinearLayout
             android:id="@+id/send_coins_payee_group"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="match_parent"
@@ -63,7 +63,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
                 android:orientation="horizontal"
-                android:visibility="gone" >
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/send_coins_receiving_static_label"
@@ -89,7 +89,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="match_parent"
@@ -103,13 +103,13 @@
                 android:layout_height="wrap_content"
                 android:divider="@drawable/divider_currency"
                 android:orientation="horizontal"
-                android:showDividers="middle" >
+                android:showDividers="middle">
 
                 <de.schildbach.wallet.ui.CurrencyAmountView
                     android:id="@+id/send_coins_amount_btc"
                     android:layout_width="0px"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1" >
+                    android:layout_weight="1">
 
                     <EditText
                         android:id="@+id/send_coins_amount_btc_edittext"
@@ -124,7 +124,7 @@
                     android:id="@+id/send_coins_amount_local"
                     android:layout_width="0px"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1" >
+                    android:layout_weight="1">
 
                     <EditText
                         android:id="@+id/send_coins_amount_local_edittext"
@@ -164,7 +164,7 @@
             android:divider="@drawable/divider_field"
             android:orientation="horizontal"
             android:showDividers="middle"
-            android:visibility="gone" >
+            android:visibility="gone">
 
             <EditText
                 android:id="@+id/send_coins_private_key_password"
@@ -198,5 +198,4 @@
     </LinearLayout>
 
     <include layout="@layout/send_coins_buttons_include" />
-
 </LinearLayout>

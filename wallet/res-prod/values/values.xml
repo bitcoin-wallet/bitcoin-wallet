@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="app_name">Bitcoin Wallet</string>
     <string name="app_name_short">Bitcoin</string>
 
@@ -14,5 +13,4 @@
         <item>live.blockcypher.com</item>
         <item>coin.cz</item>
     </string-array>
-
 </resources>

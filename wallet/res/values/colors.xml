@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
-
+<resources>
     <!-- foreground -->
     <color name="fg_significant">#ff000000</color>
     <color name="fg_significant_darkdefault">#ffeceff4</color>
@@ -47,5 +46,4 @@
     <!-- app icon -->
     <color name="appicon_gradient_start">#bbbbbb</color>
     <color name="appicon_gradient_end">#999999</color>
-
 </resources>

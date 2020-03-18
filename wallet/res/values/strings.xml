@@ -1,6 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-
     <string name="toast_wallet_reset">Your wallet was reset!\nIt will take some time to recover.</string>
     <string name="toast_start_external_document_failed">There is no web browser installed to open the external document.</string>
     <string name="toast_start_storage_provider_selector_failed">There is no suitable cloud storage provider installed.\nYou need something like \"Nextcloud\" or \"Google Drive\".</string>
@@ -364,5 +363,4 @@
     <string name="error_parse">Parse error: %s</string>
     <string name="error_http">HTTP error %1$s:\n%2$s</string>
     <string name="error_bluetooth">Bluetooth error: %1$s</string>
-
 </resources>

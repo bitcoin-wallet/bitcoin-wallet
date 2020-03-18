@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/wallet_main_twopanes"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,7 +18,7 @@
             android:layout_width="@dimen/exchange_rate_pane_width"
             android:layout_height="match_parent"
             android:elevation="8dp"
-            android:outlineProvider="bounds" >
+            android:outlineProvider="bounds">
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/exchange_rates_fragment"
@@ -30,7 +31,7 @@
             android:layout_width="0px"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <de.schildbach.wallet.util.FillGapsLinearLayout
                 android:layout_width="match_parent"
@@ -38,7 +39,7 @@
                 android:background="@color/bg_level1"
                 android:baselineAligned="false"
                 android:elevation="3dp"
-                android:orientation="horizontal" >
+                android:orientation="horizontal">
 
                 <androidx.fragment.app.FragmentContainerView
                     android:id="@+id/wallet_balance_fragment"
@@ -69,5 +70,4 @@
     </LinearLayout>
 
     <include layout="@layout/wallet_activity_bottom_include" />
-
 </LinearLayout>

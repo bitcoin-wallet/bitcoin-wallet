@@ -17,5 +17,4 @@
     app:cardUseCompatPadding="false">
 
     <include layout="@layout/transaction_row" />
-
 </androidx.cardview.widget.CardView>

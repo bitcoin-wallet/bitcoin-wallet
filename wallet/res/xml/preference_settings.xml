@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <PreferenceCategory android:title="@string/preferences_category_general">
+    <PreferenceCategory
+        android:title="@string/preferences_category_general">
+
         <ListPreference
             android:key="btc_precision"
             android:title="@string/preferences_precision_title"
@@ -43,7 +46,9 @@
             android:summary="@string/preferences_notifications_summary" />
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="@string/preferences_category_privacy">
+    <PreferenceCategory
+        android:title="@string/preferences_category_privacy">
+
         <EditTextPreference
             android:key="trusted_peer"
             android:title="@string/preferences_trusted_peer_title"
@@ -64,7 +69,9 @@
             android:entryValues="@array/preferences_block_explorer_values" />
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="@string/preferences_category_merchants">
+    <PreferenceCategory
+        android:title="@string/preferences_category_merchants">
+
         <EditTextPreference
             android:key="own_name"
             android:title="@string/preferences_own_name_title"

@@ -48,5 +48,4 @@
         android:textColor="@color/fg_less_significant"
         android:textSize="@dimen/font_size_small"
         android:visibility="gone" />
-
 </FrameLayout>

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <!-- foreground -->
     <color name="fg_significant">#ffeceff4</color>
     <color name="fg_less_significant">#ffe5e9f0</color>
@@ -23,5 +22,4 @@
     <color name="fg_password_strength_fair">#ffdfa870</color>
     <color name="fg_password_strength_good">#ffa0a8a0</color>
     <color name="fg_password_strength_strong">#ffa3e08c</color>
-
 </resources>
