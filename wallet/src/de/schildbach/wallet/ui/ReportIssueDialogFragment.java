@@ -327,7 +327,8 @@ public class ReportIssueDialogFragment extends DialogFragment {
 
         report.append("Manufacturer: ").append(Build.MANUFACTURER).append("\n");
         report.append("Device Model: ").append(Build.MODEL).append("\n");
-        report.append("Android Version: ").append(Build.VERSION.RELEASE).append("\n");
+        report.append("Android Version: ").append(Build.VERSION.RELEASE)
+                .append(" (").append(Integer.toString(Build.VERSION.SDK_INT)).append(")\n");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
             report.append("Android security patch level: ").append(Build.VERSION.SECURITY_PATCH).append("\n");
         report.append("ABIs: ").append(Joiner.on(", ").skipNulls().join(Build.SUPPORTED_ABIS)).append("\n");
