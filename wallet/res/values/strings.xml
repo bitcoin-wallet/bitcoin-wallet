@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="toast_wallet_reset">Your wallet was reset!\nIt will take some time to recover.</string>
     <string name="toast_start_external_document_failed">There is no web browser installed to open the external document.</string>
