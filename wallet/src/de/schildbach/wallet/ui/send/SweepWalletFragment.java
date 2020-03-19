@@ -148,6 +148,7 @@ public class SweepWalletFragment extends Fragment {
         viewModel = new ViewModelProvider(this).get(SweepWalletViewModel.class);
         viewModel.getDynamicFees().observe(this, dynamicFees -> updateView());
         viewModel.progress.observe(this, new ProgressDialogFragment.Observer(fragmentManager));
+        viewModel.privateKeyToSweep.observe(this, privateKeyToSweep -> updateView());
         viewModel.walletToSweep.observe(this, walletToSweep -> {
             if (walletToSweep != null) {
                 balanceView.setVisibility(View.VISIBLE);
@@ -193,8 +194,9 @@ public class SweepWalletFragment extends Fragment {
             final Intent intent = activity.getIntent();
 
             if (intent.hasExtra(SweepWalletActivity.INTENT_EXTRA_KEY)) {
-                viewModel.privateKeyToSweep = (PrefixedChecksummedBytes) intent
+                final PrefixedChecksummedBytes privateKeyToSweep = (PrefixedChecksummedBytes) intent
                         .getSerializableExtra(SweepWalletActivity.INTENT_EXTRA_KEY);
+                viewModel.privateKeyToSweep.setValue(privateKeyToSweep);
 
                 // delay until fragment is resumed
                 handler.post(maybeDecodeKeyRunnable);
@@ -252,7 +254,7 @@ public class SweepWalletFragment extends Fragment {
                 new StringInputParser(input) {
                     @Override
                     protected void handlePrivateKey(final PrefixedChecksummedBytes key) {
-                        viewModel.privateKeyToSweep = key;
+                        viewModel.privateKeyToSweep.setValue(key);
                         setState(SweepWalletViewModel.State.DECODE_KEY);
                         maybeDecodeKey();
                     }
@@ -312,12 +314,13 @@ public class SweepWalletFragment extends Fragment {
 
     private void maybeDecodeKey() {
         checkState(viewModel.state == SweepWalletViewModel.State.DECODE_KEY);
-        checkState(viewModel.privateKeyToSweep != null);
+        final PrefixedChecksummedBytes privateKeyToSweep = viewModel.privateKeyToSweep.getValue();
+        checkState(privateKeyToSweep != null);
 
-        if (viewModel.privateKeyToSweep instanceof DumpedPrivateKey) {
-            final ECKey key = ((DumpedPrivateKey) viewModel.privateKeyToSweep).getKey();
+        if (privateKeyToSweep instanceof DumpedPrivateKey) {
+            final ECKey key = ((DumpedPrivateKey) privateKeyToSweep).getKey();
             askConfirmSweep(key);
-        } else if (viewModel.privateKeyToSweep instanceof BIP38PrivateKey) {
+        } else if (privateKeyToSweep instanceof BIP38PrivateKey) {
             badPasswordView.setVisibility(View.INVISIBLE);
 
             final String password = passwordView.getText().toString().trim();
@@ -345,10 +348,10 @@ public class SweepWalletFragment extends Fragment {
                         badPasswordView.setVisibility(View.VISIBLE);
                         passwordView.requestFocus();
                     }
-                }.decodePrivateKey((BIP38PrivateKey) viewModel.privateKeyToSweep, password);
+                }.decodePrivateKey((BIP38PrivateKey) privateKeyToSweep, password);
             }
         } else {
-            throw new IllegalStateException("cannot handle type: " + viewModel.privateKeyToSweep.getClass().getName());
+            throw new IllegalStateException("cannot handle type: " + privateKeyToSweep.getClass().getName());
         }
     }
 
@@ -444,26 +447,27 @@ public class SweepWalletFragment extends Fragment {
     }
 
     private void updateView() {
+        final PrefixedChecksummedBytes privateKeyToSweep = viewModel.privateKeyToSweep.getValue();
         final Wallet wallet = walletActivityViewModel.wallet.getValue();
         final Map<FeeCategory, Coin> fees = viewModel.getDynamicFees().getValue();
         final MonetaryFormat btcFormat = config.getFormat();
 
-        if (viewModel.state == SweepWalletViewModel.State.DECODE_KEY && viewModel.privateKeyToSweep == null) {
+        if (viewModel.state == SweepWalletViewModel.State.DECODE_KEY && privateKeyToSweep == null) {
             messageView.setVisibility(View.VISIBLE);
             messageView.setText(R.string.sweep_wallet_fragment_wallet_unknown);
-        } else if (viewModel.state == SweepWalletViewModel.State.DECODE_KEY && viewModel.privateKeyToSweep != null) {
+        } else if (viewModel.state == SweepWalletViewModel.State.DECODE_KEY && privateKeyToSweep != null) {
             messageView.setVisibility(View.VISIBLE);
             messageView.setText(R.string.sweep_wallet_fragment_encrypted);
-        } else if (viewModel.privateKeyToSweep != null) {
+        } else if (privateKeyToSweep != null) {
             messageView.setVisibility(View.GONE);
         }
 
         passwordViewGroup.setVisibility(
-                viewModel.state == SweepWalletViewModel.State.DECODE_KEY && viewModel.privateKeyToSweep != null
+                viewModel.state == SweepWalletViewModel.State.DECODE_KEY && privateKeyToSweep != null
                         ? View.VISIBLE : View.GONE);
 
         hintView.setVisibility(
-                viewModel.state == SweepWalletViewModel.State.DECODE_KEY && viewModel.privateKeyToSweep == null
+                viewModel.state == SweepWalletViewModel.State.DECODE_KEY && privateKeyToSweep == null
                         ? View.VISIBLE : View.GONE);
 
         final Transaction sentTransaction = viewModel.sentTransaction.getValue();
@@ -480,7 +484,7 @@ public class SweepWalletFragment extends Fragment {
         if (viewModel.state == SweepWalletViewModel.State.DECODE_KEY) {
             viewCancel.setText(R.string.button_cancel);
             viewGo.setText(R.string.sweep_wallet_fragment_button_decrypt);
-            viewGo.setEnabled(viewModel.privateKeyToSweep != null);
+            viewGo.setEnabled(privateKeyToSweep != null);
         } else if (viewModel.state == SweepWalletViewModel.State.CONFIRM_SWEEP) {
             viewCancel.setText(R.string.button_cancel);
             viewGo.setText(R.string.sweep_wallet_fragment_button_sweep);
