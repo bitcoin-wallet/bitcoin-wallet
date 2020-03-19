@@ -43,13 +43,13 @@ public class SweepWalletViewModel extends AndroidViewModel {
     private final WalletApplication application;
     private DynamicFeeLiveData dynamicFees;
     public final MutableLiveData<String> progress = new MutableLiveData<>();
+    public final MutableLiveData<Wallet> walletToSweep = new MutableLiveData<>();
     public final TransactionLiveData sentTransaction;
     public final MutableLiveData<DialogEvent> showDialog = new MutableLiveData<>();
     public final MutableLiveData<DialogEvent> showDialogWithRetryRequestBalance = new MutableLiveData<>();
 
     public State state = State.DECODE_KEY;
     public @Nullable PrefixedChecksummedBytes privateKeyToSweep = null;
-    public @Nullable Wallet walletToSweep = null;
 
     public SweepWalletViewModel(final Application application) {
         super(application);
