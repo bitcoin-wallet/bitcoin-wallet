@@ -20,6 +20,7 @@ package de.schildbach.wallet.ui.backup;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.ActivityNotFoundException;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -51,6 +52,7 @@ import de.schildbach.wallet.ui.DialogBuilder;
 import de.schildbach.wallet.ui.Event;
 import de.schildbach.wallet.ui.ShowPasswordCheckListener;
 import de.schildbach.wallet.util.Crypto;
+import de.schildbach.wallet.util.Toast;
 import de.schildbach.wallet.util.WalletUtils;
 import org.bitcoinj.core.Coin;
 import org.bitcoinj.wallet.Wallet;
@@ -152,7 +154,12 @@ public class RestoreWalletDialogFragment extends DialogFragment {
             final Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
             intent.addCategory(Intent.CATEGORY_OPENABLE);
             intent.setType("*/*");
-            startActivityForResult(intent, REQUEST_CODE_OPEN_DOCUMENT);
+            try {
+                startActivityForResult(intent, REQUEST_CODE_OPEN_DOCUMENT);
+            } catch (final ActivityNotFoundException x) {
+                log.warn("Cannot open document selector: {}", intent);
+                new Toast(activity).longToast(R.string.toast_start_storage_provider_selector_failed);
+            }
         }
     }
 

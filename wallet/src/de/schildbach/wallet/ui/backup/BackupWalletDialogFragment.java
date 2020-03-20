@@ -49,11 +49,13 @@ import de.schildbach.wallet.ui.DialogBuilder;
 import de.schildbach.wallet.ui.ShowPasswordCheckListener;
 import de.schildbach.wallet.util.Crypto;
 import de.schildbach.wallet.util.Iso8601Format;
+import de.schildbach.wallet.util.Toast;
 import de.schildbach.wallet.util.WalletUtils;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnShowListener;
@@ -264,7 +266,12 @@ public class BackupWalletDialogFragment extends DialogFragment {
         intent.addCategory(Intent.CATEGORY_OPENABLE);
         intent.setType(Constants.MIMETYPE_WALLET_BACKUP);
         intent.putExtra(Intent.EXTRA_TITLE, filename.toString());
-        startActivityForResult(intent, REQUEST_CODE_CREATE_DOCUMENT);
+        try {
+            startActivityForResult(intent, REQUEST_CODE_CREATE_DOCUMENT);
+        } catch (final ActivityNotFoundException x) {
+            log.warn("Cannot open document selector: {}", intent);
+            new Toast(activity).longToast(R.string.toast_start_storage_provider_selector_failed);
+        }
     }
 
     @Override
