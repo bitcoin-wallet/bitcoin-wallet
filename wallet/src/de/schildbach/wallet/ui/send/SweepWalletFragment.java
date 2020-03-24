@@ -307,6 +307,8 @@ public class SweepWalletFragment extends Fragment {
     }
 
     private void handleReload() {
+        if (viewModel.walletToSweep.getValue() == null)
+            return;
         requestWalletBalance();
     }
 
