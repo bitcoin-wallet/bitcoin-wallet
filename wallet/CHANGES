@@ -1,3 +1,8 @@
+v8.0
+
+* The app now requires Android 6.0 (Marshmallow) or higher.
+* On modern devices: Introduce a blockchain synchronization mode that prioritizes privacy vs data usage.
+
 v7.62-v7.69
 
 * Allow multiple trusted peers by separating them with a space character.
