@@ -128,7 +128,6 @@
 	<string name="report_issue_dialog_description">опис на грешката</string>
 	<string name="report_issue_dialog_report">Извештај</string>
 	<string name="report_issue_dialog_collect_device_info">Додај информации за уредот</string>
-	<string name="report_issue_dialog_collect_installed_packages">Прикачи листа со инсталирани пакети</string>
 	<string name="report_issue_dialog_collect_application_log">Додај го дневникот на апликацијата</string>
 	<string name="report_issue_dialog_collect_wallet_dump">Додај го отпадот на паричникот</string>
 	<string name="report_issue_dialog_mail_intent_chooser">Испрати извештај со…</string>

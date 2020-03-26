@@ -288,7 +288,6 @@
   <string name="report_issue_dialog_description">説明</string>
   <string name="report_issue_dialog_report">報告</string>
   <string name="report_issue_dialog_collect_device_info">デバイス情報を追加</string>
-  <string name="report_issue_dialog_collect_installed_packages">インストールされたパッケージのリストを追加</string>
   <string name="report_issue_dialog_collect_application_log">アプリケーションログを追加</string>
   <string name="report_issue_dialog_collect_wallet_dump">ウォレットダンプを追加</string>
   <string name="report_issue_dialog_mail_intent_chooser">報告に使うアプリケーション……</string>

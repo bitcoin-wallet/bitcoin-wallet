@@ -278,7 +278,6 @@
   <string name="report_issue_dialog_description">descrição do problema</string>
   <string name="report_issue_dialog_report">Comunicar</string>
   <string name="report_issue_dialog_collect_device_info">Acrescentar informação do dispositivo</string>
-  <string name="report_issue_dialog_collect_installed_packages">Acrescentar a lista de pacotes instalados</string>
   <string name="report_issue_dialog_collect_application_log">Acrescentar o registo da aplicação</string>
   <string name="report_issue_dialog_collect_wallet_dump">Acrescentar a informação da carteira</string>
   <string name="report_issue_dialog_mail_intent_chooser">Enviar o relatório utilizando…</string>

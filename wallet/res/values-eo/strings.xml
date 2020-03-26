@@ -128,7 +128,6 @@
 	<string name="report_issue_dialog_description">afera priskribo</string>
 	<string name="report_issue_dialog_report">Reporti</string>
 	<string name="report_issue_dialog_collect_device_info">Postglui aparatajn informojn</string>
-	<string name="report_issue_dialog_collect_installed_packages">Postglui liston de instalitaj pakoj</string>
 	<string name="report_issue_dialog_collect_application_log">Postglui aplikaĵan loglibron</string>
 	<string name="report_issue_dialog_collect_wallet_dump">Postglui monujaĵon</string>
 	<string name="report_issue_dialog_mail_intent_chooser">Sendi reporton uzante…</string>

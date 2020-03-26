@@ -258,7 +258,6 @@
   <string name="report_issue_dialog_description">popis problému</string>
   <string name="report_issue_dialog_report">Nahlásit</string>
   <string name="report_issue_dialog_collect_device_info">Připojit informace o zařízení</string>
-  <string name="report_issue_dialog_collect_installed_packages">Připoj seznam nainstalovaných balíčků</string>
   <string name="report_issue_dialog_collect_application_log">Připojit aplikační log</string>
   <string name="report_issue_dialog_collect_wallet_dump">Připojit dump peněženky</string>
   <string name="report_issue_dialog_mail_intent_chooser">Odeslat hlášení pomocí…</string>

@@ -263,7 +263,6 @@
   <string name="report_issue_dialog_description">오류 내용 입력</string>
   <string name="report_issue_dialog_report">전송</string>
   <string name="report_issue_dialog_collect_device_info">장치 기기의 정보를 첨부</string>
-  <string name="report_issue_dialog_collect_installed_packages">장치 기기에 설치된 앱 목록 첨부</string>
   <string name="report_issue_dialog_collect_application_log">애플리케이션 로그 첨부</string>
   <string name="report_issue_dialog_collect_wallet_dump">전자지갑 덤프 파일 첨부</string>
   <string name="report_issue_dialog_mail_intent_chooser">오류 보고서 전송 방법 선택</string>

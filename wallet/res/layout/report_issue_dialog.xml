@@ -55,14 +55,5 @@
             android:layout_marginTop="@dimen/list_entry_padding_vertical"
             android:checked="true"
             android:text="@string/report_issue_dialog_collect_wallet_dump" />
-
-        <CheckBox
-            android:id="@+id/report_issue_dialog_collect_installed_packages"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/list_entry_padding_vertical"
-            android:layout_marginTop="@dimen/list_entry_padding_vertical"
-            android:checked="false"
-            android:text="@string/report_issue_dialog_collect_installed_packages" />
     </LinearLayout>
 </ScrollView>

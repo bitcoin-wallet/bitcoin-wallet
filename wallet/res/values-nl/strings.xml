@@ -280,7 +280,6 @@
   <string name="report_issue_dialog_description">probleem beschrijving</string>
   <string name="report_issue_dialog_report">Verslag</string>
   <string name="report_issue_dialog_collect_device_info">Apparaat informatie toevoegen</string>
-  <string name="report_issue_dialog_collect_installed_packages">Lijst van geïnstalleerde pakketten toevoegen</string>
   <string name="report_issue_dialog_collect_application_log">Applicatie log toevoegen</string>
   <string name="report_issue_dialog_collect_wallet_dump">Wallet dump toevoegen</string>
   <string name="report_issue_dialog_mail_intent_chooser">Rapport versturen met…</string>

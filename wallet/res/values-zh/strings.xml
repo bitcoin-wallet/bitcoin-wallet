@@ -277,7 +277,6 @@
   <string name="report_issue_dialog_description">问题描述</string>
   <string name="report_issue_dialog_report">报告</string>
   <string name="report_issue_dialog_collect_device_info">附加设备信息</string>
-  <string name="report_issue_dialog_collect_installed_packages">附加已安装的软件包列表</string>
   <string name="report_issue_dialog_collect_application_log">附加应用程序日志</string>
   <string name="report_issue_dialog_collect_wallet_dump">附加钱包 dump 信息</string>
   <string name="report_issue_dialog_mail_intent_chooser">发送报告使用…</string>

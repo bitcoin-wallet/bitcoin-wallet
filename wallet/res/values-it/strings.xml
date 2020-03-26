@@ -265,7 +265,6 @@
   <string name="report_issue_dialog_description">descrizione del problema</string>
   <string name="report_issue_dialog_report">Segnala</string>
   <string name="report_issue_dialog_collect_device_info">Allega informazioni sul dispositivo</string>
-  <string name="report_issue_dialog_collect_installed_packages">Appendi lista dei pacchetti installati</string>
   <string name="report_issue_dialog_collect_application_log">Allega il registro dell\'applicazione</string>
   <string name="report_issue_dialog_collect_wallet_dump">Allega il dump del portafoglio</string>
   <string name="report_issue_dialog_mail_intent_chooser">Invio della segnalazione…</string>

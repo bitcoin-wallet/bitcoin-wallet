@@ -278,7 +278,6 @@
   <string name="report_issue_dialog_description">Ongelman kuvaus</string>
   <string name="report_issue_dialog_report">Ilmoita</string>
   <string name="report_issue_dialog_collect_device_info">Liitä laitteistotiedot</string>
-  <string name="report_issue_dialog_collect_installed_packages">Liitä lista asennetuista paketeista</string>
   <string name="report_issue_dialog_collect_application_log">Liitä sovelluksen loki</string>
   <string name="report_issue_dialog_collect_wallet_dump">Liitä lompakon käyttömuistin tiedot</string>
   <string name="report_issue_dialog_mail_intent_chooser">Lähetä raportti käyttäen…</string>

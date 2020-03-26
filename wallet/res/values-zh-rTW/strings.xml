@@ -262,7 +262,6 @@
   <string name="report_issue_dialog_description">問題描述</string>
   <string name="report_issue_dialog_report">回報</string>
   <string name="report_issue_dialog_collect_device_info">附上設備資訊</string>
-  <string name="report_issue_dialog_collect_installed_packages">附上已安裝的應用程式列表</string>
   <string name="report_issue_dialog_collect_application_log">附上應用程式日誌</string>
   <string name="report_issue_dialog_collect_wallet_dump">附上錢包傾印資料</string>
   <string name="report_issue_dialog_mail_intent_chooser">用其他方式寄送回報…</string>

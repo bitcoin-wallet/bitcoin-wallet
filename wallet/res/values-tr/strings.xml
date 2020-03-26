@@ -268,7 +268,6 @@
   <string name="report_issue_dialog_description">problem açıklaması</string>
   <string name="report_issue_dialog_report">Rapor et</string>
   <string name="report_issue_dialog_collect_device_info">Cihaz verileri ilâve et</string>
-  <string name="report_issue_dialog_collect_installed_packages">Kurulu paketlerin listesini ekle</string>
   <string name="report_issue_dialog_collect_application_log">Uygulama kütüğünü ilâve et</string>
   <string name="report_issue_dialog_collect_wallet_dump">Cüzdan dökümü ilâve et</string>
   <string name="report_issue_dialog_mail_intent_chooser">Raporu şununla gönder…</string>

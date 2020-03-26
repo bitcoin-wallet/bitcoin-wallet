@@ -269,7 +269,6 @@
   <string name="report_issue_dialog_description">hibaleírás</string>
   <string name="report_issue_dialog_report">Jelentés</string>
   <string name="report_issue_dialog_collect_device_info">Készülékinformáció csatolása</string>
-  <string name="report_issue_dialog_collect_installed_packages">A telepített csomagok listájának csatolása</string>
   <string name="report_issue_dialog_collect_application_log">Alkalmazás napló csatolása</string>
   <string name="report_issue_dialog_collect_wallet_dump">Tárca információk csatolása</string>
   <string name="report_issue_dialog_mail_intent_chooser">Hiba küldése ezzel…</string>

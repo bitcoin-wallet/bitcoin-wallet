@@ -213,7 +213,6 @@
   <string name="report_issue_dialog_description">وصف المشكلة</string>
   <string name="report_issue_dialog_report">إبلاغ</string>
   <string name="report_issue_dialog_collect_device_info">إرفاق معلومات الجهاز</string>
-  <string name="report_issue_dialog_collect_installed_packages">إرفاق قائمة بالحزم المثبتة</string>
   <string name="report_issue_dialog_collect_application_log">إرفاق سجل البرنامج</string>
   <string name="report_issue_dialog_collect_wallet_dump">إرفاق مهملات المحفظة</string>
   <string name="report_issue_dialog_mail_intent_chooser">إرسال التقرير بواسطة…</string>

@@ -262,7 +262,6 @@
   <string name="report_issue_dialog_description">descrição do problema</string>
   <string name="report_issue_dialog_report">Reportar</string>
   <string name="report_issue_dialog_collect_device_info">Acrescente informações sobre o dispositivo</string>
-  <string name="report_issue_dialog_collect_installed_packages">Anexar lista de pacotes instalados</string>
   <string name="report_issue_dialog_collect_application_log">Anexar log do aplicativo</string>
   <string name="report_issue_dialog_collect_wallet_dump">Anexar \"wallet dump\"</string>
   <string name="report_issue_dialog_mail_intent_chooser">Enviar relatório usando…</string>

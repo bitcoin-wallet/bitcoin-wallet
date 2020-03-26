@@ -289,7 +289,6 @@
   <string name="report_issue_dialog_description">opis težave</string>
   <string name="report_issue_dialog_report">Prijavi</string>
   <string name="report_issue_dialog_collect_device_info">Pripni podatke o napravi</string>
-  <string name="report_issue_dialog_collect_installed_packages">Dodaj seznam nameščenih paketov</string>
   <string name="report_issue_dialog_collect_application_log">Pripni aplikacijski zapisnik</string>
   <string name="report_issue_dialog_collect_wallet_dump">Pripni kopijo denarnice</string>
   <string name="report_issue_dialog_mail_intent_chooser">Pošlji poročilo z aplikacijo…</string>

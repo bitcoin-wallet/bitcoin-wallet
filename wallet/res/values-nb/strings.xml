@@ -265,7 +265,6 @@
   <string name="report_issue_dialog_description">problembeskrivelse</string>
   <string name="report_issue_dialog_report">Rapport</string>
   <string name="report_issue_dialog_collect_device_info">Legg ved enhetsinformasjon</string>
-  <string name="report_issue_dialog_collect_installed_packages">Legg ved liste over installerte pakker</string>
   <string name="report_issue_dialog_collect_application_log">Legg ved programlogg</string>
   <string name="report_issue_dialog_collect_wallet_dump">Legg ved dump av lommebok</string>
   <string name="report_issue_dialog_mail_intent_chooser">Send rapport ved hjelp av…</string>

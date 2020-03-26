@@ -280,7 +280,6 @@
   <string name="report_issue_dialog_description">Descripción de la incidencia</string>
   <string name="report_issue_dialog_report">Informe</string>
   <string name="report_issue_dialog_collect_device_info">Añadir información de dispositivo</string>
-  <string name="report_issue_dialog_collect_installed_packages">Adjuntar lista de paquetes instalados</string>
   <string name="report_issue_dialog_collect_application_log">Añadir registro de aplicación</string>
   <string name="report_issue_dialog_collect_wallet_dump">Añadir volcado de datos de la cartera</string>
   <string name="report_issue_dialog_mail_intent_chooser">Enviar informe mediante…</string>

@@ -163,7 +163,6 @@
   <string name="report_issue_dialog_description">תיאור הבעיה</string>
   <string name="report_issue_dialog_report">דיווח</string>
   <string name="report_issue_dialog_collect_device_info">הוסף מידע על המכשיר</string>
-  <string name="report_issue_dialog_collect_installed_packages">צרף רשימה של החבילות המותקנות</string>
   <string name="report_issue_dialog_collect_application_log">הוסף מידע מהאפליקציה</string>
   <string name="report_issue_dialog_collect_wallet_dump">הוסף</string>
   <string name="report_issue_dialog_mail_intent_chooser">שלח דוח באמצעות…</string>

@@ -146,7 +146,6 @@
 	<string name="report_issue_dialog_description">popis problému</string>
 	<string name="report_issue_dialog_report">Odoslať</string>
 	<string name="report_issue_dialog_collect_device_info">Pripojiť informácie o zariadení</string>
-	<string name="report_issue_dialog_collect_installed_packages">Pripojiť zoznam nainštalovaných balíčkov</string>
 	<string name="report_issue_dialog_collect_application_log">Pripojiť aplikačný log</string>
 	<string name="report_issue_dialog_collect_wallet_dump">Pripojiť dáta peňaženky</string>
 	<string name="report_issue_dialog_mail_intent_chooser">Odoslať správu použitím…</string>

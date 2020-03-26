@@ -228,7 +228,6 @@
   <string name="report_issue_dialog_description">opis problemu</string>
   <string name="report_issue_dialog_report">Zgłoś</string>
   <string name="report_issue_dialog_collect_device_info">Dołącz informacje o urządzeniu</string>
-  <string name="report_issue_dialog_collect_installed_packages">Dodaj listę zainstalowanych pakietów</string>
   <string name="report_issue_dialog_collect_application_log">Dołącz dziennik aplikacji</string>
   <string name="report_issue_dialog_collect_wallet_dump">Dołącz zrzut portfela</string>
   <string name="report_issue_dialog_mail_intent_chooser">Wyślij zgłoszenie używając…</string>

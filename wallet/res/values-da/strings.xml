@@ -288,7 +288,6 @@
   <string name="report_issue_dialog_description">problembeskrivelse</string>
   <string name="report_issue_dialog_report">Rapport</string>
   <string name="report_issue_dialog_collect_device_info">Tilføj enhedsinformation</string>
-  <string name="report_issue_dialog_collect_installed_packages">Tilføj liste over installerede pakker</string>
   <string name="report_issue_dialog_collect_application_log">Tilføj programlog</string>
   <string name="report_issue_dialog_collect_wallet_dump">Tilføj dump af tegnebog</string>
   <string name="report_issue_dialog_mail_intent_chooser">Send rapport ved hjælp af…</string>

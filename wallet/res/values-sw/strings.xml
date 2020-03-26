@@ -205,7 +205,6 @@
   <string name="report_issue_dialog_description">Kuelezea tatizo lako, tafadhali</string>
   <string name="report_issue_dialog_report">Ripoti</string>
   <string name="report_issue_dialog_collect_device_info">Habari ya simu</string>
-  <string name="report_issue_dialog_collect_installed_packages">Taarifa ya mipango imewekwa</string>
   <string name="report_issue_dialog_collect_application_log">Taarifa ya logi mpango</string>
   <string name="report_issue_dialog_collect_wallet_dump">Taarifa ya pochi ajali</string>
   <string name="report_issue_dialog_mail_intent_chooser">Soma ripoti kutumia…</string>

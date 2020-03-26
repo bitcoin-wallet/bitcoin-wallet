@@ -268,7 +268,6 @@
   <string name="report_issue_dialog_description">descripció del problema</string>
   <string name="report_issue_dialog_report">Reportar</string>
   <string name="report_issue_dialog_collect_device_info">Adjuntar informació de dispositiu</string>
-  <string name="report_issue_dialog_collect_installed_packages">Adjuntar llistat de paquets instal·lats</string>
   <string name="report_issue_dialog_collect_application_log">Adjuntar registre d\'aplicació</string>
   <string name="report_issue_dialog_collect_wallet_dump">Adjuntar buidat de dades de cartera.</string>
   <string name="report_issue_dialog_mail_intent_chooser">Enviant report utilitzant…</string>

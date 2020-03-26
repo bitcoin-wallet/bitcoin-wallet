@@ -289,7 +289,6 @@
   <string name="report_issue_dialog_description">description du problème</string>
   <string name="report_issue_dialog_report">Signaler</string>
   <string name="report_issue_dialog_collect_device_info">Ajouter les renseignements relatifs à l’appareil</string>
-  <string name="report_issue_dialog_collect_installed_packages">Ajouter la liste des paquets installés</string>
   <string name="report_issue_dialog_collect_application_log">Ajouter le journal de l’application</string>
   <string name="report_issue_dialog_collect_wallet_dump">Ajouter un vidage du porte-monnaie</string>
   <string name="report_issue_dialog_mail_intent_chooser">Envoyer le rapport avec…</string>

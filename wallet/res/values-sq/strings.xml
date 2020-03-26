@@ -220,7 +220,6 @@
   <string name="report_issue_dialog_description">Përshkrimi i problemit</string>
   <string name="report_issue_dialog_report">Raporti</string>
   <string name="report_issue_dialog_collect_device_info">Bashkangjit informacionin e pajisjes</string>
-  <string name="report_issue_dialog_collect_installed_packages">Bashkangjit listen a aplikacioneve të instaluara</string>
   <string name="report_issue_dialog_collect_application_log">Bashkangjitni \'log\' skedën e aplikacionit</string>
   <string name="report_issue_dialog_collect_wallet_dump">Bashkangjitni \'dump\' skedën e kuletës</string>
   <string name="report_issue_dialog_mail_intent_chooser">Dërgo raporting duke përdorur…</string>

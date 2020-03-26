@@ -276,7 +276,6 @@
   <string name="report_issue_dialog_description">Disgrifiad o\'r broblem</string>
   <string name="report_issue_dialog_report">Adroddiad</string>
   <string name="report_issue_dialog_collect_device_info">Atodi gwybodaeth y ddyfais</string>
-  <string name="report_issue_dialog_collect_installed_packages">Atodi rhestr o becynnau wedi\'u gosod</string>
   <string name="report_issue_dialog_collect_application_log">Atodi log ap</string>
   <string name="report_issue_dialog_collect_wallet_dump">Atodi dymp y waled</string>
   <string name="report_issue_dialog_mail_intent_chooser">Anfon adroddiad gan ddefnyddio…</string>

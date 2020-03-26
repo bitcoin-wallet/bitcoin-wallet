@@ -297,7 +297,6 @@
     <string name="report_issue_dialog_description">Problembeschreibung</string>
     <string name="report_issue_dialog_report">Senden</string>
     <string name="report_issue_dialog_collect_device_info">Geräte-Informationen anhängen</string>
-    <string name="report_issue_dialog_collect_installed_packages">Liste von installierten Paketen anhängen</string>
     <string name="report_issue_dialog_collect_application_log">Applikations-Logfile anhängen</string>
     <string name="report_issue_dialog_collect_wallet_dump">Dump der Wallet anhängen</string>
     <string name="report_issue_dialog_mail_intent_chooser">Bericht senden mit…</string>

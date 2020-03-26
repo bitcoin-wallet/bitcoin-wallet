@@ -277,7 +277,6 @@
   <string name="report_issue_dialog_description">описание проблемы</string>
   <string name="report_issue_dialog_report">Отчет</string>
   <string name="report_issue_dialog_collect_device_info">Добавить информацию об устройстве</string>
-  <string name="report_issue_dialog_collect_installed_packages">Добавить список установленных пакетов</string>
   <string name="report_issue_dialog_collect_application_log">Добавить лог приложения</string>
   <string name="report_issue_dialog_collect_wallet_dump">Добавить дамп памяти кошелька</string>
   <string name="report_issue_dialog_mail_intent_chooser">Отправить отчет используя…</string>

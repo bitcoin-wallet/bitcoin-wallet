@@ -17,9 +17,7 @@
 
 package de.schildbach.wallet.util;
 
-import android.content.Context;
 import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,9 +31,7 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.GregorianCalendar;
-import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -91,18 +87,6 @@ public class CrashReporter {
 
             out.append(line).append('\n');
         }
-    }
-
-    public static void appendInstalledPackages(final Appendable report, final Context context) throws IOException {
-        final PackageManager pm = context.getPackageManager();
-        final List<PackageInfo> installedPackages = pm.getInstalledPackages(0);
-
-        // sort by package name
-        Collections.sort(installedPackages, (lhs, rhs) -> lhs.packageName.compareTo(rhs.packageName));
-
-        for (final PackageInfo p : installedPackages)
-            report.append(String.format(Locale.US, "%s %s (%d) - %tF %tF\n", p.packageName, p.versionName,
-                    p.versionCode, p.firstInstallTime, p.lastUpdateTime));
     }
 
     public static void saveBackgroundTrace(final Throwable throwable, final PackageInfo packageInfo) {

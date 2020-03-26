@@ -172,7 +172,6 @@
   <string name="report_issue_dialog_description">περιγραφή ζητήματος</string>
   <string name="report_issue_dialog_report">Αναφορά</string>
   <string name="report_issue_dialog_collect_device_info">Επισύναψη πληροφοριών συσκευής</string>
-  <string name="report_issue_dialog_collect_installed_packages">Επισύναψη καταλόγου των εγκατεστημένων πακέτων</string>
   <string name="report_issue_dialog_collect_application_log">Επισύναψη αρχείου καταγραφής της εφαρμογής</string>
   <string name="report_issue_dialog_collect_wallet_dump">Επισύναψη αρχείου ένδειξης σφαλμάτων πορτοφολιού</string>
   <string name="report_issue_dialog_mail_intent_chooser">Αποστολή αναφοράς χρησιμοποιώντας…</string>

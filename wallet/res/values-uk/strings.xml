@@ -167,7 +167,6 @@
   <string name="report_issue_dialog_description">опис проблеми</string>
   <string name="report_issue_dialog_report">Звіт</string>
   <string name="report_issue_dialog_collect_device_info">Додати інформацію про пристрій</string>
-  <string name="report_issue_dialog_collect_installed_packages">Додати список встановлених пакетів</string>
   <string name="report_issue_dialog_collect_application_log">Додати лог додатку</string>
   <string name="report_issue_dialog_collect_wallet_dump">Додати дамп пам\'яті гаманця</string>
   <string name="report_issue_dialog_mail_intent_chooser">Відправити звіт використовуючи…</string>

@@ -263,7 +263,6 @@
   <string name="report_issue_dialog_description">problembeskrivning</string>
   <string name="report_issue_dialog_report">Rapportera</string>
   <string name="report_issue_dialog_collect_device_info">Bifoga enhetsinformation</string>
-  <string name="report_issue_dialog_collect_installed_packages">Expandera lista för installerade paket</string>
   <string name="report_issue_dialog_collect_application_log">Bifoga applikationslogg</string>
   <string name="report_issue_dialog_collect_wallet_dump">Bifoga plånboksdump</string>
   <string name="report_issue_dialog_mail_intent_chooser">Skicka rapport med…</string>
