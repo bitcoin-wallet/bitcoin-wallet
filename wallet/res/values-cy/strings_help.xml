@@ -109,7 +109,7 @@
             <b>Nodiadau technegol:</b>
         </p>
         <p>
-            Fel waled ysgafn/SPV, mae Bitcoin Wallet yn dilyn y gadwyn fwyaf prawf-o-waith (proof-of-work) (a elwir hefyd weithiau y \"gadwyn hiraf\" (the \"longest chain\"), y \"gadwyn ennill\" (the \"winning chain\"), neu\'r \"bloc-gadwyn Bitcoin\" (the \"Bitcoin blockchain\").)
+            Fel waled ysgafn/SPV, mae Bitcoin Wallet yn dilyn y gadwyn fwyaf prawf-o-waith (proof-of-work) (a elwir hefyd weithiau y \"gadwyn hiraf\" (the \"longest chain\"), y \"gadwyn ennill\" (the \"winning chain\"), neu\'r \"bloc-gadwyn Bitcoin\" (the \"Bitcoin block chain\").)
             Byddi ond yn medru derbyn taliadau i mewn a gwneud taliadau ar y gadwyn honno.
             Ni roddir unrhyw sicrwydd o ran Bitcoin ar gadwyni lleiafrifol, hynny yw cadwyni gyda llai prawf-o-waith.
         </p>

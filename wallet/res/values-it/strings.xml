@@ -248,9 +248,9 @@
   <string name="preferences_show_disclaimer_title">Controlla l\'esenzione delle responsabilità</string>
   <string name="preferences_show_disclaimer_summary">Hai veramente letto le note di sicurezza? Hai già fatto il backup del tuo portafogli in un posto sicuro?</string>
   <string name="preferences_report_issue_title">Segnala un problema</string>
-  <string name="preferences_initiate_reset_title">Reinizializza il blockchain</string>
-  <string name="preferences_initiate_reset_summary">Reinizializza il blockchain, transazioni e conto del portafoglio. Il processo impiegherà un po\'.</string>
-  <string name="preferences_initiate_reset_dialog_message">Vorresti riavviare e ripetere il blockchain?\n\nQuesto nasconderà temporaneamente il tuo bilancio dal portafoglio, e rimuoverà le transazioni. Entrambi saranno recuperati con la sincronizzazione del blockchain.</string>
+  <string name="preferences_initiate_reset_title">Reinizializza il block chain</string>
+  <string name="preferences_initiate_reset_summary">Reinizializza il block chain, transazioni e conto del portafoglio. Il processo impiegherà un po\'.</string>
+  <string name="preferences_initiate_reset_dialog_message">Vorresti riavviare e ripetere il block chain?\n\nQuesto nasconderà temporaneamente il tuo bilancio dal portafoglio, e rimuoverà le transazioni. Entrambi saranno recuperati con la sincronizzazione del block chain.</string>
   <string name="preferences_initiate_reset_dialog_positive">Reset</string>
   <string name="preferences_extended_public_key_title">Mostra extended public key</string>
   <string name="preferences_extended_public_key_summary">Mostra la chiave pubblica estesa del tuo portafoglio, in modo tale che possa essere importata su altre applicazioni e servizi. Fai attenzione: facendo ciò ti priverai della tua privacy monetaria nei confronti dell\'applicazione.</string>

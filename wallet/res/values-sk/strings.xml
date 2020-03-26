@@ -135,9 +135,9 @@
 	<string name="preferences_data_usage_title">Využitie dát</string>
 	<string name="preferences_data_usage_summary">Zobraziť možnosti na zabránenie využívaniu dát na mobilných sieťach.</string>
 	<string name="preferences_report_issue_title">Nahlásiť problém</string>
-	<string name="preferences_initiate_reset_title">Resetovať Blockchain</string>
-	<string name="preferences_initiate_reset_summary">Resetovať blockchain, transakcie a zostatok v peňaženke. Opätovné načítanie bude chvíľu trvať.</string>
-	<string name="preferences_initiate_reset_dialog_message">Chcete resetovať a znovu načítať blockchain?\n\nTáto operácia dočasne skryje zostatok a transakcie vo vašej peňaženke. Oboje sa opäť obnoví, keď sa blockchain synchronizuje.</string>
+	<string name="preferences_initiate_reset_title">Resetovať block chain</string>
+	<string name="preferences_initiate_reset_summary">Resetovať block chain, transakcie a zostatok v peňaženke. Opätovné načítanie bude chvíľu trvať.</string>
+	<string name="preferences_initiate_reset_dialog_message">Chcete resetovať a znovu načítať block chain?\n\nTáto operácia dočasne skryje zostatok a transakcie vo vašej peňaženke. Oboje sa opäť obnoví, keď sa block chain synchronizuje.</string>
 	<string name="preferences_initiate_reset_dialog_positive">Reset</string>
 	<string name="report_issue_dialog_title_issue">Nahlásiť problém</string>
 	<string name="report_issue_dialog_title_crash">Zistené predchádzajúce zlyhanie aplikácie</string>

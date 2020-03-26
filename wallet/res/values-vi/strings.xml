@@ -106,9 +106,9 @@
 	<string name="preferences_trusted_peer_only_title">Bỏ qua việc tìm kiếm kết nối ngang hàng thông thường</string>
 	<string name="preferences_trusted_peer_only_summary">Ngăn chặn kết nối đến bất kỳ mạng ngang hàng nào trừ danh sách được tin tưởng.</string>
 	<string name="preferences_report_issue_title">Báo cáo về lỗi</string>
-	<string name="preferences_initiate_reset_title">Thiết đặt lại blockchain</string>
+	<string name="preferences_initiate_reset_title">Thiết đặt lại block chain</string>
 	<string name="preferences_initiate_reset_summary">Thiết đặt lại</string>
-	<string name="preferences_initiate_reset_dialog_message">Bạn có muốn thiết đặt lại và replay đối với blockchain?\n\nĐiều này sẽ tạm thời ẩn đi trạng thái cân bằng ví tiền của bạn và loại bỏ các giao dịch. Cả hai phần này sẽ phục hồi trong tiến trình đồng bộ hóa blockchain.</string>
+	<string name="preferences_initiate_reset_dialog_message">Bạn có muốn thiết đặt lại và replay đối với block chain?\n\nĐiều này sẽ tạm thời ẩn đi trạng thái cân bằng ví tiền của bạn và loại bỏ các giao dịch. Cả hai phần này sẽ phục hồi trong tiến trình đồng bộ hóa block chain.</string>
 	<string name="preferences_initiate_reset_dialog_positive">Thiết đặt lại</string>
 	<string name="report_issue_dialog_title_issue">Báo cáo về lỗi</string>
 	<string name="report_issue_dialog_title_crash">Nhận dạng được lần tự động tắt trước đó</string>

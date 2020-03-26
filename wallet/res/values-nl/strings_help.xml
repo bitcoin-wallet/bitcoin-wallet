@@ -110,7 +110,7 @@
             <b>Technische opmerkingen:</b>
         </p>
         <p>
-            Als een SPV/light portemonnee, Bitcoin Wallet volgt de keten van de meeste \"proof-of-work\" (soms ook genaamd \"longest chain\", de \"winning chain\" of de \"Bitcoin blockchain\").
+            Als een SPV/light portemonnee, Bitcoin Wallet volgt de keten van de meeste \"proof-of-work\" (soms ook genaamd \"longest chain\", de \"winning chain\" of de \"Bitcoin block chain\").
             Je kan alleen inkomende betalingen ontvangen als je de mogelijkheid hebt om op die keten te kunnen betalen.
             Er zijn geen garanties voor Bitcoins of minderheidsketens (\"minority chains\"), dat zijn keten met minder \"proof-of-work\".
         </p>

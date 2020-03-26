@@ -190,9 +190,9 @@
   <string name="preferences_data_usage_title">Matumizi ya habari</string>
   <string name="preferences_data_usage_summary">Onyesha chaguo kuzuia matumizi ya data juu ya mitandao ya simu.</string>
   <string name="preferences_report_issue_title">Ripoti tatizo</string>
-  <string name="preferences_initiate_reset_title">Upya Blockchain</string>
-  <string name="preferences_initiate_reset_summary">Upya Blockchain, shughuli, na usalama ya pochi. Bambika itachukua muda mfupi.</string>
-  <string name="preferences_initiate_reset_dialog_message">Je, ungependa upya na bambika na Blockchain?\n\nHii muda kujificha pochi mizani yako na kuondoa shughuli. Wote itarejea kama Blockchain kubamba ikiendelea.</string>
+  <string name="preferences_initiate_reset_title">Upya block chain</string>
+  <string name="preferences_initiate_reset_summary">Upya block chain, shughuli, na usalama ya pochi. Bambika itachukua muda mfupi.</string>
+  <string name="preferences_initiate_reset_dialog_message">Je, ungependa upya na bambika na block chain?\n\nHii muda kujificha pochi mizani yako na kuondoa shughuli. Wote itarejea kama block chain kubamba ikiendelea.</string>
   <string name="preferences_initiate_reset_dialog_positive">Upya</string>
   <string name="preferences_extended_public_key_title">Soma extended public key</string>
   <string name="preferences_extended_public_key_summary">Mwambie kupanuliwa umma muhimu ya pochi yako, hivyo inaweza kuwa nje katika programu na huduma nyingine. Kuwa makini: kufanya hivyo itakuwa wazi siri yako ya fedha kwa programu hiyo.</string>

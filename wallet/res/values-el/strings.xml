@@ -159,9 +159,9 @@
   <string name="preferences_data_usage_title">Χρήση δεδομένων</string>
   <string name="preferences_data_usage_summary">Δείτε τις επιλογές για να περιορίσετε τη χρήση των δεδομένων σε κινητά δίκτυα.</string>
   <string name="preferences_report_issue_title">Αναφέρετε το πρόβλημα</string>
-  <string name="preferences_initiate_reset_title">Επαναφορά blockchain</string>
-  <string name="preferences_initiate_reset_summary">Επαναφορά blockchain, συναλλαγές και τα υπόλοιπα πορτοφολιού. Η επανάληψη θα πάρει λίγο χρόνο.</string>
-  <string name="preferences_initiate_reset_dialog_message">Θα θέλατε να επαναφέρετε και να επαναλάβετε το blockchain;\n\nΑυτό θα κρύψει προσωρινά το ποσό του πορτοφολιού σας και θα αφαιρέσει τις συναλλαγές. Και τα δύο θα ανακάμψουν καθώς ο συγχρονισμός του blockchain εξελίσσεται.</string>
+  <string name="preferences_initiate_reset_title">Επαναφορά block chain</string>
+  <string name="preferences_initiate_reset_summary">Επαναφορά block chain, συναλλαγές και τα υπόλοιπα πορτοφολιού. Η επανάληψη θα πάρει λίγο χρόνο.</string>
+  <string name="preferences_initiate_reset_dialog_message">Θα θέλατε να επαναφέρετε και να επαναλάβετε το block chain;\n\nΑυτό θα κρύψει προσωρινά το ποσό του πορτοφολιού σας και θα αφαιρέσει τις συναλλαγές. Και τα δύο θα ανακάμψουν καθώς ο συγχρονισμός του block chain εξελίσσεται.</string>
   <string name="preferences_initiate_reset_dialog_positive">Επαναφορά</string>
   <string name="preferences_extended_public_key_summary">Δείτε το εκτετεμένο δημόσιο κλειδί από το πορτοφόλι σας, έτσι ώστε να μπορέσετε να το εισάγετε σε άλλες εφαρμογές και υπηρεσίες. Να είστε προσεκτικοί: με αυτό τον τρόπο θα αποκαλύψετε τη νομισματική προστασία της ιδιωτικής σας ζωής σε αυτή την εφαρμογή.</string>
   <string name="extended_public_key_fragment_title">Εκτεταμένο Δημόσιο Κλειδί</string>

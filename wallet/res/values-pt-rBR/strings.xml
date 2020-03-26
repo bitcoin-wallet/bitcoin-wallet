@@ -245,9 +245,9 @@
   <string name="preferences_show_disclaimer_title">Mostrar aviso legal</string>
   <string name="preferences_show_disclaimer_summary">Você realmente leu as notas de segurança? Já fez backup de sua carteira para um lugar seguro?</string>
   <string name="preferences_report_issue_title">Informar problema</string>
-  <string name="preferences_initiate_reset_title">Reiniciar Blockchain</string>
-  <string name="preferences_initiate_reset_summary">Reseta a blockchain, as transações e o saldo da carteira. O replay irá demorar um pouco, então faça isso somente se você tiver certeza.</string>
-  <string name="preferences_initiate_reset_dialog_message">Você gostaria de resetar e replay a blockchain?\n\nIsso irá esconder temporariamente o saldo da sua carteira e remover as suas transações. Eles irão retornar assim que a sincronização da blockchain progredir. Certifique-se que você tem uma conexão de internet confiável.</string>
+  <string name="preferences_initiate_reset_title">Reiniciar block chain</string>
+  <string name="preferences_initiate_reset_summary">Reseta a block chain, as transações e o saldo da carteira. O replay irá demorar um pouco, então faça isso somente se você tiver certeza.</string>
+  <string name="preferences_initiate_reset_dialog_message">Você gostaria de resetar e replay a block chain?\n\nIsso irá esconder temporariamente o saldo da sua carteira e remover as suas transações. Eles irão retornar assim que a sincronização da block chain progredir. Certifique-se que você tem uma conexão de internet confiável.</string>
   <string name="preferences_initiate_reset_dialog_positive">Reiniciar</string>
   <string name="preferences_extended_public_key_title">Mostrar extended public key</string>
   <string name="preferences_extended_public_key_summary">Ver a chave pública estendida de sua carteira, para que possa ser importada para outros aplicativos e serviços. Tenha cuidado: isso irá divulgar a sua privacidade monetária para o app.</string>

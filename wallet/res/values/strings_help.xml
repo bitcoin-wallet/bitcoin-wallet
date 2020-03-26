@@ -109,7 +109,7 @@
             <b>Technical notes:</b>
         </p>
         <p>
-            As an SPV/light wallet, Bitcoin Wallet follows the chain of the most proof-of-work (sometimes also called the \"longest chain\", the \"winning chain\" or the \"Bitcoin blockchain\").
+            As an SPV/light wallet, Bitcoin Wallet follows the chain of the most proof-of-work (sometimes also called the \"longest chain\", the \"winning chain\" or the \"Bitcoin block chain\").
             You will only receive incoming payments and be able to pay on that chain.
             No guarantees can be made about Bitcoins on minority chains, that is chains with less proof-of-work.
         </p>

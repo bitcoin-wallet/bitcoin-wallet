@@ -59,7 +59,7 @@ public final class Constants {
      */
     public static final Script.ScriptType UPGRADE_OUTPUT_SCRIPT_TYPE = Script.ScriptType.P2WPKH;
 
-    /** Enable switch for synching of the blockchain */
+    /** Enable switch for synching of the block chain */
     public static final boolean ENABLE_BLOCKCHAIN_SYNC = true;
     /** Enable switch for fetching and showing of exchange rates */
     public static final boolean ENABLE_EXCHANGE_RATES = true;
