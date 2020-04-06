@@ -2,6 +2,7 @@
 <resources>
   <string name="toast_wallet_reset">ウォレットはリセットされました!\n復元には多少時間がかかります。</string>
   <string name="toast_start_external_document_failed">外部文書を開くためのウェブブラウザがインストールされていません。</string>
+  <string name="toast_start_storage_provider_selector_failed">利用できるクラウドストレージプロバイダがインストールされていません。\n\"Nextcloud\"や\"Google Drive\"などが必要です。</string>
   <string name="wallet_disclaimer_fragment_remind_safety">自己の責任においてご使用下さい。&lt;u&gt;安全に関する注意事項&lt;/u&gt;をお読み下さい。</string>
   <string name="wallet_disclaimer_fragment_remind_backup">&lt;u&gt;ウォレットをバックアップ&lt;/u&gt;する必要があります!</string>
   <string name="blockchain_state_progress_hours">%1$s, %2$d時間遅れ</string>
@@ -250,9 +251,14 @@
   <string name="preferences_own_name_dialog_message">短くしてください。</string>
   <string name="preferences_send_coins_autoclose_title">送金ダイアログを自動的に閉じる</string>
   <string name="preferences_send_coins_autoclose_summary">支払いが完了した際に、送金ダイアログを自動的に閉じます。</string>
+  <string name="preferences_sync_mode_title">データ使用量対プライバシー</string>
+  <string name="preferences_sync_mode_summary">ネットワークと同期する際の、データ使用量の削減とプライバシー向上のどちらかを選択をしてください。</string>
+  <string name="preferences_sync_mode_labels_connection_filter"><![CDATA[<b>低データ使用量:</b> ネットワークフィルタリングを使い、あなたのウォレットに関連するトランザクションのみを読み取ります。1月あたりの使用量は約500 MBとなりますが、フィルタの情報をネットワークに開示します。]]></string>
+  <string name="preferences_sync_mode_labels_full"><![CDATA[<b>プライバシー向上:</b> あなたのウォレットに関する情報をネットワークに開示しません。全てのトランザクションを読み取るため、1月あたり10 GBの通信量を使うため注意してください。この設定を使う前に、利用可能なデータ量を確認してください。]]></string>
   <string name="preferences_trusted_peer_title">信頼されたピア</string>
   <string name="preferences_trusted_peer_summary">接続する単一ピアのIPアドレスかホスト名。</string>
   <string name="preferences_trusted_peer_dialog_message">有効なIPアドレスかホスト名を入力してください。Torをセットアップ済みの場合、onionアドレスも利用できます。</string>
+  <string name="preferences_trusted_peer_dialog_message_multiple">複数の信頼できるピアを空白で区切って指定できます。</string>
   <string name="preferences_trusted_peer_resolve_progress">解決中……</string>
   <string name="preferences_trusted_peer_resolve_unknown_host">不明なホスト名です!</string>
   <string name="preferences_trusted_peer_only_title">通常のピア探索をスキップ</string>
