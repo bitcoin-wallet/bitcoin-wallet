@@ -1,4 +1,4 @@
-v8.0
+v8.0-v8.01
 
 * The app now requires Android 6.0 (Marshmallow) or higher.
 * On modern devices: Introduce a blockchain synchronization mode that prioritizes privacy vs data usage.
