@@ -108,14 +108,14 @@
 			<b>Notes techniques :</b>
 		</p>
 		<p>
-			En tant que porte-monnaie VPS (vérification de paiement simplifiée), léger, le porte-monnaie Bitcoin Wallet suit la chaîne de la plus grande preuve de travail (parfois aussi appelé « la chaîne à la plus longue », « la chaîne gagnante », ou la « chaîne de blocs Bitcoin »).
+			En tant que porte-monnaie VPS (vérification de paiement simplifiée), léger, le porte-monnaie Bitcoin Wallet suit la chaîne de la plus grande preuve de travail (parfois aussi appelé « la chaîne la plus longue », « la chaîne gagnante », ou la « chaîne de blocs Bitcoin »).
 			Vous ne pourrez recevoir des paiements entrants et ne pourrez payer que sur cette chaîne.
 			Il ne peut y avoir aucune garantie sur les bitcoins des chaînes minoritaires, c’est-à-dire les chaînes avec moins de preuve de travail.
 		</p>
 		<p>
 			Par le passé, les chaînes minoritaires ont toujours très rapidement perdu toute pertinence.
 			Si vous souhaitez quand même suivre une chaîne minoritaire, il vous est conseillé d’utiliser la fonction « Pair de confiance » pour vous connecter exclusivement à une instance de bitcoind qui utilise votre chaîne désirée.
-			Si l’on ne peut pas faire confiance au réseau entre votre porte-monnaie et le pair de confiance, utilisez un RPV pour certifier cette connexion.
+			Si le réseau entre votre porte-monnaie et le pair de confiance n’est pas digne de confiance, utilisez un RPV pour authentifier cette connexion.
 		</p>
 	]]>
 	</string>

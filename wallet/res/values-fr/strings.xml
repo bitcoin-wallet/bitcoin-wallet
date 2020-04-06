@@ -2,6 +2,7 @@
 <resources>
   <string name="toast_wallet_reset">Votre porte-monnaie a été réinitialisé !\nLa récupération prendra un certain temps.</string>
   <string name="toast_start_external_document_failed">Aucun navigateur Web n’est installé pour ouvrir le document externe.</string>
+  <string name="toast_start_storage_provider_selector_failed">Aucun fournisseur approprié de stockage nuagique n’est installé.\nVous devez en installer un tel que « Nextcloud » ou « Disque Google Drive ».</string>
   <string name="wallet_disclaimer_fragment_remind_safety">Utilisez à vos propres risques. Lire les &lt;u&gt;notes de sécurité&lt;/u&gt;.</string>
   <string name="wallet_disclaimer_fragment_remind_backup">Vous devez &lt;u&gt;sauvegarder votre porte-monnaie&lt;/u&gt; !</string>
   <string name="blockchain_state_progress_hours">%1$s, %2$d heures en retard</string>
@@ -250,6 +251,10 @@
   <string name="preferences_own_name_dialog_message">Soyez bref.</string>
   <string name="preferences_send_coins_autoclose_title">Fermer automatiquement la fenêtre d’envoi de pièces</string>
   <string name="preferences_send_coins_autoclose_summary">Une fois le paiement effectué, la fenêtre d’envoi sera fermée automatiquement.</string>
+  <string name="preferences_sync_mode_title">Utilisation des données ou confidentialité</string>
+  <string name="preferences_sync_mode_summary">Choisissez entre une faible utilisation des données ou une confidentialité améliorée lors de la synchronisation avec le réseau.</string>
+  <string name="preferences_sync_mode_labels_connection_filter"><![CDATA[<b>Faible utilisation des données :</b> Ayez recours au filtrage du réseau pour ne lire que les transactions pertinentes pour votre porte-monnaie. 500 Mo seront utilisés par mois, mais le filtre sera divulgué au réseau.]]></string>
+  <string name="preferences_sync_mode_labels_full"><![CDATA[<b>Confidentialité améliorée :</b> Aucun renseignement sur votre porte-monnaie ne sera divulgué au réseau. Sachez que toutes les transactions seront lues, pour une utilisation très volumineuse de 10 Go par mois. Avant d’utiliser cette option, veuillez vérifier votre quantité de données autorisée.]]></string>
   <string name="preferences_trusted_peer_title">Pair de confiance</string>
   <string name="preferences_trusted_peer_summary">IP ou nom d’hôte d’un pair auquel se connecter.</string>
   <string name="preferences_trusted_peer_dialog_message">Veuillez saisir une adresse IP ou un nom d’hôte valides. Si vous utilisez Tor, vous pouvez aussi utiliser une adresse onion ici.</string>
