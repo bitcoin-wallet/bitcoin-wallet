@@ -629,6 +629,7 @@ public class BlockchainService extends LifecycleService {
                 peerGroup.setMaxConnections(trustedPeerOnly ? 0 : maxConnectedPeers);
                 peerGroup.setConnectTimeoutMillis(Constants.PEER_TIMEOUT_MS);
                 peerGroup.setPeerDiscoveryTimeoutMillis(Constants.PEER_DISCOVERY_TIMEOUT_MS);
+                peerGroup.setStallThreshold(20, Block.HEADER_SIZE * 10);
 
                 final ResolveDnsTask resolveDnsTask = new ResolveDnsTask(backgroundHandler) {
                     @Override
