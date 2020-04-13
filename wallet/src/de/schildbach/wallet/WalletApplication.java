@@ -354,7 +354,7 @@ public class WalletApplication extends Application {
     }
 
     public boolean fullSyncCapable() {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && activityManager.getMemoryClass() >= 128;
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && activityManager.getMemoryClass() >= 128;
     }
 
     public static String versionLine(final PackageInfo packageInfo) {
