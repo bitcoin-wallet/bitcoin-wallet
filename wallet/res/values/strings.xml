@@ -253,7 +253,7 @@
     <string name="preferences_send_coins_autoclose_summary">When the payment is made, the send dialog will close automatically.</string>
     <string name="preferences_sync_mode_title">Data Usage vs. Privacy</string>
     <string name="preferences_sync_mode_summary">Choose between low data usage and improved privacy when synchronizing with the network.</string>
-    <string name="preferences_sync_mode_labels_connection_filter"><![CDATA[<b>Low Data Usage:</b> Use network filtering to read only transactions relevant to your wallet. It will use about 500 MB per month, but will disclose the filter to the network.]]></string>
+    <string name="preferences_sync_mode_labels_connection_filter"><![CDATA[<b>Low data usage:</b> Use network filtering to read only transactions relevant to your wallet. It will use about 500 MB per month, but will disclose the filter to the network.]]></string>
     <string name="preferences_sync_mode_labels_full"><![CDATA[<b>Improved privacy:</b> Will not disclose any information about your wallet to the network. Be aware that because all transactions are read, this will use a hefty 10 GB per month. Before using this please check your data allowance.]]></string>
     <string name="preferences_trusted_peer_title">Trusted peer</string>
     <string name="preferences_trusted_peer_summary">IP or hostname of single peer to connect to.</string>
