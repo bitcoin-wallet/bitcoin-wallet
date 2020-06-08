@@ -253,7 +253,7 @@
   <string name="preferences_send_coins_autoclose_summary">Une fois le paiement effectué, la fenêtre d’envoi sera fermée automatiquement.</string>
   <string name="preferences_sync_mode_title">Utilisation des données ou confidentialité</string>
   <string name="preferences_sync_mode_summary">Choisissez entre une faible utilisation des données ou une confidentialité améliorée lors de la synchronisation avec le réseau.</string>
-  <string name="preferences_sync_mode_labels_connection_filter"><![CDATA[<b>Faible utilisation des données :</b> Ayez recours au filtrage du réseau pour ne lire que les transactions pertinentes pour votre porte-monnaie. 500 Mo seront utilisés par mois, mais le filtre sera divulgué au réseau.]]></string>
+  <string name="preferences_sync_mode_labels_connection_filter"><![CDATA[<b>Faible utilisation des données :</b> Faites appel au filtrage du réseau pour ne lire que les transactions pertinentes pour votre porte-monnaie. 500 Mo seront utilisés par mois, mais le filtre sera divulgué au réseau.]]></string>
   <string name="preferences_sync_mode_labels_full"><![CDATA[<b>Confidentialité améliorée :</b> Aucun renseignement sur votre porte-monnaie ne sera divulgué au réseau. Sachez que toutes les transactions seront lues, pour une utilisation très volumineuse de 10 Go par mois. Avant d’utiliser cette option, veuillez vérifier votre quantité de données autorisée.]]></string>
   <string name="preferences_trusted_peer_title">Pair de confiance</string>
   <string name="preferences_trusted_peer_summary">IP ou nom d’hôte d’un pair auquel se connecter.</string>
