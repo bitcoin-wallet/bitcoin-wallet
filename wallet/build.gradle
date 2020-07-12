@@ -25,7 +25,9 @@ dependencies {
     implementation 'com.google.protobuf:protobuf-java:3.7.1'
     implementation 'com.google.guava:guava:29.0-android'
     implementation 'com.google.zxing:core:3.3.3'
+    //noinspection GradleDependency
     implementation 'com.squareup.okhttp3:okhttp:3.14.9'
+    //noinspection GradleDependency
     implementation 'com.squareup.okhttp3:logging-interceptor:3.14.9'
     implementation 'com.squareup.moshi:moshi:1.9.2'
     implementation 'org.slf4j:slf4j-api:1.7.30'
