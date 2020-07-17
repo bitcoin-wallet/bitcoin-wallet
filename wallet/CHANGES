@@ -1,3 +1,7 @@
+v8.04
+
+* Trusted peers with custom TCP ports are now supported. Use the IPv4:port or [IPv6]:port syntax.
+
 v8.0-v8.03
 
 * The app now requires Android 6.0 (Marshmallow) or higher.
