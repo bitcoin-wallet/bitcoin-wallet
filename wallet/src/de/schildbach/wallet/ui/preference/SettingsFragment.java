@@ -38,6 +38,7 @@ import android.text.Html;
 import android.text.InputFilter;
 import android.text.Spanned;
 import android.text.TextWatcher;
+import com.google.common.net.HostAndPort;
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.R;
@@ -46,7 +47,7 @@ import de.schildbach.wallet.util.Bluetooth;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.net.InetAddress;
+import java.net.InetSocketAddress;
 import java.util.Locale;
 import java.util.Set;
 
@@ -168,7 +169,7 @@ public final class SettingsFragment extends PreferenceFragment implements OnPref
     }
 
     private void updateTrustedPeer() {
-        final Set<String> trustedPeers = config.getTrustedPeers();
+        final Set<HostAndPort> trustedPeers = config.getTrustedPeers();
         if (trustedPeers.isEmpty()) {
             trustedPeerPreference.setSummary(R.string.preferences_trusted_peer_summary);
             trustedPeerOnlyPreference.setEnabled(false);
@@ -176,19 +177,19 @@ public final class SettingsFragment extends PreferenceFragment implements OnPref
             trustedPeerPreference.setSummary(R.string.preferences_trusted_peer_resolve_progress);
             trustedPeerOnlyPreference.setEnabled(true);
 
-            for (final String trustedPeer : trustedPeers) {
+            for (final HostAndPort trustedPeer : trustedPeers) {
                 new ResolveDnsTask(backgroundHandler) {
                     @Override
-                    protected void onSuccess(final InetAddress address) {
+                    protected void onSuccess(final InetSocketAddress socketAddress) {
                         appendToTrustedPeerSummary(Constants.CHAR_CHECKMARK + " " + trustedPeer);
-                        log.info("trusted peer '{}' resolved to {}", trustedPeer, address);
+                        log.info("trusted peer '{}' resolved to {}", trustedPeer, socketAddress);
                     }
 
                     @Override
-                    protected void onUnknownHost(final String hostname) {
-                        appendToTrustedPeerSummary(Constants.CHAR_CROSSMARK + " " + hostname + " – " +
+                    protected void onUnknownHost(final HostAndPort hostAndPort) {
+                        appendToTrustedPeerSummary(Constants.CHAR_CROSSMARK + " " + hostAndPort + " – " +
                                 getString(R.string.preferences_trusted_peer_resolve_unknown_host));
-                        log.info("trusted peer '{}' unknown host", hostname);
+                        log.info("trusted peer '{}' unknown host", hostAndPort);
                     }
                 }.resolve(trustedPeer);
             }

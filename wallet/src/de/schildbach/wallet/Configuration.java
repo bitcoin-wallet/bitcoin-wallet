@@ -24,6 +24,7 @@ import android.net.Uri;
 import android.text.format.DateUtils;
 import com.google.common.base.Splitter;
 import com.google.common.base.Strings;
+import com.google.common.net.HostAndPort;
 import de.schildbach.wallet.util.Formats;
 import org.bitcoinj.core.Coin;
 import org.bitcoinj.utils.MonetaryFormat;
@@ -145,12 +146,12 @@ public class Configuration {
         FULL
     }
 
-    public Set<String> getTrustedPeers() {
+    public Set<HostAndPort> getTrustedPeers() {
         final String trustedPeersStr = prefs.getString(PREFS_KEY_TRUSTED_PEERS, "");
-        final Set<String> trustedPeers = new HashSet<>();
+        final Set<HostAndPort> trustedPeers = new HashSet<>();
         for (final String trustedPeer :
                 Splitter.on(Formats.PATTERN_WHITESPACE).trimResults().omitEmptyStrings().split(trustedPeersStr))
-            trustedPeers.add(trustedPeer);
+            trustedPeers.add(HostAndPort.fromString(trustedPeer));
         return trustedPeers;
     }
 

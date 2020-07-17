@@ -44,6 +44,7 @@ import androidx.lifecycle.LifecycleService;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import com.google.common.base.Stopwatch;
+import com.google.common.net.HostAndPort;
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.R;
@@ -67,6 +68,7 @@ import org.bitcoinj.core.CheckpointManager;
 import org.bitcoinj.core.Coin;
 import org.bitcoinj.core.FilteredBlock;
 import org.bitcoinj.core.Peer;
+import org.bitcoinj.core.PeerAddress;
 import org.bitcoinj.core.PeerGroup;
 import org.bitcoinj.core.Sha256Hash;
 import org.bitcoinj.core.StoredBlock;
@@ -93,7 +95,7 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.InetAddress;
+import java.net.InetSocketAddress;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.EnumSet;
@@ -623,7 +625,7 @@ public class BlockchainService extends LifecycleService {
                 peerGroup.addDisconnectedEventListener(peerConnectivityListener);
 
                 final int maxConnectedPeers = application.maxConnectedPeers();
-                final Set<String> trustedPeers = config.getTrustedPeers();
+                final Set<HostAndPort> trustedPeers = config.getTrustedPeers();
                 final boolean trustedPeerOnly = config.isTrustedPeersOnly();
 
                 peerGroup.setMaxConnections(trustedPeerOnly ? 0 : maxConnectedPeers);
@@ -633,18 +635,18 @@ public class BlockchainService extends LifecycleService {
 
                 final ResolveDnsTask resolveDnsTask = new ResolveDnsTask(backgroundHandler) {
                     @Override
-                    protected void onSuccess(final InetAddress address) {
-                        log.info("trusted peer '{}'" + (trustedPeerOnly ? " only" : ""), address);
-                        if (address != null)
-                            peerGroup.addAddress(address, 10);
+                    protected void onSuccess(final InetSocketAddress socketAddress) {
+                        log.info("trusted peer '{}'" + (trustedPeerOnly ? " only" : ""), socketAddress);
+                        if (socketAddress != null)
+                            peerGroup.addAddress(new PeerAddress(Constants.NETWORK_PARAMETERS, socketAddress), 10);
                     }
 
                     @Override
-                    protected void onUnknownHost(final String hostname) {
-                        log.info("trusted peer '{}' unknown host", hostname);
+                    protected void onUnknownHost(final HostAndPort hostAndPort) {
+                        log.info("trusted peer '{}' unknown host", hostAndPort);
                     }
                 };
-                for (final String trustedPeer : trustedPeers)
+                for (final HostAndPort trustedPeer : trustedPeers)
                     resolveDnsTask.resolve(trustedPeer);
 
                 if (!trustedPeerOnly) {
