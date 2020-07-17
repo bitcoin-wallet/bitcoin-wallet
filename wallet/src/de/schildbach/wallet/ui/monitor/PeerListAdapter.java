@@ -33,8 +33,10 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.common.hash.HashFunction;
 import com.google.common.hash.Hashing;
+import com.google.common.net.HostAndPort;
 import de.schildbach.wallet.R;
 import org.bitcoinj.core.Peer;
+import org.bitcoinj.core.PeerAddress;
 import org.bitcoinj.core.VersionMessage;
 
 import java.net.InetAddress;
@@ -53,9 +55,12 @@ public class PeerListAdapter extends ListAdapter<PeerListAdapter.ListItem, PeerL
             final Map<InetAddress, String> hostnames) {
         final List<ListItem> items = new ArrayList<>(peers.size());
         for (final Peer peer : peers) {
-            final InetAddress ip = peer.getAddress().getAddr();
-            final String hostname = hostnames.get(ip);
-            final String host = hostname != null ? hostname : ip.getHostAddress();
+            final PeerAddress peerAddress = peer.getAddress();
+            final InetAddress inetAddress = peerAddress.getAddr();
+            final String ip = inetAddress.getHostAddress();
+            final HostAndPort hostAndPort = HostAndPort.fromParts(ip, peerAddress.getPort());
+            final String hostname = hostnames.get(inetAddress);
+            final String host = hostname != null ? hostname : ip;
             final long height = peer.getBestHeight();
             final VersionMessage versionMessage = peer.getPeerVersionMessage();
             final String version = versionMessage.subVer;
@@ -71,7 +76,7 @@ public class PeerListAdapter extends ListAdapter<PeerListAdapter.ListItem, PeerL
             } else {
                 icon = null;
             }
-            items.add(new ListItem(ip, host, height, version, protocol, services, ping, icon));
+            items.add(new ListItem(hostAndPort, host, height, version, protocol, services, ping, icon));
         }
         return items;
     }
@@ -80,7 +85,7 @@ public class PeerListAdapter extends ListAdapter<PeerListAdapter.ListItem, PeerL
         // internal item id
         public final long id;
         // external item id
-        public final InetAddress ip;
+        public final HostAndPort hostAndPort;
 
         public final String host;
         public final long height;
@@ -90,10 +95,10 @@ public class PeerListAdapter extends ListAdapter<PeerListAdapter.ListItem, PeerL
         public final String ping;
         public final Drawable icon;
 
-        public ListItem(final InetAddress ip, final String host, final long height, final String version,
+        public ListItem(final HostAndPort hostAndPort, final String host, final long height, final String version,
                         final String protocol, final String services, final String ping, final Drawable icon) {
-            this.id = id(ip);
-            this.ip = ip;
+            this.id = id(hostAndPort);
+            this.hostAndPort = hostAndPort;
             this.host = host;
             this.height = height;
             this.version = version;
@@ -103,15 +108,16 @@ public class PeerListAdapter extends ListAdapter<PeerListAdapter.ListItem, PeerL
             this.icon = icon;
         }
 
-        private static long id(final InetAddress ip) {
-            return ID_HASH.newHasher().putBytes(ip.getAddress()).hash().asLong();
+        private static long id(final HostAndPort hostAndPort) {
+            return ID_HASH.newHasher().putUnencodedChars(hostAndPort.getHost()).putInt(hostAndPort.getPort())
+                    .hash().asLong();
         }
 
         private static final HashFunction ID_HASH = Hashing.farmHashFingerprint64();
     }
 
     public interface OnClickListener {
-        void onPeerClick(View view, InetAddress peerIp);
+        void onPeerClick(View view, HostAndPort peerHostAndPort);
     }
 
     private final LayoutInflater inflater;
@@ -125,7 +131,7 @@ public class PeerListAdapter extends ListAdapter<PeerListAdapter.ListItem, PeerL
     @Nullable
     private final OnClickListener onClickListener;
     @Nullable
-    private InetAddress selectedPeerIp;
+    private HostAndPort selectedPeerHostAndPort;
 
     public PeerListAdapter(final Context context, @Nullable final OnClickListener onClickListener) {
         super(new DiffUtil.ItemCallback<ListItem>() {
@@ -167,23 +173,23 @@ public class PeerListAdapter extends ListAdapter<PeerListAdapter.ListItem, PeerL
     }
 
     @MainThread
-    public void setSelectedPeer(final InetAddress newSelectedPeerIp) {
-        if (Objects.equals(newSelectedPeerIp, selectedPeerIp))
+    public void setSelectedPeer(final HostAndPort newSelectedPeerHostAndPort) {
+        if (Objects.equals(newSelectedPeerHostAndPort, selectedPeerHostAndPort))
             return;
-        if (selectedPeerIp != null)
-            notifyItemChanged(positionOf(selectedPeerIp), EnumSet.of(ChangeType.SELECTION));
-        if (newSelectedPeerIp != null)
-            notifyItemChanged(positionOf(newSelectedPeerIp), EnumSet.of(ChangeType.SELECTION));
-        this.selectedPeerIp = newSelectedPeerIp;
+        if (selectedPeerHostAndPort != null)
+            notifyItemChanged(positionOf(selectedPeerHostAndPort), EnumSet.of(ChangeType.SELECTION));
+        if (newSelectedPeerHostAndPort != null)
+            notifyItemChanged(positionOf(newSelectedPeerHostAndPort), EnumSet.of(ChangeType.SELECTION));
+        this.selectedPeerHostAndPort = newSelectedPeerHostAndPort;
     }
 
     @MainThread
-    public int positionOf(final InetAddress peerIp) {
-        if (peerIp != null) {
+    public int positionOf(final HostAndPort peerHostAndPort) {
+        if (peerHostAndPort != null) {
             final List<ListItem> list = getCurrentList();
             for (int i = 0; i < list.size(); i++) {
                 final ListItem item = list.get(i);
-                if (item.ip.equals(peerIp))
+                if (item.hostAndPort.equals(peerHostAndPort))
                     return i;
             }
         }
@@ -215,7 +221,7 @@ public class PeerListAdapter extends ListAdapter<PeerListAdapter.ListItem, PeerL
 
         final ListItem listItem = getItem(position);
         if (fullBind || changes.contains(ChangeType.SELECTION)) {
-            final boolean isSelected = listItem.ip.equals(selectedPeerIp);
+            final boolean isSelected = listItem.hostAndPort.equals(selectedPeerHostAndPort);
             holder.itemView.setSelected(isSelected);
             ((CardView) holder.itemView).setCardElevation(isSelected ? cardElevationSelected : 0);
         }
@@ -234,7 +240,7 @@ public class PeerListAdapter extends ListAdapter<PeerListAdapter.ListItem, PeerL
             holder.protocolView.setText(listItem.protocol);
             holder.servicesView.setText(listItem.services);
             if (onClickListener != null)
-                holder.itemView.setOnClickListener(v -> onClickListener.onPeerClick(v, listItem.ip));
+                holder.itemView.setOnClickListener(v -> onClickListener.onPeerClick(v, listItem.hostAndPort));
         }
     }
 

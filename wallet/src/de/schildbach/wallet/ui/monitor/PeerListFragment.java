@@ -27,11 +27,11 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import com.google.common.net.HostAndPort;
 import de.schildbach.wallet.R;
 import de.schildbach.wallet.ui.AbstractWalletActivity;
 import org.bitcoinj.core.Peer;
 
-import java.net.InetAddress;
 import java.util.List;
 
 /**
@@ -58,10 +58,10 @@ public final class PeerListFragment extends Fragment implements PeerListAdapter.
         super.onCreate(savedInstanceState);
         activityViewModel = new ViewModelProvider(activity).get(NetworkMonitorViewModel.class);
         activityViewModel.selectedItem.observe(this, item -> {
-            if (item instanceof InetAddress) {
-                final InetAddress peerIp = (InetAddress) item;
-                adapter.setSelectedPeer(peerIp);
-                final int position = adapter.positionOf(peerIp);
+            if (item instanceof HostAndPort) {
+                final HostAndPort peerHostAndPort = (HostAndPort) item;
+                adapter.setSelectedPeer(peerHostAndPort);
+                final int position = adapter.positionOf(peerHostAndPort);
                 if (position != RecyclerView.NO_POSITION)
                     recyclerView.smoothScrollToPosition(position);
             } else {
@@ -100,7 +100,7 @@ public final class PeerListFragment extends Fragment implements PeerListAdapter.
     }
 
     @Override
-    public void onPeerClick(final View view, final InetAddress peerIp) {
-        activityViewModel.selectedItem.setValue(peerIp);
+    public void onPeerClick(final View view, final HostAndPort peerpeerHostAndPort) {
+        activityViewModel.selectedItem.setValue(peerpeerHostAndPort);
     }
 }
