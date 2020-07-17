@@ -34,6 +34,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.common.hash.HashFunction;
 import com.google.common.hash.Hashing;
 import com.google.common.net.HostAndPort;
+import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.R;
 import org.bitcoinj.core.Peer;
 import org.bitcoinj.core.PeerAddress;
@@ -58,9 +59,15 @@ public class PeerListAdapter extends ListAdapter<PeerListAdapter.ListItem, PeerL
             final PeerAddress peerAddress = peer.getAddress();
             final InetAddress inetAddress = peerAddress.getAddr();
             final String ip = inetAddress.getHostAddress();
-            final HostAndPort hostAndPort = HostAndPort.fromParts(ip, peerAddress.getPort());
+            final int port = peerAddress.getPort();
+            final HostAndPort hostAndPort = HostAndPort.fromParts(ip, port);
             final String hostname = hostnames.get(inetAddress);
-            final String host = hostname != null ? hostname : ip;
+            final String displayHost = hostname != null ? hostname : ip;
+            final HostAndPort displayHostAndPort;
+            if (port != Constants.NETWORK_PARAMETERS.getPort())
+                displayHostAndPort = HostAndPort.fromParts(displayHost, port);
+            else
+                displayHostAndPort = HostAndPort.fromHost(displayHost);
             final long height = peer.getBestHeight();
             final VersionMessage versionMessage = peer.getPeerVersionMessage();
             final String version = versionMessage.subVer;
@@ -76,7 +83,7 @@ public class PeerListAdapter extends ListAdapter<PeerListAdapter.ListItem, PeerL
             } else {
                 icon = null;
             }
-            items.add(new ListItem(hostAndPort, host, height, version, protocol, services, ping, icon));
+            items.add(new ListItem(hostAndPort, displayHostAndPort, height, version, protocol, services, ping, icon));
         }
         return items;
     }
@@ -87,7 +94,7 @@ public class PeerListAdapter extends ListAdapter<PeerListAdapter.ListItem, PeerL
         // external item id
         public final HostAndPort hostAndPort;
 
-        public final String host;
+        public final HostAndPort displayHostAndPort;
         public final long height;
         public final String version;
         public final String protocol;
@@ -95,11 +102,12 @@ public class PeerListAdapter extends ListAdapter<PeerListAdapter.ListItem, PeerL
         public final String ping;
         public final Drawable icon;
 
-        public ListItem(final HostAndPort hostAndPort, final String host, final long height, final String version,
-                        final String protocol, final String services, final String ping, final Drawable icon) {
+        public ListItem(final HostAndPort hostAndPort, final HostAndPort displayHostAndPort, final long height,
+                        final String version, final String protocol, final String services, final String ping,
+                        final Drawable icon) {
             this.id = id(hostAndPort);
             this.hostAndPort = hostAndPort;
-            this.host = host;
+            this.displayHostAndPort = displayHostAndPort;
             this.height = height;
             this.version = version;
             this.protocol = protocol;
@@ -142,7 +150,7 @@ public class PeerListAdapter extends ListAdapter<PeerListAdapter.ListItem, PeerL
 
             @Override
             public boolean areContentsTheSame(final ListItem oldItem, final ListItem newItem) {
-                if (!Objects.equals(oldItem.host, newItem.host))
+                if (!Objects.equals(oldItem.displayHostAndPort, newItem.displayHostAndPort))
                     return false;
                 if (!Objects.equals(oldItem.ping, newItem.ping))
                     return false;
@@ -155,7 +163,7 @@ public class PeerListAdapter extends ListAdapter<PeerListAdapter.ListItem, PeerL
             @Override
             public Object getChangePayload(final ListItem oldItem, final ListItem newItem) {
                 final EnumSet<ChangeType> changes = EnumSet.noneOf(ChangeType.class);
-                if (!Objects.equals(oldItem.host, newItem.host))
+                if (!Objects.equals(oldItem.displayHostAndPort, newItem.displayHostAndPort))
                     changes.add(ChangeType.HOST);
                 if (!Objects.equals(oldItem.ping, newItem.ping))
                     changes.add(ChangeType.PING);
@@ -226,7 +234,7 @@ public class PeerListAdapter extends ListAdapter<PeerListAdapter.ListItem, PeerL
             ((CardView) holder.itemView).setCardElevation(isSelected ? cardElevationSelected : 0);
         }
         if (fullBind || changes.contains(ChangeType.HOST)) {
-            holder.hostView.setText(listItem.host);
+            holder.hostView.setText(listItem.displayHostAndPort.toString());
         }
         if (fullBind || changes.contains(ChangeType.PING)) {
             holder.pingView.setText(listItem.ping);
