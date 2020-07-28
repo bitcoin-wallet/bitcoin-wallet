@@ -150,8 +150,13 @@ public class Configuration {
         final String trustedPeersStr = prefs.getString(PREFS_KEY_TRUSTED_PEERS, "");
         final Set<HostAndPort> trustedPeers = new HashSet<>();
         for (final String trustedPeer :
-                Splitter.on(Formats.PATTERN_WHITESPACE).trimResults().omitEmptyStrings().split(trustedPeersStr))
-            trustedPeers.add(HostAndPort.fromString(trustedPeer));
+                Splitter.on(Formats.PATTERN_WHITESPACE).trimResults().omitEmptyStrings().split(trustedPeersStr)) {
+            try {
+                trustedPeers.add(HostAndPort.fromString(trustedPeer));
+            } catch (final IllegalArgumentException x) {
+                log.info("cannot parse: {}", trustedPeer);
+            }
+        }
         return trustedPeers;
     }
 
