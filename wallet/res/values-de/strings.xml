@@ -13,7 +13,7 @@
     <string name="blockchain_state_progress_downloading">Synchronisiere mit Netzwerk</string>
     <string name="blockchain_state_progress_stalled">Synchronisation blockiert</string>
     <string name="blockchain_state_progress_problem_storage">Problem mit Synchronisation: Geringer Speicherplatz</string>
-    <string name="blockchain_state_progress_problem_network">Synchronisation: Netzwerk-Problem</string>
+    <string name="blockchain_state_progress_problem_network">Problem mit Synchronisation: Keine Netzwerkverbindung</string>
     <string name="wallet_address_fragment_clipboard_msg">Bitcoin-Adresse ins Clipboard kopiert</string>
     <string name="wallet_address_dialog_fragment_hint">Um deine Privatsphäre zu schützen, ändert sich deine Adresse sobald sie eine Zahlung empfängt.</string>
     <string name="wallet_balance_fragment_insecure_device">Dein Gerät ist alt und unsicher. Bitte nutze es nur für kleine Beträge.</string>
