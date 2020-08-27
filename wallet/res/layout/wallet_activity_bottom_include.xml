@@ -5,6 +5,7 @@
     android:layout_height="wrap_content"
     android:background="@color/bg_action_bar"
     android:divider="@drawable/divider_dark"
+    android:animateLayoutChanges="true"
     android:orientation="vertical"
     android:showDividers="middle">
 
