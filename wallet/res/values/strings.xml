@@ -11,7 +11,7 @@
     <string name="blockchain_state_progress_months">%1$s, %2$d months behind</string>
     <string name="blockchain_state_progress_downloading">Synchronizing with network</string>
     <string name="blockchain_state_progress_stalled">Synchronization stalled</string>
-    <string name="blockchain_state_progress_problem_storage">Synchronizing: Storage problem</string>
+    <string name="blockchain_state_progress_problem_storage">Problem with synchronization: Low storage space</string>
     <string name="blockchain_state_progress_problem_network">Synchronizing: Network problem</string>
     <string name="wallet_address_fragment_clipboard_msg">Bitcoin address copied to clipboard</string>
     <string name="wallet_address_dialog_fragment_hint">To protect your privacy, your address will change once it receives a payment.</string>
