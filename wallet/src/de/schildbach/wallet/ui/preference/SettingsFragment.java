@@ -180,9 +180,10 @@ public final class SettingsFragment extends PreferenceFragment implements OnPref
             for (final HostAndPort trustedPeer : trustedPeers) {
                 new ResolveDnsTask(backgroundHandler) {
                     @Override
-                    protected void onSuccess(final InetSocketAddress socketAddress) {
-                        appendToTrustedPeerSummary(Constants.CHAR_CHECKMARK + " " + trustedPeer);
-                        log.info("trusted peer '{}' resolved to {}", trustedPeer, socketAddress);
+                    protected void onSuccess(final HostAndPort hostAndPort, final InetSocketAddress socketAddress) {
+                        appendToTrustedPeerSummary(Constants.CHAR_CHECKMARK + " " + hostAndPort);
+                        log.info("trusted peer '{}' resolved to {}", hostAndPort,
+                                socketAddress.getAddress().getHostAddress());
                     }
 
                     @Override

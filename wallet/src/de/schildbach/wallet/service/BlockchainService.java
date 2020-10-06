@@ -635,8 +635,9 @@ public class BlockchainService extends LifecycleService {
 
                 final ResolveDnsTask resolveDnsTask = new ResolveDnsTask(backgroundHandler) {
                     @Override
-                    protected void onSuccess(final InetSocketAddress socketAddress) {
-                        log.info("trusted peer '{}'", socketAddress);
+                    protected void onSuccess(final HostAndPort hostAndPort, final InetSocketAddress socketAddress) {
+                        log.info("trusted peer '{}' resolved to {}", hostAndPort,
+                                socketAddress.getAddress().getHostAddress());
                         if (socketAddress != null)
                             peerGroup.addAddress(new PeerAddress(Constants.NETWORK_PARAMETERS, socketAddress), 10);
                     }

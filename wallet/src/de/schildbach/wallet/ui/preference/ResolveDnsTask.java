@@ -44,14 +44,14 @@ public abstract class ResolveDnsTask {
                 final InetAddress address = InetAddress.getByName(hostAndPort.getHost()); // blocks on network
                 final int port = hostAndPort.getPortOrDefault(Constants.NETWORK_PARAMETERS.getPort());
                 final InetSocketAddress socketAddress = new InetSocketAddress(address, port);
-                callbackHandler.post(() -> onSuccess(socketAddress));
+                callbackHandler.post(() -> onSuccess(hostAndPort, socketAddress));
             } catch (final UnknownHostException x) {
                 callbackHandler.post(() -> onUnknownHost(hostAndPort));
             }
         });
     }
 
-    protected abstract void onSuccess(InetSocketAddress socketAddress);
+    protected abstract void onSuccess(HostAndPort hostAndPort, InetSocketAddress socketAddress);
 
     protected abstract void onUnknownHost(HostAndPort hostAndPort);
 }
