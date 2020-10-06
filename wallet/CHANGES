@@ -1,4 +1,4 @@
-v8.04-v8.05
+v8.04-v8.06
 
 * Trusted peers with custom TCP ports are now supported. Use the IPv4:port or [IPv6]:port syntax.
 
