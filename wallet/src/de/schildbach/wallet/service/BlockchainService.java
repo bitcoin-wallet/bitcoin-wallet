@@ -636,7 +636,7 @@ public class BlockchainService extends LifecycleService {
                 final ResolveDnsTask resolveDnsTask = new ResolveDnsTask(backgroundHandler) {
                     @Override
                     protected void onSuccess(final InetSocketAddress socketAddress) {
-                        log.info("trusted peer '{}'" + (trustedPeerOnly ? " only" : ""), socketAddress);
+                        log.info("trusted peer '{}'", socketAddress);
                         if (socketAddress != null)
                             peerGroup.addAddress(new PeerAddress(Constants.NETWORK_PARAMETERS, socketAddress), 10);
                     }
@@ -649,7 +649,10 @@ public class BlockchainService extends LifecycleService {
                 for (final HostAndPort trustedPeer : trustedPeers)
                     resolveDnsTask.resolve(trustedPeer);
 
-                if (!trustedPeerOnly) {
+                if (trustedPeerOnly) {
+                    log.info("trusted peers only – not adding any random nodes from the P2P network");
+                } else {
+                    log.info("adding random peers from the P2P network");
                     if (syncMode == Configuration.SyncMode.CONNECTION_FILTER)
                         peerGroup.setRequiredServices(VersionMessage.NODE_BLOOM | VersionMessage.NODE_WITNESS);
                     else
