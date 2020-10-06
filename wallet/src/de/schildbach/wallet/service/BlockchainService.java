@@ -638,8 +638,11 @@ public class BlockchainService extends LifecycleService {
                     protected void onSuccess(final HostAndPort hostAndPort, final InetSocketAddress socketAddress) {
                         log.info("trusted peer '{}' resolved to {}", hostAndPort,
                                 socketAddress.getAddress().getHostAddress());
-                        if (socketAddress != null)
+                        if (socketAddress != null) {
                             peerGroup.addAddress(new PeerAddress(Constants.NETWORK_PARAMETERS, socketAddress), 10);
+                            if (peerGroup.getMaxConnections() > maxConnectedPeers)
+                                peerGroup.setMaxConnections(maxConnectedPeers);
+                        }
                     }
 
                     @Override
