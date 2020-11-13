@@ -196,6 +196,10 @@ public final class RequestWalletBalanceTask {
                                             response.error.message);
                                     return null;
                                 }
+                                if (response.result == null) {
+                                    log.info("{} - missing result", server.socketAddress);
+                                    return null;
+                                }
                                 for (final JsonRpcResponse.Utxo responseUtxo : response.result) {
                                     final Sha256Hash utxoHash = Sha256Hash.wrap(responseUtxo.tx_hash);
                                     final int utxoIndex = responseUtxo.tx_pos;
