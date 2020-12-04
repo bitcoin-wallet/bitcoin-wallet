@@ -1,6 +1,8 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
   <string name="toast_wallet_reset">Portemonnee is gereset!\nHerstel zal enige tijd duren.</string>
+  <string name="toast_start_external_document_failed">Er is geen webbrowser geïnstalleerd om het externe document te openen.</string>
+  <string name="toast_start_storage_provider_selector_failed">Er is geen geschikte cloudopslagdienst geïnstalleerd.\nJe hebt iets zoals \"Nextcloud\" of \"Google Drive\" nodig.</string>
   <string name="wallet_disclaimer_fragment_remind_safety">Gebruik op eigen risico. Lees de &lt;u&gt;veiligheidsvoorschriften&lt;/u&gt;.</string>
   <string name="wallet_disclaimer_fragment_remind_backup">U moet uw &lt;u&gt;portemonnee back-uppen&lt;/u&gt;!</string>
   <string name="blockchain_state_progress_hours">%1$s, %2$d uur achter</string>
@@ -154,6 +156,7 @@
   <string name="address_book_options_scan_title">Scan adres</string>
   <string name="address_book_options_scan_invalid">Doorzochte data is onherkenbaar</string>
   <string name="address_book_options_scan_own_address">Het gescande adres is van jezelf</string>
+  <string name="address_book_row_current_address">Dit is je huidige adres om betalingen te ontvangen.</string>
   <string name="address_book_row_message_compromised_key">Dit adres is misschien gecompromitteerd. Je zou het niet meer moeten gebruiken om betalingen te ontvangen.</string>
   <string name="edit_address_book_entry_dialog_title_add">Voeg verzend adressen toe</string>
   <string name="edit_address_book_entry_dialog_title_edit">Wijzig label van verzend adres</string>
@@ -231,6 +234,9 @@
   <string name="input_parser_invalid_paymentrequest">Ongeldig betalingsverzoek:\n%s</string>
   <string name="input_parser_invalid_transaction">Ongeldige transactie:\n%s</string>
   <string name="preferences_activity_title">Instellingen</string>
+  <string name="preferences_category_general">Algemeen</string>
+  <string name="preferences_category_privacy">Privacybeheer</string>
+  <string name="preferences_category_merchants">Winkelier</string>
   <string name="preferences_category_diagnostics">Diagnostiek</string>
   <string name="preferences_category_labs">Labs</string>
   <string name="preferences_precision_title">Waarde en precisie</string>
@@ -242,10 +248,17 @@
   <string name="preferences_precision_labels_0_6">µBTC, geen decimalen</string>
   <string name="preferences_own_name_title">Je naam</string>
   <string name="preferences_own_name_summary">Je naam, voor om toe te voegen aan betalingsverzoeken. Probeer het kort te houden.</string>
+  <string name="preferences_own_name_dialog_message">Hou het kort.</string>
   <string name="preferences_send_coins_autoclose_title">Dialoog voor verzonden coins automatisch sluiten.</string>
   <string name="preferences_send_coins_autoclose_summary">Als de betaling is voltooid zal de verzend dialoog automatisch sluiten.</string>
+  <string name="preferences_sync_mode_title">Datagebruik vs. privacy</string>
+  <string name="preferences_sync_mode_summary">Kies tussen weinig datagebruik en verbeterde privacy tijdens synchroniseren met het netwerk.</string>
+  <string name="preferences_sync_mode_labels_connection_filter"><![CDATA[<b>Weinig datagebruik:</b> Gebruik netwerkfiltering om alleen de transacties relevant voor je portemonnee te lezen. Dat gebruikt ongeveer 500 MB per maand, maar zal wel het filter aan het netwerk openbaren maken.]]></string>
+  <string name="preferences_sync_mode_labels_full"><![CDATA[<b>Verbeterde privacy:</b> Dit zal geen informatie over je portemonnee met het netwerk delen. Let op dat omdat alle transacties worden gelezen, dit een forse 10 GB per maand gebruikt. Controleer eerst je databundel voor dit te gebruiken.]]></string>
   <string name="preferences_trusted_peer_title">Vertrouwde peer</string>
   <string name="preferences_trusted_peer_summary">IP of hostnaam voor connectie naar enkele peer.</string>
+  <string name="preferences_trusted_peer_dialog_message">Voer een geldig IP-adres of hostnaam in. Als je Tor gebruikt, kun je hier ook een onionadres gebruiken.</string>
+  <string name="preferences_trusted_peer_dialog_message_multiple">Je kan meerdere vertrouwde \"peers\" opgeven door ze met een spatie te scheiden.</string>
   <string name="preferences_trusted_peer_resolve_progress">Oplossen…</string>
   <string name="preferences_trusted_peer_resolve_unknown_host">Hostname onbekend!</string>
   <string name="preferences_trusted_peer_only_title">Sla opsporen vertrouwde contacten over</string>
@@ -262,6 +275,7 @@
   <string name="preferences_show_disclaimer_summary">Heb je echt de veiligheidsaanwijzingen gelezen? Heb je al op een veilige plek een backup gemaakt van je portemonnee?</string>
   <string name="preferences_bluetooth_address_title">Bluetoothadres</string>
   <string name="preferences_bluetooth_address_summary">Configureer handmatig jouw bluetoothadres zodat je betalingen kan ontvangen van personen zonder internetverbinding. Je zal eerst in de bluetoothinstellingen van Android het adres van je apparaat moeten opzoeken.</string>
+  <string name="preferences_bluetooth_address_dialog_message">Helaas voorkomt Android de automatische detectie van het bluetoothadres van je apparaat. Je moet het opzoeken in de bluetoothinstellingen van Android en hier invoeren.\n\nZorg a.u.b. dat elk karakter correct is. Dubbele punten kunnen worden overgeslagen en hoofd- of kleine letters zijn niet belangrijk.</string>
   <string name="preferences_report_issue_title">Meld probleem</string>
   <string name="preferences_initiate_reset_title">Reset blokketen</string>
   <string name="preferences_initiate_reset_summary">Reset blokketen, transacties en wallet-inhoud. Herstel kan enige tijd duren dus doe dit alleen als je weet waarom.</string>
