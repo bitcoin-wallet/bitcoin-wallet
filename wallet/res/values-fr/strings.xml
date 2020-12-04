@@ -11,8 +11,8 @@
   <string name="blockchain_state_progress_months">%1$s, %2$d mois en retard</string>
   <string name="blockchain_state_progress_downloading">Synchronisation avec le réseau</string>
   <string name="blockchain_state_progress_stalled">Synchronisation interrompue</string>
-  <string name="blockchain_state_progress_problem_storage">Synchronisation : problème de stockage</string>
-  <string name="blockchain_state_progress_problem_network">Synchronisation : problème de réseau</string>
+  <string name="blockchain_state_progress_problem_storage">Problème de synchronisation : l’espace de stockage est faible</string>
+  <string name="blockchain_state_progress_problem_network">Problème de synchronisation : aucune connexion au réseau</string>
   <string name="wallet_address_fragment_clipboard_msg">L’adresse Bitcoin a été copiée dans le presse-papiers</string>
   <string name="wallet_address_dialog_fragment_hint">Par souci de confidentialité, votre adresse changera après avoir reçu un paiement.</string>
   <string name="wallet_balance_fragment_insecure_device">Votre appareil est vieux et n’est pas sûr. Veuillez ne l’utiliser que pour de petits montants.</string>
