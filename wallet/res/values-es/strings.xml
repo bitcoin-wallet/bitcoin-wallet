@@ -154,6 +154,7 @@
   <string name="address_book_options_scan_title">Escanear dirección</string>
   <string name="address_book_options_scan_invalid">No se reconocen los datos escaneados</string>
   <string name="address_book_options_scan_own_address">La dirección escaneada es la tuya</string>
+  <string name="address_book_row_current_address">Esta es tu dirección actual para recibir.</string>
   <string name="address_book_row_message_compromised_key">Esta dirección podría ya no ser segura. No debería seguir utilizándola para recibir bitcoins.</string>
   <string name="edit_address_book_entry_dialog_title_add">Añadir dirección de envío</string>
   <string name="edit_address_book_entry_dialog_title_edit">Editar etiqueta de dirección de envío</string>
@@ -231,6 +232,9 @@
   <string name="input_parser_invalid_paymentrequest">Solicitud de pago inválida:\n%s</string>
   <string name="input_parser_invalid_transaction">Transacción inválida:\n%s</string>
   <string name="preferences_activity_title">Ajustes</string>
+  <string name="preferences_category_general">General</string>
+  <string name="preferences_category_privacy">Control de privacidad</string>
+  <string name="preferences_category_merchants">Comerciantes</string>
   <string name="preferences_category_diagnostics">Diagnóstico</string>
   <string name="preferences_category_labs">Laboratorio</string>
   <string name="preferences_precision_title">Denominación y precisión</string>
@@ -244,6 +248,8 @@
   <string name="preferences_own_name_summary">Ponte un nombre, que será añadido a las solicitudes de pago. Trata de que sea corto.</string>
   <string name="preferences_send_coins_autoclose_title">Cerrar automáticamente el diálogo de envío de Bitcoins</string>
   <string name="preferences_send_coins_autoclose_summary">Cuando se realiza el pago, el diálogo de envío se cerrará automáticamente.</string>
+  <string name="preferences_sync_mode_title">Uso de datos vs Privacidad</string>
+  <string name="preferences_sync_mode_summary">Elige entre bajo uso de datos y privacidad mejorada cuando te sincronices con la red.</string>
   <string name="preferences_trusted_peer_title">Par de confianza</string>
   <string name="preferences_trusted_peer_summary">IP o nombre de host del par individual al que conectarse.</string>
   <string name="preferences_trusted_peer_resolve_progress">Resolviendo…</string>
@@ -285,7 +291,7 @@
   <string name="report_issue_dialog_mail_intent_chooser">Enviar informe mediante…</string>
   <string name="about_title">Acerca de</string>
   <string name="about_version_title">Versión</string>
-  <string name="about_version_apk_hash_title">Suma HA256 de la APK</string>
+  <string name="about_version_apk_hash_title">Suma SHA256 de la APK</string>
   <string name="about_copyright_title">Copyright</string>
   <string name="about_license_title">Licencia</string>
   <string name="about_source_title">Código fuente</string>
