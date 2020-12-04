@@ -11,8 +11,8 @@
   <string name="blockchain_state_progress_months">%1$s, %2$dか月遅れ</string>
   <string name="blockchain_state_progress_downloading">ネットワークと同期中</string>
   <string name="blockchain_state_progress_stalled">同期が停滞しています</string>
-  <string name="blockchain_state_progress_problem_storage">同期: ストレージに問題があります</string>
-  <string name="blockchain_state_progress_problem_network">同期: ネットワークに問題があります</string>
+  <string name="blockchain_state_progress_problem_storage">同期中に問題が発生しました: ストレージの空き容量が足りません。</string>
+  <string name="blockchain_state_progress_problem_network">同期中に問題が発生しました: ネットワークに繋がっていません。</string>
   <string name="wallet_address_fragment_clipboard_msg">ビットコインアドレスをクリップボードにコピーしました</string>
   <string name="wallet_address_dialog_fragment_hint">プライバシー保護のため、アドレスは支払いを受け取るごとに変化します。</string>
   <string name="wallet_balance_fragment_insecure_device">このデバイスは古く、安全ではありません。少額のみ扱うようにしてください。</string>
