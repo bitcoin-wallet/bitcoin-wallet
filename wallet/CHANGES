@@ -1,3 +1,8 @@
+v8.08
+
+* Update translations from Transifex.
+* Based on bitcoinj 0.15.9.
+
 v8.04-v8.07
 
 * Trusted peers with custom TCP ports are now supported. Use the IPv4:port or [IPv6]:port syntax.
