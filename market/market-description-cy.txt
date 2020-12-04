@@ -11,6 +11,8 @@
 • Hysbysiad system pan dderbynnir Bitcoin.
 • Ysgubo dy waled bapur (e.e. y rhai a ddefnyddir am storfa oer).
 • Teclyn i ddangos balans Bitcoin.
+• Diogelwch: Yn cefnogi SegWit a'r fformat bech32 newydd.
+• Preifatrwydd: Yn cefnogi Tor trwy'r ap Orbot ar wahan.
 
 
 <b>CYFRANNU</b>

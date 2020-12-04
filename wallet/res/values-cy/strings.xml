@@ -1,6 +1,8 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
   <string name="toast_wallet_reset">Cafodd dy waled ei ailosod!\nCymeriff ychydig o amser i\'w adfer.</string>
+  <string name="toast_start_external_document_failed">Does dim porwr wedi\'i osod i agor y ddogfen allanol</string>
+  <string name="toast_start_storage_provider_selector_failed">Does dim darparwr storfa cwmwl addas wedi\'i osod.\nMae angen rhywbeth fel \"Nextcloud\" neu \"Google Drive\".</string>
   <string name="wallet_disclaimer_fragment_remind_safety">Defnyddia gyda dy risg dy hun. Darllena\'r &lt;u&gt;nodiadau diogelwch&lt;/u&gt;.</string>
   <string name="wallet_disclaimer_fragment_remind_backup">Bydd angen &lt;u&gt;cadw copi wrth gefn o dy waled&lt;/u&gt;!</string>
   <string name="blockchain_state_progress_hours">%1$s, %2$d awr tu ôl</string>
@@ -9,8 +11,8 @@
   <string name="blockchain_state_progress_months">%1$s, %2$d mis tu ôl</string>
   <string name="blockchain_state_progress_downloading">Yn cydamseru gyda\'r rhwydwaith</string>
   <string name="blockchain_state_progress_stalled">Cydamseru wedi stolio</string>
-  <string name="blockchain_state_progress_problem_storage">Cydamseru: Problem storfa</string>
-  <string name="blockchain_state_progress_problem_network">Cydamseru: Problem rhwydwaith</string>
+  <string name="blockchain_state_progress_problem_storage">Problem cydweddu: Prinder lle storfa</string>
+  <string name="blockchain_state_progress_problem_network">Problem cydweddu: Dim cyswllt â rhwydwaith</string>
   <string name="wallet_address_fragment_clipboard_msg">Copïwyd y cyfeiriad Bitcoin i\'r clipfwrdd</string>
   <string name="wallet_address_dialog_fragment_hint">I warchod dy breifatrwydd, caiff dy gyfeiriad ei newid unwaith mae\'n derbyn taliad.</string>
   <string name="wallet_balance_fragment_insecure_device">Mae dy ddyfais yn hen ac yn ansefydlog. Argymhellir ei ddefnyddio dim ond am symiau bach.</string>
@@ -154,6 +156,7 @@
   <string name="address_book_options_scan_title">Sganio\'r cyfeiriad</string>
   <string name="address_book_options_scan_invalid">Dyw\'r data a sganiwyd ddim yn nealladwy</string>
   <string name="address_book_options_scan_own_address">Dy gyfeiriad dy hun yw\'r un a sganiwyd.</string>
+  <string name="address_book_row_current_address">Dyma dy gyfeiriad cyfredol ar gyfer derbyn.</string>
   <string name="address_book_row_message_compromised_key">Gall fod y cyfeiriad hwn wedi\'i gyfaddawdu. Ni ddylid ei ddefnyddio bellach i dderbyn Bitcoin.</string>
   <string name="edit_address_book_entry_dialog_title_add">Ychwanegu cyfeiriad anfon</string>
   <string name="edit_address_book_entry_dialog_title_edit">Golygu label y cyfeiriad anfon</string>
@@ -231,6 +234,9 @@
   <string name="input_parser_invalid_paymentrequest">Cais am daliad annilys:\n%s</string>
   <string name="input_parser_invalid_transaction">Trafodiad annilys:\n%s</string>
   <string name="preferences_activity_title">Gosodiadau</string>
+  <string name="preferences_category_general">Cyffredinol</string>
+  <string name="preferences_category_privacy">Rheolaeth preifatrwydd</string>
+  <string name="preferences_category_merchants">Masnachwyr</string>
   <string name="preferences_category_diagnostics">Diagnosteg</string>
   <string name="preferences_category_labs">Labordai</string>
   <string name="preferences_precision_title">Gwerth a manylder</string>
@@ -241,11 +247,18 @@
   <string name="preferences_precision_labels_2_3">mBTC, 2 lle degol</string>
   <string name="preferences_precision_labels_0_6">µBTC, dim llefydd degol</string>
   <string name="preferences_own_name_title">Enw dy hun</string>
-  <string name="preferences_own_name_summary">Dy enw dy hun, i\'w ychwanegu at geisiadau taliadau. Cadwa fo\'n fyr.</string>
+  <string name="preferences_own_name_summary">Dy enw di neu dy gwmni, i\'w ychwanegu at geisiadau am daliadau gan gwsmeriaid.</string>
+  <string name="preferences_own_name_dialog_message">Cadw hi\'n fyr.</string>
   <string name="preferences_send_coins_autoclose_title">Deialog anfon Bitcoin yn cau\'n awtomatig</string>
   <string name="preferences_send_coins_autoclose_summary">Pan gaiff y taliad ei wneud, bydd y deialog anfon yn cau yn awtomatig</string>
+  <string name="preferences_sync_mode_title">Defnydd Data v Preifatrwydd</string>
+  <string name="preferences_sync_mode_summary">Dewisa rhwng defnydd data isel a gwell preifatrwydd wrth gydamseru gyda\'r rhwydwaith.</string>
+  <string name="preferences_sync_mode_labels_connection_filter"><![CDATA[<b>Defnydd data isel:</b> Defnyddio hidlo rhwydwaith i ddarllen trafodion sy\'n berthnasol i dy waled di yn unig. Defnyddir tua 500 MB y mis, ond bydd yn datgelu\'r hidlydd i\'r rhwydwaith.]]></string>
+  <string name="preferences_sync_mode_labels_full"><![CDATA[<b>Gwell preifatrwydd:</b> Ni fydd yn datgelu unrhyw wybodaeth am dy waled i\'r rhwydwait. Bu\'n ymwybodol gall hyn ddefnyddio 10 GB y mis am fod yn rhaid darllen pob trafodiad. Gwirio dy lwfans defnydd data cyn defnyddio hyn.]]></string>
   <string name="preferences_trusted_peer_title">Cyfoed ymddiriedir ynddo</string>
   <string name="preferences_trusted_peer_summary">IP neu enw gwesteiwr cyfoed unigol i gysylltu ato.</string>
+  <string name="preferences_trusted_peer_dialog_message">Rho gyfeiriad IP neu enw westai dilys. Os yw Tor wedi\'i osod, gellir defnyddio cyfeiriad nionyn yma hefyd.</string>
+  <string name="preferences_trusted_peer_dialog_message_multiple">Gellir rhoi nifer o gyfoedion dibynadwy gan roi bwlch rhyngddynt.</string>
   <string name="preferences_trusted_peer_resolve_progress">Yn datrys…</string>
   <string name="preferences_trusted_peer_resolve_unknown_host">Enw gwesteiwr anhysbys!</string>
   <string name="preferences_trusted_peer_only_title">Neidio darganfod cyfoedion rheolaidd</string>
@@ -254,10 +267,15 @@
   <string name="preferences_block_explorer_summary">Porwr blociau allanol i bori trafodion, cyfeiriadau a blociau.</string>
   <string name="preferences_data_usage_title">Defnydd data</string>
   <string name="preferences_data_usage_summary">Dangos opsiynau i gyfyngu defnydd data ar rwydweithiau symudol.</string>
+  <string name="preferences_notifications_title">Hysbysiadau</string>
+  <string name="preferences_notifications_summary">Dangos dewisiadau i alluogi neu analluogi hysbysiadau penodol.</string>
   <string name="preferences_remind_balance_title">Atogffa o\'r balans</string>
   <string name="preferences_remind_balance_summary">Ar ôl cwpl o wythnosau heb ei ddefnyddio, bydd yr ap yn rhoi gwybod os oes Bitcoin dal yn y waled.</string>
   <string name="preferences_show_disclaimer_title">Dangos ymwadiad</string>
   <string name="preferences_show_disclaimer_summary">Wyt ti wir wedi darllen y nodiadau diogelwch? Wyt ti eisoes wedi cadw copi wrth gefn o dy waled i le diogel?</string>
+  <string name="preferences_bluetooth_address_title">Cyfeiriad Bluethooth</string>
+  <string name="preferences_bluetooth_address_summary">Ffurfweddu dy gyfeiriad Bluetooth dy hun fel bod modd derbyn taliadau gan gwsmeriaid heb angen cysylltiad rhwydwaith.</string>
+  <string name="preferences_bluetooth_address_dialog_message">Yn anffodus, mae Android yn rhwystro adnabod cyfeiriad Bluetooth dy ddyfais yn awtomatig. Mae angen edrych am y cyfeiriad yng ngosodiadau Bluetooth Android a\'i roi yma.\n\nGwiria bod pob nod yn gywir. Nid yw\'n bwysig os y llythrennau yn fawr neu fach a gellir anwybyddu colonau.</string>
   <string name="preferences_report_issue_title">Rhoi gwybod am broblem</string>
   <string name="preferences_initiate_reset_title">Ailosod cadwyn blociau</string>
   <string name="preferences_initiate_reset_summary">Ailosod cadwyn blociau, trafodion a balans y waled. Bydd ailadrodd yn cymryd ychydig, felly gwna hyn dim ond gyda rheswm da.</string>
@@ -298,12 +316,17 @@
   <string name="about_faq_title">Cwestiynau Cyffredin</string>
   <string name="about_faq_summary">Atebion i gwestiynau cyffredin am yr ap</string>
   <string name="notification_coins_received_msg">Derbyniwyd %s</string>
+  <string name="notification_connectivity_syncing_message">Yn cydamseru gyda\'r rhwydwaith…</string>
+  <string name="notification_connectivity_syncing_trusted_peer">Yn cydamseru gyda dy gyfoed dibynadwy…</string>
   <string name="notification_peers_connected_msg">%d cyfoed wedi cysylltu</string>
+  <string name="notification_peer_connected">wedi cysylltu</string>
+  <string name="notification_peer_not_connected">heb gysylltu</string>
   <string name="notification_inactivity_title">Mae gennyt Bitcoin yn dal i fod ar y ddyfais hon!</string>
   <string name="notification_inactivity_message">Cofia caiff dy falans o %s ei golli os wyt yn dadosod Waled Bitcoin heb yn gyntaf ei anfon i ffwrdd.</string>
   <string name="notification_inactivity_message_donate">Os nad wyt yn poeni am dy Fitcoin, gellir eu cyfrannu fel rhodd i\'r prosiect Bitcoin Wallet.</string>
   <string name="notification_inactivity_action_dismiss">Atgoffa fi\'n hwyrach</string>
   <string name="notification_inactivity_action_dismiss_forever">Peidio fy atgoffa</string>
+  <string name="notification_bluetooth_service_listening">Yn barod i dderbyn taliadau drwy Bluetooth</string>
   <string name="notification_channel_received_name">Taliadau a dderbyniwyd</string>
   <string name="notification_channel_ongoing_name">Gweithred cefndir</string>
   <string name="notification_channel_important_name">Rhybuddion pwysig</string>
@@ -334,6 +357,7 @@
   <string name="address_unlabeled">(heb label)</string>
   <string name="private_key_password">PIN</string>
   <string name="private_key_bad_password">PIN drwg!</string>
+  <string name="qr_code">Cod QR</string>
   <!--generic error messages-->
   <string name="error_io">Gwall I/O: %s</string>
   <string name="error_parse">Gwall dosrannu: %s</string>
