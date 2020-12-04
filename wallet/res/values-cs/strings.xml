@@ -1,6 +1,8 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
   <string name="toast_wallet_reset">Vaše peněženka byla zresetována!\nObnova chvíli potrvá.</string>
+  <string name="toast_start_external_document_failed">K otevření externího dokumentu není nainstalován žádný webový prohlížeč.</string>
+  <string name="toast_start_storage_provider_selector_failed">Není nainstalován žádný vhodný poskytovatel cloudového úložiště.\nPotřebujete něco jako „Nextcloud“ nebo „Google disk“.</string>
   <string name="wallet_disclaimer_fragment_remind_safety">Použití na vlastní riziko. Přečtěte si &lt;u&gt;bezpečnostní pokyny&lt;/u&gt;.</string>
   <string name="wallet_disclaimer_fragment_remind_backup">Musíte si &lt;u&gt;zazálohovat svou peněženku&lt;/u&gt;!</string>
   <string name="blockchain_state_progress_hours">%1$s, %2$d hodin pozadu</string>
@@ -9,8 +11,8 @@
   <string name="blockchain_state_progress_months">%1$s, %2$d měsíců pozadu</string>
   <string name="blockchain_state_progress_downloading">Synchronizace se sítí</string>
   <string name="blockchain_state_progress_stalled">Synchronizace pozastavena</string>
-  <string name="blockchain_state_progress_problem_storage">Synchronizace: Problém úložiště</string>
-  <string name="blockchain_state_progress_problem_network">Synchronizace: Problém se sítí</string>
+  <string name="blockchain_state_progress_problem_storage">Problém se synchronizací: Nízký úložný prostor</string>
+  <string name="blockchain_state_progress_problem_network">Problém se synchronizací: Žádné připojení k síti</string>
   <string name="wallet_address_fragment_clipboard_msg">Adresa zkopírována do schránky</string>
   <string name="wallet_address_dialog_fragment_hint">Z důvodu ochrany soukromí dojde ke změně této adresy po každé přijaté platbě.</string>
   <string name="wallet_balance_fragment_insecure_device">Vaše zařízení je staré a nezajištěné. Prosím používejte jej pouze pro malé částky</string>
@@ -26,6 +28,7 @@
   <string name="wallet_transactions_fragment_empty_text_received">Zatím nebyly žádné bitcoiny obdrženy.</string>
   <string name="wallet_transactions_fragment_empty_text_sent">Zatím nebyly žádné bitcoiny odeslány.</string>
   <string name="wallet_transactions_fragment_empty_text_howto">Jak získat Bitcoiny?\nSměnou za klasické peníze,\nprodejem zboží nebo služeb\nnebo vyděláním prací.</string>
+  <string name="wallet_transactions_fragment_empty_remind_backup">Před přijetím bitcoinů prosím\nzálohujte svou peněženku!</string>
   <string name="wallet_transactions_row_warning_backup">Gratulujeme, přijal jste svou první platbu! Už jste si &lt;u&gt;zazálohovali tuto peněženku&lt;/u&gt;, abyste se ochránil proti ztrátě?</string>
   <string name="wallet_transactions_row_warning_storage_encryption">Tip: pokud chcete zvýšit bezpečnost své peněženky, můžete &lt;u&gt;šifrovat data svého přístroje&lt;/u&gt;. Toto také chrání data ostatních aplikací.</string>
   <string name="wallet_transactions_row_warning_chain_forking">Bitcoin připojení prochází údržbou. Doporučujeme vám, abyste mince neposílali ani nepřijímali, dokud nedokončíme údržbu.</string>
@@ -35,6 +38,7 @@
   <string name="wallet_transactions_options_filter_all">Všechny platby</string>
   <string name="wallet_transactions_options_filter_received">Přijaté platby</string>
   <string name="wallet_transactions_options_filter_sent">Odeslané platby</string>
+  <string name="wallet_options_request_legacy">Žádost o starší adresu</string>
   <string name="wallet_options_safety_menu">Bezpečnost</string>
   <string name="wallet_options_encrypt_keys_set">Nastavit PIN pro utrácení</string>
   <string name="wallet_options_encrypt_keys_change">Změnit PIN pro utrácení.</string>
@@ -70,10 +74,13 @@
   <string name="send_coins_fragment_receiving_address_complex">komplex\nadresa</string>
   <string name="send_coins_fragment_pending">(%s čeká na potvrzení)</string>
   <string name="send_coins_fragment_amount_label">Částka k zaplacení</string>
+  <string name="send_coins_fragment_hint_fee_economic">Bude vyplacen ekonomický poplatek %s. Důležité: Použijte „ekonomický“, pouze pokud vám nezáleží na době potvrzení.</string>
   <string name="send_coins_fragment_hint_fee">Poplatek za připojení %s bude započítán.</string>
+  <string name="send_coins_fragment_hint_fee_priority">Bude vyplacen prioritní poplatek %s. Důležité: Pokud vám záleží na nízkých poplatcích, použijte „prioritní“, pouze pokud potřebujete potvrzení co nejdříve.</string>
   <string name="send_coins_fragment_hint_dusty_send">Částka je příliš nízká pro odeslání.</string>
   <string name="send_coins_fragment_hint_insufficient_money">Nemáte dostatek mincí. Chybí vám %s.</string>
   <string name="send_coins_fragment_hint_empty_wallet_failed">Množství malých plateb ve vaší peněžence neumožňuje v součtu zaslání platby.</string>
+  <string name="send_coins_fragment_hint_replaying">V současné době nejsou platby možné, protože probíhá přehrávání.</string>
   <string name="send_coins_fragment_direct_payment_enable">Pošli platbu přímo příjemci.</string>
   <string name="send_coins_fragment_direct_payment_ack">Vaše platba byla úspěšně zaslána přímo.</string>
   <string name="send_coins_fragment_direct_payment_nack">Vaše platba byla odmítnuta přímým spojením.</string>
@@ -81,6 +88,8 @@
   <string name="send_coins_fragment_direct_payment_failed_msg">Vaše platba bude stejně odeslána pomocí P2P sítě.</string>
   <string name="send_coins_fragment_button_send">Odeslat</string>
   <string name="send_coins_fragment_button_back">Zpět</string>
+  <string name="send_coins_fragment_significant_fee_title">Významný síťový poplatek</string>
+  <string name="send_coins_fragment_significant_fee_message">Síťový poplatek za tuto platbu (%1$s) je vysoký ve srovnání s částkou (%2$s). Chcete přesto poslat?</string>
   <string name="send_coins_fragment_insufficient_money_title">Nedostatek mincí.</string>
   <string name="send_coins_fragment_insufficient_money_msg1">Chybí vám %s.</string>
   <string name="send_coins_fragment_insufficient_money_msg2">Přejete si zaplatit vším co máte?</string>
@@ -116,6 +125,8 @@
   <string name="sweep_wallet_fragment_decrypt_progress">Dešifruji…\nTato operace může trvat až 2 minuty.</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_progress">Načítám bilanci…</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_failed_title">Načtení bilance peněženky selhalo</string>
+  <string name="sweep_wallet_fragment_request_wallet_balance_failed_connection">Máte špatné připojení k síti Electrum.</string>
+  <string name="sweep_wallet_fragment_request_wallet_balance_empty">Papírová peněženka je prázdná.</string>
   <string name="sweep_wallet_fragment_insufficient_money_title">Nemáte dostatek mincí</string>
   <string name="sweep_wallet_fragment_insufficient_money_msg">Počet mincí v peněžence je příliš nízký pro načtení.</string>
   <string name="sweep_wallet_options_reload">Znovu načíst bilanci</string>
@@ -145,6 +156,7 @@
   <string name="address_book_options_scan_title">Skenovat adresu</string>
   <string name="address_book_options_scan_invalid">Naskenovaná data jsou nerozpoznatelná</string>
   <string name="address_book_options_scan_own_address">Naskenovaná adresa je vaše vlastní.</string>
+  <string name="address_book_row_current_address">Toto je vaše aktuální adresa pro příjem.</string>
   <string name="address_book_row_message_compromised_key">Tato adresa byla nejspíše kompromitována. Neměla by být již nikdy používána pro příjem plateb.</string>
   <string name="edit_address_book_entry_dialog_title_add">Přidat odesílací adresu</string>
   <string name="edit_address_book_entry_dialog_title_edit">Upravit popisek odesílací adresy</string>
@@ -155,11 +167,16 @@
   <string name="edit_address_book_entry_dialog_button_edit">Uložit</string>
   <string name="transaction_row_fee">Poplatek síti</string>
   <string name="transaction_row_confidence_message_sent_unbroadcasted">Tato platba nebyla ještě odeslána.</string>
+  <string name="transaction_row_confidence_message_received_successful">Tato platba byla připsána na vaši peněženku.</string>
+  <string name="transaction_row_confidence_message_sent_successful">Vaše platba byla úspěšná. Došla k příjemci platby.</string>
+  <string name="transaction_row_confidence_message_received_failed">Tato platba selhala.</string>
+  <string name="transaction_row_confidence_message_sent_failed">Vaše platba selhala.</string>
   <string name="transaction_row_message_purpose_key_rotation">Tato transakce zvýší ochranu vaší peněženky proti krádeži. &lt;u&gt;Více informací.&lt;/u&gt;</string>
   <string name="transaction_row_message_purpose_raise_fee">Tato transakce navyšuje poplatek pro předcházející platbu.</string>
   <string name="transaction_row_message_received_direct">Tato platba byla přijata přímo. Je zde riziko, že prostředky nebude možno nikdy utratit.</string>
   <string name="transaction_row_message_received_unconfirmed_delayed">Potvrzení této platby je pozdrženo, nejspíše z důvodu přetížení Bitcoin sítě.</string>
   <string name="transaction_row_message_received_unconfirmed_unlocked">Tuto platbu bude možné utratit během několika minut.</string>
+  <string name="transaction_row_message_received_unconfirmed_chain_forking">Z důvodu údržby v bitcoinové síti by neměla být tato transakce důvěryhodná, dokud nebude plně potvrzena.</string>
   <string name="transaction_row_message_received_in_conflict">Tato platba vykazuje zvýšené riziko odvolání jejím odesilatelem! Pokud můžete, počkejte na její potvrzení.</string>
   <string name="transaction_row_message_received_dead">Tato platba byla odvolána odesílatelem.</string>
   <string name="transaction_row_message_received_dust">Takto malá částka pravděpodobně nikdy nebude utracena ekonomicky.</string>
@@ -179,6 +196,7 @@
   <string name="import_keys_dialog_button_import">Obnovit</string>
   <string name="restore_wallet_dialog_success">Peněženka obnovena.</string>
   <string name="restore_wallet_dialog_success_replay">Vaše peněženka byla úspěšně obnovena. Její bilance bude vypočtena následně. To nějaký čas zabere.</string>
+  <string name="restore_wallet_dialog_success_encrypted">Varování: Vaše peněženka je chráněna PINem při utrácení. Než do této peněženky příjmete platbu, nezapomeňte si PIN ještě zopakovat.</string>
   <string name="import_keys_dialog_failure">Peněženka nemohla být obnovena:\n\n%s\n\nŠpatné heslo?</string>
   <string name="export_keys_dialog_title">Zálohovat peněženku</string>
   <string name="backup_wallet_dialog_message">Vaše peněženka bude zašifrována zvoleným heslem a zapsána do externího úložiště.</string>
@@ -216,6 +234,9 @@
   <string name="input_parser_invalid_paymentrequest">Neplatný požadavek na platbu:\n%s</string>
   <string name="input_parser_invalid_transaction">Neplatná transakce:\n%s</string>
   <string name="preferences_activity_title">Nastavení</string>
+  <string name="preferences_category_general">Obecné</string>
+  <string name="preferences_category_privacy">Kontrola soukromí</string>
+  <string name="preferences_category_merchants">Obchodníci</string>
   <string name="preferences_category_diagnostics">Diagnostika</string>
   <string name="preferences_category_labs">Laboratoř</string>
   <string name="preferences_precision_title">Denominace a přesnost</string>
@@ -226,11 +247,18 @@
   <string name="preferences_precision_labels_2_3">mBTC, 2 desetinná místa</string>
   <string name="preferences_precision_labels_0_6">µBTC, bez desetinných míst</string>
   <string name="preferences_own_name_title">Vlastní jméno</string>
-  <string name="preferences_own_name_summary">Vaše jméno, přidávané k platebním požadavkům. Udržujte krátké.</string>
+  <string name="preferences_own_name_summary">Vaše jméno nebo název vaší společnosti, který bude přidán k žádostem o platbu, které vystavíte svým zákazníkům.</string>
+  <string name="preferences_own_name_dialog_message">Snažte se to zkrátit.</string>
   <string name="preferences_send_coins_autoclose_title">Automaticky zavírat dialog odeslání platby</string>
   <string name="preferences_send_coins_autoclose_summary">Pokud je provedena platba, dialog odesílání bude zavřen automaticky.</string>
+  <string name="preferences_sync_mode_title">Využití dat vs. soukromí</string>
+  <string name="preferences_sync_mode_summary">Při synchronizaci se sítí si můžete vybrat mezi nízkým využitím dat a vylepšeným ochranou soukromí.</string>
+  <string name="preferences_sync_mode_labels_connection_filter"><![CDATA[<b>Nízké využití dat:</b> Filtrování sítě použijte ke čtení pouze transakcí souvisejících s vaší peněženkou. Bude používat přibližně 500 MB za měsíc, ale zpřístupní filtr síti.]]></string>
+  <string name="preferences_sync_mode_labels_full"><![CDATA[<b>Vylepšené soukromí</b> Nezveřejní žádné informace o vaší peněžence do sítě. Uvědomte si, že protože jsou čteny všechny transakce, bude to používat 10 GB za měsíc. Před použitím si prosím ověřte svůj datový limit.]]></string>
   <string name="preferences_trusted_peer_title">Důvěryhodný peer</string>
   <string name="preferences_trusted_peer_summary">IP nebo hostname jednoho peera ke kterému se chcete připojit.</string>
+  <string name="preferences_trusted_peer_dialog_message">Zadejte platnou IP adresu nebo název hostitele. Pokud máte nastavený Tor, můžete zde také použít onion adresu.</string>
+  <string name="preferences_trusted_peer_dialog_message_multiple">Můžete určit více důvěryhodných partnerů jejich oddělením znakem mezery.</string>
   <string name="preferences_trusted_peer_resolve_progress">Vyhledávání…</string>
   <string name="preferences_trusted_peer_resolve_unknown_host">Neznámé hostname!</string>
   <string name="preferences_trusted_peer_only_title">Přeskočit všeobecné hledání peerů</string>
@@ -239,8 +267,15 @@
   <string name="preferences_block_explorer_summary">Externí prohlížeč bloků použitý pro procházení transakcí, adres a bloků.</string>
   <string name="preferences_data_usage_title">Využití dat</string>
   <string name="preferences_data_usage_summary">Otevřít nastavení pro omezení datového toku na mobilní síti.</string>
+  <string name="preferences_notifications_title">Oznámení</string>
+  <string name="preferences_notifications_summary">Zobrazit možnosti pro zakázání nebo povolení konkrétních oznámení.</string>
   <string name="preferences_remind_balance_title">Připomínka bilance</string>
   <string name="preferences_remind_balance_summary">Upozornění po několika týdnech nepoužití aplikace, pokud jsou v peněžence stále peníze.</string>
+  <string name="preferences_show_disclaimer_title">Zobrazit odmítnutí odpovědnosti</string>
+  <string name="preferences_show_disclaimer_summary">Opravdu jste si přečetli bezpečnostní pokyny? Už jste zálohovali peněženku na bezpečné místo?</string>
+  <string name="preferences_bluetooth_address_title">Bluetooth adresa</string>
+  <string name="preferences_bluetooth_address_summary">Ručně nakonfigurujte svou vlastní adresu Bluetooth, abyste mohli přijímat platby od plátců bez připojení.</string>
+  <string name="preferences_bluetooth_address_dialog_message">Android bohužel brání automatické detekci adresy Bluetooth vašeho zařízení. Musíte to vyhledat v nastavení Bluetooth v systému Android a zadat je sem.\n\nZkontrolujte, zda jsou všechny znaky správné. Dvojtečky lze vynechat a velikost písmen není důležitá.</string>
   <string name="preferences_report_issue_title">Nahlásit problém</string>
   <string name="preferences_initiate_reset_title">Obnovit řětězec bloků</string>
   <string name="preferences_initiate_reset_summary">Obnovit blokchain, transakce a stav peněženky. Nové nahrání bude chvíli trvat.</string>
@@ -253,6 +288,7 @@
   <string name="extended_public_key_fragment_share">Sdílet extended public key…</string>
   <string name="report_issue_dialog_title_issue">Nahlásit problém</string>
   <string name="report_issue_dialog_title_crash">Detekován předchozí pád aplikace</string>
+  <string name="report_issue_dialog_title_transaction">Nahlásit problém s vybranou platbou</string>
   <string name="report_issue_dialog_message_issue">Popište prosím svůj problém dostatečně detailně, aby ho bylo možno reprodukovat.</string>
   <string name="report_issue_dialog_message_crash">Přejete si odeslat report o pádu aplikace a tím pomoct opravě tohoto problému v budoucnosti?</string>
   <string name="report_issue_dialog_description">popis problému</string>
@@ -263,21 +299,37 @@
   <string name="report_issue_dialog_mail_intent_chooser">Odeslat hlášení pomocí…</string>
   <string name="about_title">O aplikaci</string>
   <string name="about_version_title">Verze</string>
+  <string name="about_version_apk_hash_title">SHA256 hash APK</string>
   <string name="about_copyright_title">Copyright</string>
   <string name="about_license_title">Licence</string>
   <string name="about_source_title">Zdrojový kód</string>
   <string name="about_category_credits">Aplikace používá…</string>
   <string name="about_credits_bitcoinj_title">bitcoinj %s, implementace Bitcoin protokolu</string>
   <string name="about_credits_zxing_title">ZXing, knihovna pro zpracování QR-kódů</string>
+  <string name="about_credits_bouncycastle_title">Bouncy Castle, kryptografická knihovna</string>
+  <string name="about_credits_okhttp_title">OkHttp, klientská knihovna HTTP</string>
+  <string name="about_credits_moshi_title">Moshi, knihovna JSON</string>
+  <string name="about_credits_guava_title">Guava, sbírka užitečných pomocníků</string>
+  <string name="about_credits_slf4j_title">SLF4J, logovací framework</string>
   <string name="about_market_app_title">Stránka %s</string>
   <string name="about_market_app_summary">Zrecenzujte aplikaci nebo ji ohodnoťte</string>
+  <string name="about_faq_title">FAQ</string>
+  <string name="about_faq_summary">Nejčastější dotazy týkající se aplikace</string>
   <string name="notification_coins_received_msg">Obdrženo %s</string>
+  <string name="notification_connectivity_syncing_message">Synchronizace se sítí…</string>
+  <string name="notification_connectivity_syncing_trusted_peer">Synchronizace s důvěryhodným partnerem…</string>
   <string name="notification_peers_connected_msg">%d peerů připojeno</string>
+  <string name="notification_peer_connected">připojeno</string>
+  <string name="notification_peer_not_connected">nepřipojeno</string>
   <string name="notification_inactivity_title">Na tomto přístroji jsou ještě nějaké Bitcoiny!</string>
   <string name="notification_inactivity_message">Pamatujte si, že vaše prostředky ve výši %s budou ztraceny, pokud odinstalujete Bitcoin Wallet aplikaci a neodešlete nejdříve své prostředky jinam.</string>
   <string name="notification_inactivity_message_donate">Pokud jste ztratili zájem dále využívat své Bitcoiny, můžete je darovat projektu Bitcoin Wallet.</string>
   <string name="notification_inactivity_action_dismiss">Připomeň později</string>
   <string name="notification_inactivity_action_dismiss_forever">Nepřipomínat</string>
+  <string name="notification_bluetooth_service_listening">Jste připraveni přijímat platby přes Bluetooth</string>
+  <string name="notification_channel_received_name">Přijaté platby</string>
+  <string name="notification_channel_ongoing_name">Aktivita na pozadí</string>
+  <string name="notification_channel_important_name">Důležitá upozornění</string>
   <string name="appwidget_wallet_balance_title">Bitcoin bilance</string>
   <!--generic buttons-->
   <string name="button_ok">OK</string>
@@ -305,6 +357,7 @@
   <string name="address_unlabeled">(nepojmenováno)</string>
   <string name="private_key_password">PIN</string>
   <string name="private_key_bad_password">špatný PIN!</string>
+  <string name="qr_code">QR kód</string>
   <!--generic error messages-->
   <string name="error_io">I/O chyba: %s</string>
   <string name="error_parse">Chyba při načítání: %s</string>

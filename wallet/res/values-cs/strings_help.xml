@@ -104,4 +104,21 @@
 		</p>
 	]]>
     </string>
+  <string name="help_technical_notes">
+<![CDATA[
+        <p>
+            <b>Technické poznámky:</b>
+        </p>
+        <p>
+            Jako SPV/lehká peněženka sleduje bitcoinová peněženka řetězec s největším důkazem práce (někdy také nazývaný „nejdelší řetězec“, „vítězný řetězec“ nebo „bitcoinový blockchain“).
+            Dostanete pouze příchozí platby a budete moci platit v tomto řetězci.
+            Nelze poskytnout žádné záruky ohledně bitcoinů na menšinových řetězcích, tj. Na řetězcích s menším důkazem práce.
+        </p>
+        <p>
+            V minulosti se menšinové řetězce vždy rychle staly nepodstatnými.
+            Pokud si přesto přejete sledovat menšinový řetězec, doporučujeme vám použít funkci „důvěryhodného partnera“ k výhradnímu připojení k implementaci bitcoind, která vynutí váš požadovaný řetězec.
+            Pokud není důvěryhodná síť mezi vaší peněženkou a důvěryhodným partnerem, ověřte toto připojení pomocí VPN.
+        </p>
+    ]]>
+    </string>
 </resources>

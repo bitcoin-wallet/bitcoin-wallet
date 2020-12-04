@@ -11,6 +11,8 @@
 • Systémové notifikace při přijaté platbě
 • Načítání papírových peněženek (např. ty co se používají u cold storage).
 • Widget pro zobrazení Bitcoin bilance.
+• Bezpečnost: Podporuje SegWit a nový formát bech32.
+• Soukromí: Podporuje Tor prostřednictvím samostatné aplikace Orbot.
 
 
 <b>PŘISPĚJTE</b>
