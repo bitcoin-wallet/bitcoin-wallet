@@ -88,12 +88,12 @@ public class ExchangeRatesRepository {
         if (lastUpdated != 0 && now - lastUpdated <= UPDATE_FREQ_MS)
             return;
 
-        final CoinGecko coinGecko = new CoinGecko(new Moshi.Builder().build());
+        final CryptoCompare exchangeDataProvider = new CryptoCompare(new Moshi.Builder().build());
         final Request.Builder request = new Request.Builder();
-        request.url(coinGecko.url());
+        request.url(exchangeDataProvider.url());
         final Headers.Builder headers = new Headers.Builder();
         headers.add("User-Agent", userAgent);
-        headers.add("Accept", coinGecko.mediaType().toString());
+        headers.add("Accept", exchangeDataProvider.mediaType().toString());
         request.headers(headers.build());
 
         final OkHttpClient.Builder httpClientBuilder = Constants.HTTP_CLIENT.newBuilder();
@@ -104,23 +104,23 @@ public class ExchangeRatesRepository {
             public void onResponse(final Call call, final Response response) throws IOException {
                 try {
                     if (response.isSuccessful()) {
-                        for (final ExchangeRateEntry exchangeRate : coinGecko.parse(response.body().source()))
+                        for (final ExchangeRateEntry exchangeRate : exchangeDataProvider.parse(response.body().source()))
                             dao.insertOrUpdate(exchangeRate);
                         ExchangeRatesRepository.this.lastUpdated.set(now);
                         watch.stop();
-                        log.info("fetched exchange rates from {}, took {}", coinGecko.url(), watch);
+                        log.info("fetched exchange rates from {}, took {}", exchangeDataProvider.url(), watch);
                     } else {
                         log.warn("http status {} {} when fetching exchange rates from {}", response.code(),
-                                response.message(), coinGecko.url());
+                                response.message(), exchangeDataProvider.url());
                     }
                 } catch (final Exception x) {
-                    log.warn("problem fetching exchange rates from " + coinGecko.url(), x);
+                    log.warn("problem fetching exchange rates from " + exchangeDataProvider.url(), x);
                 }
             }
 
             @Override
             public void onFailure(final Call call, final IOException x) {
-                log.warn("problem fetching exchange rates from " + coinGecko.url(), x);
+                log.warn("problem fetching exchange rates from " + exchangeDataProvider.url(), x);
             }
         });
     }
