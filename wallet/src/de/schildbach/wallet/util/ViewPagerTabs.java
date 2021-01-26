@@ -99,8 +99,8 @@ public class ViewPagerTabs extends View {
     }
 
     private void drawDynamic(final Canvas canvas) {
-        final int viewWidth = getWidth();
-        final int viewHalfWidth = viewWidth / 2;
+        final int viewWidth = getWidth() - getPaddingLeft() - getPaddingRight();
+        final int viewHalfWidth = getPaddingLeft() + viewWidth / 2;
         final int viewBottom = getHeight();
 
         final float density = getResources().getDisplayMetrics().density;
@@ -144,13 +144,13 @@ public class ViewPagerTabs extends View {
 
     private void drawStatic(final Canvas canvas) {
         final int numLabels = labels.size();
-        final float labelWidth = (float) getWidth() / numLabels;
+        final float labelWidth = (float) (getWidth() - getPaddingLeft() - getPaddingRight()) / numLabels;
         final float leftPadding = getResources().getDimension(R.dimen.list_entry_padding_horizontal);
         final float y = getPaddingTop() + -paint.getFontMetrics().top;
         paint.setTypeface(Typeface.DEFAULT);
         paint.setColor(textColor);
         for (int i = 0; i < numLabels; i++)
-            canvas.drawText(labels.get(i), labelWidth * i + leftPadding, y, paint);
+            canvas.drawText(labels.get(i), getPaddingLeft() + labelWidth * i + leftPadding, y, paint);
     }
 
     @Override
