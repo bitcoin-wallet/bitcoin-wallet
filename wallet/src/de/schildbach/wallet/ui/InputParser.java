@@ -101,19 +101,21 @@ public abstract class InputParser {
 
                     error(R.string.input_parser_invalid_bitcoin_uri, input);
                 }
-            } else if (PATTERN_TRANSACTION.matcher(input).matches()) {
+            } else if (PATTERN_TRANSACTION_BASE43.matcher(input).matches()) {
                 try {
                     final Transaction tx = new Transaction(Constants.NETWORK_PARAMETERS,
                             Qr.decodeDecompressBinary(input));
-
                     handleDirectTransaction(tx);
-                } catch (final IOException x) {
-                    log.info("i/o error while fetching transaction", x);
-
-                    error(R.string.input_parser_invalid_transaction, x.getMessage());
-                } catch (final ProtocolException x) {
+                } catch (final IOException | ProtocolException x) {
                     log.info("got invalid transaction", x);
-
+                    error(R.string.input_parser_invalid_transaction, x.getMessage());
+                }
+            } else if (PATTERN_TRANSACTION_HEX.matcher(input).matches()) {
+                try {
+                    final Transaction tx = new Transaction(Constants.NETWORK_PARAMETERS, Constants.HEX.decode(input));
+                    handleDirectTransaction(tx);
+                } catch (final IllegalArgumentException | ProtocolException x) {
+                    log.info("got invalid transaction", x);
                     error(R.string.input_parser_invalid_transaction, x.getMessage());
                 }
             } else {
@@ -314,6 +316,8 @@ public abstract class InputParser {
         error(R.string.input_parser_cannot_classify, input);
     }
 
-    private static final Pattern PATTERN_TRANSACTION = Pattern
+    private static final Pattern PATTERN_TRANSACTION_BASE43 = Pattern
             .compile("[0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ$\\*\\+\\-\\.\\/\\:]{100,}");
+    private static final Pattern PATTERN_TRANSACTION_HEX = Pattern
+            .compile("[0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ]{200,}", Pattern.CASE_INSENSITIVE);
 }
