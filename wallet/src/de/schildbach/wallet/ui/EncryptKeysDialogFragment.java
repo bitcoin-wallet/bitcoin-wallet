@@ -45,6 +45,7 @@ import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.R;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.util.WalletUtils;
+import org.bitcoinj.crypto.KeyCrypter;
 import org.bitcoinj.crypto.KeyCrypterException;
 import org.bitcoinj.crypto.KeyCrypterScrypt;
 import org.bitcoinj.wallet.Wallet;
@@ -227,7 +228,9 @@ public class EncryptKeysDialogFragment extends DialogFragment {
         backgroundHandler.post(() -> {
             // For the old key, we use the key crypter that was used to derive the password in the first
             // place.
-            final KeyParameter oldKey = oldPassword != null ? wallet.getKeyCrypter().deriveKey(oldPassword) : null;
+            final KeyCrypter oldKeyCrypter = wallet.getKeyCrypter();
+            final KeyParameter oldKey = oldKeyCrypter != null && oldPassword != null ?
+                    oldKeyCrypter.deriveKey(oldPassword) : null;
 
             // For the new key, we create a new key crypter according to the desired parameters.
             final KeyCrypterScrypt keyCrypter = new KeyCrypterScrypt(application.scryptIterationsTarget());
