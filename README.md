@@ -38,6 +38,10 @@ Finally, the last preparative step is acquiring the source code. Again in your w
 
 ### BUILDING
 
+## Android Studio 
+Used Gradle 6.5 and Android Gradle Plugin Version 4.1.3 in Android Studio.
+
+## Command line
 You can build all sub-projects in all flavors at once using Gradle:
 
     # each time
