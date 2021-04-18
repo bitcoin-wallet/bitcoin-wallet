@@ -12,8 +12,8 @@ dependencies {
 }
 
 android {
-    compileSdkVersion 'android-19'
-    buildToolsVersion '29.0.3'
+    compileSdkVersion 30
+    buildToolsVersion '30.0.3'
 
     defaultConfig {
         dexOptions {

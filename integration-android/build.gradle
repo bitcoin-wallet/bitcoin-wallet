@@ -3,7 +3,7 @@ plugins {
 }
 
 dependencies {
-    compile('com.google.android:android:4.0.1.2') {
+    implementation('com.google.android:android:4.1.1.4') {
         transitive false
     }
 }
@@ -18,8 +18,7 @@ sourceSets {
         }
     }
 }
-
 compileJava {
-    sourceCompatibility '1.6'
-    targetCompatibility '1.6'
+    sourceCompatibility '1.7'
+    targetCompatibility '1.7'
 }
