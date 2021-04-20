@@ -8,12 +8,12 @@ configurations {
 
 dependencies {
     implementation project(':integration-android')
-    implementation 'org.bitcoinj:bitcoinj-core:0.14.7'
+    implementation 'org.bitcoinj:bitcoinj-core:0.15.10'
 }
 
 android {
-    compileSdkVersion 'android-19'
-    buildToolsVersion '29.0.3'
+    compileSdkVersion 30
+    buildToolsVersion '30.0.3'
 
     defaultConfig {
         dexOptions {

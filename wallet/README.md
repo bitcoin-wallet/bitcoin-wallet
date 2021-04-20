@@ -57,7 +57,8 @@ Finally, you can build Bitcoin Wallet and sign it with your development key. Aga
 use:
 
     # each time
-    gradle clean test :wallet:assembleDevDebug
+    gradle assembleRelease
+    <!-- gradle clean test :wallet:assembleDevDebug -->
 
 You'll find the signed APK under this path:
 
@@ -83,7 +84,8 @@ tag) as the development version. After you have cloned/updated the git repositor
 use:
 
     # each time
-    gradle clean test :wallet:assembleProdRelease
+    gradle assembleProd
+    <!-- gradle clean test :wallet:assembleProdRelease -->
 
 You'll find the unsigned APK under this path:
 

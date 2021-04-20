@@ -7,10 +7,7 @@
     android:versionCode="811"
     android:versionName="8.11">
 
-    <uses-sdk
-        android:minSdkVersion="23"
-        android:targetSdkVersion="29"
-        tools:ignore="OldTargetApi" />
+    <uses-sdk tools:ignore="OldTargetApi" />
 
     <!-- normal permissions -->
     <uses-permission android:name="android.permission.INTERNET" />
