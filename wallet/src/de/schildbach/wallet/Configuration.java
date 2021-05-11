@@ -108,6 +108,8 @@ public class Configuration {
             return Coin.MILLICOIN;
         else if (shift == 6)
             return Coin.MICROCOIN;
+        else if (shift == 8)
+            return Coin.SATOSHI;
         else
             throw new IllegalStateException("cannot handle shift: " + shift);
     }
@@ -126,8 +128,10 @@ public class Configuration {
             return new MonetaryFormat().shift(0).minDecimals(2).optionalDecimals(2, 2, 2);
         else if (shift == 3)
             return new MonetaryFormat().shift(3).minDecimals(2).optionalDecimals(2, 1);
-        else
+        else if (shift == 6)
             return new MonetaryFormat().shift(6).minDecimals(0).optionalDecimals(2);
+        else
+            return new MonetaryFormat().shift(8).minDecimals(0).optionalDecimals(0);
     }
 
     public String getOwnName() {

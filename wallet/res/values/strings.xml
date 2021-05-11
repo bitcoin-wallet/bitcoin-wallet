@@ -247,6 +247,7 @@
     <string name="preferences_precision_labels_4">BTC, 4 decimal places</string>
     <string name="preferences_precision_labels_2_3">mBTC, 2 decimal places</string>
     <string name="preferences_precision_labels_0_6">µBTC, no decimal places</string>
+    <string name="preferences_precision_labels_0_8">sat, no decimal places</string>
     <string name="preferences_own_name_title">Own name</string>
     <string name="preferences_own_name_summary">Your name or your company\'s name, to be added to payment requests you issue to your customers.</string>
     <string name="preferences_own_name_dialog_message">Keep it short.</string>
