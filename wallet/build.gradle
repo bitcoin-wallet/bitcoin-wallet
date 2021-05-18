@@ -11,7 +11,7 @@ configurations {
 dependencies {
     implementation project(':integration-android')
     implementation 'androidx.annotation:annotation:1.2.0'
-    implementation 'androidx.core:core:1.3.2'
+    implementation 'androidx.core:core:1.5.0'
     implementation 'androidx.fragment:fragment:1.3.4'
     implementation 'androidx.recyclerview:recyclerview:1.2.0'
     implementation 'androidx.cardview:cardview:1.0.0'
