@@ -14,7 +14,6 @@
   <string name="wallet_address_fragment_clipboard_msg">Indirizzo Bitcoin copiato negli appunti</string>
   <string name="wallet_address_dialog_fragment_hint">Per proteggere la tua privacy, il tuo indirizzo cambierà alla ricezione di un pagamento.</string>
   <string name="wallet_balance_fragment_insecure_device">Il tuo dispositivo è vecchio e insicuro. Si prega di usarlo solo per piccole quantità.</string>
-  <string name="wallet_balance_fragment_too_much">Questo importo è alto per essere portato con se. Si prega di spostarne alcuni in un luogo più sicuro.</string>
   <string name="wallet_balance_fragment_replaying">Il conto non è disponibile durante la ripetizione.</string>
   <string name="exchange_rates_activity_title">Tasso di cambio</string>
   <string name="exchange_rates_fragment_empty_search">Impossibile trovare il tasso di cambio.</string>
@@ -56,6 +55,7 @@
   <string name="wallet_old_sdk_dialog_title">La versione Android non è aggiornata</string>
   <string name="wallet_old_sdk_dialog_message">Potrebbe essere che le prossime versioni di Bitcoin Wallet non supporterà più il tuo dispositivo. In questi casi, potrebbe essere difficile spendere i Bitcoin su questo dispositivo.\n\nA meno che tu non sappia quello che stai facendo, ti raccomandiamo di spostare il tuo denaro al più presto.</string>
   <string name="alert_dialogs_fragment_settings_failed_title">Problema nell\'aprire le impostazioni</string>
+  <string name="alert_dialogs_fragment_too_much_balance_dialog_message">Questo importo è alto per essere portato con se. Si prega di spostarne alcuni in un luogo più sicuro.</string>
   <string name="send_coins_activity_title">Invia Bitcoins</string>
   <string name="send_coins_fragment_request_payment_request_progress">Acquisizione firma da %s…</string>
   <string name="send_coins_fragment_request_payment_request_failed_title">Acquisizione firma fallita</string>

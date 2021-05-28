@@ -14,7 +14,6 @@
   <string name="wallet_address_fragment_clipboard_msg">已經把 Bitcoin 位址複製到剪貼簿中</string>
   <string name="wallet_address_dialog_fragment_hint">為了保障你的隱私，一旦收到付款後，收款位址就會改變。</string>
   <string name="wallet_balance_fragment_insecure_device">你的設備太老舊了，並且不安全。請放一點點錢來使用就好。</string>
-  <string name="wallet_balance_fragment_too_much">在口袋裡放這麼多錢好像不是很好。建議拿一些出來到比較安全的地方。</string>
   <string name="wallet_balance_fragment_replaying">在重播時無法顯示餘額</string>
   <string name="exchange_rates_activity_title">匯率</string>
   <string name="exchange_rates_fragment_empty_search">無法找到匯率資料。</string>
@@ -53,6 +52,7 @@
   <string name="wallet_version_dialog_button_binary">下載</string>
   <string name="wallet_old_sdk_dialog_title">Android 版本太舊</string>
   <string name="wallet_old_sdk_dialog_message">接下來某個版本的 Bitcoin Wallet 可能就開始不再支援你的設備了。在這個設備上付款可能會變得很困難。\n\n建議你馬上把錢轉到其他地方去，除非你還知道其他處理方式。</string>
+  <string name="alert_dialogs_fragment_too_much_balance_dialog_message">在口袋裡放這麼多錢好像不是很好。建議拿一些出來到比較安全的地方。</string>
   <string name="send_coins_activity_title">Bitcoin 付款</string>
   <string name="send_coins_fragment_request_payment_request_progress">正在從 %s 讀取簽章...</string>
   <string name="send_coins_fragment_request_payment_request_failed_title">讀取簽章失敗了</string>

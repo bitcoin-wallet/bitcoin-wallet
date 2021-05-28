@@ -16,7 +16,6 @@
   <string name="wallet_address_fragment_clipboard_msg">ビットコインアドレスをクリップボードにコピーしました</string>
   <string name="wallet_address_dialog_fragment_hint">プライバシー保護のため、アドレスは支払いを受け取るごとに変化します。</string>
   <string name="wallet_balance_fragment_insecure_device">このデバイスは古く、安全ではありません。少額のみ扱うようにしてください。</string>
-  <string name="wallet_balance_fragment_too_much">この額はポケットに入れて運ぶには多すぎます。一部をもっと安全な場所に移してください。</string>
   <string name="wallet_balance_fragment_replaying">再生中は残高情報は利用できません。</string>
   <string name="exchange_rates_activity_title">為替レート</string>
   <string name="exchange_rates_fragment_empty_search">為替レートが見つかりません。</string>
@@ -60,6 +59,7 @@
   <string name="wallet_old_sdk_dialog_title">Androidのバージョンが古すぎます</string>
   <string name="wallet_old_sdk_dialog_message">次のBitcoin Walletのリリースの際、このデバイスはもうサポートされないかもしれません。場合によっては、このデバイスでのコインの利用が困難になるかもしれません。\n\n意図的にしているのでない限り、あなたのコインをすぐにでも移動させることをおすすめします。</string>
   <string name="alert_dialogs_fragment_settings_failed_title">設定を開けませんでした</string>
+  <string name="alert_dialogs_fragment_too_much_balance_dialog_message">この額はポケットに入れて運ぶには多すぎます。一部をもっと安全な場所に移してください。</string>
   <string name="send_coins_activity_title">ビットコインの送金</string>
   <string name="send_coins_fragment_request_payment_request_progress">%s から署名の取得中……</string>
   <string name="send_coins_fragment_request_payment_request_failed_title">支払いリクエストの取得に失敗しました</string>

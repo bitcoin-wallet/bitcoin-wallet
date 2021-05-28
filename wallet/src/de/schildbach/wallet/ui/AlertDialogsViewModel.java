@@ -17,17 +17,30 @@
 
 package de.schildbach.wallet.ui;
 
+import android.app.Application;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
+import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.data.WalletBalanceLiveData;
 
 /**
  * @author Andreas Schildbach
  */
-public class AlertDialogsViewModel extends ViewModel {
+public class AlertDialogsViewModel extends AndroidViewModel {
+    public final WalletBalanceLiveData balance;
     public final MutableLiveData<Event<Long>> showTimeskewAlertDialog = new MutableLiveData<>();
     public final MutableLiveData<Event<Void>> showVersionAlertDialog = new MutableLiveData<>();
     public final MutableLiveData<Event<String>> showInsecureDeviceAlertDialog = new MutableLiveData<>();
     public final MutableLiveData<Event<String>> showInsecureBluetoothAlertDialog = new MutableLiveData<>();
     public final MutableLiveData<Event<Void>> showLowStorageAlertDialog = new MutableLiveData<>();
     public final MutableLiveData<Event<String>> showSettingsFailedDialog = new MutableLiveData<>();
+    public final MutableLiveData<Event<Void>> showTooMuchBalanceAlertDialog = new MutableLiveData<>();
+
+    private final WalletApplication application;
+
+    public AlertDialogsViewModel(final Application application) {
+        super(application);
+        this.application = (WalletApplication) application;
+        this.balance = new WalletBalanceLiveData(this.application);
+    }
 }

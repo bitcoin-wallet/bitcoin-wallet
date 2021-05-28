@@ -98,6 +98,10 @@ public class AlertDialogsFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         viewModel = new ViewModelProvider(this).get(AlertDialogsViewModel.class);
+        viewModel.balance.observe(this, balance -> {
+            if (balance != null && balance.isGreaterThan(Constants.TOO_MUCH_BALANCE_THRESHOLD))
+                viewModel.showTooMuchBalanceAlertDialog.postValue(Event.simple());
+        });
         viewModel.showTimeskewAlertDialog.observe(this, new Event.Observer<Long>() {
             @Override
             protected void onEvent(final Long diffMinutes) {
@@ -138,6 +142,13 @@ public class AlertDialogsFragment extends Fragment {
             protected void onEvent(final String message) {
                 log.info("showing settings failed dialog");
                 createSettingsFailedDialog(message).show();
+            }
+        });
+        viewModel.showTooMuchBalanceAlertDialog.observe(this, new Event.Observer<Void>() {
+            @Override
+            protected void onEvent(final Void v) {
+                log.info("showing too much balance dialog");
+                createTooMuchBalanceAlertDialog().show();
             }
         });
 
@@ -381,6 +392,14 @@ public class AlertDialogsFragment extends Fragment {
     private Dialog createSettingsFailedDialog(final String exceptionMessage) {
         final DialogBuilder dialog = DialogBuilder.dialog(activity,
                 R.string.alert_dialogs_fragment_settings_failed_title, exceptionMessage);
+        dialog.singleDismissButton(null);
+        return dialog.create();
+    }
+
+    private Dialog createTooMuchBalanceAlertDialog() {
+        final DialogBuilder dialog = DialogBuilder.dialog(activity,
+                R.string.alert_dialogs_fragment_too_much_balance_dialog_title,
+                R.string.alert_dialogs_fragment_too_much_balance_dialog_message);
         dialog.singleDismissButton(null);
         return dialog.create();
     }

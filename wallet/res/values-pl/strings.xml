@@ -13,7 +13,6 @@
   <string name="blockchain_state_progress_problem_network">Synchronizowanie: Problem z siecią</string>
   <string name="wallet_address_fragment_clipboard_msg">Adres Bitcoin skopiowano do schowka</string>
   <string name="wallet_address_dialog_fragment_hint">Aby chronić twoją prywatność, twój adres będzie zmieniany za każdym razem jak otrzymasz płatność.</string>
-  <string name="wallet_balance_fragment_too_much">Masz dość pokaźną sumę w portfelu. Proszę przenieś część w bezpieczniejsze miejsce.</string>
   <string name="wallet_balance_fragment_replaying">Saldo nie jest dostępne w trakcie odtwarzania.</string>
   <string name="exchange_rates_activity_title">Kursy wymiany</string>
   <string name="exchange_rates_fragment_empty_search">Nie odnaleziono kursu wymiany.</string>
@@ -52,6 +51,7 @@
   <string name="wallet_old_sdk_dialog_title">Wersja Androida jest przestarzała</string>
   <string name="wallet_old_sdk_dialog_message">Istnieje szansa że wraz z kolejnymi wydaniami Bitcoin Wallet zakończy wsparcie dla twojego urządzenia. W niektórych przypadkach wydawanie monet z tego urządzenia może ulec utrudnieniu.\n\nZalecane jest przeniesienie swoich monet w najbliższym czasie, chyba że wiesz co robisz.</string>
   <string name="alert_dialogs_fragment_settings_failed_title">Problem z otwieraniem ustawień</string>
+  <string name="alert_dialogs_fragment_too_much_balance_dialog_message">Masz dość pokaźną sumę w portfelu. Proszę przenieś część w bezpieczniejsze miejsce.</string>
   <string name="send_coins_activity_title">Wyślij Bitcoiny</string>
   <string name="send_coins_fragment_request_payment_request_progress">Pobieranie sygnatury z %s…</string>
   <string name="send_coins_fragment_request_payment_request_wrong_signature">Nieprawidłowy podpis!</string>

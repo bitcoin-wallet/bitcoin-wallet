@@ -15,7 +15,6 @@
   <string name="wallet_address_fragment_clipboard_msg">Naslov kopiran na odložišče</string>
   <string name="wallet_address_dialog_fragment_hint">Za zaščito vaše zasebnosti se bo prejemni naslov spremenil, ko nanj prejmete prvo plačilo.</string>
   <string name="wallet_balance_fragment_insecure_device">Vaša naprava je stara in ni varna. Prosimo, uporabljajte jo le za majhne zneske.</string>
-  <string name="wallet_balance_fragment_too_much">Ta znesek je precej visok za prenašanje v žepu. Prosimo, prestavite ga na varnejše mesto.</string>
   <string name="wallet_balance_fragment_replaying">Pregled stanja med ponastavitvijo ni mogoč.</string>
   <string name="exchange_rates_activity_title">Menjalni tečaji</string>
   <string name="exchange_rates_fragment_empty_search">Ne najdem menjalnega tečaja.</string>
@@ -59,6 +58,7 @@
   <string name="wallet_old_sdk_dialog_title">Verzija Androida je zastarela</string>
   <string name="wallet_old_sdk_dialog_message">Možno je, da bližnja naslednja verzija aplikacije Bitcoin Wallet vaše naprave ne bo več podpirala. V nekaterih primerih bo potem lahko težko priti do novcev, ki jih imate shranjene tu.\n\nČe niste popolnoma prepričani, kaj počnete, svetujemo, da novce čim prej prenesete drugam.</string>
   <string name="alert_dialogs_fragment_settings_failed_title">Težava pri odpiranju nastavitev</string>
+  <string name="alert_dialogs_fragment_too_much_balance_dialog_message">Ta znesek je precej visok za prenašanje v žepu. Prosimo, prestavite ga na varnejše mesto.</string>
   <string name="send_coins_activity_title">Pošlji novce</string>
   <string name="send_coins_fragment_request_payment_request_progress">Pridobivam podpis od %s..</string>
   <string name="send_coins_fragment_request_payment_request_failed_title">Prenos zahtevka za plačilo je spodletel</string>

@@ -14,7 +14,6 @@
   <string name="wallet_address_fragment_clipboard_msg">Bitcoin-adresse kopieret til utklippstavlen</string>
   <string name="wallet_address_dialog_fragment_hint">For å beskytte ditt privatliv, vil en ny adresse bli generert når denne mottar en betaling.</string>
   <string name="wallet_balance_fragment_insecure_device">Din enheten er gammel og usikker. Vennligst bare bruk for små beløp.</string>
-  <string name="wallet_balance_fragment_too_much">Dette beløpet er ganske høyt for å bære rundt i lommen din. Vennligst flytt noe til et tryggere sted.</string>
   <string name="wallet_balance_fragment_replaying">Saldo er ikke tilgjengelig under gjennomgangen.</string>
   <string name="exchange_rates_activity_title">Valutakurser</string>
   <string name="exchange_rates_fragment_empty_search">Kunne ikke finne valutakurser.</string>
@@ -56,6 +55,7 @@
   <string name="wallet_old_sdk_dialog_title">Android-versjon er utdatert</string>
   <string name="wallet_old_sdk_dialog_message">Der er risiko for at en av de neste utgivelsene av Bitcoin Wallet ikke vil støtte din enhet lenger. I noen tilfeller kan det være vanskelig å bruke mynter på denne enheten.\n\nMed mindre du vet hva du gjør, anbefales det å straks flytte dine mynter vekk.</string>
   <string name="alert_dialogs_fragment_settings_failed_title">Problem med å åpne innstillinger</string>
+  <string name="alert_dialogs_fragment_too_much_balance_dialog_message">Dette beløpet er ganske høyt for å bære rundt i lommen din. Vennligst flytt noe til et tryggere sted.</string>
   <string name="send_coins_activity_title">Send bitcoins</string>
   <string name="send_coins_fragment_request_payment_request_progress">Henter signatur fra %s…</string>
   <string name="send_coins_fragment_request_payment_request_failed_title">Henting av signatur mislyktes</string>

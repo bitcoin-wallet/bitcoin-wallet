@@ -14,7 +14,6 @@
   <string name="wallet_address_fragment_clipboard_msg">비트코인 주소가 클립보드에 복사되었습니다</string>
   <string name="wallet_address_dialog_fragment_hint">당신의 비밀을 보호하기 위해 송금내역을 받은 후에 당신의 주소가 변경될 것입니다.</string>
   <string name="wallet_balance_fragment_insecure_device">현재 사용하는 장치 기기가 아주 오래되었거나 안전하지 않습니다. 비트코인의 안전한 거래를 위해 작은 양만 사용하는 것이 좋습니다.</string>
-  <string name="wallet_balance_fragment_too_much">이 금액은 전자지갑에 보관하기에 너무 큰 금액입니다. 데스크탑 지갑으로 옮기거나 비밀키를 별도로 보관하세요.</string>
   <string name="wallet_balance_fragment_replaying">블럭체인 초기화 중, 잔액을 사용할 수 없습니다.</string>
   <string name="exchange_rates_activity_title">환율 목록</string>
   <string name="exchange_rates_fragment_empty_search">환율 정보를 찾지 못했습니다.</string>
@@ -55,6 +54,7 @@
   <string name="wallet_old_sdk_dialog_title">안드로이드 버전을 업데이트해주세요</string>
   <string name="wallet_old_sdk_dialog_message">이 비트코인 지갑의 다음 업데이트시 현재 사용중인 장치 기기를 더 이상 지원하지 않을 수 있습니다. 또한 몇몇 경우에는 이 장치 기기에서 비트코인을 송금할 때 문제가 생길 수도 있습니다.\n\n기기의 계속 사용에 관한 확신이 생기지 않는다면 현재 이 지갑에서 보유하고 있는 비트코인을 다른 곳으로 옮기는 것이 좋습니다.</string>
   <string name="alert_dialogs_fragment_settings_failed_title">설정을 여는 데 문제가 있습니다</string>
+  <string name="alert_dialogs_fragment_too_much_balance_dialog_message">이 금액은 전자지갑에 보관하기에 너무 큰 금액입니다. 데스크탑 지갑으로 옮기거나 비밀키를 별도로 보관하세요.</string>
   <string name="send_coins_activity_title">비트코인 송금</string>
   <string name="send_coins_fragment_request_payment_request_progress">전자 서명 불러오는 중... : %s</string>
   <string name="send_coins_fragment_request_payment_request_failed_title">전자 서명 불러오기 실패</string>

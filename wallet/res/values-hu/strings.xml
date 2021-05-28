@@ -14,7 +14,6 @@
   <string name="wallet_address_fragment_clipboard_msg">Bitcoin cím a vágólapra másolva</string>
   <string name="wallet_address_dialog_fragment_hint">A magánéleted megvédéséhez a címed megváltozik, amint beérkezik egy fizetés.</string>
   <string name="wallet_balance_fragment_insecure_device">A készüléked régi és nem biztonságos. Kérlek csak kis összegekhez használd.</string>
-  <string name="wallet_balance_fragment_too_much">Ez az összeg igen magas ahhoz, hogy a zsebedben hordd. Kérlek helyezd át egy részét biztonságosabb helyre.</string>
   <string name="wallet_balance_fragment_replaying">A frissítés során az egyenleg nem elérhető.</string>
   <string name="exchange_rates_activity_title">Árfolyamok</string>
   <string name="exchange_rates_fragment_empty_search">Árfolyam nem található.</string>
@@ -57,6 +56,7 @@
   <string name="wallet_old_sdk_dialog_title">Ez az Android verzió elavult</string>
   <string name="wallet_old_sdk_dialog_message">Van esély arra, hogy a Bitcoin Wallet következő kiadásaiból egy már nem fogja többé támogatni a készüléked. Egyes esetekben bonyolult lehet érméket küldeni ezen a készüléken.\n\nHacsak nem vagy tisztában vele, hogy mit csinálsz, akkor minél előbb ajánlott az érméid átmozgatása.</string>
   <string name="alert_dialogs_fragment_settings_failed_title">Probléma a beállítások megnyitásával</string>
+  <string name="alert_dialogs_fragment_too_much_balance_dialog_message">Ez az összeg igen magas ahhoz, hogy a zsebedben hordd. Kérlek helyezd át egy részét biztonságosabb helyre.</string>
   <string name="send_coins_activity_title">Bitcoin küldése</string>
   <string name="send_coins_fragment_request_payment_request_progress">Aláírás begyűjtése tőle: %s…</string>
   <string name="send_coins_fragment_request_payment_request_failed_title">Fizetési kérelem begyűjtése sikertelen</string>

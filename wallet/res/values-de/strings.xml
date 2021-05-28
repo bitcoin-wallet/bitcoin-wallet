@@ -17,7 +17,6 @@
     <string name="wallet_address_fragment_clipboard_msg">Bitcoin-Adresse ins Clipboard kopiert</string>
     <string name="wallet_address_dialog_fragment_hint">Um deine Privatsphäre zu schützen, ändert sich deine Adresse sobald sie eine Zahlung empfängt.</string>
     <string name="wallet_balance_fragment_insecure_device">Dein Gerät ist alt und unsicher. Bitte nutze es nur für kleine Beträge.</string>
-    <string name="wallet_balance_fragment_too_much">Dieser Wert ist recht hoch, um in der Tasche getragen zu werden. Bitte verschiebe etwas an einen sichereren Ort.</string>
     <string name="wallet_balance_fragment_replaying">Guthaben ist während des Replays nicht verfügbar.</string>
     <string name="exchange_rates_activity_title">Wechselkurse</string>
     <string name="exchange_rates_fragment_empty_search">Kann Wechselkurs nicht finden.</string>
@@ -63,6 +62,8 @@
     <string name="wallet_old_sdk_dialog_title">Android ist veraltet</string>
     <string name="wallet_old_sdk_dialog_message">Es ist möglich, daß eine der nächsten Versionen von Bitcoin Wallet dein Gerät nicht mehr unterstützt. In manchen Fällen kann es schwierig werden, Zahlungen zu tätigen.\n\nEs wird empfohlen, die enthaltenen Bitcoins bald zu verschieben, außer du weisst was du tust.</string>
     <string name="alert_dialogs_fragment_settings_failed_title">Problem beim Öffnen der Einstellungen</string>
+    <string name="alert_dialogs_fragment_too_much_balance_dialog_title">Minimiere das Risiko</string>
+    <string name="alert_dialogs_fragment_too_much_balance_dialog_message">Der Betrag in deiner Wallet ist ziemlich hoch, um in der Tasche getragen zu werden. Bitte verschiebe etwas an einen sichereren Ort, etwa in ein Cold Wallet.</string>
     <string name="send_coins_activity_title">Bitcoins senden</string>
     <string name="send_coins_fragment_request_payment_request_progress">Rufe Signatur von %s ab…</string>
     <string name="send_coins_fragment_request_payment_request_failed_title">Abrufen der Zahlungsanforderung fehlgeschlagen</string>

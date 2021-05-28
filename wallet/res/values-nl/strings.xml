@@ -16,7 +16,6 @@
   <string name="wallet_address_fragment_clipboard_msg">Bitcoinadres gekopieërd naar klembord</string>
   <string name="wallet_address_dialog_fragment_hint">Om je privacy te beschermen zal het adres wijzigen zodra een betaling ontvangen is.</string>
   <string name="wallet_balance_fragment_insecure_device">Je apparaat is oud en onveilig. Gebruik aub alleen voor kleine hoeveelheden.</string>
-  <string name="wallet_balance_fragment_too_much">Dit is relatief veel om op zak te hebben. Verplaats iets naar een veiligere plek.</string>
   <string name="wallet_balance_fragment_replaying">Balans is onbeschikbaar tijdens herladen.</string>
   <string name="exchange_rates_activity_title">Wisselkoersen</string>
   <string name="exchange_rates_fragment_empty_search">Wisselkoers niet gevonden.</string>
@@ -60,6 +59,7 @@
   <string name="wallet_old_sdk_dialog_title">Android-versie is verouderd</string>
   <string name="wallet_old_sdk_dialog_message">De kans bestaat dat één van de volgende versies van Bitcoin Wallet uw apparaat niet langer ondersteunen zal. In sommige gevallen kan het lastig worden nog met bitcoins te kunnen betalen vanaf dit apparaat.\n\nTenzij u weet wat u doet wordt u aanbevolen om coins elders onder te brengen.</string>
   <string name="alert_dialogs_fragment_settings_failed_title">Probleem met het openen van de instellingen</string>
+  <string name="alert_dialogs_fragment_too_much_balance_dialog_message">Dit is relatief veel om op zak te hebben. Verplaats iets naar een veiligere plek.</string>
   <string name="send_coins_activity_title">Verzend BTC</string>
   <string name="send_coins_fragment_request_payment_request_progress">Handtekening van %s ophalen…</string>
   <string name="send_coins_fragment_request_payment_request_failed_title">Ophalen betalingsverzoek is gefaald</string>

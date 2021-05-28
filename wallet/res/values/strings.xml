@@ -16,7 +16,6 @@
     <string name="wallet_address_fragment_clipboard_msg">Bitcoin address copied to clipboard</string>
     <string name="wallet_address_dialog_fragment_hint">To protect your privacy, your address will change once it receives a payment.</string>
     <string name="wallet_balance_fragment_insecure_device">Your device is old and insecure. Please only use for small amounts.</string>
-    <string name="wallet_balance_fragment_too_much">This amount is quite high for carrying in your pocket. Please move some to a safer place.</string>
     <string name="wallet_balance_fragment_replaying">Balance is unavailable during replay.</string>
     <string name="exchange_rates_activity_title">Exchange rates</string>
     <string name="exchange_rates_fragment_empty_search">Could not find exchange rate.</string>
@@ -60,6 +59,8 @@
     <string name="wallet_old_sdk_dialog_title">Android version is out of date</string>
     <string name="wallet_old_sdk_dialog_message">Chances are that one of the next releases of Bitcoin Wallet will not support your device any more. In some cases, it can get difficult to spend coins on this device.\n\nUnless you know what you are doing, it is recommended to move out your coins soon.</string>
     <string name="alert_dialogs_fragment_settings_failed_title">Problem with opening of settings</string>
+    <string name="alert_dialogs_fragment_too_much_balance_dialog_title">Keep the risk low</string>
+    <string name="alert_dialogs_fragment_too_much_balance_dialog_message">The amount in your wallet is quite high for carrying in your pocket. Please move some to a safer place, like a cold wallet.</string>
     <string name="send_coins_activity_title">Send Bitcoins</string>
     <string name="send_coins_fragment_request_payment_request_progress">Fetching signature from %s…</string>
     <string name="send_coins_fragment_request_payment_request_failed_title">Fetching payment request failed</string>
