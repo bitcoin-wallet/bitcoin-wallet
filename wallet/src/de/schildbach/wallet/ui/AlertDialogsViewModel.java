@@ -26,6 +26,7 @@ import androidx.lifecycle.ViewModel;
 public class AlertDialogsViewModel extends ViewModel {
     public final MutableLiveData<Event<Long>> showTimeskewAlertDialog = new MutableLiveData<>();
     public final MutableLiveData<Event<Void>> showVersionAlertDialog = new MutableLiveData<>();
+    public final MutableLiveData<Event<String>> showInsecureDeviceAlertDialog = new MutableLiveData<>();
     public final MutableLiveData<Event<String>> showInsecureBluetoothAlertDialog = new MutableLiveData<>();
     public final MutableLiveData<Event<Void>> showLowStorageAlertDialog = new MutableLiveData<>();
     public final MutableLiveData<Event<String>> showSettingsFailedDialog = new MutableLiveData<>();

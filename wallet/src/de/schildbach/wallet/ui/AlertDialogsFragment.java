@@ -112,6 +112,13 @@ public class AlertDialogsFragment extends Fragment {
                 createVersionAlertDialog().show();
             }
         });
+        viewModel.showInsecureDeviceAlertDialog.observe(this, new Event.Observer<String>() {
+            @Override
+            protected void onEvent(final String minSecurityPatchLevel) {
+                log.info("showing insecure device alert dialog");
+                createInsecureDeviceAlertDialog(minSecurityPatchLevel).show();
+            }
+        });
         viewModel.showInsecureBluetoothAlertDialog.observe(this, new Event.Observer<String>() {
             @Override
             protected void onEvent(final String minSecurityPatchLevel) {
@@ -231,6 +238,12 @@ public class AlertDialogsFragment extends Fragment {
                         }
                     }
 
+                    // Maybe show insecure device alert.
+                    if (Build.VERSION.SECURITY_PATCH.compareToIgnoreCase(Constants.SECURITY_PATCH_INSECURE_BELOW) < 0) {
+                        viewModel.showInsecureDeviceAlertDialog.postValue(new Event<>(Constants.SECURITY_PATCH_INSECURE_BELOW));
+                        return;
+                    }
+
                     // Maybe show insecure bluetooth alert.
                     final String minSecurityPatchLevel = properties.get("min.security_patch.bluetooth");
                     if (minSecurityPatchLevel != null) {
@@ -315,6 +328,14 @@ public class AlertDialogsFragment extends Fragment {
                     });
         }
 
+        dialog.setNegativeButton(R.string.button_dismiss, null);
+        return dialog.create();
+    }
+
+    private Dialog createInsecureDeviceAlertDialog(final String minSecurityPatch) {
+        final DialogBuilder dialog = DialogBuilder.warn(activity,
+                R.string.alert_dialogs_fragment_insecure_bluetooth_title,
+                R.string.wallet_balance_fragment_insecure_device);
         dialog.setNegativeButton(R.string.button_dismiss, null);
         return dialog.create();
     }
