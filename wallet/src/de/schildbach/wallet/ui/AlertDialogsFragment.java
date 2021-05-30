@@ -47,6 +47,7 @@ import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient.Builder;
 import okhttp3.Request;
 import okhttp3.Response;
+import org.bitcoinj.core.Coin;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -98,10 +99,6 @@ public class AlertDialogsFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         viewModel = new ViewModelProvider(this).get(AlertDialogsViewModel.class);
-        viewModel.balance.observe(this, balance -> {
-            if (balance != null && balance.isGreaterThan(Constants.TOO_MUCH_BALANCE_THRESHOLD))
-                viewModel.showTooMuchBalanceAlertDialog.postValue(Event.simple());
-        });
         viewModel.showTimeskewAlertDialog.observe(this, new Event.Observer<Long>() {
             @Override
             protected void onEvent(final Long diffMinutes) {
@@ -275,6 +272,13 @@ public class AlertDialogsFragment extends Fragment {
                             new IntentFilter(Intent.ACTION_DEVICE_STORAGE_LOW));
                     if (stickyIntent != null) {
                         viewModel.showLowStorageAlertDialog.postValue(Event.simple());
+                        return;
+                    }
+
+                    // Maybe show too much balance alert.
+                    final Coin balance = application.getWallet().getBalance();
+                    if (balance.isGreaterThan(Constants.TOO_MUCH_BALANCE_THRESHOLD)) {
+                        viewModel.showTooMuchBalanceAlertDialog.postValue(Event.simple());
                         return;
                     }
 

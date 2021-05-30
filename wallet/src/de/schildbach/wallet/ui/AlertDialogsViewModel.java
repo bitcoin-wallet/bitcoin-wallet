@@ -17,17 +17,13 @@
 
 package de.schildbach.wallet.ui;
 
-import android.app.Application;
-import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
-import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.data.WalletBalanceLiveData;
+import androidx.lifecycle.ViewModel;
 
 /**
  * @author Andreas Schildbach
  */
-public class AlertDialogsViewModel extends AndroidViewModel {
-    public final WalletBalanceLiveData balance;
+public class AlertDialogsViewModel extends ViewModel {
     public final MutableLiveData<Event<Long>> showTimeskewAlertDialog = new MutableLiveData<>();
     public final MutableLiveData<Event<Void>> showVersionAlertDialog = new MutableLiveData<>();
     public final MutableLiveData<Event<String>> showInsecureDeviceAlertDialog = new MutableLiveData<>();
@@ -35,12 +31,4 @@ public class AlertDialogsViewModel extends AndroidViewModel {
     public final MutableLiveData<Event<Void>> showLowStorageAlertDialog = new MutableLiveData<>();
     public final MutableLiveData<Event<String>> showSettingsFailedDialog = new MutableLiveData<>();
     public final MutableLiveData<Event<Void>> showTooMuchBalanceAlertDialog = new MutableLiveData<>();
-
-    private final WalletApplication application;
-
-    public AlertDialogsViewModel(final Application application) {
-        super(application);
-        this.application = (WalletApplication) application;
-        this.balance = new WalletBalanceLiveData(this.application);
-    }
 }
