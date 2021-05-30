@@ -48,6 +48,7 @@ import okhttp3.OkHttpClient.Builder;
 import okhttp3.Request;
 import okhttp3.Response;
 import org.bitcoinj.core.Coin;
+import org.bitcoinj.params.MainNetParams;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -276,10 +277,12 @@ public class AlertDialogsFragment extends Fragment {
                     }
 
                     // Maybe show too much balance alert.
-                    final Coin balance = application.getWallet().getBalance();
-                    if (balance.isGreaterThan(Constants.TOO_MUCH_BALANCE_THRESHOLD)) {
-                        viewModel.showTooMuchBalanceAlertDialog.postValue(Event.simple());
-                        return;
+                    if (Constants.NETWORK_PARAMETERS.getId().equals(MainNetParams.ID_MAINNET)) {
+                        final Coin balance = application.getWallet().getBalance();
+                        if (balance.isGreaterThan(Constants.TOO_MUCH_BALANCE_THRESHOLD)) {
+                            viewModel.showTooMuchBalanceAlertDialog.postValue(Event.simple());
+                            return;
+                        }
                     }
 
                     log.info("all good, no alert dialog shown");
