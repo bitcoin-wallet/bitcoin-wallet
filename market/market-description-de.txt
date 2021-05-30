@@ -27,4 +27,4 @@ Alle Übersetzungen werden auf Transifex organisiert:
 https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
 
 
-<i>Nutzung auf eigene Gefahr!</i>
+<i>Nutzung auf eigene Gefahr! Nutzung nur mit Beträgen in Hosentaschen-Größe.</i>

@@ -27,4 +27,4 @@ All translations are managed via Transifex:
 https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
 
 
-<i>Use at your own risk!</i>
+<i>Use at your own risk! Use only for pocket-sized amounts.</i>
