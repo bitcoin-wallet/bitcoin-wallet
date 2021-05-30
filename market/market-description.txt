@@ -1,4 +1,4 @@
-<b>Have your Bitcoins always with you, in your pocket!</b> You pay by quickly scanning a QR code. As a merchant, you receive payments reliably and instantly. Bitcoin Wallet is the first mobile Bitcoin app, and arguably also the most secure!
+<b>Have your Bitcoins always with you, in your pocket!</b> You pay by quickly scanning a QR code. As a merchant, you receive payments reliably and instantly. Bitcoin Wallet is a reference implementation of the "Simplified Payment Verification" as described in the Bitcoin whitepaper.
 
 
 <b>FEATURES</b>

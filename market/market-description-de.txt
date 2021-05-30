@@ -1,4 +1,4 @@
-<b>Hab deine Bitcoins immer dabei, in deiner Hosentasche!</b> Du zahlst, indem du rasch einen QR-Code scannst. Als Händler empfängst du Zahlungen zuverlässig und sofort. Bitcoin Wallet ist die erste mobile Bitcoin app, und wohl auch die sicherste!
+<b>Hab deine Bitcoins immer dabei, in deiner Hosentasche!</b> Du zahlst, indem du rasch einen QR-Code scannst. Als Händler empfängst du Zahlungen zuverlässig und sofort. Bitcoin Wallet ist eine Referenz-Implementierung der "Simplified Payment Verification", wie sie im Bitcoin-Whitepaper beschrieben ist.
 
 
 <b>FEATURES</b>
