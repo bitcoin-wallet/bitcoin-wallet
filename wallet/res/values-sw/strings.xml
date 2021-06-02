@@ -12,7 +12,6 @@
   <string name="blockchain_state_progress_problem_storage">Haitoshi disc nafasi</string>
   <string name="blockchain_state_progress_problem_network">Hakuna signal wa mtandao</string>
   <string name="wallet_address_fragment_clipboard_msg">Mtaani kunakiliwa na clipboard</string>
-  <string name="wallet_balance_fragment_too_much">Ume Sonko na pochi yako! Tafadhali hoja pesa mahala pa usalama.</string>
   <string name="wallet_balance_fragment_replaying">Mizani ni haipatikani kwa sasa</string>
   <string name="exchange_rates_activity_title">Viwango vya soko</string>
   <string name="exchange_rates_fragment_empty_search">Hakuweza kupata viwango vya soko</string>
@@ -47,6 +46,7 @@
   <string name="wallet_version_dialog_button_binary">Shusha</string>
   <string name="wallet_old_sdk_dialog_title">Android yako ni mzee, sana!</string>
   <string name="wallet_old_sdk_dialog_message">Matoleo ya pili ya pochi hii si msaada Android yako yoyote zaidi. Katika baadhi ya matukio, matumizi ya pesa itakuwa vigumu. Kama wewe ni uhakika, tafadhali kuchukua pesa yako hivi karibuni.</string>
+  <string name="alert_dialogs_fragment_too_much_balance_dialog_message">Ume Sonko na pochi yako! Tafadhali hoja pesa mahala pa usalama.</string>
   <string name="send_coins_activity_title">Kutuma Bitcoin</string>
   <string name="send_coins_fragment_request_payment_request_progress">Kupata sahihi ya %s…</string>
   <string name="send_coins_fragment_request_payment_request_failed_title">Kupata sahihi alishindwa.</string>

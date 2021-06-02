@@ -14,7 +14,6 @@
   <string name="wallet_address_fragment_clipboard_msg">Адрес скопирован в буфер обмена</string>
   <string name="wallet_address_dialog_fragment_hint">Для защиты вашей конфиденциальности ваш адрес будет меняться , как только он получает деньги.</string>
   <string name="wallet_balance_fragment_insecure_device">Ваше устройство устарело и недостаточно защищено. Используйте только для небольших сумм денег.</string>
-  <string name="wallet_balance_fragment_too_much">Сумма монет довольно существенная для карманного бумажника. Пожалуйста, перенесите её часть в более безопасное хранение.</string>
   <string name="wallet_balance_fragment_replaying">Во время воспроизведения баланс недоступен.</string>
   <string name="exchange_rates_activity_title">Обменный курс</string>
   <string name="exchange_rates_fragment_empty_search">Не удалось найти обменный курс.</string>
@@ -58,6 +57,7 @@
   <string name="wallet_old_sdk_dialog_title">Версия для Android устарела</string>
   <string name="wallet_old_sdk_dialog_message">Ваше устройство скорее всего не будет поддерживаться следующей версией Bitcoin Wallet. В некоторых случаях, это может затруднить отправку с него монет.\n\nРекомендуется перенести монеты на другое устройство, если вы не уверены что можете с этим справиться.</string>
   <string name="alert_dialogs_fragment_settings_failed_title">Проблема с открытием настроек</string>
+  <string name="alert_dialogs_fragment_too_much_balance_dialog_message">Сумма монет довольно существенная для карманного бумажника. Пожалуйста, перенесите её часть в более безопасное хранение.</string>
   <string name="send_coins_activity_title">Отправка Bitcoin</string>
   <string name="send_coins_fragment_request_payment_request_progress">Получение подписи %s…</string>
   <string name="send_coins_fragment_request_payment_request_failed_title">Не удалось получить запрос платежа</string>

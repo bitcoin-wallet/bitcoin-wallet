@@ -26,16 +26,6 @@
             android:layout_marginBottom="@dimen/list_entry_padding_vertical"
             android:layout_marginLeft="@dimen/list_entry_padding_horizontal"
             android:textSize="@dimen/font_size_small" />
-
-        <TextView
-            android:id="@+id/wallet_balance_warning"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/list_entry_padding_vertical"
-            android:layout_marginLeft="@dimen/list_entry_padding_horizontal"
-            android:textColor="@color/fg_less_significant"
-            android:textSize="@dimen/font_size_tiny"
-            android:visibility="gone" />
     </LinearLayout>
 
     <TextView

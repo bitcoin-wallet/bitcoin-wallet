@@ -13,7 +13,6 @@
   <string name="blockchain_state_progress_problem_network">Sinkronizimi: Problem me rrjetin</string>
   <string name="wallet_address_fragment_clipboard_msg">Adresa juaj e Bitcoin u kopjua</string>
   <string name="wallet_address_dialog_fragment_hint">Për të ruajtur privaticitetin, adresa juaj do të ndërrohet çdo herë që pranoni një pages.</string>
-  <string name="wallet_balance_fragment_too_much">Kjo shumë është e madhe për tu mbajtur nê xhep. Ju lutem zhvendosni disa monedha në një vend më të sigurt.</string>
   <string name="wallet_balance_fragment_replaying">Bilanci nuk mund të shikohet gjatë përseritjes.</string>
   <string name="exchange_rates_activity_title">Kursi i këmbimit</string>
   <string name="exchange_rates_fragment_empty_search">Nuk mund të gjej kursin e këmbimit.</string>
@@ -49,6 +48,7 @@
   <string name="wallet_version_dialog_button_binary">Shkarkoni</string>
   <string name="wallet_old_sdk_dialog_title">Versioni i Androidit nuk është aktual</string>
   <string name="wallet_old_sdk_dialog_message">Mundësit janë që në verzionet e ardhshme të Bitcoin Wallet nuk do të mbështes paisjen tuaj. Në disa raste, mund të jetë e vështir që të shpenzohen monedhat në këtë paisje.\n\nVetëm në rast se dini cfarë po bëni, është e rekomanduar që të zhvendosni monedhat tuaja në një kulet tjetër.</string>
+  <string name="alert_dialogs_fragment_too_much_balance_dialog_message">Kjo shumë është e madhe për tu mbajtur nê xhep. Ju lutem zhvendosni disa monedha në një vend më të sigurt.</string>
   <string name="send_coins_activity_title">Dërgo Bitcoins</string>
   <string name="send_coins_fragment_request_payment_request_progress">Duke marrë firmat nga %s…</string>
   <string name="send_coins_fragment_request_payment_request_failed_title">Marrja e firmës dështoj</string>

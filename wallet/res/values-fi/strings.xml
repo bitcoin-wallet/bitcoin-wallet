@@ -14,7 +14,6 @@
   <string name="wallet_address_fragment_clipboard_msg">Bitcoin-osoite on kopioitu leikepöydälle</string>
   <string name="wallet_address_dialog_fragment_hint">Suojellaksesi yksityisyyttäsi, osoitteesi vaihtuu aina kerran kun se vastaanottaa maksun.</string>
   <string name="wallet_balance_fragment_insecure_device">Laitteesi on vanha ja turvaton. Käytäthän vain pienten määrien kanssa.</string>
-  <string name="wallet_balance_fragment_too_much">Tämä määrä on melko suuri kannettavaksi taskussasi. Siirrä se johonkin turvallisempaan paikkaan.</string>
   <string name="wallet_balance_fragment_replaying">Saldo ei ole saatavilla uusinnan aikana.</string>
   <string name="exchange_rates_activity_title">Vaihtokurssit:</string>
   <string name="exchange_rates_fragment_empty_search">Rahanvaihtokurssia ei löytynyt.</string>
@@ -58,6 +57,7 @@
   <string name="wallet_old_sdk_dialog_title">Android-järjestelmä ei ole ajan tasalla</string>
   <string name="wallet_old_sdk_dialog_message">On mahdollisuus että Bitcoin Walletin seuraava versio ei enää tue laitettasi. Joissakin tapauksissa kolikoiden käyttäö voi hankaloitua tässä laitteessa.\n\nMikäli et tiedä mitä teet, on suositeltavaa siirtää kolikkosi muualle pian.</string>
   <string name="alert_dialogs_fragment_settings_failed_title">Ongelma asetusten avaamisessa</string>
+  <string name="alert_dialogs_fragment_too_much_balance_dialog_message">Tämä määrä on melko suuri kannettavaksi taskussasi. Siirrä se johonkin turvallisempaan paikkaan.</string>
   <string name="send_coins_activity_title">Lähetä Bitcoineja</string>
   <string name="send_coins_fragment_request_payment_request_progress">Noudetaan allekirjoitus osoitteesta %s…</string>
   <string name="send_coins_fragment_request_payment_request_failed_title">Maksupyynnön noutaminen epäonnistui</string>

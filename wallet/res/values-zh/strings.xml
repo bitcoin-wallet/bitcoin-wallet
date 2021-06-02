@@ -16,7 +16,6 @@
   <string name="wallet_address_fragment_clipboard_msg">比特币地址已复制到了剪贴板</string>
   <string name="wallet_address_dialog_fragment_hint">为了保护你的隐私，当发生接收交易后，你的地址将会更换。</string>
   <string name="wallet_balance_fragment_insecure_device">您的设备过旧并且可能不安全，请仅将其用于小额支付。</string>
-  <string name="wallet_balance_fragment_too_much">该金额太庞大了，在您的口袋中随身携带存在安全风险。请将一部分资金转移到一个安全的地方。</string>
   <string name="wallet_balance_fragment_replaying">重放 (replay) 过程中无法显示余额。</string>
   <string name="exchange_rates_activity_title">汇率</string>
   <string name="exchange_rates_fragment_empty_search">汇率未找到。</string>
@@ -60,6 +59,7 @@
   <string name="wallet_old_sdk_dialog_title">您的 Android 版本已过时</string>
   <string name="wallet_old_sdk_dialog_message">下一个版本的比特币钱包程序很有可能不再支持您当前的设备。这将导致在某些情况下您无法在该设备上支付比特币。\n除非您知道自己在做什么，否则强烈建议您尽快转移您存储在该设备上的比特币。</string>
   <string name="alert_dialogs_fragment_settings_failed_title">无法打开设置</string>
+  <string name="alert_dialogs_fragment_too_much_balance_dialog_message">该金额太庞大了，在您的口袋中随身携带存在安全风险。请将一部分资金转移到一个安全的地方。</string>
   <string name="send_coins_activity_title">发送比特币</string>
   <string name="send_coins_fragment_request_payment_request_progress">正在从 %s 读取签名…</string>
   <string name="send_coins_fragment_request_payment_request_failed_title">获取支付请求失败</string>

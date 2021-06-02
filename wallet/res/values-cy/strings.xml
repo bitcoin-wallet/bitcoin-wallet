@@ -16,7 +16,6 @@
   <string name="wallet_address_fragment_clipboard_msg">Copïwyd y cyfeiriad Bitcoin i\'r clipfwrdd</string>
   <string name="wallet_address_dialog_fragment_hint">I warchod dy breifatrwydd, caiff dy gyfeiriad ei newid unwaith mae\'n derbyn taliad.</string>
   <string name="wallet_balance_fragment_insecure_device">Mae dy ddyfais yn hen ac yn ansefydlog. Argymhellir ei ddefnyddio dim ond am symiau bach.</string>
-  <string name="wallet_balance_fragment_too_much">Mae\'r swm hwn braidd yn fawr i\'w gario yn dy waled. Argymhellir ei symud i rywle mwy diogel.</string>
   <string name="wallet_balance_fragment_replaying">Dyw\'r balans ddim ar gael yn ystod ail-chwarae.</string>
   <string name="exchange_rates_activity_title">Cyfraddau cyfnewid</string>
   <string name="exchange_rates_fragment_empty_search">Methwyd â chanfod cyfraddau cyfnewid.</string>
@@ -60,6 +59,7 @@
   <string name="wallet_old_sdk_dialog_title">Fersiwn Android yn rhy hen</string>
   <string name="wallet_old_sdk_dialog_message">Mae\'n debyg na fydd Waled Bitcoin yn y dyfodol bellach yn cefnogi dy ddyfais. Mewn rhai achosion, gall fod yn anodd anfon Bitcoin ar y ddyfais hon.\nOni bai dy fod yn gwybod be wyt ti\'n gwneud, argymhellir symud dy Bitcoin yn fuan.</string>
   <string name="alert_dialogs_fragment_settings_failed_title">Problem wrth agor gosodiadau</string>
+  <string name="alert_dialogs_fragment_too_much_balance_dialog_message">Mae\'r swm hwn braidd yn fawr i\'w gario yn dy waled. Argymhellir ei symud i rywle mwy diogel.</string>
   <string name="send_coins_activity_title">Anfon Bitcoin</string>
   <string name="send_coins_fragment_request_payment_request_progress">Yn nôl llofnod oddi wrth %s…</string>
   <string name="send_coins_fragment_request_payment_request_failed_title">Methwyd nôl y cais am daliad</string>

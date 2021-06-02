@@ -47,6 +47,8 @@ import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient.Builder;
 import okhttp3.Request;
 import okhttp3.Response;
+import org.bitcoinj.core.Coin;
+import org.bitcoinj.params.MainNetParams;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -112,6 +114,13 @@ public class AlertDialogsFragment extends Fragment {
                 createVersionAlertDialog().show();
             }
         });
+        viewModel.showInsecureDeviceAlertDialog.observe(this, new Event.Observer<String>() {
+            @Override
+            protected void onEvent(final String minSecurityPatchLevel) {
+                log.info("showing insecure device alert dialog");
+                createInsecureDeviceAlertDialog(minSecurityPatchLevel).show();
+            }
+        });
         viewModel.showInsecureBluetoothAlertDialog.observe(this, new Event.Observer<String>() {
             @Override
             protected void onEvent(final String minSecurityPatchLevel) {
@@ -131,6 +140,13 @@ public class AlertDialogsFragment extends Fragment {
             protected void onEvent(final String message) {
                 log.info("showing settings failed dialog");
                 createSettingsFailedDialog(message).show();
+            }
+        });
+        viewModel.showTooMuchBalanceAlertDialog.observe(this, new Event.Observer<Void>() {
+            @Override
+            protected void onEvent(final Void v) {
+                log.info("showing too much balance dialog");
+                createTooMuchBalanceAlertDialog().show();
             }
         });
 
@@ -231,6 +247,12 @@ public class AlertDialogsFragment extends Fragment {
                         }
                     }
 
+                    // Maybe show insecure device alert.
+                    if (Build.VERSION.SECURITY_PATCH.compareToIgnoreCase(Constants.SECURITY_PATCH_INSECURE_BELOW) < 0) {
+                        viewModel.showInsecureDeviceAlertDialog.postValue(new Event<>(Constants.SECURITY_PATCH_INSECURE_BELOW));
+                        return;
+                    }
+
                     // Maybe show insecure bluetooth alert.
                     final String minSecurityPatchLevel = properties.get("min.security_patch.bluetooth");
                     if (minSecurityPatchLevel != null) {
@@ -252,6 +274,15 @@ public class AlertDialogsFragment extends Fragment {
                     if (stickyIntent != null) {
                         viewModel.showLowStorageAlertDialog.postValue(Event.simple());
                         return;
+                    }
+
+                    // Maybe show too much balance alert.
+                    if (Constants.NETWORK_PARAMETERS.getId().equals(MainNetParams.ID_MAINNET)) {
+                        final Coin balance = application.getWallet().getBalance();
+                        if (balance.isGreaterThan(Constants.TOO_MUCH_BALANCE_THRESHOLD)) {
+                            viewModel.showTooMuchBalanceAlertDialog.postValue(Event.simple());
+                            return;
+                        }
                     }
 
                     log.info("all good, no alert dialog shown");
@@ -319,6 +350,14 @@ public class AlertDialogsFragment extends Fragment {
         return dialog.create();
     }
 
+    private Dialog createInsecureDeviceAlertDialog(final String minSecurityPatch) {
+        final DialogBuilder dialog = DialogBuilder.warn(activity,
+                R.string.alert_dialogs_fragment_insecure_bluetooth_title,
+                R.string.wallet_balance_fragment_insecure_device);
+        dialog.setNegativeButton(R.string.button_dismiss, null);
+        return dialog.create();
+    }
+
     private Dialog createInsecureBluetoothAlertDialog(final String minSecurityPatch) {
         final Intent settingsIntent = new Intent(android.provider.Settings.ACTION_BLUETOOTH_SETTINGS);
         final DialogBuilder dialog = DialogBuilder.warn(activity,
@@ -360,6 +399,14 @@ public class AlertDialogsFragment extends Fragment {
     private Dialog createSettingsFailedDialog(final String exceptionMessage) {
         final DialogBuilder dialog = DialogBuilder.dialog(activity,
                 R.string.alert_dialogs_fragment_settings_failed_title, exceptionMessage);
+        dialog.singleDismissButton(null);
+        return dialog.create();
+    }
+
+    private Dialog createTooMuchBalanceAlertDialog() {
+        final DialogBuilder dialog = DialogBuilder.dialog(activity,
+                R.string.alert_dialogs_fragment_too_much_balance_dialog_title,
+                R.string.alert_dialogs_fragment_too_much_balance_dialog_message);
         dialog.singleDismissButton(null);
         return dialog.create();
     }

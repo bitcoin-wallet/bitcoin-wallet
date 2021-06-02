@@ -16,7 +16,6 @@
   <string name="wallet_address_fragment_clipboard_msg">Adresa zkopírována do schránky</string>
   <string name="wallet_address_dialog_fragment_hint">Z důvodu ochrany soukromí dojde ke změně této adresy po každé přijaté platbě.</string>
   <string name="wallet_balance_fragment_insecure_device">Vaše zařízení je staré a nezajištěné. Prosím používejte jej pouze pro malé částky</string>
-  <string name="wallet_balance_fragment_too_much">Tato částka je poměrně vysoká na nosení v kapse. Převeďte ji prosím na bezpečnější místo.</string>
   <string name="wallet_balance_fragment_replaying">Bilance je nedostupná během synchronizace.</string>
   <string name="exchange_rates_activity_title">Směnné kurzy</string>
   <string name="exchange_rates_fragment_empty_search">Nelze najít směnný kurz.</string>
@@ -60,6 +59,7 @@
   <string name="wallet_old_sdk_dialog_title">Verze systému Android je příliš stará</string>
   <string name="wallet_old_sdk_dialog_message">Je pravděpodobné, že jedna z následujících verzí Bitcoin Wallet nebude podporovat vaše zařízení. V některých případech může být v takové situaci komplikované utratit Bitcoiny na tomto zařízení.\n\nPokud si nejste jistí co dělat, tak doporučujeme tyto Bitcoiny přemístit brzy do jiného zařízení.</string>
   <string name="alert_dialogs_fragment_settings_failed_title">Problém s otevřením nastavení.</string>
+  <string name="alert_dialogs_fragment_too_much_balance_dialog_message">Tato částka je poměrně vysoká na nosení v kapse. Převeďte ji prosím na bezpečnější místo.</string>
   <string name="send_coins_activity_title">Zaslat Bitcoiny</string>
   <string name="send_coins_fragment_request_payment_request_progress">Stahuji podpis z %s…</string>
   <string name="send_coins_fragment_request_payment_request_failed_title">Načítání žádosti o platbu se nezdařilo</string>

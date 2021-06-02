@@ -14,7 +14,6 @@
   <string name="wallet_address_fragment_clipboard_msg">Bitcoin adresi panoya kopyalandı</string>
   <string name="wallet_address_dialog_fragment_hint">Gizliliğinizi korumak için bir ödeme aldığında adresiniz değişecektir.</string>
   <string name="wallet_balance_fragment_insecure_device">Donanımınız eski ve güvensiz. Lütfen sadece küçük işlemler için kullanın.</string>
-  <string name="wallet_balance_fragment_too_much">Bu meblağ cebinizde taşımak için oldukça fazladır. Birazını daha güvenli bir yere aktarınız.</string>
   <string name="wallet_balance_fragment_replaying">Tekrar sırasında bakiye kullanılamaz</string>
   <string name="exchange_rates_activity_title">Döviz kurları</string>
   <string name="exchange_rates_fragment_empty_search">Değişim kuru bulunamadı.</string>
@@ -56,6 +55,7 @@
   <string name="wallet_old_sdk_dialog_title">Android sürümü eski</string>
   <string name="wallet_old_sdk_dialog_message">Gelecek Bitcoin Wallet sürümünün cihazınızı desteklememesi mümkündür. Bazı durumlarda bu cihazla bitcoin harcamak zor olabilir.\n\nBitcoinlerinizi güvenli bir yere aktarmanız tavsiye edilir.</string>
   <string name="alert_dialogs_fragment_settings_failed_title">Ayarları açarken bir sorun oluştu</string>
+  <string name="alert_dialogs_fragment_too_much_balance_dialog_message">Bu meblağ cebinizde taşımak için oldukça fazladır. Birazını daha güvenli bir yere aktarınız.</string>
   <string name="send_coins_activity_title">Bitcoin gönder</string>
   <string name="send_coins_fragment_request_payment_request_progress">%s unsurundan imza alınıyor…</string>
   <string name="send_coins_fragment_request_payment_request_failed_title">Ödeme talebi getirilemedi</string>

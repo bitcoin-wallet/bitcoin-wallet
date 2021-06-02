@@ -14,7 +14,6 @@
   <string name="wallet_address_fragment_clipboard_msg">تم نسخ عنوان محفظتك إلى الحافظة</string>
   <string name="wallet_address_dialog_fragment_hint">لحماية خصوصيتك, عنوانك سيتغير في حال استقبالك لدفعة.</string>
   <string name="wallet_balance_fragment_insecure_device">جهازك قديم وغير امن. نرجوا منك استعماله لحفظ كمية مال قليلة.</string>
-  <string name="wallet_balance_fragment_too_much">هذه كمية مال عالية قليلة لحفظها في جيبك. نرجوا نقلها لمكان اكثر اماناً.</string>
   <string name="wallet_balance_fragment_replaying">الرصيد غير متاح في حالة إعادة التشغيل.</string>
   <string name="exchange_rates_activity_title">اسعار الصرف</string>
   <string name="exchange_rates_fragment_empty_search">لا يمكن إيجاد اسعار الصرف.</string>
@@ -53,6 +52,7 @@
   <string name="wallet_version_dialog_button_binary">تنزيل</string>
   <string name="wallet_old_sdk_dialog_title">إصدار نظام الأندرويد الخاص بك قديم أو غير محدث</string>
   <string name="alert_dialogs_fragment_settings_failed_title">هناك مشكلة عند فتح الإعدادات</string>
+  <string name="alert_dialogs_fragment_too_much_balance_dialog_message">هذه كمية مال عالية قليلة لحفظها في جيبك. نرجوا نقلها لمكان اكثر اماناً.</string>
   <string name="send_coins_activity_title">أرسل بيتكوين</string>
   <string name="send_coins_fragment_request_payment_request_progress">جلب التوقيع من %s…</string>
   <string name="send_coins_fragment_request_payment_request_failed_title">فشل جلب التوقيع</string>

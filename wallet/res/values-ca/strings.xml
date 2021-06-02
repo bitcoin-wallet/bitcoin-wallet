@@ -14,7 +14,6 @@
   <string name="wallet_address_fragment_clipboard_msg">L\'adreça Bitcoin s\'ha copiat al porta-retalls.</string>
   <string name="wallet_address_dialog_fragment_hint">Per protegir la teva privacitat, la teva adreça canviarà quan rebi un pagament.</string>
   <string name="wallet_balance_fragment_insecure_device">El dispositiu és vell i insegur. Només es apropiat per a utilitzar pocs fons.</string>
-  <string name="wallet_balance_fragment_too_much">Aquesta quantitat de diners és molt elevada per portar-la a la butxaca, mou una part a un lloc segur.</string>
   <string name="wallet_balance_fragment_replaying">El saldo no està disponible durant la repetició.</string>
   <string name="exchange_rates_activity_title">Preus de canvi</string>
   <string name="exchange_rates_fragment_empty_search">No es pot trobar el preu de canvi.</string>
@@ -56,6 +55,7 @@
   <string name="wallet_old_sdk_dialog_title">La versió Android està des-actualitzada.</string>
   <string name="wallet_old_sdk_dialog_message">El risc és que algun dels següents llançaments de la Cartera Bitcoin no siguin compatibles amb el teu dispositiu. En alguns casos, et pot ser difícil gastar les monedes en aquest dispositiu.\n\nA no ser que sàpigues el que estàs fent, es recomana treure aviat les teves monedes.</string>
   <string name="alert_dialogs_fragment_settings_failed_title">S\'ha produit un error en obrir configuració</string>
+  <string name="alert_dialogs_fragment_too_much_balance_dialog_message">Aquesta quantitat de diners és molt elevada per portar-la a la butxaca, mou una part a un lloc segur.</string>
   <string name="send_coins_activity_title">Envia bitcoins</string>
   <string name="send_coins_fragment_request_payment_request_progress">Important signatura des de %s…</string>
   <string name="send_coins_fragment_request_payment_request_failed_title">S\'ha produit un error en obtenir la sol·licitud de pagament</string>

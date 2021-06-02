@@ -12,7 +12,6 @@
   <string name="blockchain_state_progress_problem_network">Συγχρονισμός: Πρόβλημα δικτύου</string>
   <string name="wallet_address_fragment_clipboard_msg">H Bitcoin διεύθυνση αντιγράφηκε στο πρόχειρο</string>
   <string name="wallet_address_dialog_fragment_hint">Για λόγους προστασίας της ανωνυμίας σας, η διεύθυνσή σας θα αλλάζει με κάθε πληρωμή που θα λαμβάνετε.</string>
-  <string name="wallet_balance_fragment_too_much">Το ποσό αυτό είναι αρκετά μεγάλο για να το έχετε σε ένα σημείο. Μετακινήστε μερικά νομίσματα σε άλλο πορτοφόλι για τη δική σας ασφάλεια.</string>
   <string name="wallet_balance_fragment_replaying">Το υπόλοιπο δεν είναι διαθέσιμο κατά τη διάρκεια της επανάληψης.</string>
   <string name="exchange_rates_activity_title">Ισοτιμίες</string>
   <string name="exchange_rates_fragment_empty_search">Δε βρέθηκε η ισοτιμία.</string>
@@ -38,6 +37,7 @@
   <string name="wallet_version_dialog_msg">Αυτή η έκδοση διορθώνει σημαντικά προβλήματα. Για λεπτομέρειες, δείτε το σύνολο των αλλαγών στο %s.</string>
   <string name="wallet_version_dialog_button_binary">Λήψη</string>
   <string name="wallet_old_sdk_dialog_title">Η έκδοση για Android είναι παρωχημένη</string>
+  <string name="alert_dialogs_fragment_too_much_balance_dialog_message">Το ποσό αυτό είναι αρκετά μεγάλο για να το έχετε σε ένα σημείο. Μετακινήστε μερικά νομίσματα σε άλλο πορτοφόλι για τη δική σας ασφάλεια.</string>
   <string name="send_coins_activity_title">Αποστολή Bitcoins</string>
   <string name="send_coins_fragment_request_payment_request_wrong_signature">Λανθασμένη υπογραφή!</string>
   <string name="send_coins_fragment_payee_verified_by_unknown">άγνωστο</string>

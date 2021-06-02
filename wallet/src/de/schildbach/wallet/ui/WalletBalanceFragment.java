@@ -19,7 +19,6 @@ package de.schildbach.wallet.ui;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
@@ -53,7 +52,6 @@ public final class WalletBalanceFragment extends Fragment {
 
     private View viewBalance;
     private CurrencyTextView viewBalanceBtc;
-    private TextView viewBalanceWarning;
     private CurrencyTextView viewBalanceLocal;
     private TextView viewProgress;
 
@@ -115,8 +113,6 @@ public final class WalletBalanceFragment extends Fragment {
 
         viewBalanceBtc = view.findViewById(R.id.wallet_balance_btc);
         viewBalanceBtc.setPrefixScaleX(0.9f);
-
-        viewBalanceWarning = view.findViewById(R.id.wallet_balance_warning);
 
         viewBalanceLocal = view.findViewById(R.id.wallet_balance_local);
         viewBalanceLocal.setInsignificantRelativeSize(1);
@@ -212,16 +208,6 @@ public final class WalletBalanceFragment extends Fragment {
                 }
             } else {
                 viewBalanceBtc.setVisibility(View.INVISIBLE);
-            }
-
-            if (balance != null && balance.isGreaterThan(Constants.TOO_MUCH_BALANCE_THRESHOLD)) {
-                viewBalanceWarning.setVisibility(View.VISIBLE);
-                viewBalanceWarning.setText(R.string.wallet_balance_fragment_too_much);
-            } else if (Build.VERSION.SECURITY_PATCH.compareToIgnoreCase(Constants.SECURITY_PATCH_INSECURE_BELOW) < 0) {
-                viewBalanceWarning.setVisibility(View.VISIBLE);
-                viewBalanceWarning.setText(R.string.wallet_balance_fragment_insecure_device);
-            } else {
-                viewBalanceWarning.setVisibility(View.GONE);
             }
 
             viewProgress.setVisibility(View.GONE);

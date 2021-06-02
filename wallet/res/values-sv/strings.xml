@@ -14,7 +14,6 @@
   <string name="wallet_address_fragment_clipboard_msg">Bitcoinadressen kopierades</string>
   <string name="wallet_address_dialog_fragment_hint">För att skydda din integritet ändras din adress när den tar emot en betalning.</string>
   <string name="wallet_balance_fragment_insecure_device">Din enhet är gammal och osäker. Använd den endast för små belopp.</string>
-  <string name="wallet_balance_fragment_too_much">Det här är ett stort belopp att bära omkring på i fickan. Flytta gärna över en del till en säkrare plats.</string>
   <string name="wallet_balance_fragment_replaying">Saldot är otillgängligt under reprisen.</string>
   <string name="exchange_rates_activity_title">Växlingskurser</string>
   <string name="exchange_rates_fragment_empty_search">Kunde inte hitta växlingskurs.</string>
@@ -55,6 +54,7 @@
   <string name="wallet_old_sdk_dialog_title">Android-versionen är inaktuell</string>
   <string name="wallet_old_sdk_dialog_message">Chansen är stor att någon av de kommande releaserna av Bitcoin Wallet inte kommer att fungera på din enhet längre. I vissa fall kan det bli svårt att spendera dina tillgångar med den här enheten.\n\nSåvida du inte vet vad du gör, rekommenderas att du flyttar dina bitcoin snart.</string>
   <string name="alert_dialogs_fragment_settings_failed_title">Problem att öppna inställningar</string>
+  <string name="alert_dialogs_fragment_too_much_balance_dialog_message">Det här är ett stort belopp att bära omkring på i fickan. Flytta gärna över en del till en säkrare plats.</string>
   <string name="send_coins_activity_title">Skicka bitcoin</string>
   <string name="send_coins_fragment_request_payment_request_progress">Hämtar signatur från %s</string>
   <string name="send_coins_fragment_request_payment_request_failed_title">Hämtning av signatur misslyckades</string>

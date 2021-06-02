@@ -18,7 +18,7 @@ This project contains several sub-projects:
 
 ### PREREQUISITES FOR BUILDING
 
-You'll need git, a Java 8 SDK (or later) and Gradle 4.4 (or later) for this. We'll assume Ubuntu 18.04 LTS (Bionic Beaver)
+You'll need git, a Java 8 SDK (or later) and Gradle 4.4 (or later) for this. We'll assume Ubuntu 20.04 LTS (Focal Fossa)
 for the package installs, which comes with OpenJDK 8 and Gradle 4.4.1 out of the box.
 
     # first time only
@@ -44,15 +44,3 @@ You can build all sub-projects in all flavors at once using Gradle:
     gradle clean build
 
 For details about building the wallet see the [specific README](wallet/README.md).
-
-
-### BINARIES
-
-You can install the app from the app store of your choice:
-
- * __Testnet__:
-   <a href="https://f-droid.org/app/de.schildbach.wallet_test">F-Droid</a> |
-   <a href='https://play.google.com/store/apps/details?id=de.schildbach.wallet_test'>Google Play</a>
- * __Mainnet__:
-   <a href="https://f-droid.org/app/de.schildbach.wallet">F-Droid</a> |
-   <a href='https://play.google.com/store/apps/details?id=de.schildbach.wallet'>Google Play</a>
