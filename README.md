@@ -1,10 +1,6 @@
-<<<<<<< HEAD
-Welcome to _Groestlcoin Wallet_, a standalone GroestlCoin payment app for your Android device!
-=======
-# BITCOIN WALLET
+# GROESTLCOIN WALLET
 
-Welcome to _Bitcoin Wallet_, a standalone Bitcoin payment app for your Android device!
->>>>>>> a0368a8a7e47b7ad07d1193f6549da1071bf19c2
+Welcome to _Groestlcoin Wallet_, a standalone GroestlCoin payment app for your Android device!
 
 This project contains several sub-projects:
 
@@ -36,8 +32,8 @@ and unpack it to `$ANDROID_HOME/`.
 Finally, the last preparative step is acquiring the source code. Again in your workspace, use:
 
     # first time only
-    git clone -b master https://github.com/bitcoin-wallet/bitcoin-wallet.git bitcoin-wallet
-    cd bitcoin-wallet
+    git clone -b master https://github.com/Groestlcoin/groestlcoin-wallet.git groestlcoin-wallet
+    cd groestlcoin-wallet
 
 
 ### BUILDING
@@ -47,13 +43,12 @@ You can build all sub-projects in all flavors at once using Gradle:
     # each time
     gradle clean build
 
-<<<<<<< HEAD
+For details about building the wallet see the [specific README](wallet/README.md).
+
+### Stores
  * __Testnet__:
    <a href="https://f-droid.org/app/hashengineering.groestlcoin.wallet_test">F-Droid</a> |
    <a href='https://play.google.com/store/apps/details?id=hashengineering.groestlcoin.wallet_test'>Google Play</a>
  * __Mainnet__:
    <a href="https://f-droid.org/app/hashengineering.groestlcoin.wallet">F-Droid</a> |
    <a href='https://play.google.com/store/apps/details?id=hashengineering.groestlcoin.wallet'>Google Play</a>
-=======
-For details about building the wallet see the [specific README](wallet/README.md).
->>>>>>> a0368a8a7e47b7ad07d1193f6549da1071bf19c2

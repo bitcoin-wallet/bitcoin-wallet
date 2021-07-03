@@ -19,13 +19,8 @@ Certain actions cause automatic rolling backups of your wallet to app-private st
 
 Your wallet can be manually backed up to and restored from a share of the storage access framework (likely Google Drive):
 
-<<<<<<< HEAD
-	Mainnet: /sdcard/Download/groestlcoin-wallet-backup-<yyyy-MM-dd>
-	Testnet: /sdcard/Download/groestlcoin-wallet-backup-testnet-<yyyy-MM-dd>
-=======
-    Mainnet: bitcoin-wallet-backup-<yyyy-MM-dd-HH-mm>
-    Testnet: bitcoin-wallet-backup-testnet-<yyyy-MM-dd-HH-mm>
->>>>>>> a0368a8a7e47b7ad07d1193f6549da1071bf19c2
+	Mainnet: groestlcoin-wallet-backup-<yyyy-MM-dd>
+	Testnet: groestlcoin-wallet-backup-testnet-<yyyy-MM-dd>
 
 If you want to recover coins from manual backups and for whatever reason you cannot use the app
 itself to restore from the backup, see the separate [README.recover.md](README.recover.md) guide.
@@ -58,43 +53,8 @@ If you haven't done already, follow the **Prerequisites for Building** section i
 It's important to know that the development version uses Testnet, is debuggable and the wallet file
 is world readable/writeable. The goal is to be able to debug easily.
 
-<<<<<<< HEAD
-You can probably skip some steps, especially if you built Android apps before.
-
-You'll need git, a Java 7 SDK (or later) and Gradle 4.4 (or later) for this. I'll assume Ubuntu 18.04 LTS (Bionic Beaver)
-for the package installs, which comes with OpenJDK 8 and Gradle 4.4.1 out of the box.
-
-    # first time only
-    sudo apt install git gradle openjdk-8-jdk
-
-Create a directory for the Android SDK (e.g. `android-sdk`) and point the `ANDROID_HOME` variable to it.
-
-Download the [Android SDK Tools](https://developer.android.com/studio/index.html#command-tools)
-and unpack it to `$ANDROID_HOME/`.
-
-Install the NDK:
-
-    # first time only
-    $ANDROID_HOME/bin/tools/sdkmanager ndk-bundle
 
 Finally, you can build Groestlcoin Wallet and sign it with your development key. Again in your workspace,
-use:
-
-	# first time only
-	git clone -b master https://github.com/HashEngineering/groestlcoin-wallet.git groestlcoin-wallet
-
-	# each time
-	cd groestlcoin-wallet
-	git pull
-    gradle clean :native-scrypt:copy test build
-
-To install the app on your Android device, use
-    # each time
-	cd groestlcoin-wallet
-	git pull
-    gradle clean :native-scrypt:copy test build
-=======
-Finally, you can build Bitcoin Wallet and sign it with your development key. Again in your workspace,
 use:
 
     # each time
@@ -102,8 +62,7 @@ use:
 
 You'll find the signed APK under this path:
 
-    wallet/build/outputs/apk/dev/debug/bitcoin-wallet-dev-debug.apk
->>>>>>> a0368a8a7e47b7ad07d1193f6549da1071bf19c2
+    wallet/build/outputs/apk/dev/debug/groestlcoin-wallet-dev-debug.apk
 
 To install the app on your Android device, use:
 
@@ -125,21 +84,14 @@ tag) as the development version. After you have cloned/updated the git repositor
 use:
 
     # each time
-<<<<<<< HEAD
-	cd groestlcoin-wallet
-	git fetch origin
-	git checkout master
-    gradle clean :native-scrypt:copy test build
-=======
     gradle clean test :wallet:assembleProdRelease
 
 You'll find the unsigned APK under this path:
 
-    wallet/build/outputs/apk/prod/release/bitcoin-wallet-prod-release-unsigned.apk
+    wallet/build/outputs/apk/prod/release/groestlcoin-wallet-prod-release-unsigned.apk
 
 Apart from the missing signature and checksums in `META-INF/`, it should be identical to the APKs
 provided via the app stores.
->>>>>>> a0368a8a7e47b7ad07d1193f6549da1071bf19c2
 
 
 ### SETTING UP FOR DEVELOPMENT
@@ -206,11 +158,7 @@ Groestlcoin Wallet uses [groestlcoinj](	https://github.com/Groestlcoin/groestlco
 
 ### EXCHANGE RATES
 
-<<<<<<< HEAD
-Groestlcoin Wallet reads this feed from "BitcoinAverage" for getting exchange rates:
-=======
-Bitcoin Wallet reads this feed from "CoinGecko" for getting exchange rates:
->>>>>>> a0368a8a7e47b7ad07d1193f6549da1071bf19c2
+Groestlcoin Wallet reads this feed from "CoinGecko" for getting exchange rates:
 
     https://api.coingecko.com/api/v3/exchange_rates
 
