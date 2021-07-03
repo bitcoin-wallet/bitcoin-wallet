@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2015 the original author or authors.
+ * Copyright the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,9 +17,8 @@
 
 package de.schildbach.wallet.ui;
 
-import de.schildbach.wallet.R;
-
 import android.os.Bundle;
+import de.schildbach.wallet.R;
 
 /**
  * @author Andreas Schildbach

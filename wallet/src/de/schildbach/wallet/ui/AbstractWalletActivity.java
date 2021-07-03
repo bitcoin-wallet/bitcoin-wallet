@@ -17,19 +17,20 @@
 
 package de.schildbach.wallet.ui;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import de.schildbach.wallet.R;
-import de.schildbach.wallet.WalletApplication;
-
 import android.app.ActivityManager.TaskDescription;
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.WindowManager;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
+import de.schildbach.wallet.R;
+import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.util.Toast;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Andreas Schildbach
@@ -42,7 +43,7 @@ public abstract class AbstractWalletActivity extends FragmentActivity {
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         application = (WalletApplication) getApplication();
-        setTaskDescription(new TaskDescription(null, null, ContextCompat.getColor(this, R.color.bg_action_bar)));
+        setTaskDescription(new TaskDescription(null, null, getColor(R.color.bg_action_bar)));
         super.onCreate(savedInstanceState);
     }
 
@@ -68,5 +69,14 @@ public abstract class AbstractWalletActivity extends FragmentActivity {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
         else
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
+    }
+
+    public void startExternalDocument(final Uri url) {
+        try {
+            startActivity(new Intent(Intent.ACTION_VIEW, url));
+        } catch (final ActivityNotFoundException x) {
+            log.info("Cannot view {}", url);
+            new Toast(this).longToast(R.string.toast_start_external_document_failed);
+        }
     }
 }

@@ -14,7 +14,6 @@
   <string name="wallet_address_fragment_clipboard_msg">Адреса скопійована в буфер обміну</string>
   <string name="wallet_balance_fragment_replaying">Під час відтворення баланс недоступний.</string>
   <string name="exchange_rates_activity_title">Курси валют</string>
-  <string name="exchange_rates_fragment_empty_text">Не вдалося завантажити курси валют.</string>
   <string name="exchange_rates_fragment_empty_search">Не вдалося знайти обмінний курс.</string>
   <string name="exchange_rates_fragment_default">(за замовчуванням)</string>
   <string name="exchange_rates_fragment_rate">курс</string>
@@ -101,9 +100,6 @@
   <string name="address_book_context_edit_title">Змінити адресу</string>
   <string name="address_book_context_remove_title">Видалити адресу</string>
   <string name="address_book_context_copy_to_clipboard_title">Скопіювати в буфер обміну</string>
-  <string name="address_book_options_paste_from_clipboard_title">Вставити з буфера обміну</string>
-  <string name="address_book_options_paste_from_clipboard_empty">Буфер обміну порожній</string>
-  <string name="address_book_options_paste_from_clipboard_invalid">Неможливо розпізнати дані буфера обміну</string>
   <string name="address_book_options_scan_title">Сканувати адресу</string>
   <string name="address_book_options_scan_invalid">Дані сканування невпізнані</string>
   <string name="address_book_row_message_compromised_key">Ця адреса могла скомпрометуватися. Не використовуйте її більше для отримання коштів.</string>
@@ -171,7 +167,6 @@
   <string name="report_issue_dialog_description">опис проблеми</string>
   <string name="report_issue_dialog_report">Звіт</string>
   <string name="report_issue_dialog_collect_device_info">Додати інформацію про пристрій</string>
-  <string name="report_issue_dialog_collect_installed_packages">Додати список встановлених пакетів</string>
   <string name="report_issue_dialog_collect_application_log">Додати лог додатку</string>
   <string name="report_issue_dialog_collect_wallet_dump">Додати дамп пам\'яті гаманця</string>
   <string name="report_issue_dialog_mail_intent_chooser">Відправити звіт використовуючи…</string>

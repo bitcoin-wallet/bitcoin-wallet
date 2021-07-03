@@ -1,6 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
   <string name="toast_wallet_reset">Din tegnebog blev nulstillet!\nDet tager nogen tid at genoprette.</string>
+  <string name="toast_start_external_document_failed">Der er ingen webbrowser installeret til at åbne det eksterne dokument.</string>
   <string name="wallet_disclaimer_fragment_remind_safety">Brug for egen risiko. Læs &lt;u&gt;sikkerhedsnoterne&lt;/u&gt;.</string>
   <string name="wallet_disclaimer_fragment_remind_backup">Du bør &lt;u&gt;tage sikkerhedskopi af din tegnebog&lt;/u&gt;!</string>
   <string name="blockchain_state_progress_hours">%1$s, %2$d timer bagefter</string>
@@ -14,10 +15,8 @@
   <string name="wallet_address_fragment_clipboard_msg">Groestlcoin-adresse kopieret til udklipsholder</string>
   <string name="wallet_address_dialog_fragment_hint">For at beskytte dit privatliv vil din adresse ændres, så snart den modtager en betaling.</string>
   <string name="wallet_balance_fragment_insecure_device">Din enhed er gammel og usikker. Brug venligst kun til små beløb.</string>
-  <string name="wallet_balance_fragment_too_much">Dette beløb er ret stort at gå rundt med i din lomme. Du bør flytte noget af det til et mere sikkert sted.</string>
   <string name="wallet_balance_fragment_replaying">Saldo er ikke tilgængelig under gennemløb af blokkæden.</string>
   <string name="exchange_rates_activity_title">Valutakurser</string>
-  <string name="exchange_rates_fragment_empty_text">Kunne ikke indlæse vekselkurser.</string>
   <string name="exchange_rates_fragment_empty_search">Kunne ikke finde vekselkurs.</string>
   <string name="exchange_rates_fragment_default">(standard)</string>
   <string name="exchange_rates_fragment_rate">kurs</string>
@@ -59,6 +58,7 @@
   <string name="wallet_old_sdk_dialog_title">Android-version er uddateret</string>
   <string name="wallet_old_sdk_dialog_message">Der er risiko for, at en af de næste udgivelser af Groestlcoin Wallet ikke vil understøtte din enhed længere. I nogle tilfælde kan det være svært at bruge mønter på denne enhed.\n\nMed mindre du ved hvad du gør, anbefales det snart at flytte dine mønter væk.</string>
   <string name="alert_dialogs_fragment_settings_failed_title">Problem under åbning af indstillinger</string>
+  <string name="alert_dialogs_fragment_too_much_balance_dialog_message">Dette beløb er ret stort at gå rundt med i din lomme. Du bør flytte noget af det til et mere sikkert sted.</string>
   <string name="send_coins_activity_title">Send Groestlcoins</string>
   <string name="send_coins_fragment_request_payment_request_progress">Henter signatur fra %s…</string>
   <string name="send_coins_fragment_request_payment_request_failed_title">Hentning af betalingsanmodning mislykkedes</string>
@@ -152,14 +152,11 @@
   <string name="address_book_context_edit_title">Redigér adresse</string>
   <string name="address_book_context_remove_title">Fjern adresse</string>
   <string name="address_book_context_copy_to_clipboard_title">Kopiér til udklipsholder</string>
-  <string name="address_book_options_paste_from_clipboard_title">Indsæt fra udklipsholder</string>
-  <string name="address_book_options_paste_from_clipboard_empty">Udklipsholder er tom</string>
-  <string name="address_book_options_paste_from_clipboard_invalid">Data fra udklipsholder kan ikke genkendes</string>
-  <string name="address_book_options_paste_from_clipboard_own_address">Adressen i udklipsholderen er din egen.</string>
   <string name="address_book_options_scan_title">Scan adresse</string>
   <string name="address_book_options_scan_invalid">Scannet data kan ikke genkendes</string>
   <string name="address_book_options_scan_own_address">Den scannede adresse er din egen.</string>
-  <string name="address_book_row_message_compromised_key">Denne adresse kan være blevet misbrugt. Du bør ikke bruge den til at modtage Groestlcoin længere.</string>
+  <string name="address_book_row_current_address">Dette er din aktuelle modtagelsesadresse.</string>
+  <string name="address_book_row_message_compromised_key">Denne adresse kan være blevet misbrugt. Du bør ikke bruge den til at modtage Groestlcoins længere.</string>
   <string name="edit_address_book_entry_dialog_title_add">Tilføj afsenderadresse</string>
   <string name="edit_address_book_entry_dialog_title_edit">Redigér mærke for afsenderadresse</string>
   <string name="edit_address_book_entry_dialog_title_add_receive">Føj mærke til din adresse</string>
@@ -236,6 +233,9 @@
   <string name="input_parser_invalid_paymentrequest">Ugyldig betalingsforespørgsel:\n%s</string>
   <string name="input_parser_invalid_transaction">Ugyldig overførsel:\n%s</string>
   <string name="preferences_activity_title">Opsætning</string>
+  <string name="preferences_category_general">Generelt</string>
+  <string name="preferences_category_privacy">Privatlivskontrol</string>
+  <string name="preferences_category_merchants">Sælgere</string>
   <string name="preferences_category_diagnostics">Diagnostik</string>
   <string name="preferences_category_labs">Laboratoriet</string>
   <string name="preferences_precision_title">Denominering og præcision</string>
@@ -246,11 +246,13 @@
   <string name="preferences_precision_labels_2_3">mGRS, 2 decimaler</string>
   <string name="preferences_precision_labels_0_6">µGRS, uden decimaler</string>
   <string name="preferences_own_name_title">Eget navn</string>
-  <string name="preferences_own_name_summary">Dit eget navn, som skal føjes til betalingsforespørgsler. Prøv at holde det kort.</string>
+  <string name="preferences_own_name_summary">Dit navn eller din virksomheds navn. Føjes til betalingsanmodninger, som du sender til kunder.</string>
+  <string name="preferences_own_name_dialog_message">Hold det kort.</string>
   <string name="preferences_send_coins_autoclose_title">Luk automatisk dialogen Send coins</string>
   <string name="preferences_send_coins_autoclose_summary">Send-dialogen vil lukke automatisk, når betalingen er udført.</string>
   <string name="preferences_trusted_peer_title">Betroet peer</string>
   <string name="preferences_trusted_peer_summary">IP eller værtsnavn for forbindelse til en enkelt peer.</string>
+  <string name="preferences_trusted_peer_dialog_message">Indtast venligst en gyldig IP-adresse eller værtsnavn. Hvis du har Tor sat op, kan du også bruge en onion-adresse her.</string>
   <string name="preferences_trusted_peer_resolve_progress">Oversætter…</string>
   <string name="preferences_trusted_peer_resolve_unknown_host">Ukendt værtsnavn!</string>
   <string name="preferences_trusted_peer_only_title">Spring normal peer-søgning over</string>
@@ -259,10 +261,15 @@
   <string name="preferences_block_explorer_summary">Ekstern blokudforsker, der skal bruges til at gennemse transaktioner, adresser og blokke.</string>
   <string name="preferences_data_usage_title">Dataforbrug</string>
   <string name="preferences_data_usage_summary">Vis indstillinger for restriktion på dataforbrug på mobile netværk.</string>
+  <string name="preferences_notifications_title">Notifikationer</string>
+  <string name="preferences_notifications_summary">Vis muligheder for at aktivere eller deaktivere specifikke notifikationer.</string>
   <string name="preferences_remind_balance_title">Saldopåmindelse</string>
   <string name="preferences_remind_balance_summary">Efter et par uger uden brug vil app\'en give besked, hvis der stadig er penge i tegnebogen.</string>
   <string name="preferences_show_disclaimer_title">Vis ansvarsfraskrivelse</string>
   <string name="preferences_show_disclaimer_summary">Har du virkelig læst sikkerhedsnoterne? Har du allerede sikkerhedskopieret din tegnebog til et sikkert sted?</string>
+  <string name="preferences_bluetooth_address_title">Bluetooth-adresse</string>
+  <string name="preferences_bluetooth_address_summary">Konfigurér manuelt din egen Bluetooth-adresse, så du kan modtage betalinger fra købere uden forbindelse.</string>
+  <string name="preferences_bluetooth_address_dialog_message">Desværre forhindrer Android den automatiske søgning efter din enheds Bluetooth-adresse. Du er nødt til at slå den op i Androids Bluetooth-indstillinger og indtaste den her.\n\nSørg venligst for at alle tegn er korrekte. Koloner kan udelades og der er ikke forskel på små og store bogstaver.</string>
   <string name="preferences_report_issue_title">Rapportér problem</string>
   <string name="preferences_initiate_reset_title">Nulstil blokkæde</string>
   <string name="preferences_initiate_reset_summary">Nulstil blokkæde, overførsler og saldo for tegnebogen. Gennemløb af blokkæden vil tage et stykke tid, så gør kun dette hvis du ved hvorfor.</string>
@@ -281,7 +288,6 @@
   <string name="report_issue_dialog_description">problembeskrivelse</string>
   <string name="report_issue_dialog_report">Rapport</string>
   <string name="report_issue_dialog_collect_device_info">Tilføj enhedsinformation</string>
-  <string name="report_issue_dialog_collect_installed_packages">Tilføj liste over installerede pakker</string>
   <string name="report_issue_dialog_collect_application_log">Tilføj programlog</string>
   <string name="report_issue_dialog_collect_wallet_dump">Tilføj dump af tegnebog</string>
   <string name="report_issue_dialog_mail_intent_chooser">Send rapport ved hjælp af…</string>
@@ -305,12 +311,16 @@
   <string name="about_faq_summary">Ofte stillede spørgsmål om app\'en</string>
   <string name="notification_coins_received_msg">Modtog %s</string>
   <string name="notification_connectivity_syncing_message">Synkroniserer med netværket…</string>
+  <string name="notification_connectivity_syncing_trusted_peer">Synkroniserer med din betroede peer…</string>
   <string name="notification_peers_connected_msg">%d peers forbundet</string>
-  <string name="notification_inactivity_title">Du har stadig Groestlcoin på denne enhed!</string>
+  <string name="notification_peer_connected">forbundet</string>
+  <string name="notification_peer_not_connected">ikke forbundet</string>
+  <string name="notification_inactivity_title">Du har stadig bitcoin på denne enhed!</string>
   <string name="notification_inactivity_message">Husk, at din saldo på %s vil gå tabt, hvis du afinstallerer app\'en Groestlcoin Wallet uden først at sende pengede videre.</string>
-  <string name="notification_inactivity_message_donate">Hvis du ikke er interesseret i dine Groestlcoin, kan du også donere dem til Groestlcoin Wallet-projektet.</string>
+  <string name="notification_inactivity_message_donate">Hvis du ikke er interesseret i dine bitcoin, kan du også donere dem til Groestlcoin Wallet-projektet.</string>
   <string name="notification_inactivity_action_dismiss">Påmind senere</string>
   <string name="notification_inactivity_action_dismiss_forever">Påmind mig ikke</string>
+  <string name="notification_bluetooth_service_listening">Klar til at modtage betalinger via Bluetooth</string>
   <string name="notification_channel_received_name">Modtagne betalinger</string>
   <string name="notification_channel_ongoing_name">Baggrundsaktivitet</string>
   <string name="notification_channel_important_name">Vigtige advarsler</string>
@@ -334,7 +344,6 @@
   <string name="button_send_coins">Send</string>
   <string name="button_scan">Scan</string>
   <string name="button_settings">Opsætning</string>
-  <string name="button_options">Flere indstillinger</string>
   <string name="action_show_qr">Vis QR-kode</string>
   <string name="action_browse">Gennemse</string>
   <!--generic strings-->

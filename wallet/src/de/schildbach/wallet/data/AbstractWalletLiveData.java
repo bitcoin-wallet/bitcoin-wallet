@@ -17,16 +17,12 @@
 
 package de.schildbach.wallet.data;
 
-import org.bitcoinj.wallet.Wallet;
-
+import android.os.Handler;
+import androidx.lifecycle.Observer;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.WalletApplication.OnWalletLoadedListener;
 import de.schildbach.wallet.ui.Event;
-
-import android.os.Handler;
-import androidx.annotation.NonNull;
-import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.Observer;
+import org.bitcoinj.wallet.Wallet;
 
 /**
  * @author Andreas Schildbach
@@ -47,19 +43,8 @@ public abstract class AbstractWalletLiveData<T> extends ThrottelingLiveData<T> i
     }
 
     @Override
-    public void observe(@NonNull final LifecycleOwner owner, @NonNull final Observer<? super T> observer) {
-        super.observe(owner, observer);
-        application.walletChanged.observe(owner, this);
-    }
-
-    @Override
-    public void removeObservers(@NonNull final LifecycleOwner owner) {
-        application.walletChanged.removeObservers(owner);
-        super.removeObservers(owner);
-    }
-
-    @Override
     protected final void onActive() {
+        application.walletChanged.observeForever(this);
         loadWallet();
     }
 
@@ -68,6 +53,7 @@ public abstract class AbstractWalletLiveData<T> extends ThrottelingLiveData<T> i
         // TODO cancel async loading
         if (wallet != null)
             onWalletInactive(wallet);
+        application.walletChanged.removeObserver(this);
     }
 
     private void loadWallet() {

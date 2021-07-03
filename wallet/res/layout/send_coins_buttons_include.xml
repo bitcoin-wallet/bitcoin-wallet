@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     style="?android:attr/buttonBarStyle"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:measureWithLargestChild="true"
-    android:orientation="horizontal" >
+    android:orientation="horizontal">
 
     <Button
         android:id="@+id/send_coins_cancel"
@@ -14,7 +15,6 @@
         android:layout_weight="1"
         android:background="?android:attr/selectableItemBackground"
         android:maxLines="2"
-        android:textAllCaps="false"
         android:textSize="@dimen/font_size_small" />
 
     <Button
@@ -25,8 +25,6 @@
         android:layout_weight="1"
         android:background="?android:attr/selectableItemBackground"
         android:maxLines="2"
-        android:textAllCaps="false"
         android:textSize="@dimen/font_size_small"
         android:textStyle="bold" />
-
 </LinearLayout>

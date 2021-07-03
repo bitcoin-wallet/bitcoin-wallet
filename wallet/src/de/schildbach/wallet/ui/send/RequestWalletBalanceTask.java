@@ -17,6 +17,46 @@
 
 package de.schildbach.wallet.ui.send;
 
+import android.content.res.AssetManager;
+import android.os.Handler;
+import android.os.Looper;
+import androidx.annotation.Nullable;
+import com.google.common.base.Splitter;
+import com.google.common.base.Strings;
+import com.google.common.collect.HashMultiset;
+import com.google.common.collect.Multiset;
+import com.google.common.hash.Hashing;
+import com.squareup.moshi.JsonAdapter;
+import com.squareup.moshi.JsonDataException;
+import com.squareup.moshi.Moshi;
+import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.R;
+import de.schildbach.wallet.util.Assets;
+import okio.BufferedSink;
+import okio.BufferedSource;
+import okio.Okio;
+import org.bitcoinj.core.Address;
+import org.bitcoinj.core.Coin;
+import org.bitcoinj.core.ECKey;
+import org.bitcoinj.core.LegacyAddress;
+import org.bitcoinj.core.SegwitAddress;
+import org.bitcoinj.core.Sha256Hash;
+import org.bitcoinj.core.UTXO;
+import org.bitcoinj.script.Script;
+import org.bitcoinj.script.ScriptBuilder;
+import org.bitcoinj.utils.ContextPropagatingThreadFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.net.SocketFactory;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLPeerUnverifiedException;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.SSLSocket;
+import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -33,6 +73,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
@@ -40,49 +81,6 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
-
-import javax.net.SocketFactory;
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLPeerUnverifiedException;
-import javax.net.ssl.SSLSession;
-import javax.net.ssl.SSLSocket;
-import javax.net.ssl.SSLSocketFactory;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
-
-import org.bitcoinj.core.Address;
-import org.bitcoinj.core.Coin;
-import org.bitcoinj.core.ECKey;
-import org.bitcoinj.core.LegacyAddress;
-import org.bitcoinj.core.SegwitAddress;
-import org.bitcoinj.core.Sha256Hash;
-import org.bitcoinj.core.UTXO;
-import org.bitcoinj.script.Script;
-import org.bitcoinj.script.ScriptBuilder;
-import org.bitcoinj.utils.ContextPropagatingThreadFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.google.common.base.Splitter;
-import com.google.common.base.Strings;
-import com.google.common.collect.HashMultiset;
-import com.google.common.collect.Multiset;
-import com.google.common.hash.Hashing;
-import com.squareup.moshi.JsonAdapter;
-import com.squareup.moshi.JsonDataException;
-import com.squareup.moshi.Moshi;
-
-import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.R;
-import de.schildbach.wallet.util.Assets;
-
-import android.content.res.AssetManager;
-import android.os.Handler;
-import android.os.Looper;
-import okio.BufferedSink;
-import okio.BufferedSource;
-import okio.Okio;
 
 /**
  * @author Andreas Schildbach
@@ -196,6 +194,10 @@ public final class RequestWalletBalanceTask {
                                 if (response.error != null) {
                                     log.info("{} - server error {}: {}", server.socketAddress, response.error.code,
                                             response.error.message);
+                                    return null;
+                                }
+                                if (response.result == null) {
+                                    log.info("{} - missing result", server.socketAddress);
                                     return null;
                                 }
                                 for (final JsonRpcResponse.Utxo responseUtxo : response.result) {
@@ -317,10 +319,11 @@ public final class RequestWalletBalanceTask {
 
         public final InetSocketAddress socketAddress;
         public final Type type;
+        @Nullable
         public final String certificateFingerprint;
 
-        public ElectrumServer(final String type, final String host, final String port,
-                final String certificateFingerprint) {
+        public ElectrumServer(final String type, final String host, final @Nullable String port,
+                final @Nullable String certificateFingerprint) {
             this.type = Type.valueOf(type.toUpperCase());
             if (port != null)
                 this.socketAddress = InetSocketAddress.createUnresolved(host, Integer.parseInt(port));
@@ -332,7 +335,8 @@ public final class RequestWalletBalanceTask {
                         Constants.ELECTRUM_SERVER_DEFAULT_PORT_TLS);
             else
                 throw new IllegalStateException("Cannot handle: " + type);
-            this.certificateFingerprint = certificateFingerprint;
+            this.certificateFingerprint = certificateFingerprint != null ?
+                    certificateFingerprint.toLowerCase(Locale.US) : null;
         }
     }
 

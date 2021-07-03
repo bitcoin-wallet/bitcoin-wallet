@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2015 the original author or authors.
+ * Copyright the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,9 +17,33 @@
 
 package de.schildbach.wallet.ui.send;
 
-import java.util.Collections;
-import java.util.List;
-
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.graphics.Typeface;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.HandlerThread;
+import android.os.Process;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import com.google.common.util.concurrent.ListenableFuture;
+import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.R;
+import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.ui.AbstractWalletActivity;
+import de.schildbach.wallet.ui.DialogBuilder;
+import de.schildbach.wallet.util.WalletUtils;
 import org.bitcoinj.core.Coin;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.crypto.KeyCrypterException;
@@ -30,37 +54,8 @@ import org.bouncycastle.crypto.params.KeyParameter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.common.util.concurrent.ListenableFuture;
-
-import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.R;
-import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.ui.AbstractWalletActivity;
-import de.schildbach.wallet.ui.DialogBuilder;
-import de.schildbach.wallet.util.WalletUtils;
-
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnShowListener;
-import android.graphics.Typeface;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.HandlerThread;
-import android.os.Process;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * @author Andreas Schildbach
@@ -128,20 +123,18 @@ public class MaintenanceDialogFragment extends DialogFragment {
             value = value.add(tx.getValueSentFromMe(wallet));
             fee = fee.add(tx.getFee());
         }
-        final TextView messageView = (TextView) view.findViewById(R.id.maintenance_dialog_message);
+        final TextView messageView = view.findViewById(R.id.maintenance_dialog_message);
         final MonetaryFormat format = application.getConfiguration().getFormat();
         messageView.setText(getString(R.string.maintenance_dialog_message, format.format(value), format.format(fee)));
 
         passwordGroup = view.findViewById(R.id.maintenance_dialog_password_group);
 
-        passwordView = (EditText) view.findViewById(R.id.maintenance_dialog_password);
+        passwordView = view.findViewById(R.id.maintenance_dialog_password);
         passwordView.setText(null);
 
         badPasswordView = view.findViewById(R.id.maintenance_dialog_bad_password);
 
-        final DialogBuilder builder = new DialogBuilder(activity);
-        builder.setTitle(R.string.maintenance_dialog_title);
-        builder.setView(view);
+        final DialogBuilder builder = DialogBuilder.custom(activity, R.string.maintenance_dialog_title, view);
         // dummies, just to make buttons show
         builder.setPositiveButton(R.string.maintenance_dialog_button_move, null);
         builder.setNegativeButton(R.string.button_dismiss, null);

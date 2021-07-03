@@ -19,8 +19,13 @@ Certain actions cause automatic rolling backups of your wallet to app-private st
 
 Your wallet can be manually backed up to and restored from a share of the storage access framework (likely Google Drive):
 
+<<<<<<< HEAD
 	Mainnet: /sdcard/Download/groestlcoin-wallet-backup-<yyyy-MM-dd>
 	Testnet: /sdcard/Download/groestlcoin-wallet-backup-testnet-<yyyy-MM-dd>
+=======
+    Mainnet: bitcoin-wallet-backup-<yyyy-MM-dd-HH-mm>
+    Testnet: bitcoin-wallet-backup-testnet-<yyyy-MM-dd-HH-mm>
+>>>>>>> a0368a8a7e47b7ad07d1193f6549da1071bf19c2
 
 If you want to recover coins from manual backups and for whatever reason you cannot use the app
 itself to restore from the backup, see the separate [README.recover.md](README.recover.md) guide.
@@ -48,9 +53,12 @@ In the generated e-mail, replace the support address with yours.
 
 ### BUILDING THE DEVELOPMENT VERSION
 
+If you haven't done already, follow the **Prerequisites for Building** section in the [top-level README](../README.md).
+
 It's important to know that the development version uses Testnet, is debuggable and the wallet file
 is world readable/writeable. The goal is to be able to debug easily.
 
+<<<<<<< HEAD
 You can probably skip some steps, especially if you built Android apps before.
 
 You'll need git, a Java 7 SDK (or later) and Gradle 4.4 (or later) for this. I'll assume Ubuntu 18.04 LTS (Bionic Beaver)
@@ -85,11 +93,21 @@ To install the app on your Android device, use
 	cd groestlcoin-wallet
 	git pull
     gradle clean :native-scrypt:copy test build
+=======
+Finally, you can build Bitcoin Wallet and sign it with your development key. Again in your workspace,
+use:
+
+    # each time
+    gradle clean test :wallet:assembleDevDebug
+
+You'll find the signed APK under this path:
+
+    wallet/build/outputs/apk/dev/debug/bitcoin-wallet-dev-debug.apk
+>>>>>>> a0368a8a7e47b7ad07d1193f6549da1071bf19c2
 
 To install the app on your Android device, use:
 
-    # each time
-    gradle installDevDebug
+    gradle :wallet:installDevDebug
 
 If installation fails, make sure "Developer options" and "USB debugging" are enabled on your Android device, and an ADB
 connection is established.
@@ -102,19 +120,31 @@ there is basically no warranty and liability. It's your responsibility to audit 
 for security issues and build, install and run the application in a secure way.
 
 The production version uses Mainnet, is built non-debuggable, space-optimized with ProGuard and the
-wallet file is protected against access from non-root users. In the code repository, it lives in a
-separate 'prod' flavor.
+wallet file is protected against access from non-root users. It is built from the same branch (or
+tag) as the development version. After you have cloned/updated the git repository as described above,
+use:
 
     # each time
+<<<<<<< HEAD
 	cd groestlcoin-wallet
 	git fetch origin
 	git checkout master
     gradle clean :native-scrypt:copy test build
+=======
+    gradle clean test :wallet:assembleProdRelease
+
+You'll find the unsigned APK under this path:
+
+    wallet/build/outputs/apk/prod/release/bitcoin-wallet-prod-release-unsigned.apk
+
+Apart from the missing signature and checksums in `META-INF/`, it should be identical to the APKs
+provided via the app stores.
+>>>>>>> a0368a8a7e47b7ad07d1193f6549da1071bf19c2
 
 
 ### SETTING UP FOR DEVELOPMENT
 
-You should be able to import the project into Android Studio, as it uses Gradle for building.
+You can import the project into IntelliJ IDEA or Android Studio, as it uses Gradle for building.
 
 
 ### TRANSLATIONS
@@ -176,9 +206,13 @@ Groestlcoin Wallet uses [groestlcoinj](	https://github.com/Groestlcoin/groestlco
 
 ### EXCHANGE RATES
 
+<<<<<<< HEAD
 Groestlcoin Wallet reads this feed from "BitcoinAverage" for getting exchange rates:
+=======
+Bitcoin Wallet reads this feed from "CoinGecko" for getting exchange rates:
+>>>>>>> a0368a8a7e47b7ad07d1193f6549da1071bf19c2
 
-    https://apiv2.bitcoinaverage.com/indices/global/ticker/short?crypto=BTC
+    https://api.coingecko.com/api/v3/exchange_rates
 
 We chose this feed because it is not dependent on a single exchange. This feature can be disabled
 with the compile-time flag

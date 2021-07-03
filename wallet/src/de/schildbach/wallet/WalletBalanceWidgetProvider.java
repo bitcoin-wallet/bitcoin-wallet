@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2015 the original author or authors.
+ * Copyright the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,24 +17,6 @@
 
 package de.schildbach.wallet;
 
-import java.lang.reflect.Method;
-
-import org.bitcoinj.core.Coin;
-import org.bitcoinj.core.NetworkParameters;
-import org.bitcoinj.utils.Fiat;
-import org.bitcoinj.utils.MonetaryFormat;
-import org.bitcoinj.wallet.Wallet.BalanceType;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import de.schildbach.wallet.data.ExchangeRate;
-import de.schildbach.wallet.ui.RequestCoinsActivity;
-import de.schildbach.wallet.ui.SendCoinsQrActivity;
-import de.schildbach.wallet.ui.WalletActivity;
-import de.schildbach.wallet.ui.send.SendCoinsActivity;
-import de.schildbach.wallet.util.GenericUtils;
-import de.schildbach.wallet.util.MonetarySpannable;
-
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
@@ -50,7 +32,24 @@ import android.text.style.StrikethroughSpan;
 import android.view.View;
 import android.widget.RemoteViews;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
+import de.schildbach.wallet.exchangerate.ExchangeRateEntry;
+import de.schildbach.wallet.exchangerate.ExchangeRatesRepository;
+import de.schildbach.wallet.ui.RequestCoinsActivity;
+import de.schildbach.wallet.ui.SendCoinsQrActivity;
+import de.schildbach.wallet.ui.WalletActivity;
+import de.schildbach.wallet.ui.send.SendCoinsActivity;
+import de.schildbach.wallet.util.GenericUtils;
+import de.schildbach.wallet.util.MonetarySpannable;
+import org.bitcoinj.core.Coin;
+import org.bitcoinj.core.NetworkParameters;
+import org.bitcoinj.utils.ExchangeRate;
+import org.bitcoinj.utils.Fiat;
+import org.bitcoinj.utils.MonetaryFormat;
+import org.bitcoinj.wallet.Wallet.BalanceType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.lang.reflect.Method;
 
 /**
  * @author Andreas Schildbach
@@ -66,8 +65,12 @@ public class WalletBalanceWidgetProvider extends AppWidgetProvider {
         AsyncTask.execute(() -> {
             final WalletApplication application = (WalletApplication) context.getApplicationContext();
             final Coin balance = application.getWallet().getBalance(BalanceType.ESTIMATED);
-            final ExchangeRate exchangeRate = application.getConfiguration().getCachedExchangeRate();
-            updateWidgets(context, appWidgetManager, appWidgetIds, balance, exchangeRate);
+            final Configuration config = application.getConfiguration();
+            final ExchangeRatesRepository exchangeRatesRepository = ExchangeRatesRepository.get(application);
+            final ExchangeRateEntry exchangeRate = exchangeRatesRepository != null ?
+                    exchangeRatesRepository.exchangeRateDao().findByCurrencyCode(config.getExchangeCurrencyCode()) : null;
+            updateWidgets(context, appWidgetManager, appWidgetIds, balance, exchangeRate != null ?
+                    exchangeRate.exchangeRate() : null);
             result.finish();
         });
     }
@@ -82,8 +85,12 @@ public class WalletBalanceWidgetProvider extends AppWidgetProvider {
         AsyncTask.execute(() -> {
             final WalletApplication application = (WalletApplication) context.getApplicationContext();
             final Coin balance = application.getWallet().getBalance(BalanceType.ESTIMATED);
-            final ExchangeRate exchangeRate = application.getConfiguration().getCachedExchangeRate();
-            updateWidget(context, appWidgetManager, appWidgetId, newOptions, balance, exchangeRate);
+            final Configuration config = application.getConfiguration();
+            final ExchangeRatesRepository exchangeRatesRepository = ExchangeRatesRepository.get(application);
+            final ExchangeRateEntry exchangeRate =exchangeRatesRepository != null ?
+                    exchangeRatesRepository.exchangeRateDao().findByCurrencyCode(config.getExchangeCurrencyCode()) : null;
+            updateWidget(context, appWidgetManager, appWidgetId, newOptions, balance, exchangeRate != null ?
+                    exchangeRate.exchangeRate() : null);
             result.finish();
         });
     }
@@ -123,11 +130,11 @@ public class WalletBalanceWidgetProvider extends AppWidgetProvider {
                 MonetarySpannable.STANDARD_INSIGNIFICANT_SPANS);
         final Spannable localBalanceStr;
         if (exchangeRate != null) {
-            final Fiat localBalance = exchangeRate.rate.coinToFiat(balance);
+            final Fiat localBalance = exchangeRate.coinToFiat(balance);
             final MonetaryFormat localFormat = Constants.LOCAL_FORMAT.code(0,
-                    Constants.PREFIX_ALMOST_EQUAL_TO + GenericUtils.currencySymbol(exchangeRate.getCurrencyCode()));
+                    Constants.PREFIX_ALMOST_EQUAL_TO + GenericUtils.currencySymbol(exchangeRate.fiat.currencyCode));
             final Object[] prefixSpans = new Object[] { MonetarySpannable.SMALLER_SPAN,
-                    new ForegroundColorSpan(ContextCompat.getColor(context, R.color.fg_insignificant)) };
+                    new ForegroundColorSpan(context.getColor(R.color.fg_insignificant_darkdefault)) };
             localBalanceStr = new MonetarySpannable(localFormat, localBalance).applyMarkup(prefixSpans,
                     MonetarySpannable.STANDARD_INSIGNIFICANT_SPANS);
             if (!Constants.NETWORK_PARAMETERS.getId().equals(NetworkParameters.ID_MAINNET))

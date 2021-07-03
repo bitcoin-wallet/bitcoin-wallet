@@ -17,28 +17,6 @@
 
 package de.schildbach.wallet.ui.scan;
 
-import java.util.EnumMap;
-import java.util.Map;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.google.zxing.BinaryBitmap;
-import com.google.zxing.DecodeHintType;
-import com.google.zxing.PlanarYUVLuminanceSource;
-import com.google.zxing.ReaderException;
-import com.google.zxing.Result;
-import com.google.zxing.ResultPoint;
-import com.google.zxing.ResultPointCallback;
-import com.google.zxing.common.HybridBinarizer;
-import com.google.zxing.qrcode.QRCodeReader;
-
-import de.schildbach.wallet.R;
-import de.schildbach.wallet.ui.AbstractWalletActivity;
-import de.schildbach.wallet.ui.DialogBuilder;
-import de.schildbach.wallet.ui.Event;
-import de.schildbach.wallet.util.OnFirstPreDraw;
-
 import android.Manifest;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -47,7 +25,6 @@ import android.app.ActivityOptions;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
@@ -57,7 +34,6 @@ import android.graphics.SurfaceTexture;
 import android.graphics.drawable.ColorDrawable;
 import android.hardware.Camera;
 import android.hardware.Camera.CameraInfo;
-import android.hardware.Camera.PreviewCallback;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -77,7 +53,25 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
+import com.google.zxing.BinaryBitmap;
+import com.google.zxing.DecodeHintType;
+import com.google.zxing.PlanarYUVLuminanceSource;
+import com.google.zxing.ReaderException;
+import com.google.zxing.Result;
+import com.google.zxing.ResultPointCallback;
+import com.google.zxing.common.HybridBinarizer;
+import com.google.zxing.qrcode.QRCodeReader;
+import de.schildbach.wallet.R;
+import de.schildbach.wallet.ui.AbstractWalletActivity;
+import de.schildbach.wallet.ui.DialogBuilder;
+import de.schildbach.wallet.ui.Event;
+import de.schildbach.wallet.util.OnFirstPreDraw;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.EnumMap;
+import java.util.Map;
 
 /**
  * @author Andreas Schildbach
@@ -139,31 +133,31 @@ public final class ScanActivity extends AbstractWalletActivity
         super.onCreate(savedInstanceState);
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
-        viewModel = ViewModelProviders.of(this).get(ScanViewModel.class);
+        viewModel = new ViewModelProvider(this).get(ScanViewModel.class);
         viewModel.showPermissionWarnDialog.observe(this, new Event.Observer<Void>() {
             @Override
-            public void onEvent(final Void v) {
+            protected void onEvent(final Void v) {
                 WarnDialogFragment.show(getSupportFragmentManager(), R.string.scan_camera_permission_dialog_title,
                         getString(R.string.scan_camera_permission_dialog_message));
             }
         });
         viewModel.showProblemWarnDialog.observe(this, new Event.Observer<Void>() {
             @Override
-            public void onEvent(final Void v) {
+            protected void onEvent(final Void v) {
                 WarnDialogFragment.show(getSupportFragmentManager(), R.string.scan_camera_problem_dialog_title,
                         getString(R.string.scan_camera_problem_dialog_message));
             }
         });
         viewModel.maybeStartSceneTransition.observe(this, new Event.Observer<Void>() {
             @Override
-            public void onEvent(final Void v) {
+            protected void onEvent(final Void v) {
                 if (sceneTransition != null) {
                     contentView.setAlpha(1);
                     sceneTransition.addListener(new AnimatorListenerAdapter() {
                         @Override
                         public void onAnimationEnd(Animator animation) {
                             getWindow().setBackgroundDrawable(new ColorDrawable(
-                                    ContextCompat.getColor(ScanActivity.this, android.R.color.black)));
+                                    getColor(android.R.color.black)));
                         }
                     });
                     sceneTransition.start();
@@ -182,8 +176,8 @@ public final class ScanActivity extends AbstractWalletActivity
 
         setContentView(R.layout.scan_activity);
         contentView = findViewById(android.R.id.content);
-        scannerView = (ScannerView) findViewById(R.id.scan_activity_mask);
-        previewView = (TextureView) findViewById(R.id.scan_activity_preview);
+        scannerView = findViewById(R.id.scan_activity_mask);
+        previewView = findViewById(R.id.scan_activity_preview);
         previewView.setSurfaceTextureListener(this);
 
         cameraThread = new HandlerThread("cameraThread", Process.THREAD_PRIORITY_BACKGROUND);
@@ -204,7 +198,7 @@ public final class ScanActivity extends AbstractWalletActivity
                 // start up, so the animation will never start.
                 contentView.setAlpha(0);
                 getWindow().setBackgroundDrawable(
-                        new ColorDrawable(ContextCompat.getColor(this, android.R.color.transparent)));
+                        new ColorDrawable(getColor(android.R.color.transparent)));
                 OnFirstPreDraw.listen(contentView, () -> {
                     float finalRadius = (float) (Math.max(contentView.getWidth(), contentView.getHeight()));
                     final int duration = getResources().getInteger(android.R.integer.config_mediumAnimTime);
@@ -443,8 +437,8 @@ public final class ScanActivity extends AbstractWalletActivity
         @Override
         public Dialog onCreateDialog(final Bundle savedInstanceState) {
             final Bundle args = getArguments();
-            final DialogBuilder dialog = DialogBuilder.warn(getActivity(), args.getInt("title"));
-            dialog.setMessage(args.getString("message"));
+            final DialogBuilder dialog = DialogBuilder.warn(getActivity(), args.getInt("title"), args.getString(
+                    "message"));
             dialog.singleDismissButton((d, which) -> getActivity().finish());
             return dialog.create();
         }

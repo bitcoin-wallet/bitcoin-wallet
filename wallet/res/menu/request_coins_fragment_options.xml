@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
         android:id="@+id/request_coins_options_copy"
         android:enabled="false"
         android:icon="@drawable/ic_content_copy_white_24dp"
         android:showAsAction="always|withText"
-        android:title="@string/button_copy"/>
+        android:title="@string/button_copy" />
     <item
         android:id="@+id/request_coins_options_share"
         android:enabled="false"
         android:icon="@drawable/ic_share_white_24dp"
         android:showAsAction="always|withText"
-        android:title="@string/button_share"/>
+        android:title="@string/button_share" />
     <item
         android:id="@+id/request_coins_options_local_app"
         android:enabled="false"
         android:showAsAction="never"
-        android:title="@string/request_coins_options_local_app_title"/>
-
+        android:title="@string/request_coins_options_local_app_title" />
 </menu>

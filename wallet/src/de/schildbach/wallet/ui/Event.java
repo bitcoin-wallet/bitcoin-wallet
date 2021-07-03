@@ -58,6 +58,6 @@ public class Event<T> {
                 onEvent(event.getContentOrThrow());
         }
 
-        public abstract void onEvent(final T content);
+        protected abstract void onEvent(final T content);
     }
 }

@@ -26,6 +26,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import org.bitcoinj.core.Coin;
+import org.bitcoinj.utils.ExchangeRate;
 import org.bitcoinj.utils.Fiat;
 import org.bitcoinj.utils.MonetaryFormat;
 import org.json.JSONException;
@@ -49,6 +50,8 @@ import android.database.MatrixCursor;
 import android.net.Uri;
 import android.provider.BaseColumns;
 import android.text.format.DateUtils;
+
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import okhttp3.Call;
 import okhttp3.ConnectionSpec;
@@ -62,8 +65,40 @@ import okhttp3.Response;
  * @author Andreas Schildbach
  */
 public class ExchangeRatesProvider extends ContentProvider {
+    @Override
+    public boolean onCreate() {
+        return false;
+    }
 
-    public static final String KEY_CURRENCY_CODE = "currency_code";
+    @Nullable
+    @Override
+    public Cursor query(@NonNull Uri uri, @Nullable String[] projection, @Nullable String selection, @Nullable String[] selectionArgs, @Nullable String sortOrder) {
+        return null;
+    }
+
+    @Nullable
+    @Override
+    public String getType(@NonNull Uri uri) {
+        return null;
+    }
+
+    @Nullable
+    @Override
+    public Uri insert(@NonNull Uri uri, @Nullable ContentValues values) {
+        return null;
+    }
+
+    @Override
+    public int delete(@NonNull Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
+        return 0;
+    }
+
+    @Override
+    public int update(@NonNull Uri uri, @Nullable ContentValues values, @Nullable String selection, @Nullable String[] selectionArgs) {
+        return 0;
+    }
+
+    /*public static final String KEY_CURRENCY_CODE = "currency_code";
     private static final String KEY_RATE_COIN = "rate_coin";
     private static final String KEY_RATE_FIAT = "rate_fiat";
     private static final String KEY_SOURCE = "source";
@@ -439,5 +474,5 @@ public class ExchangeRatesProvider extends ContentProvider {
         }
 
         return null;
-    }
+    }*/
 }

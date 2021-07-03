@@ -23,6 +23,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 /**
@@ -38,16 +39,16 @@ public class ProgressDialogFragment extends DialogFragment {
 
         @Override
         public void onChanged(final String message) {
+            final DialogFragment fragment = (DialogFragment) fm.findFragmentByTag(FRAGMENT_TAG);
+            if (fragment != null) {
+                fm.beginTransaction().remove(fragment).commit();
+            }
             if (message != null) {
-                final ProgressDialogFragment fragment = new ProgressDialogFragment();
+                final Fragment newFragment = new ProgressDialogFragment();
                 final Bundle args = new Bundle();
                 args.putString(KEY_MESSAGE, message);
-                fragment.setArguments(args);
-                fragment.show(fm, FRAGMENT_TAG);
-            } else {
-                final DialogFragment fragment = (DialogFragment) fm.findFragmentByTag(FRAGMENT_TAG);
-                if (fragment != null)
-                    fragment.dismiss();
+                newFragment.setArguments(args);
+                fm.beginTransaction().add(newFragment, FRAGMENT_TAG).commit();
             }
         }
     }

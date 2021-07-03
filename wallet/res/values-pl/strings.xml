@@ -13,10 +13,8 @@
   <string name="blockchain_state_progress_problem_network">Synchronizowanie: Problem z siecią</string>
   <string name="wallet_address_fragment_clipboard_msg">Adres Groestlcoin skopiowano do schowka</string>
   <string name="wallet_address_dialog_fragment_hint">Aby chronić twoją prywatność, twój adres będzie zmieniany za każdym razem jak otrzymasz płatność.</string>
-  <string name="wallet_balance_fragment_too_much">Masz dość pokaźną sumę w portfelu. Proszę przenieś część w bezpieczniejsze miejsce.</string>
   <string name="wallet_balance_fragment_replaying">Saldo nie jest dostępne w trakcie odtwarzania.</string>
   <string name="exchange_rates_activity_title">Kursy wymiany</string>
-  <string name="exchange_rates_fragment_empty_text">Nie można było załadować kursów wymiany.</string>
   <string name="exchange_rates_fragment_empty_search">Nie odnaleziono kursu wymiany.</string>
   <string name="exchange_rates_fragment_default">(domyślnie)</string>
   <string name="exchange_rates_fragment_rate">kurs</string>
@@ -53,6 +51,7 @@
   <string name="wallet_old_sdk_dialog_title">Wersja Androida jest przestarzała</string>
   <string name="wallet_old_sdk_dialog_message">Istnieje szansa że wraz z kolejnymi wydaniami Groestlcoin Wallet zakończy wsparcie dla twojego urządzenia. W niektórych przypadkach wydawanie monet z tego urządzenia może ulec utrudnieniu.\n\nZalecane jest przeniesienie swoich monet w najbliższym czasie, chyba że wiesz co robisz.</string>
   <string name="alert_dialogs_fragment_settings_failed_title">Problem z otwieraniem ustawień</string>
+  <string name="alert_dialogs_fragment_too_much_balance_dialog_message">Masz dość pokaźną sumę w portfelu. Proszę przenieś część w bezpieczniejsze miejsce.</string>
   <string name="send_coins_activity_title">Wyślij Groestlcoiny</string>
   <string name="send_coins_fragment_request_payment_request_progress">Pobieranie sygnatury z %s…</string>
   <string name="send_coins_fragment_request_payment_request_wrong_signature">Nieprawidłowy podpis!</string>
@@ -127,10 +126,6 @@
   <string name="address_book_context_edit_title">Zmień adres</string>
   <string name="address_book_context_remove_title">Usuń adres</string>
   <string name="address_book_context_copy_to_clipboard_title">Skopiuj do schowka</string>
-  <string name="address_book_options_paste_from_clipboard_title">Wklej ze schowka</string>
-  <string name="address_book_options_paste_from_clipboard_empty">Schowek jest pusty</string>
-  <string name="address_book_options_paste_from_clipboard_invalid">Dane ze schowka są nierozpoznawalne</string>
-  <string name="address_book_options_paste_from_clipboard_own_address">Adres w schowku jest Twoim adresem.</string>
   <string name="address_book_options_scan_title">Zeskanuj adres</string>
   <string name="address_book_options_scan_invalid">Zeskanowane dane są nierozpoznawalne</string>
   <string name="address_book_options_scan_own_address">Zeskanowany adres jest Twoim adresem.</string>
@@ -233,7 +228,6 @@
   <string name="report_issue_dialog_description">opis problemu</string>
   <string name="report_issue_dialog_report">Zgłoś</string>
   <string name="report_issue_dialog_collect_device_info">Dołącz informacje o urządzeniu</string>
-  <string name="report_issue_dialog_collect_installed_packages">Dodaj listę zainstalowanych pakietów</string>
   <string name="report_issue_dialog_collect_application_log">Dołącz dziennik aplikacji</string>
   <string name="report_issue_dialog_collect_wallet_dump">Dołącz zrzut portfela</string>
   <string name="report_issue_dialog_mail_intent_chooser">Wyślij zgłoszenie używając…</string>

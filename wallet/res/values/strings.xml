@@ -1,7 +1,8 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="toast_wallet_reset">Your wallet was reset!\nIt will take some time to recover.</string>
+    <string name="toast_start_external_document_failed">There is no web browser installed to open the external document.</string>
+    <string name="toast_start_storage_provider_selector_failed">No suitable cloud storage provider is installed.\nYou need something like \"Nextcloud\" or \"Google Drive\".</string>
     <string name="wallet_disclaimer_fragment_remind_safety">Use at your own risk. Read the &lt;u&gt;safety notes&lt;/u&gt;.</string>
     <string name="wallet_disclaimer_fragment_remind_backup">You need to &lt;u&gt;back up your wallet&lt;/u&gt;!</string>
     <string name="blockchain_state_progress_hours">%1$s, %2$d hours behind</string>
@@ -10,15 +11,13 @@
     <string name="blockchain_state_progress_months">%1$s, %2$d months behind</string>
     <string name="blockchain_state_progress_downloading">Synchronizing with network</string>
     <string name="blockchain_state_progress_stalled">Synchronization stalled</string>
-    <string name="blockchain_state_progress_problem_storage">Synchronizing: Storage problem</string>
-    <string name="blockchain_state_progress_problem_network">Synchronizing: Network problem</string>
+    <string name="blockchain_state_progress_problem_storage">Problem with synchronization: Low storage space</string>
+    <string name="blockchain_state_progress_problem_network">Problem with synchronization: No network connectivity</string>
     <string name="wallet_address_fragment_clipboard_msg">Groestlcoin address copied to clipboard</string>
     <string name="wallet_address_dialog_fragment_hint">To protect your privacy, your address will change once it receives a payment.</string>
     <string name="wallet_balance_fragment_insecure_device">Your device is old and insecure. Please only use for small amounts.</string>
-    <string name="wallet_balance_fragment_too_much">This amount is quite high for carrying in your pocket. Please move some to a safer place.</string>
     <string name="wallet_balance_fragment_replaying">Balance is unavailable during replay.</string>
     <string name="exchange_rates_activity_title">Exchange rates</string>
-    <string name="exchange_rates_fragment_empty_text">Could not load exchange rates.</string>
     <string name="exchange_rates_fragment_empty_search">Could not find exchange rate.</string>
     <string name="exchange_rates_fragment_default">(default)</string>
     <string name="exchange_rates_fragment_rate">rate</string>
@@ -60,7 +59,9 @@
     <string name="wallet_old_sdk_dialog_title">Android version is out of date</string>
     <string name="wallet_old_sdk_dialog_message">Chances are that one of the next releases of Groestlcoin Wallet will not support your device any more. In some cases, it can get difficult to spend coins on this device.\n\nUnless you know what you are doing, it is recommended to move out your coins soon.</string>
     <string name="alert_dialogs_fragment_settings_failed_title">Problem with opening of settings</string>
-    <string name="send_coins_activity_title">Send Groestlcoins</string>
+    <string name="alert_dialogs_fragment_too_much_balance_dialog_title">Keep the risk low</string>
+    <string name="alert_dialogs_fragment_too_much_balance_dialog_message">The amount in your wallet is quite high for carrying in your pocket. Please move some to a safer place, like a cold wallet.</string>
+    <string name="send_coins_activity_title">Send Groestlcoin</string>
     <string name="send_coins_fragment_request_payment_request_progress">Fetching signature from %s…</string>
     <string name="send_coins_fragment_request_payment_request_failed_title">Fetching payment request failed</string>
     <string name="send_coins_fragment_request_payment_request_failed_message">The payee (%1$s) is using an incompatible payment protocol (reason: %2$s).</string>
@@ -153,13 +154,10 @@
     <string name="address_book_context_edit_title">Edit address</string>
     <string name="address_book_context_remove_title">Remove address</string>
     <string name="address_book_context_copy_to_clipboard_title">Copy to clipboard</string>
-    <string name="address_book_options_paste_from_clipboard_title">Paste from clipboard</string>
-    <string name="address_book_options_paste_from_clipboard_empty">Clipboard is empty</string>
-    <string name="address_book_options_paste_from_clipboard_invalid">Data from clipboard is unrecognizable</string>
-    <string name="address_book_options_paste_from_clipboard_own_address">The address on the clipboard is your own.</string>
     <string name="address_book_options_scan_title">Scan address</string>
     <string name="address_book_options_scan_invalid">Scanned data is unrecognizable</string>
     <string name="address_book_options_scan_own_address">The scanned address is your own.</string>
+    <string name="address_book_row_current_address">This is your current address for receiving.</string>
     <string name="address_book_row_message_compromised_key">This address might be compromised. You should not use it any more for receiving coins.</string>
     <string name="edit_address_book_entry_dialog_title_add">Add sending address</string>
     <string name="edit_address_book_entry_dialog_title_edit">Edit label of sending address</string>
@@ -237,6 +235,9 @@
     <string name="input_parser_invalid_paymentrequest">Invalid payment request:\n%s</string>
     <string name="input_parser_invalid_transaction">Invalid transaction:\n%s</string>
     <string name="preferences_activity_title">Settings</string>
+    <string name="preferences_category_general">General</string>
+    <string name="preferences_category_privacy">Privacy control</string>
+    <string name="preferences_category_merchants">Merchants</string>
     <string name="preferences_category_diagnostics">Diagnostics</string>
     <string name="preferences_category_labs">Labs</string>
     <string name="preferences_precision_title">Denomination and precision</string>
@@ -247,11 +248,18 @@
     <string name="preferences_precision_labels_2_3">mGRS, 2 decimal places</string>
     <string name="preferences_precision_labels_0_6">µGRS, no decimal places</string>
     <string name="preferences_own_name_title">Own name</string>
-    <string name="preferences_own_name_summary">Name of yourself, to be added to payment requests. Try to keep it short.</string>
+    <string name="preferences_own_name_summary">Your name or your company\'s name, to be added to payment requests you issue to your customers.</string>
+    <string name="preferences_own_name_dialog_message">Keep it short.</string>
     <string name="preferences_send_coins_autoclose_title">Auto-close send coins dialog</string>
     <string name="preferences_send_coins_autoclose_summary">When the payment is made, the send dialog will close automatically.</string>
+    <string name="preferences_sync_mode_title">Data Usage vs. Privacy</string>
+    <string name="preferences_sync_mode_summary">Choose between low data usage and improved privacy when synchronizing with the network.</string>
+    <string name="preferences_sync_mode_labels_connection_filter"><![CDATA[<b>Low data usage:</b> Use network filtering to read only transactions relevant to your wallet. It will use about 500 MB per month, but will disclose the filter to the network.]]></string>
+    <string name="preferences_sync_mode_labels_full"><![CDATA[<b>Improved privacy:</b> Will not disclose any information about your wallet to the network. Be aware that because all transactions are read, this will use a hefty 10 GB per month. Before using this please check your data allowance.]]></string>
     <string name="preferences_trusted_peer_title">Trusted peer</string>
     <string name="preferences_trusted_peer_summary">IP or hostname of single peer to connect to.</string>
+    <string name="preferences_trusted_peer_dialog_message">Please enter a valid IP address or hostname. If you have Tor set up, you can use an onion address here, too.</string>
+    <string name="preferences_trusted_peer_dialog_message_multiple">You can specify multiple trusted peers by separating them with a space character.</string>
     <string name="preferences_trusted_peer_resolve_progress">Resolving…</string>
     <string name="preferences_trusted_peer_resolve_unknown_host">Unknown hostname!</string>
     <string name="preferences_trusted_peer_only_title">Skip regular peer discovery</string>
@@ -266,6 +274,9 @@
     <string name="preferences_remind_balance_summary">After a couple of weeks of not being used, the app will notify if there are still coins in the wallet.</string>
     <string name="preferences_show_disclaimer_title">Show disclaimer</string>
     <string name="preferences_show_disclaimer_summary">Have you really read the safety notes? Did you already back up your wallet to a safe place?</string>
+    <string name="preferences_bluetooth_address_title">Bluetooth address</string>
+    <string name="preferences_bluetooth_address_summary">Manually configure your own Bluetooth address so you can receive payments from payers without connectivity.</string>
+    <string name="preferences_bluetooth_address_dialog_message">Unfortunately Android is preventing the automatic detection of your device\'s Bluetooth address. You need to look it up in the Android Bluetooth settings and enter it here.\n\nPlease make sure that every character is correct. Colons can be omitted, and case is not important.</string>
     <string name="preferences_report_issue_title">Report issue</string>
     <string name="preferences_initiate_reset_title">Reset block chain</string>
     <string name="preferences_initiate_reset_summary">Reset block chain, transactions and wallet balance. Replay will take a while, so only do this if you know why.</string>
@@ -284,7 +295,6 @@
     <string name="report_issue_dialog_description">issue description</string>
     <string name="report_issue_dialog_report">Report</string>
     <string name="report_issue_dialog_collect_device_info">Append device information</string>
-    <string name="report_issue_dialog_collect_installed_packages">Append list of installed packages</string>
     <string name="report_issue_dialog_collect_application_log">Append application log</string>
     <string name="report_issue_dialog_collect_wallet_dump">Append wallet dump</string>
     <string name="report_issue_dialog_mail_intent_chooser">Send report using…</string>
@@ -308,12 +318,16 @@
     <string name="about_faq_summary">Frequently asked questions about the app</string>
     <string name="notification_coins_received_msg">Received %s</string>
     <string name="notification_connectivity_syncing_message">Synchronizing with the network…</string>
+    <string name="notification_connectivity_syncing_trusted_peer">Synchronizing with your trusted peer…</string>
     <string name="notification_peers_connected_msg">%d peers connected</string>
-    <string name="notification_inactivity_title">You\'ve still got Groestlcoins on this device!</string>
+    <string name="notification_peer_connected">connected</string>
+    <string name="notification_peer_not_connected">not connected</string>
+    <string name="notification_inactivity_title">You\'ve still got Groestlcoin on this device!</string>
     <string name="notification_inactivity_message">Remember your balance of %s will be lost if you uninstall the Groestlcoin Wallet app without sending it away first.</string>
-    <string name="notification_inactivity_message_donate">If you don\'t care about your coins, you could also donate them to the Groestlcoin Wallet project.</string>
+    <string name="notification_inactivity_message_donate">If you don\'t care about your coins, you could also donate them to the Bitcoin Wallet project.</string>
     <string name="notification_inactivity_action_dismiss">Remind me later</string>
     <string name="notification_inactivity_action_dismiss_forever">Don\'t remind me</string>
+    <string name="notification_bluetooth_service_listening">Ready to receive payments via Bluetooth</string>
     <string name="notification_channel_received_name">Received payments</string>
     <string name="notification_channel_ongoing_name">Background activity</string>
     <string name="notification_channel_important_name">Important alerts</string>
@@ -338,7 +352,6 @@
     <string name="button_send_coins">Send coins</string>
     <string name="button_scan">Scan</string>
     <string name="button_settings">Settings</string>
-    <string name="button_options">More options</string>
     <string name="action_show_qr">Show QR code</string>
     <string name="action_browse">Browse</string>
 
@@ -354,5 +367,4 @@
     <string name="error_parse">Parse error: %s</string>
     <string name="error_http">HTTP error %1$s:\n%2$s</string>
     <string name="error_bluetooth">Bluetooth error: %1$s</string>
-
 </resources>

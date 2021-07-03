@@ -15,7 +15,6 @@
 	<string name="wallet_address_fragment_clipboard_msg">כתובת הביטקוין הועתקה ללוח</string>
 	<string name="wallet_balance_fragment_replaying">היתרה אינה זמינה במהלך שחזור</string>
 	<string name="exchange_rates_activity_title">שערי המרה</string>
-	<string name="exchange_rates_fragment_empty_text">לא ניתן לטעון שערי המרה</string>
 	<string name="exchange_rates_fragment_default">(ברירת מחדל)</string>
 	<string name="exchange_rates_fragment_rate">שער</string>
 	<string name="exchange_rates_fragment_balance">מאזן</string>
@@ -87,9 +86,6 @@
 	<string name="address_book_context_edit_title">ערוך כתובת</string>
 	<string name="address_book_context_remove_title">הסר כתובת</string>
 	<string name="address_book_context_copy_to_clipboard_title">העתק ללוח</string>
-	<string name="address_book_options_paste_from_clipboard_title">הדבק מהלוח</string>
-	<string name="address_book_options_paste_from_clipboard_empty">הלוח ריק</string>
-	<string name="address_book_options_paste_from_clipboard_invalid">המידע מהלוח (clipboard) אינו ניתן לזיהוי</string>
 	<string name="address_book_options_scan_title">סרוק כתובת</string>
 	<string name="address_book_options_scan_invalid">המידע הנסרק לא ניתן לזיהוי</string>
 	<string name="address_book_row_message_compromised_key">כתובת זו נגועה. לא מומלץ שתשתמש בה כדי לקבל מטבעות.</string>
@@ -154,7 +150,6 @@
 	<string name="report_issue_dialog_description">תיאור הבעיה</string>
 	<string name="report_issue_dialog_report">דיווח</string>
 	<string name="report_issue_dialog_collect_device_info">הוסף מידע על המכשיר</string>
-	<string name="report_issue_dialog_collect_installed_packages">צרף רשימה של החבילות המותקנות</string>
 	<string name="report_issue_dialog_collect_application_log">הוסף מידע מהאפליקציה</string>
 	<string name="report_issue_dialog_collect_wallet_dump">הוסף</string>
 	<string name="report_issue_dialog_mail_intent_chooser">שלח דוח באמצעות…</string>

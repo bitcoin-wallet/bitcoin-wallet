@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:fillViewport="true"
-    android:scrollbars="none" >
+    android:scrollbars="none">
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
         android:layout_marginTop="24dp"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <RadioGroup
             android:layout_width="256dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <RadioButton
                 android:id="@+id/sample_network_mainnet"
@@ -46,7 +47,7 @@
         <FrameLayout
             android:layout_width="fill_parent"
             android:layout_height="0px"
-            android:layout_weight="1" >
+            android:layout_weight="1">
 
             <Button
                 android:id="@+id/sample_donate_button"
@@ -68,7 +69,7 @@
         <FrameLayout
             android:layout_width="fill_parent"
             android:layout_height="0px"
-            android:layout_weight="1" >
+            android:layout_weight="1">
 
             <Button
                 android:id="@+id/sample_request_button"
@@ -89,5 +90,4 @@
             android:minLines="5"
             android:visibility="invisible" />
     </LinearLayout>
-
 </ScrollView>

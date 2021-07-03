@@ -13,10 +13,8 @@
   <string name="blockchain_state_progress_problem_network">Sinkronizimi: Problem me rrjetin</string>
   <string name="wallet_address_fragment_clipboard_msg">Adresa juaj e Groestlcoin u kopjua</string>
   <string name="wallet_address_dialog_fragment_hint">Për të ruajtur privaticitetin, adresa juaj do të ndërrohet çdo herë që pranoni një pages.</string>
-  <string name="wallet_balance_fragment_too_much">Kjo shumë është e madhe për tu mbajtur nê xhep. Ju lutem zhvendosni disa monedha në një vend më të sigurt.</string>
   <string name="wallet_balance_fragment_replaying">Bilanci nuk mund të shikohet gjatë përseritjes.</string>
   <string name="exchange_rates_activity_title">Kursi i këmbimit</string>
-  <string name="exchange_rates_fragment_empty_text">Nuk mund të ngarkohet kursi i këmbimit.</string>
   <string name="exchange_rates_fragment_empty_search">Nuk mund të gjej kursin e këmbimit.</string>
   <string name="exchange_rates_fragment_default">(normal)</string>
   <string name="exchange_rates_fragment_rate">çmimi</string>
@@ -50,6 +48,7 @@
   <string name="wallet_version_dialog_button_binary">Shkarkoni</string>
   <string name="wallet_old_sdk_dialog_title">Versioni i Androidit nuk është aktual</string>
   <string name="wallet_old_sdk_dialog_message">Mundësit janë që në verzionet e ardhshme të Groestlcoin Wallet nuk do të mbështes paisjen tuaj. Në disa raste, mund të jetë e vështir që të shpenzohen monedhat në këtë paisje.\n\nVetëm në rast se dini cfarë po bëni, është e rekomanduar që të zhvendosni monedhat tuaja në një kulet tjetër.</string>
+  <string name="alert_dialogs_fragment_too_much_balance_dialog_message">Kjo shumë është e madhe për tu mbajtur nê xhep. Ju lutem zhvendosni disa monedha në një vend më të sigurt.</string>
   <string name="send_coins_activity_title">Dërgo Groestlcoins</string>
   <string name="send_coins_fragment_request_payment_request_progress">Duke marrë firmat nga %s…</string>
   <string name="send_coins_fragment_request_payment_request_failed_title">Marrja e firmës dështoj</string>
@@ -128,10 +127,6 @@
   <string name="address_book_context_edit_title">Ndrysho adresën</string>
   <string name="address_book_context_remove_title">Fshije adresën</string>
   <string name="address_book_context_copy_to_clipboard_title">Kopjo në klipbord</string>
-  <string name="address_book_options_paste_from_clipboard_title">Fute nga klipbordi</string>
-  <string name="address_book_options_paste_from_clipboard_empty">Klipbordi është bosh</string>
-  <string name="address_book_options_paste_from_clipboard_invalid">Të dhënat nga memorja është e pakuptueshme</string>
-  <string name="address_book_options_paste_from_clipboard_own_address">Adresa në memorje është e juaja.</string>
   <string name="address_book_options_scan_title">Skanoni adresën</string>
   <string name="address_book_options_scan_invalid">Të dhënat e skanuara janë të pakuptueshme</string>
   <string name="address_book_options_scan_own_address">Adresa e skanuar është e juaja.</string>
@@ -225,7 +220,6 @@
   <string name="report_issue_dialog_description">Përshkrimi i problemit</string>
   <string name="report_issue_dialog_report">Raporti</string>
   <string name="report_issue_dialog_collect_device_info">Bashkangjit informacionin e pajisjes</string>
-  <string name="report_issue_dialog_collect_installed_packages">Bashkangjit listen a aplikacioneve të instaluara</string>
   <string name="report_issue_dialog_collect_application_log">Bashkangjitni \'log\' skedën e aplikacionit</string>
   <string name="report_issue_dialog_collect_wallet_dump">Bashkangjitni \'dump\' skedën e kuletës</string>
   <string name="report_issue_dialog_mail_intent_chooser">Dërgo raporting duke përdorur…</string>

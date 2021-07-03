@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2015 the original author or authors.
+ * Copyright the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,12 +17,12 @@
 
 package de.schildbach.wallet.util;
 
-import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
-
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import androidx.annotation.Nullable;
+
+import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 
 /**
  * @author Andreas Schildbach

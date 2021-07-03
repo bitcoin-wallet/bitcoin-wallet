@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="font_size_tiny">14sp</dimen>
+    <dimen name="font_size_small">18sp</dimen>
+    <dimen name="font_size_normal">22sp</dimen>
+    <dimen name="font_size_large">30sp</dimen>
+    <dimen name="font_size_huge">50sp</dimen>
+    <dimen name="symbol_size_normal">19sp</dimen>
+    <dimen name="list_entry_padding_horizontal_cram">8dp</dimen>
+    <dimen name="list_entry_padding_horizontal">16dp</dimen>
+    <dimen name="list_entry_padding_horizontal_lax">22dp</dimen>
+    <dimen name="list_entry_padding_vertical_cram">6dp</dimen>
+    <dimen name="list_entry_padding_vertical">12dp</dimen>
+    <dimen name="list_entry_padding_vertical_lax">16dp</dimen>
+    <dimen name="divider_currency_padding">16dp</dimen>
+    <dimen name="wallet_address_qr_size">128dp</dimen>
+    <dimen name="request_coins_qr_size">192dp</dimen>
+    <dimen name="bitmap_dialog_qr_size">320dp</dimen>
+</resources>

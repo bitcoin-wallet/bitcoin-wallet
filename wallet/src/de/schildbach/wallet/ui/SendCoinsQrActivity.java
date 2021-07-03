@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2015 the original author or authors.
+ * Copyright the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,33 +17,34 @@
 
 package de.schildbach.wallet.ui;
 
-import org.bitcoinj.core.PrefixedChecksummedBytes;
-import org.bitcoinj.core.Transaction;
-import org.bitcoinj.core.VerificationException;
-
+import android.app.Activity;
+import android.content.DialogInterface.OnClickListener;
+import android.content.Intent;
+import android.os.Bundle;
+import androidx.lifecycle.ViewModelProvider;
 import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.data.PaymentIntent;
 import de.schildbach.wallet.ui.InputParser.StringInputParser;
 import de.schildbach.wallet.ui.scan.ScanActivity;
 import de.schildbach.wallet.ui.send.SendCoinsActivity;
 import de.schildbach.wallet.ui.send.SweepWalletActivity;
-
-import android.app.Activity;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
-import android.content.Intent;
-import android.os.Bundle;
+import org.bitcoinj.core.PrefixedChecksummedBytes;
+import org.bitcoinj.core.Transaction;
+import org.bitcoinj.core.VerificationException;
 
 /**
  * @author Andreas Schildbach
  */
-public final class SendCoinsQrActivity extends Activity {
+public final class SendCoinsQrActivity extends AbstractWalletActivity {
+    private AbstractWalletActivityViewModel walletActivityViewModel;
+
     private static final int REQUEST_CODE_SCAN = 0;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        walletActivityViewModel = new ViewModelProvider(this).get(AbstractWalletActivityViewModel.class);
 
         if (savedInstanceState == null)
             ScanActivity.startForResult(this, REQUEST_CODE_SCAN);
@@ -74,15 +75,15 @@ public final class SendCoinsQrActivity extends Activity {
 
                 @Override
                 protected void handleDirectTransaction(final Transaction transaction) throws VerificationException {
-                    final WalletApplication application = (WalletApplication) getApplication();
-                    application.processDirectTransaction(transaction);
-
+                    walletActivityViewModel.broadcastTransaction(transaction);
                     SendCoinsQrActivity.this.finish();
                 }
 
                 @Override
                 protected void error(final int messageResId, final Object... messageArgs) {
-                    dialog(SendCoinsQrActivity.this, dismissListener, 0, messageResId, messageArgs);
+                    final DialogBuilder dialog = DialogBuilder.dialog(SendCoinsQrActivity.this, 0, messageResId, messageArgs);
+                    dialog.singleDismissButton(dismissListener);
+                    dialog.show();
                 }
 
                 private final OnClickListener dismissListener = (dialog, which) -> SendCoinsQrActivity.this.finish();

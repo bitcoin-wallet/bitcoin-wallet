@@ -14,10 +14,8 @@
   <string name="wallet_address_fragment_clipboard_msg">L\'adreça Groestlcoin s\'ha copiat al porta-retalls.</string>
   <string name="wallet_address_dialog_fragment_hint">Per protegir la teva privacitat, la teva adreça canviarà quan rebi un pagament.</string>
   <string name="wallet_balance_fragment_insecure_device">El dispositiu és vell i insegur. Només es apropiat per a utilitzar pocs fons.</string>
-  <string name="wallet_balance_fragment_too_much">Aquesta quantitat de diners és molt elevada per portar-la a la butxaca, mou una part a un lloc segur.</string>
   <string name="wallet_balance_fragment_replaying">El saldo no està disponible durant la repetició.</string>
   <string name="exchange_rates_activity_title">Preus de canvi</string>
-  <string name="exchange_rates_fragment_empty_text">No es poden carregar el preus de canvi.</string>
   <string name="exchange_rates_fragment_empty_search">No es pot trobar el preu de canvi.</string>
   <string name="exchange_rates_fragment_default">(per defecte)</string>
   <string name="exchange_rates_fragment_rate">taxa</string>
@@ -57,7 +55,8 @@
   <string name="wallet_old_sdk_dialog_title">La versió Android està des-actualitzada.</string>
   <string name="wallet_old_sdk_dialog_message">El risc és que algun dels següents llançaments de la Cartera Groestlcoin no siguin compatibles amb el teu dispositiu. En alguns casos, et pot ser difícil gastar les monedes en aquest dispositiu.\n\nA no ser que sàpigues el que estàs fent, es recomana treure aviat les teves monedes.</string>
   <string name="alert_dialogs_fragment_settings_failed_title">S\'ha produit un error en obrir configuració</string>
-  <string name="send_coins_activity_title">Envia Groestlcoins</string>
+  <string name="alert_dialogs_fragment_too_much_balance_dialog_message">Aquesta quantitat de diners és molt elevada per portar-la a la butxaca, mou una part a un lloc segur.</string>
+  <string name="send_coins_activity_title">Envia Groestlcoin</string>
   <string name="send_coins_fragment_request_payment_request_progress">Important signatura des de %s…</string>
   <string name="send_coins_fragment_request_payment_request_failed_title">S\'ha produit un error en obtenir la sol·licitud de pagament</string>
   <string name="send_coins_fragment_request_payment_request_failed_message">El beneficiari (%1$s) està utilitzant un protocol de pagament no incompatible (motiu: %2$s).</string>
@@ -148,10 +147,6 @@
   <string name="address_book_context_edit_title">Edita l\'adreça</string>
   <string name="address_book_context_remove_title">Esborra l\'adreça</string>
   <string name="address_book_context_copy_to_clipboard_title">Copia al porta-retalls</string>
-  <string name="address_book_options_paste_from_clipboard_title">Enganxa des del porta-retalls</string>
-  <string name="address_book_options_paste_from_clipboard_empty">El porta-retalls està buit</string>
-  <string name="address_book_options_paste_from_clipboard_invalid">No es reconeixen les dades del porta-retalls.</string>
-  <string name="address_book_options_paste_from_clipboard_own_address">La direcció del porta-retalls és la teva.</string>
   <string name="address_book_options_scan_title">Escaneja l\'adreça</string>
   <string name="address_book_options_scan_invalid">No es reconeixen les dades escanejades</string>
   <string name="address_book_options_scan_own_address">L\'adreça escanejada és la teva.</string>
@@ -273,7 +268,6 @@
   <string name="report_issue_dialog_description">descripció del problema</string>
   <string name="report_issue_dialog_report">Reportar</string>
   <string name="report_issue_dialog_collect_device_info">Adjuntar informació de dispositiu</string>
-  <string name="report_issue_dialog_collect_installed_packages">Adjuntar llistat de paquets instal·lats</string>
   <string name="report_issue_dialog_collect_application_log">Adjuntar registre d\'aplicació</string>
   <string name="report_issue_dialog_collect_wallet_dump">Adjuntar buidat de dades de cartera.</string>
   <string name="report_issue_dialog_mail_intent_chooser">Enviant report utilitzant…</string>

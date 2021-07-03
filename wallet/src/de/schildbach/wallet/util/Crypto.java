@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2015 the original author or authors.
+ * Copyright the original author or authors.
  *
  * Licensed under the MIT license (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,16 +16,7 @@
 
 package de.schildbach.wallet.util;
 
-import java.io.File;
-import java.io.FileFilter;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.nio.charset.StandardCharsets;
-import java.security.SecureRandom;
-import java.util.Arrays;
-
+import com.google.common.io.BaseEncoding;
 import org.bouncycastle.crypto.BufferedBlockCipher;
 import org.bouncycastle.crypto.CipherParameters;
 import org.bouncycastle.crypto.DataLengthException;
@@ -37,7 +28,15 @@ import org.bouncycastle.crypto.modes.CBCBlockCipher;
 import org.bouncycastle.crypto.paddings.PaddedBufferedBlockCipher;
 import org.bouncycastle.crypto.params.ParametersWithIV;
 
-import com.google.common.io.BaseEncoding;
+import java.io.File;
+import java.io.FileFilter;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.nio.charset.StandardCharsets;
+import java.security.SecureRandom;
+import java.util.Arrays;
 
 /**
  * This class encrypts and decrypts a string in a manner that is compatible with OpenSSL.
@@ -282,7 +281,7 @@ public class Crypto {
                 if (in.read(buf) == -1)
                     return false;
                 final String str = new String(buf);
-                if (!str.toString().equals(OPENSSL_MAGIC_TEXT))
+                if (!str.equals(OPENSSL_MAGIC_TEXT))
                     return false;
                 return true;
             } catch (final IOException x) {

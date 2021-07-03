@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="font_size_tiny">13sp</dimen>
+    <dimen name="font_size_small">16sp</dimen>
+    <dimen name="font_size_normal">20sp</dimen>
+    <dimen name="font_size_large">26sp</dimen>
+    <dimen name="font_size_huge">42sp</dimen>
+    <dimen name="symbol_size_normal">17sp</dimen>
+    <dimen name="wallet_address_qr_size">112dp</dimen>
+    <dimen name="request_coins_qr_size">160dp</dimen>
+    <dimen name="bitmap_dialog_qr_size">288dp</dimen>
+</resources>

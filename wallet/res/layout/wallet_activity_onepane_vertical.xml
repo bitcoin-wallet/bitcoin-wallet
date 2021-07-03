@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="0px"
-        android:layout_weight="1" >
+        android:layout_weight="1">
 
-        <LinearLayout
+        <de.schildbach.wallet.util.FillGapsLinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="top"
@@ -17,18 +18,17 @@
             android:baselineAligned="false"
             android:elevation="3dp"
             android:orientation="horizontal"
-            android:tag="levitate" >
+            android:tag="levitate">
 
-            <fragment
+            <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/wallet_balance_fragment"
                 android:name="de.schildbach.wallet.ui.WalletBalanceFragment"
                 android:layout_width="0px"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
                 android:layout_weight="1"
                 android:tag="slide_in_left" />
 
-            <fragment
+            <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/wallet_address_fragment"
                 android:name="de.schildbach.wallet.ui.WalletAddressFragment"
                 android:layout_width="wrap_content"
@@ -38,9 +38,9 @@
                 android:layout_marginRight="@dimen/list_entry_padding_horizontal"
                 android:layout_marginTop="@dimen/list_entry_padding_vertical_lax"
                 android:tag="slide_in_right" />
-        </LinearLayout>
+        </de.schildbach.wallet.util.FillGapsLinearLayout>
 
-        <fragment
+        <androidx.fragment.app.FragmentContainerView
             android:id="@+id/wallet_transactions_fragment"
             android:name="de.schildbach.wallet.ui.WalletTransactionsFragment"
             android:layout_width="match_parent"
@@ -49,5 +49,4 @@
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <include layout="@layout/wallet_activity_bottom_include" />
-
 </LinearLayout>

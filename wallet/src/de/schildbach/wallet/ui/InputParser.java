@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2015 the original author or authors.
+ * Copyright the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,16 +17,14 @@
 
 package de.schildbach.wallet.ui;
 
-import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.security.KeyStore;
-import java.security.KeyStoreException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.regex.Pattern;
-
+import com.google.common.hash.Hashing;
+import com.google.common.io.ByteStreams;
+import com.google.protobuf.InvalidProtocolBufferException;
+import com.google.protobuf.UninitializedMessageException;
+import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.R;
+import de.schildbach.wallet.data.PaymentIntent;
+import de.schildbach.wallet.util.Qr;
 import org.bitcoin.protocols.payments.Protos;
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.AddressFormatException;
@@ -47,20 +45,16 @@ import org.bitcoinj.uri.BitcoinURIParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.common.hash.Hashing;
-import com.google.common.io.ByteStreams;
-import com.google.protobuf.InvalidProtocolBufferException;
-import com.google.protobuf.UninitializedMessageException;
-
-import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.R;
-import de.schildbach.wallet.data.PaymentIntent;
-import de.schildbach.wallet.util.Qr;
-
 import org.bitcoinj.core.CoinDefinition;
-import android.content.Context;
-import android.content.DialogInterface.OnClickListener;
-import androidx.annotation.Nullable;
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.security.KeyStore;
+import java.security.KeyStoreException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.regex.Pattern;
 
 /**
  * @author Andreas Schildbach
@@ -109,19 +103,21 @@ public abstract class InputParser {
 
                     error(R.string.input_parser_invalid_bitcoin_uri, input);
                 }
-            } else if (PATTERN_TRANSACTION.matcher(input).matches()) {
+            } else if (PATTERN_TRANSACTION_BASE43.matcher(input).matches()) {
                 try {
                     final Transaction tx = new Transaction(Constants.NETWORK_PARAMETERS,
                             Qr.decodeDecompressBinary(input));
-
                     handleDirectTransaction(tx);
-                } catch (final IOException x) {
-                    log.info("i/o error while fetching transaction", x);
-
-                    error(R.string.input_parser_invalid_transaction, x.getMessage());
-                } catch (final ProtocolException x) {
+                } catch (final IOException | ProtocolException x) {
                     log.info("got invalid transaction", x);
-
+                    error(R.string.input_parser_invalid_transaction, x.getMessage());
+                }
+            } else if (PATTERN_TRANSACTION_HEX.matcher(input).matches()) {
+                try {
+                    final Transaction tx = new Transaction(Constants.NETWORK_PARAMETERS, Constants.HEX.decode(input));
+                    handleDirectTransaction(tx);
+                } catch (final IllegalArgumentException | ProtocolException x) {
+                    log.info("got invalid transaction", x);
                     error(R.string.input_parser_invalid_transaction, x.getMessage());
                 }
             } else {
@@ -322,16 +318,8 @@ public abstract class InputParser {
         error(R.string.input_parser_cannot_classify, input);
     }
 
-    protected void dialog(final Context context, @Nullable final OnClickListener dismissListener, final int titleResId,
-            final int messageResId, final Object... messageArgs) {
-        final DialogBuilder dialog = new DialogBuilder(context);
-        if (titleResId != 0)
-            dialog.setTitle(titleResId);
-        dialog.setMessage(context.getString(messageResId, messageArgs));
-        dialog.singleDismissButton(dismissListener);
-        dialog.show();
-    }
-
-    private static final Pattern PATTERN_TRANSACTION = Pattern
+    private static final Pattern PATTERN_TRANSACTION_BASE43 = Pattern
             .compile("[0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ$\\*\\+\\-\\.\\/\\:]{100,}");
+    private static final Pattern PATTERN_TRANSACTION_HEX = Pattern
+            .compile("[0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ]{200,}", Pattern.CASE_INSENSITIVE);
 }

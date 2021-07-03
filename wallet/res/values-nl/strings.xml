@@ -1,6 +1,8 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
   <string name="toast_wallet_reset">Portemonnee is gereset!\nHerstel zal enige tijd duren.</string>
+  <string name="toast_start_external_document_failed">Er is geen webbrowser geïnstalleerd om het externe document te openen.</string>
+  <string name="toast_start_storage_provider_selector_failed">Er is geen geschikte cloudopslagdienst geïnstalleerd.\nJe hebt iets zoals \"Nextcloud\" of \"Google Drive\" nodig.</string>
   <string name="wallet_disclaimer_fragment_remind_safety">Gebruik op eigen risico. Lees de &lt;u&gt;veiligheidsvoorschriften&lt;/u&gt;.</string>
   <string name="wallet_disclaimer_fragment_remind_backup">U moet uw &lt;u&gt;portemonnee back-uppen&lt;/u&gt;!</string>
   <string name="blockchain_state_progress_hours">%1$s, %2$d uur achter</string>
@@ -14,10 +16,8 @@
   <string name="wallet_address_fragment_clipboard_msg">Groestlcoinadres gekopieërd naar klembord</string>
   <string name="wallet_address_dialog_fragment_hint">Om je privacy te beschermen zal het adres wijzigen zodra een betaling ontvangen is.</string>
   <string name="wallet_balance_fragment_insecure_device">Je apparaat is oud en onveilig. Gebruik aub alleen voor kleine hoeveelheden.</string>
-  <string name="wallet_balance_fragment_too_much">Dit is relatief veel om op zak te hebben. Verplaats iets naar een veiligere plek.</string>
   <string name="wallet_balance_fragment_replaying">Balans is onbeschikbaar tijdens herladen.</string>
   <string name="exchange_rates_activity_title">Wisselkoersen</string>
-  <string name="exchange_rates_fragment_empty_text">Kon geen wisselkoersen laden.</string>
   <string name="exchange_rates_fragment_empty_search">Wisselkoers niet gevonden.</string>
   <string name="exchange_rates_fragment_default">(standaard)</string>
   <string name="exchange_rates_fragment_rate">tarief</string>
@@ -59,6 +59,7 @@
   <string name="wallet_old_sdk_dialog_title">Android-versie is verouderd</string>
   <string name="wallet_old_sdk_dialog_message">De kans bestaat dat één van de volgende versies van Groestlcoin Wallet uw apparaat niet langer ondersteunen zal. In sommige gevallen kan het lastig worden nog met Groestlcoins te kunnen betalen vanaf dit apparaat.\n\nTenzij u weet wat u doet wordt u aanbevolen om coins elders onder te brengen.</string>
   <string name="alert_dialogs_fragment_settings_failed_title">Probleem met het openen van de instellingen</string>
+  <string name="alert_dialogs_fragment_too_much_balance_dialog_message">Dit is relatief veel om op zak te hebben. Verplaats iets naar een veiligere plek.</string>
   <string name="send_coins_activity_title">Verzend GRS</string>
   <string name="send_coins_fragment_request_payment_request_progress">Handtekening van %s ophalen…</string>
   <string name="send_coins_fragment_request_payment_request_failed_title">Ophalen betalingsverzoek is gefaald</string>
@@ -152,13 +153,10 @@
   <string name="address_book_context_edit_title">Adres bewerken</string>
   <string name="address_book_context_remove_title">Verwijder adres</string>
   <string name="address_book_context_copy_to_clipboard_title">Kopieër naar klembord</string>
-  <string name="address_book_options_paste_from_clipboard_title">Plak vanuit het klembord</string>
-  <string name="address_book_options_paste_from_clipboard_empty">Klembord is leeg</string>
-  <string name="address_book_options_paste_from_clipboard_invalid">Data van klembord is niet herkenbaar</string>
-  <string name="address_book_options_paste_from_clipboard_own_address">Het adres op het klembord is van jezelf.</string>
   <string name="address_book_options_scan_title">Scan adres</string>
   <string name="address_book_options_scan_invalid">Doorzochte data is onherkenbaar</string>
   <string name="address_book_options_scan_own_address">Het gescande adres is van jezelf</string>
+  <string name="address_book_row_current_address">Dit is je huidige adres om betalingen te ontvangen.</string>
   <string name="address_book_row_message_compromised_key">Dit adres is misschien gecompromitteerd. Je zou het niet meer moeten gebruiken om betalingen te ontvangen.</string>
   <string name="edit_address_book_entry_dialog_title_add">Voeg verzend adressen toe</string>
   <string name="edit_address_book_entry_dialog_title_edit">Wijzig label van verzend adres</string>
@@ -236,6 +234,9 @@
   <string name="input_parser_invalid_paymentrequest">Ongeldig betalingsverzoek:\n%s</string>
   <string name="input_parser_invalid_transaction">Ongeldige transactie:\n%s</string>
   <string name="preferences_activity_title">Instellingen</string>
+  <string name="preferences_category_general">Algemeen</string>
+  <string name="preferences_category_privacy">Privacybeheer</string>
+  <string name="preferences_category_merchants">Winkelier</string>
   <string name="preferences_category_diagnostics">Diagnostiek</string>
   <string name="preferences_category_labs">Labs</string>
   <string name="preferences_precision_title">Waarde en precisie</string>
@@ -247,10 +248,17 @@
   <string name="preferences_precision_labels_0_6">µGRS, geen decimalen</string>
   <string name="preferences_own_name_title">Je naam</string>
   <string name="preferences_own_name_summary">Je naam, voor om toe te voegen aan betalingsverzoeken. Probeer het kort te houden.</string>
+  <string name="preferences_own_name_dialog_message">Hou het kort.</string>
   <string name="preferences_send_coins_autoclose_title">Dialoog voor verzonden coins automatisch sluiten.</string>
   <string name="preferences_send_coins_autoclose_summary">Als de betaling is voltooid zal de verzend dialoog automatisch sluiten.</string>
-  <string name="preferences_trusted_peer_title">Vertrouwde partner</string>
+  <string name="preferences_sync_mode_title">Datagebruik vs. privacy</string>
+  <string name="preferences_sync_mode_summary">Kies tussen weinig datagebruik en verbeterde privacy tijdens synchroniseren met het netwerk.</string>
+  <string name="preferences_sync_mode_labels_connection_filter"><![CDATA[<b>Weinig datagebruik:</b> Gebruik netwerkfiltering om alleen de transacties relevant voor je portemonnee te lezen. Dat gebruikt ongeveer 500 MB per maand, maar zal wel het filter aan het netwerk openbaren maken.]]></string>
+  <string name="preferences_sync_mode_labels_full"><![CDATA[<b>Verbeterde privacy:</b> Dit zal geen informatie over je portemonnee met het netwerk delen. Let op dat omdat alle transacties worden gelezen, dit een forse 10 GB per maand gebruikt. Controleer eerst je databundel voor dit te gebruiken.]]></string>
+  <string name="preferences_trusted_peer_title">Vertrouwde peer</string>
   <string name="preferences_trusted_peer_summary">IP of hostnaam voor connectie naar enkele peer.</string>
+  <string name="preferences_trusted_peer_dialog_message">Voer een geldig IP-adres of hostnaam in. Als je Tor gebruikt, kun je hier ook een onionadres gebruiken.</string>
+  <string name="preferences_trusted_peer_dialog_message_multiple">Je kan meerdere vertrouwde \"peers\" opgeven door ze met een spatie te scheiden.</string>
   <string name="preferences_trusted_peer_resolve_progress">Oplossen…</string>
   <string name="preferences_trusted_peer_resolve_unknown_host">Hostname onbekend!</string>
   <string name="preferences_trusted_peer_only_title">Sla opsporen vertrouwde contacten over</string>
@@ -265,6 +273,9 @@
   <string name="preferences_remind_balance_summary">Als de app een paar weken niet gebruikt is zal de wallet laten merken dat er nog steeds coins aanwezig.</string>
   <string name="preferences_show_disclaimer_title">Toon disclaimer</string>
   <string name="preferences_show_disclaimer_summary">Heb je echt de veiligheidsaanwijzingen gelezen? Heb je al op een veilige plek een backup gemaakt van je portemonnee?</string>
+  <string name="preferences_bluetooth_address_title">Bluetoothadres</string>
+  <string name="preferences_bluetooth_address_summary">Configureer handmatig jouw bluetoothadres zodat je betalingen kan ontvangen van personen zonder internetverbinding. Je zal eerst in de bluetoothinstellingen van Android het adres van je apparaat moeten opzoeken.</string>
+  <string name="preferences_bluetooth_address_dialog_message">Helaas voorkomt Android de automatische detectie van het bluetoothadres van je apparaat. Je moet het opzoeken in de bluetoothinstellingen van Android en hier invoeren.\n\nZorg a.u.b. dat elk karakter correct is. Dubbele punten kunnen worden overgeslagen en hoofd- of kleine letters zijn niet belangrijk.</string>
   <string name="preferences_report_issue_title">Meld probleem</string>
   <string name="preferences_initiate_reset_title">Reset blokketen</string>
   <string name="preferences_initiate_reset_summary">Reset blokketen, transacties en wallet-inhoud. Herstel kan enige tijd duren dus doe dit alleen als je weet waarom.</string>
@@ -283,7 +294,6 @@
   <string name="report_issue_dialog_description">probleem beschrijving</string>
   <string name="report_issue_dialog_report">Verslag</string>
   <string name="report_issue_dialog_collect_device_info">Apparaat informatie toevoegen</string>
-  <string name="report_issue_dialog_collect_installed_packages">Lijst van geïnstalleerde pakketten toevoegen</string>
   <string name="report_issue_dialog_collect_application_log">Applicatie log toevoegen</string>
   <string name="report_issue_dialog_collect_wallet_dump">Wallet dump toevoegen</string>
   <string name="report_issue_dialog_mail_intent_chooser">Rapport versturen met…</string>
@@ -307,12 +317,16 @@
   <string name="about_faq_summary">Vaakgestelde vragen over de app</string>
   <string name="notification_coins_received_msg">Ontvangen %s</string>
   <string name="notification_connectivity_syncing_message">Met het netwerk aan het synchroniseren…</string>
+  <string name="notification_connectivity_syncing_trusted_peer">Synchroniseer met een vertrouwde peer…</string>
   <string name="notification_peers_connected_msg">%d actieve verbindingen</string>
+  <string name="notification_peer_connected">verbonden</string>
+  <string name="notification_peer_not_connected">niet verbonden</string>
   <string name="notification_inactivity_title">Je hebt nog steeds Groestlcoins op dit apparaat!</string>
   <string name="notification_inactivity_message">Onthou dat je saldo van %s verloren zal zijn als je de app verwijdert zonder de Groestlcoins eerst te verzenden.</string>
   <string name="notification_inactivity_message_donate">Als je geen waarde hecht aan je coins zou je deze ook kunnen doneren aan het Groestlcoin Wallet project</string>
   <string name="notification_inactivity_action_dismiss">Opnieuw vragen</string>
   <string name="notification_inactivity_action_dismiss_forever">Niet herinneren</string>
+  <string name="notification_bluetooth_service_listening">Klaar om betalingen via bluetooth te ontvangen</string>
   <string name="notification_channel_received_name">Ontvangen betalingen</string>
   <string name="notification_channel_ongoing_name">Achtergrondactiviteit</string>
   <string name="notification_channel_important_name">Belangrijke meldingen</string>
@@ -336,7 +350,6 @@
   <string name="button_send_coins">Verzend</string>
   <string name="button_scan">Scan QR</string>
   <string name="button_settings">Instellingen</string>
-  <string name="button_options">Meer opties</string>
   <string name="action_show_qr">Toon QR-code</string>
   <string name="action_browse">Bladeren</string>
   <!--generic strings-->

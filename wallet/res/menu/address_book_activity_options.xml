@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/sending_addresses_options_scan"
+        android:icon="@drawable/ic_photo_camera_white_24dp"
+        android:showAsAction="always|withText"
+        android:title="@string/address_book_options_scan_title" />
+</menu>

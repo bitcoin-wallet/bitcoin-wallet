@@ -110,7 +110,7 @@
       <b>Tekniske notater:</b>
     </p>
     <p>
-      Som SPV-lommebok, følger Groestlcoin Wallet den blokkjeden med mest proof-of-work (noen ganger også kalt den \"lengste kjeden\", den \"vinnende kjeden\" eller \"Groestlcoin-Blockchain\").
+      Som SPV-lommebok, følger Groestlcoin Wallet den blokkjeden med mest proof-of-work (noen ganger også kalt den \"lengste kjeden\", den \"vinnende kjeden\" eller \"Groestlcoin block chain\").
       Du vil bare motta innbetalinger og være i stand til å betale på denne kjeden.
       Ingen garantier kan gis for groestlcoin på minoritetskjeder, som er kjeder med mindre proof-of-work.
     </p>

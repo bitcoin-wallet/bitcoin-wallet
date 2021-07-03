@@ -1,6 +1,8 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
   <string name="toast_wallet_reset">Votre porte-monnaie a été réinitialisé !\nLa récupération prendra un certain temps.</string>
+  <string name="toast_start_external_document_failed">Aucun navigateur Web n’est installé pour ouvrir le document externe.</string>
+  <string name="toast_start_storage_provider_selector_failed">Aucun fournisseur approprié de stockage nuagique n’est installé.\nVous devez en installer un tel que « Nextcloud » ou « Disque Google Drive ».</string>
   <string name="wallet_disclaimer_fragment_remind_safety">Utilisez à vos propres risques. Lire les &lt;u&gt;notes de sécurité&lt;/u&gt;.</string>
   <string name="wallet_disclaimer_fragment_remind_backup">Vous devez &lt;u&gt;sauvegarder votre porte-monnaie&lt;/u&gt; !</string>
   <string name="blockchain_state_progress_hours">%1$s, %2$d heures en retard</string>
@@ -9,15 +11,13 @@
   <string name="blockchain_state_progress_months">%1$s, %2$d mois en retard</string>
   <string name="blockchain_state_progress_downloading">Synchronisation avec le réseau</string>
   <string name="blockchain_state_progress_stalled">Synchronisation interrompue</string>
-  <string name="blockchain_state_progress_problem_storage">Synchronisation : problème de stockage</string>
-  <string name="blockchain_state_progress_problem_network">Synchronisation : problème de réseau</string>
+  <string name="blockchain_state_progress_problem_storage">Problème de synchronisation : l’espace de stockage est faible</string>
+  <string name="blockchain_state_progress_problem_network">Problème de synchronisation : aucune connexion au réseau</string>
   <string name="wallet_address_fragment_clipboard_msg">L’adresse Groestlcoin a été copiée dans le presse-papiers</string>
   <string name="wallet_address_dialog_fragment_hint">Par souci de confidentialité, votre adresse changera après avoir reçu un paiement.</string>
   <string name="wallet_balance_fragment_insecure_device">Votre appareil est vieux et n’est pas sûr. Veuillez ne l’utiliser que pour de petits montants.</string>
-  <string name="wallet_balance_fragment_too_much">Ce montant est plutôt élevé pour être gardé dans votre poche. Veuillez en déplacer une partie en lieu sûr.</string>
   <string name="wallet_balance_fragment_replaying">Le solde n’est pas disponible durant la relecture.</string>
   <string name="exchange_rates_activity_title">Taux de change</string>
-  <string name="exchange_rates_fragment_empty_text">Impossible de charger les taux de change.</string>
   <string name="exchange_rates_fragment_empty_search">Taux de change introuvable.</string>
   <string name="exchange_rates_fragment_default">(par défaut)</string>
   <string name="exchange_rates_fragment_rate">taux</string>
@@ -59,6 +59,7 @@
   <string name="wallet_old_sdk_dialog_title">La version d’Android est obsolète</string>
   <string name="wallet_old_sdk_dialog_message">Il est probable qu’une prochaine version de Groestlcoin Wallet ne prendra plus en charge votre appareil. Dans certains cas, il peut être difficile de dépenser des Groestlcoins avec cet appareil.\n\nÀ moins de savoir ce que vous faites, il est recommandé de bientôt déplacer vos Groestlcoins.</string>
   <string name="alert_dialogs_fragment_settings_failed_title">Problème d’ouverture des paramètres</string>
+  <string name="alert_dialogs_fragment_too_much_balance_dialog_message">Ce montant est plutôt élevé pour être gardé dans votre poche. Veuillez en déplacer une partie en lieu sûr.</string>
   <string name="send_coins_activity_title">Envoyer des Groestlcoins</string>
   <string name="send_coins_fragment_request_payment_request_progress">Récupération de la signature de %s…</string>
   <string name="send_coins_fragment_request_payment_request_failed_title">Échec de récupération de la demande de paiement</string>
@@ -152,13 +153,10 @@
   <string name="address_book_context_edit_title">Modifier l’adresse</string>
   <string name="address_book_context_remove_title">Supprimer l’adresse</string>
   <string name="address_book_context_copy_to_clipboard_title">Copier dans le presse-papiers</string>
-  <string name="address_book_options_paste_from_clipboard_title">Coller du presse-papiers</string>
-  <string name="address_book_options_paste_from_clipboard_empty">Le presse-papiers est vide</string>
-  <string name="address_book_options_paste_from_clipboard_invalid">Les données du presse-papiers ne peuvent pas être reconnues.</string>
-  <string name="address_book_options_paste_from_clipboard_own_address">L’adresse dans le presse-papiers est la vôtre.</string>
   <string name="address_book_options_scan_title">Balayer l’adresse</string>
   <string name="address_book_options_scan_invalid">Les données balayées ne peuvent pas être reconnues</string>
   <string name="address_book_options_scan_own_address">L’adresse balayée est la vôtre.</string>
+  <string name="address_book_row_current_address">C’est votre adresse actuelle de réception.</string>
   <string name="address_book_row_message_compromised_key">Cette adresse pourrait être compromise. Vous ne devriez plus l’utiliser pour recevoir des Groestlcoins.</string>
   <string name="edit_address_book_entry_dialog_title_add">Ajouter une adresse d’envoi</string>
   <string name="edit_address_book_entry_dialog_title_edit">Modifier l’étiquette de l’adresse d’envoi</string>
@@ -190,7 +188,7 @@
   <string name="block_row_mining_difficulty_adjustment">Réglage de la difficulté de minage</string>
   <string name="block_row_mining_reward_adjustment">Réduction de moitié des récompenses de minage</string>
   <string name="block_row_now">à l’instant</string>
-  <string name="peer_list_fragment_empty">Aucun pair connecté</string>
+  <string name="peer_list_fragment_empty">Aucun pair n’est connecté</string>
   <string name="peer_list_row_ping_time">⇆ %d&#x2009;ms</string>
   <string name="import_keys_dialog_title">Restaurer le porte-monnaie</string>
   <string name="restore_wallet_dialog_replace_warning">Vous allez remplacer votre porte-monnaie actuel. Toutes les pièces du porte-monnaie actuel seront perdues à moins que vous n’en ayez une sauvegarde séparée.</string>
@@ -219,7 +217,7 @@
   <string name="encrypt_keys_dialog_password_strength_weak">faible</string>
   <string name="encrypt_keys_dialog_password_strength_fair">correct</string>
   <string name="encrypt_keys_dialog_password_strength_good">bon</string>
-  <string name="encrypt_keys_dialog_password_strength_strong">fort</string>
+  <string name="encrypt_keys_dialog_password_strength_strong">robuste</string>
   <string name="encrypt_keys_dialog_show">Montrer le NIP</string>
   <string name="encrypt_keys_dialog_state_encrypting">Chiffrement…</string>
   <string name="encrypt_keys_dialog_state_decrypting">Déchiffrement…</string>
@@ -236,6 +234,9 @@
   <string name="input_parser_invalid_paymentrequest">La demande de paiement est invalide :\n%s</string>
   <string name="input_parser_invalid_transaction">La transaction est invalide :\n%s</string>
   <string name="preferences_activity_title">Paramètres</string>
+  <string name="preferences_category_general">Général</string>
+  <string name="preferences_category_privacy">Contrôle de la confidentialité</string>
+  <string name="preferences_category_merchants">Marchands</string>
   <string name="preferences_category_diagnostics">Diagnostics</string>
   <string name="preferences_category_labs">Labo</string>
   <string name="preferences_precision_title">Dénomination et précision</string>
@@ -246,15 +247,22 @@
   <string name="preferences_precision_labels_2_3">mGRS, 2 décimales</string>
   <string name="preferences_precision_labels_0_6">µGRS, pas de décimale</string>
   <string name="preferences_own_name_title">Votre nom</string>
-  <string name="preferences_own_name_summary">Votre nom qui sera ajouté aux demandes de paiement. Il doit être court.</string>
+  <string name="preferences_own_name_summary">Votre nom ou celui de votre entreprise, qui seront ajoutés aux demandes de paiements que vous envoyez à vos clients.</string>
+  <string name="preferences_own_name_dialog_message">Soyez bref.</string>
   <string name="preferences_send_coins_autoclose_title">Fermer automatiquement la fenêtre d’envoi de pièces</string>
   <string name="preferences_send_coins_autoclose_summary">Une fois le paiement effectué, la fenêtre d’envoi sera fermée automatiquement.</string>
+  <string name="preferences_sync_mode_title">Utilisation des données ou confidentialité</string>
+  <string name="preferences_sync_mode_summary">Choisissez entre une faible utilisation des données ou une confidentialité améliorée lors de la synchronisation avec le réseau.</string>
+  <string name="preferences_sync_mode_labels_connection_filter"><![CDATA[<b>Faible utilisation des données :</b> Faites appel au filtrage du réseau pour ne lire que les transactions pertinentes pour votre porte-monnaie. 500 Mo seront utilisés par mois, mais le filtre sera divulgué au réseau.]]></string>
+  <string name="preferences_sync_mode_labels_full"><![CDATA[<b>Confidentialité améliorée :</b> Aucun renseignement sur votre porte-monnaie ne sera divulgué au réseau. Sachez que toutes les transactions seront lues, pour une utilisation très volumineuse de 10 Go par mois. Avant d’utiliser cette option, veuillez vérifier votre quantité de données autorisée.]]></string>
   <string name="preferences_trusted_peer_title">Pair de confiance</string>
-  <string name="preferences_trusted_peer_summary">L’IP ou le nom d’hôte d’un pair auquel se connecter.</string>
+  <string name="preferences_trusted_peer_summary">IP ou nom d’hôte d’un pair auquel se connecter.</string>
+  <string name="preferences_trusted_peer_dialog_message">Veuillez saisir une adresse IP ou un nom d’hôte valides. Si vous utilisez Tor, vous pouvez aussi utiliser une adresse onion ici.</string>
+  <string name="preferences_trusted_peer_dialog_message_multiple">Vous pouvez indiquer plusieurs pairs de confiance en les séparant par une espace.</string>
   <string name="preferences_trusted_peer_resolve_progress">Résolution…</string>
   <string name="preferences_trusted_peer_resolve_unknown_host">Le nom d’hôte est inconnu !</string>
-  <string name="preferences_trusted_peer_only_title">Ignorer la découverte régulière des pairs</string>
-  <string name="preferences_trusted_peer_only_summary">Empêche la connexion à des pairs autres que les pairs de confiance.</string>
+  <string name="preferences_trusted_peer_only_title">Ignorer la découverte des pairs ordinaires</string>
+  <string name="preferences_trusted_peer_only_summary">Empêche la connexion à des pairs autres que le pair de confiance.</string>
   <string name="preferences_block_explorer_title">Explorateur de blocs</string>
   <string name="preferences_block_explorer_summary">L’explorateur de blocs externe à utiliser pour consulter les transactions, les adresses et les blocs.</string>
   <string name="preferences_data_usage_title">Utilisation des données</string>
@@ -265,6 +273,9 @@
   <string name="preferences_remind_balance_summary">Après quelques semaines sans utilisation, l’appli vous signalera s’il y a encore des pièces dans le porte-monnaie.</string>
   <string name="preferences_show_disclaimer_title">Afficher l’avis de non-responsabilité</string>
   <string name="preferences_show_disclaimer_summary">Avez-vous vraiment lu les consignes de sécurité ? Avez-vous déjà sauvegardé votre porte-monnaie en lieu sûr ?</string>
+  <string name="preferences_bluetooth_address_title">Adresse Bluetooth</string>
+  <string name="preferences_bluetooth_address_summary">Configurez manuellement votre propre adresse Bluetooth afin de recevoir des paiements de payeurs, sans connectivité.</string>
+  <string name="preferences_bluetooth_address_dialog_message">Malheureusement, Android empêche la détection automatique de l’adresse Bluetooth de votre appareil. Vous devez la trouver dans les paramètres Bluetooth d’Android et la saisir ici.\n\nVeuillez vous assurer de la justesse de chaque caractère. Les deux-points peuvent être omis et la casse n’est pas importante.</string>
   <string name="preferences_report_issue_title">Signaler un problème</string>
   <string name="preferences_initiate_reset_title">Réinitialiser la chaîne de blocs</string>
   <string name="preferences_initiate_reset_summary">Réinitialiser la chaîne de blocs et le solde du porte-monnaie. La relecture prendra du temps, ne le faites que si vous savez pourquoi.</string>
@@ -282,8 +293,7 @@
   <string name="report_issue_dialog_message_crash">Souhaitez-vous envoyer un rapport de plantage pour aider à corriger ce problème dans le futur ?</string>
   <string name="report_issue_dialog_description">description du problème</string>
   <string name="report_issue_dialog_report">Signaler</string>
-  <string name="report_issue_dialog_collect_device_info">Ajouter les informations de l’appareil</string>
-  <string name="report_issue_dialog_collect_installed_packages">Ajouter la liste des paquets installés</string>
+  <string name="report_issue_dialog_collect_device_info">Ajouter les renseignements relatifs à l’appareil</string>
   <string name="report_issue_dialog_collect_application_log">Ajouter le journal de l’application</string>
   <string name="report_issue_dialog_collect_wallet_dump">Ajouter un vidage du porte-monnaie</string>
   <string name="report_issue_dialog_mail_intent_chooser">Envoyer le rapport avec…</string>
@@ -307,18 +317,22 @@
   <string name="about_faq_summary">Foire aux questions au sujet de l’appli</string>
   <string name="notification_coins_received_msg">%s reçu</string>
   <string name="notification_connectivity_syncing_message">Synchronisation avec le réseau…</string>
+  <string name="notification_connectivity_syncing_trusted_peer">Synchronisation avec votre pair de confiance…</string>
   <string name="notification_peers_connected_msg">%d pairs connectés</string>
+  <string name="notification_peer_connected">connecté</string>
+  <string name="notification_peer_not_connected">non connecté</string>
   <string name="notification_inactivity_title">Vous avez encore des Groestlcoins sur cet appareil !</string>
   <string name="notification_inactivity_message">Souvenez-vous que votre solde de %s sera perdu si vous désinstallez l’appli Groestlcoin Wallet sans d’abord envoyer ce solde.</string>
   <string name="notification_inactivity_message_donate">Si ces quelques pièces vous importent peu, vous pourriez aussi en faire  le don au projet Groestlcoin Wallet.</string>
   <string name="notification_inactivity_action_dismiss">Rappeler + tard</string>
   <string name="notification_inactivity_action_dismiss_forever">Ne plus rappeler</string>
+  <string name="notification_bluetooth_service_listening">Vous êtes prêt à recevoir des paiements par Bluetooth</string>
   <string name="notification_channel_received_name">Paiements reçus</string>
   <string name="notification_channel_ongoing_name">Activité d’arrière-plan</string>
   <string name="notification_channel_important_name">Alertes importantes</string>
   <string name="appwidget_wallet_balance_title">Solde en Groestlcoins</string>
   <!--generic buttons-->
-  <string name="button_ok">OK</string>
+  <string name="button_ok">Valider</string>
   <string name="button_dismiss">Fermer</string>
   <string name="button_cancel">Annuler</string>
   <string name="button_retry">Ressayer</string>
@@ -336,7 +350,6 @@
   <string name="button_send_coins">Envoi</string>
   <string name="button_scan">Balayer</string>
   <string name="button_settings">Paramètres</string>
-  <string name="button_options">Plus d’options</string>
   <string name="action_show_qr">Montrer le code QR</string>
   <string name="action_browse">Parcourir</string>
   <!--generic strings-->

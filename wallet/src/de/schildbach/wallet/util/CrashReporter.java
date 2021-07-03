@@ -17,6 +17,10 @@
 
 package de.schildbach.wallet.util;
 
+import android.content.pm.PackageInfo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -27,19 +31,9 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.Calendar;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.GregorianCalendar;
-import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import android.content.Context;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 
 /**
  * @author Andreas Schildbach
@@ -95,18 +89,6 @@ public class CrashReporter {
         }
     }
 
-    public static void appendInstalledPackages(final Appendable report, final Context context) throws IOException {
-        final PackageManager pm = context.getPackageManager();
-        final List<PackageInfo> installedPackages = pm.getInstalledPackages(0);
-
-        // sort by package name
-        Collections.sort(installedPackages, (lhs, rhs) -> lhs.packageName.compareTo(rhs.packageName));
-
-        for (final PackageInfo p : installedPackages)
-            report.append(String.format(Locale.US, "%s %s (%d) - %tF %tF\n", p.packageName, p.versionName,
-                    p.versionCode, p.firstInstallTime, p.lastUpdateTime));
-    }
-
     public static void saveBackgroundTrace(final Throwable throwable, final PackageInfo packageInfo) {
         synchronized (backgroundTracesFile) {
             try (final PrintWriter writer = new PrintWriter(
@@ -143,21 +125,25 @@ public class CrashReporter {
         @Override
         public synchronized void uncaughtException(final Thread t, final Throwable exception) {
             log.warn("crashing because of uncaught exception", exception);
-
-            try {
-                saveCrashTrace(exception);
-            } catch (final IOException x) {
-                log.info("problem writing crash trace", x);
-            }
-
+            saveCrashTrace(exception);
             previousHandler.uncaughtException(t, exception);
         }
 
-        private void saveCrashTrace(final Throwable throwable) throws IOException {
-            final PrintWriter writer = new PrintWriter(
-                    new OutputStreamWriter(new FileOutputStream(crashTraceFile), StandardCharsets.UTF_8));
-            appendTrace(writer, throwable);
-            writer.close();
+        private void saveCrashTrace(final Throwable throwable) {
+            // Don't bother the user and us with these Android system bugs; we cannot do anything about it.
+            if (/* throwable instanceof android.app.RemoteServiceException && */
+                    throwable.getMessage().contains("Context.startForegroundService() did not then call Service.startForeground()"))
+                return;
+
+            try {
+                final PrintWriter writer = new PrintWriter(
+                        new OutputStreamWriter(new FileOutputStream(crashTraceFile), StandardCharsets.UTF_8));
+                appendTrace(writer, throwable);
+                writer.close();
+                log.info("saved crash trace to {}", crashTraceFile);
+            } catch (final IOException x) {
+                log.warn("problem saving crash trace", x);
+            }
         }
     }
 }

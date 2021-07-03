@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2015 the original author or authors.
+ * Copyright the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,17 +17,16 @@
 
 package de.schildbach.wallet.ui.backup;
 
-import java.io.File;
-import java.util.List;
-
-import de.schildbach.wallet.R;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+import de.schildbach.wallet.R;
+
+import java.io.File;
+import java.util.List;
 
 /**
  * @author Andreas Schildbach
@@ -56,7 +55,7 @@ public abstract class FileAdapter extends ArrayAdapter<File> {
         if (row == null)
             row = inflater.inflate(R.layout.spinner_item, null);
 
-        final TextView textView = (TextView) row.findViewById(android.R.id.text1);
+        final TextView textView = row.findViewById(android.R.id.text1);
         textView.setText(file.getName());
 
         return row;

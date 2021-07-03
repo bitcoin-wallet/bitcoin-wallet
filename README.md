@@ -1,4 +1,10 @@
+<<<<<<< HEAD
 Welcome to _Groestlcoin Wallet_, a standalone GroestlCoin payment app for your Android device!
+=======
+# BITCOIN WALLET
+
+Welcome to _Bitcoin Wallet_, a standalone Bitcoin payment app for your Android device!
+>>>>>>> a0368a8a7e47b7ad07d1193f6549da1071bf19c2
 
 This project contains several sub-projects:
 
@@ -13,15 +19,41 @@ This project contains several sub-projects:
      A minimal example app to demonstrate integration of digital payments into
      your Android app.
 
-You can build all sub-projects at once using Gradle:
 
-`gradle clean build`
+### PREREQUISITES FOR BUILDING
 
-You can install the app from the app store of your choice:
+You'll need git, a Java 8 SDK (or later) and Gradle 4.4 (or later) for this. We'll assume Ubuntu 20.04 LTS (Focal Fossa)
+for the package installs, which comes with OpenJDK 8 and Gradle 4.4.1 out of the box.
 
+    # first time only
+    sudo apt install git gradle openjdk-8-jdk
+
+Create a directory for the Android SDK (e.g. `android-sdk`) and point the `ANDROID_HOME` variable to it.
+
+Download the [Android SDK Tools](https://developer.android.com/studio/index.html#command-tools)
+and unpack it to `$ANDROID_HOME/`.
+
+Finally, the last preparative step is acquiring the source code. Again in your workspace, use:
+
+    # first time only
+    git clone -b master https://github.com/bitcoin-wallet/bitcoin-wallet.git bitcoin-wallet
+    cd bitcoin-wallet
+
+
+### BUILDING
+
+You can build all sub-projects in all flavors at once using Gradle:
+
+    # each time
+    gradle clean build
+
+<<<<<<< HEAD
  * __Testnet__:
    <a href="https://f-droid.org/app/hashengineering.groestlcoin.wallet_test">F-Droid</a> |
    <a href='https://play.google.com/store/apps/details?id=hashengineering.groestlcoin.wallet_test'>Google Play</a>
  * __Mainnet__:
    <a href="https://f-droid.org/app/hashengineering.groestlcoin.wallet">F-Droid</a> |
    <a href='https://play.google.com/store/apps/details?id=hashengineering.groestlcoin.wallet'>Google Play</a>
+=======
+For details about building the wallet see the [specific README](wallet/README.md).
+>>>>>>> a0368a8a7e47b7ad07d1193f6549da1071bf19c2

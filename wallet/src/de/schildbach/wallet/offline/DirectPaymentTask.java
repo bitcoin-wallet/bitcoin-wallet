@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2015 the original author or authors.
+ * Copyright the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,27 +17,15 @@
 
 package de.schildbach.wallet.offline;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-
-import org.bitcoin.protocols.payments.Protos;
-import org.bitcoin.protocols.payments.Protos.Payment;
-import org.bitcoinj.protocols.payments.PaymentProtocol;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.R;
-import de.schildbach.wallet.util.Bluetooth;
-
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.os.Handler;
 import android.os.Looper;
 import androidx.annotation.Nullable;
+import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.R;
+import de.schildbach.wallet.util.Bluetooth;
 import okhttp3.CacheControl;
 import okhttp3.Call;
 import okhttp3.Headers;
@@ -46,6 +34,16 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import okio.BufferedSink;
+import org.bitcoin.protocols.payments.Protos;
+import org.bitcoin.protocols.payments.Protos.Payment;
+import org.bitcoinj.protocols.payments.PaymentProtocol;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * @author Andreas Schildbach
@@ -166,23 +164,19 @@ public abstract class DirectPaymentTask {
                 final BluetoothDevice device = bluetoothAdapter
                         .getRemoteDevice(Bluetooth.decompressMac(bluetoothMac));
 
-                try (final BluetoothSocket socket = device
-                        .createInsecureRfcommSocketToServiceRecord(Bluetooth.BIP70_PAYMENT_PROTOCOL_UUID);
-                        final DataOutputStream os = new DataOutputStream(socket.getOutputStream());
-                        final DataInputStream is = new DataInputStream(socket.getInputStream())) {
+                try (final BluetoothSocket socket =
+                             device.createInsecureRfcommSocketToServiceRecord(Bluetooth.BIP70_PAYMENT_PROTOCOL_UUID)) {
                     socket.connect();
-
                     log.info("connected to payment protocol {}", bluetoothMac);
+                    final DataOutputStream os = new DataOutputStream(socket.getOutputStream());
+                    final DataInputStream is = new DataInputStream(socket.getInputStream());
 
                     payment.writeDelimitedTo(os);
                     os.flush();
-
                     log.info("tx sent via bluetooth");
 
                     final Protos.PaymentACK paymentAck = Protos.PaymentACK.parseDelimitedFrom(is);
-
                     final boolean ack = "ack".equals(PaymentProtocol.parsePaymentAck(paymentAck).getMemo());
-
                     log.info("received {} via bluetooth", ack ? "ack" : "nack");
 
                     onResult(ack);

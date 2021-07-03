@@ -14,10 +14,8 @@
   <string name="wallet_address_fragment_clipboard_msg">已經把 Groestlcoin 位址複製到剪貼簿中</string>
   <string name="wallet_address_dialog_fragment_hint">為了保障你的隱私，一旦收到付款後，收款位址就會改變。</string>
   <string name="wallet_balance_fragment_insecure_device">你的設備太老舊了，並且不安全。請放一點點錢來使用就好。</string>
-  <string name="wallet_balance_fragment_too_much">在口袋裡放這麼多錢好像不是很好。建議拿一些出來到比較安全的地方。</string>
   <string name="wallet_balance_fragment_replaying">在重播時無法顯示餘額</string>
   <string name="exchange_rates_activity_title">匯率</string>
-  <string name="exchange_rates_fragment_empty_text">無法讀取匯率資料。</string>
   <string name="exchange_rates_fragment_empty_search">無法找到匯率資料。</string>
   <string name="exchange_rates_fragment_default">(預設值)</string>
   <string name="exchange_rates_fragment_rate">匯率</string>
@@ -53,7 +51,8 @@
   <string name="wallet_version_dialog_msg_deprecated">如果看不到任何程式更新，有可能你的 Android 版本已經不再支援了。</string>
   <string name="wallet_version_dialog_button_binary">下載</string>
   <string name="wallet_old_sdk_dialog_title">Android 版本太舊</string>
-  <string name="wallet_old_sdk_dialog_message">接下來某個版本的 Groestlcoin Wallet 可能就開始不再支援你的設備了。在這個設備上付款可能會變得很困難。\n\n建議你馬上把錢轉到其他地方去，除非你還知道其他處理方式。</string>
+  <string name="wallet_old_sdk_dialog_message">接下來某個版本的 Bitcoin Wallet 可能就開始不再支援你的設備了。在這個設備上付款可能會變得很困難。\n\n建議你馬上把錢轉到其他地方去，除非你還知道其他處理方式。</string>
+  <string name="alert_dialogs_fragment_too_much_balance_dialog_message">在口袋裡放這麼多錢好像不是很好。建議拿一些出來到比較安全的地方。</string>
   <string name="send_coins_activity_title">Groestlcoin 付款</string>
   <string name="send_coins_fragment_request_payment_request_progress">正在從 %s 讀取簽章...</string>
   <string name="send_coins_fragment_request_payment_request_failed_title">讀取簽章失敗了</string>
@@ -142,10 +141,6 @@
   <string name="address_book_context_edit_title">編輯位址</string>
   <string name="address_book_context_remove_title">移除位址</string>
   <string name="address_book_context_copy_to_clipboard_title">複製到剪貼簿</string>
-  <string name="address_book_options_paste_from_clipboard_title">從剪貼簿貼上</string>
-  <string name="address_book_options_paste_from_clipboard_empty">剪貼簿是空的。</string>
-  <string name="address_book_options_paste_from_clipboard_invalid">剪貼簿資料無法辨識</string>
-  <string name="address_book_options_paste_from_clipboard_own_address">剪貼簿中的位址是你自己的。</string>
   <string name="address_book_options_scan_title">掃描位址</string>
   <string name="address_book_options_scan_invalid">掃描資料無法辨識</string>
   <string name="address_book_options_scan_own_address">掃描進來的位址是你自己的。</string>
@@ -267,7 +262,6 @@
   <string name="report_issue_dialog_description">問題描述</string>
   <string name="report_issue_dialog_report">回報</string>
   <string name="report_issue_dialog_collect_device_info">附上設備資訊</string>
-  <string name="report_issue_dialog_collect_installed_packages">附上已安裝的應用程式列表</string>
   <string name="report_issue_dialog_collect_application_log">附上應用程式日誌</string>
   <string name="report_issue_dialog_collect_wallet_dump">附上錢包傾印資料</string>
   <string name="report_issue_dialog_mail_intent_chooser">用其他方式寄送回報…</string>

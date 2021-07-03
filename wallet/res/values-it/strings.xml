@@ -14,10 +14,8 @@
   <string name="wallet_address_fragment_clipboard_msg">Indirizzo Groestlcoin copiato negli appunti</string>
   <string name="wallet_address_dialog_fragment_hint">Per proteggere la tua privacy, il tuo indirizzo cambierà alla ricezione di un pagamento.</string>
   <string name="wallet_balance_fragment_insecure_device">Il tuo dispositivo è vecchio e insicuro. Si prega di usarlo solo per piccole quantità.</string>
-  <string name="wallet_balance_fragment_too_much">Questo importo è alto per essere portato con se. Si prega di spostarne alcuni in un luogo più sicuro.</string>
   <string name="wallet_balance_fragment_replaying">Il conto non è disponibile durante la ripetizione.</string>
   <string name="exchange_rates_activity_title">Tasso di cambio</string>
-  <string name="exchange_rates_fragment_empty_text">Impossibile caricare tassi di cambio.</string>
   <string name="exchange_rates_fragment_empty_search">Impossibile trovare il tasso di cambio.</string>
   <string name="exchange_rates_fragment_default">(predefinito)</string>
   <string name="exchange_rates_fragment_rate">tasso</string>
@@ -57,6 +55,7 @@
   <string name="wallet_old_sdk_dialog_title">La versione Android non è aggiornata</string>
   <string name="wallet_old_sdk_dialog_message">Potrebbe essere che le prossime versioni di Groestlcoin Wallet non supporterà più il tuo dispositivo. In questi casi, potrebbe essere difficile spendere i Groestlcoin su questo dispositivo.\n\nA meno che tu non sappia quello che stai facendo, ti raccomandiamo di spostare il tuo denaro al più presto.</string>
   <string name="alert_dialogs_fragment_settings_failed_title">Problema nell\'aprire le impostazioni</string>
+  <string name="alert_dialogs_fragment_too_much_balance_dialog_message">Questo importo è alto per essere portato con se. Si prega di spostarne alcuni in un luogo più sicuro.</string>
   <string name="send_coins_activity_title">Invia Groestlcoins</string>
   <string name="send_coins_fragment_request_payment_request_progress">Acquisizione firma da %s…</string>
   <string name="send_coins_fragment_request_payment_request_failed_title">Acquisizione firma fallita</string>
@@ -145,10 +144,6 @@
   <string name="address_book_context_edit_title">Modifica indirizzo</string>
   <string name="address_book_context_remove_title">Rimuovi indirizzo</string>
   <string name="address_book_context_copy_to_clipboard_title">Copia negli appunti</string>
-  <string name="address_book_options_paste_from_clipboard_title">Incolla dagli appunti</string>
-  <string name="address_book_options_paste_from_clipboard_empty">La clipboard è vuota</string>
-  <string name="address_book_options_paste_from_clipboard_invalid">Dati non riconoscibili</string>
-  <string name="address_book_options_paste_from_clipboard_own_address">L\'indirizzo negli appunti è tuo.</string>
   <string name="address_book_options_scan_title">Scansione indirizzo</string>
   <string name="address_book_options_scan_invalid">Dati scannerizzati irriconoscibli</string>
   <string name="address_book_options_scan_own_address">L\'indirizzo scansionato è tuo.</string>
@@ -253,9 +248,9 @@
   <string name="preferences_show_disclaimer_title">Controlla l\'esenzione delle responsabilità</string>
   <string name="preferences_show_disclaimer_summary">Hai veramente letto le note di sicurezza? Hai già fatto il backup del tuo portafogli in un posto sicuro?</string>
   <string name="preferences_report_issue_title">Segnala un problema</string>
-  <string name="preferences_initiate_reset_title">Reinizializza il blockchain</string>
-  <string name="preferences_initiate_reset_summary">Reinizializza il blockchain, transazioni e conto del portafoglio. Il processo impiegherà un po\'.</string>
-  <string name="preferences_initiate_reset_dialog_message">Vorresti riavviare e ripetere il blockchain?\n\nQuesto nasconderà temporaneamente il tuo bilancio dal portafoglio, e rimuoverà le transazioni. Entrambi saranno recuperati con la sincronizzazione del blockchain.</string>
+  <string name="preferences_initiate_reset_title">Reinizializza il block chain</string>
+  <string name="preferences_initiate_reset_summary">Reinizializza il block chain, transazioni e conto del portafoglio. Il processo impiegherà un po\'.</string>
+  <string name="preferences_initiate_reset_dialog_message">Vorresti riavviare e ripetere il block chain?\n\nQuesto nasconderà temporaneamente il tuo bilancio dal portafoglio, e rimuoverà le transazioni. Entrambi saranno recuperati con la sincronizzazione del block chain.</string>
   <string name="preferences_initiate_reset_dialog_positive">Reset</string>
   <string name="preferences_extended_public_key_title">Mostra extended public key</string>
   <string name="preferences_extended_public_key_summary">Mostra la chiave pubblica estesa del tuo portafoglio, in modo tale che possa essere importata su altre applicazioni e servizi. Fai attenzione: facendo ciò ti priverai della tua privacy monetaria nei confronti dell\'applicazione.</string>
@@ -270,7 +265,6 @@
   <string name="report_issue_dialog_description">descrizione del problema</string>
   <string name="report_issue_dialog_report">Segnala</string>
   <string name="report_issue_dialog_collect_device_info">Allega informazioni sul dispositivo</string>
-  <string name="report_issue_dialog_collect_installed_packages">Appendi lista dei pacchetti installati</string>
   <string name="report_issue_dialog_collect_application_log">Allega il registro dell\'applicazione</string>
   <string name="report_issue_dialog_collect_wallet_dump">Allega il dump del portafoglio</string>
   <string name="report_issue_dialog_mail_intent_chooser">Invio della segnalazione…</string>

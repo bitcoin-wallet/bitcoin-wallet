@@ -14,10 +14,8 @@
   <string name="wallet_address_fragment_clipboard_msg">Адрес скопирован в буфер обмена</string>
   <string name="wallet_address_dialog_fragment_hint">Для защиты вашей конфиденциальности ваш адрес будет меняться , как только он получает деньги.</string>
   <string name="wallet_balance_fragment_insecure_device">Ваше устройство устарело и недостаточно защищено. Используйте только для небольших сумм денег.</string>
-  <string name="wallet_balance_fragment_too_much">Сумма монет довольно существенная для карманного бумажника. Пожалуйста, перенесите её часть в более безопасное хранение.</string>
   <string name="wallet_balance_fragment_replaying">Во время воспроизведения баланс недоступен.</string>
   <string name="exchange_rates_activity_title">Обменный курс</string>
-  <string name="exchange_rates_fragment_empty_text">Не удалось загрузить курсы валют.</string>
   <string name="exchange_rates_fragment_empty_search">Не удалось найти обменный курс.</string>
   <string name="exchange_rates_fragment_default">(по умолчанию)</string>
   <string name="exchange_rates_fragment_rate">курс</string>
@@ -59,6 +57,7 @@
   <string name="wallet_old_sdk_dialog_title">Версия для Android устарела</string>
   <string name="wallet_old_sdk_dialog_message">Ваше устройство скорее всего не будет поддерживаться следующей версией Groestlcoin Wallet. В некоторых случаях, это может затруднить отправку с него монет.\n\nРекомендуется перенести монеты на другое устройство, если вы не уверены что можете с этим справиться.</string>
   <string name="alert_dialogs_fragment_settings_failed_title">Проблема с открытием настроек</string>
+  <string name="alert_dialogs_fragment_too_much_balance_dialog_message">Сумма монет довольно существенная для карманного бумажника. Пожалуйста, перенесите её часть в более безопасное хранение.</string>
   <string name="send_coins_activity_title">Отправка Groestlcoin</string>
   <string name="send_coins_fragment_request_payment_request_progress">Получение подписи %s…</string>
   <string name="send_coins_fragment_request_payment_request_failed_title">Не удалось получить запрос платежа</string>
@@ -152,10 +151,6 @@
   <string name="address_book_context_edit_title">Изменить адрес</string>
   <string name="address_book_context_remove_title">Удалить адрес</string>
   <string name="address_book_context_copy_to_clipboard_title">Скопировать в буфер обмена</string>
-  <string name="address_book_options_paste_from_clipboard_title">Вставить из буфера обмена</string>
-  <string name="address_book_options_paste_from_clipboard_empty">Буфер обмена пуст</string>
-  <string name="address_book_options_paste_from_clipboard_invalid">Невозможно распознать данные буфера обмена</string>
-  <string name="address_book_options_paste_from_clipboard_own_address">Адрес в буфере обмена принадлежит вам.</string>
   <string name="address_book_options_scan_title">Сканировать адрес</string>
   <string name="address_book_options_scan_invalid">Данные сканирования неузнаваемым</string>
   <string name="address_book_options_scan_own_address">Отсканированный адрес принадлежит вам.</string>
@@ -259,6 +254,7 @@
   <string name="preferences_block_explorer_summary">Внешний обозреватель блоков для просмотра транзакций, адресов и блоков.</string>
   <string name="preferences_data_usage_title">Использование данных</string>
   <string name="preferences_data_usage_summary">Показать опции ограничения использования данных в мобильных сетях.</string>
+  <string name="preferences_notifications_title">Уведомления</string>
   <string name="preferences_remind_balance_title">Напоминание баланса</string>
   <string name="preferences_remind_balance_summary">Если приложение не использовалось несколько недель, вам придёт напоминание, если в бумажнике есть монеты.</string>
   <string name="preferences_show_disclaimer_title">Показать отказ от ответственности</string>
@@ -281,7 +277,6 @@
   <string name="report_issue_dialog_description">описание проблемы</string>
   <string name="report_issue_dialog_report">Отчет</string>
   <string name="report_issue_dialog_collect_device_info">Добавить информацию об устройстве</string>
-  <string name="report_issue_dialog_collect_installed_packages">Добавить список установленных пакетов</string>
   <string name="report_issue_dialog_collect_application_log">Добавить лог приложения</string>
   <string name="report_issue_dialog_collect_wallet_dump">Добавить дамп памяти кошелька</string>
   <string name="report_issue_dialog_mail_intent_chooser">Отправить отчет используя…</string>
@@ -310,6 +305,7 @@
   <string name="notification_inactivity_message_donate">Если вам не нужны монеты, вы можете пожертвовать их проекту Groestlcoin Wallet.</string>
   <string name="notification_inactivity_action_dismiss">Напомнить позже</string>
   <string name="notification_inactivity_action_dismiss_forever">Не напоминать</string>
+  <string name="notification_bluetooth_service_listening">Готов принимать платежи через Bluetooth</string>
   <string name="notification_channel_received_name">Полученные выплаты</string>
   <string name="notification_channel_ongoing_name">Фоновая активность</string>
   <string name="notification_channel_important_name">Важные предупреждения</string>
@@ -340,6 +336,7 @@
   <string name="address_unlabeled">(без метки)</string>
   <string name="private_key_password">ПИН</string>
   <string name="private_key_bad_password">ПИН не подходит!</string>
+  <string name="qr_code">QR код</string>
   <!--generic error messages-->
   <string name="error_io">Ошибка I/O: %s</string>
   <string name="error_parse">Ошибка обработки: %s</string>

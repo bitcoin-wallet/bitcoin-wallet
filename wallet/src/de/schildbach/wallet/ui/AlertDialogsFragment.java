@@ -17,33 +17,9 @@
 
 package de.schildbach.wallet.ui;
 
-import java.io.BufferedReader;
-import java.net.SocketException;
-import java.net.SocketTimeoutException;
-import java.net.UnknownHostException;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Locale;
-import java.util.Map;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.google.common.base.Splitter;
-import com.google.common.primitives.Ints;
-
-import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.R;
-import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.util.CrashReporter;
-import de.schildbach.wallet.util.Installer;
-
 import android.app.Dialog;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageInfo;
@@ -56,7 +32,14 @@ import android.text.format.DateUtils;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
+import com.google.common.base.Splitter;
+import com.google.common.primitives.Ints;
+import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.R;
+import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.util.CrashReporter;
+import de.schildbach.wallet.util.Installer;
 import okhttp3.Call;
 import okhttp3.ConnectionSpec;
 import okhttp3.Headers;
@@ -64,6 +47,21 @@ import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient.Builder;
 import okhttp3.Request;
 import okhttp3.Response;
+import org.bitcoinj.core.Coin;
+import org.bitcoinj.params.MainNetParams;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.BufferedReader;
+import java.net.SocketException;
+import java.net.SocketTimeoutException;
+import java.net.UnknownHostException;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Locale;
+import java.util.Map;
 
 /**
  * @author Andreas Schildbach
@@ -101,40 +99,54 @@ public class AlertDialogsFragment extends Fragment {
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        viewModel = ViewModelProviders.of(this).get(AlertDialogsViewModel.class);
+        viewModel = new ViewModelProvider(this).get(AlertDialogsViewModel.class);
         viewModel.showTimeskewAlertDialog.observe(this, new Event.Observer<Long>() {
             @Override
-            public void onEvent(final Long diffMinutes) {
+            protected void onEvent(final Long diffMinutes) {
                 log.info("showing timeskew alert dialog");
                 createTimeskewAlertDialog(diffMinutes).show();
             }
         });
         viewModel.showVersionAlertDialog.observe(this, new Event.Observer<Void>() {
             @Override
-            public void onEvent(final Void v) {
+            protected void onEvent(final Void v) {
                 log.info("showing version alert dialog");
                 createVersionAlertDialog().show();
             }
         });
+        viewModel.showInsecureDeviceAlertDialog.observe(this, new Event.Observer<String>() {
+            @Override
+            protected void onEvent(final String minSecurityPatchLevel) {
+                log.info("showing insecure device alert dialog");
+                createInsecureDeviceAlertDialog(minSecurityPatchLevel).show();
+            }
+        });
         viewModel.showInsecureBluetoothAlertDialog.observe(this, new Event.Observer<String>() {
             @Override
-            public void onEvent(final String minSecurityPatchLevel) {
+            protected void onEvent(final String minSecurityPatchLevel) {
                 log.info("showing insecure bluetooth alert dialog");
                 createInsecureBluetoothAlertDialog(minSecurityPatchLevel).show();
             }
         });
         viewModel.showLowStorageAlertDialog.observe(this, new Event.Observer<Void>() {
             @Override
-            public void onEvent(final Void v) {
+            protected void onEvent(final Void v) {
                 log.info("showing low storage alert dialog");
                 createLowStorageAlertDialog().show();
             }
         });
         viewModel.showSettingsFailedDialog.observe(this, new Event.Observer<String>() {
             @Override
-            public void onEvent(final String message) {
+            protected void onEvent(final String message) {
                 log.info("showing settings failed dialog");
                 createSettingsFailedDialog(message).show();
+            }
+        });
+        viewModel.showTooMuchBalanceAlertDialog.observe(this, new Event.Observer<Void>() {
+            @Override
+            protected void onEvent(final Void v) {
+                log.info("showing too much balance dialog");
+                createTooMuchBalanceAlertDialog().show();
             }
         });
 
@@ -166,7 +178,7 @@ public class AlertDialogsFragment extends Fragment {
                 request.headers(headers.build());
 
                 final Builder httpClientBuilder = Constants.HTTP_CLIENT.newBuilder();
-                httpClientBuilder.connectionSpecs(Arrays.asList(ConnectionSpec.RESTRICTED_TLS));
+                httpClientBuilder.connectionSpecs(Collections.singletonList(ConnectionSpec.RESTRICTED_TLS));
                 final Call call = httpClientBuilder.build().newCall(request.build());
 
                 final Response response = call.execute();
@@ -213,16 +225,19 @@ public class AlertDialogsFragment extends Fragment {
                     }
 
                     // Maybe show version alert.
+                    String versionKey = null;
                     String version = null;
-                    if (installer != null)
-                        version = properties.get("version." + installer.name().toLowerCase(Locale.US));
-                    if (version == null)
-                        version = properties.get("version");
-                    if (version == null)
-                        version = properties.get(null);
+                    if (installer != null) {
+                        versionKey = "version." + installer.name().toLowerCase(Locale.US);
+                        version = properties.get(versionKey);
+                    }
+                    if (version == null) {
+                        versionKey = "version";
+                        version = properties.get(versionKey);
+                    }
                     if (version != null) {
-                        log.info("according to \"{}\", strongly recommended minimum app version is \"{}\"",
-                                versionUrl, version);
+                        log.info("according to \"{}\", strongly recommended minimum app {} is \"{}\"", versionUrl,
+                                versionKey, version);
                         final Integer recommendedVersionCode = Ints.tryParse(version);
                         if (recommendedVersionCode != null) {
                             if (recommendedVersionCode > application.packageInfo().versionCode) {
@@ -232,13 +247,18 @@ public class AlertDialogsFragment extends Fragment {
                         }
                     }
 
+                    // Maybe show insecure device alert.
+                    if (Build.VERSION.SECURITY_PATCH.compareToIgnoreCase(Constants.SECURITY_PATCH_INSECURE_BELOW) < 0) {
+                        viewModel.showInsecureDeviceAlertDialog.postValue(new Event<>(Constants.SECURITY_PATCH_INSECURE_BELOW));
+                        return;
+                    }
+
                     // Maybe show insecure bluetooth alert.
                     final String minSecurityPatchLevel = properties.get("min.security_patch.bluetooth");
                     if (minSecurityPatchLevel != null) {
                         log.info("according to \"{}\", minimum security patch level for bluetooth is {}",
                                 versionUrl, minSecurityPatchLevel);
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
-                                && Build.VERSION.SECURITY_PATCH.compareTo(minSecurityPatchLevel) < 0) {
+                        if (Build.VERSION.SECURITY_PATCH.compareTo(minSecurityPatchLevel) < 0) {
                             final BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
                             if (bluetoothAdapter != null && BluetoothAdapter.getDefaultAdapter().isEnabled()) {
                                 viewModel.showInsecureBluetoothAlertDialog
@@ -254,6 +274,15 @@ public class AlertDialogsFragment extends Fragment {
                     if (stickyIntent != null) {
                         viewModel.showLowStorageAlertDialog.postValue(Event.simple());
                         return;
+                    }
+
+                    // Maybe show too much balance alert.
+                    if (Constants.NETWORK_PARAMETERS.getId().equals(MainNetParams.ID_MAINNET)) {
+                        final Coin balance = application.getWallet().getBalance();
+                        if (balance.isGreaterThan(Constants.TOO_MUCH_BALANCE_THRESHOLD)) {
+                            viewModel.showTooMuchBalanceAlertDialog.postValue(Event.simple());
+                            return;
+                        }
                     }
 
                     log.info("all good, no alert dialog shown");
@@ -274,8 +303,8 @@ public class AlertDialogsFragment extends Fragment {
 
     private Dialog createTimeskewAlertDialog(final long diffMinutes) {
         final Intent settingsIntent = new Intent(android.provider.Settings.ACTION_DATE_SETTINGS);
-        final DialogBuilder dialog = DialogBuilder.warn(activity, R.string.wallet_timeskew_dialog_title);
-        dialog.setMessage(getString(R.string.wallet_timeskew_dialog_msg, diffMinutes));
+        final DialogBuilder dialog = DialogBuilder.warn(activity, R.string.wallet_timeskew_dialog_title,
+                R.string.wallet_timeskew_dialog_msg, diffMinutes);
         if (packageManager.resolveActivity(settingsIntent, 0) != null) {
             dialog.setPositiveButton(R.string.button_settings, (d, id) -> {
                 try {
@@ -296,12 +325,11 @@ public class AlertDialogsFragment extends Fragment {
                 Uri.parse(installer.appStorePageFor(application).toString()));
         final Intent binaryIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.BINARY_URL));
 
-        final DialogBuilder dialog = DialogBuilder.warn(activity, R.string.wallet_version_dialog_title);
         final StringBuilder message = new StringBuilder(
                 getString(R.string.wallet_version_dialog_msg, installer.displayName));
         if (Build.VERSION.SDK_INT < Constants.SDK_DEPRECATED_BELOW)
             message.append("\n\n").append(getString(R.string.wallet_version_dialog_msg_deprecated));
-        dialog.setMessage(message);
+        final DialogBuilder dialog = DialogBuilder.warn(activity, R.string.wallet_version_dialog_title, message);
 
         if (packageManager.resolveActivity(marketIntent, 0) != null) {
             dialog.setPositiveButton(installer.displayName, (d, id) -> {
@@ -322,11 +350,19 @@ public class AlertDialogsFragment extends Fragment {
         return dialog.create();
     }
 
+    private Dialog createInsecureDeviceAlertDialog(final String minSecurityPatch) {
+        final DialogBuilder dialog = DialogBuilder.warn(activity,
+                R.string.alert_dialogs_fragment_insecure_bluetooth_title,
+                R.string.wallet_balance_fragment_insecure_device);
+        dialog.setNegativeButton(R.string.button_dismiss, null);
+        return dialog.create();
+    }
+
     private Dialog createInsecureBluetoothAlertDialog(final String minSecurityPatch) {
         final Intent settingsIntent = new Intent(android.provider.Settings.ACTION_BLUETOOTH_SETTINGS);
         final DialogBuilder dialog = DialogBuilder.warn(activity,
-                R.string.alert_dialogs_fragment_insecure_bluetooth_title);
-        dialog.setMessage(getString(R.string.alert_dialogs_fragment_insecure_bluetooth_message, minSecurityPatch));
+                R.string.alert_dialogs_fragment_insecure_bluetooth_title,
+                R.string.alert_dialogs_fragment_insecure_bluetooth_message, minSecurityPatch);
         if (packageManager.resolveActivity(settingsIntent, 0) != null) {
             dialog.setPositiveButton(R.string.button_settings, (d, id) -> {
                 try {
@@ -343,8 +379,8 @@ public class AlertDialogsFragment extends Fragment {
 
     private Dialog createLowStorageAlertDialog() {
         final Intent settingsIntent = new Intent(android.provider.Settings.ACTION_MANAGE_APPLICATIONS_SETTINGS);
-        final DialogBuilder dialog = DialogBuilder.warn(activity, R.string.wallet_low_storage_dialog_title);
-        dialog.setMessage(R.string.wallet_low_storage_dialog_msg);
+        final DialogBuilder dialog = DialogBuilder.warn(activity, R.string.wallet_low_storage_dialog_title,
+                R.string.wallet_low_storage_dialog_msg);
         if (packageManager.resolveActivity(settingsIntent, 0) != null) {
             dialog.setPositiveButton(R.string.wallet_low_storage_dialog_button_apps,
                     (d, id) -> {
@@ -361,9 +397,16 @@ public class AlertDialogsFragment extends Fragment {
     }
 
     private Dialog createSettingsFailedDialog(final String exceptionMessage) {
-        final DialogBuilder dialog = new DialogBuilder(activity);
-        dialog.setTitle(R.string.alert_dialogs_fragment_settings_failed_title);
-        dialog.setMessage(exceptionMessage);
+        final DialogBuilder dialog = DialogBuilder.dialog(activity,
+                R.string.alert_dialogs_fragment_settings_failed_title, exceptionMessage);
+        dialog.singleDismissButton(null);
+        return dialog.create();
+    }
+
+    private Dialog createTooMuchBalanceAlertDialog() {
+        final DialogBuilder dialog = DialogBuilder.dialog(activity,
+                R.string.alert_dialogs_fragment_too_much_balance_dialog_title,
+                R.string.alert_dialogs_fragment_too_much_balance_dialog_message);
         dialog.singleDismissButton(null);
         return dialog.create();
     }

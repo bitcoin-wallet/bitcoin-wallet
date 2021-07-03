@@ -14,10 +14,8 @@
   <string name="wallet_address_fragment_clipboard_msg">تم نسخ عنوان محفظتك إلى الحافظة</string>
   <string name="wallet_address_dialog_fragment_hint">لحماية خصوصيتك, عنوانك سيتغير في حال استقبالك لدفعة.</string>
   <string name="wallet_balance_fragment_insecure_device">جهازك قديم وغير امن. نرجوا منك استعماله لحفظ كمية مال قليلة.</string>
-  <string name="wallet_balance_fragment_too_much">هذه كمية مال عالية قليلة لحفظها في جيبك. نرجوا نقلها لمكان اكثر اماناً.</string>
   <string name="wallet_balance_fragment_replaying">الرصيد غير متاح في حالة إعادة التشغيل.</string>
   <string name="exchange_rates_activity_title">اسعار الصرف</string>
-  <string name="exchange_rates_fragment_empty_text">لا يمكن تحميل اسعار الصرف.</string>
   <string name="exchange_rates_fragment_empty_search">لا يمكن إيجاد اسعار الصرف.</string>
   <string name="exchange_rates_fragment_default">(افتراضي)</string>
   <string name="exchange_rates_fragment_rate">نسبة</string>
@@ -54,6 +52,7 @@
   <string name="wallet_version_dialog_button_binary">تنزيل</string>
   <string name="wallet_old_sdk_dialog_title">إصدار نظام الأندرويد الخاص بك قديم أو غير محدث</string>
   <string name="alert_dialogs_fragment_settings_failed_title">هناك مشكلة عند فتح الإعدادات</string>
+  <string name="alert_dialogs_fragment_too_much_balance_dialog_message">هذه كمية مال عالية قليلة لحفظها في جيبك. نرجوا نقلها لمكان اكثر اماناً.</string>
   <string name="send_coins_activity_title">أرسل بيتكوين</string>
   <string name="send_coins_fragment_request_payment_request_progress">جلب التوقيع من %s…</string>
   <string name="send_coins_fragment_request_payment_request_failed_title">فشل جلب التوقيع</string>
@@ -125,10 +124,6 @@
   <string name="address_book_context_edit_title">تعديل العنوان</string>
   <string name="address_book_context_remove_title">حذف العنوان</string>
   <string name="address_book_context_copy_to_clipboard_title">نسخ إلى الحافظة</string>
-  <string name="address_book_options_paste_from_clipboard_title">لصق من الحافظة</string>
-  <string name="address_book_options_paste_from_clipboard_empty">الحافظة خالية</string>
-  <string name="address_book_options_paste_from_clipboard_invalid">بيانات الحافظة لا يمكن التعرف عليها</string>
-  <string name="address_book_options_paste_from_clipboard_own_address">العنوان على الحافظة ملكك.</string>
   <string name="address_book_options_scan_title">مسح عنوان</string>
   <string name="address_book_options_scan_invalid">البيانات الممسوحة بصريا لا يمكن التعرف عليها</string>
   <string name="address_book_options_scan_own_address">العنوان الذي تم مسحه هو ملكك.</string>
@@ -218,7 +213,6 @@
   <string name="report_issue_dialog_description">وصف المشكلة</string>
   <string name="report_issue_dialog_report">إبلاغ</string>
   <string name="report_issue_dialog_collect_device_info">إرفاق معلومات الجهاز</string>
-  <string name="report_issue_dialog_collect_installed_packages">إرفاق قائمة بالحزم المثبتة</string>
   <string name="report_issue_dialog_collect_application_log">إرفاق سجل البرنامج</string>
   <string name="report_issue_dialog_collect_wallet_dump">إرفاق مهملات المحفظة</string>
   <string name="report_issue_dialog_mail_intent_chooser">إرسال التقرير بواسطة…</string>

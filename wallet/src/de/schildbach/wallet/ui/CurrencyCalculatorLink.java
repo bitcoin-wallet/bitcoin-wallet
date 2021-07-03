@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2015 the original author or authors.
+ * Copyright the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,15 +17,13 @@
 
 package de.schildbach.wallet.ui;
 
+import android.view.View;
+import androidx.annotation.Nullable;
+import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.ui.CurrencyAmountView.Listener;
 import org.bitcoinj.core.Coin;
 import org.bitcoinj.utils.ExchangeRate;
 import org.bitcoinj.utils.Fiat;
-
-import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.ui.CurrencyAmountView.Listener;
-
-import android.view.View;
-import androidx.annotation.Nullable;
 
 /**
  * @author Andreas Schildbach

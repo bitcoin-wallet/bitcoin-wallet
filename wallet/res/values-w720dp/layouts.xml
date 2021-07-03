@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="wallet_content" type="layout">@layout/wallet_activity_twopanes</item>
+    <item name="show_exchange_rates_option" type="bool">false</item>
+    <item name="wallet_actions_top" type="bool">true</item>
+</resources>

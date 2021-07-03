@@ -17,49 +17,6 @@
 
 package de.schildbach.wallet;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
-
-import com.google.common.hash.HashCode;
-import com.google.common.hash.Hasher;
-import com.google.common.hash.Hashing;
-import org.bitcoinj.core.Block;
-import org.bitcoinj.core.Transaction;
-import org.bitcoinj.core.VerificationException;
-import org.bitcoinj.core.VersionMessage;
-import org.bitcoinj.crypto.LinuxSecureRandom;
-import org.bitcoinj.crypto.MnemonicCode;
-import org.bitcoinj.utils.Threading;
-import org.bitcoinj.wallet.UnreadableWalletException;
-import org.bitcoinj.wallet.Wallet;
-import org.bitcoinj.wallet.WalletFiles;
-import org.bitcoinj.wallet.WalletProtobufSerializer;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.google.common.base.Splitter;
-import com.google.common.base.Stopwatch;
-import com.google.common.collect.ImmutableList;
-import com.google.common.util.concurrent.SettableFuture;
-
-import de.schildbach.wallet.data.blockexplorer.BlockExplorer;
-import de.schildbach.wallet.data.blockexplorer.BlockExplorers;
-import de.schildbach.wallet.data.blockexplorer.BlockchairExplorer;
-import de.schildbach.wallet.data.blockexplorer.CryptoIDExplorer;
-import de.schildbach.wallet.data.blockexplorer.InsightExplorer;
-import de.schildbach.wallet.service.BlockchainService;
-import de.schildbach.wallet.service.BlockchainState;
-import de.schildbach.wallet.ui.Event;
-import de.schildbach.wallet.util.Bluetooth;
-import de.schildbach.wallet.util.CrashReporter;
-import de.schildbach.wallet.util.Toast;
-import de.schildbach.wallet.util.WalletUtils;
-
 import android.app.ActivityManager;
 import android.app.Application;
 import android.app.NotificationChannel;
@@ -78,6 +35,44 @@ import android.preference.PreferenceManager;
 import androidx.annotation.AnyThread;
 import androidx.annotation.WorkerThread;
 import androidx.lifecycle.MutableLiveData;
+import com.google.common.base.Splitter;
+import com.google.common.base.Stopwatch;
+import com.google.common.collect.ImmutableList;
+import com.google.common.hash.HashCode;
+import com.google.common.hash.Hasher;
+import com.google.common.hash.Hashing;
+import com.google.common.util.concurrent.SettableFuture;
+
+import de.schildbach.wallet.data.blockexplorer.BlockExplorer;
+import de.schildbach.wallet.data.blockexplorer.BlockExplorers;
+import de.schildbach.wallet.data.blockexplorer.BlockchairExplorer;
+import de.schildbach.wallet.data.blockexplorer.CryptoIDExplorer;
+import de.schildbach.wallet.data.blockexplorer.InsightExplorer;
+import de.schildbach.wallet.service.BlockchainService;
+import de.schildbach.wallet.service.BlockchainState;
+import de.schildbach.wallet.ui.Event;
+import de.schildbach.wallet.util.Bluetooth;
+import de.schildbach.wallet.util.CrashReporter;
+import de.schildbach.wallet.util.Toast;
+import de.schildbach.wallet.util.WalletUtils;
+import org.bitcoinj.core.VersionMessage;
+import org.bitcoinj.crypto.LinuxSecureRandom;
+import org.bitcoinj.crypto.MnemonicCode;
+import org.bitcoinj.utils.Threading;
+import org.bitcoinj.wallet.UnreadableWalletException;
+import org.bitcoinj.wallet.Wallet;
+import org.bitcoinj.wallet.WalletFiles;
+import org.bitcoinj.wallet.WalletProtobufSerializer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author Andreas Schildbach
@@ -105,8 +100,7 @@ public class WalletApplication extends Application {
 
         Logging.init(getFilesDir());
 
-        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().detectAll().permitDiskReads()
-                .permitDiskWrites().penaltyLog().build());
+        initStrictMode();
 
         Threading.throwOnLockCycles();
         org.bitcoinj.core.Context.enableStrictMode();
@@ -303,6 +297,11 @@ public class WalletApplication extends Application {
         }
     }
 
+    public static void initStrictMode() {
+        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().detectAll().permitDiskReads()
+                .permitDiskWrites().penaltyLog().build());
+    }
+
     private void initNotificationManager() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             final Stopwatch watch = Stopwatch.createStarted();
@@ -325,14 +324,6 @@ public class WalletApplication extends Application {
             nm.createNotificationChannel(important);
 
             log.info("created notification channels, took {}", watch);
-        }
-    }
-
-    public void processDirectTransaction(final Transaction tx) throws VerificationException {
-        final Wallet wallet = getWallet();
-        if (wallet.isTransactionRelevant(tx)) {
-            wallet.receivePending(tx, null);
-            BlockchainService.broadcastTransaction(this, tx);
         }
     }
 
@@ -377,6 +368,10 @@ public class WalletApplication extends Application {
     public int scryptIterationsTarget() {
         return activityManager.getMemoryClass() <= 128 || Build.SUPPORTED_64_BIT_ABIS.length == 0
                 ? Constants.SCRYPT_ITERATIONS_TARGET_LOWRAM : Constants.SCRYPT_ITERATIONS_TARGET;
+    }
+
+    public boolean fullSyncCapable() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && activityManager.getMemoryClass() >= 128;
     }
 
     public static String versionLine(final PackageInfo packageInfo) {

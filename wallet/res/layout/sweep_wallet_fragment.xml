@@ -12,7 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="0px"
         android:layout_weight="1"
-        android:orientation="vertical" >
+        android:layout_marginBottom="@dimen/list_entry_padding_vertical"
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="match_parent"
@@ -44,7 +45,7 @@
             android:divider="@drawable/divider_field"
             android:orientation="horizontal"
             android:showDividers="middle"
-            android:visibility="gone" >
+            android:visibility="gone">
 
             <EditText
                 android:id="@+id/sweep_wallet_fragment_password"
@@ -91,11 +92,8 @@
             android:textColor="@color/fg_less_significant"
             android:textSize="@dimen/font_size_small" />
 
-        <include
-            layout="@layout/transaction_row"
-            android:visibility="gone" />
+        <include layout="@layout/transaction_row" />
     </LinearLayout>
 
     <include layout="@layout/send_coins_buttons_include" />
-
 </LinearLayout>

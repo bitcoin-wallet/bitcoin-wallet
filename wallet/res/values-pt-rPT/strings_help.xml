@@ -1,0 +1,123 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <string name="help_wallet">
+<![CDATA[
+		<p>
+			O canto superior esquerdo do ecrã mostra o seu saldo em Bitcoins e numa moeda nacional.
+			Toque para ver a lista de moedas nacionais, e toque numa delas para selecioná-la como moeda padrão.
+		</p>
+		<p>
+			O código QR no canto superior direito contém o seu endereço de bitcoin atual e pode ser usado para ser lido por outro dispositivo.
+			Toque no código QR para ampliá-lo.
+		</p>
+		<p>
+			A parte inferior do ecrã contém uma lista das suas transações.
+			Inicialmente ela está vazia e vai sendo preenchida conforme receber e efetuar pagamentos.
+			Os pagamentos recebidos são mostrados a e os realizados a vermelho.
+		</p>
+		<p>
+			Pode enviar ou solicitar bitcoins tocando nos botões na barra de ação.
+			Estão disponíveis mais opções no menu de opções.
+		</p>
+	]]>
+	</string>
+  <string name="help_request_coins">
+<![CDATA[
+		<p>
+			Usando esta janela, pode pedir bitcoins a outra pessoa (que também já tenha instalado uma carteira Bitcoin).
+		</p>
+		<p>
+			Primeiro, pode inserir opcionalmente uma quantidade de Bitcoins a ser pedida.
+		</p>
+		<p>
+			Será gerado um código QR e este deve ser digitalizado pela outra pessoa.
+			Também pode enviar o seu pedido para uma pessoa remotamente, usando o botão partilhar na barra de ações.
+			A outra pessoa deve clicar no endereço URL da Bitcoin.
+		</p>
+		<p>
+			O pedido irá mostrar a outra pessoa uma janela para o envio de bitcoins com todos os campos pré-preenchidos.
+			Se ela concordar com o valor, tudo o que ela precisa fazer é enviar o pagamento.
+		</p>
+	]]>
+	</string>
+  <string name="help_send_coins">
+<![CDATA[
+		<p>
+			Iniciou o processo de envio de bitcoins.
+		</p>
+		<p>
+			Primeiro introduza o endereço Bitcoin para o qual quer fazer o pagamento.
+			O endereço será completado automaticamente através de entradas conhecidas no seu livro de endereços.
+			Ao usar o botão QR na barra de ações, pode digitalizar códigos QR que contenham pedidos de pagamento.
+		</p>
+		<p>
+			Em seguida, pode ver quantos Bitcoins tem disponíveis para serem gastos no momento.
+			Se houver uma diferença entre o valor disponível para ser gasto e o saldo no ecrã principal, é porque ainda existem transações não confirmadas.
+		</p>
+		<p>
+			Por último, introduza a quantia a pagar.
+		</p>
+		<p>
+			É possível inserir um pagamento mesmo estando desligado da Internet.
+			Ele será enviado na próxima reinicialização da Bitcoin Wallet.
+			Se quer que um pagamento seja processado o mais rápido possível, certifique-se que está a usar uma boa ligação (por exemplo uma rede Wi-Fi).
+		</p>
+		<p>
+			Nota:
+			Todos os pagamentos são irreversíveis.
+			Verifique sempre com cuidado o endereço de destino.
+		</p>
+	]]>
+	</string>
+  <string name="help_safety">Bitcoins
+<![CDATA[
+		<p>
+			<b>Notas importantes sobre segurança:</b>
+		</p>
+		<p>
+			As chaves para os seus Bitcoins são armazenadas no seu dispositivo.
+			<b>Se perder este dispositivo, perderá também as suas chaves e, consequentemente, também perderá todos os seus Bitcoins.</b>
+		</p>
+		<p>
+			Isso significa que tem que fazer uma <b>cópia de segurança da sua carteira</b>!
+			Utilize o próprio recurso de cópia de segurança da aplicação, em vez de utilizar aplicações de terceiros para fazer cópias de segurança.
+			Mantenha a sua cópia de segurança segura e não se esqueça da palavra-passe.
+		</p>
+		<p>
+			<b>Antes de desinstalar</b> (ou limpar os dados da aplicação/formatar o seu dispositivo) <b>transfira os seus Bitcoins para uma outra carteira</b>.
+			Os Bitcoins remanescentes serão perdidos.
+		</p>
+		<p>
+			<b>Os pagamentos são irreversíveis</b>.
+			Se enviar os seus Bitcoins para um endereço desconhecido, não há quase nenhuma forma de obtê-los novamente.
+		</p>
+		<p>
+			<b>Mantenha o seu dispositivo móvel seguro!</b>
+			Não faça rooting no seu dispositivo.
+			Não instale aplicações de fontes que não confia.
+			As aplicações maliciosas podem tentar roubar a sua carteira.
+		</p>
+		<p>
+			Não se arrisque.
+			<b>Não carregue na sua carteira Bitcoin valores maiores do que carregaria numa carteira de bolso comum</b>.
+		</p>
+	]]>
+	</string>
+  <string name="help_technical_notes">
+<![CDATA[
+        <p>
+            <b>Notas técnicas:</b>
+        </p>
+        <p>
+            Como uma carteira simples/SPV, Bitcoin Wallet segue a cadeia da maioria de \'prova-de-trabalho\' (algumas vezes denominada \"a cadeia mais longa\", a \"cadeia vencedora\" ou \"cadeia de bloco Bitcoin\").
+            Só irá receber \'pagamentos a receber\' e poder pagar nessa cadeia.
+            Não podem ser dadas garantias sobre as Bitcoins nas cadeias minoritárias, ou seja, cadeias com \'prova-de-trabalho\'.
+        </p>
+        <p>
+            Anteriormente, as cadeias minoritárias tornaram-se sempre irrelevantes muito rapidamente.
+            Se desejar seguir uma cadeia minoritária de qualquer modo, é aconselhável utilizar a funcionalidade \"par de confiança\" para ligar exclusivamente à implementação \"bitcoind\" que força a sua cadeia desejada.
+            Se a rede entre a sua carteira e o par de confiança não for de confiança, utilize a VPN para autenticar essa ligação.
+        </p>
+    ]]>
+    </string>
+</resources>

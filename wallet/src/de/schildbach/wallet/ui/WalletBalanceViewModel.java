@@ -17,12 +17,11 @@
 
 package de.schildbach.wallet.ui;
 
+import android.app.Application;
+import androidx.lifecycle.AndroidViewModel;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.data.SelectedExchangeRateLiveData;
 import de.schildbach.wallet.data.WalletBalanceLiveData;
-
-import android.app.Application;
-import androidx.lifecycle.AndroidViewModel;
 
 /**
  * @author Andreas Schildbach

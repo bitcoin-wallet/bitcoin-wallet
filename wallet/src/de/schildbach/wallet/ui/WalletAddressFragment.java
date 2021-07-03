@@ -17,36 +17,32 @@
 
 package de.schildbach.wallet.ui;
 
-import org.bitcoinj.core.Address;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import de.schildbach.wallet.R;
-
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
-import android.net.Uri;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewModelProvider;
+import de.schildbach.wallet.R;
+import org.bitcoinj.core.Address;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Andreas Schildbach
  */
 public final class WalletAddressFragment extends Fragment {
     private WalletActivity activity;
+    private FragmentManager fragmentManager;
     @Nullable
     private NfcAdapter nfcAdapter;
 
@@ -68,9 +64,10 @@ public final class WalletAddressFragment extends Fragment {
     @Override
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.fragmentManager = getChildFragmentManager();
 
-        activityViewModel = ViewModelProviders.of(activity).get(WalletActivityViewModel.class);
-        viewModel = ViewModelProviders.of(this).get(WalletAddressViewModel.class);
+        activityViewModel = new ViewModelProvider(activity).get(WalletActivityViewModel.class);
+        viewModel = new ViewModelProvider(this).get(WalletAddressViewModel.class);
 
         viewModel.qrCode.observe(this, qrCode -> {
             final BitmapDrawable qrDrawable = new BitmapDrawable(getResources(), qrCode);
@@ -86,9 +83,9 @@ public final class WalletAddressFragment extends Fragment {
         });
         viewModel.showWalletAddressDialog.observe(this, new Event.Observer<Void>() {
             @Override
-            public void onEvent(final Void v) {
+            protected void onEvent(final Void v) {
                 final Address address = viewModel.currentAddress.getValue();
-                WalletAddressDialogFragment.show(getFragmentManager(), address, viewModel.ownName.getValue());
+                WalletAddressDialogFragment.show(fragmentManager);
                 log.info("Current address enlarged: {}", address);
             }
         });
@@ -98,9 +95,9 @@ public final class WalletAddressFragment extends Fragment {
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
             final Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.wallet_address_fragment, container, false);
-        currentAddressQrView = (ImageView) view.findViewById(R.id.bitcoin_address_qr);
+        currentAddressQrView = view.findViewById(R.id.bitcoin_address_qr);
 
-        currentAddressQrCardView = (CardView) view.findViewById(R.id.bitcoin_address_qr_card);
+        currentAddressQrCardView = view.findViewById(R.id.bitcoin_address_qr_card);
         currentAddressQrCardView.setPreventCornerOverlap(false);
         currentAddressQrCardView.setUseCompatPadding(false);
         currentAddressQrCardView.setMaxCardElevation(0); // we're using Lollipop elevation

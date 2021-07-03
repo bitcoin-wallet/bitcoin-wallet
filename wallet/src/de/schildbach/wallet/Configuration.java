@@ -17,22 +17,24 @@
 
 package de.schildbach.wallet;
 
-import org.bitcoinj.core.Coin;
-import org.bitcoinj.utils.Fiat;
-import org.bitcoinj.utils.MonetaryFormat;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.google.common.base.Strings;
-
-import de.schildbach.wallet.data.ExchangeRate;
-
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.text.format.DateUtils;
+import com.google.common.base.Splitter;
+import com.google.common.base.Strings;
+import com.google.common.net.HostAndPort;
+import de.schildbach.wallet.util.Formats;
+import org.bitcoinj.core.Coin;
+import org.bitcoinj.utils.MonetaryFormat;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.Currency;
+import java.util.HashSet;
+import java.util.Locale;
+import java.util.Set;
 
 /**
  * @author Andreas Schildbach
@@ -47,20 +49,19 @@ public class Configuration {
     public static final String PREFS_KEY_OWN_NAME = "own_name";
     public static final String PREFS_KEY_SEND_COINS_AUTOCLOSE = "send_coins_autoclose";
     public static final String PREFS_KEY_EXCHANGE_CURRENCY = "exchange_currency";
-    public static final String PREFS_KEY_TRUSTED_PEER = "trusted_peer";
-    public static final String PREFS_KEY_TRUSTED_PEER_ONLY = "trusted_peer_only";
+    public static final String PREFS_KEY_SYNC_MODE = "sync_mode";
+    public static final String PREFS_KEY_TRUSTED_PEERS = "trusted_peer";
+    public static final String PREFS_KEY_TRUSTED_PEERS_ONLY = "trusted_peer_only";
     public static final String PREFS_KEY_BLOCK_EXPLORER = "block_explorer";
     public static final String PREFS_KEY_DATA_USAGE = "data_usage";
     public static final String PREFS_KEY_NOTIFICATIONS = "notifications";
     public static final String PREFS_KEY_REMIND_BALANCE = "remind_balance";
     public static final String PREFS_KEY_DISCLAIMER = "disclaimer";
+    public static final String PREFS_KEY_BLUETOOTH_ADDRESS = "bluetooth_address";
 
     private static final String PREFS_KEY_LAST_VERSION = "last_version";
     private static final String PREFS_KEY_LAST_USED = "last_used";
     private static final String PREFS_KEY_BEST_CHAIN_HEIGHT_EVER = "best_chain_height_ever";
-    private static final String PREFS_KEY_CACHED_EXCHANGE_CURRENCY = "cached_exchange_currency";
-    private static final String PREFS_KEY_CACHED_EXCHANGE_RATE_COIN = "cached_exchange_rate_coin";
-    private static final String PREFS_KEY_CACHED_EXCHANGE_RATE_FIAT = "cached_exchange_rate_fiat";
     private static final String PREFS_KEY_LAST_EXCHANGE_DIRECTION = "last_exchange_direction";
     private static final String PREFS_KEY_CHANGE_LOG_VERSION = "change_log_version";
     public static final String PREFS_KEY_REMIND_BACKUP = "remind_backup";
@@ -136,12 +137,35 @@ public class Configuration {
         return prefs.getBoolean(PREFS_KEY_SEND_COINS_AUTOCLOSE, true);
     }
 
-    public String getTrustedPeerHost() {
-        return Strings.emptyToNull(prefs.getString(PREFS_KEY_TRUSTED_PEER, "").trim());
+    public SyncMode getSyncMode() {
+        return SyncMode.valueOf(prefs.getString(PREFS_KEY_SYNC_MODE, SyncMode.CONNECTION_FILTER.name()));
     }
 
-    public boolean getTrustedPeerOnly() {
-        return prefs.getBoolean(PREFS_KEY_TRUSTED_PEER_ONLY, false);
+    public enum SyncMode {
+        CONNECTION_FILTER,
+        FULL
+    }
+
+    public Set<HostAndPort> getTrustedPeers() {
+        final String trustedPeersStr = prefs.getString(PREFS_KEY_TRUSTED_PEERS, "");
+        final Set<HostAndPort> trustedPeers = new HashSet<>();
+        for (final String trustedPeer :
+                Splitter.on(Formats.PATTERN_WHITESPACE).trimResults().omitEmptyStrings().split(trustedPeersStr)) {
+            try {
+                trustedPeers.add(HostAndPort.fromString(trustedPeer));
+            } catch (final IllegalArgumentException x) {
+                log.info("cannot parse: {}", trustedPeer);
+            }
+        }
+        return trustedPeers;
+    }
+
+    public boolean getTrustedPeersOnly() {
+        return prefs.getBoolean(PREFS_KEY_TRUSTED_PEERS_ONLY, false);
+    }
+
+    public boolean isTrustedPeersOnly() {
+        return getTrustedPeers() != null && getTrustedPeersOnly();
     }
 
     public Uri getBlockExplorer() {
@@ -202,8 +226,16 @@ public class Configuration {
         return prefs.getBoolean(PREFS_KEY_DISCLAIMER, true);
     }
 
+    private String defaultCurrencyCode() {
+        try {
+            return Currency.getInstance(Locale.getDefault()).getCurrencyCode();
+        } catch (final IllegalArgumentException x) {
+            return null;
+        }
+    }
+
     public String getExchangeCurrencyCode() {
-        return prefs.getString(PREFS_KEY_EXCHANGE_CURRENCY, null);
+        return prefs.getString(PREFS_KEY_EXCHANGE_CURRENCY, defaultCurrencyCode());
     }
 
     public void setExchangeCurrencyCode(final String exchangeCurrencyCode) {
@@ -254,26 +286,8 @@ public class Configuration {
             prefs.edit().putInt(PREFS_KEY_BEST_CHAIN_HEIGHT_EVER, bestChainHeightEver).apply();
     }
 
-    public ExchangeRate getCachedExchangeRate() {
-        if (prefs.contains(PREFS_KEY_CACHED_EXCHANGE_CURRENCY) && prefs.contains(PREFS_KEY_CACHED_EXCHANGE_RATE_COIN)
-                && prefs.contains(PREFS_KEY_CACHED_EXCHANGE_RATE_FIAT)) {
-            final String cachedExchangeCurrency = prefs.getString(PREFS_KEY_CACHED_EXCHANGE_CURRENCY, null);
-            final Coin cachedExchangeRateCoin = Coin.valueOf(prefs.getLong(PREFS_KEY_CACHED_EXCHANGE_RATE_COIN, 0));
-            final Fiat cachedExchangeRateFiat = Fiat.valueOf(cachedExchangeCurrency,
-                    prefs.getLong(PREFS_KEY_CACHED_EXCHANGE_RATE_FIAT, 0));
-            return new ExchangeRate(new org.bitcoinj.utils.ExchangeRate(cachedExchangeRateCoin, cachedExchangeRateFiat),
-                    null);
-        } else {
-            return null;
-        }
-    }
-
-    public void setCachedExchangeRate(final ExchangeRate cachedExchangeRate) {
-        final Editor edit = prefs.edit();
-        edit.putString(PREFS_KEY_CACHED_EXCHANGE_CURRENCY, cachedExchangeRate.getCurrencyCode());
-        edit.putLong(PREFS_KEY_CACHED_EXCHANGE_RATE_COIN, cachedExchangeRate.rate.coin.value);
-        edit.putLong(PREFS_KEY_CACHED_EXCHANGE_RATE_FIAT, cachedExchangeRate.rate.fiat.value);
-        edit.apply();
+    public void resetBestChainHeightEver() {
+        prefs.edit().remove(PREFS_KEY_BEST_CHAIN_HEIGHT_EVER).apply();
     }
 
     public boolean getLastExchangeDirection() {
@@ -296,9 +310,21 @@ public class Configuration {
         return /* wasUsedBefore && */wasBelow && isNowAbove;
     }
 
+    public String getLastBluetoothAddress() {
+        return prefs.getString(PREFS_KEY_LAST_BLUETOOTH_ADDRESS, null);
+    }
+
     public void updateLastBluetoothAddress(final String bluetoothAddress) {
         if (bluetoothAddress != null)
             prefs.edit().putString(PREFS_KEY_LAST_BLUETOOTH_ADDRESS, bluetoothAddress).apply();
+    }
+
+    public String getBluetoothAddress() {
+        return prefs.getString(PREFS_KEY_BLUETOOTH_ADDRESS, null);
+    }
+
+    public void setBluetoothAddress(final String bluetoothAddress) {
+        prefs.edit().putString(PREFS_KEY_BLUETOOTH_ADDRESS, bluetoothAddress).apply();
     }
 
     public void registerOnSharedPreferenceChangeListener(final OnSharedPreferenceChangeListener listener) {

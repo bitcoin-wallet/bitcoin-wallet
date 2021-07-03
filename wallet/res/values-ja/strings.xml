@@ -1,6 +1,8 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
   <string name="toast_wallet_reset">ウォレットはリセットされました!\n復元には多少時間がかかります。</string>
+  <string name="toast_start_external_document_failed">外部文書を開くためのウェブブラウザがインストールされていません。</string>
+  <string name="toast_start_storage_provider_selector_failed">利用できるクラウドストレージプロバイダがインストールされていません。\n\"Nextcloud\"や\"Google Drive\"などが必要です。</string>
   <string name="wallet_disclaimer_fragment_remind_safety">自己の責任においてご使用下さい。&lt;u&gt;安全に関する注意事項&lt;/u&gt;をお読み下さい。</string>
   <string name="wallet_disclaimer_fragment_remind_backup">&lt;u&gt;ウォレットをバックアップ&lt;/u&gt;する必要があります!</string>
   <string name="blockchain_state_progress_hours">%1$s, %2$d時間遅れ</string>
@@ -9,15 +11,12 @@
   <string name="blockchain_state_progress_months">%1$s, %2$dか月遅れ</string>
   <string name="blockchain_state_progress_downloading">ネットワークと同期中</string>
   <string name="blockchain_state_progress_stalled">同期が停滞しています</string>
-  <string name="blockchain_state_progress_problem_storage">同期: ストレージに問題があります</string>
-  <string name="blockchain_state_progress_problem_network">同期: ネットワークに問題があります</string>
+  <string name="blockchain_state_progress_problem_network">同期中に問題が発生しました: ネットワークに繋がっていません。</string>
   <string name="wallet_address_fragment_clipboard_msg">グルシュルコインアドレスをクリップボードにコピーしました</string>
   <string name="wallet_address_dialog_fragment_hint">プライバシー保護のため、アドレスは支払いを受け取るごとに変化します。</string>
   <string name="wallet_balance_fragment_insecure_device">このデバイスは古く、安全ではありません。少額のみ扱うようにしてください。</string>
-  <string name="wallet_balance_fragment_too_much">この額はポケットに入れて運ぶには多すぎます。一部をもっと安全な場所に移してください。</string>
   <string name="wallet_balance_fragment_replaying">再生中は残高情報は利用できません。</string>
   <string name="exchange_rates_activity_title">為替レート</string>
-  <string name="exchange_rates_fragment_empty_text">為替レートを読み込めません。</string>
   <string name="exchange_rates_fragment_empty_search">為替レートが見つかりません。</string>
   <string name="exchange_rates_fragment_default">(既定外貨)</string>
   <string name="exchange_rates_fragment_rate">為替レート</string>
@@ -59,6 +58,7 @@
   <string name="wallet_old_sdk_dialog_title">Androidのバージョンが古すぎます</string>
   <string name="wallet_old_sdk_dialog_message">次のGroestlcoin Walletのリリースの際、このデバイスはもうサポートされないかもしれません。場合によっては、このデバイスでのコインの利用が困難になるかもしれません。\n\n意図的にしているのでない限り、あなたのコインをすぐにでも移動させることをおすすめします。</string>
   <string name="alert_dialogs_fragment_settings_failed_title">設定を開けませんでした</string>
+  <string name="alert_dialogs_fragment_too_much_balance_dialog_message">この額はポケットに入れて運ぶには多すぎます。一部をもっと安全な場所に移してください。</string>
   <string name="send_coins_activity_title">グルシュルコインの送金</string>
   <string name="send_coins_fragment_request_payment_request_progress">%s から署名の取得中……</string>
   <string name="send_coins_fragment_request_payment_request_failed_title">支払いリクエストの取得に失敗しました</string>
@@ -152,13 +152,10 @@
   <string name="address_book_context_edit_title">アドレスを編集</string>
   <string name="address_book_context_remove_title">アドレスを削除</string>
   <string name="address_book_context_copy_to_clipboard_title">クリップボードへコピー</string>
-  <string name="address_book_options_paste_from_clipboard_title">クリップボードから貼付け</string>
-  <string name="address_book_options_paste_from_clipboard_empty">クリップボートは空です</string>
-  <string name="address_book_options_paste_from_clipboard_invalid">クリップボードからのデータを認識できません</string>
-  <string name="address_book_options_paste_from_clipboard_own_address">クリップボードにあるアドレスはあなたのアドレスです。</string>
   <string name="address_book_options_scan_title">アドレスをスキャン</string>
   <string name="address_book_options_scan_invalid">スキャンしたデータが認識できません</string>
   <string name="address_book_options_scan_own_address">スキャンしたアドレスはあなたのアドレスです。</string>
+  <string name="address_book_row_current_address">これはあなたの現在の受け取り用アドレスです。</string>
   <string name="address_book_row_message_compromised_key">このアドレスは信頼されていません。コインの受取にはこれ以上使用しない方が良いでしょう。</string>
   <string name="edit_address_book_entry_dialog_title_add">送金用アドレスを追加</string>
   <string name="edit_address_book_entry_dialog_title_edit">送金用アドレスのラベルを編集</string>
@@ -236,6 +233,9 @@
   <string name="input_parser_invalid_paymentrequest">無効な支払のリクエスト:\n%s</string>
   <string name="input_parser_invalid_transaction">無効なトランザクション:\n%s</string>
   <string name="preferences_activity_title">設定</string>
+  <string name="preferences_category_general">一般</string>
+  <string name="preferences_category_privacy">プライバシー制御</string>
+  <string name="preferences_category_merchants">店舗</string>
   <string name="preferences_category_diagnostics">診断</string>
   <string name="preferences_category_labs">ラボ</string>
   <string name="preferences_precision_title">通貨単位の切り下げと切り上げ</string>
@@ -246,11 +246,18 @@
   <string name="preferences_precision_labels_2_3">mGRS、小数点以下2桁</string>
   <string name="preferences_precision_labels_0_6">µGRS、小数点無し</string>
   <string name="preferences_own_name_title">自身の名前</string>
-  <string name="preferences_own_name_summary">支払いリクエストに含める、あなた自身の名前。短いものにしてください。</string>
+  <string name="preferences_own_name_summary">あなたが発行する支払いリクエストに含めるあなたの名前、またはあなたの会社の名前。</string>
+  <string name="preferences_own_name_dialog_message">短くしてください。</string>
   <string name="preferences_send_coins_autoclose_title">送金ダイアログを自動的に閉じる</string>
   <string name="preferences_send_coins_autoclose_summary">支払いが完了した際に、送金ダイアログを自動的に閉じます。</string>
+  <string name="preferences_sync_mode_title">データ使用量対プライバシー</string>
+  <string name="preferences_sync_mode_summary">ネットワークと同期する際の、データ使用量の削減とプライバシー向上のどちらかを選択をしてください。</string>
+  <string name="preferences_sync_mode_labels_connection_filter"><![CDATA[<b>低データ使用量:</b> ネットワークフィルタリングを使い、あなたのウォレットに関連するトランザクションのみを読み取ります。1月あたりの使用量は約500 MBとなりますが、フィルタの情報をネットワークに開示します。]]></string>
+  <string name="preferences_sync_mode_labels_full"><![CDATA[<b>プライバシー向上:</b> あなたのウォレットに関する情報をネットワークに開示しません。全てのトランザクションを読み取るため、1月あたり10 GBの通信量を使うため注意してください。この設定を使う前に、利用可能なデータ量を確認してください。]]></string>
   <string name="preferences_trusted_peer_title">信頼されたピア</string>
   <string name="preferences_trusted_peer_summary">接続する単一ピアのIPアドレスかホスト名。</string>
+  <string name="preferences_trusted_peer_dialog_message">有効なIPアドレスかホスト名を入力してください。Torをセットアップ済みの場合、onionアドレスも利用できます。</string>
+  <string name="preferences_trusted_peer_dialog_message_multiple">複数の信頼できるピアを空白で区切って指定できます。</string>
   <string name="preferences_trusted_peer_resolve_progress">解決中……</string>
   <string name="preferences_trusted_peer_resolve_unknown_host">不明なホスト名です!</string>
   <string name="preferences_trusted_peer_only_title">通常のピア探索をスキップ</string>
@@ -265,6 +272,9 @@
   <string name="preferences_remind_balance_summary">数週間使われていない場合、まだウォレット内にコインが残っていればアプリが通知を出します。</string>
   <string name="preferences_show_disclaimer_title">免責条項を表示する</string>
   <string name="preferences_show_disclaimer_summary">本当に安全に関する注意事項を読みましたか? ウォレットを安全な場所にバックアップしましたか?</string>
+  <string name="preferences_bluetooth_address_title">Bluetoothアドレス</string>
+  <string name="preferences_bluetooth_address_summary">Bluetoothアドレスを手動で設定すると、ネットワークに繋がっていなくても支払いを受け取れます。</string>
+  <string name="preferences_bluetooth_address_dialog_message">残念ながら、AndroidではデバイスのBluetoothアドレスの自動検出は禁止されています。AndroidのBluetooth設定を見てここに入力する必要があります。\n\n全ての桁が正しいことを確認してください。コロンは省略してもかまいません。大文字小文字も区別しません。</string>
   <string name="preferences_report_issue_title">問題を報告</string>
   <string name="preferences_initiate_reset_title">ブロックチェーンのリセット</string>
   <string name="preferences_initiate_reset_summary">ブロックチェーン・トランザクション・ウォレットの残高をリセットします。再生にしばらくかかるため、必要な理由がわかる場合のみ実行してください。</string>
@@ -283,7 +293,6 @@
   <string name="report_issue_dialog_description">説明</string>
   <string name="report_issue_dialog_report">報告</string>
   <string name="report_issue_dialog_collect_device_info">デバイス情報を追加</string>
-  <string name="report_issue_dialog_collect_installed_packages">インストールされたパッケージのリストを追加</string>
   <string name="report_issue_dialog_collect_application_log">アプリケーションログを追加</string>
   <string name="report_issue_dialog_collect_wallet_dump">ウォレットダンプを追加</string>
   <string name="report_issue_dialog_mail_intent_chooser">報告に使うアプリケーション……</string>
@@ -307,12 +316,16 @@
   <string name="about_faq_summary">このアプリに関するよくある質問</string>
   <string name="notification_coins_received_msg">%sを受け取りました</string>
   <string name="notification_connectivity_syncing_message">ネットワークと同期しています……</string>
+  <string name="notification_connectivity_syncing_trusted_peer">信頼しているピアと同期しています……</string>
   <string name="notification_peers_connected_msg">%dピアが接続済</string>
-  <string name="notification_inactivity_title">まだこの端末にグルシュルコインが残っています!</string>
+  <string name="notification_peer_connected">接続されました</string>
+  <string name="notification_peer_not_connected">接続されていません</string>
+  <string name="notification_inactivity_title">まだこの端末にビットコインが残っています!</string>
   <string name="notification_inactivity_message">残金を他の場所に移さずにGroestlcoin Walletアプリをアンインストールした場合、%sの残金は失なわれてしまうことに注意してください。</string>
   <string name="notification_inactivity_message_donate">もしコインが必要ないのであれば、Groestlcoin Walletプロジェクトに寄付するという選択肢もあります。</string>
   <string name="notification_inactivity_action_dismiss">後で再び通知する</string>
   <string name="notification_inactivity_action_dismiss_forever">後で通知しない</string>
+  <string name="notification_bluetooth_service_listening">Bluetoothで支払いを受け取る準備ができました</string>
   <string name="notification_channel_received_name">支払いの受け取り</string>
   <string name="notification_channel_ongoing_name">バックグラウンドでの動作</string>
   <string name="notification_channel_important_name">重要なお知らせ</string>
@@ -336,7 +349,6 @@
   <string name="button_send_coins">コインを送る</string>
   <string name="button_scan">スキャン</string>
   <string name="button_settings">設定</string>
-  <string name="button_options">詳細設定</string>
   <string name="action_show_qr">QRコードを表示</string>
   <string name="action_browse">ブラウズ</string>
   <!--generic strings-->

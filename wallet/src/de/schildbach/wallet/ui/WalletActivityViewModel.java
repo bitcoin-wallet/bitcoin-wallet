@@ -17,18 +17,16 @@
 
 package de.schildbach.wallet.ui;
 
-import org.bitcoinj.script.Script;
-import org.bitcoinj.wallet.Wallet;
-
-import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.data.AbstractWalletLiveData;
-import de.schildbach.wallet.util.OnFirstPreDraw;
-
 import android.app.Application;
 import android.os.AsyncTask;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
+import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.data.AbstractWalletLiveData;
+import de.schildbach.wallet.util.OnFirstPreDraw;
+import org.bitcoinj.script.Script;
+import org.bitcoinj.wallet.Wallet;
 
 /**
  * @author Andreas Schildbach

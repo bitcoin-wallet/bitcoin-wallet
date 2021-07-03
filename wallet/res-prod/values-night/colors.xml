@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <color name="fg_network_significant">#ff85A6B1</color>
     <color name="fg_network_less_significant">#ff6590A2</color>
 
+    <!-- foreground -->
+    <!--color name="fg_network_significant">#ffffcc99</color>
+    <color name="fg_network_less_significant">#ccffcc99</color-->
 </resources>

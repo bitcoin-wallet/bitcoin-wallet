@@ -17,17 +17,15 @@
 
 package de.schildbach.wallet.ui.send;
 
-import org.bitcoinj.core.PrefixedChecksummedBytes;
-import org.bitcoinj.core.Transaction;
-import org.bitcoinj.wallet.Wallet;
-
-import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.data.DynamicFeeLiveData;
-
 import android.app.Application;
-import androidx.annotation.Nullable;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
+import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.data.DynamicFeeLiveData;
+import de.schildbach.wallet.data.TransactionLiveData;
+import de.schildbach.wallet.ui.DialogEvent;
+import org.bitcoinj.core.PrefixedChecksummedBytes;
+import org.bitcoinj.wallet.Wallet;
 
 /**
  * @author Andreas Schildbach
@@ -42,15 +40,18 @@ public class SweepWalletViewModel extends AndroidViewModel {
     private final WalletApplication application;
     private DynamicFeeLiveData dynamicFees;
     public final MutableLiveData<String> progress = new MutableLiveData<>();
+    public final MutableLiveData<PrefixedChecksummedBytes> privateKeyToSweep = new MutableLiveData<>();
+    public final MutableLiveData<Wallet> walletToSweep = new MutableLiveData<>();
+    public final TransactionLiveData sentTransaction;
+    public final MutableLiveData<DialogEvent> showDialog = new MutableLiveData<>();
+    public final MutableLiveData<DialogEvent> showDialogWithRetryRequestBalance = new MutableLiveData<>();
 
     public State state = State.DECODE_KEY;
-    public @Nullable PrefixedChecksummedBytes privateKeyToSweep = null;
-    public @Nullable Wallet walletToSweep = null;
-    public @Nullable Transaction sentTransaction = null;
 
     public SweepWalletViewModel(final Application application) {
         super(application);
         this.application = (WalletApplication) application;
+        this.sentTransaction = new TransactionLiveData(this.application);
     }
 
     public DynamicFeeLiveData getDynamicFees() {

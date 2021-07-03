@@ -17,54 +17,39 @@
 
 package de.schildbach.wallet.ui;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import org.bitcoinj.core.Address;
-import org.bitcoinj.core.ECKey;
-import org.bitcoinj.core.LegacyAddress;
-import org.bitcoinj.crypto.DeterministicKey;
-import org.bitcoinj.wallet.Wallet;
-
-import com.google.common.collect.Iterables;
-
-import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.data.AbstractWalletLiveData;
-import de.schildbach.wallet.data.AddressBookEntry;
-import de.schildbach.wallet.data.WalletLiveData;
-
 import android.app.Application;
-import android.content.ClipData;
-import android.content.ClipboardManager;
-import android.content.ClipboardManager.OnPrimaryClipChangedListener;
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.addressbook.AddressBookEntry;
+import de.schildbach.wallet.data.AbstractWalletLiveData;
+import org.bitcoinj.core.Address;
+import org.bitcoinj.core.ECKey;
+import org.bitcoinj.core.LegacyAddress;
+import org.bitcoinj.wallet.Wallet;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * @author Andreas Schildbach
  */
 public class SendingAddressesViewModel extends AndroidViewModel {
     private final WalletApplication application;
-    public final WalletLiveData wallet;
     public LiveData<List<AddressBookEntry>> addressBook;
     public final AddressesToExcludeLiveData addressesToExclude;
-    public final ClipLiveData clip;
     public final MutableLiveData<Event<Bitmap>> showBitmapDialog = new MutableLiveData<>();
     public final MutableLiveData<Event<Address>> showEditAddressBookEntryDialog = new MutableLiveData<>();
 
     public SendingAddressesViewModel(final Application application) {
         super(application);
         this.application = (WalletApplication) application;
-        this.wallet = new WalletLiveData(this.application);
         this.addressesToExclude = new AddressesToExcludeLiveData(this.application);
-        this.clip = new ClipLiveData(this.application);
     }
 
     public static class AddressesToExcludeLiveData extends AbstractWalletLiveData<Set<String>> {
@@ -80,43 +65,16 @@ public class SendingAddressesViewModel extends AndroidViewModel {
         private void loadAddressesToExclude() {
             final Wallet wallet = getWallet();
             AsyncTask.execute(() -> {
-                final List<ECKey> derivedKeys = wallet.getIssuedReceiveKeys();
-                Collections.sort(derivedKeys, DeterministicKey.CHILDNUM_ORDER);
+                final List<Address> derivedAddresses = wallet.getIssuedReceiveAddresses();
                 final List<ECKey> randomKeys = wallet.getImportedKeys();
 
-                final Set<String> addresses = new HashSet<>(derivedKeys.size() + randomKeys.size());
-                for (final ECKey key : Iterables.concat(derivedKeys, randomKeys))
+                final Set<String> addresses = new HashSet<>(derivedAddresses.size() + randomKeys.size());
+                for (final Address address : derivedAddresses)
+                    addresses.add(address.toString());
+                for (final ECKey key : randomKeys)
                     addresses.add(LegacyAddress.fromKey(Constants.NETWORK_PARAMETERS, key).toString());
                 postValue(addresses);
             });
-        }
-    }
-
-    public static class ClipLiveData extends LiveData<ClipData> implements OnPrimaryClipChangedListener {
-        private final ClipboardManager clipboardManager;
-
-        public ClipLiveData(final WalletApplication application) {
-            clipboardManager = (ClipboardManager) application.getSystemService(Context.CLIPBOARD_SERVICE);
-        }
-
-        @Override
-        protected void onActive() {
-            clipboardManager.addPrimaryClipChangedListener(this);
-            onPrimaryClipChanged();
-        }
-
-        @Override
-        protected void onInactive() {
-            clipboardManager.removePrimaryClipChangedListener(this);
-        }
-
-        @Override
-        public void onPrimaryClipChanged() {
-            setValue(clipboardManager.getPrimaryClip());
-        }
-
-        public void setClipData(final ClipData clipData) {
-            clipboardManager.setPrimaryClip(clipData);
         }
     }
 }

@@ -14,10 +14,8 @@
   <string name="wallet_address_fragment_clipboard_msg">Groestlcoin-adresse kopieret til utklippstavlen</string>
   <string name="wallet_address_dialog_fragment_hint">For å beskytte ditt privatliv, vil en ny adresse bli generert når denne mottar en betaling.</string>
   <string name="wallet_balance_fragment_insecure_device">Din enheten er gammel og usikker. Vennligst bare bruk for små beløp.</string>
-  <string name="wallet_balance_fragment_too_much">Dette beløpet er ganske høyt for å bære rundt i lommen din. Vennligst flytt noe til et tryggere sted.</string>
   <string name="wallet_balance_fragment_replaying">Saldo er ikke tilgjengelig under gjennomgangen.</string>
   <string name="exchange_rates_activity_title">Valutakurser</string>
-  <string name="exchange_rates_fragment_empty_text">Kunne ikke laste valutakurser.</string>
   <string name="exchange_rates_fragment_empty_search">Kunne ikke finne valutakurser.</string>
   <string name="exchange_rates_fragment_default">(standard)</string>
   <string name="exchange_rates_fragment_rate">kurs</string>
@@ -57,6 +55,7 @@
   <string name="wallet_old_sdk_dialog_title">Android-versjon er utdatert</string>
   <string name="wallet_old_sdk_dialog_message">Der er risiko for at en av de neste utgivelsene av Groestlcoin Wallet ikke vil støtte din enhet lenger. I noen tilfeller kan det være vanskelig å bruke mynter på denne enheten.\n\nMed mindre du vet hva du gjør, anbefales det å straks flytte dine mynter vekk.</string>
   <string name="alert_dialogs_fragment_settings_failed_title">Problem med å åpne innstillinger</string>
+  <string name="alert_dialogs_fragment_too_much_balance_dialog_message">Dette beløpet er ganske høyt for å bære rundt i lommen din. Vennligst flytt noe til et tryggere sted.</string>
   <string name="send_coins_activity_title">Send Groestlcoins</string>
   <string name="send_coins_fragment_request_payment_request_progress">Henter signatur fra %s…</string>
   <string name="send_coins_fragment_request_payment_request_failed_title">Henting av signatur mislyktes</string>
@@ -145,10 +144,6 @@
   <string name="address_book_context_edit_title">Rediger adresse</string>
   <string name="address_book_context_remove_title">Fjern adresse</string>
   <string name="address_book_context_copy_to_clipboard_title">Kopier til utklippstavlen</string>
-  <string name="address_book_options_paste_from_clipboard_title">Lim inn fra utklippstavlen</string>
-  <string name="address_book_options_paste_from_clipboard_empty">Utklippstavlen er tom</string>
-  <string name="address_book_options_paste_from_clipboard_invalid">Data fra utklippstavlen kan ikke gjenkjennes</string>
-  <string name="address_book_options_paste_from_clipboard_own_address">Adressen på utklippstavlen er din egen.</string>
   <string name="address_book_options_scan_title">Skann adresse</string>
   <string name="address_book_options_scan_invalid">Skannet data kan ikke gjenkjennes</string>
   <string name="address_book_options_scan_own_address">Den skannede adressen er din egen.</string>
@@ -255,7 +250,7 @@
   <string name="preferences_report_issue_title">Rapporter problem</string>
   <string name="preferences_initiate_reset_title">Tilbakestill blokkjeden</string>
   <string name="preferences_initiate_reset_summary">Tilbakestill blokkjeden, transaksjoner og lommebok-balansen. Gjennomgangen vil ta en stund, så bare gjør dette hvis du vet hvorfor.</string>
-  <string name="preferences_initiate_reset_dialog_message">Har du lyst til å nullstille og gjennomgå blokkjeden?\n\nDette vil midlertidig skjule din lommebok-balanse og fjerne transaksjoner. Begge vil gjenopprettes etter hvert som blokkjeden synkroniseres. Sørg for at du har en pålitelig tilkobling til Internett.</string>
+  <string name="preferences_initiate_reset_dialog_message">Har du lyst til å nullstille og gjennomgå blokkjeden?\n\nDette vil midlertidig skjule din lommebok-balanse og fjerne transaksjoner. Begge vil gjenopprettes etter hvert som blokkjeden synkroniseres. Sørg for at du har en pålitelig tilkobling til internett.</string>
   <string name="preferences_initiate_reset_dialog_positive">Nullstill</string>
   <string name="preferences_extended_public_key_title">Vis extended public key</string>
   <string name="preferences_extended_public_key_summary">Vis den utvidede offentlige nøkkelen til lommeboken din, slik at den kan importeres i andre programmer og tjenester. Vær forsiktig: dette vil utlevere dine transaksjoner og privatliv til det programmet.</string>
@@ -270,7 +265,6 @@
   <string name="report_issue_dialog_description">problembeskrivelse</string>
   <string name="report_issue_dialog_report">Rapport</string>
   <string name="report_issue_dialog_collect_device_info">Legg ved enhetsinformasjon</string>
-  <string name="report_issue_dialog_collect_installed_packages">Legg ved liste over installerte pakker</string>
   <string name="report_issue_dialog_collect_application_log">Legg ved programlogg</string>
   <string name="report_issue_dialog_collect_wallet_dump">Legg ved dump av lommebok</string>
   <string name="report_issue_dialog_mail_intent_chooser">Send rapport ved hjelp av…</string>

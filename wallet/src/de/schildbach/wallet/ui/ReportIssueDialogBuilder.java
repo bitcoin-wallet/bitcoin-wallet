@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2015 the original author or authors.
+ * Copyright the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,22 +17,6 @@
 
 package de.schildbach.wallet.ui;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.R;
-import de.schildbach.wallet.util.CrashReporter;
-
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
@@ -45,6 +29,20 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.core.app.ShareCompat;
 import androidx.core.content.FileProvider;
+import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.R;
+import de.schildbach.wallet.util.CrashReporter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Andreas Schildbach
@@ -54,7 +52,6 @@ public abstract class ReportIssueDialogBuilder extends DialogBuilder implements 
 
     private EditText viewDescription;
     private CheckBox viewCollectDeviceInfo;
-    private CheckBox viewCollectInstalledPackages;
     private CheckBox viewCollectApplicationLog;
     private CheckBox viewCollectWalletDump;
 
@@ -70,13 +67,11 @@ public abstract class ReportIssueDialogBuilder extends DialogBuilder implements 
 
         ((TextView) view.findViewById(R.id.report_issue_dialog_message)).setText(messageResId);
 
-        viewDescription = (EditText) view.findViewById(R.id.report_issue_dialog_description);
+        viewDescription = view.findViewById(R.id.report_issue_dialog_description);
 
-        viewCollectDeviceInfo = (CheckBox) view.findViewById(R.id.report_issue_dialog_collect_device_info);
-        viewCollectInstalledPackages = (CheckBox) view
-                .findViewById(R.id.report_issue_dialog_collect_installed_packages);
-        viewCollectApplicationLog = (CheckBox) view.findViewById(R.id.report_issue_dialog_collect_application_log);
-        viewCollectWalletDump = (CheckBox) view.findViewById(R.id.report_issue_dialog_collect_wallet_dump);
+        viewCollectDeviceInfo = view.findViewById(R.id.report_issue_dialog_collect_device_info);
+        viewCollectApplicationLog = view.findViewById(R.id.report_issue_dialog_collect_application_log);
+        viewCollectWalletDump = view.findViewById(R.id.report_issue_dialog_collect_wallet_dump);
 
         setTitle(titleResId);
         setView(view);
@@ -133,15 +128,6 @@ public abstract class ReportIssueDialogBuilder extends DialogBuilder implements 
                 final CharSequence deviceInfo = collectDeviceInfo();
 
                 text.append(deviceInfo);
-            } catch (final IOException x) {
-                text.append(x.toString()).append('\n');
-            }
-        }
-
-        if (viewCollectInstalledPackages.isChecked()) {
-            try {
-                text.append("\n\n\n=== installed packages ===\n\n");
-                CrashReporter.appendInstalledPackages(text, activity);
             } catch (final IOException x) {
                 text.append(x.toString()).append('\n');
             }

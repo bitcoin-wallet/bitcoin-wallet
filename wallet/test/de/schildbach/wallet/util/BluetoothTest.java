@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2015 the original author or authors.
+ * Copyright the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,15 +17,51 @@
 
 package de.schildbach.wallet.util;
 
+import org.junit.Test;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-
-import org.junit.Test;
 
 /**
  * @author Andreas Schildbach
  */
 public class BluetoothTest {
+    @Test
+    public void compressMac() {
+        assertEquals("11223344556677", Bluetooth.compressMac("11:22:33:44:55:66:77"));
+        assertEquals("110A3344550B00", Bluetooth.compressMac("11:A:33:44:55:B:"));
+        assertEquals("AA", Bluetooth.compressMac("aa"));
+        assertEquals("00", Bluetooth.compressMac(""));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void compressMac_oversizedSegment() {
+        Bluetooth.compressMac("111");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void compressMac_illegalCharacter() {
+        Bluetooth.compressMac("1z");
+    }
+
+    @Test
+    public void decompressMac() {
+        assertEquals("11:22:33:44:55:66:77", Bluetooth.decompressMac("11223344556677"));
+        assertEquals("11:0A:33:44:55:0B:00", Bluetooth.decompressMac("110A3344550B00"));
+        assertEquals("AA", Bluetooth.decompressMac("aa"));
+        assertEquals("", Bluetooth.decompressMac(""));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void decompressMac_impossibleLength() {
+        Bluetooth.decompressMac("123");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void decompressMac_illegalCharacter() {
+        Bluetooth.decompressMac("1z");
+    }
+
     @Test
     public void compressDecompressMac() throws Exception {
         final String mac = "00:11:22:33:44:55:66";

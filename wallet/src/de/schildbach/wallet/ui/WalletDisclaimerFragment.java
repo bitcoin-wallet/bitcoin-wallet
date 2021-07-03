@@ -17,26 +17,24 @@
 
 package de.schildbach.wallet.ui;
 
-import java.util.Set;
-
 import android.content.Context;
-import de.schildbach.wallet.R;
-import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.service.BlockchainState;
-import de.schildbach.wallet.service.BlockchainState.Impediment;
-
 import android.os.Bundle;
 import android.text.Html;
 import android.text.SpannableStringBuilder;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
+import de.schildbach.wallet.R;
+import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.service.BlockchainState;
+import de.schildbach.wallet.service.BlockchainState.Impediment;
+
+import java.util.Set;
 
 /**
  * @author Andreas Schildbach
@@ -61,8 +59,8 @@ public final class WalletDisclaimerFragment extends Fragment {
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        activityViewModel = ViewModelProviders.of(activity).get(WalletActivityViewModel.class);
-        viewModel = ViewModelProviders.of(this).get(WalletDisclaimerViewModel.class);
+        activityViewModel = new ViewModelProvider(activity).get(WalletActivityViewModel.class);
+        viewModel = new ViewModelProvider(this).get(WalletDisclaimerViewModel.class);
 
         application.blockchainState.observe(this, blockchainState -> updateView());
         viewModel.getDisclaimerEnabled().observe(this, disclaimerEnabled -> updateView());
@@ -71,7 +69,7 @@ public final class WalletDisclaimerFragment extends Fragment {
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
             final Bundle savedInstanceState) {
-        messageView = (TextView) inflater.inflate(R.layout.wallet_disclaimer_fragment, container);
+        messageView = (TextView) inflater.inflate(R.layout.wallet_disclaimer_fragment, container, false);
         messageView.setOnClickListener(v -> activityViewModel.showHelpDialog.setValue(new Event<>(R.string.help_safety)));
         return messageView;
     }

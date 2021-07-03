@@ -15,7 +15,6 @@
 	<string name="wallet_address_fragment_clipboard_msg">Bitmonadreso kopiita al tondujo</string>
 	<string name="wallet_balance_fragment_replaying">Saldo nedisponeblas dum ripeto.</string>
 	<string name="exchange_rates_activity_title">Kurzoj</string>
-	<string name="exchange_rates_fragment_empty_text">Ne eblis ŝargi kurzojn.</string>
 	<string name="exchange_rates_fragment_default">(defaŭlta)</string>
 	<string name="exchange_rates_fragment_rate">proporcio</string>
 	<string name="exchange_rates_fragment_balance">saldo</string>
@@ -71,8 +70,6 @@
 	<string name="address_book_context_edit_title">Redakti adreson</string>
 	<string name="address_book_context_remove_title">Forigi adreson</string>
 	<string name="address_book_context_copy_to_clipboard_title">Kopi al tondujo</string>
-	<string name="address_book_options_paste_from_clipboard_title">Alglui el tondujo</string>
-	<string name="address_book_options_paste_from_clipboard_empty">Tondujo malplenas</string>
 	<string name="address_book_options_scan_title">Skani adreson</string>
 	<string name="address_book_row_message_compromised_key">Ĉi tiu adreso povus esti kompromitita. Vi devus ne uzi plu por ricevi monon.</string>
 	<string name="edit_address_book_entry_dialog_title_add">Aldoni adreson</string>
@@ -131,7 +128,6 @@
 	<string name="report_issue_dialog_description">afera priskribo</string>
 	<string name="report_issue_dialog_report">Reporti</string>
 	<string name="report_issue_dialog_collect_device_info">Postglui aparatajn informojn</string>
-	<string name="report_issue_dialog_collect_installed_packages">Postglui liston de instalitaj pakoj</string>
 	<string name="report_issue_dialog_collect_application_log">Postglui aplikaĵan loglibron</string>
 	<string name="report_issue_dialog_collect_wallet_dump">Postglui monujaĵon</string>
 	<string name="report_issue_dialog_mail_intent_chooser">Sendi reporton uzante…</string>

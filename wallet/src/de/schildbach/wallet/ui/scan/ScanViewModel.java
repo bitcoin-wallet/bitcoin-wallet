@@ -17,10 +17,9 @@
 
 package de.schildbach.wallet.ui.scan;
 
-import de.schildbach.wallet.ui.Event;
-
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+import de.schildbach.wallet.ui.Event;
 
 /**
  * @author Andreas Schildbach

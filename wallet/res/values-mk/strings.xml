@@ -15,7 +15,6 @@
 	<string name="wallet_address_fragment_clipboard_msg">Грёстлкоин адресата е копирана во склад</string>
 	<string name="wallet_balance_fragment_replaying">Салдото е недостапно за време на повторена акција.</string>
 	<string name="exchange_rates_activity_title">Девизен курс</string>
-	<string name="exchange_rates_fragment_empty_text">Не може да го вчитам курсот на валутите</string>
 	<string name="exchange_rates_fragment_default">(главно)</string>
 	<string name="exchange_rates_fragment_rate">курс</string>
 	<string name="exchange_rates_fragment_balance">салдо</string>
@@ -71,8 +70,6 @@
 	<string name="address_book_context_edit_title">Уреди адреса</string>
 	<string name="address_book_context_remove_title">Отстрани адреса</string>
 	<string name="address_book_context_copy_to_clipboard_title">Копирај во склад</string>
-	<string name="address_book_options_paste_from_clipboard_title">Внеси од склад</string>
-	<string name="address_book_options_paste_from_clipboard_empty">Складот е празен</string>
 	<string name="address_book_options_scan_title">Скенирај адреса</string>
 	<string name="address_book_row_message_compromised_key">Оваа адреса можеби е компромитирана. Не треба да ја користиш за примање Грёстлкоини повеќе.</string>
 	<string name="edit_address_book_entry_dialog_title_add">Додади адреса</string>
@@ -120,8 +117,8 @@
 	<string name="preferences_data_usage_title">Мобилна конекција</string>
 	<string name="preferences_data_usage_summary">Прикажи опции да се ограничи користењето на мобилна конекција.</string>
 	<string name="preferences_report_issue_title">Пријави грешка</string>
-	<string name="preferences_initiate_reset_title">Ресетирај го Blockchain</string>
-	<string name="preferences_initiate_reset_summary">Ресетирај го blockchain, трансакциите и салдото на паричникот. Ова може да потрае малку.</string>
+	<string name="preferences_initiate_reset_title">Ресетирај го block chain</string>
+	<string name="preferences_initiate_reset_summary">Ресетирај го block chain, трансакциите и салдото на паричникот. Ова може да потрае малку.</string>
 	<string name="preferences_initiate_reset_dialog_message">Дали би сакал да го ресетираш и обновиш blockchain?\n\nОва привремено ќе го скрие салдото на твојот паричник и ќе ги отстрани трансакциите. И двете ќе се обноват штом blockchain се сихронизира.</string>
 	<string name="preferences_initiate_reset_dialog_positive">Ресетирај</string>
 	<string name="report_issue_dialog_title_issue">Пријави грешка</string>
@@ -131,7 +128,6 @@
 	<string name="report_issue_dialog_description">опис на грешката</string>
 	<string name="report_issue_dialog_report">Извештај</string>
 	<string name="report_issue_dialog_collect_device_info">Додај информации за уредот</string>
-	<string name="report_issue_dialog_collect_installed_packages">Прикачи листа со инсталирани пакети</string>
 	<string name="report_issue_dialog_collect_application_log">Додај го дневникот на апликацијата</string>
 	<string name="report_issue_dialog_collect_wallet_dump">Додај го отпадот на паричникот</string>
 	<string name="report_issue_dialog_mail_intent_chooser">Испрати извештај со…</string>

@@ -17,13 +17,31 @@
 
 package de.schildbach.wallet.ui;
 
-import org.bitcoinj.core.PrefixedChecksummedBytes;
-import org.bitcoinj.core.Transaction;
-import org.bitcoinj.core.VerificationException;
-import org.bitcoinj.script.Script;
-
+import android.animation.Animator;
+import android.animation.AnimatorInflater;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
+import android.app.Activity;
+import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
+import android.nfc.NdefMessage;
+import android.nfc.NfcAdapter;
+import android.os.Bundle;
+import android.os.Environment;
+import android.os.Handler;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.animation.DecelerateInterpolator;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.core.view.ViewCompat;
+import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewModelProvider;
 import com.google.common.primitives.Floats;
-
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.R;
@@ -42,33 +60,10 @@ import de.schildbach.wallet.ui.send.SweepWalletActivity;
 import de.schildbach.wallet.util.CrashReporter;
 import de.schildbach.wallet.util.Nfc;
 import de.schildbach.wallet.util.OnFirstPreDraw;
-
-import android.animation.Animator;
-import android.animation.AnimatorInflater;
-import android.animation.AnimatorListenerAdapter;
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
-import android.animation.ValueAnimator;
-import android.app.Activity;
-import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.LayerDrawable;
-import android.nfc.NdefMessage;
-import android.nfc.NfcAdapter;
-import android.os.Build;
-import android.os.Bundle;
-import android.os.Environment;
-import android.os.Handler;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.animation.DecelerateInterpolator;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
-import androidx.core.view.ViewCompat;
-import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
+import org.bitcoinj.core.PrefixedChecksummedBytes;
+import org.bitcoinj.core.Transaction;
+import org.bitcoinj.core.VerificationException;
+import org.bitcoinj.script.Script;
 
 /**
  * @author Andreas Schildbach
@@ -77,10 +72,12 @@ public final class WalletActivity extends AbstractWalletActivity {
     private WalletApplication application;
     private Handler handler = new Handler();
 
-    private WalletActivityViewModel viewModel;
     private AnimatorSet enterAnimation;
     private View contentView;
     private View levitateView;
+
+    private AbstractWalletActivityViewModel walletActivityViewModel;
+    private WalletActivityViewModel viewModel;
 
     private static final int REQUEST_CODE_SCAN = 0;
 
@@ -90,24 +87,25 @@ public final class WalletActivity extends AbstractWalletActivity {
         application = getWalletApplication();
         final Configuration config = application.getConfiguration();
 
-        viewModel = ViewModelProviders.of(this).get(WalletActivityViewModel.class);
+        walletActivityViewModel = new ViewModelProvider(this).get(AbstractWalletActivityViewModel.class);
+        viewModel = new ViewModelProvider(this).get(WalletActivityViewModel.class);
 
         setContentView(R.layout.wallet_content);
         contentView = findViewById(android.R.id.content);
         levitateView = contentView.findViewWithTag("levitate");
 
         // Make view tagged with 'levitate' scroll away and quickly return.
-        final View targetList = findViewById(R.id.wallet_transactions_list);
-        final View targetEmpty = findViewById(R.id.wallet_transactions_empty);
-        if (levitateView != null && targetList != null && targetEmpty != null) {
+        if (levitateView != null) {
             final CoordinatorLayout.LayoutParams layoutParams = new CoordinatorLayout.LayoutParams(
                     levitateView.getLayoutParams().width, levitateView.getLayoutParams().height);
             layoutParams.setBehavior(new QuickReturnBehavior());
             levitateView.setLayoutParams(layoutParams);
             levitateView.addOnLayoutChangeListener((v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) -> {
                 final int height = bottom - top;
+                final View targetList = findViewById(R.id.wallet_transactions_list);
                 targetList.setPadding(targetList.getPaddingLeft(), height, targetList.getPaddingRight(),
                         targetList.getPaddingBottom());
+                final View targetEmpty = findViewById(R.id.wallet_transactions_empty);
                 targetEmpty.setPadding(targetEmpty.getPaddingLeft(), height, targetEmpty.getPaddingRight(),
                         targetEmpty.getPaddingBottom());
             });
@@ -120,38 +118,38 @@ public final class WalletActivity extends AbstractWalletActivity {
         viewModel.walletLegacyFallback.observe(this, isLegacyFallback -> invalidateOptionsMenu());
         viewModel.showHelpDialog.observe(this, new Event.Observer<Integer>() {
             @Override
-            public void onEvent(final Integer messageResId) {
+            protected void onEvent(final Integer messageResId) {
                 HelpDialogFragment.page(getSupportFragmentManager(), messageResId);
             }
         });
         viewModel.showBackupWalletDialog.observe(this, new Event.Observer<Void>() {
             @Override
-            public void onEvent(final Void v) {
+            protected void onEvent(final Void v) {
                 BackupWalletActivity.start(WalletActivity.this);
             }
         });
         viewModel.showRestoreWalletDialog.observe(this, new Event.Observer<Void>() {
             @Override
-            public void onEvent(final Void v) {
+            protected void onEvent(final Void v) {
                 RestoreWalletDialogFragment.showPick(getSupportFragmentManager());
             }
         });
         viewModel.showEncryptKeysDialog.observe(this, new Event.Observer<Void>() {
             @Override
-            public void onEvent(final Void v) {
+            protected void onEvent(final Void v) {
                 EncryptKeysDialogFragment.show(getSupportFragmentManager());
             }
         });
         viewModel.showReportIssueDialog.observe(this, new Event.Observer<Void>() {
             @Override
-            public void onEvent(final Void v) {
+            protected void onEvent(final Void v) {
                 ReportIssueDialogFragment.show(getSupportFragmentManager(), R.string.report_issue_dialog_title_issue,
                         R.string.report_issue_dialog_message_issue, Constants.REPORT_SUBJECT_ISSUE, null);
             }
         });
         viewModel.showReportCrashDialog.observe(this, new Event.Observer<Void>() {
             @Override
-            public void onEvent(final Void v) {
+            protected void onEvent(final Void v) {
                 ReportIssueDialogFragment.show(getSupportFragmentManager(), R.string.report_issue_dialog_title_crash,
                         R.string.report_issue_dialog_message_crash, Constants.REPORT_SUBJECT_CRASH, null);
             }
@@ -217,14 +215,8 @@ public final class WalletActivity extends AbstractWalletActivity {
         final int duration = getResources().getInteger(android.R.integer.config_mediumAnimTime);
         final Animator splashBackgroundFadeOut = AnimatorInflater.loadAnimator(WalletActivity.this, R.animator.fade_out_drawable);
         final Animator splashForegroundFadeOut = AnimatorInflater.loadAnimator(WalletActivity.this, R.animator.fade_out_drawable);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            splashBackgroundFadeOut.setTarget(((LayerDrawable) background).getDrawable(1));
-            splashForegroundFadeOut.setTarget(((LayerDrawable) background).getDrawable(2));
-        } else {
-            // skip this animation, as there is no splash icon
-            splashBackgroundFadeOut.setDuration(0);
-            splashForegroundFadeOut.setDuration(0);
-        }
+        splashBackgroundFadeOut.setTarget(((LayerDrawable) background).getDrawable(1));
+        splashForegroundFadeOut.setTarget(((LayerDrawable) background).getDrawable(2));
         final AnimatorSet fragmentEnterAnimation = new AnimatorSet();
         final AnimatorSet.Builder fragmentEnterAnimationBuilder =
                 fragmentEnterAnimation.play(splashBackgroundFadeOut).with(splashForegroundFadeOut);
@@ -330,7 +322,9 @@ public final class WalletActivity extends AbstractWalletActivity {
 
                 @Override
                 protected void error(final int messageResId, final Object... messageArgs) {
-                    dialog(WalletActivity.this, null, 0, messageResId, messageArgs);
+                    final DialogBuilder dialog = DialogBuilder.dialog(WalletActivity.this, 0, messageResId, messageArgs);
+                    dialog.singleDismissButton(null);
+                    dialog.show();
                 }
             }.parse();
         }
@@ -358,12 +352,14 @@ public final class WalletActivity extends AbstractWalletActivity {
 
                     @Override
                     protected void handleDirectTransaction(final Transaction tx) throws VerificationException {
-                        application.processDirectTransaction(tx);
+                        walletActivityViewModel.broadcastTransaction(tx);
                     }
 
                     @Override
                     protected void error(final int messageResId, final Object... messageArgs) {
-                        dialog(WalletActivity.this, null, R.string.button_scan, messageResId, messageArgs);
+                        final DialogBuilder dialog = DialogBuilder.dialog(WalletActivity.this, R.string.button_scan, messageResId, messageArgs);
+                        dialog.singleDismissButton(null);
+                        dialog.show();
                     }
                 }.parse();
             }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2015 the original author or authors.
+ * Copyright the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,21 +17,19 @@
 
 package de.schildbach.wallet.util;
 
-import static androidx.core.util.Preconditions.checkArgument;
-
-import java.util.regex.Matcher;
-
-import org.bitcoinj.core.Monetary;
-import org.bitcoinj.utils.MonetaryFormat;
-
-import de.schildbach.wallet.Constants;
-
 import android.graphics.Typeface;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
 import androidx.annotation.Nullable;
+import de.schildbach.wallet.Constants;
+import org.bitcoinj.core.Monetary;
+import org.bitcoinj.utils.MonetaryFormat;
+
+import java.util.regex.Matcher;
+
+import static androidx.core.util.Preconditions.checkArgument;
 
 /**
  * @author Andreas Schildbach

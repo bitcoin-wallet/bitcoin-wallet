@@ -17,18 +17,9 @@
 
 package de.schildbach.wallet.ui.preference;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.app.DialogFragment;
-import androidx.annotation.Nullable;
-import de.schildbach.wallet.ui.DialogBuilder;
-import de.schildbach.wallet.util.WalletUtils;
-import org.bitcoinj.core.VersionMessage;
-
-import de.schildbach.wallet.R;
-import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.util.Installer;
-
-import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -36,6 +27,13 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
+import androidx.annotation.Nullable;
+import de.schildbach.wallet.R;
+import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.ui.DialogBuilder;
+import de.schildbach.wallet.util.Installer;
+import de.schildbach.wallet.util.WalletUtils;
+import org.bitcoinj.core.VersionMessage;
 
 import java.io.IOException;
 
@@ -53,14 +51,14 @@ public final class AboutFragment extends PreferenceFragment {
     public static class ApkHashFragment extends DialogFragment {
         @Override
         public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-            final DialogBuilder dialog = new DialogBuilder(getActivity());
-            dialog.setTitle(R.string.about_version_apk_hash_title);
+            CharSequence message;
             try {
                 final WalletApplication application = (WalletApplication) getActivity().getApplication();
-                dialog.setMessage(WalletUtils.formatHash(application.apkHash().toString(), 4, 0));
+                message = WalletUtils.formatHash(application.apkHash().toString(), 4, 0);
             } catch (final IOException x) {
-                dialog.setMessage("n/a");
+                message = "n/a";
             }
+            final DialogBuilder dialog = DialogBuilder.dialog(getActivity(), R.string.about_version_apk_hash_title, message);
             dialog.singleDismissButton(null);
             return dialog.create();
         }

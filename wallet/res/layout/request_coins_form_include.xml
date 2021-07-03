@@ -22,13 +22,13 @@
         android:layout_height="wrap_content"
         android:divider="@drawable/divider_currency"
         android:orientation="horizontal"
-        android:showDividers="middle" >
+        android:showDividers="middle">
 
         <de.schildbach.wallet.ui.CurrencyAmountView
             android:id="@+id/request_coins_amount_btc"
             android:layout_width="0px"
             android:layout_height="wrap_content"
-            android:layout_weight="1" >
+            android:layout_weight="1">
 
             <EditText
                 android:id="@+id/request_coins_amount_btc_edittext"
@@ -43,7 +43,7 @@
             android:id="@+id/request_coins_amount_local"
             android:layout_width="0px"
             android:layout_height="wrap_content"
-            android:layout_weight="1" >
+            android:layout_weight="1">
 
             <EditText
                 android:id="@+id/request_coins_amount_local_edittext"
@@ -62,5 +62,4 @@
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
         android:text="@string/request_coins_fragment_accept_bluetooth_payment" />
-
 </LinearLayout>

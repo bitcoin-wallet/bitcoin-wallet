@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2015 the original author or authors.
+ * Copyright the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,22 +17,21 @@
 
 package de.schildbach.wallet.util;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
+import androidx.annotation.Nullable;
 import de.schildbach.wallet.Constants;
 
-import androidx.annotation.Nullable;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author Andreas Schildbach
  */
 public final class Formats {
+    public static final Pattern PATTERN_WHITESPACE = Pattern.compile("\\s+");
     public static final Pattern PATTERN_MONETARY_SPANNABLE = Pattern.compile("(?:([\\p{Alpha}\\p{Sc}]++)\\s?+)?" // prefix
             + "([\\+\\-" + Constants.CURRENCY_PLUS_SIGN + Constants.CURRENCY_MINUS_SIGN
             + "]?+(?:\\d*+\\.\\d{0,2}+|\\d++))" // significant
             + "(\\d++)?"); // insignificant
-
     public static int PATTERN_GROUP_PREFIX = 1; // optional
     public static int PATTERN_GROUP_SIGNIFICANT = 2; // mandatory
     public static int PATTERN_GROUP_INSIGNIFICANT = 3; // optional

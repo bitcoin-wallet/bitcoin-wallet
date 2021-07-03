@@ -1,7 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
 
-    <string name="toast_wallet_reset">Wallet wurde zurückgesetzt,\nwird einige Zeit benötigen</string>
+    <string name="toast_wallet_reset">Deine Wallet wurde zurückgesetzt!\nDie Wiederherstellung wird einige Zeit benötigen.</string>
+    <string name="toast_start_external_document_failed">Es ist kein Web-Browser installiert um das externe Dokument zu öffnen.</string>
+    <string name="toast_start_storage_provider_selector_failed">Es ist kein passender Netzspeicher-Dienst installiert.\nDu brauchst so etwas wie \"Nextcloud\" oder \"Google Drive\".</string>
     <string name="wallet_disclaimer_fragment_remind_safety">Nutzung auf eigene Gefahr. Lies die &lt;u&gt;Sicherheitshinweise&lt;/u&gt;.</string>
     <string name="wallet_disclaimer_fragment_remind_backup">Bitte &lt;u&gt;sichere deine Wallet&lt;/u&gt;!</string>
     <string name="blockchain_state_progress_hours">%1$s, hinkt %2$d Stunden hinterher</string>
@@ -10,15 +12,13 @@
     <string name="blockchain_state_progress_months">%1$s, hinkt %2$d Monate hinterher</string>
     <string name="blockchain_state_progress_downloading">Synchronisiere mit Netzwerk</string>
     <string name="blockchain_state_progress_stalled">Synchronisation blockiert</string>
-    <string name="blockchain_state_progress_problem_storage">Synchronisation: Speicherplatz-Problem</string>
-    <string name="blockchain_state_progress_problem_network">Synchronisation: Netzwerk-Problem</string>
+    <string name="blockchain_state_progress_problem_storage">Problem mit Synchronisation: Geringer Speicherplatz</string>
+    <string name="blockchain_state_progress_problem_network">Problem mit Synchronisation: Keine Netzwerkverbindung</string>
     <string name="wallet_address_fragment_clipboard_msg">Groestlcoin-Adresse ins Clipboard kopiert</string>
     <string name="wallet_address_dialog_fragment_hint">Um deine Privatsphäre zu schützen, ändert sich deine Adresse sobald sie eine Zahlung empfängt.</string>
     <string name="wallet_balance_fragment_insecure_device">Dein Gerät ist alt und unsicher. Bitte nutze es nur für kleine Beträge.</string>
-    <string name="wallet_balance_fragment_too_much">Dieser Wert ist recht hoch, um in der Tasche getragen zu werden. Bitte verschiebe etwas an einen sichereren Ort.</string>
     <string name="wallet_balance_fragment_replaying">Guthaben ist während des Replays nicht verfügbar.</string>
     <string name="exchange_rates_activity_title">Wechselkurse</string>
-    <string name="exchange_rates_fragment_empty_text">Kann Wechselkurse nicht laden.</string>
     <string name="exchange_rates_fragment_empty_search">Kann Wechselkurs nicht finden.</string>
     <string name="exchange_rates_fragment_default">(Standard)</string>
     <string name="exchange_rates_fragment_rate">Kurs</string>
@@ -62,6 +62,8 @@
     <string name="wallet_old_sdk_dialog_title">Android ist veraltet</string>
     <string name="wallet_old_sdk_dialog_message">Es ist möglich, daß eine der nächsten Versionen von Groestlcoin Wallet dein Gerät nicht mehr unterstützt. In manchen Fällen kann es schwierig werden, Zahlungen zu tätigen.\n\nEs wird empfohlen, die enthaltenen Groestlcoins bald zu verschieben, außer du weisst was du tust.</string>
     <string name="alert_dialogs_fragment_settings_failed_title">Problem beim Öffnen der Einstellungen</string>
+    <string name="alert_dialogs_fragment_too_much_balance_dialog_title">Minimiere das Risiko</string>
+    <string name="alert_dialogs_fragment_too_much_balance_dialog_message">Der Betrag in deiner Wallet ist ziemlich hoch, um in der Tasche getragen zu werden. Bitte verschiebe etwas an einen sichereren Ort, etwa in ein Cold Wallet.</string>
     <string name="send_coins_activity_title">Groestlcoins senden</string>
     <string name="send_coins_fragment_request_payment_request_progress">Rufe Signatur von %s ab…</string>
     <string name="send_coins_fragment_request_payment_request_failed_title">Abrufen der Zahlungsanforderung fehlgeschlagen</string>
@@ -155,13 +157,10 @@
     <string name="address_book_context_edit_title">Adresse ändern</string>
     <string name="address_book_context_remove_title">Adresse entfernen</string>
     <string name="address_book_context_copy_to_clipboard_title">Ins Clipboard kopieren</string>
-    <string name="address_book_options_paste_from_clipboard_title">Aus dem Clipboard einfügen</string>
-    <string name="address_book_options_paste_from_clipboard_empty">Clipboard ist leer</string>
-    <string name="address_book_options_paste_from_clipboard_invalid">Die Daten auf dem Clipboard sind nicht entzifferbar</string>
-    <string name="address_book_options_paste_from_clipboard_own_address">Die Adresse auf dem Clipboard ist eine deiner eigenen.</string>
     <string name="address_book_options_scan_title">Adresse scannen</string>
     <string name="address_book_options_scan_invalid">Gescannte Daten sind nicht entzifferbar</string>
     <string name="address_book_options_scan_own_address">Die gescannte Adresse ist eine deiner eigenen.</string>
+    <string name="address_book_row_current_address">Dies ist deine aktuelle Empfangsadresse.</string>
     <string name="address_book_row_message_compromised_key">Diese Adresse ist vielleicht kompromittiert. Du solltest sie nicht mehr zum Empfang von Groestlcoins nutzen.</string>
     <string name="edit_address_book_entry_dialog_title_add">Sendeadresse hinzufügen</string>
     <string name="edit_address_book_entry_dialog_title_edit">Name von Sendeadresse ändern</string>
@@ -239,6 +238,9 @@
     <string name="input_parser_invalid_paymentrequest">Ungültige Zahlungsanforderung:\n%s</string>
     <string name="input_parser_invalid_transaction">Ungültige Transaktion:\n%s</string>
     <string name="preferences_activity_title">Einstellungen</string>
+    <string name="preferences_category_general">Allgemein</string>
+    <string name="preferences_category_privacy">Kontrolle der Privatsphäre</string>
+    <string name="preferences_category_merchants">Händler</string>
     <string name="preferences_category_diagnostics">Diagnose</string>
     <string name="preferences_category_labs">Labor</string>
     <string name="preferences_precision_title">Stückelung und Genauigkeit</string>
@@ -249,11 +251,18 @@
     <string name="preferences_precision_labels_2_3">mGRS, 2 Dezimalen</string>
     <string name="preferences_precision_labels_0_6">µGRS, keine Dezimalen</string>
     <string name="preferences_own_name_title">Eigener Name</string>
-    <string name="preferences_own_name_summary">Dein eigener Name, der zu Zahlungsanforderungen hinzugefügt wird. Versuch ihn kurz zu halten.</string>
+    <string name="preferences_own_name_summary">Dein Name oder der deiner Firma, der zu Zahlungsanforderungen an deine Kunden hinzugefügt wird.</string>
+    <string name="preferences_own_name_dialog_message">Bitte halte ihn kurz.</string>
     <string name="preferences_send_coins_autoclose_title">Senden-Dialog automatisch schließen</string>
     <string name="preferences_send_coins_autoclose_summary">Wenn die Zahlung gesendet ist, wird der Senden-Dialog automatisch geschlossen.</string>
+    <string name="preferences_sync_mode_title">Datenverbrauch vs. Privatsphäre</string>
+    <string name="preferences_sync_mode_summary">Wähle bei der Netzwerk-Synchronisation zwischen geringem Datenverbrauch und verbesserter Privatsphäre.</string>
+    <string name="preferences_sync_mode_labels_connection_filter"><![CDATA[<b>Geringer Datenverbrauch:</b> Nutzt einen Netzwerk-Filter um nur Transaktionen zu übertragen, die relevant für deine Wallet sind. Das benötigt etwa 500 MB pro Monat, teilt den Filter aber dem Netzwerk mit.]]></string>
+    <string name="preferences_sync_mode_labels_full"><![CDATA[<b>Verbesserte Privatsphäre:</b> Legt keine Informationen über deine Wallet offen. Beachte daß weil alle Transaktionen übertragen werden, benötigt dies üppige 10 GB pro Monat. Bevor du dies nutzt, kläre bitte ob sich dein Tarif eignet.]]></string>
     <string name="preferences_trusted_peer_title">Vertrauenswürdiger Peer</string>
     <string name="preferences_trusted_peer_summary">IP oder Hostname eines einzelnen Peers, der verbunden wird.</string>
+    <string name="preferences_trusted_peer_dialog_message">Bitte gib eine gültige IP-Adresse oder einen Hostnamen ein. Wenn du Tor eingerichtet hast, kannst du hier auch eine Onion-Adresse verwenden.</string>
+    <string name="preferences_trusted_peer_dialog_message_multiple">Du kannst mehrere vertrauenswürdige Peers angeben, indem du sie mit einem Leerzeichen trennst.</string>
     <string name="preferences_trusted_peer_resolve_progress">Namensauflösung läuft…</string>
     <string name="preferences_trusted_peer_resolve_unknown_host">Unbekannter Hostname!</string>
     <string name="preferences_trusted_peer_only_title">Reguläre Peers übergehen</string>
@@ -268,6 +277,9 @@
     <string name="preferences_remind_balance_summary">Nach einigen Wochen Nicht-Nutzung wird die App daran erinnern wenn sich noch Groestlcoins in der Wallet befinden.</string>
     <string name="preferences_show_disclaimer_title">Disclaimer anzeigen</string>
     <string name="preferences_show_disclaimer_summary">Hast du wirklich die Sicherheitshinweise gelesen? Hast du deine Wallet bereits an einen sicheren Ort gesichert?</string>
+    <string name="preferences_bluetooth_address_title">Bluetooth-Adresse</string>
+    <string name="preferences_bluetooth_address_summary">Stellt die eigene Blueooth-Adresse manuell ein, so daß du Zahlungen von Sendern ohne Konnektivität empfangen kannst.</string>
+    <string name="preferences_bluetooth_address_dialog_message">Leider verhindert Android die automatische Ermittlung der Bluetooth-Adresse deines Geräts. Du musst sie in den Android-Bluetooth-Einstellungen nachschauen und hier eintragen.\n\nAchte bitte darauf, daß jedes Zeichen richtig ist. Doppelpunkte können weggelassen werden, und die Groß- und Kleinschreibung ist nicht wichtig.</string>
     <string name="preferences_report_issue_title">Problem melden</string>
     <string name="preferences_initiate_reset_title">Blockchain zurücksetzen</string>
     <string name="preferences_initiate_reset_summary">Blockchain, Transaktionen und Guthaben werden zurückgesetzt. Das Wiedereinspielen wird eine Weile dauern, also mach das nur wenn du weisst warum.</string>
@@ -286,7 +298,6 @@
     <string name="report_issue_dialog_description">Problembeschreibung</string>
     <string name="report_issue_dialog_report">Senden</string>
     <string name="report_issue_dialog_collect_device_info">Geräte-Informationen anhängen</string>
-    <string name="report_issue_dialog_collect_installed_packages">Liste von installierten Paketen anhängen</string>
     <string name="report_issue_dialog_collect_application_log">Applikations-Logfile anhängen</string>
     <string name="report_issue_dialog_collect_wallet_dump">Dump der Wallet anhängen</string>
     <string name="report_issue_dialog_mail_intent_chooser">Bericht senden mit…</string>
@@ -309,13 +320,17 @@
     <string name="about_faq_title">FAQ</string>
     <string name="about_faq_summary">Häufig gestellte Fragen über die App</string>
     <string name="notification_coins_received_msg">%s empfangen</string>
-    <string name="notification_connectivity_syncing_message">Synchronisation mit dem Netzwerk…</string>
+    <string name="notification_connectivity_syncing_message">Synchronisiere mit dem Netzwerk…</string>
+    <string name="notification_connectivity_syncing_trusted_peer">Synchronisiere mit deinem vertrauenswürdigen Peer…</string>
     <string name="notification_peers_connected_msg">%d Peers verbunden</string>
+    <string name="notification_peer_connected">verbunden</string>
+    <string name="notification_peer_not_connected">nicht verbunden</string>
     <string name="notification_inactivity_title">Du hast noch Groestlcoins auf diesem Gerät!</string>
     <string name="notification_inactivity_message">Denk daran: Dein Guthaben von %s wird verloren sein, wenn du die Groestlcoin Wallet App de-installierst ohne es vorher an eine andere Wallet hin zu senden.</string>
     <string name="notification_inactivity_message_donate">Wenn dir die Groestlcoins egal sind, könntest du sie auch dem Groestlcoin Wallet Projekt spenden.</string>
     <string name="notification_inactivity_action_dismiss">Später erinnern</string>
     <string name="notification_inactivity_action_dismiss_forever">Nicht erinnern</string>
+    <string name="notification_bluetooth_service_listening">Bereit zum Empfang von Zahlungen über Bluetooth</string>
     <string name="notification_channel_received_name">Empfangene Zahlungen</string>
     <string name="notification_channel_ongoing_name">Hintergrundaktivität</string>
     <string name="notification_channel_important_name">Wichtige Warnungen</string>
@@ -340,7 +355,6 @@
     <string name="button_send_coins">Senden</string>
     <string name="button_scan">Scannen</string>
     <string name="button_settings">Einstellungen</string>
-    <string name="button_options">Weitere Optionen</string>
     <string name="action_show_qr">QR-Code zeigen</string>
     <string name="action_browse">Im Browser öffnen</string>
 

@@ -1,6 +1,5 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="help_wallet">
 <![CDATA[
 		<p>
@@ -110,7 +109,7 @@
             <b>Technical notes:</b>
         </p>
         <p>
-            As an SPV/light wallet, Groestlcoin Wallet follows the chain of the most proof-of-work (sometimes also called the \"longest chain\", the \"winning chain\" or the \"Groestlcoin blockchain\").
+            As an SPV/light wallet, Groestlcoin Wallet follows the chain of the most proof-of-work (sometimes also called the \"longest chain\", the \"winning chain\" or the \"Groestlcoin block chain\").
             You will only receive incoming payments and be able to pay on that chain.
             No guarantees can be made about Groestlcoins on minority chains, that is chains with less proof-of-work.
         </p>
@@ -121,5 +120,4 @@
         </p>
     ]]>
     </string>
-
 </resources>

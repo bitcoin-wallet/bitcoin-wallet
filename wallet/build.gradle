@@ -8,33 +8,34 @@ repositories {
 }
 configurations {
     all*.exclude group: 'com.google.android', module: 'android'
-    all*.exclude group: 'androidx.legacy', module: 'legacy-support-core-ui'
-    all*.exclude group: 'androidx.legacy', module: 'legacy-support-core-utils'
+    all*.exclude group: 'androidx.viewpager', module: 'viewpager'
 }
 
 dependencies {
     implementation project(':integration-android')
-    implementation 'androidx.annotation:annotation:1.1.0'
-    implementation 'androidx.core:core:1.1.0'
-    implementation 'androidx.fragment:fragment:1.1.0'
-    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation 'androidx.annotation:annotation:1.2.0'
+    implementation 'androidx.core:core:1.5.0'
+    implementation 'androidx.fragment:fragment:1.3.4'
+    implementation 'androidx.recyclerview:recyclerview:1.2.0'
     implementation 'androidx.cardview:cardview:1.0.0'
-    implementation 'androidx.coordinatorlayout:coordinatorlayout:1.0.0'
-    implementation 'androidx.viewpager:viewpager:1.0.0'
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
-    implementation "androidx.sqlite:sqlite:2.0.1"
-    implementation "androidx.room:room-runtime:2.2.2"
-    annotationProcessor "androidx.room:room-compiler:2.2.2"
-    implementation 'org.groestlcoinj:groestlcoinj-core:0.15.5'
+    implementation 'androidx.coordinatorlayout:coordinatorlayout:1.1.0'
+    implementation 'androidx.viewpager2:viewpager2:1.0.0'
+    implementation 'androidx.lifecycle:lifecycle-service:2.3.1'
+    implementation 'androidx.sqlite:sqlite:2.1.0'
+    implementation "androidx.room:room-runtime:2.3.0"
+    annotationProcessor "androidx.room:room-compiler:2.3.0"
+    implementation 'org.groestlcoinj:groestlcoinj-core:0.15.10'
     implementation 'com.google.protobuf:protobuf-java:3.7.1'
-    implementation 'com.google.guava:guava:28.1-android'
+    implementation 'com.google.guava:guava:29.0-android'
     implementation 'com.google.zxing:core:3.3.3'
-    implementation 'com.squareup.okhttp3:okhttp:3.14.4'
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.14.4'
-    implementation 'com.squareup.moshi:moshi:1.9.2'
-    implementation 'org.slf4j:slf4j-api:1.7.29'
+    //noinspection GradleDependency
+    implementation 'com.squareup.okhttp3:okhttp:3.14.9'
+    //noinspection GradleDependency
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.14.9'
+    implementation 'com.squareup.moshi:moshi:1.9.3'
+    implementation 'org.slf4j:slf4j-api:1.7.30'
     implementation 'com.github.tony19:logback-android:2.0.0'
-    testImplementation 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.13.1'
 }
 
 ext {
@@ -43,7 +44,7 @@ ext {
 
 android {
     compileSdkVersion 'android-29'
-    buildToolsVersion '29.0.2'
+    buildToolsVersion '29.0.3'
 
     defaultConfig {
         applicationId 'hashengineering.groestlcoin'
@@ -63,12 +64,13 @@ android {
             }
         }
         minSdkVersion 21
+        targetSdkVersion 29
     }
 
     buildTypes {
         all {
             minifyEnabled true
-            shrinkResources true
+            shrinkResources false
             proguardFile 'proguard.cfg'
         }
         debug {

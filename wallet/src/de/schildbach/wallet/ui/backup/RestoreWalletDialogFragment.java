@@ -20,12 +20,9 @@ package de.schildbach.wallet.ui.backup;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.ActivityNotFoundException;
 import android.content.ContentResolver;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnCancelListener;
-import android.content.DialogInterface.OnClickListener;
-import android.content.DialogInterface.OnShowListener;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -39,8 +36,7 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import com.google.common.io.CharStreams;
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
@@ -52,8 +48,8 @@ import de.schildbach.wallet.ui.DialogBuilder;
 import de.schildbach.wallet.ui.Event;
 import de.schildbach.wallet.ui.ShowPasswordCheckListener;
 import de.schildbach.wallet.util.Crypto;
+import de.schildbach.wallet.util.Toast;
 import de.schildbach.wallet.util.WalletUtils;
-import org.bitcoinj.core.Coin;
 import org.bitcoinj.wallet.Wallet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -110,7 +106,7 @@ public class RestoreWalletDialogFragment extends DialogFragment {
         this.application = activity.getWalletApplication();
         this.contentResolver = application.getContentResolver();
         this.config = application.getConfiguration();
-        this.fragmentManager = getFragmentManager();
+        this.fragmentManager = getParentFragmentManager();
     }
 
     @Override
@@ -118,16 +114,16 @@ public class RestoreWalletDialogFragment extends DialogFragment {
         super.onCreate(savedInstanceState);
         log.info("opening dialog {}", getClass().getName());
 
-        viewModel = ViewModelProviders.of(this).get(RestoreWalletViewModel.class);
+        viewModel = new ViewModelProvider(this).get(RestoreWalletViewModel.class);
         viewModel.showSuccessDialog.observe(this, new Event.Observer<Boolean>() {
             @Override
-            public void onEvent(final Boolean showEncryptedMessage) {
+            protected void onEvent(final Boolean showEncryptedMessage) {
                 SuccessDialogFragment.showDialog(fragmentManager, showEncryptedMessage);
             }
         });
         viewModel.showFailureDialog.observe(this, new Event.Observer<String>() {
             @Override
-            public void onEvent(final String message) {
+            protected void onEvent(final String message) {
                 FailureDialogFragment.showDialog(fragmentManager, message, viewModel.backupUri.getValue());
             }
         });
@@ -153,7 +149,12 @@ public class RestoreWalletDialogFragment extends DialogFragment {
             final Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
             intent.addCategory(Intent.CATEGORY_OPENABLE);
             intent.setType("*/*");
-            startActivityForResult(intent, REQUEST_CODE_OPEN_DOCUMENT);
+            try {
+                startActivityForResult(intent, REQUEST_CODE_OPEN_DOCUMENT);
+            } catch (final ActivityNotFoundException x) {
+                log.warn("Cannot open document selector: {}", intent);
+                new Toast(activity).longToast(R.string.toast_start_storage_provider_selector_failed);
+            }
         }
     }
 
@@ -181,14 +182,12 @@ public class RestoreWalletDialogFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(final Bundle savedInstanceState) {
         final View view = LayoutInflater.from(activity).inflate(R.layout.restore_wallet_dialog, null);
-        messageView = (TextView) view.findViewById(R.id.restore_wallet_dialog_message);
-        passwordView = (EditText) view.findViewById(R.id.restore_wallet_dialog_password);
-        showView = (CheckBox) view.findViewById(R.id.restore_wallet_dialog_show);
+        messageView = view.findViewById(R.id.restore_wallet_dialog_message);
+        passwordView = view.findViewById(R.id.restore_wallet_dialog_password);
+        showView = view.findViewById(R.id.restore_wallet_dialog_show);
         replaceWarningView = view.findViewById(R.id.restore_wallet_dialog_replace_warning);
 
-        final DialogBuilder builder = new DialogBuilder(activity);
-        builder.setTitle(R.string.import_keys_dialog_title);
-        builder.setView(view);
+        final DialogBuilder builder = DialogBuilder.custom(activity, R.string.import_keys_dialog_title, view);
         builder.setPositiveButton(R.string.import_keys_dialog_button_import, (dialog, which) -> {
             final String password = passwordView.getText().toString().trim();
             passwordView.setText(null); // get rid of it asap
@@ -282,7 +281,6 @@ public class RestoreWalletDialogFragment extends DialogFragment {
         @Override
         public Dialog onCreateDialog(final Bundle savedInstanceState) {
             final boolean showEncryptedMessage = getArguments().getBoolean(KEY_SHOW_ENCRYPTED_MESSAGE);
-            final DialogBuilder dialog = new DialogBuilder(activity);
             final StringBuilder message = new StringBuilder();
             message.append(getString(R.string.restore_wallet_dialog_success));
             message.append("\n\n");
@@ -291,7 +289,7 @@ public class RestoreWalletDialogFragment extends DialogFragment {
                 message.append("\n\n");
                 message.append(getString(R.string.restore_wallet_dialog_success_encrypted));
             }
-            dialog.setMessage(message);
+            final DialogBuilder dialog = DialogBuilder.dialog(activity, 0, message);
             dialog.setNeutralButton(R.string.button_ok, (dialog1, id) -> {
                 BlockchainService.resetBlockchain(activity);
                 activity.finish();
@@ -326,9 +324,9 @@ public class RestoreWalletDialogFragment extends DialogFragment {
         public Dialog onCreateDialog(final Bundle savedInstanceState) {
             final String exceptionMessage = getArguments().getString(KEY_EXCEPTION_MESSAGE);
             final Uri backupUri = checkNotNull((Uri) getArguments().getParcelable(KEY_BACKUP_URI));
-            final DialogBuilder dialog = DialogBuilder.warn(getContext(),
-                    R.string.import_export_keys_dialog_failure_title);
-            dialog.setMessage(getString(R.string.import_keys_dialog_failure, exceptionMessage));
+            final DialogBuilder dialog = DialogBuilder.warn(activity,
+                    R.string.import_export_keys_dialog_failure_title, R.string.import_keys_dialog_failure,
+                    exceptionMessage);
             dialog.setPositiveButton(R.string.button_dismiss, (dialog13, which) -> {
                 if (activity instanceof RestoreWalletFromExternalActivity)
                     activity.finish();
@@ -337,7 +335,7 @@ public class RestoreWalletDialogFragment extends DialogFragment {
                 if (activity instanceof RestoreWalletFromExternalActivity)
                     activity.finish();
             });
-            dialog.setNegativeButton(R.string.button_retry, (dialog1, id) -> RestoreWalletDialogFragment.show(getFragmentManager(), backupUri));
+            dialog.setNegativeButton(R.string.button_retry, (dialog1, id) -> RestoreWalletDialogFragment.show(getParentFragmentManager(), backupUri));
             return dialog.create();
         }
     }

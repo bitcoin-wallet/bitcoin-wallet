@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2015 the original author or authors.
+ * Copyright the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,11 +18,23 @@
 package de.schildbach.wallet.util;
 
 import org.junit.Test;
+<<<<<<< HEAD
 
 import java.util.regex.Matcher;
 
 import static org.junit.Assert.*;
 
+=======
+
+import java.util.regex.Matcher;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
+>>>>>>> a0368a8a7e47b7ad07d1193f6549da1071bf19c2
 /**
  * @author Andreas Schildbach
  */

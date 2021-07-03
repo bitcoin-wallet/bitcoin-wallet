@@ -15,7 +15,6 @@
 	<string name="wallet_address_fragment_clipboard_msg">Adresa skopírovaná do schránky</string>
 	<string name="wallet_balance_fragment_replaying">Zostatok je nedostupný počas synchronizácie.</string>
 	<string name="exchange_rates_activity_title">Výmenné kurzy</string>
-	<string name="exchange_rates_fragment_empty_text">Nepodarilo sa načítať výmenné kurzy</string>
 	<string name="exchange_rates_fragment_default">(predvolené)</string>
 	<string name="exchange_rates_fragment_rate">kurz</string>
 	<string name="exchange_rates_fragment_balance">zostatok</string>
@@ -85,9 +84,6 @@
 	<string name="address_book_context_edit_title">Upraviť adresu</string>
 	<string name="address_book_context_remove_title">Odstrániť adresu</string>
 	<string name="address_book_context_copy_to_clipboard_title">Skopírovať do schránky</string>
-	<string name="address_book_options_paste_from_clipboard_title">Prilepiť zo schránky</string>
-	<string name="address_book_options_paste_from_clipboard_empty">Schránka je prázdna</string>
-	<string name="address_book_options_paste_from_clipboard_invalid">Dáta zo schránky nebolo možné rozpoznať</string>
 	<string name="address_book_options_scan_title">Skenovať adresu</string>
 	<string name="address_book_options_scan_invalid">Skenované dáta nebolo možné rozpoznať</string>
 	<string name="address_book_row_message_compromised_key">Táto adresa môže byť ohrozená. Nemali by ste ju už používať na prijímanie Groestlcoinov.</string>
@@ -139,9 +135,9 @@
 	<string name="preferences_data_usage_title">Využitie dát</string>
 	<string name="preferences_data_usage_summary">Zobraziť možnosti na zabránenie využívaniu dát na mobilných sieťach.</string>
 	<string name="preferences_report_issue_title">Nahlásiť problém</string>
-	<string name="preferences_initiate_reset_title">Resetovať Blockchain</string>
-	<string name="preferences_initiate_reset_summary">Resetovať blockchain, transakcie a zostatok v peňaženke. Opätovné načítanie bude chvíľu trvať.</string>
-	<string name="preferences_initiate_reset_dialog_message">Chcete resetovať a znovu načítať blockchain?\n\nTáto operácia dočasne skryje zostatok a transakcie vo vašej peňaženke. Oboje sa opäť obnoví, keď sa blockchain synchronizuje.</string>
+	<string name="preferences_initiate_reset_title">Resetovať block chain</string>
+	<string name="preferences_initiate_reset_summary">Resetovať block chain, transakcie a zostatok v peňaženke. Opätovné načítanie bude chvíľu trvať.</string>
+	<string name="preferences_initiate_reset_dialog_message">Chcete resetovať a znovu načítať block chain?\n\nTáto operácia dočasne skryje zostatok a transakcie vo vašej peňaženke. Oboje sa opäť obnoví, keď sa block chain synchronizuje.</string>
 	<string name="preferences_initiate_reset_dialog_positive">Reset</string>
 	<string name="report_issue_dialog_title_issue">Nahlásiť problém</string>
 	<string name="report_issue_dialog_title_crash">Zistené predchádzajúce zlyhanie aplikácie</string>
@@ -150,7 +146,6 @@
 	<string name="report_issue_dialog_description">popis problému</string>
 	<string name="report_issue_dialog_report">Odoslať</string>
 	<string name="report_issue_dialog_collect_device_info">Pripojiť informácie o zariadení</string>
-	<string name="report_issue_dialog_collect_installed_packages">Pripojiť zoznam nainštalovaných balíčkov</string>
 	<string name="report_issue_dialog_collect_application_log">Pripojiť aplikačný log</string>
 	<string name="report_issue_dialog_collect_wallet_dump">Pripojiť dáta peňaženky</string>
 	<string name="report_issue_dialog_mail_intent_chooser">Odoslať správu použitím…</string>

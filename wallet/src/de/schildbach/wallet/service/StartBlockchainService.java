@@ -57,7 +57,7 @@ public class StartBlockchainService extends JobService {
         else
             interval = DateUtils.DAY_IN_MILLIS;
 
-        log.info("last used {} minutes ago{}, rescheduling blockchain sync in roughly {} minutes",
+        log.info("last used {} minutes ago{}, rescheduling block chain sync in roughly {} minutes",
                 lastUsedAgo / DateUtils.MINUTE_IN_MILLIS, expectLargeData ? " and expecting large data" : "",
                 interval / DateUtils.MINUTE_IN_MILLIS);
 
@@ -87,11 +87,11 @@ public class StartBlockchainService extends JobService {
         final boolean batteryLow = registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_LOW)) != null;
         final boolean powerSaveMode = pm.isPowerSaveMode();
         if (storageLow)
-            log.info("storage low, not starting blockchain sync");
+            log.info("storage low, not starting block chain sync");
         if (batteryLow)
-            log.info("battery low, not starting blockchain sync");
+            log.info("battery low, not starting block chain sync");
         if (powerSaveMode)
-            log.info("power save mode, not starting blockchain sync");
+            log.info("power save mode, not starting block chain sync");
         if (!storageLow && !batteryLow && !powerSaveMode)
             BlockchainService.start(this, false);
         return false;

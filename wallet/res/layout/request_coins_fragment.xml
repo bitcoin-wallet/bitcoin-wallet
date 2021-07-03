@@ -20,14 +20,14 @@
         android:paddingBottom="@dimen/list_entry_padding_vertical_lax"
         android:paddingLeft="@dimen/list_entry_padding_horizontal_lax"
         android:paddingRight="@dimen/list_entry_padding_horizontal"
-        android:paddingTop="@dimen/list_entry_padding_vertical_lax" >
+        android:paddingTop="@dimen/list_entry_padding_vertical_lax">
 
         <LinearLayout
             android:layout_width="0px"
             android:layout_height="match_parent"
             android:layout_gravity="left"
             android:layout_weight="1"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/request_coins_fragment_initiate_request"
@@ -44,7 +44,7 @@
             android:layout_gravity="center"
             android:layout_marginLeft="@dimen/list_entry_padding_horizontal"
             android:elevation="2dp"
-            android:foreground="?android:attr/selectableItemBackground" >
+            android:foreground="?android:attr/selectableItemBackground">
 
             <ImageView
                 android:id="@+id/request_coins_qr"
@@ -56,5 +56,4 @@
                 android:scaleType="fitXY" />
         </androidx.cardview.widget.CardView>
     </LinearLayout>
-
 </LinearLayout>

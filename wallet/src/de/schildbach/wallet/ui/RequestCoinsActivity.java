@@ -17,20 +17,17 @@
 
 package de.schildbach.wallet.ui;
 
-import org.bitcoinj.script.Script;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import de.schildbach.wallet.R;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
+import de.schildbach.wallet.R;
+import org.bitcoinj.script.Script;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Andreas Schildbach
@@ -56,13 +53,13 @@ public final class RequestCoinsActivity extends AbstractWalletActivity {
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        log.info("Referrer: {}", ActivityCompat.getReferrer(this));
+        log.info("Referrer: {}", getReferrer());
         setContentView(R.layout.request_coins_content);
 
-        viewModel = ViewModelProviders.of(this).get(RequestCoinsActivityViewModel.class);
+        viewModel = new ViewModelProvider(this).get(RequestCoinsActivityViewModel.class);
         viewModel.showHelpDialog.observe(this, new Event.Observer<Integer>() {
             @Override
-            public void onEvent(final Integer messageResId) {
+            protected void onEvent(final Integer messageResId) {
                 HelpDialogFragment.page(getSupportFragmentManager(), messageResId);
             }
         });

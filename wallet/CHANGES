@@ -104,7 +104,93 @@ v1.00
 
 Bitcoin Wallet
 =======
-v7.38
+v8.10-v8.14
+
+* Based on bitcoinj 0.15.10.
+
+v8.08-v8.09
+
+* Update translations from Transifex.
+* Based on bitcoinj 0.15.9.
+
+v8.04-v8.07
+
+* Trusted peers with custom TCP ports are now supported. Use the IPv4:port or [IPv6]:port syntax.
+
+v8.0-v8.03
+
+* The app now requires Android 6.0 (Marshmallow) or higher.
+* On modern devices: Introduce a blockchain synchronization mode that prioritizes privacy vs data usage.
+
+v7.62-v7.69
+
+* Allow multiple trusted peers by separating them with a space character.
+
+v7.60-v7.61
+
+* Visual overhaul of the transactions list.
+
+v7.59
+
+* Visual overhaul of the exchange rates list.
+
+v7.58
+
+* Visual overhaul of the network monitor.
+
+v7.57
+
+* Visual overhaul of the address book.
+
+v7.56
+
+* Remove the ability to directly add an address to the address book from the clipboard due to safety concerns.
+  The QR code scanner can still be used, and addresses you've already sent to can be added as well.
+
+v7.55
+
+* Minor bugfixes.
+
+v7.52-v7.54
+
+* Get rid of the last internal content provider; replace it with a repository and an SQLite database.
+
+v7.50-v7.51
+
+* Use CoinGecko.com for exchange rates, as BitcoinAverage.com is currently broken.
+* The color of the transaction confirmation indicator has been changed. It now starts red with one confirmation,
+  slowly blending to green for 7 confirmations.
+* On Android 9 and older, switched the app-widget back to dark. On Android 10, use the dark/light system setting.
+
+v7.47-v7.49
+
+* Restructure the settings page.
+* Update translations from Transifex.
+
+v7.46
+
+* Improve offline payments via Bluetooth for Android 8.1 (Oreo) and up.
+  Merchants should configure their own Bluetooth address in the settings.
+
+v7.44-v7.45
+
+* Fix a build reproducibility issue.
+* Update translations from Transifex.
+
+v7.43
+
+* Customize the connectivity notification in trusted peer mode.
+
+v7.42
+
+* Fix layout on 10in tablets.
+
+v7.41
+
+* Fix issue with not being able to send due to blockchain replay.
+* Based on bitcoinj 0.15.6.
+
+v7.38-v7.40
 
 * Improve design of app-widget.
 * Update translations from Transifex.

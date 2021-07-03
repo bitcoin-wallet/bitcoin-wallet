@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2015 the original author or authors.
+ * Copyright the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,8 +17,6 @@
 
 package de.schildbach.wallet.ui;
 
-import de.schildbach.wallet.R;
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface.OnClickListener;
@@ -27,7 +25,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import androidx.annotation.DrawableRes;
 import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
+import de.schildbach.wallet.R;
 
 /**
  * @author Andreas Schildbach
@@ -37,18 +38,46 @@ public class DialogBuilder extends AlertDialog.Builder {
     private final ImageView iconView;
     private final TextView titleView;
 
-    public static DialogBuilder warn(final Context context, final int titleResId) {
+    public static DialogBuilder dialog(final Context context, @StringRes final int titleResId,
+                                       @StringRes final int messageResId,
+                                       final Object... messageArgs) {
+        return dialog(context, titleResId, context.getString(messageResId, messageArgs));
+    }
+
+    public static DialogBuilder dialog(final Context context, @StringRes final int titleResId, final CharSequence message) {
         final DialogBuilder builder = new DialogBuilder(context);
-        builder.setIcon(R.drawable.ic_warning_grey600_24dp);
-        builder.setTitle(titleResId);
+        if (titleResId != 0)
+            builder.setTitle(titleResId);
+        builder.setMessage(message);
         return builder;
     }
 
-    public DialogBuilder(final Context context) {
+    public static DialogBuilder warn(final Context context, @StringRes final int titleResId,
+                                     @StringRes final int messageResId,
+                                     final Object... messageArgs) {
+        return warn(context, titleResId, context.getString(messageResId, messageArgs));
+    }
+
+    public static DialogBuilder warn(final Context context, @StringRes final int titleResId,
+                                     final CharSequence message) {
+        final DialogBuilder builder = dialog(context, titleResId, message);
+        builder.setIcon(R.drawable.ic_warning_grey600_24dp);
+        return builder;
+    }
+
+    public static DialogBuilder custom(final Context context, @StringRes final int titleResId, final View view) {
+        final DialogBuilder builder = new DialogBuilder(context);
+        if (titleResId != 0)
+            builder.setTitle(titleResId);
+        builder.setView(view);
+        return builder;
+    }
+
+    protected DialogBuilder(final Context context) {
         super(context, R.style.My_Theme_Dialog);
         this.customTitle = LayoutInflater.from(context).inflate(R.layout.dialog_title, null);
-        this.iconView = (ImageView) customTitle.findViewById(android.R.id.icon);
-        this.titleView = (TextView) customTitle.findViewById(android.R.id.title);
+        this.iconView = customTitle.findViewById(android.R.id.icon);
+        this.titleView = customTitle.findViewById(android.R.id.title);
     }
 
     @Override
@@ -63,7 +92,7 @@ public class DialogBuilder extends AlertDialog.Builder {
     }
 
     @Override
-    public DialogBuilder setIcon(final int iconResId) {
+    public DialogBuilder setIcon(@DrawableRes final int iconResId) {
         if (iconResId != 0) {
             setCustomTitle(customTitle);
             iconView.setImageResource(iconResId);
@@ -84,7 +113,7 @@ public class DialogBuilder extends AlertDialog.Builder {
     }
 
     @Override
-    public DialogBuilder setTitle(final int titleResId) {
+    public DialogBuilder setTitle(@StringRes final int titleResId) {
         if (titleResId != 0) {
             setCustomTitle(customTitle);
             titleView.setText(titleResId);
@@ -101,7 +130,7 @@ public class DialogBuilder extends AlertDialog.Builder {
     }
 
     @Override
-    public DialogBuilder setMessage(final int messageResId) {
+    public DialogBuilder setMessage(@StringRes final int messageResId) {
         super.setMessage(messageResId);
 
         return this;

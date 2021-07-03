@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_level0"
+    android:orientation="vertical">
+
+    <de.schildbach.wallet.util.ViewPagerTabs
+        android:id="@+id/network_monitor_pager_tabs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="4dp"
+        android:paddingTop="4dp" />
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/network_monitor_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom|center_horizontal" />
+</LinearLayout>

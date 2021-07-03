@@ -17,23 +17,20 @@
 
 package de.schildbach.wallet.ui;
 
-import java.util.List;
-
-import org.bitcoinj.core.Transaction;
-import org.bitcoinj.wallet.DeterministicUpgradeRequiresPassword;
-import org.bitcoinj.wallet.Wallet;
-
-import com.google.common.util.concurrent.ListenableFuture;
-
-import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.data.AbstractWalletLiveData;
-import de.schildbach.wallet.service.BlockchainState;
-
 import android.app.Application;
 import android.os.AsyncTask;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MediatorLiveData;
+import com.google.common.util.concurrent.ListenableFuture;
+import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.data.AbstractWalletLiveData;
+import de.schildbach.wallet.service.BlockchainState;
+import org.bitcoinj.core.Transaction;
+import org.bitcoinj.wallet.DeterministicUpgradeRequiresPassword;
+import org.bitcoinj.wallet.Wallet;
+
+import java.util.List;
 
 /**
  * @author Andreas Schildbach

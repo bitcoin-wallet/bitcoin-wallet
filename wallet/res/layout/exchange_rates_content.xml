@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<fragment xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.fragment.app.FragmentContainerView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/exchange_rates_fragment"
     android:name="de.schildbach.wallet.ui.ExchangeRatesFragment"
     android:layout_width="match_parent"

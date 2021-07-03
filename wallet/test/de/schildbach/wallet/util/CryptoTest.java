@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2015 the original author or authors.
+ * Copyright the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,9 +17,9 @@
 
 package de.schildbach.wallet.util;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import com.google.common.io.CharStreams;
+import org.bitcoinj.wallet.WalletProtobufSerializer;
+import org.junit.Test;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
@@ -28,10 +28,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 
-import org.bitcoinj.wallet.WalletProtobufSerializer;
-import org.junit.Test;
-
-import com.google.common.io.CharStreams;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author Andreas Schildbach

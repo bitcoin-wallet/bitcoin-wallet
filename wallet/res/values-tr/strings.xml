@@ -14,10 +14,8 @@
   <string name="wallet_address_fragment_clipboard_msg">Groestlcoin adresi panoya kopyalandı</string>
   <string name="wallet_address_dialog_fragment_hint">Gizliliğinizi korumak için bir ödeme aldığında adresiniz değişecektir.</string>
   <string name="wallet_balance_fragment_insecure_device">Donanımınız eski ve güvensiz. Lütfen sadece küçük işlemler için kullanın.</string>
-  <string name="wallet_balance_fragment_too_much">Bu meblağ cebinizde taşımak için oldukça fazladır. Birazını daha güvenli bir yere aktarınız.</string>
   <string name="wallet_balance_fragment_replaying">Tekrar sırasında bakiye kullanılamaz</string>
   <string name="exchange_rates_activity_title">Döviz kurları</string>
-  <string name="exchange_rates_fragment_empty_text">Döviz kurları yüklenemedi.</string>
   <string name="exchange_rates_fragment_empty_search">Değişim kuru bulunamadı.</string>
   <string name="exchange_rates_fragment_default">(varsayılan)</string>
   <string name="exchange_rates_fragment_rate">oran</string>
@@ -57,6 +55,7 @@
   <string name="wallet_old_sdk_dialog_title">Android sürümü eski</string>
   <string name="wallet_old_sdk_dialog_message">Gelecek Groestlcoin Wallet sürümünün cihazınızı desteklememesi mümkündür. Bazı durumlarda bu cihazla Groestlcoin harcamak zor olabilir.\n\nGroestlcoinlerinizi güvenli bir yere aktarmanız tavsiye edilir.</string>
   <string name="alert_dialogs_fragment_settings_failed_title">Ayarları açarken bir sorun oluştu</string>
+  <string name="alert_dialogs_fragment_too_much_balance_dialog_message">Bu meblağ cebinizde taşımak için oldukça fazladır. Birazını daha güvenli bir yere aktarınız.</string>
   <string name="send_coins_activity_title">Groestlcoin gönder</string>
   <string name="send_coins_fragment_request_payment_request_progress">%s unsurundan imza alınıyor…</string>
   <string name="send_coins_fragment_request_payment_request_failed_title">Ödeme talebi getirilemedi</string>
@@ -148,10 +147,6 @@
   <string name="address_book_context_edit_title">Adresi düzenle</string>
   <string name="address_book_context_remove_title">Adresi kaldır</string>
   <string name="address_book_context_copy_to_clipboard_title">Panoya kopyala</string>
-  <string name="address_book_options_paste_from_clipboard_title">Panodan yapıştır</string>
-  <string name="address_book_options_paste_from_clipboard_empty">Pano boş</string>
-  <string name="address_book_options_paste_from_clipboard_invalid">Panodaki veriler tanınamadı</string>
-  <string name="address_book_options_paste_from_clipboard_own_address">Panodaki adres sizinkidir.</string>
   <string name="address_book_options_scan_title">Adresi tara</string>
   <string name="address_book_options_scan_invalid">Taranan veriler tanınamadı</string>
   <string name="address_book_options_scan_own_address">Taranmış adres sizinkidir.</string>
@@ -273,7 +268,6 @@
   <string name="report_issue_dialog_description">problem açıklaması</string>
   <string name="report_issue_dialog_report">Rapor et</string>
   <string name="report_issue_dialog_collect_device_info">Cihaz verileri ilâve et</string>
-  <string name="report_issue_dialog_collect_installed_packages">Kurulu paketlerin listesini ekle</string>
   <string name="report_issue_dialog_collect_application_log">Uygulama kütüğünü ilâve et</string>
   <string name="report_issue_dialog_collect_wallet_dump">Cüzdan dökümü ilâve et</string>
   <string name="report_issue_dialog_mail_intent_chooser">Raporu şununla gönder…</string>

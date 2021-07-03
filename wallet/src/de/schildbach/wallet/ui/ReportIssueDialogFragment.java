@@ -17,6 +17,40 @@
 
 package de.schildbach.wallet.ui;
 
+import android.app.ActivityManager;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.admin.DevicePolicyManager;
+import android.bluetooth.BluetoothAdapter;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.pm.PackageInfo;
+import android.content.res.Resources;
+import android.net.Uri;
+import android.os.Build;
+import android.os.Bundle;
+import android.widget.Button;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewModelProvider;
+import com.google.common.base.Joiner;
+import de.schildbach.wallet.BuildConfig;
+import de.schildbach.wallet.Configuration;
+import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.R;
+import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.util.Bluetooth;
+import de.schildbach.wallet.util.CrashReporter;
+import de.schildbach.wallet.util.Installer;
+import org.bitcoinj.core.Sha256Hash;
+import org.bitcoinj.core.Transaction;
+import org.bitcoinj.core.TransactionOutput;
+import org.bitcoinj.core.Utils;
+import org.bitcoinj.script.ScriptException;
+import org.bitcoinj.wallet.Wallet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Calendar;
@@ -28,41 +62,6 @@ import java.util.Locale;
 import java.util.Set;
 import java.util.TimeZone;
 
-import de.schildbach.wallet.BuildConfig;
-import org.bitcoinj.core.Transaction;
-import org.bitcoinj.core.TransactionOutput;
-import org.bitcoinj.core.Utils;
-import org.bitcoinj.wallet.Wallet;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.google.common.base.Joiner;
-
-import de.schildbach.wallet.Configuration;
-import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.util.Bluetooth;
-import de.schildbach.wallet.util.CrashReporter;
-import de.schildbach.wallet.util.Installer;
-
-import android.app.ActivityManager;
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.app.admin.DevicePolicyManager;
-import android.bluetooth.BluetoothAdapter;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnShowListener;
-import android.content.pm.PackageInfo;
-import android.content.res.Resources;
-import android.os.Build;
-import android.os.Bundle;
-import android.widget.Button;
-import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-
 /**
  * @author Andreas Schildbach
  */
@@ -71,18 +70,19 @@ public class ReportIssueDialogFragment extends DialogFragment {
     private static final String KEY_TITLE = "title";
     private static final String KEY_MESSAGE = "message";
     private static final String KEY_SUBJECT = "subject";
-    private static final String KEY_CONTEXTUAL_DATA = "contextual_data";
+    private static final String KEY_CONTEXTUAL_TRANSACTION_HASH = "contextual_transaction_hash";
 
     private static final TimeZone UTC = TimeZone.getTimeZone("UTC");
 
     public static void show(final FragmentManager fm, final int titleResId, final int messageResId,
-            final String subject, final String contextualData) {
+            final String subject, final Sha256Hash contextualTransactionHash) {
         final DialogFragment newFragment = new ReportIssueDialogFragment();
         final Bundle args = new Bundle();
         args.putInt(KEY_TITLE, titleResId);
         args.putInt(KEY_MESSAGE, messageResId);
         args.putString(KEY_SUBJECT, subject);
-        args.putString(KEY_CONTEXTUAL_DATA, contextualData);
+        if (contextualTransactionHash != null)
+            args.putByteArray(KEY_CONTEXTUAL_TRANSACTION_HASH, contextualTransactionHash.getBytes());
         newFragment.setArguments(args);
         newFragment.show(fm, FRAGMENT_TAG);
     }
@@ -92,7 +92,7 @@ public class ReportIssueDialogFragment extends DialogFragment {
 
     private Button positiveButton;
 
-    private ReportIssueViewModel viewModel;
+    private AbstractWalletActivityViewModel walletActivityViewModel;
 
     private static final Logger log = LoggerFactory.getLogger(ReportIssueDialogFragment.class);
 
@@ -108,7 +108,7 @@ public class ReportIssueDialogFragment extends DialogFragment {
         super.onCreate(savedInstanceState);
         log.info("opening dialog {}", getClass().getName());
 
-        viewModel = ViewModelProviders.of(this).get(ReportIssueViewModel.class);
+        walletActivityViewModel = new ViewModelProvider(activity).get(AbstractWalletActivityViewModel.class);
     }
 
     @Override
@@ -117,7 +117,8 @@ public class ReportIssueDialogFragment extends DialogFragment {
         final int titleResId = args.getInt(KEY_TITLE);
         final int messageResId = args.getInt(KEY_MESSAGE);
         final String subject = args.getString(KEY_SUBJECT);
-        final String contextualData = args.getString(KEY_CONTEXTUAL_DATA);
+        final Sha256Hash contextualTransactionHash = args.containsKey(KEY_CONTEXTUAL_TRANSACTION_HASH) ?
+                Sha256Hash.wrap(args.getByteArray(KEY_CONTEXTUAL_TRANSACTION_HASH)) : null;
 
         final ReportIssueDialogBuilder builder = new ReportIssueDialogBuilder(activity, titleResId, messageResId) {
             @Override
@@ -129,8 +130,7 @@ public class ReportIssueDialogFragment extends DialogFragment {
                 if (installer != null)
                     builder.append(", installer ").append(installer);
                 builder.append(", android ").append(Build.VERSION.RELEASE);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
-                    builder.append(" (").append(Build.VERSION.SECURITY_PATCH).append(")");
+                builder.append(" (").append(Build.VERSION.SECURITY_PATCH).append(")");
                 builder.append(", ").append(Build.MANUFACTURER);
                 if (!Build.BRAND.equalsIgnoreCase(Build.MANUFACTURER))
                     builder.append(' ').append(Build.BRAND);
@@ -161,12 +161,34 @@ public class ReportIssueDialogFragment extends DialogFragment {
 
             @Override
             protected CharSequence collectContextualData() {
+                if (contextualTransactionHash == null)
+                    return null;
+
+                final Wallet wallet = walletActivityViewModel.wallet.getValue();
+                final Transaction tx = wallet.getTransaction(contextualTransactionHash);
+                final StringBuilder contextualData = new StringBuilder();
+                try {
+                    contextualData.append(tx.getValue(wallet).toFriendlyString()).append(" total value");
+                } catch (final ScriptException x) {
+                    contextualData.append(x.getMessage());
+                }
+                contextualData.append('\n');
+                if (tx.hasConfidence())
+                    contextualData.append("  confidence: ").append(tx.getConfidence()).append('\n');
+                final String[] blockExplorers = activity.getResources()
+                        .getStringArray(R.array.preferences_block_explorer_values);
+                for (final String blockExplorer : blockExplorers)
+                    contextualData
+                            .append(Uri.withAppendedPath(Uri.parse(blockExplorer), "tx/" + tx.getTxId().toString()))
+                            .append('\n');
+                contextualData.append(tx.toString()).append('\n');
+                contextualData.append(Constants.HEX.encode(tx.unsafeBitcoinSerialize())).append('\n');
                 return contextualData;
             }
 
             @Override
             protected CharSequence collectWalletDump() {
-                return viewModel.wallet.getValue().toString(false, false, null, true, true, null);
+                return walletActivityViewModel.wallet.getValue().toString(false, false, null, true, true, null);
             }
         };
         final AlertDialog dialog = builder.create();
@@ -175,7 +197,7 @@ public class ReportIssueDialogFragment extends DialogFragment {
             positiveButton = dialog.getButton(DialogInterface.BUTTON_POSITIVE);
             positiveButton.setEnabled(false);
 
-            viewModel.wallet.observe(ReportIssueDialogFragment.this, wallet -> positiveButton.setEnabled(true));
+            walletActivityViewModel.wallet.observe(ReportIssueDialogFragment.this, wallet -> positiveButton.setEnabled(true));
         });
 
         return dialog;
@@ -190,59 +212,55 @@ public class ReportIssueDialogFragment extends DialogFragment {
     private void appendApplicationInfo(final Appendable report, final WalletApplication application)
             throws IOException {
         final PackageInfo pi = application.packageInfo();
-        final Configuration configuration = application.getConfiguration();
+        final Configuration config = application.getConfiguration();
         final Calendar calendar = new GregorianCalendar(UTC);
 
-        report.append("Version: " + pi.versionName + " (" + pi.versionCode + ")\n");
-        report.append("APK Hash: " + application.apkHash().toString() + "\n");
-        report.append("Package: " + pi.packageName + "\n");
+        report.append("Version: ").append(pi.versionName).append(" (").append(String.valueOf(pi.versionCode)).append(
+                ")\n");
+        report.append("APK Hash: ").append(application.apkHash().toString()).append("\n");
+        report.append("Package: ").append(pi.packageName).append("\n");
         report.append("Flavor: " + BuildConfig.FLAVOR + "\n");
         report.append("Build Type: " + BuildConfig.BUILD_TYPE + "\n");
         final String installerPackageName = Installer.installerPackageName(application);
         final Installer installer = Installer.from(installerPackageName);
         if (installer != null)
-            report.append("Installer: " + installer.displayName + " (" + installerPackageName + ")\n");
+            report.append("Installer: ").append(installer.displayName).append(" (").append(installerPackageName).append(")\n");
         else
             report.append("Installer: unknown\n");
-        report.append("Timezone: " + TimeZone.getDefault().getID() + "\n");
+        report.append("Timezone: ").append(TimeZone.getDefault().getID()).append("\n");
         calendar.setTimeInMillis(System.currentTimeMillis());
-        report.append("Current time: " + String.format(Locale.US, "%tF %tT %tZ", calendar, calendar, calendar) + "\n");
+        report.append("Current time: ").append(String.format(Locale.US, "%tF %tT %tZ", calendar, calendar, calendar)).append("\n");
         calendar.setTimeInMillis(WalletApplication.TIME_CREATE_APPLICATION);
-        report.append(
-                "Time of app launch: " + String.format(Locale.US, "%tF %tT %tZ", calendar, calendar, calendar) + "\n");
+        report.append("Time of app launch: ").append(String.format(Locale.US, "%tF %tT %tZ", calendar, calendar,
+                calendar)).append("\n");
         calendar.setTimeInMillis(pi.firstInstallTime);
-        report.append("Time of first app install: "
-                + String.format(Locale.US, "%tF %tT %tZ", calendar, calendar, calendar) + "\n");
+        report.append("Time of first app install: ").append(String.format(Locale.US, "%tF %tT %tZ", calendar,
+                calendar, calendar)).append("\n");
         calendar.setTimeInMillis(pi.lastUpdateTime);
-        report.append("Time of last app update: "
-                + String.format(Locale.US, "%tF %tT %tZ", calendar, calendar, calendar) + "\n");
-        final long lastBackupTime = configuration.getLastBackupTime();
+        report.append("Time of last app update: ").append(String.format(Locale.US, "%tF %tT %tZ", calendar, calendar,
+                calendar)).append("\n");
+        final long lastBackupTime = config.getLastBackupTime();
         calendar.setTimeInMillis(lastBackupTime);
-        report.append("Time of last backup: "
-                + (lastBackupTime > 0 ? String.format(Locale.US, "%tF %tT %tZ", calendar, calendar, calendar) : "none")
-                + "\n");
-        final long lastRestoreTime = configuration.getLastRestoreTime();
+        report.append("Time of last backup: ").append(lastBackupTime > 0 ? String.format(Locale.US, "%tF %tT %tZ",
+                calendar, calendar, calendar) : "none").append("\n");
+        final long lastRestoreTime = config.getLastRestoreTime();
         calendar.setTimeInMillis(lastRestoreTime);
-        report.append("Time of last restore: "
-                + (lastRestoreTime > 0 ? String.format(Locale.US, "%tF %tT %tZ", calendar, calendar, calendar) : "none")
-                + "\n");
-        final long lastEncryptKeysTime = configuration.getLastEncryptKeysTime();
+        report.append("Time of last restore: ").append(lastRestoreTime > 0 ? String.format(Locale.US, "%tF %tT %tZ",
+                calendar, calendar, calendar) : "none").append("\n");
+        final long lastEncryptKeysTime = config.getLastEncryptKeysTime();
         calendar.setTimeInMillis(lastEncryptKeysTime);
-        report.append("Time of last encrypt keys: "
-                + (lastEncryptKeysTime > 0 ? String.format(Locale.US, "%tF %tT %tZ", calendar, calendar, calendar) :
-                "none")
-                + "\n");
-        final long lastBlockchainResetTime = configuration.getLastBlockchainResetTime();
+        report.append("Time of last encrypt keys: ").append(lastEncryptKeysTime > 0 ? String.format(Locale.US, "%tF " +
+                "%tT %tZ", calendar, calendar, calendar) :
+                "none").append("\n");
+        final long lastBlockchainResetTime = config.getLastBlockchainResetTime();
         calendar.setTimeInMillis(lastBlockchainResetTime);
-        report.append(
-                "Time of last blockchain reset: "
-                        + (lastBlockchainResetTime > 0
-                                ? String.format(Locale.US, "%tF %tT %tZ", calendar, calendar, calendar) : "none")
-                        + "\n");
-        report.append("Network: " + Constants.NETWORK_PARAMETERS.getId() + "\n");
-        final Wallet wallet = viewModel.wallet.getValue();
-        report.append("Encrypted: " + wallet.isEncrypted() + "\n");
-        report.append("Keychain size: " + wallet.getKeyChainGroupSize() + "\n");
+        report.append("Time of last blockchain reset: ").append(lastBlockchainResetTime > 0
+                ? String.format(Locale.US, "%tF %tT %tZ", calendar, calendar, calendar) : "none").append("\n");
+        report.append("Network: ").append(Constants.NETWORK_PARAMETERS.getId()).append("\n");
+        report.append("Sync mode: ").append(config.getSyncMode().name()).append("\n");
+        final Wallet wallet = walletActivityViewModel.wallet.getValue();
+        report.append("Encrypted: ").append(String.valueOf(wallet.isEncrypted())).append("\n");
+        report.append("Keychain size: ").append(String.valueOf(wallet.getKeyChainGroupSize())).append("\n");
 
         final Set<Transaction> transactions = wallet.getTransactions(true);
         int numInputs = 0;
@@ -257,22 +275,24 @@ public class ReportIssueDialogFragment extends DialogFragment {
                     numSpentOutputs++;
             }
         }
-        report.append("Transactions: " + transactions.size() + "\n");
-        report.append("Inputs: " + numInputs + "\n");
-        report.append("Outputs: " + numOutputs + " (spent: " + numSpentOutputs + ")\n");
+        report.append("Transactions: ").append(String.valueOf(transactions.size())).append("\n");
+        report.append("Inputs: ").append(String.valueOf(numInputs)).append("\n");
+        report.append("Outputs: ").append(String.valueOf(numOutputs)).append(" (spent: ").append(String.valueOf(numSpentOutputs)).append(")\n");
         final int lastBlockSeenHeight = wallet.getLastBlockSeenHeight();
         final Date lastBlockSeenTime = wallet.getLastBlockSeenTime();
-        report.append("Last block seen: " + lastBlockSeenHeight).append(" (")
+        report.append("Last block seen: ").append(String.valueOf(lastBlockSeenHeight)).append(" (")
                 .append(lastBlockSeenTime == null ? "time unknown" : Utils.dateTimeFormat(lastBlockSeenTime))
                 .append(")\n");
+        report.append("Best chain height ever: ").append(Integer.toString(config.getBestChainHeightEver()))
+                .append("\n");
 
         report.append("Databases:");
         for (final String db : application.databaseList())
-            report.append(" " + db);
+            report.append(" ").append(db);
         report.append("\n");
 
         final File filesDir = application.getFilesDir();
-        report.append("\nContents of FilesDir " + filesDir + ":\n");
+        report.append("\nContents of FilesDir ").append(String.valueOf(filesDir)).append(":\n");
         appendDir(report, filesDir, 0);
         report.append("free/usable space: ").append(Long.toString(filesDir.getFreeSpace() / 1024))
                 .append("/").append(Long.toString(filesDir.getUsableSpace() / 1024)).append(" kB\n");
@@ -302,27 +322,28 @@ public class ReportIssueDialogFragment extends DialogFragment {
         final DevicePolicyManager devicePolicyManager = (DevicePolicyManager) context
                 .getSystemService(Context.DEVICE_POLICY_SERVICE);
 
-        report.append("Manufacturer: " + Build.MANUFACTURER + "\n");
-        report.append("Device Model: " + Build.MODEL + "\n");
-        report.append("Android Version: " + Build.VERSION.RELEASE + "\n");
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
-            report.append("Android security patch level: ").append(Build.VERSION.SECURITY_PATCH).append("\n");
+        report.append("Manufacturer: ").append(Build.MANUFACTURER).append("\n");
+        report.append("Device Model: ").append(Build.MODEL).append("\n");
+        report.append("Android Version: ").append(Build.VERSION.RELEASE)
+                .append(" (").append(Integer.toString(Build.VERSION.SDK_INT)).append(")\n");
+        report.append("Android security patch level: ").append(Build.VERSION.SECURITY_PATCH).append("\n");
         report.append("ABIs: ").append(Joiner.on(", ").skipNulls().join(Build.SUPPORTED_ABIS)).append("\n");
-        report.append("Board: " + Build.BOARD + "\n");
-        report.append("Brand: " + Build.BRAND + "\n");
-        report.append("Device: " + Build.DEVICE + "\n");
-        report.append("Product: " + Build.PRODUCT + "\n");
-        report.append("Configuration: " + config + "\n");
-        report.append("Screen Layout:" //
-                + " size " + (config.screenLayout & android.content.res.Configuration.SCREENLAYOUT_SIZE_MASK) //
-                + " long " + (config.screenLayout & android.content.res.Configuration.SCREENLAYOUT_LONG_MASK) //
-                + " layoutdir " + (config.screenLayout & android.content.res.Configuration.SCREENLAYOUT_LAYOUTDIR_MASK) //
-                + " round " + (config.screenLayout & android.content.res.Configuration.SCREENLAYOUT_ROUND_MASK) + "\n");
-        report.append("Display Metrics: " + res.getDisplayMetrics() + "\n");
-        report.append("Memory Class: " + activityManager.getMemoryClass() + "/" + activityManager.getLargeMemoryClass()
-                + (activityManager.isLowRamDevice() ? " (low RAM device)" : "") + "\n");
-        report.append("Storage Encryption Status: " + devicePolicyManager.getStorageEncryptionStatus() + "\n");
-        report.append("Bluetooth MAC: " + bluetoothMac() + "\n");
+        report.append("Board: ").append(Build.BOARD).append("\n");
+        report.append("Brand: ").append(Build.BRAND).append("\n");
+        report.append("Device: ").append(Build.DEVICE).append("\n");
+        report.append("Product: ").append(Build.PRODUCT).append("\n");
+        report.append("Configuration: ").append(String.valueOf(config)).append("\n");
+        report.append("Screen Layout: size ").append(String.valueOf(config.screenLayout & android.content.res.Configuration.SCREENLAYOUT_SIZE_MASK))
+                .append(" long ").append(String.valueOf(config.screenLayout & android.content.res.Configuration.SCREENLAYOUT_LONG_MASK))
+                .append(" layoutdir ").append(String.valueOf(config.screenLayout & android.content.res.Configuration.SCREENLAYOUT_LAYOUTDIR_MASK))
+                .append(" round ").append(String.valueOf(config.screenLayout & android.content.res.Configuration.SCREENLAYOUT_ROUND_MASK))
+                .append("\n");
+        report.append("Display Metrics: ").append(String.valueOf(res.getDisplayMetrics())).append("\n");
+        report.append("Memory Class: ").append(String.valueOf(activityManager.getMemoryClass())).append("/")
+                .append(String.valueOf(activityManager.getLargeMemoryClass()))
+                .append(activityManager.isLowRamDevice() ? " (low RAM device)" : "").append("\n");
+        report.append("Storage Encryption Status: ").append(String.valueOf(devicePolicyManager.getStorageEncryptionStatus())).append("\n");
+        report.append("Bluetooth MAC: ").append(bluetoothMac()).append("\n");
         report.append("Runtime: ").append(System.getProperty("java.vm.name")).append(" ")
                 .append(System.getProperty("java.vm.version")).append("\n");
     }

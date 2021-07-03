@@ -23,24 +23,26 @@ import java.util.Locale;
 import org.bitcoinj.crypto.DeterministicKey;
 import org.bitcoinj.script.Script;
 import org.bitcoinj.wallet.DeterministicKeyChain;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import de.schildbach.wallet.BuildConfig;
+import android.app.Activity;
+import android.os.Bundle;
+import android.preference.Preference;
+import android.preference.PreferenceFragment;
+import android.preference.PreferenceScreen;
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.R;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.ui.DialogBuilder;
+import org.bitcoinj.crypto.DeterministicKey;
+import org.bitcoinj.script.Script;
+import org.bitcoinj.wallet.DeterministicKeyChain;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import android.app.Activity;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
-import android.os.Bundle;
-import android.preference.Preference;
-import android.preference.PreferenceFragment;
-import android.preference.PreferenceScreen;
+import java.util.Locale;
 
 /**
  * @author Andreas Schildbach
@@ -103,13 +105,12 @@ public final class DiagnosticsFragment extends PreferenceFragment {
     }
 
     private void handleInitiateReset() {
-        final DialogBuilder dialog = new DialogBuilder(activity);
-        dialog.setTitle(R.string.preferences_initiate_reset_title);
-        dialog.setMessage(R.string.preferences_initiate_reset_dialog_message);
+        final DialogBuilder dialog = DialogBuilder.dialog(activity, R.string.preferences_initiate_reset_title,
+                R.string.preferences_initiate_reset_dialog_message);
         dialog.setPositiveButton(R.string.preferences_initiate_reset_dialog_positive, (d, which) -> {
-            log.info("manually initiated blockchain reset");
-
+            log.info("manually initiated block chain reset");
             BlockchainService.resetBlockchain(activity);
+            config.resetBestChainHeightEver();
             config.updateLastBlockchainResetTime();
             activity.finish(); // TODO doesn't fully finish prefs on single pane layouts
         });

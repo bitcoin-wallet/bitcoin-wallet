@@ -17,11 +17,10 @@
 
 package de.schildbach.wallet.data;
 
-import de.schildbach.wallet.Configuration;
-import de.schildbach.wallet.WalletApplication;
-
 import android.content.SharedPreferences;
 import androidx.lifecycle.LiveData;
+import de.schildbach.wallet.Configuration;
+import de.schildbach.wallet.WalletApplication;
 
 /**
  * @author Andreas Schildbach

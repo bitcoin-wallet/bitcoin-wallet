@@ -17,31 +17,28 @@
 
 package de.schildbach.wallet.ui.monitor;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import org.bitcoinj.core.Sha256Hash;
-import org.bitcoinj.core.StoredBlock;
-import org.bitcoinj.core.Transaction;
-import org.bitcoinj.wallet.Wallet;
-
-import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.data.AbstractWalletLiveData;
-import de.schildbach.wallet.data.AddressBookEntry;
-import de.schildbach.wallet.data.AppDatabase;
-import de.schildbach.wallet.data.BlockchainServiceLiveData;
-import de.schildbach.wallet.data.TimeLiveData;
-import de.schildbach.wallet.data.WalletLiveData;
-import de.schildbach.wallet.service.BlockchainService;
-
 import android.app.Application;
 import android.os.AsyncTask;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
+import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.addressbook.AddressBookDatabase;
+import de.schildbach.wallet.addressbook.AddressBookEntry;
+import de.schildbach.wallet.data.AbstractWalletLiveData;
+import de.schildbach.wallet.data.BlockchainServiceLiveData;
+import de.schildbach.wallet.data.TimeLiveData;
+import de.schildbach.wallet.service.BlockchainService;
+import org.bitcoinj.core.Sha256Hash;
+import org.bitcoinj.core.StoredBlock;
+import org.bitcoinj.core.Transaction;
+import org.bitcoinj.wallet.Wallet;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * @author Andreas Schildbach
@@ -51,7 +48,6 @@ public class BlockListViewModel extends AndroidViewModel {
     private final BlockchainServiceLiveData blockchainService;
     public final MediatorLiveData<List<StoredBlock>> blocks;
     private TransactionsLiveData transactions;
-    private WalletLiveData wallet;
     public final LiveData<List<AddressBookEntry>> addressBook;
     private TimeLiveData time;
 
@@ -64,7 +60,7 @@ public class BlockListViewModel extends AndroidViewModel {
         this.blocks = new MediatorLiveData<>();
         this.blocks.addSource(blockchainService, blockchainService -> maybeRefreshBlocks());
         this.blocks.addSource(this.application.blockchainState, blockchainState -> maybeRefreshBlocks());
-        this.addressBook = AppDatabase.getDatabase(this.application).addressBookDao().getAll();
+        this.addressBook = AddressBookDatabase.getDatabase(this.application).addressBookDao().getAll();
     }
 
     private void maybeRefreshBlocks() {
@@ -77,12 +73,6 @@ public class BlockListViewModel extends AndroidViewModel {
         if (transactions == null)
             transactions = new TransactionsLiveData(application);
         return transactions;
-    }
-
-    public WalletLiveData getWallet() {
-        if (wallet == null)
-            wallet = new WalletLiveData(application);
-        return wallet;
     }
 
     public TimeLiveData getTime() {

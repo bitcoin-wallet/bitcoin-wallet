@@ -12,10 +12,8 @@
   <string name="blockchain_state_progress_problem_network">Συγχρονισμός: Πρόβλημα δικτύου</string>
   <string name="wallet_address_fragment_clipboard_msg">H Groestlcoin διεύθυνση αντιγράφηκε στο πρόχειρο</string>
   <string name="wallet_address_dialog_fragment_hint">Για λόγους προστασίας της ανωνυμίας σας, η διεύθυνσή σας θα αλλάζει με κάθε πληρωμή που θα λαμβάνετε.</string>
-  <string name="wallet_balance_fragment_too_much">Το ποσό αυτό είναι αρκετά μεγάλο για να το έχετε σε ένα σημείο. Μετακινήστε μερικά νομίσματα σε άλλο πορτοφόλι για τη δική σας ασφάλεια.</string>
   <string name="wallet_balance_fragment_replaying">Το υπόλοιπο δεν είναι διαθέσιμο κατά τη διάρκεια της επανάληψης.</string>
   <string name="exchange_rates_activity_title">Ισοτιμίες</string>
-  <string name="exchange_rates_fragment_empty_text">Δεν ήταν δυνατή η φόρτωση των ισοτιμιών.</string>
   <string name="exchange_rates_fragment_empty_search">Δε βρέθηκε η ισοτιμία.</string>
   <string name="exchange_rates_fragment_default">(προεπιλογή)</string>
   <string name="exchange_rates_fragment_rate">ισοτιμία</string>
@@ -39,6 +37,7 @@
   <string name="wallet_version_dialog_msg">Αυτή η έκδοση διορθώνει σημαντικά προβλήματα. Για λεπτομέρειες, δείτε το σύνολο των αλλαγών στο %s.</string>
   <string name="wallet_version_dialog_button_binary">Λήψη</string>
   <string name="wallet_old_sdk_dialog_title">Η έκδοση για Android είναι παρωχημένη</string>
+  <string name="alert_dialogs_fragment_too_much_balance_dialog_message">Το ποσό αυτό είναι αρκετά μεγάλο για να το έχετε σε ένα σημείο. Μετακινήστε μερικά νομίσματα σε άλλο πορτοφόλι για τη δική σας ασφάλεια.</string>
   <string name="send_coins_activity_title">Αποστολή Groestlcoins</string>
   <string name="send_coins_fragment_request_payment_request_wrong_signature">Λανθασμένη υπογραφή!</string>
   <string name="send_coins_fragment_payee_verified_by_unknown">άγνωστο</string>
@@ -96,9 +95,6 @@
   <string name="address_book_context_edit_title">Επεξεργασία διεύθυνσης</string>
   <string name="address_book_context_remove_title">Αφαιρέστε τη διεύθυνση</string>
   <string name="address_book_context_copy_to_clipboard_title">Αντιγραφή στο πρόχειρο</string>
-  <string name="address_book_options_paste_from_clipboard_title">Επικόλληση από το πρόχειρο</string>
-  <string name="address_book_options_paste_from_clipboard_empty">το πρόχειρο είναι κενό</string>
-  <string name="address_book_options_paste_from_clipboard_invalid">Τα δεδομένα από το πρόχειρο είναι μη αναγνωρίσιμα</string>
   <string name="address_book_options_scan_title">Αναζήτηση διεύθυνσης</string>
   <string name="address_book_options_scan_invalid">Τα σαρωμένα δεδομένα είναι μη αναγνωρίσημα</string>
   <string name="edit_address_book_entry_dialog_title_add_receive">Προσθήκη ετικέτας στη διεύθυνση σας</string>
@@ -163,9 +159,9 @@
   <string name="preferences_data_usage_title">Χρήση δεδομένων</string>
   <string name="preferences_data_usage_summary">Δείτε τις επιλογές για να περιορίσετε τη χρήση των δεδομένων σε κινητά δίκτυα.</string>
   <string name="preferences_report_issue_title">Αναφέρετε το πρόβλημα</string>
-  <string name="preferences_initiate_reset_title">Επαναφορά blockchain</string>
-  <string name="preferences_initiate_reset_summary">Επαναφορά blockchain, συναλλαγές και τα υπόλοιπα πορτοφολιού. Η επανάληψη θα πάρει λίγο χρόνο.</string>
-  <string name="preferences_initiate_reset_dialog_message">Θα θέλατε να επαναφέρετε και να επαναλάβετε το blockchain;\n\nΑυτό θα κρύψει προσωρινά το ποσό του πορτοφολιού σας και θα αφαιρέσει τις συναλλαγές. Και τα δύο θα ανακάμψουν καθώς ο συγχρονισμός του blockchain εξελίσσεται.</string>
+  <string name="preferences_initiate_reset_title">Επαναφορά block chain</string>
+  <string name="preferences_initiate_reset_summary">Επαναφορά block chain, συναλλαγές και τα υπόλοιπα πορτοφολιού. Η επανάληψη θα πάρει λίγο χρόνο.</string>
+  <string name="preferences_initiate_reset_dialog_message">Θα θέλατε να επαναφέρετε και να επαναλάβετε το block chain;\n\nΑυτό θα κρύψει προσωρινά το ποσό του πορτοφολιού σας και θα αφαιρέσει τις συναλλαγές. Και τα δύο θα ανακάμψουν καθώς ο συγχρονισμός του block chain εξελίσσεται.</string>
   <string name="preferences_initiate_reset_dialog_positive">Επαναφορά</string>
   <string name="preferences_extended_public_key_summary">Δείτε το εκτετεμένο δημόσιο κλειδί από το πορτοφόλι σας, έτσι ώστε να μπορέσετε να το εισάγετε σε άλλες εφαρμογές και υπηρεσίες. Να είστε προσεκτικοί: με αυτό τον τρόπο θα αποκαλύψετε τη νομισματική προστασία της ιδιωτικής σας ζωής σε αυτή την εφαρμογή.</string>
   <string name="extended_public_key_fragment_title">Εκτεταμένο Δημόσιο Κλειδί</string>
@@ -176,7 +172,6 @@
   <string name="report_issue_dialog_description">περιγραφή ζητήματος</string>
   <string name="report_issue_dialog_report">Αναφορά</string>
   <string name="report_issue_dialog_collect_device_info">Επισύναψη πληροφοριών συσκευής</string>
-  <string name="report_issue_dialog_collect_installed_packages">Επισύναψη καταλόγου των εγκατεστημένων πακέτων</string>
   <string name="report_issue_dialog_collect_application_log">Επισύναψη αρχείου καταγραφής της εφαρμογής</string>
   <string name="report_issue_dialog_collect_wallet_dump">Επισύναψη αρχείου ένδειξης σφαλμάτων πορτοφολιού</string>
   <string name="report_issue_dialog_mail_intent_chooser">Αποστολή αναφοράς χρησιμοποιώντας…</string>

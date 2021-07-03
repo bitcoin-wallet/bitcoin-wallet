@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ViewAnimator
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/wallet_addresses_list_group"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_level1">
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/wallet_addresses_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical" />
+</ViewAnimator>

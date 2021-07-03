@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2015 the original author or authors.
+ * Copyright the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,6 +21,12 @@ import java.io.File;
 import java.util.concurrent.TimeUnit;
 
 import org.bitcoinj.core.CoinDefinition;
+import android.os.Build;
+import android.text.format.DateUtils;
+import com.google.common.io.BaseEncoding;
+import okhttp3.HttpUrl;
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import org.bitcoinj.core.Coin;
 import org.bitcoinj.core.Context;
 import org.bitcoinj.core.NetworkParameters;
@@ -31,14 +37,7 @@ import org.bitcoinj.utils.MonetaryFormat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.common.io.BaseEncoding;
-
-import android.os.Build;
-import android.os.Environment;
-import android.text.format.DateUtils;
-import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author Andreas Schildbach
@@ -64,7 +63,7 @@ public final class Constants {
      */
     public static final Script.ScriptType UPGRADE_OUTPUT_SCRIPT_TYPE = Script.ScriptType.P2WPKH;
 
-    /** Enable switch for synching of the blockchain */
+    /** Enable switch for synching of the block chain */
     public static final boolean ENABLE_BLOCKCHAIN_SYNC = true;
     /** Enable switch for fetching and showing of exchange rates */
     public static final boolean ENABLE_EXCHANGE_RATES = true;
@@ -150,6 +149,7 @@ public final class Constants {
     public static final char CHAR_BITCOIN = MonetaryFormat.SYMBOL_BTC.charAt(0);
     public static final char CHAR_ALMOST_EQUAL_TO = '\u2248';
     public static final char CHAR_CHECKMARK = '\u2713';
+    public static final char CHAR_CROSSMARK = '\u2715';
     public static final char CURRENCY_PLUS_SIGN = '\uff0b';
     public static final char CURRENCY_MINUS_SIGN = '\uff0d';
     public static final String PREFIX_ALMOST_EQUAL_TO = Character.toString(CHAR_ALMOST_EQUAL_TO) + CHAR_THIN_SPACE;
@@ -173,17 +173,19 @@ public final class Constants {
 
     public static final long DELAYED_TRANSACTION_THRESHOLD_MS = 2 * DateUtils.HOUR_IN_MILLIS;
 
+    public static final long AUTOCLOSE_DELAY_MS = 1000;
+
     /** A balance above this amount will show a warning */
     public static final Coin TOO_MUCH_BALANCE_THRESHOLD = Coin.COIN.multiply(1000);
     /** A balance above this amount will cause the donate option to be shown */
     public static final Coin SOME_BALANCE_THRESHOLD = Coin.COIN;
 
-    public static final int SDK_DEPRECATED_BELOW = Build.VERSION_CODES.LOLLIPOP;
-    public static final String SECURITY_PATCH_INSECURE_BELOW = "2018-01-01";
+    public static final int SDK_DEPRECATED_BELOW = Build.VERSION_CODES.M;
+    public static final String SECURITY_PATCH_INSECURE_BELOW = "2020-01-01";
 
     public static final int NOTIFICATION_ID_CONNECTIVITY = 1;
     public static final int NOTIFICATION_ID_COINS_RECEIVED = 2;
-    public static final int NOTIFICATION_ID_MAINTENANCE = 3;
+    public static final int NOTIFICATION_ID_BLUETOOTH = 3;
     public static final int NOTIFICATION_ID_INACTIVITY = 4;
     public static final String NOTIFICATION_GROUP_KEY_RECEIVED = "group-received";
     public static final String NOTIFICATION_CHANNEL_ID_RECEIVED = "received";

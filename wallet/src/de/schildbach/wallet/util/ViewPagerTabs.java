@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2015 the original author or authors.
+ * Copyright the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,8 +27,7 @@ import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.view.View;
 import androidx.annotation.ColorInt;
-import androidx.core.content.ContextCompat;
-import androidx.viewpager.widget.ViewPager.OnPageChangeListener;
+import androidx.viewpager2.widget.ViewPager2;
 import de.schildbach.wallet.R;
 
 import java.util.ArrayList;
@@ -37,7 +36,10 @@ import java.util.List;
 /**
  * @author Andreas Schildbach
  */
-public class ViewPagerTabs extends View implements OnPageChangeListener {
+public class ViewPagerTabs extends View {
+    public enum Mode { DYNAMIC, STATIC }
+
+    private Mode mode = Mode.DYNAMIC;
     private final List<String> labels = new ArrayList<>();
     private final Paint paint = new Paint();
     private int maxWidth = 0;
@@ -58,9 +60,14 @@ public class ViewPagerTabs extends View implements OnPageChangeListener {
         paint.setTextSize(getResources().getDimension(R.dimen.font_size_tiny));
         paint.setAntiAlias(true);
 
-        textColor = ContextCompat.getColor(context, R.color.fg_less_significant);
-        selectedTextColor = ContextCompat.getColor(context, R.color.fg_significant);
-        indicatorColor = ContextCompat.getColor(context, R.color.bg_level2);
+        textColor = context.getColor(R.color.fg_less_significant);
+        selectedTextColor = context.getColor(R.color.fg_significant);
+        indicatorColor = context.getColor(R.color.bg_level2);
+    }
+
+    public void setMode(final Mode mode) {
+        this.mode = mode;
+        invalidate();
     }
 
     public void addTabLabels(final int... labelResId) {
@@ -85,9 +92,15 @@ public class ViewPagerTabs extends View implements OnPageChangeListener {
     @Override
     protected void onDraw(final Canvas canvas) {
         super.onDraw(canvas);
+        if (mode == Mode.DYNAMIC)
+            drawDynamic(canvas);
+        else
+            drawStatic(canvas);
+    }
 
-        final int viewWidth = getWidth();
-        final int viewHalfWidth = viewWidth / 2;
+    private void drawDynamic(final Canvas canvas) {
+        final int viewWidth = getWidth() - getPaddingLeft() - getPaddingRight();
+        final int viewHalfWidth = getPaddingLeft() + viewWidth / 2;
         final int viewBottom = getHeight();
 
         final float density = getResources().getDisplayMetrics().density;
@@ -129,6 +142,17 @@ public class ViewPagerTabs extends View implements OnPageChangeListener {
         }
     }
 
+    private void drawStatic(final Canvas canvas) {
+        final int numLabels = labels.size();
+        final float labelWidth = (float) (getWidth() - getPaddingLeft() - getPaddingRight()) / numLabels;
+        final float leftPadding = getResources().getDimension(R.dimen.list_entry_padding_horizontal);
+        final float y = getPaddingTop() + -paint.getFontMetrics().top;
+        paint.setTypeface(Typeface.DEFAULT);
+        paint.setColor(textColor);
+        for (int i = 0; i < numLabels; i++)
+            canvas.drawText(labels.get(i), getPaddingLeft() + labelWidth * i + leftPadding, y, paint);
+    }
+
     @Override
     protected void onMeasure(final int widthMeasureSpec, final int heightMeasureSpec) {
         final int widthMode = MeasureSpec.getMode(widthMeasureSpec);
@@ -163,20 +187,22 @@ public class ViewPagerTabs extends View implements OnPageChangeListener {
                 + getPaddingBottom();
     }
 
-    @Override
-    public void onPageScrolled(final int position, final float positionOffset, final int positionOffsetPixels) {
-        pageOffset = position + positionOffset;
-        invalidate();
-    }
+    private final ViewPager2.OnPageChangeCallback pageChangeCallback = new ViewPager2.OnPageChangeCallback() {
+        @Override
+        public void onPageScrolled(final int position, final float positionOffset, final int positionOffsetPixels) {
+            pageOffset = position + positionOffset;
+            invalidate();
+        }
 
-    @Override
-    public void onPageSelected(final int position) {
-        pagePosition = position;
-        invalidate();
-    }
+        @Override
+        public void onPageSelected(final int position) {
+            pagePosition = position;
+            invalidate();
+        }
+    };
 
-    @Override
-    public void onPageScrollStateChanged(final int state) {
+    public ViewPager2.OnPageChangeCallback getPageChangeCallback() {
+        return pageChangeCallback;
     }
 
     @Override

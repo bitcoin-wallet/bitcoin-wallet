@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2015 the original author or authors.
+ * Copyright the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,13 +17,6 @@
 
 package de.schildbach.wallet.ui;
 
-import org.bitcoinj.core.Monetary;
-import org.bitcoinj.utils.MonetaryFormat;
-
-import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.R;
-import de.schildbach.wallet.util.MonetarySpannable;
-
 import android.content.Context;
 import android.graphics.Paint;
 import android.text.style.ForegroundColorSpan;
@@ -32,7 +25,11 @@ import android.text.style.ScaleXSpan;
 import android.util.AttributeSet;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
+import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.R;
+import de.schildbach.wallet.util.MonetarySpannable;
+import org.bitcoinj.core.Monetary;
+import org.bitcoinj.utils.MonetaryFormat;
 
 /**
  * @author Andreas Schildbach
@@ -100,7 +97,7 @@ public final class CurrencyTextView extends TextView {
     protected void onFinishInflate() {
         super.onFinishInflate();
 
-        setPrefixColor(ContextCompat.getColor(getContext(), R.color.fg_less_significant));
+        setPrefixColor(getContext().getColor(R.color.fg_less_significant));
         setPrefixScaleX(1);
         setInsignificantRelativeSize(0.85f);
         setSingleLine();

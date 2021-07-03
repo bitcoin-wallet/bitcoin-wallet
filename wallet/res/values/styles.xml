@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <style name="My.Theme" parent="@android:style/Theme.Material.Light.DarkActionBar">
         <item name="android:actionBarTheme">@style/My.ThemeOverlay.ActionBar</item>
         <item name="android:actionBarStyle">@style/My.Widget.ActionBar</item>
-        <item name="android:actionModeStyle">@style/My.Widget.ActionMode</item>
         <item name="android:actionMenuTextColor">@color/fg_on_dark_bg_network</item>
         <item name="android:actionButtonStyle">@style/My.Widget.ActionButton</item>
         <item name="android:actionOverflowButtonStyle">@style/My.Widget.ActionButton.Overflow</item>
@@ -66,7 +64,7 @@
         <item name="android:minHeight">?android:attr/actionBarSize</item>
         <item name="android:minWidth">48dp</item>
         <item name="android:drawablePadding">4dp</item>
-        <item name="android:drawableTint" tools:targetApi="23">@color/fg_on_dark_bg_network_significant</item>
+        <item name="android:drawableTint">@color/fg_on_dark_bg_network_significant</item>
         <item name="android:singleLine">true</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:textColor">@color/fg_on_dark_bg_network</item>
@@ -85,20 +83,22 @@
         <item name="android:backgroundTint">@color/fg_network_less_significant</item>
     </style>
 
-    <style name="My.Widget.ActionMode" parent="@android:style/Widget.Material.Light.ActionMode">
-        <item name="android:background">@drawable/action_mode_background</item>
-        <item name="android:titleTextStyle">@style/My.TextAppearance.Widget.ActionMode.Title</item>
-        <item name="android:subtitleTextStyle">@style/My.TextAppearance.Widget.ActionMode.Subtitle</item>
+    <style name="My.Widget.ActionButton.Floating.DarkDefault" parent="@android:style/Widget.Material.ActionButton">
+        <item name="android:background">@drawable/floating_action_button_background</item>
+        <item name="android:backgroundTint">@color/fg_network_significant_darkdefault</item>
     </style>
 
-    <style name="My.TextAppearance.Widget.ActionMode.Title" parent="@android:style/TextAppearance.Material.Widget.ActionMode.Title">
-        <item name="android:textColor">@android:color/white</item>
-        <item name="android:textStyle">bold</item>
+    <style name="My.ThemeOverlay.ContextBar" parent="@android:style/ThemeOverlay.Material.ActionBar">
+        <item name="android:actionButtonStyle">@style/My.Widget.ActionButton.Context</item>
+        <item name="android:actionOverflowButtonStyle">@style/My.Widget.ActionButton.Context.Overflow</item>
     </style>
 
-    <style name="My.TextAppearance.Widget.ActionMode.Subtitle" parent="@android:style/TextAppearance.Material.Widget.ActionMode.Subtitle">
-        <item name="android:textColor">@android:color/white</item>
-        <item name="android:textStyle">normal</item>
+    <style name="My.Widget.ActionButton.Context" parent="@android:style/Widget.Material.ActionButton">
+        <item name="android:drawableTint">@color/fg_insignificant</item>
+    </style>
+
+    <style name="My.Widget.ActionButton.Context.Overflow" parent="@android:style/Widget.Material.ActionButton.Overflow">
+        <item name="android:tint">@color/fg_insignificant</item>
     </style>
 
     <style name="My.Widget.TextView" parent="@android:style/Widget.Material.Light.TextView">
@@ -122,16 +122,6 @@
         <item name="android:drawablePadding">8dp</item>
     </style>
 
-    <style name="My.Widget.Button.Borderless.Unpadded" parent="@android:style/Widget.Material.Button.Borderless">
-        <item name="android:padding">0px</item>
-        <item name="android:drawablePadding">0px</item>
-    </style>
-
-    <style name="My.Widget.Button.Borderless.Small" parent="@android:style/Widget.Material.Button.Borderless.Small">
-        <item name="android:minWidth">40dp</item>
-        <item name="android:minHeight">40dp</item>
-    </style>
-
     <style name="My.Widget.CompoundButton.CheckBox" parent="@android:style/Widget.Material.Light.CompoundButton.CheckBox">
         <item name="android:textColor">@color/fg_significant</item>
         <item name="android:textSize">@dimen/font_size_normal</item>
@@ -150,5 +140,4 @@
         <item name="android:overlapAnchor">false</item>
         <item name="android:popupBackground">@color/bg_level3</item>
     </style>
-
 </resources>

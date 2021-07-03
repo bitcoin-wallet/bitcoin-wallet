@@ -17,14 +17,6 @@
 
 package de.schildbach.wallet.ui.scan;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-
-import com.google.zxing.ResultPoint;
-
-import de.schildbach.wallet.R;
-
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
@@ -36,7 +28,12 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.View;
-import androidx.core.content.ContextCompat;
+import com.google.zxing.ResultPoint;
+import de.schildbach.wallet.R;
+
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * @author Andreas Schildbach
@@ -61,11 +58,11 @@ public class ScannerView extends View {
         super(context, attrs);
         final Resources res = getResources();
 
-        maskColor = ContextCompat.getColor(context, R.color.scan_mask);
-        maskResultColor = ContextCompat.getColor(context, R.color.scan_result_view);
-        laserColor = ContextCompat.getColor(context, R.color.scan_laser);
-        dotColor = ContextCompat.getColor(context, R.color.scan_dot);
-        dotResultColor = ContextCompat.getColor(context, R.color.scan_result_dots);
+        maskColor = context.getColor(R.color.scan_mask);
+        maskResultColor = context.getColor(R.color.scan_result_view);
+        laserColor = context.getColor(R.color.scan_laser);
+        dotColor = context.getColor(R.color.scan_dot);
+        dotResultColor = context.getColor(R.color.scan_result_dots);
 
         maskPaint = new Paint();
         maskPaint.setStyle(Style.FILL);

@@ -1,0 +1,28 @@
+<b>Tenha as suas Bitcoins sempre consigo, no seu bolso! Você paga digitalizando rapidamente um código QR. Como um comerciante, recebe pagamentos de uma forma segura e instantânea. Bitcoin Wallet é a primeira aplicação Bitcoin móvel, e possivelmente também a mais segura!
+
+
+<b>FUNCIONALIDADES</b>
+
+• Não é necessário registo, serviço da Web ou nuvem! Esta carteira é descentralizada e de par-a-par.
+• Exibir o valor Bitcoin em BTC, mBTC e µBTC.
+• Conversão de e para as moedas nacionais.
+• Enviar e receber Bitcoins via NFC, códigos QR ou URLs Bitcoin.
+• Quando estiver off-line, ainda pode pagar via Bluetooth.
+• Notificação do sistema para as moedas recebidas.
+• Limpeza de carteiras de papel (por exemplo, aquelas utilizadas para armazenamento reservado).
+• Widget da aplicação para o saldo de Bitcoins.
+
+
+<b>CONTRIBUIR</b>
+
+Bitcoin Wallet é de <b>código aberto</b> e um <b>software livre</b>. Licença: GPLv3
+https://www.gnu.org/licenses/gpl-3.0.pt-br.html
+
+O nosso código fonte está disponível em GitHub:
+https://github.com/bitcoin-wallet/bitcoin-wallet
+
+Todas as traduções são geridas via Transifex:
+https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
+
+
+<i>Utilize por sua conta e risco!</i>

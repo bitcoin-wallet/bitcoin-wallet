@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2015 the original author or authors.
+ * Copyright the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,9 +17,6 @@
 
 package de.schildbach.wallet.ui;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -27,6 +24,8 @@ import android.os.Bundle;
 import android.text.Html;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
@@ -73,8 +72,7 @@ public final class HelpDialogFragment extends DialogFragment {
         final Bundle args = getArguments();
         final int messageResId = args.getInt(KEY_MESSAGE);
 
-        final DialogBuilder dialog = new DialogBuilder(activity);
-        dialog.setMessage(Html.fromHtml(getString(messageResId)));
+        final DialogBuilder dialog = DialogBuilder.dialog(activity, 0, Html.fromHtml(getString(messageResId)));
         dialog.singleDismissButton(null);
         return dialog.create();
     }

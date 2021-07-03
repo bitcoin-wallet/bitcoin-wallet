@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 the original author or authors.
+ * Copyright the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,18 +17,10 @@
 
 package de.schildbach.wallet.ui.preference;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import de.schildbach.wallet.R;
-import de.schildbach.wallet.ui.DialogBuilder;
-import de.schildbach.wallet.util.Qr;
-
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.FragmentManager;
-import android.content.DialogInterface;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -37,6 +29,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.core.app.ShareCompat;
+import de.schildbach.wallet.R;
+import de.schildbach.wallet.ui.DialogBuilder;
+import de.schildbach.wallet.util.Qr;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Andreas Schildbach
@@ -79,14 +76,10 @@ public class ExtendedPublicKeyFragment extends DialogFragment {
 
         final BitmapDrawable bitmap = new BitmapDrawable(getResources(), Qr.bitmap(base58));
         bitmap.setFilterBitmap(false);
-        final ImageView imageView = (ImageView) view.findViewById(R.id.extended_public_key_dialog_image);
+        final ImageView imageView = view.findViewById(R.id.extended_public_key_dialog_image);
         imageView.setImageDrawable(bitmap);
 
-        final TextView textView = (TextView)view.findViewById(R.id.extended_public_key_dialog_xpub);
-        textView.setText(base58.substring(0, base58.lastIndexOf('?')));
-
-        final DialogBuilder dialog = new DialogBuilder(activity);
-        dialog.setView(view);
+        final DialogBuilder dialog = DialogBuilder.custom(activity, 0, view);
         dialog.setNegativeButton(R.string.button_dismiss, (d, which) -> dismissAllowingStateLoss());
         dialog.setPositiveButton(R.string.button_share, (d, which) -> {
             final ShareCompat.IntentBuilder builder = ShareCompat.IntentBuilder.from(activity);
