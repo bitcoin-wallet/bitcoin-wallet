@@ -41,6 +41,7 @@ import org.bitcoinj.core.ECKey;
 import org.bitcoinj.core.LegacyAddress;
 import org.bitcoinj.core.SegwitAddress;
 import org.bitcoinj.core.Sha256Hash;
+import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.UTXO;
 import org.bitcoinj.script.Script;
 import org.bitcoinj.script.ScriptBuilder;
@@ -133,11 +134,17 @@ public final class RequestWalletBalanceTask {
             public long value;
             public int height;
         }
+    }
 
-        public static class Error {
-            public int code;
-            public String message;
-        }
+    public static class TransactionResponse {
+        public int id;
+        public String result;
+        public Error error;
+    }
+
+    public static class Error {
+        public int code;
+        public String message;
     }
 
     public void requestWalletBalance(final AssetManager assets, final ECKey key) {
@@ -203,6 +210,7 @@ public final class RequestWalletBalanceTask {
                                 for (final ListunspentResponse.Utxo responseUtxo : response.result) {
                                     final Sha256Hash utxoHash = Sha256Hash.wrap(responseUtxo.tx_hash);
                                     final int utxoIndex = responseUtxo.tx_pos;
+                                    // the value cannot be trusted; will be validated below
                                     final Coin utxoValue = Coin.valueOf(responseUtxo.value);
                                     final UTXO utxo = new UTXO(utxoHash, utxoIndex, utxoValue, responseUtxo.height,
                                             false, outputScript);
@@ -210,7 +218,35 @@ public final class RequestWalletBalanceTask {
                                 }
                             }
                             log.info("{} - got {} UTXOs {}", server.socketAddress, utxos.size(), utxos);
-                            return utxos;
+                            // validation of value
+                            final Set<UTXO> validUtxos = new HashSet<>();
+                            for (final UTXO utxo : utxos) {
+                                requestAdapter.toJson(sink, new ElectrumRequest("blockchain.transaction.get",
+                                        new String[] { Constants.HEX.encode(utxo.getHash().getBytes()) }));
+                                sink.writeUtf8("\n").flush();
+                            }
+                            final JsonAdapter<TransactionResponse> transactionResponseAdapter =
+                                    moshi.adapter(TransactionResponse.class);
+                            for (final UTXO utxo : utxos) {
+                                final TransactionResponse response = transactionResponseAdapter.fromJson(source);
+                                if (response.error != null) {
+                                    log.info("{} - server error {}: {}", server.socketAddress, response.error.code,
+                                            response.error.message);
+                                    return null;
+                                }
+                                if (response.result == null) {
+                                    log.info("{} - missing result", server.socketAddress);
+                                    return null;
+                                }
+                                final Transaction tx = new Transaction(Constants.NETWORK_PARAMETERS,
+                                        Constants.HEX.decode(response.result));
+                                if (tx.getTxId().equals(utxo.getHash()) && tx.getOutput(utxo.getIndex()).getValue().equals(utxo.getValue()))
+                                    validUtxos.add(utxo);
+                                else
+                                    log.warn("{} - lied about amount", server.socketAddress);
+                            }
+                            log.info("{} - validated {} UTXOs {}", server.socketAddress, validUtxos.size(), validUtxos);
+                            return validUtxos;
                         } catch (final ConnectException | SSLPeerUnverifiedException | JsonDataException x) {
                             log.warn("{} - {}", server.socketAddress, x.getMessage());
                             return null;
