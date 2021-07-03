@@ -104,25 +104,25 @@ public final class RequestWalletBalanceTask {
         this.resultCallback = resultCallback;
     }
 
-    public static class JsonRpcRequest {
+    public static class ElectrumRequest {
         public final int id;
         public final String method;
         public final String[] params;
 
         private static transient int idCounter = 0;
 
-        public JsonRpcRequest(final String method, final String[] params) {
+        public ElectrumRequest(final String method, final String[] params) {
             this(idCounter++, method, params);
         }
 
-        public JsonRpcRequest(final int id, final String method, final String[] params) {
+        public ElectrumRequest(final int id, final String method, final String[] params) {
             this.id = id;
             this.method = method;
             this.params = params;
         }
     }
 
-    public static class JsonRpcResponse {
+    public static class ListunspentResponse {
         public int id;
         public Utxo[] result;
         public Error error;
@@ -172,19 +172,19 @@ public final class RequestWalletBalanceTask {
                             final BufferedSource source = Okio.buffer(Okio.source(socket));
                             source.timeout().timeout(5000, TimeUnit.MILLISECONDS);
                             final Moshi moshi = new Moshi.Builder().build();
-                            final JsonAdapter<JsonRpcRequest> requestAdapter = moshi.adapter(JsonRpcRequest.class);
+                            final JsonAdapter<ElectrumRequest> requestAdapter = moshi.adapter(ElectrumRequest.class);
                             for (final Script outputScript : outputScripts) {
-                                requestAdapter.toJson(sink, new JsonRpcRequest(
+                                requestAdapter.toJson(sink, new ElectrumRequest(
                                         outputScript.getScriptType().ordinal(), "blockchain.scripthash.listunspent",
                                         new String[] { Constants.HEX.encode(
                                                 Sha256Hash.of(outputScript.getProgram()).getReversedBytes()) }));
                                 sink.writeUtf8("\n").flush();
                             }
-                            final JsonAdapter<JsonRpcResponse> responseAdapter = moshi
-                                    .adapter(JsonRpcResponse.class);
+                            final JsonAdapter<ListunspentResponse> listunspentResponseAdapter =
+                                    moshi.adapter(ListunspentResponse.class);
                             final Set<UTXO> utxos = new HashSet<>();
                             for (final Script outputScript : outputScripts) {
-                                final JsonRpcResponse response = responseAdapter.fromJson(source);
+                                final ListunspentResponse response = listunspentResponseAdapter.fromJson(source);
                                 final int expectedResponseId = outputScript.getScriptType().ordinal();
                                 if (response.id != expectedResponseId) {
                                     log.warn("{} - id mismatch response:{} vs request:{}", server.socketAddress,
@@ -200,7 +200,7 @@ public final class RequestWalletBalanceTask {
                                     log.info("{} - missing result", server.socketAddress);
                                     return null;
                                 }
-                                for (final JsonRpcResponse.Utxo responseUtxo : response.result) {
+                                for (final ListunspentResponse.Utxo responseUtxo : response.result) {
                                     final Sha256Hash utxoHash = Sha256Hash.wrap(responseUtxo.tx_hash);
                                     final int utxoIndex = responseUtxo.tx_pos;
                                     final Coin utxoValue = Coin.valueOf(responseUtxo.value);
