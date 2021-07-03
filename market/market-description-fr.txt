@@ -1,4 +1,4 @@
-<b>Ayez vos bitcoins toujours avec vous dans votre poche !</b> Payez rapidement en balayant un code QR. En tant que marchand, vous recevez les paiements de manière fiable et instantanée. Bitcoin Wallet est la première appli Bitcoin mobile et sans doute aussi la plus sûre !
+<b>Ayez vos bitcoins toujours avec vous dans votre poche.<b> Payez en balayant rapidement un code QR. En tant que marchant, vous recevez les paiements de manière fiable et instantanée. Bitcoin Wallet est une mise en œuvre de référence de la « vérification de paiement simplifiée » telle que décrite dans le livre blanc de Bitcoin.
 
 
 <b>CARACTÉRISTIQUES</b>
@@ -27,4 +27,4 @@ Toutes les traductions sont gérées sur Transifex :
 https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
 
 
-<i>Utilisez à vos propres risques !</i>
+<i>Utilisez-le à vos propres risques ! Ne l’utilisez que pour des montants de poche.</i>

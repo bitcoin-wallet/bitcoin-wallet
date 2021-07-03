@@ -59,7 +59,8 @@
   <string name="wallet_old_sdk_dialog_title">La version d’Android est obsolète</string>
   <string name="wallet_old_sdk_dialog_message">Il est probable qu’une prochaine version de Bitcoin Wallet ne prendra plus en charge votre appareil. Dans certains cas, il peut être difficile de dépenser des bitcoins avec cet appareil.\n\nÀ moins de savoir ce que vous faites, il est recommandé de bientôt déplacer vos bitcoins.</string>
   <string name="alert_dialogs_fragment_settings_failed_title">Problème d’ouverture des paramètres</string>
-  <string name="alert_dialogs_fragment_too_much_balance_dialog_message">Ce montant est plutôt élevé pour être gardé dans votre poche. Veuillez en déplacer une partie en lieu sûr.</string>
+  <string name="alert_dialogs_fragment_too_much_balance_dialog_title">Réduisez le risque</string>
+  <string name="alert_dialogs_fragment_too_much_balance_dialog_message">Le montant dans votre porte-monnaie est plutôt élevé pour être gardé dans votre poche. Veuillez en stocker une partie à froid, en lieu sûr.</string>
   <string name="send_coins_activity_title">Envoyer des bitcoins</string>
   <string name="send_coins_fragment_request_payment_request_progress">Récupération de la signature de %s…</string>
   <string name="send_coins_fragment_request_payment_request_failed_title">Échec de récupération de la demande de paiement</string>
