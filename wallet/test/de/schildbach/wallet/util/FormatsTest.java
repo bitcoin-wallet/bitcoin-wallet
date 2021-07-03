@@ -18,13 +18,6 @@
 package de.schildbach.wallet.util;
 
 import org.junit.Test;
-<<<<<<< HEAD
-
-import java.util.regex.Matcher;
-
-import static org.junit.Assert.*;
-
-=======
 
 import java.util.regex.Matcher;
 
@@ -34,7 +27,6 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
->>>>>>> a0368a8a7e47b7ad07d1193f6549da1071bf19c2
 /**
  * @author Andreas Schildbach
  */
