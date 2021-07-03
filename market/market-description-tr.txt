@@ -1,4 +1,4 @@
-<b>Bitcoin'leriniz daima cebinizde sizinle olsun!</b> Herhangi bir QR kodunu okutarak çabuk ödeme yapabilirsiniz. Bir tüccar olarak ödemeleri güvenle ve anında alabilirsiniz. Bitcoin Wallet ilk mobil ve muhtemelen en güvenli Bitcoin uygulamasıdır!
+<b>Bitcoin'lerin her zaman seninle, cebinde! </b>QR kodunu hızlıca tarayıp, öde. Tüccar olarak ödemelerini güvenilir ve anında al. Bitcoin Wallet, Bitcoin teknik açıklamasında belirtildiği gibi "Basitleştirilmiş Ödeme Doğrulama" sının referans uygulamasıdır.
 
 
 <b>ÖZELLİKLER</b>
@@ -10,7 +10,9 @@
 • Çevrimdışı olduğunuzda Bluetooth vasıtasıyla ödemeler.
 • Alınan bitcoin'ler için sistem bildirimleri.
 • Kağıt cüzdanların taranması (mesela soğuk depolama için kullanılanlar).
-• Bitcoin bakiyesini görüntüleyen widget.
+• Bitcoin bakiyesini görüntüleyen gereç.
+• Güvenlik: SegWit ve yeni bech32 biçimini destekler.
+• Gizlilik: Ayrı Orbot uygulaması aracılığıyla Tor'u destekler.
 
 
 <b>KATKIDA BULUNUN</b>
@@ -25,4 +27,4 @@ Tüm tercümeler Transifex üzerinde yönetilir:
 https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
 
 
-<i>Tüm riski siz üstlenmiş olursunuz!</i>
+<i>Kullanım kendi sorumluluğunuzdadır! Sadece cep boyutunda miktarlar için kullanın.</i>
