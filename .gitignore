@@ -21,3 +21,4 @@ gen-external-apklibs
 *.apk
 *.bar
 *.wrn
+output.json
