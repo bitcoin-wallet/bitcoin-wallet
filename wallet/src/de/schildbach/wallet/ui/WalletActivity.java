@@ -70,6 +70,8 @@ import org.bitcoinj.script.Script;
  */
 public final class WalletActivity extends AbstractWalletActivity {
     private WalletApplication application;
+    private Configuration config;
+
     private Handler handler = new Handler();
 
     private AnimatorSet enterAnimation;
@@ -84,8 +86,8 @@ public final class WalletActivity extends AbstractWalletActivity {
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        application = getWalletApplication();
-        final Configuration config = application.getConfiguration();
+        this.application = getWalletApplication();
+        this.config = application.getConfiguration();
 
         walletActivityViewModel = new ViewModelProvider(this).get(AbstractWalletActivityViewModel.class);
         viewModel = new ViewModelProvider(this).get(WalletActivityViewModel.class);
@@ -179,7 +181,7 @@ public final class WalletActivity extends AbstractWalletActivity {
 
         final View exchangeRatesFragment = findViewById(R.id.wallet_main_twopanes_exchange_rates);
         if (exchangeRatesFragment != null)
-            exchangeRatesFragment.setVisibility(Constants.ENABLE_EXCHANGE_RATES ? View.VISIBLE : View.GONE);
+            exchangeRatesFragment.setVisibility(config.isEnableExchangeRates() ? View.VISIBLE : View.GONE);
 
         if (savedInstanceState == null && CrashReporter.hasSavedCrashTrace())
             viewModel.showReportCrashDialog.setValue(Event.simple());
@@ -383,7 +385,7 @@ public final class WalletActivity extends AbstractWalletActivity {
 
         final Resources res = getResources();
 
-        final boolean showExchangeRatesOption = Constants.ENABLE_EXCHANGE_RATES
+        final boolean showExchangeRatesOption = config.isEnableExchangeRates()
                 && res.getBoolean(R.bool.show_exchange_rates_option);
         menu.findItem(R.id.wallet_options_exchange_rates).setVisible(showExchangeRatesOption);
         menu.findItem(R.id.wallet_options_sweep_wallet).setVisible(Constants.ENABLE_SWEEP_WALLET);

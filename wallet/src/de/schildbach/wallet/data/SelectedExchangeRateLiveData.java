@@ -50,9 +50,8 @@ public class SelectedExchangeRateLiveData extends LiveData<ExchangeRateEntry> im
     public SelectedExchangeRateLiveData(final WalletApplication application) {
         this.config = application.getConfiguration();
         final ExchangeRatesRepository exchangeRatesRepository = ExchangeRatesRepository.get(application);
-        this.dao = exchangeRatesRepository != null ? exchangeRatesRepository.exchangeRateDao() : null;
-        this.invalidationTracker = exchangeRatesRepository != null ?
-                exchangeRatesRepository.exchangeRateInvalidationTracker() : null;
+        this.dao = exchangeRatesRepository.exchangeRateDao();
+        this.invalidationTracker = exchangeRatesRepository.exchangeRateInvalidationTracker();
     }
 
     @Override
@@ -70,15 +69,20 @@ public class SelectedExchangeRateLiveData extends LiveData<ExchangeRateEntry> im
 
     @Override
     public void onSharedPreferenceChanged(final SharedPreferences sharedPreferences, final String key) {
-        if (Configuration.PREFS_KEY_EXCHANGE_CURRENCY.equals(key))
+        if (Configuration.PREFS_KEY_EXCHANGE_CURRENCY.equals(key) ||
+                Configuration.PREFS_KEY_ENABLE_EXCHANGE_RATES.equals(key))
             onChange();
     }
 
     private void onChange() {
         AsyncTask.execute(() -> {
-            final String currencyCode = config.getExchangeCurrencyCode();
-            final ExchangeRateEntry exchangeRate = dao.findByCurrencyCode(currencyCode);
-            postValue(exchangeRate);
+            if (config.isEnableExchangeRates()) {
+                final String currencyCode = config.getExchangeCurrencyCode();
+                final ExchangeRateEntry exchangeRate = dao.findByCurrencyCode(currencyCode);
+                postValue(exchangeRate);
+            } else {
+                postValue(null);
+            }
         });
     }
 }
