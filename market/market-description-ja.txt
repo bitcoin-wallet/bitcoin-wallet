@@ -1,4 +1,4 @@
-<b>ビットコインを持ち歩こう、いつでもあなたのポケットに!</b> QRコードスキャンで素早く支払えます。販売者としても、即座にかつ確実に支払いを受取れます。 Bitcoin Walletは初めてのモバイルビットコインアプリであり、そして間違いなく最も安全なアプリでもあります!
+<b>ビットコインを常に持ち歩きましょう、あなたのポケットの中に!</b> QRコードをスキャンして素早くお支払い。販売者として、支払いを一瞬で確実にお受け取り。Bitcoin Walletはビットコインのホワイトペーパーで述べられている"Simplified Payment Verification"の参照実証です。
 
 
 <b>特徴</b>
@@ -27,4 +27,4 @@ https://github.com/bitcoin-wallet/bitcoin-wallet
 https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
 
 
-<i>自己責任でお使いください!</i>
+<i>自己責任でお使いください! ポケットに入るくらいの残高のみに使ってください。</i>

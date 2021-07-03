@@ -59,7 +59,8 @@
   <string name="wallet_old_sdk_dialog_title">Androidのバージョンが古すぎます</string>
   <string name="wallet_old_sdk_dialog_message">次のBitcoin Walletのリリースの際、このデバイスはもうサポートされないかもしれません。場合によっては、このデバイスでのコインの利用が困難になるかもしれません。\n\n意図的にしているのでない限り、あなたのコインをすぐにでも移動させることをおすすめします。</string>
   <string name="alert_dialogs_fragment_settings_failed_title">設定を開けませんでした</string>
-  <string name="alert_dialogs_fragment_too_much_balance_dialog_message">この額はポケットに入れて運ぶには多すぎます。一部をもっと安全な場所に移してください。</string>
+  <string name="alert_dialogs_fragment_too_much_balance_dialog_title">リスクを軽減しましょう</string>
+  <string name="alert_dialogs_fragment_too_much_balance_dialog_message">ウォレットの残高がポケットに入れて持ち歩くには多すぎます。一部をコールドウォレットなどの安全な場所に移動させてください。</string>
   <string name="send_coins_activity_title">ビットコインの送金</string>
   <string name="send_coins_fragment_request_payment_request_progress">%s から署名の取得中……</string>
   <string name="send_coins_fragment_request_payment_request_failed_title">支払いリクエストの取得に失敗しました</string>
