@@ -38,7 +38,7 @@ import java.util.Map;
  * @author Andreas Schildbach
  */
 public final class CoinGecko {
-    private static final HttpUrl URL = HttpUrl.parse("https://api.coingecko.com/api/v3/exchange_rates");
+    private static final HttpUrl URL = HttpUrl.parse("https://api.coingecko.com/api/v3/coins/groestlcoin?localization=false&community_data=false&developer_data=false&sparkline=false");
     private static final MediaType MEDIA_TYPE = MediaType.get("application/json");
     private static final String SOURCE = "CoinGecko.com";
 
@@ -59,20 +59,19 @@ public final class CoinGecko {
     }
 
     public List<ExchangeRateEntry> parse(final BufferedSource jsonSource) throws IOException {
-        final JsonAdapter<Response> jsonAdapter = moshi.adapter(Response.class);
-        final Response jsonResponse = jsonAdapter.fromJson(jsonSource);
-        final List<ExchangeRateEntry> result = new ArrayList<>(jsonResponse.rates.size());
-        for (Map.Entry<String, ExchangeRateJson> entry : jsonResponse.rates.entrySet()) {
+        final JsonAdapter<GroestlcoinResponse> jsonAdapter = moshi.adapter(GroestlcoinResponse.class);
+        final GroestlcoinResponse jsonResponse = jsonAdapter.fromJson(jsonSource);
+        final List<ExchangeRateEntry> result = new ArrayList<>(jsonResponse.market_data.current_price.size());
+
+        for (Map.Entry<String, Double> entry : jsonResponse.market_data.current_price.entrySet()) {
             final String symbol = entry.getKey().toUpperCase(Locale.US);
-            final ExchangeRateJson exchangeRate = entry.getValue();
-            if (exchangeRate.type == Type.FIAT) {
-                try {
-                    final Fiat rate = Fiat.parseFiatInexact(symbol, exchangeRate.value);
-                    if (rate.signum() > 0)
-                        result.add(new ExchangeRateEntry(SOURCE, new ExchangeRate(rate)));
-                } catch (final ArithmeticException x) {
-                    log.warn("problem parsing {} exchange rate from {}: {}", symbol, URL, x.getMessage());
-                }
+            final Double exchangeRate = entry.getValue();
+            try {
+                final Fiat rate = Fiat.parseFiatInexact(symbol, exchangeRate.toString());
+                if (rate.signum() > 0)
+                    result.add(new ExchangeRateEntry(SOURCE, new ExchangeRate(rate)));
+            } catch (final ArithmeticException x) {
+                log.warn("problem parsing {} exchange rate from {}: {}", symbol, URL, x.getMessage());
             }
         }
         return result;
@@ -96,5 +95,18 @@ public final class CoinGecko {
         public String unit;
         public String value;
         public Type type;
+    }
+
+    //private static class CurrentPrice {
+    //    Map<String, Double>
+    //}
+
+    private static class MarketData {
+        Map<String, Double>  current_price;
+    }
+
+    private static class GroestlcoinResponse {
+        public String id;
+        MarketData market_data;
     }
 }
