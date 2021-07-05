@@ -35,6 +35,7 @@ import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.R;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.addressbook.AddressBookEntry;
+import de.schildbach.wallet.data.blockexplorer.BlockExplorer;
 import de.schildbach.wallet.ui.AbstractWalletActivity;
 import de.schildbach.wallet.ui.AbstractWalletActivityViewModel;
 import de.schildbach.wallet.ui.StickToTopLinearLayoutManager;
@@ -141,8 +142,9 @@ public final class BlockListFragment extends Fragment implements BlockListAdapte
         final int itemId = item.getItemId();
         if (itemId == R.id.blocks_context_browse) {
             final Uri blockExplorerUri = config.getBlockExplorer();
+            final BlockExplorer explorer = application.getBlockExplorer(blockExplorerUri);
             log.info("Viewing block {} on {}", blockHash, blockExplorerUri);
-            activity.startExternalDocument(Uri.withAppendedPath(blockExplorerUri, "block/" + blockHash));
+            activity.startExternalDocument(explorer.getBlockUrl(blockHash));
             return true;
         } else {
             return false;
