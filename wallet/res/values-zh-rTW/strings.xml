@@ -51,7 +51,7 @@
   <string name="wallet_version_dialog_msg_deprecated">如果看不到任何程式更新，有可能你的 Android 版本已經不再支援了。</string>
   <string name="wallet_version_dialog_button_binary">下載</string>
   <string name="wallet_old_sdk_dialog_title">Android 版本太舊</string>
-  <string name="wallet_old_sdk_dialog_message">接下來某個版本的 Bitcoin Wallet 可能就開始不再支援你的設備了。在這個設備上付款可能會變得很困難。\n\n建議你馬上把錢轉到其他地方去，除非你還知道其他處理方式。</string>
+  <string name="wallet_old_sdk_dialog_message">接下來某個版本的 Groestlcoin Wallet 可能就開始不再支援你的設備了。在這個設備上付款可能會變得很困難。\n\n建議你馬上把錢轉到其他地方去，除非你還知道其他處理方式。</string>
   <string name="alert_dialogs_fragment_too_much_balance_dialog_message">在口袋裡放這麼多錢好像不是很好。建議拿一些出來到比較安全的地方。</string>
   <string name="send_coins_activity_title">Groestlcoin 付款</string>
   <string name="send_coins_fragment_request_payment_request_progress">正在從 %s 讀取簽章...</string>

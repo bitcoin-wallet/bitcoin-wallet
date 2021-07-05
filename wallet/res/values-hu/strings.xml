@@ -24,7 +24,7 @@
   <string name="exchange_rates_options_search">Árfolyam keresése</string>
   <string name="wallet_transactions_fragment_empty_text_received">Eddig nem érkezett Groestlcoin.</string>
   <string name="wallet_transactions_fragment_empty_text_sent">Eddig nem lett küldve Groestlcoin.</string>
-  <string name="wallet_transactions_fragment_empty_text_howto">Bitcoint szerezhetsz\nhagyományos pénz eladásával,\náruért/szolgáltatásért cserébe,\nvagy munkával.</string>
+  <string name="wallet_transactions_fragment_empty_text_howto">Groestlcoint szerezhetsz\nhagyományos pénz eladásával,\náruért/szolgáltatásért cserébe,\nvagy munkával.</string>
   <string name="wallet_transactions_fragment_empty_remind_backup">Készíts biztonsági mentést a tárcádról,\nmielőtt Groestlcoint fogadsz!</string>
   <string name="wallet_transactions_row_warning_backup">Gratulálunk, megérkezett az első kifizetésed! Már készítettél &lt;u&gt;biztonsági mentést a tárcádról&lt;/u&gt;, hogy megóvd a veszteségtől?</string>
   <string name="wallet_transactions_row_warning_storage_encryption">Tipp: a tárcád biztonságának növeléséhez &lt;u&gt;titkosíthatod a készüléked&lt;/u&gt;. Ez más alkalmazások adatait is védi.</string>

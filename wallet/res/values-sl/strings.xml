@@ -29,7 +29,7 @@
   <string name="wallet_transactions_fragment_empty_remind_backup">Prosimo, naredite varnostno kopijo denarnice, preen prejmete bitcoine!</string>
   <string name="wallet_transactions_row_warning_backup">Čestitke, prejeli ste prvo plačilo! Ste že napravili &lt;u&gt;rezervno kopijo ključev&lt;/u&gt; za zaščito pred izgubo novcev?</string>
   <string name="wallet_transactions_row_warning_storage_encryption">Naimg: za povečano varnost denarnice lahko &lt;u&gt;svojo napravo šifrirate&lt;/u&gt;. To zaščiti tudi podatke drugih aplikacij.</string>
-  <string name="wallet_transactions_row_warning_chain_forking">Na omrežju Bitcoin potekajo vzdrževalna dela. Svetujemo, da v tem času ne pošiljate ali prejemate sredstev. &lt;u&gt;Več informacij&lt;/u&gt;</string>
+  <string name="wallet_transactions_row_warning_chain_forking">Na omrežju Groestlcoin potekajo vzdrževalna dela. Svetujemo, da v tem času ne pošiljate ali prejemate sredstev. &lt;u&gt;Več informacij&lt;/u&gt;</string>
   <string name="wallet_transactions_fragment_coinbase">narudarjeno</string>
   <string name="wallet_transactions_fragment_internal">notranji</string>
   <string name="wallet_transactions_options_filter">Filter</string>
@@ -318,7 +318,7 @@
   <string name="notification_peer_not_connected">brez povezave</string>
   <string name="notification_inactivity_title">Na tej napravi imate še vedno bitcoine!</string>
   <string name="notification_inactivity_message">Vaše stanje %s bo izgubljeno, če aplikacijo ostranite, ne da bi bitcoine prej poslali drugam.</string>
-  <string name="notification_inactivity_message_donate">Če vam je za novce vseeno, jih lahko tudi podarite projektu Bitcoin Wallet.</string>
+  <string name="notification_inactivity_message_donate">Če vam je za novce vseeno, jih lahko tudi podarite projektu Groestlcoin Wallet.</string>
   <string name="notification_inactivity_action_dismiss">Spomni me kasneje</string>
   <string name="notification_inactivity_action_dismiss_forever">Ne spomni me</string>
   <string name="notification_bluetooth_service_listening">Pripravljen na prejemanje plačil prek Bluetooth</string>

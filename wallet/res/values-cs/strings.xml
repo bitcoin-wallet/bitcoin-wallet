@@ -321,7 +321,7 @@
   <string name="notification_peer_not_connected">nepřipojeno</string>
   <string name="notification_inactivity_title">Na tomto přístroji jsou ještě nějaké Groestlcoiny!</string>
   <string name="notification_inactivity_message">Pamatujte si, že vaše prostředky ve výši %s budou ztraceny, pokud odinstalujete Groestlcoin Wallet aplikaci a neodešlete nejdříve své prostředky jinam.</string>
-  <string name="notification_inactivity_message_donate">Pokud jste ztratili zájem dále využívat své Groestlcoiny, můžete je darovat projektu Bitcoin Wallet.</string>
+  <string name="notification_inactivity_message_donate">Pokud jste ztratili zájem dále využívat své Groestlcoiny, můžete je darovat projektu Groestlcoin Wallet.</string>
   <string name="notification_inactivity_action_dismiss">Připomeň později</string>
   <string name="notification_inactivity_action_dismiss_forever">Nepřipomínat</string>
   <string name="notification_bluetooth_service_listening">Jste připraveni přijímat platby přes Bluetooth</string>

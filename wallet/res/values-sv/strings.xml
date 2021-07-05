@@ -25,7 +25,7 @@
   <string name="wallet_transactions_fragment_empty_text_received">Inga Groestlcoin har mottagits hittills.</string>
   <string name="wallet_transactions_fragment_empty_text_sent">Inga Groestlcoin har skickats hittills.</string>
   <string name="wallet_transactions_fragment_empty_text_howto">Hur får man tag i Groestlcoin?\nKöp för svenska kronor,\nsälj varor eller tjänster eller\ntjäna genom att arbeta.</string>
-  <string name="wallet_transactions_fragment_empty_remind_backup">Vänligen säkerhetskopiera din plånbok\ninnan du tar emot några Bitcoin!</string>
+  <string name="wallet_transactions_fragment_empty_remind_backup">Vänligen säkerhetskopiera din plånbok\ninnan du tar emot några Groestlcoin!</string>
   <string name="wallet_transactions_row_warning_backup">Grattis, du fick din första betalning! Har du redan &lt;u&gt;säkerhetskopierat din plånbok&lt;/u&gt;, för att skydda mot förlust?</string>
   <string name="wallet_transactions_row_warning_storage_encryption">Tips: för att öka säkerheten på din plånbok kan du &lt;u&gt;kryptera din enhet&lt;/u&gt;. Det skyddar också dina andra appar.</string>
   <string name="wallet_transactions_fragment_coinbase">genererade</string>
@@ -161,7 +161,7 @@
   <string name="transaction_row_message_received_direct">Denna betalning har mottagits direkt. Det finns en risk att den aldrig kommer att kunna användas.</string>
   <string name="transaction_row_message_received_unconfirmed_delayed">Bekräftelsen på den här betalningen är fördröjd, förmodligen på grund av hög belastning på Groestlcoin-nätverket.</string>
   <string name="transaction_row_message_received_unconfirmed_unlocked">Den här betalningen borde bli spenderbar inom några minuter.</string>
-  <string name="transaction_row_message_received_unconfirmed_chain_forking">På grund av underhållsarbete i Bitcoin-nätverket, bör du inte lita på den här transaktionen förrän den har bekräftats helt.</string>
+  <string name="transaction_row_message_received_unconfirmed_chain_forking">På grund av underhållsarbete i Groestlcoin-nätverket, bör du inte lita på den här transaktionen förrän den har bekräftats helt.</string>
   <string name="transaction_row_message_received_in_conflict">Den här betalningen har en ökad risk att inte gå igenom! Vänta gärna på en verifiering.</string>
   <string name="transaction_row_message_received_dead">Denna betalning har återförts av avsändaren.</string>
   <string name="transaction_row_message_received_dust">Ett så litet belopp kan förmodligen aldrig spenderas ekonomiskt.</string>

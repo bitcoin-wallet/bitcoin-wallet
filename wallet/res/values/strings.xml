@@ -324,7 +324,7 @@
     <string name="notification_peer_not_connected">not connected</string>
     <string name="notification_inactivity_title">You\'ve still got Groestlcoin on this device!</string>
     <string name="notification_inactivity_message">Remember your balance of %s will be lost if you uninstall the Groestlcoin Wallet app without sending it away first.</string>
-    <string name="notification_inactivity_message_donate">If you don\'t care about your coins, you could also donate them to the Bitcoin Wallet project.</string>
+    <string name="notification_inactivity_message_donate">If you don\'t care about your coins, you could also donate them to the Groestlcoin Wallet project.</string>
     <string name="notification_inactivity_action_dismiss">Remind me later</string>
     <string name="notification_inactivity_action_dismiss_forever">Don\'t remind me</string>
     <string name="notification_bluetooth_service_listening">Ready to receive payments via Bluetooth</string>
