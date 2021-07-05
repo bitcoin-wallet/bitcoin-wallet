@@ -46,6 +46,7 @@ import de.schildbach.wallet.R;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.addressbook.AddressBookDao;
 import de.schildbach.wallet.addressbook.AddressBookDatabase;
+import de.schildbach.wallet.data.blockexplorer.BlockExplorer;
 import de.schildbach.wallet.ui.TransactionsAdapter.WarningType;
 import de.schildbach.wallet.ui.send.RaiseFeeDialogFragment;
 import de.schildbach.wallet.util.Qr;
@@ -310,8 +311,9 @@ public class WalletTransactionsFragment extends Fragment implements Transactions
             return true;
         } else if (itemId == R.id.wallet_transactions_context_browse) {
             final Uri blockExplorerUri = config.getBlockExplorer();
+            final BlockExplorer explorer = application.getBlockExplorer(blockExplorerUri);
             log.info("Viewing transaction {} on {}", transactionId, blockExplorerUri);
-            activity.startExternalDocument(Uri.withAppendedPath(blockExplorerUri, "tx/" + transactionId.toString()));
+            activity.startExternalDocument(explorer.getTxUrl(transactionId));
             return true;
         } else {
             return false;

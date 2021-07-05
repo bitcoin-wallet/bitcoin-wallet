@@ -47,6 +47,7 @@ import de.schildbach.wallet.data.blockexplorer.BlockExplorer;
 import de.schildbach.wallet.data.blockexplorer.BlockExplorers;
 import de.schildbach.wallet.data.blockexplorer.BlockchairExplorer;
 import de.schildbach.wallet.data.blockexplorer.CryptoIDExplorer;
+import de.schildbach.wallet.data.blockexplorer.EsploraExplorer;
 import de.schildbach.wallet.data.blockexplorer.InsightExplorer;
 import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.service.BlockchainState;
@@ -139,6 +140,7 @@ public class WalletApplication extends Application {
         blockExplorers.add(new InsightExplorer("https://groestlsight.groestlcoin.org/", "https://groestlsight-test.groestlcoin.org/"));
         blockExplorers.add(new InsightExplorer("https://blockbook.groestlcoin.org/", "https://blockbook-test.groestlcoin.org/"));
         blockExplorers.add(new BlockchairExplorer("https://blockchair.com/groestlcoin/", ""));
+        blockExplorers.add(new EsploraExplorer("https://esplora.groestlcoin.org/", "https://esplora-test.groestlcoin.org/"));
     }
 
     public synchronized Configuration getConfiguration() {
@@ -148,7 +150,7 @@ public class WalletApplication extends Application {
     }
 
     public BlockExplorer getBlockExplorer(Uri explorer) {
-        return blockExplorers.getExplorer(explorer.toString(), BuildConfig.FLAVOR.contains("dev"));
+        return blockExplorers.getExplorer(explorer.toString(), BuildConfig.APPLICATION_ID.contains("test"));
     }
 
     @WorkerThread

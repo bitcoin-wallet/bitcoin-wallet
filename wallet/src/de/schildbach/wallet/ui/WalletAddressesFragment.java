@@ -43,6 +43,7 @@ import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.addressbook.AddressBookDao;
 import de.schildbach.wallet.addressbook.AddressBookDatabase;
 import de.schildbach.wallet.addressbook.AddressBookEntry;
+import de.schildbach.wallet.data.blockexplorer.BlockExplorer;
 import de.schildbach.wallet.util.Qr;
 import de.schildbach.wallet.util.Toast;
 import org.bitcoinj.core.Address;
@@ -179,8 +180,9 @@ public final class WalletAddressesFragment extends Fragment implements AddressBo
             return true;
         } else if (itemId == R.id.wallet_addresses_context_browse) {
             final Uri blockExplorerUri = application.getConfiguration().getBlockExplorer();
+            final BlockExplorer explorer = application.getBlockExplorer(blockExplorerUri);
             log.info("Viewing address {} on {}", address, blockExplorerUri);
-            activity.startExternalDocument(Uri.withAppendedPath(blockExplorerUri, "address/" + address));
+            activity.startExternalDocument(explorer.getAddressUrl(address));
             return true;
         } else {
             return false;
