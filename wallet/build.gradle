@@ -24,7 +24,7 @@ dependencies {
     implementation 'androidx.sqlite:sqlite:2.1.0'
     implementation "androidx.room:room-runtime:2.3.0"
     annotationProcessor "androidx.room:room-compiler:2.3.0"
-    implementation 'org.groestlcoinj:groestlcoinj-core:0.15.10'
+    implementation 'com.github.groestlcoinj:groestlcoinj-core:0.15.10'
     implementation 'com.google.protobuf:protobuf-java:3.7.1'
     implementation 'com.google.guava:guava:29.0-android'
     implementation 'com.google.zxing:core:3.3.3'
