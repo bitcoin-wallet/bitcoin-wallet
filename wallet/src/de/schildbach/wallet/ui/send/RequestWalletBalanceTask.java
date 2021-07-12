@@ -219,7 +219,7 @@ public final class RequestWalletBalanceTask {
                                     final UTXO utxo = new UTXO(utxoHash, utxoIndex, utxoValue, responseUtxo.height,
                                             false, outputScript);
 
-                                    // validation of value
+                                    // validation of value and some sanity checks
                                     requestAdapter.toJson(sink, new ElectrumRequest("blockchain.transaction.get",
                                             new String[] { Constants.HEX.encode(utxo.getHash().getBytes()) }));
                                     sink.writeUtf8("\n").flush();
@@ -237,10 +237,15 @@ public final class RequestWalletBalanceTask {
                                     }
                                     final Transaction tx = new Transaction(Constants.NETWORK_PARAMETERS,
                                             Constants.HEX.decode(transactionResponse.result));
-                                    if (tx.getTxId().equals(utxo.getHash()) && tx.getOutput(utxo.getIndex()).getValue().equals(utxo.getValue()))
-                                        utxos.add(utxo);
-                                    else
+                                    if (!tx.getTxId().equals(utxo.getHash()))
+                                        log.warn("{} - lied about txid", server.socketAddress);
+                                    else if (!tx.getOutput(utxo.getIndex()).getValue().equals(utxo.getValue()))
                                         log.warn("{} - lied about amount", server.socketAddress);
+                                    else if (!tx.getOutput(utxo.getIndex()).getScriptPubKey().equals(outputScript))
+                                        log.warn("{} - lied about output script", server.socketAddress);
+                                    else
+                                        // use valid UTXO
+                                        utxos.add(utxo);
                                 }
                             }
                             log.info("{} - got {} UTXOs {}", server.socketAddress, utxos.size(), utxos);
