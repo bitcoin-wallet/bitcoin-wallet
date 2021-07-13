@@ -76,6 +76,7 @@ public final class WalletActivity extends AbstractWalletActivity {
 
     private AnimatorSet enterAnimation;
     private View contentView;
+    private View exchangeRatesFragment;
     private View levitateView;
 
     private AbstractWalletActivityViewModel walletActivityViewModel;
@@ -94,6 +95,7 @@ public final class WalletActivity extends AbstractWalletActivity {
 
         setContentView(R.layout.wallet_content);
         contentView = findViewById(android.R.id.content);
+        exchangeRatesFragment = findViewById(R.id.wallet_main_twopanes_exchange_rates);
         levitateView = contentView.findViewWithTag("levitate");
 
         // Make view tagged with 'levitate' scroll away and quickly return.
@@ -179,10 +181,6 @@ public final class WalletActivity extends AbstractWalletActivity {
         else
             viewModel.animationFinished();
 
-        final View exchangeRatesFragment = findViewById(R.id.wallet_main_twopanes_exchange_rates);
-        if (exchangeRatesFragment != null)
-            exchangeRatesFragment.setVisibility(config.isEnableExchangeRates() ? View.VISIBLE : View.GONE);
-
         if (savedInstanceState == null && CrashReporter.hasSavedCrashTrace())
             viewModel.showReportCrashDialog.setValue(Event.simple());
 
@@ -198,6 +196,9 @@ public final class WalletActivity extends AbstractWalletActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
+        if (exchangeRatesFragment != null)
+            exchangeRatesFragment.setVisibility(config.isEnableExchangeRates() ? View.VISIBLE : View.GONE);
 
         handler.postDelayed(() -> {
             // delayed start so that UI has enough time to initialize
