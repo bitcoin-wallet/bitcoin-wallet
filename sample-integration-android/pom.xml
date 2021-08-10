@@ -7,7 +7,7 @@
 	<artifactId>sample-integration-android</artifactId>
 	<packaging>apk</packaging>
 	<version>1.0</version>
-	<name>Sample for GroestlCoin Integration for Android</name>
+	<name>Sample for Groestlcoin Integration for Android</name>
 
 	<parent>
 		<groupId>de.schildbach.wallet</groupId>

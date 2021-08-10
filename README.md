@@ -1,6 +1,6 @@
 # GROESTLCOIN WALLET
 
-Welcome to _Groestlcoin Wallet_, a standalone GroestlCoin payment app for your Android device!
+Welcome to _Groestlcoin Wallet_, a standalone Groestlcoin payment app for your Android device!
 
 This project contains several sub-projects:
 

@@ -174,7 +174,7 @@
   <string name="transaction_row_message_received_direct">Tato platba byla přijata přímo. Je zde riziko, že prostředky nebude možno nikdy utratit.</string>
   <string name="transaction_row_message_received_unconfirmed_delayed">Potvrzení této platby je pozdrženo, nejspíše z důvodu přetížení Groestlcoin sítě.</string>
   <string name="transaction_row_message_received_unconfirmed_unlocked">Tuto platbu bude možné utratit během několika minut.</string>
-  <string name="transaction_row_message_received_unconfirmed_chain_forking">Z důvodu údržby v bitcoinové síti by neměla být tato transakce důvěryhodná, dokud nebude plně potvrzena.</string>
+  <string name="transaction_row_message_received_unconfirmed_chain_forking">Z důvodu údržby v groestlcoinové síti by neměla být tato transakce důvěryhodná, dokud nebude plně potvrzena.</string>
   <string name="transaction_row_message_received_in_conflict">Tato platba vykazuje zvýšené riziko odvolání jejím odesilatelem! Pokud můžete, počkejte na její potvrzení.</string>
   <string name="transaction_row_message_received_dead">Tato platba byla odvolána odesílatelem.</string>
   <string name="transaction_row_message_received_dust">Takto malá částka pravděpodobně nikdy nebude utracena ekonomicky.</string>

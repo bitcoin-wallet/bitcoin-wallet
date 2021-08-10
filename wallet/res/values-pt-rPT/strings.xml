@@ -235,11 +235,11 @@
   <string name="preferences_category_labs">Testes</string>
   <string name="preferences_precision_title">Denominação e precisão</string>
   <string name="preferences_precision_summary">Mostrar os valores nesta unidade. Isto não afeta os cálculos.</string>
-  <string name="preferences_precision_labels_8">BTC, 8 casas decimais</string>
-  <string name="preferences_precision_labels_6">BTC, 6 casas decimais</string>
-  <string name="preferences_precision_labels_4">BTC, 4 casas decimais</string>
-  <string name="preferences_precision_labels_2_3">mBTC, 2 casas decimais</string>
-  <string name="preferences_precision_labels_0_6">µBTC, sem casas decimais</string>
+  <string name="preferences_precision_labels_8">GRS, 8 casas decimais</string>
+  <string name="preferences_precision_labels_6">GRS, 6 casas decimais</string>
+  <string name="preferences_precision_labels_4">GRS, 4 casas decimais</string>
+  <string name="preferences_precision_labels_2_3">mGRS, 2 casas decimais</string>
+  <string name="preferences_precision_labels_0_6">µGRS, sem casas decimais</string>
   <string name="preferences_own_name_title">Próprio nome</string>
   <string name="preferences_own_name_summary">O seu nome, para ser adicionado nas requisições de pagamentos. Tente usar um nome curto.</string>
   <string name="preferences_send_coins_autoclose_title">Auto fechar a janela de moedas a enviar</string>

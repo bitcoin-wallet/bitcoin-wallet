@@ -5,7 +5,7 @@ FITUR:
 • Tidak diperlukan server awan atau layanan web! Dompet ini benar-benar peer ke peer.
 • Tampilkan saldo dompet dalam Groestlcoin dan mata uang lainnya.
 • Mengirim dan menerima Groestlcoin via NFC, kode-QR atau Tautan Groestlcoin.
-• Buku alamat untuk alamat penggunaan bitcoin secara reguler.
+• Buku alamat untuk alamat penggunaan groestlcoin secara reguler.
 • Masukkan transaksi saat offline, akan dilaksanakan ketika online.
 • Notifikasi sistem untuk konektivitas Groestlcoin dan menerima koin.
 • Widget Apl untuk saldo Groestlcoin.

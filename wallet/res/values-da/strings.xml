@@ -315,9 +315,9 @@
   <string name="notification_peers_connected_msg">%d peers forbundet</string>
   <string name="notification_peer_connected">forbundet</string>
   <string name="notification_peer_not_connected">ikke forbundet</string>
-  <string name="notification_inactivity_title">Du har stadig bitcoin på denne enhed!</string>
+  <string name="notification_inactivity_title">Du har stadig groestlcoin på denne enhed!</string>
   <string name="notification_inactivity_message">Husk, at din saldo på %s vil gå tabt, hvis du afinstallerer app\'en Groestlcoin Wallet uden først at sende pengede videre.</string>
-  <string name="notification_inactivity_message_donate">Hvis du ikke er interesseret i dine bitcoin, kan du også donere dem til Groestlcoin Wallet-projektet.</string>
+  <string name="notification_inactivity_message_donate">Hvis du ikke er interesseret i dine groestlcoin, kan du også donere dem til Groestlcoin Wallet-projektet.</string>
   <string name="notification_inactivity_action_dismiss">Påmind senere</string>
   <string name="notification_inactivity_action_dismiss_forever">Påmind mig ikke</string>
   <string name="notification_bluetooth_service_listening">Klar til at modtage betalinger via Bluetooth</string>

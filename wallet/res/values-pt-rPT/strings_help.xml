@@ -115,7 +115,7 @@
         </p>
         <p>
             Anteriormente, as cadeias minoritárias tornaram-se sempre irrelevantes muito rapidamente.
-            Se desejar seguir uma cadeia minoritária de qualquer modo, é aconselhável utilizar a funcionalidade \"par de confiança\" para ligar exclusivamente à implementação \"bitcoind\" que força a sua cadeia desejada.
+            Se desejar seguir uma cadeia minoritária de qualquer modo, é aconselhável utilizar a funcionalidade \"par de confiança\" para ligar exclusivamente à implementação \"groestlcoind\" que força a sua cadeia desejada.
             Se a rede entre a sua carteira e o par de confiança não for de confiança, utilize a VPN para autenticar essa ligação.
         </p>
     ]]>

@@ -174,7 +174,7 @@ public final class WalletAddressesFragment extends Fragment implements AddressBo
             viewModel.showBitmapDialog.setValue(new Event<>(Qr.bitmap(uri)));
             return true;
         } else if (itemId == R.id.wallet_addresses_context_copy_to_clipboard) {
-            clipboardManager.setPrimaryClip(ClipData.newPlainText("Bitcoin address", address.toString()));
+            clipboardManager.setPrimaryClip(ClipData.newPlainText("Groestlcoin address", address.toString()));
             log.info("wallet address copied to clipboard: {}", address);
             new Toast(activity).toast(R.string.wallet_address_fragment_clipboard_msg);
             return true;

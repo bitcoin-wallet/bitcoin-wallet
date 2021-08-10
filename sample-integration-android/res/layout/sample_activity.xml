@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
-            android:text="This demonstrates the integration of a &quot;Donate Bitcoins&quot; button in your app." />
+            android:text="This demonstrates the integration of a &quot;Donate Groestlcoins&quot; button in your app." />
 
         <FrameLayout
             android:layout_width="fill_parent"

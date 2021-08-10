@@ -3,7 +3,7 @@ SUPPORTED SPECIFICATIONS
 
 * [BIP-13](https://github.com/bitcoin/bips/blob/master/bip-0013.mediawiki): Address format for pay-to-script-hash
 * [BIP-14](https://github.com/bitcoin/bips/blob/master/bip-0014.mediawiki): Protocol version and user agent
-* [BIP-21](https://github.com/bitcoin/bips/blob/master/bip-0021.mediawiki): URI scheme for making Bitcoin payments
+* [BIP-21](https://github.com/bitcoin/bips/blob/master/bip-0021.mediawiki): URI scheme for making Groestlcoin payments
 * [BIP-31](https://github.com/bitcoin/bips/blob/master/bip-0031.mediawiki): Pong message
 * [BIP-32](https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki): Hierarchical deterministic wallets
 * [BIP-35](https://github.com/bitcoin/bips/blob/master/bip-0035.mediawiki): Mempool message
@@ -31,9 +31,9 @@ multiple accounts, we are using BIP-32 instead. This implies wallets can't be sh
 BIP-32 and BIP-44 compatible wallets, as they would see a different transaction history for the
 same seed.
 
-[BIP-72](https://github.com/bitcoin/bips/blob/master/bip-0072.mediawiki): `bitcoin:` URI extensions for payment protocol
+[BIP-72](https://github.com/bitcoin/bips/blob/master/bip-0072.mediawiki): `groestlcoin:` URI extensions for payment protocol
 
-The spec is supported, except the _"...it should ignore the bitcoin address/amount/label/message in
+The spec is supported, except the _"...it should ignore the groestlcoin address/amount/label/message in
 the URI..."_ part of the recommendation. Important: If you use the request parameter, you have one
 of the following choices. If you don't follow one of those, your linked payment request won't be
 accepted.

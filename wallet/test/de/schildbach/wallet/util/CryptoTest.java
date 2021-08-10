@@ -90,11 +90,11 @@ public class CryptoTest {
 
     @Test
     public void backups() throws Exception {
-        final byte[] backup = Crypto.decryptBytes(readBackupFromResource("bitcoin-wallet-backup-testnet-3.50"),
+        final byte[] backup = Crypto.decryptBytes(readBackupFromResource("groestlcoin-wallet-backup-testnet-3.50"),
                 PASSWORD);
         assertTrue(WalletProtobufSerializer.isWallet(new ByteArrayInputStream(backup)));
 
-        final byte[] backupCrLf = Crypto.decryptBytes(readBackupFromResource("bitcoin-wallet-backup-testnet-3.50-crlf"),
+        final byte[] backupCrLf = Crypto.decryptBytes(readBackupFromResource("groestlcoin-wallet-backup-testnet-3.50-crlf"),
                 PASSWORD);
         assertTrue(WalletProtobufSerializer.isWallet(new ByteArrayInputStream(backupCrLf)));
     }
