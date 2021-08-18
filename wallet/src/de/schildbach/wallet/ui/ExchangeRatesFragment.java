@@ -38,7 +38,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.common.base.Strings;
 import de.schildbach.wallet.Configuration;
-import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.R;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.exchangerate.ExchangeRateEntry;
@@ -74,7 +73,7 @@ public final class ExchangeRatesFragment extends Fragment implements OnSharedPre
         setHasOptionsMenu(true);
 
         viewModel = new ViewModelProvider(this).get(ExchangeRatesViewModel.class);
-        if (Constants.ENABLE_EXCHANGE_RATES) {
+        if (config.isEnableExchangeRates()) {
             viewModel.getExchangeRates().observe(this, exchangeRates -> {
                 if (!exchangeRates.isEmpty()) {
                     viewGroup.setDisplayedChild(2);
@@ -163,7 +162,7 @@ public final class ExchangeRatesFragment extends Fragment implements OnSharedPre
         inflater.inflate(R.menu.exchange_rates_fragment_options, menu);
 
         final MenuItem searchMenuItem = menu.findItem(R.id.exchange_rates_options_search);
-        if (Constants.ENABLE_EXCHANGE_RATES) {
+        if (config.isEnableExchangeRates()) {
             final SearchView searchView = (SearchView) searchMenuItem.getActionView();
             searchView.setOnQueryTextListener(new OnQueryTextListener() {
                 @Override

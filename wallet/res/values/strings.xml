@@ -266,6 +266,8 @@
     <string name="preferences_trusted_peer_only_summary">Prevents connecting to any peers besides the trusted peer.</string>
     <string name="preferences_block_explorer_title">Block explorer</string>
     <string name="preferences_block_explorer_summary">External block explorer to use for browsing transactions, addresses and blocks.</string>
+    <string name="preferences_enable_exchange_rates_title">Show local amounts</string>
+    <string name="preferences_enable_exchange_rates_summary">Fetch exchange rates from a feed in order to calculate local amounts.</string>
     <string name="preferences_data_usage_title">Data usage</string>
     <string name="preferences_data_usage_summary">Show options to restrict data usage on mobile networks.</string>
     <string name="preferences_notifications_title">Notifications</string>

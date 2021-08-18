@@ -514,14 +514,12 @@ public class BlockchainService extends LifecycleService {
                 WalletBalanceWidgetProvider.updateWidgets(BlockchainService.this, balance,
                         rate != null ? rate.exchangeRate() : null);
         });
-        if (Constants.ENABLE_EXCHANGE_RATES) {
-            exchangeRate.observe(this, rate -> {
-                final Coin balance = walletBalance.getValue();
-                if (balance != null)
-                    WalletBalanceWidgetProvider.updateWidgets(BlockchainService.this, balance,
-                            rate != null ? rate.exchangeRate() : null);
-            });
-        }
+        exchangeRate.observe(this, rate -> {
+            final Coin balance = walletBalance.getValue();
+            if (balance != null)
+                WalletBalanceWidgetProvider.updateWidgets(BlockchainService.this, balance,
+                        rate != null ? rate.exchangeRate() : null);
+        });
         wallet = new WalletLiveData(application);
         wallet.observe(this, new Observer<Wallet>() {
             @Override

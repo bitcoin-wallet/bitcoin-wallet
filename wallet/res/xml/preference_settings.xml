@@ -73,6 +73,12 @@
             android:summary="@string/preferences_block_explorer_summary"
             android:entries="@array/preferences_block_explorer_labels"
             android:entryValues="@array/preferences_block_explorer_values" />
+
+        <CheckBoxPreference
+            android:key="enable_exchange_rates"
+            android:title="@string/preferences_enable_exchange_rates_title"
+            android:summary="@string/preferences_enable_exchange_rates_summary"
+            android:defaultValue="true" />
     </PreferenceCategory>
 
     <PreferenceCategory

@@ -55,8 +55,6 @@ public class ExchangeRatesRepository {
     private final AtomicLong lastUpdated = new AtomicLong(0);
 
     public synchronized static ExchangeRatesRepository get(final WalletApplication application) {
-        if (!Constants.ENABLE_EXCHANGE_RATES)
-            return null;
         if (INSTANCE == null)
             INSTANCE = new ExchangeRatesRepository(application);
         return INSTANCE;
@@ -81,6 +79,9 @@ public class ExchangeRatesRepository {
     }
 
     private void maybeRequestExchangeRates() {
+        if (!application.getConfiguration().isEnableExchangeRates())
+            return;
+
         final Stopwatch watch = Stopwatch.createStarted();
         final long now = System.currentTimeMillis();
 
