@@ -15,3 +15,4 @@ https://github.com/bitcoin-wallet/bitcoin-wallet
 Giấy phép: GPLv3
 Sử dụng với sự cẩn trọng của riêng bạn!
 http://www.gnu.org/licenses/gpl-3.0.en.html
+# Assign: Thong Ngo
