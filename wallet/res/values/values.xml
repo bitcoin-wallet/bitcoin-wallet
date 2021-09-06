@@ -23,9 +23,11 @@
     <string-array name="preferences_block_explorer_values">
         <item>https://www.blockchain.com/btc-testnet/</item>
         <item>https://live.blockcypher.com/btc-testnet/</item>
+        <item>https://mempool.space/testnet/</item>
     </string-array>
     <string-array name="preferences_block_explorer_labels">
         <item>blockchain.info</item>
         <item>live.blockcypher.com</item>
+        <item>mempool.space</item>
     </string-array>
 </resources>
