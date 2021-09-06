@@ -8,11 +8,13 @@
         <item>https://live.blockcypher.com/btc/</item>
         <item>https://coin.cz/btc/</item>
         <item>https://mempool.space/</item>
+        <item>https://mempool.emzy.de/</item>
     </string-array>
     <string-array name="preferences_block_explorer_labels">
         <item>blockchain.info</item>
         <item>live.blockcypher.com</item>
         <item>coin.cz</item>
         <item>mempool.space</item>
+        <item>mempool.emzy.de</item>
     </string-array>
 </resources>
