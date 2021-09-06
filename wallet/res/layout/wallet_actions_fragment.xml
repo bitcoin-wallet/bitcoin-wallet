@@ -7,7 +7,7 @@
     android:measureWithLargestChild="true"
     android:orientation="horizontal">
 
-    <TextView
+    <Button
         android:id="@+id/wallet_actions_request"
         style="@style/My.Widget.ActionButton"
         android:layout_weight="1"
@@ -18,7 +18,7 @@
         android:drawableStart="@drawable/ic_send_flipped_white_24dp"
         android:text="@string/button_request_coins" />
 
-    <TextView
+    <Button
         android:id="@+id/wallet_actions_send"
         style="@style/My.Widget.ActionButton"
         android:layout_weight="1"
