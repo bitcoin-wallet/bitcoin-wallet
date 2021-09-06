@@ -1,44 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     style="?android:attr/actionBarSplitStyle"
     android:theme="@android:style/ThemeOverlay.Material.Dark.ActionBar"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="42dp"
     android:measureWithLargestChild="true"
     android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/wallet_actions_request"
-        style="@style/My.Widget.ActionButton"
-        android:layout_weight="1"
-        android:layout_height="match_parent"
-        android:layout_width="0dp"
-        android:singleLine="true"
-        android:gravity="center_vertical|start"
-        android:drawableStart="@drawable/ic_send_flipped_white_24dp"
-        android:text="@string/button_request_coins" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/wallet_actions_request"
+            style="@style/My.Widget.ActionButtonMaxLinesOne"
+            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            app:autoSizeTextType="uniform"
+            app:layout_constraintWidth_percent="0.43"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/wallet_actions_send"
+            app:autoSizeMaxTextSize="14sp"
+            app:autoSizeMinTextSize="6sp"
+            app:drawableStartCompat="@drawable/ic_send_flipped_white_24dp"
+            app:autoSizeStepGranularity="1sp"
+            android:maxLines="1"
+            android:gravity="center_vertical|start"
+            android:text="@string/button_request_coins" />
 
-    <Button
-        android:id="@+id/wallet_actions_send"
-        style="@style/My.Widget.ActionButton"
-        android:layout_weight="1"
-        android:layout_width="0dp"
-        android:singleLine="true"
-        android:layout_height="match_parent"
-        android:gravity="center_vertical|end"
-        android:drawableEnd="@drawable/ic_send_white_24dp"
-        android:text="@string/button_send_coins" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/wallet_actions_send"
+            style="@style/My.Widget.ActionButtonMaxLinesOne"
+            android:layout_width="0dp"
+            app:autoSizeStepGranularity="1sp"
+            app:autoSizeTextType="uniform"
+            app:autoSizeMaxTextSize="14sp"
+            app:autoSizeMinTextSize="6sp"
+            app:layout_constraintWidth_percent="0.37"
+            app:layout_constraintStart_toEndOf="@+id/wallet_actions_request"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/wallet_actions_send_qr"
+            app:drawableEndCompat="@drawable/ic_send_white_24dp"
+            android:maxLines="1"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical|end"
+            android:text="@string/button_send_coins" />
 
-    <ImageButton
-        android:id="@+id/wallet_actions_send_qr"
-        style="@style/My.Widget.ActionButton.Floating"
-        android:layout_width="42dp"
-        android:layout_height="42dp"
-        android:layout_gravity="end"
-        android:layout_marginLeft="@dimen/list_entry_padding_horizontal_cram"
-        android:layout_marginRight="@dimen/list_entry_padding_horizontal_cram"
-        android:backgroundTint="@color/fg_on_dark_bg_network_significant"
-        android:contentDescription="@string/button_scan"
-        android:src="@drawable/ic_photo_camera_white_24dp"
-        android:tint="@color/bg_action_bar" />
-</LinearLayout>
+        <ImageButton
+            android:id="@+id/wallet_actions_send_qr"
+            style="@style/My.Widget.ActionButton.Floating"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:layout_gravity="end"
+            android:layout_marginLeft="@dimen/list_entry_padding_horizontal_cram"
+            android:layout_marginRight="@dimen/list_entry_padding_horizontal_cram"
+            android:backgroundTint="@color/fg_on_dark_bg_network_significant"
+            app:layout_constraintStart_toEndOf="@+id/wallet_actions_send"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:contentDescription="@string/button_scan"
+            android:src="@drawable/ic_photo_camera_white_24dp"
+            android:tint="@color/bg_action_bar" />
+</androidx.constraintlayout.widget.ConstraintLayout>
