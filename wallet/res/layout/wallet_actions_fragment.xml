@@ -1,40 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     style="?android:attr/actionBarSplitStyle"
     android:theme="@android:style/ThemeOverlay.Material.Dark.ActionBar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:paddingTop="@dimen/list_entry_padding_horizontal_cram"
+    android:paddingBottom="@dimen/list_entry_padding_horizontal_cram"
     android:measureWithLargestChild="true"
     android:orientation="horizontal">
 
-    <androidx.appcompat.widget.AppCompatTextView
+    <Button
         android:id="@+id/wallet_actions_request"
-        style="@style/My.Widget.ActionButtonMaxLinesOne"
+        style="@style/My.Widget.ActionButtonNoSingleLine"
         android:layout_weight=".43"
         android:layout_height="match_parent"
         android:layout_width="0dp"
-        app:autoSizeTextType="uniform"
-        app:autoSizeMaxTextSize="14sp"
-        app:autoSizeMinTextSize="6sp"
-        app:drawableStartCompat="@drawable/ic_send_flipped_white_24dp"
-        app:autoSizeStepGranularity="1sp"
-        android:maxLines="1"
+        android:drawableStart="@drawable/ic_send_flipped_white_24dp"
         android:gravity="center_vertical|start"
         android:text="@string/button_request_coins" />
 
-    <androidx.appcompat.widget.AppCompatTextView
+    <Button
         android:layout_weight=".37"
         android:id="@+id/wallet_actions_send"
-        style="@style/My.Widget.ActionButtonMaxLinesOne"
+        style="@style/My.Widget.ActionButtonNoSingleLine"
         android:layout_width="0dp"
-        app:autoSizeStepGranularity="1sp"
-        app:autoSizeTextType="uniform"
-        app:autoSizeMaxTextSize="14sp"
-        app:autoSizeMinTextSize="6sp"
-        app:drawableEndCompat="@drawable/ic_send_white_24dp"
-        android:maxLines="1"
+        android:drawableEnd="@drawable/ic_send_white_24dp"
         android:layout_height="match_parent"
         android:gravity="center_vertical|end"
         android:text="@string/button_send_coins" />
