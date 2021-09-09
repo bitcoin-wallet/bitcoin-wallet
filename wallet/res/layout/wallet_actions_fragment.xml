@@ -5,30 +5,29 @@
     android:theme="@android:style/ThemeOverlay.Material.Dark.ActionBar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:paddingTop="@dimen/list_entry_padding_horizontal_cram"
+    android:paddingBottom="@dimen/list_entry_padding_horizontal_cram"
     android:measureWithLargestChild="true"
     android:orientation="horizontal">
 
     <Button
         android:id="@+id/wallet_actions_request"
-        style="@style/My.Widget.ActionButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:drawableLeft="@drawable/ic_send_flipped_white_24dp"
+        style="@style/My.Widget.ActionButtonNoSingleLine"
+        android:layout_weight=".43"
+        android:layout_height="match_parent"
+        android:layout_width="0dp"
+        android:drawableStart="@drawable/ic_send_flipped_white_24dp"
+        android:gravity="center_vertical|start"
         android:text="@string/button_request_coins" />
 
-    <Space
-        android:layout_width="0px"
-        android:layout_height="0px"
-        android:layout_weight="1" />
-
     <Button
+        android:layout_weight=".37"
         android:id="@+id/wallet_actions_send"
-        style="@style/My.Widget.ActionButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:drawableRight="@drawable/ic_send_white_24dp"
+        style="@style/My.Widget.ActionButtonNoSingleLine"
+        android:layout_width="0dp"
+        android:drawableEnd="@drawable/ic_send_white_24dp"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical|end"
         android:text="@string/button_send_coins" />
 
     <ImageButton
@@ -36,7 +35,7 @@
         style="@style/My.Widget.ActionButton.Floating"
         android:layout_width="42dp"
         android:layout_height="42dp"
-        android:layout_gravity="center_vertical"
+        android:layout_gravity="end"
         android:layout_marginLeft="@dimen/list_entry_padding_horizontal_cram"
         android:layout_marginRight="@dimen/list_entry_padding_horizontal_cram"
         android:backgroundTint="@color/fg_on_dark_bg_network_significant"
