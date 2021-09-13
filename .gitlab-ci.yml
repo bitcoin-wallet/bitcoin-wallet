@@ -8,7 +8,7 @@ variables:
 before_script:
   - apt-get update
   - apt-get -y upgrade
-  - apt-get -y install openjdk-8-jdk
+  - apt-get -y install ${JDK_PACKAGE}
   - apt-get -y install wget gradle
   - wget --quiet --output-document=commandlinetools-linux.zip https://dl.google.com/android/repository/commandlinetools-linux-${ANDROID_SDK_TOOLS}.zip
   - mkdir -p ${ANDROID_HOME}
@@ -17,5 +17,8 @@ before_script:
   - echo -e "\n${ANDROID_SDK_LICENSE_HASH}" >> ${ANDROID_HOME}/licenses/android-sdk-license
 
 build:
+  parallel:
+    matrix:
+      - JDK_PACKAGE: [ openjdk-8-jdk, openjdk-11-jdk ]
   script:
     - gradle build --stacktrace
