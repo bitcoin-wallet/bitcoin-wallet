@@ -39,11 +39,74 @@ Encrypted: false
 
 Keychain size: 540
 
-Transactions: 0
+Transactions: 
+Hash
 
-Inputs: 0
+0000000000000000000326be00ad132dcf384e08d08139bf1b797fa8f59b34c6
 
-Outputs: 0 (spent: 0)
+Confirmations:
+
+297
+
+Timestamp:
+
+2021-08-27 21:34
+
+Height:
+
+697844
+
+Miner:
+
+F2Pool
+
+Number of Transactions:
+
+2,565
+
+Difficulty:
+
+17,615,033,039,278.88
+
+Merkle root:
+
+e2eb31a62a19716095f6445b8e1333d76014e1691ff2901c30babc55be082454
+
+Version:
+
+0x2fffe004
+
+Bits:
+
+386,923,168
+
+Weight
+:
+3,998,248 WU
+
+Size:
+
+1,380,937 bytes
+
+Nonce:
+
+1,658,620,106
+
+Transaction Volume:
+
+77035.77880330 BTC
+
+Block Reward
+
+6.25000000 BTC
+
+Fee Reward
+
+0.17469041 BTC
+
+Inputs: bc1qpmcsnrd9pe5xfys09svc0js2z62enez24hnvyq
+
+Outputs: (spent: )
 
 Last block seen: 697844 (2021-08-27T14:34:20Z)
 
@@ -110,8 +173,9 @@ Memory Class: 256/512
 
 Storage Encryption Status: 5
 
-Bluetooth MAC: null  
+Bluetooth MAC: 18:E7:77:D3:C4:5C
 
 Runtime: Dalvik 2.1.0 
-# Author: Thong Ngo 
+
+# Owner: Thong Ngo 
   E-mail: quangthong1011@gmail.com
