@@ -1,3 +1,8 @@
+v8.17
+
+* Use D8 for bytecode desugaring.
+* Add two block explorers.
+
 v8.15-v8.16
 
 * Setting for enabling of showing local amounts.
