@@ -12,7 +12,7 @@ This project contains several sub-projects:
      A tiny library for integrating Bitcoin payments into your own Android app
      (e.g. donations, in-app purchases).
  * __sample-integration-android__:
-     A minimal example app to demonstrate integration of Bitcoin payments into
+     A minimal example app to demonstrate the integration of Bitcoin payments into
      your Android app.
 
 
