@@ -5,6 +5,7 @@
 
     <string-array name="preferences_block_explorer_values">
         <item>https://www.blockchain.com/btc/</item>
+        <item>https://bitcoinexplorer.org/</item>
         <item>https://live.blockcypher.com/btc/</item>
         <item>https://coin.cz/btc/</item>
         <item>https://mempool.space/</item>
@@ -12,6 +13,7 @@
     </string-array>
     <string-array name="preferences_block_explorer_labels">
         <item>blockchain.info</item>
+        <item>bitcoinexplorer.org</item>
         <item>live.blockcypher.com</item>
         <item>coin.cz</item>
         <item>mempool.space</item>
