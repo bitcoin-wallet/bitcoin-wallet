@@ -51,10 +51,10 @@
 
         <Preference
             android:key="about_credits_bitcoinj"
-            android:summary="https://bitcoinj.github.io">
+            android:summary="https://bitcoinj.org">
             <intent
                 android:action="android.intent.action.VIEW"
-                android:data="https://bitcoinj.github.io" />
+                android:data="https://bitcoinj.org" />
         </Preference>
         <Preference
             android:key="about_credits_zxing"

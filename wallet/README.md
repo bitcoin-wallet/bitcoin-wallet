@@ -152,7 +152,7 @@ Instructions for preparing an NFC tag with your address:
 
 ### BITCOINJ
 
-Bitcoin Wallet uses [bitcoinj](https://bitcoinj.github.io/) for Bitcoin specific logic.
+Bitcoin Wallet uses [bitcoinj](https://bitcoinj.org) for Bitcoin specific logic.
 
 
 ### EXCHANGE RATES
