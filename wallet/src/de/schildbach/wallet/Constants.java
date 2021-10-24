@@ -177,7 +177,7 @@ public final class Constants {
     public static final Coin SOME_BALANCE_THRESHOLD = Coin.COIN.divide(1600);
 
     public static final int SDK_DEPRECATED_BELOW = Build.VERSION_CODES.M;
-    public static final String SECURITY_PATCH_INSECURE_BELOW = "2020-07-01";
+    public static final String SECURITY_PATCH_INSECURE_BELOW = "2020-10-01";
 
     public static final int NOTIFICATION_ID_CONNECTIVITY = 1;
     public static final int NOTIFICATION_ID_COINS_RECEIVED = 2;
