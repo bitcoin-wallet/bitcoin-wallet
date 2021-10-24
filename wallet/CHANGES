@@ -1,7 +1,7 @@
-v8.17
+v8.17-v8.18
 
 * Use D8 for bytecode desugaring.
-* Add two block explorers.
+* Add more block explorers.
 
 v8.15-v8.16
 
