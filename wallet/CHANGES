@@ -1,3 +1,7 @@
+v8.19
+
+* Target Android 11.
+
 v8.17-v8.18
 
 * Use D8 for bytecode desugaring.
