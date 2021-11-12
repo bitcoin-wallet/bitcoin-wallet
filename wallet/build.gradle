@@ -21,8 +21,7 @@ dependencies {
     implementation 'androidx.sqlite:sqlite:2.1.0'
     implementation "androidx.room:room-runtime:2.3.0"
     annotationProcessor "androidx.room:room-compiler:2.3.0"
-    implementation 'org.bitcoinj:bitcoinj-core:0.15.10'
-    implementation 'com.google.protobuf:protobuf-java:3.18.1'
+    implementation 'org.bitcoinj:bitcoinj-core:0.16'
     implementation 'com.google.guava:guava:31.0.1-android'
     implementation 'com.google.zxing:core:3.3.3'
     //noinspection GradleDependency
