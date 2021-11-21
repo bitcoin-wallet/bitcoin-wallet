@@ -46,7 +46,6 @@ import de.schildbach.wallet.R;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.util.WalletUtils;
 import org.bitcoinj.crypto.KeyCrypter;
-import org.bitcoinj.crypto.KeyCrypterException;
 import org.bitcoinj.crypto.KeyCrypterScrypt;
 import org.bitcoinj.wallet.Wallet;
 import org.bouncycastle.crypto.params.KeyParameter;
@@ -249,8 +248,8 @@ public class EncryptKeysDialogFragment extends DialogFragment {
 
                             state = State.DONE;
                             log.info("wallet successfully decrypted");
-                        } catch (final KeyCrypterException x) {
-                            log.info("wallet decryption failed: " + x.getMessage());
+                        } catch (final Wallet.BadWalletEncryptionKeyException x) {
+                            log.info("wallet decryption failed, bad spending password: " + x.getMessage());
                             badPasswordView.setVisibility(View.VISIBLE);
                             state = State.INPUT;
                             oldPasswordView.requestFocus();

@@ -49,7 +49,6 @@ import org.bitcoinj.core.Coin;
 import org.bitcoinj.core.Sha256Hash;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.TransactionOutput;
-import org.bitcoinj.crypto.KeyCrypterException;
 import org.bitcoinj.wallet.KeyChain.KeyPurpose;
 import org.bitcoinj.wallet.SendRequest;
 import org.bitcoinj.wallet.Wallet;
@@ -249,7 +248,7 @@ public class RaiseFeeDialogFragment extends DialogFragment {
             updateView();
 
             dismiss();
-        } catch (final KeyCrypterException x) {
+        } catch (final Wallet.BadWalletEncryptionKeyException x) {
             badPasswordView.setVisibility(View.VISIBLE);
 
             state = State.INPUT;

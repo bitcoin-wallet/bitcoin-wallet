@@ -46,7 +46,6 @@ import de.schildbach.wallet.ui.DialogBuilder;
 import de.schildbach.wallet.util.WalletUtils;
 import org.bitcoinj.core.Coin;
 import org.bitcoinj.core.Transaction;
-import org.bitcoinj.crypto.KeyCrypterException;
 import org.bitcoinj.utils.MonetaryFormat;
 import org.bitcoinj.wallet.DeterministicUpgradeRequiresPassword;
 import org.bitcoinj.wallet.Wallet;
@@ -224,7 +223,7 @@ public class MaintenanceDialogFragment extends DialogFragment {
 
                     delayedDismiss();
                 });
-            } catch (final KeyCrypterException x) {
+            } catch (final Wallet.BadWalletEncryptionKeyException x) {
                 handler.post(() -> {
                     badPasswordView.setVisibility(View.VISIBLE);
 
