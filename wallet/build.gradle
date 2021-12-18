@@ -18,7 +18,7 @@ dependencies {
     implementation 'androidx.coordinatorlayout:coordinatorlayout:1.1.0'
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
     implementation 'androidx.lifecycle:lifecycle-service:2.4.0'
-    implementation 'androidx.sqlite:sqlite:2.1.0'
+    implementation 'androidx.sqlite:sqlite:2.2.0'
     implementation "androidx.room:room-runtime:2.3.0"
     annotationProcessor "androidx.room:room-compiler:2.3.0"
     implementation 'org.bitcoinj:bitcoinj-core:0.16.1'
