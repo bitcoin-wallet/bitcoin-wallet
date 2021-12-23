@@ -38,3 +38,15 @@ You can build all sub-projects in all flavors at once using Gradle:
     gradle clean build
 
 For details about building the wallet see the [specific README](wallet/README.md).
+
+
+### REPRODUCIBLE BUILD
+
+Alternatively, you can build within Docker (with buildkit enabled) or Podman 4+:
+
+    # each time, either
+    docker build --file build.Containerfile --output build/ .
+    # or
+    podman build --file build.Containerfile --output build/ .
+
+The unsigned APKs are written to the specified output directory.
