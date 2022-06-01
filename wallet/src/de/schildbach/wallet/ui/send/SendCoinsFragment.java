@@ -309,7 +309,7 @@ public final class SendCoinsFragment extends Fragment {
         walletActivityViewModel.wallet.observe(this, wallet -> updateView());
         viewModel = new ViewModelProvider(this).get(SendCoinsViewModel.class);
         viewModel.addressBook.observe(this, addressBook -> updateView());
-        if (Constants.ENABLE_EXCHANGE_RATES) {
+        if (config.isEnableExchangeRates()) {
             viewModel.exchangeRate.observe(this, exchangeRate -> {
                 final SendCoinsViewModel.State state = viewModel.state;
                 if (state == null || state.compareTo(SendCoinsViewModel.State.INPUT) <= 0)
@@ -408,6 +408,7 @@ public final class SendCoinsFragment extends Fragment {
         final CurrencyAmountView localAmountView = view.findViewById(R.id.send_coins_amount_local);
         localAmountView.setInputFormat(Constants.LOCAL_FORMAT);
         localAmountView.setHintFormat(Constants.LOCAL_FORMAT);
+        localAmountView.setVisibility(config.isEnableExchangeRates() ? View.VISIBLE : View.GONE);
         amountCalculatorLink = new CurrencyCalculatorLink(btcAmountView, localAmountView);
         amountCalculatorLink.setExchangeDirection(config.getLastExchangeDirection());
 

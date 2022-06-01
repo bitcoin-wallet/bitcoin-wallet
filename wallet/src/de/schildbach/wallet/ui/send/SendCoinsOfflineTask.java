@@ -24,7 +24,6 @@ import org.bitcoinj.core.Coin;
 import org.bitcoinj.core.ECKey;
 import org.bitcoinj.core.InsufficientMoneyException;
 import org.bitcoinj.core.Transaction;
-import org.bitcoinj.crypto.KeyCrypterException;
 import org.bitcoinj.wallet.SendRequest;
 import org.bitcoinj.wallet.Wallet;
 import org.bitcoinj.wallet.Wallet.CompletionException;
@@ -70,8 +69,8 @@ public abstract class SendCoinsOfflineTask {
                 log.info("send failed, key is encrypted: {}", x.getMessage());
 
                 callbackHandler.post(() -> onFailure(x));
-            } catch (final KeyCrypterException x) {
-                log.info("send failed, key crypter exception: {}", x.getMessage());
+            } catch (final Wallet.BadWalletEncryptionKeyException x) {
+                log.info("send failed, bad spending password: {}", x.getMessage());
 
                 final boolean isEncrypted = wallet.isEncrypted();
                 callbackHandler.post(() -> {

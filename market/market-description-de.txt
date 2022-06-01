@@ -11,7 +11,9 @@
 • Wenn du offline bist, kannst du trotzdem über Bluetooth zahlen.
 • System-Benachrichtigung für den Empfang von Zahlungen.
 • Entleeren von Paper-Wallets (die z.B. für Cold-Storage genutzt wurden).
-• App-Widget zeigt Groestlcoin-Guthaben an.
+• App-Widget zeigt Bitcoin-Guthaben an.
+• Sicherheit: Unterstützt Taproot, Segwit und das neue Bech32m-Format.
+• Privatsphäre: Unterstützt Tor mittels der separaten Orbot App.
 
 
 <b>MITWIRKEN</b>

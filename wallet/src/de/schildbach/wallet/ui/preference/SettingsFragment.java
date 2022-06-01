@@ -110,10 +110,13 @@ public final class SettingsFragment extends PreferenceFragment implements OnPref
         trustedPeerOnlyPreference = findPreference(Configuration.PREFS_KEY_TRUSTED_PEERS_ONLY);
         trustedPeerOnlyPreference.setOnPreferenceChangeListener(this);
 
+        final Preference enableExchangeRatesPreference = findPreference(Configuration.PREFS_KEY_ENABLE_EXCHANGE_RATES);
+        if (!Constants.ENABLE_EXCHANGE_RATES)
+            removeOrDisablePreference(enableExchangeRatesPreference);
+
         final Preference dataUsagePreference = findPreference(Configuration.PREFS_KEY_DATA_USAGE);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
-            dataUsagePreference.setIntent(new Intent(Settings.ACTION_IGNORE_BACKGROUND_DATA_RESTRICTIONS_SETTINGS,
-                    Uri.parse("package:" + application.getPackageName())));
+        dataUsagePreference.setIntent(new Intent(Settings.ACTION_IGNORE_BACKGROUND_DATA_RESTRICTIONS_SETTINGS,
+                Uri.parse("package:" + application.getPackageName())));
         if (dataUsagePreference.getIntent() == null || pm.resolveActivity(dataUsagePreference.getIntent(), 0) == null)
             removeOrDisablePreference(dataUsagePreference);
 

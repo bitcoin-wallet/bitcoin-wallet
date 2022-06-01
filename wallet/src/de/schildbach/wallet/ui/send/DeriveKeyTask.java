@@ -21,7 +21,6 @@ import android.os.Handler;
 import android.os.Looper;
 import de.schildbach.wallet.Constants;
 import org.bitcoinj.crypto.KeyCrypter;
-import org.bitcoinj.crypto.KeyCrypterException;
 import org.bitcoinj.crypto.KeyCrypterScrypt;
 import org.bitcoinj.wallet.Wallet;
 import org.bouncycastle.crypto.params.KeyParameter;
@@ -75,8 +74,8 @@ public abstract class DeriveKeyTask {
                         key = newKey;
                         wasChanged = true;
                         log.info("scrypt upgrade succeeded");
-                    } catch (final KeyCrypterException x) {
-                        log.info("scrypt upgrade failed: {}", x.getMessage());
+                    } catch (final Wallet.BadWalletEncryptionKeyException x) {
+                        log.info("scrypt upgrade failed, bad spending password: {}", x.getMessage());
                     }
                 }
             }

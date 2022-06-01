@@ -118,15 +118,22 @@ public class WalletUtils {
     }
 
     @Nullable
+    public static Address getToAddress(final Script script) {
+        try {
+            return script.getToAddress(Constants.NETWORK_PARAMETERS, true);
+        } catch (final ScriptException x) {
+            return null;
+        }
+    }
+
+    @Nullable
     public static Address getToAddressOfSent(final Transaction tx, final Wallet wallet) {
         for (final TransactionOutput output : tx.getOutputs()) {
-            try {
-                if (!output.isMine(wallet)) {
-                    final Script script = output.getScriptPubKey();
-                    return script.getToAddress(Constants.NETWORK_PARAMETERS, true);
-                }
-            } catch (final ScriptException x) {
-                // swallow
+            if (!output.isMine(wallet)) {
+                final Script script = output.getScriptPubKey();
+                final Address address = getToAddress(script);
+                if (address != null)
+                    return address;
             }
         }
 
@@ -136,13 +143,11 @@ public class WalletUtils {
     @Nullable
     public static Address getWalletAddressOfReceived(final Transaction tx, final Wallet wallet) {
         for (final TransactionOutput output : tx.getOutputs()) {
-            try {
-                if (output.isMine(wallet)) {
-                    final Script script = output.getScriptPubKey();
-                    return script.getToAddress(Constants.NETWORK_PARAMETERS, true);
-                }
-            } catch (final ScriptException x) {
-                // swallow
+            if (output.isMine(wallet)) {
+                final Script script = output.getScriptPubKey();
+                final Address address = getToAddress(script);
+                if (address != null)
+                    return address;
             }
         }
 

@@ -10,9 +10,13 @@ FITUR:
 • Notifikasi sistem untuk konektivitas Groestlcoin dan menerima koin.
 • Widget Apl untuk saldo Groestlcoin.
 
+Lisensi: GPLv3
+http://www.gnu.org/licenses/gpl-3.0.en.html
+
 Jika Anda ingin berkontribusi kepada Groestlcoin Wallet, proyeknya berada di
 https://github.com/Groestlcoin/groestlcoin-wallet
 
-Lisensi: GPLv3
-Gunakan dengan resiko Anda!
-http://www.gnu.org/licenses/gpl-3.0.en.html
+Semua terjemahan dikelola via Transifex:
+https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
+
+<i>Gunakan dengan resiko Anda!</i>

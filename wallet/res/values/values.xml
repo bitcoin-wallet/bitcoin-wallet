@@ -21,7 +21,8 @@
 		<item>@string/preferences_precision_labels_4</item>
 		<item>@string/preferences_precision_labels_2_3</item>
 		<item>@string/preferences_precision_labels_0_6</item>
-	</string-array>
+        <item>@string/preferences_precision_labels_0_8</item>
+    </string-array>
 	<string-array name="preferences_block_explorer_values">
 		<item>https://chainz.cryptoid.info/grs-test/</item>
 		<item>https://groestlsight-test.groestlcoin.org/</item>
