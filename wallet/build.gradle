@@ -42,7 +42,7 @@ ext {
 }
 
 android {
-    compileSdkVersion 'android-30'
+    compileSdkVersion 'android-31'
     buildToolsVersion '30.0.3'
 
     defaultConfig {
@@ -62,8 +62,8 @@ android {
                 cFlags '-DHAVE_CONFIG_H'
             }
         }
-        minSdkVersion 21
-        targetSdkVersion 29
+        minSdkVersion 24
+        targetSdkVersion 31
     }
 
     buildTypes {
@@ -143,7 +143,7 @@ android {
         exclude 'org.bitcoin.test.checkpoints.txt'
     }
 }
-
+/*
 task svgToPngMipmap(type: fr.avianey.androidsvgdrawable.gradle.SvgDrawableTask) {
     from = files('graphics/mipmap')
     to = file('res')
@@ -167,7 +167,7 @@ task svgToPngMipmapTestnet(type: fr.avianey.androidsvgdrawable.gradle.SvgDrawabl
     outputFormat = 'PNG'
     outputType = 'mipmap'
 }
-
+*/
 clean {
     file('libs').deleteDir()
 

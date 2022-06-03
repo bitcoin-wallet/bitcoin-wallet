@@ -11,7 +11,7 @@ configurations {
 
 dependencies {
     implementation project(':integration-android')
-    implementation 'org.groestlcoinj:groestlcoinj-core:0.15.10'
+    implementation 'com.github.groestlcoin:groestlcoinj-core:0.16.1'
 }
 
 android {
