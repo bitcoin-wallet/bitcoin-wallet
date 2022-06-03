@@ -61,7 +61,7 @@
   <string name="alert_dialogs_fragment_settings_failed_title">Problème d’ouverture des paramètres</string>
   <string name="alert_dialogs_fragment_too_much_balance_dialog_title">Réduisez le risque</string>
   <string name="alert_dialogs_fragment_too_much_balance_dialog_message">Le montant dans votre porte-monnaie est plutôt élevé pour être gardé dans votre poche. Veuillez en stocker une partie à froid, en lieu sûr.</string>
-  <string name="send_coins_activity_title">Envoyer des bitcoins</string>
+  <string name="send_coins_activity_title">Envoyer des Groestlcoins</string>
   <string name="send_coins_fragment_request_payment_request_progress">Récupération de la signature de %s…</string>
   <string name="send_coins_fragment_request_payment_request_failed_title">Échec de récupération de la demande de paiement</string>
   <string name="send_coins_fragment_request_payment_request_failed_message">Le bénéficiaire (%1$s) utilise un protocole de paiement incompatible (raison : %2$s).</string>

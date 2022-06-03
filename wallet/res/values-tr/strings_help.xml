@@ -7,7 +7,7 @@
 			Ulusal para birimleri listesine gitmek için hafifçe vurun ve varsayılan olarak seçmek için para birimlerinden birine hafifçe dokunun.
 		</p>
 		<p>
-			Sağ üstteki QR kodu, geçerli bitcoin adresinizi içerir ve bir ödeme yapan tarafından taramak için kullanılabilir.
+			Sağ üstteki QR kodu, geçerli Groestlcoin adresinizi içerir ve bir ödeme yapan tarafından taramak için kullanılabilir.
 			Daha büyük bir sürümünü elde etmek için QR koduna dokunun.
 		</p>
 		<p>
@@ -16,7 +16,7 @@
 			Alınan ödemeler yeşil, gönderilen ödemeler kırmızı renkte gösterilecek.
 		</p>
 		<p>
-			Eylem çubuğundaki düğmelere dokunarak bitcoin gönderebilir veya isteyebilirsiniz.
+			Eylem çubuğundaki düğmelere dokunarak Groestlcoin gönderebilir veya isteyebilirsiniz.
 		</p>
 	]]>
 	</string>
@@ -24,10 +24,10 @@
 <![CDATA[
 		<p>
 			Bu menüyü kullanarak, başkalarından para talep edebilirsiniz.
-			Ödeyen kişi zaten bir Bitcoin cüzdanı kurmuş olmalıdır.
+			Ödeyen kişi zaten bir Groestlcoin cüzdanı kurmuş olmalıdır.
 		</p>
 		<p>
-			İlk olarak, talep etmek için bir miktar Bitcoin girebilirsiniz.
+			İlk olarak, talep etmek için bir miktar Groestlcoin girebilirsiniz.
 		</p>
 		<p>
 			Ardından, üretilen QR kodunu ödeyen kişiye taratırsınız.
@@ -35,7 +35,7 @@
 			Her iki telefonda da NFC etkinse, bunları birbirine dokundurabilirsiniz.
 		</p>
 		<p>
-			Her durumda diğer kişiye bitcoin göndermesi için tüm seçenekleri doldurulmuş bir menü gösterilecektir.
+			Her durumda diğer kişiye Groestlcoin göndermesi için tüm seçenekleri doldurulmuş bir menü gösterilecektir.
 			Ödeyecek kişi kabul ederse, ödeme kolayca gerçekleştirebilir.
 		</p>
 	]]>
@@ -43,10 +43,10 @@
   <string name="help_send_coins">
 <![CDATA[
 		<p>
-			Bitcoin gönderme sürecini başlattınız.
+			Groestlcoin gönderme sürecini başlattınız.
 		</p>
 		<p>
-			İlk olarak, ödeme yapacağınız Bitcoin adresini girersiniz.
+			İlk olarak, ödeme yapacağınız Groestlcoin adresini girersiniz.
 			Adres, adres defterinizdeki bilinen girişlerden otomatik olarak tamamlanacaktır.
 			Alacaklı tarafından sunulan bir QR kodunu kamera düğmesine basarak da tarayabilirsiniz.
 		</p>
@@ -58,7 +58,7 @@
 		</p>
 		<p>
 			Çevrimdışıyken bir ödeme girebilirsiniz.
-			Bitcoin Cüzdanın bir sonraki başlatılmasında gönderilecektir.
+			Groestlcoin Cüzdanın bir sonraki başlatılmasında gönderilecektir.
 			Bir ödemenin olabildiğince hızlı işlenmesini istiyorsanız, iyi bir şekilde bağlandığınızdan (örneğin bir WLAN\'da) emin olun.
 		</p>
 		<p>
@@ -103,7 +103,7 @@
             <b>Teknik notlar:</b>
         </p>
         <p>
-            Bir SPV/hafif cüzdan olarak Bitcoin Cüzdan, iş zincirini takip eder (bazen \"en uzun zincir\", \"kazanan zincir\" veya \"Bitcoin blok zinciri\" olarak da adlandırılır.).
+            Bir SPV/hafif cüzdan olarak Groestlcoin Cüzdan, iş zincirini takip eder (bazen \"en uzun zincir\", \"kazanan zincir\" veya \"Groestlcoin blok zinciri\" olarak da adlandırılır.).
             Yalnızca gelen ödemeleri alacak ve bu zincir üzerinden ödeme yapabileceksiniz.
             Azınlık zincirlerindeki Bitcoinler, yani daha az çalışma kanıtı olan zincirler hakkında hiçbir garanti verilemez.
         </p>

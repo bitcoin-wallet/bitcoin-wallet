@@ -1,4 +1,4 @@
-<b>Ayez vos bitcoins toujours avec vous dans votre poche.<b> Payez en balayant rapidement un code QR. En tant que marchant, vous recevez les paiements de manière fiable et instantanée. Bitcoin Wallet est une mise en œuvre de référence de la « vérification de paiement simplifiée » telle que décrite dans le livre blanc de Bitcoin.
+<b>Ayez vos bitcoins toujours avec vous dans votre poche.<b> Payez en balayant rapidement un code QR. En tant que marchant, vous recevez les paiements de manière fiable et instantanée. Groestlcoin Wallet est une mise en œuvre de référence de la « vérification de paiement simplifiée » telle que décrite dans le livre blanc de Groestlcoin.
 
 
 <b>CARACTÉRISTIQUES</b>

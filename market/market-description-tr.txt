@@ -11,7 +11,7 @@
 • Çevrimdışı olduğunuzda Bluetooth vasıtasıyla ödemeler.
 • Alınan Groestlcoin'ler için sistem bildirimleri.
 • Kağıt cüzdanların taranması (mesela soğuk depolama için kullanılanlar).
-• Bitcoin bakiyesini görüntüleyen gereç.
+• Groestlcoin bakiyesini görüntüleyen gereç.
 • Güvenlik: SegWit ve yeni bech32 biçimini destekler.
 • Gizlilik: Ayrı Orbot uygulaması aracılığıyla Tor'u destekler.
 
