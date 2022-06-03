@@ -30,8 +30,8 @@ import android.widget.Toast;
 import com.google.protobuf.ByteString;
 import de.schildbach.wallet.integration.android.BitcoinIntegration;
 import org.bitcoin.protocols.payments.Protos;
-import org.bitcoinj.core.Address;
 import org.bitcoinj.core.AddressFormatException;
+import org.bitcoinj.core.LegacyAddress;
 import org.bitcoinj.core.NetworkParameters;
 import org.bitcoinj.script.ScriptBuilder;
 
