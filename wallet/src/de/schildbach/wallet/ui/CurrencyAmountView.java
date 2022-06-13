@@ -40,6 +40,7 @@ import de.schildbach.wallet.util.GenericUtils;
 import de.schildbach.wallet.util.MonetarySpannable;
 import org.bitcoinj.core.Coin;
 import org.bitcoinj.core.Monetary;
+import org.bitcoinj.utils.Fiat;
 import org.bitcoinj.utils.MonetaryFormat;
 
 /**
@@ -309,7 +310,13 @@ public final class CurrencyAmountView extends FrameLayout {
         final Bundle state = new Bundle();
         state.putParcelable("super_state", super.onSaveInstanceState());
         state.putParcelable("child_textview", textView.onSaveInstanceState());
-        state.putSerializable("amount", getAmount());
+        final Monetary amount = getAmount();
+        if (amount instanceof Coin) {
+            state.putLong("coin_amount", amount.getValue());
+        } else if (amount instanceof Fiat) {
+            state.putLong("fiat_amount", amount.getValue());
+            state.putString("fiat_currency", ((Fiat) amount).getCurrencyCode());
+        }
         return state;
     }
 
@@ -319,7 +326,12 @@ public final class CurrencyAmountView extends FrameLayout {
             final Bundle bundle = (Bundle) state;
             super.onRestoreInstanceState(bundle.getParcelable("super_state"));
             textView.onRestoreInstanceState(bundle.getParcelable("child_textview"));
-            setAmount((Monetary) bundle.getSerializable("amount"), false);
+            if (bundle.containsKey("coin_amount"))
+                setAmount(Coin.valueOf(bundle.getLong("coin_amount")), false);
+            else if (bundle.containsKey("fiat_amount"))
+                setAmount(Fiat.valueOf(bundle.getString("fiat_currency"), bundle.getLong("fiat_amount")), false);
+            else
+                setAmount(null, false);
         } else {
             super.onRestoreInstanceState(state);
         }
