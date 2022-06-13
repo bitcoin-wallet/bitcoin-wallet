@@ -105,7 +105,7 @@ public final class PaymentIntent implements Parcelable {
 
         @Override
         public void writeToParcel(final Parcel dest, final int flags) {
-            dest.writeSerializable(amount);
+            dest.writeLong(amount.getValue());
 
             final byte[] program = script.getProgram();
             dest.writeInt(program.length);
@@ -125,7 +125,7 @@ public final class PaymentIntent implements Parcelable {
         };
 
         private Output(final Parcel in) {
-            amount = (Coin) in.readSerializable();
+            amount = Coin.valueOf(in.readLong());
 
             final int programLength = in.readInt();
             final byte[] program = new byte[programLength];
