@@ -24,6 +24,7 @@ import androidx.annotation.Nullable;
 import com.google.common.base.Splitter;
 import com.google.common.base.Strings;
 import com.google.common.collect.HashMultiset;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Multiset;
 import com.google.common.hash.Hashing;
 import com.squareup.moshi.JsonAdapter;
@@ -211,7 +212,7 @@ public final class RequestWalletBalanceTask {
                                     log.info("{} - missing result", server.socketAddress);
                                     return null;
                                 }
-                                for (final ListunspentResponse.Utxo responseUtxo : listunspentResponse.result) {
+                                for (final ListunspentResponse.Utxo responseUtxo : Lists.newArrayList(listunspentResponse.result)) {
                                     final Sha256Hash utxoHash = Sha256Hash.wrap(responseUtxo.tx_hash);
                                     final int utxoIndex = responseUtxo.tx_pos;
                                     // the value cannot be trusted; will be validated below
