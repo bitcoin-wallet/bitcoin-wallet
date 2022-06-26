@@ -139,8 +139,8 @@ android {
         exclude 'okhttp3/internal/publicsuffix/*'
         exclude 'org/bitcoinj/crypto/mnemonic/wordlist/english.txt'
         exclude 'org/bitcoinj/crypto/cacerts'
-        exclude 'org.bitcoin.production.checkpoints.txt'
-        exclude 'org.bitcoin.test.checkpoints.txt'
+        exclude 'org.groestlcoin.production.checkpoints.txt'
+        exclude 'org.groestlcoin.test.checkpoints.txt'
     }
 }
 /*
