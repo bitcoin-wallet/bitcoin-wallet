@@ -45,7 +45,6 @@ import org.bitcoinj.uri.BitcoinURIParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import org.bitcoinj.core.CoinDefinition;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -71,7 +70,7 @@ public abstract class InputParser {
 
 		@Override
 		public void parse() {
-			if (input.startsWith(CoinDefinition.coinURIScheme.toUpperCase()+ ":-")) {      //TODO:  Not sure what this is for?
+			if (input.startsWith("GROESTLCOIN:-")) {
 				try
 				{
 					final byte[] serializedPaymentRequest = Qr.decodeBinary(input.substring(9));
