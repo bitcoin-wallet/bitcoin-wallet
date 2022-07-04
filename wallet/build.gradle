@@ -141,7 +141,7 @@ android {
         exclude 'org.groestlcoin.test.checkpoints.txt'
     }
 }
-/*
+
 task svgToPngMipmap(type: fr.avianey.androidsvgdrawable.gradle.SvgDrawableTask) {
     from = files('graphics/mipmap')
     to = file('res')
@@ -165,7 +165,7 @@ task svgToPngMipmapTestnet(type: fr.avianey.androidsvgdrawable.gradle.SvgDrawabl
     outputFormat = 'PNG'
     outputType = 'mipmap'
 }
-*/
+
 clean {
     file('libs').deleteDir()
 

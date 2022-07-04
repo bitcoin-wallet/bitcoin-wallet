@@ -1,4 +1,4 @@
-name: Gradle4-5-6
+name: Gradle6
 
 on: [push, pull_request]
 
@@ -10,19 +10,13 @@ jobs:
         os: [ubuntu-latest, macos-latest, windows-latest]
         java: ['8', '11']
         distribution: ['temurin']
-        gradle: ['5.0', '6.0']
-        include:
-          # Special case to test something close to Debian config with the oldest supported (standard) Gradle on Ubuntu
-          - os: ubuntu-latest
-            java: '8'
-            distribution: 'temurin'
-            gradle: '4.10.3'
+        gradle: ['6.7.1']
       fail-fast: false
     name: JAVA ${{ matrix.distribution }} ${{ matrix.java }} OS ${{ matrix.os }} Gradle ${{ matrix.gradle }}
     steps:
       - uses: actions/checkout@v1
 
-      - run:  sed -i -e "s|7.2.0|3.1.4|g" build.gradle
+      - run:  sed -i -e "s|7.2.0|4.2.2|g" build.gradle
 
       - name: Set up JDK
         uses: actions/setup-java@v2
@@ -37,8 +31,7 @@ jobs:
         run: |
            ./gradlew wrapper --gradle-version=${{ matrix.gradle }}
            ./gradlew wrapper --gradle-version=${{ matrix.gradle }}
-           ./gradlew build
-
+           ./gradlew clean build
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
@@ -46,7 +39,6 @@ jobs:
           path: |
             wallet/build/outputs/apk/dev/
             wallet/build/outputs/apk/prod/
-
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
