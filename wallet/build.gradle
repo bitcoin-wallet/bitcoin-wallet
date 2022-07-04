@@ -47,9 +47,6 @@ android {
 
     defaultConfig {
         applicationId 'hashengineering.groestlcoin'
-        dexOptions {
-            preDexLibraries false
-        }
         // Enabling multidex support.
         multiDexEnabled true
 
@@ -57,13 +54,14 @@ android {
             abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64'
         }
 
-        externalNativeBuild {
-            cmake {
-                cFlags '-DHAVE_CONFIG_H'
-            }
-        }
         minSdkVersion 24
         targetSdkVersion 31
+    }
+
+    externalNativeBuild {
+        cmake {
+            path 'cpp/CMakeLists.txt'
+        }
     }
 
     buildTypes {
