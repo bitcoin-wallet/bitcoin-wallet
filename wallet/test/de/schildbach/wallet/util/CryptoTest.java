@@ -38,7 +38,7 @@ import static org.junit.Assert.assertTrue;
 public class CryptoTest {
     private static final String PLAIN_TEXT = "plain text";
     private static final byte[] PLAIN_BYTES = PLAIN_TEXT.getBytes();
-    private static final char[] PASSWORD = "password".toCharArray();
+    private static final char[] PASSWORD = "test".toCharArray();
 
     @Test
     public void roundtripText() throws Exception {
@@ -90,11 +90,11 @@ public class CryptoTest {
 
     @Test
     public void backups() throws Exception {
-        final byte[] backup = Crypto.decryptBytes(readBackupFromResource("groestlcoin-wallet-backup-testnet-3.50"),
+        final byte[] backup = Crypto.decryptBytes(readBackupFromResource("groestlcoin-wallet-backup-testnet-9.03"),
                 PASSWORD);
         assertTrue(WalletProtobufSerializer.isWallet(new ByteArrayInputStream(backup)));
 
-        final byte[] backupCrLf = Crypto.decryptBytes(readBackupFromResource("groestlcoin-wallet-backup-testnet-3.50-crlf"),
+        final byte[] backupCrLf = Crypto.decryptBytes(readBackupFromResource("groestlcoin-wallet-backup-testnet-9.03-crlf"),
                 PASSWORD);
         assertTrue(WalletProtobufSerializer.isWallet(new ByteArrayInputStream(backupCrLf)));
     }
