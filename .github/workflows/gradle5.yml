@@ -18,6 +18,8 @@ jobs:
 
       - run:  sed -i -e "s|7.2.0|3.6.4|g" build.gradle
 
+      - run:  sed -i -e 's;^///;;' wallet/build.gradle
+
       - name: Set up JDK
         uses: actions/setup-java@v2
         with:

@@ -129,6 +129,7 @@ android {
     }
 
     packagingOptions {
+///        doNotStrip '**/*.so' // comment needed for gradle 5 CI
         exclude 'META-INF/*.version'
         exclude 'META-INF/proguard/**'
         exclude 'META-INF/services/**'
