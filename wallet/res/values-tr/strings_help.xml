@@ -105,11 +105,11 @@
         <p>
             Bir SPV/hafif cüzdan olarak Groestlcoin Cüzdan, iş zincirini takip eder (bazen \"en uzun zincir\", \"kazanan zincir\" veya \"Groestlcoin blok zinciri\" olarak da adlandırılır.).
             Yalnızca gelen ödemeleri alacak ve bu zincir üzerinden ödeme yapabileceksiniz.
-            Azınlık zincirlerindeki Bitcoinler, yani daha az çalışma kanıtı olan zincirler hakkında hiçbir garanti verilemez.
+            Azınlık zincirlerindeki Groestlcoinler, yani daha az çalışma kanıtı olan zincirler hakkında hiçbir garanti verilemez.
         </p>
         <p>
             Geçmişte, azınlık zincirleri her zaman çok hızlı bir şekilde alakasız hale geldi.
-            Yine de bir azınlık zincirini takip etmek isterseniz, istediğiniz zinciri uygulayan bir bitcoind uygulamasına özel olarak bağlanmak için \"güvenilir eş\" özelliğini kullanmanız önerilir.
+            Yine de bir azınlık zincirini takip etmek isterseniz, istediğiniz zinciri uygulayan bir groestlcoind uygulamasına özel olarak bağlanmak için \"güvenilir eş\" özelliğini kullanmanız önerilir.
             Cüzdanınız ile güvenilen eş arasındaki ağa güvenilmeyecekse, bu bağlantının kimliğini doğrulamak için bir VPN kullanın.
         </p>
     ]]>
