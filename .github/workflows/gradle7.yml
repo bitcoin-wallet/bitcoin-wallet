@@ -10,7 +10,7 @@ jobs:
         os: [ubuntu-latest, macos-latest, windows-latest]
         java: ['11']
         distribution: ['temurin']
-        gradle: ['7.3.3']
+        gradle: ['7.4.2']
       fail-fast: false
     name: JAVA ${{ matrix.distribution }} ${{ matrix.java }} OS ${{ matrix.os }} Gradle ${{ matrix.gradle }}
     steps:
@@ -32,13 +32,14 @@ jobs:
            ./gradlew wrapper --gradle-version=${{ matrix.gradle }}
            ./gradlew wrapper --gradle-version=${{ matrix.gradle }}
            ./gradlew clean build
+
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
           name: groestlcoin-wallet-${{ matrix.java }}-${{ matrix.os }}
           path: |
-            wallet/build/outputs/apk/dev/
-            wallet/build/outputs/apk/prod/
+            wallet/build/outputs/apk/
+
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:

@@ -20,10 +20,10 @@ dependencies {
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.coordinatorlayout:coordinatorlayout:1.1.0'
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
-    implementation 'androidx.lifecycle:lifecycle-service:2.4.0'
-    implementation 'androidx.sqlite:sqlite:2.2.0'
-    implementation "androidx.room:room-runtime:2.4.0"
-    annotationProcessor "androidx.room:room-compiler:2.4.0"
+    implementation 'androidx.lifecycle:lifecycle-service:2.4.0-alpha03'
+    implementation 'androidx.sqlite:sqlite:2.2.0-alpha02'
+    implementation "androidx.room:room-runtime:2.4.0-alpha04"
+    annotationProcessor "androidx.room:room-compiler:2.4.0-alpha04"
     implementation 'com.github.groestlcoin:groestlcoinj-core:0.16.1'
     implementation 'com.google.guava:guava:31.0.1-android'
     implementation 'com.google.zxing:core:3.4.1'
@@ -42,7 +42,7 @@ ext {
 }
 
 android {
-    compileSdkVersion 'android-31'
+    compileSdkVersion 'android-30'
     buildToolsVersion '30.0.3'
 
     defaultConfig {
@@ -55,7 +55,7 @@ android {
         }
 
         minSdkVersion 24
-        targetSdkVersion 31
+        targetSdkVersion 30
     }
 
     externalNativeBuild {
