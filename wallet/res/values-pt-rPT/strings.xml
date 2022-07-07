@@ -123,7 +123,7 @@
   <string name="sweep_wallet_fragment_decrypt_progress">A desencriptar…\nDemora até 2 minutos.</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_progress">A carregar saldo…</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_failed_title">Carregamento do saldo da carteira falhou</string>
-  <string name="sweep_wallet_fragment_request_wallet_balance_failed_connection">Tem uma conexão má à rede Electrum.</string>
+  <string name="sweep_wallet_fragment_request_wallet_balance_failed_connection">Tem uma conexão má à rede Electrum-GRS.</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_empty">A carteira de papel está vazia.</string>
   <string name="sweep_wallet_fragment_insufficient_money_title">Moedas insuficientes</string>
   <string name="sweep_wallet_fragment_insufficient_money_msg">A quantidade de moedas na carteira é muito pequena para limpar.</string>

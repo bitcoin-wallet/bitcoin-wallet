@@ -26,7 +26,7 @@
   <string name="exchange_rates_options_search">Zoek wisselkoers</string>
   <string name="wallet_transactions_fragment_empty_text_received">Nog geen Groestlcoins ontvangen</string>
   <string name="wallet_transactions_fragment_empty_text_sent">Nog geen Groestlcoins verzonden</string>
-  <string name="wallet_transactions_fragment_empty_text_howto">Hoe kom ik aan Groestlcoins?\nKoop voor regulier geld,\nverkoop goedreen of diensen of\nverdien door te werken.</string>
+  <string name="wallet_transactions_fragment_empty_text_howto">Hoe kom ik aan Groestlcoins?\nKoop voor regulier geld,\nverkoop goederen of diensten of\nverdien door te werken.</string>
   <string name="wallet_transactions_fragment_empty_remind_backup">Maak a.u.b. een backup van je portemonnee\nvoordat er Groestlcoins worden ontvangen!</string>
   <string name="wallet_transactions_row_warning_backup">Gefeliciteerd, u heeft uw eerste betaling ontvangen! Heeft u al een &lt;u&gt;back-up gemaakt van uw portemonnee&lt;/u&gt;, om verlies tegen te gaan?</string>
   <string name="wallet_transactions_row_warning_storage_encryption">Tip: om de veiligheid van je portemonnee te vergroten, kun je &lt;u&gt;je apparaat versleutelen&lt;/u&gt;. Dit beschermt ook de gegevens van andere apps.</string>
@@ -53,7 +53,7 @@
   <string name="wallet_timeskew_dialog_title">Check je datum- en tijdsinstellingen</string>
   <string name="wallet_timeskew_dialog_msg">De tijd van je apparaat wijkt af met %d minuten. Hierdoor kun je waarschijnlijk geen Groestlcoins verzenden of ontvangen.\n\nCheck je instellingen voor datum, tijd en tijdzone en pas die indien nodig aan.</string>
   <string name="wallet_version_dialog_title">Een nieuwe versie is beschikbaar!</string>
-  <string name="wallet_version_dialog_msg">Deze versie fikst belangrijke bugs. Voor details, zie het wijzigingslogboek op %s.</string>
+  <string name="wallet_version_dialog_msg">Deze versie lost belangrijke fouten op. Voor details, zie het wijzigingslogboek op %s.</string>
   <string name="wallet_version_dialog_msg_deprecated">Wanneer je geen update ziet wordt jouw Android-versie waarschijnlijk niet meer ondersteund.</string>
   <string name="wallet_version_dialog_button_binary">Download</string>
   <string name="wallet_old_sdk_dialog_title">Android-versie is verouderd</string>
@@ -125,7 +125,7 @@
   <string name="sweep_wallet_fragment_decrypt_progress">Decoderen…\nDit kan tot 2 minuten duren.</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_progress">Saldo wordt geladen…</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_failed_title">Saldo laden mislukt.</string>
-  <string name="sweep_wallet_fragment_request_wallet_balance_failed_connection">Je hebt een slechte verbinding met het Electrum-netwerk.</string>
+  <string name="sweep_wallet_fragment_request_wallet_balance_failed_connection">Je hebt een slechte verbinding met het Electrum-GRS-netwerk.</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_empty">De papieren portemonnee is leeg</string>
   <string name="sweep_wallet_fragment_insufficient_money_title">Niet genoeg saldo</string>
   <string name="sweep_wallet_fragment_insufficient_money_msg">De hoeveelheid Groestlcoins in de wallet is te laag om te kunnen overdragen.</string>

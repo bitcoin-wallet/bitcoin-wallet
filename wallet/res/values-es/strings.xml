@@ -123,7 +123,7 @@
   <string name="sweep_wallet_fragment_decrypt_progress">Desencriptando…\nPuede tardar hasta 2 minutos.</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_progress">Cargando saldo…</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_failed_title">Error al cargar el saldo de la cartera</string>
-  <string name="sweep_wallet_fragment_request_wallet_balance_failed_connection">Tienes una mala conexión a la red de Electrum.</string>
+  <string name="sweep_wallet_fragment_request_wallet_balance_failed_connection">Tienes una mala conexión a la red de Electrum-GRS.</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_empty">La billetera de papel está vacía.</string>
   <string name="sweep_wallet_fragment_insufficient_money_title">No hay suficientes Groestlcoins</string>
   <string name="sweep_wallet_fragment_insufficient_money_msg">La cantidad de Groestlcoins en tu cartera es demasiado pequeña para ser convertidos.</string>

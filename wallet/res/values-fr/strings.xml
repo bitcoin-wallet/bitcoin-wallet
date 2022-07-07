@@ -126,7 +126,7 @@
   <string name="sweep_wallet_fragment_decrypt_progress">Déchiffrement…\nPeut prendre jusqu’à 2 min.</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_progress">Chargement du solde…</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_failed_title">Échec de chargement du solde</string>
-  <string name="sweep_wallet_fragment_request_wallet_balance_failed_connection">Vous avez une mauvaise connexion vers le réseau Electrum.</string>
+  <string name="sweep_wallet_fragment_request_wallet_balance_failed_connection">Vous avez une mauvaise connexion vers le réseau Electrum-GRS.</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_empty">Le porte-monnaie papier est vide.</string>
   <string name="sweep_wallet_fragment_insufficient_money_title">Pas assez de pièces</string>
   <string name="sweep_wallet_fragment_insufficient_money_msg">Le montant de pièces dans le porte-monnaie est trop petit pour être traité.</string>

@@ -123,7 +123,7 @@
   <string name="sweep_wallet_fragment_decrypt_progress">Puretaan salausta…\nKuluu enintään 2 minuuttia.</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_progress">Ladataan saldoa…</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_failed_title">Lompakon saldon lataaminen epäonnistui</string>
-  <string name="sweep_wallet_fragment_request_wallet_balance_failed_connection">Sinulla on huono yhteys Electrum-verkkoon.</string>
+  <string name="sweep_wallet_fragment_request_wallet_balance_failed_connection">Sinulla on huono yhteys Electrum-GRS-verkkoon.</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_empty">Paperinen lompakko on tyhjä.</string>
   <string name="sweep_wallet_fragment_insufficient_money_title">Varoja ei ole tarpeeksi</string>
   <string name="sweep_wallet_fragment_insufficient_money_msg">Lompakossa ei ole tarpeeksi varoja pyyhkäisyä varten.</string>

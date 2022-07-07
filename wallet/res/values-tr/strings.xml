@@ -126,7 +126,7 @@
   <string name="sweep_wallet_fragment_decrypt_progress">Şifre çözülüyor…\n 2 dakikaya kadar sürebilir.</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_progress">Bakiye yükleniyor…</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_failed_title">Cüzdan bakiyesinin yüklenmesi başarısız</string>
-  <string name="sweep_wallet_fragment_request_wallet_balance_failed_connection">Electrum ağıyla kötü bir bağlantınız var.</string>
+  <string name="sweep_wallet_fragment_request_wallet_balance_failed_connection">Electrum-GRS ağıyla kötü bir bağlantınız var.</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_empty">Kağıt cüzdan boş.</string>
   <string name="sweep_wallet_fragment_insufficient_money_title">Para yeterli değil</string>
   <string name="sweep_wallet_fragment_insufficient_money_msg">Cüzdandaki Groestlcoin miktarı işlenmek için çok düşük.</string>
