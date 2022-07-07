@@ -8,7 +8,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
-        java: ['11']
+        java: ['11', '17']
         distribution: ['temurin']
         gradle: ['7.4.2']
       fail-fast: false
