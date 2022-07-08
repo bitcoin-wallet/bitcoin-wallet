@@ -28,8 +28,8 @@ itself to restore from the backup, see the separate [README.recover.md](README.r
 The current fee rate for each of the fee categories (economic, normal, priority) is cached in
 app-private storage:
 
-    Mainnet: /data/data/de.schildbach.wallet/files/fees.txt
-    Testnet: /data/data/de.schildbach.wallet_test/files/fees-testnet.txt
+    Mainnet: /data/data/hashengineering.groestlcoin.wallet/files/fees.txt
+    Testnet: /data/data/hashengineering.groestlcoin.wallet_test/files/fees-testnet.txt
 
 
 ### DEBUGGING
@@ -62,7 +62,7 @@ use:
 
 You'll find the signed APK under this path:
 
-    wallet/build/outputs/apk/dev/debug/groestlcoin-wallet-dev-debug.apk
+    wallet/build/outputs/apk/dev/debug/wallet-dev-debug.apk
 
 To install the app on your Android device, use:
 
@@ -88,7 +88,7 @@ use:
 
 You'll find the unsigned APK under this path:
 
-    wallet/build/outputs/apk/prod/release/groestlcoin-wallet-prod-release-unsigned.apk
+    wallet/build/outputs/apk/prod/release/wallet-prod-release-unsigned.apk
 
 Apart from the missing signature and checksums in `META-INF/`, it should be identical to the APKs
 provided via the app stores.

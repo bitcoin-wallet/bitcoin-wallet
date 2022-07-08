@@ -12,7 +12,7 @@ jobs:
         distribution: ['temurin']
         gradle: ['6.7.1']
       fail-fast: false
-    name: JAVA ${{ matrix.distribution }} ${{ matrix.java }} OS ${{ matrix.os }} Gradle ${{ matrix.gradle }}
+    name: JAVA ${{ matrix.java }} OS ${{ matrix.os }} Gradle ${{ matrix.gradle }}
     steps:
       - uses: actions/checkout@v1
 
@@ -36,11 +36,11 @@ jobs:
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: groestlcoin-wallet-${{ matrix.java }}-${{ matrix.os }}
+          name: groestlcoin-wallet-JAVA${{ matrix.java }}-${{ matrix.os }}-${{ matrix.gradle }}
           path: |
             wallet/build/outputs/apk/
-            
+
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
-          name: groestlcoin-wallet-${{ matrix.java }}-${{ matrix.os }}
+          name: groestlcoin-wallet-JAVA${{ matrix.java }}-${{ matrix.os }}-${{ matrix.gradle }}
