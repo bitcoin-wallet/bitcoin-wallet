@@ -85,10 +85,6 @@ android {
             dimension 'flavor'
             applicationIdSuffix '.wallet'
         }
-        beta {
-            dimension 'flavor'
-            applicationIdSuffix '.wallet.beta'
-        }
         _testNet3 {
             dimension 'flavor'
             applicationIdSuffix '.wallet_test'
@@ -112,9 +108,6 @@ android {
         }
         _testNet3 {
             res.srcDirs = ["testNet3/res"]
-        }
-        beta {
-            res.srcDirs = ["beta/res"]
         }
     }
 
