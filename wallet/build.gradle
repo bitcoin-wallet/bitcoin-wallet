@@ -85,10 +85,6 @@ android {
             dimension 'flavor'
             applicationIdSuffix '.wallet'
         }
-        _testNet3 {
-            dimension 'flavor'
-            applicationIdSuffix '.wallet_test'
-        }
     }
 
     sourceSets {
@@ -105,9 +101,6 @@ android {
         test {
             java.srcDirs = ['test']
             resources.srcDirs = ['test']
-        }
-        _testNet3 {
-            res.srcDirs = ["testNet3/res"]
         }
     }
 
@@ -147,14 +140,6 @@ task svgToPngMipmap(type: fr.avianey.androidsvgdrawable.gradle.SvgDrawableTask) 
 task svgToPngMipmapProd(type: fr.avianey.androidsvgdrawable.gradle.SvgDrawableTask) {
     from = files('graphics-prod/mipmap')
     to = file('res-prod')
-    targetedDensities = ['hdpi', 'xhdpi', 'xxhdpi', 'xxxhdpi']
-    outputFormat = 'PNG'
-    outputType = 'mipmap'
-}
-
-task svgToPngMipmapTestnet(type: fr.avianey.androidsvgdrawable.gradle.SvgDrawableTask) {
-    from = files('graphics/mipmap-testnet')
-    to = file('testNet3/res')
     targetedDensities = ['hdpi', 'xhdpi', 'xxhdpi', 'xxxhdpi']
     outputFormat = 'PNG'
     outputType = 'mipmap'
