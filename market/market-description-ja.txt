@@ -26,4 +26,4 @@ https://github.com/Groestlcoin/groestlcoin-wallet
 https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
 
 
-<i>自己責任でお使いください!</i>
+<i>自己責任でお使いください! ポケットに入るくらいの残高のみに使ってください。</i>

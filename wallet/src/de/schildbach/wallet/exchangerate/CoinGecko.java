@@ -17,7 +17,6 @@
 
 package de.schildbach.wallet.exchangerate;
 
-import com.squareup.moshi.Json;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 import okhttp3.HttpUrl;
@@ -59,11 +58,12 @@ public final class CoinGecko {
     }
 
     public List<ExchangeRateEntry> parse(final BufferedSource jsonSource) throws IOException {
-        final JsonAdapter<GroestlcoinResponse> jsonAdapter = moshi.adapter(GroestlcoinResponse.class);
-        final GroestlcoinResponse jsonResponse = jsonAdapter.fromJson(jsonSource);
-        final List<ExchangeRateEntry> result = new ArrayList<>(jsonResponse.market_data.current_price.size());
+        final JsonAdapter<Map> jsonAdapter = moshi.adapter(Map.class);
+        final Map jsonResponse = jsonAdapter.fromJson(jsonSource);
+        Map<String, Double> currentPrice = (Map<String, Double>)((Map<String, Object>)jsonResponse.get("market_data")).get("current_price");
+        final List<ExchangeRateEntry> result = new ArrayList<>(currentPrice.size());
 
-        for (Map.Entry<String, Double> entry : jsonResponse.market_data.current_price.entrySet()) {
+        for (Map.Entry<String, Double> entry : currentPrice.entrySet()) {
             final String symbol = entry.getKey().toUpperCase(Locale.US);
             final Double exchangeRate = entry.getValue();
             try {
@@ -77,36 +77,27 @@ public final class CoinGecko {
         return result;
     }
 
-    private enum Type {
-        @Json(name = "crypto")
-        CRYPTO,
-        @Json(name = "fiat")
-        FIAT,
-        @Json(name = "commodity")
-        COMMODITY
+    /*
+    {
+        "id": "groestlcoin",
+        "market_data":{
+            "current_price":{
+                "aed":1.42,
+                "ars":48.41,
+                "aud":0.565913,
+                "bch":0.00370334,
+            }
+       }
     }
+    */
 
-    private static class Response {
-        public Map<String, ExchangeRateJson> rates;
-    }
-
-    private static class ExchangeRateJson {
-        public String name;
-        public String unit;
-        public String value;
-        public Type type;
-    }
-
-    //private static class CurrentPrice {
-    //    Map<String, Double>
-    //}
-
+    // this is not currently used
     private static class MarketData {
-        Map<String, Double>  current_price;
+        public Map<String, Double>  current_price;
     }
 
     private static class GroestlcoinResponse {
         public String id;
-        MarketData market_data;
+        public MarketData market_data;
     }
 }

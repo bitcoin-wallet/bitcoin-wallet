@@ -67,7 +67,7 @@ public class WalletBalanceWidgetProvider extends AppWidgetProvider {
             final Coin balance = application.getWallet().getBalance(BalanceType.ESTIMATED);
             final Configuration config = application.getConfiguration();
             final ExchangeRatesRepository exchangeRatesRepository = ExchangeRatesRepository.get(application);
-            final ExchangeRateEntry exchangeRate = exchangeRatesRepository != null ?
+            final ExchangeRateEntry exchangeRate = config.isEnableExchangeRates() ?
                     exchangeRatesRepository.exchangeRateDao().findByCurrencyCode(config.getExchangeCurrencyCode()) : null;
             updateWidgets(context, appWidgetManager, appWidgetIds, balance, exchangeRate != null ?
                     exchangeRate.exchangeRate() : null);
@@ -87,7 +87,7 @@ public class WalletBalanceWidgetProvider extends AppWidgetProvider {
             final Coin balance = application.getWallet().getBalance(BalanceType.ESTIMATED);
             final Configuration config = application.getConfiguration();
             final ExchangeRatesRepository exchangeRatesRepository = ExchangeRatesRepository.get(application);
-            final ExchangeRateEntry exchangeRate =exchangeRatesRepository != null ?
+            final ExchangeRateEntry exchangeRate = config.isEnableExchangeRates() ?
                     exchangeRatesRepository.exchangeRateDao().findByCurrencyCode(config.getExchangeCurrencyCode()) : null;
             updateWidget(context, appWidgetManager, appWidgetId, newOptions, balance, exchangeRate != null ?
                     exchangeRate.exchangeRate() : null);

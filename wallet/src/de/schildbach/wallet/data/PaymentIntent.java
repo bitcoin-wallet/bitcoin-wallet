@@ -24,6 +24,7 @@ import com.google.common.io.BaseEncoding;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.util.Bluetooth;
 import de.schildbach.wallet.util.GenericUtils;
+import de.schildbach.wallet.util.WalletUtils;
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.AddressFormatException;
 import org.bitcoinj.core.Coin;
@@ -83,13 +84,13 @@ public final class PaymentIntent implements Parcelable {
             builder.append('[');
             builder.append(hasAmount() ? amount.toPlainString() : "null");
             builder.append(',');
-            if (ScriptPattern.isP2PKH(script) || ScriptPattern.isP2SH(script)
-                    || ScriptPattern.isP2WH(script))
-                builder.append(script.getToAddress(Constants.NETWORK_PARAMETERS));
-            else if (ScriptPattern.isP2PK(script))
+            final Address toAddress = WalletUtils.getToAddress(script);
+            if (ScriptPattern.isP2PK(script))
                 builder.append(Constants.HEX.encode(ScriptPattern.extractKeyFromP2PK(script)));
             else if (ScriptPattern.isSentToMultisig(script))
                 builder.append("multisig");
+            else if (toAddress != null)
+                builder.append(toAddress);
             else
                 builder.append("unknown");
             builder.append(']');
@@ -269,20 +270,19 @@ public final class PaymentIntent implements Parcelable {
     }
 
     public boolean hasAddress() {
-        if (outputs == null || outputs.length != 1)
-            return false;
-
-        final Script script = outputs[0].script;
-        return ScriptPattern.isP2PKH(script) || ScriptPattern.isP2SH(script)
-                || ScriptPattern.isP2PK(script) || ScriptPattern.isP2WH(script);
+        return getAddress() != null;
     }
 
     public Address getAddress() {
-        if (!hasAddress())
+        if (outputs == null || outputs.length != 1)
             throw new IllegalStateException();
 
         final Script script = outputs[0].script;
-        return script.getToAddress(Constants.NETWORK_PARAMETERS, true);
+        final Address address = WalletUtils.getToAddress(script);
+        if (address == null)
+            throw new IllegalStateException();
+
+        return address;
     }
 
     public boolean mayEditAddress() {

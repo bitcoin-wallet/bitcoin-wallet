@@ -129,7 +129,7 @@
     <string name="sweep_wallet_fragment_decrypt_progress">Entschlüsselung…\nDauert bis zu 2 Minuten.</string>
     <string name="sweep_wallet_fragment_request_wallet_balance_progress">Aktualisiere Guthaben…</string>
     <string name="sweep_wallet_fragment_request_wallet_balance_failed_title">Guthabenanforderung fehlgeschlagen</string>
-    <string name="sweep_wallet_fragment_request_wallet_balance_failed_connection">Du hast eine schlechte Verbindung zum Electrum-Netzwerk.</string>
+    <string name="sweep_wallet_fragment_request_wallet_balance_failed_connection">Du hast eine schlechte Verbindung zum Electrum-GRS-Netzwerk.</string>
     <string name="sweep_wallet_fragment_request_wallet_balance_empty">Die Paper-Wallet ist leer.</string>
     <string name="sweep_wallet_fragment_insufficient_money_title">Nicht genug Groestlcoins</string>
     <string name="sweep_wallet_fragment_insufficient_money_msg">Das zu leerende Guthaben ist zu gering zum Entleeren.</string>
@@ -250,6 +250,7 @@
     <string name="preferences_precision_labels_4">GRS, 4 Dezimalen</string>
     <string name="preferences_precision_labels_2_3">mGRS, 2 Dezimalen</string>
     <string name="preferences_precision_labels_0_6">µGRS, keine Dezimalen</string>
+    <string name="preferences_precision_labels_0_8">gro, keine Dezimalen</string>
     <string name="preferences_own_name_title">Eigener Name</string>
     <string name="preferences_own_name_summary">Dein Name oder der deiner Firma, der zu Zahlungsanforderungen an deine Kunden hinzugefügt wird.</string>
     <string name="preferences_own_name_dialog_message">Bitte halte ihn kurz.</string>
@@ -269,6 +270,8 @@
     <string name="preferences_trusted_peer_only_summary">Verhindert Verbindungen zu Peers außer dem vertrauenswürdigen Peer.</string>
     <string name="preferences_block_explorer_title">Block-Explorer</string>
     <string name="preferences_block_explorer_summary">Externer Block-Explorer, der für die Anzeige von Transaktionen, Adressen und Blocks verwendet wird.</string>
+    <string name="preferences_enable_exchange_rates_title">Lokale Beträge zeigen</string>
+    <string name="preferences_enable_exchange_rates_summary">Ruft die Wechselkurse von einem Feed ab, um lokale Beträge auszurechnen.</string>
     <string name="preferences_data_usage_title">Datenverbrauch</string>
     <string name="preferences_data_usage_summary">Zeigt Optionen um die mobile Datennutzung einzuschränken.</string>
     <string name="preferences_notifications_title">Benachrichtigungen</string>

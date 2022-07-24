@@ -119,7 +119,7 @@
   <string name="sweep_wallet_fragment_decrypt_progress">Visszafejtés…\nMaximum 2 percig tart.</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_progress">Egyenleg betöltése…</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_failed_title">Tárcaegyenleg betöltése sikertelen</string>
-  <string name="sweep_wallet_fragment_request_wallet_balance_failed_connection">Rossz minőségű a kapcsolatod az Electrum hálózatához.</string>
+  <string name="sweep_wallet_fragment_request_wallet_balance_failed_connection">Rossz minőségű a kapcsolatod az Electrum-GRS hálózatához.</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_empty">A papírtárca üres.</string>
   <string name="sweep_wallet_fragment_insufficient_money_title">Nincs elég érme</string>
   <string name="sweep_wallet_fragment_insufficient_money_msg">A tárcában lévő összeg túl kevés a söpréshez.</string>

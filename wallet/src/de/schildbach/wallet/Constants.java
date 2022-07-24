@@ -20,7 +20,6 @@ package de.schildbach.wallet;
 import java.io.File;
 import java.util.concurrent.TimeUnit;
 
-import org.bitcoinj.core.CoinDefinition;
 import android.os.Build;
 import android.text.format.DateUtils;
 import com.google.common.io.BaseEncoding;
@@ -180,8 +179,8 @@ public final class Constants {
     /** A balance above this amount will cause the donate option to be shown */
     public static final Coin SOME_BALANCE_THRESHOLD = Coin.COIN;
 
-    public static final int SDK_DEPRECATED_BELOW = Build.VERSION_CODES.M;
-    public static final String SECURITY_PATCH_INSECURE_BELOW = "2020-01-01";
+    public static final int SDK_DEPRECATED_BELOW = Build.VERSION_CODES.N;
+    public static final String SECURITY_PATCH_INSECURE_BELOW = "2020-10-01";
 
     public static final int NOTIFICATION_ID_CONNECTIVITY = 1;
     public static final int NOTIFICATION_ID_COINS_RECEIVED = 2;

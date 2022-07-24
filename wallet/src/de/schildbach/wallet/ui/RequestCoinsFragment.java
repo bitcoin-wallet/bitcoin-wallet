@@ -134,7 +134,7 @@ public final class RequestCoinsFragment extends Fragment {
             initiateRequestView.setText(initiateText);
         });
         viewModel.bitcoinUri.observe(this, bitcoinUri -> activity.invalidateOptionsMenu());
-        if (Constants.ENABLE_EXCHANGE_RATES) {
+        if (config.isEnableExchangeRates()) {
             viewModel.exchangeRate.observe(this,
                     exchangeRate -> amountCalculatorLink.setExchangeRate(exchangeRate != null ?
                             exchangeRate.exchangeRate() : null));
@@ -172,6 +172,7 @@ public final class RequestCoinsFragment extends Fragment {
         final CurrencyAmountView localAmountView = view.findViewById(R.id.request_coins_amount_local);
         localAmountView.setInputFormat(Constants.LOCAL_FORMAT);
         localAmountView.setHintFormat(Constants.LOCAL_FORMAT);
+        localAmountView.setVisibility(config.isEnableExchangeRates() ? View.VISIBLE : View.GONE);
         amountCalculatorLink = new CurrencyCalculatorLink(btcAmountView, localAmountView);
 
         final BluetoothAdapter bluetoothAdapter = this.bluetoothAdapter;

@@ -124,7 +124,7 @@
   <string name="sweep_wallet_fragment_decrypt_progress">Dešifiriram…\nTo lahko traja do 2 minuti.</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_progress">Nalagam stanje…</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_failed_title">Nalaganje stanja denarnice spodletelo</string>
-  <string name="sweep_wallet_fragment_request_wallet_balance_failed_connection">Vaša povezava v omrežje Electrum je slaba.</string>
+  <string name="sweep_wallet_fragment_request_wallet_balance_failed_connection">Vaša povezava v omrežje Electrum-GRS je slaba.</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_empty">Ta papirna denarnica je prazna.</string>
   <string name="sweep_wallet_fragment_insufficient_money_title">Ni dovolj novcev</string>
   <string name="sweep_wallet_fragment_insufficient_money_msg">Znesek v denarnici je prenizek za pošiljanje.</string>

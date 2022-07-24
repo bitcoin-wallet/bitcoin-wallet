@@ -12,7 +12,7 @@
   <string name="blockchain_state_progress_problem_storage">Синхронизация: проблема с хранилищем</string>
   <string name="blockchain_state_progress_problem_network">Синхронизация: проблема с сетью</string>
   <string name="wallet_address_fragment_clipboard_msg">Адрес скопирован в буфер обмена</string>
-  <string name="wallet_address_dialog_fragment_hint">Для защиты вашей конфиденциальности ваш адрес будет меняться , как только он получает деньги.</string>
+  <string name="wallet_address_dialog_fragment_hint">Для защиты вашей конфиденциальности ваш адрес будет меняться-> как только он получает деньги.</string>
   <string name="wallet_balance_fragment_insecure_device">Ваше устройство устарело и недостаточно защищено. Используйте только для небольших сумм денег.</string>
   <string name="wallet_balance_fragment_replaying">Во время воспроизведения баланс недоступен.</string>
   <string name="exchange_rates_activity_title">Обменный курс</string>
@@ -24,7 +24,7 @@
   <string name="exchange_rates_options_search">Поиск обменного курса</string>
   <string name="wallet_transactions_fragment_empty_text_received">Ещё не получено Groestlcoin-монет</string>
   <string name="wallet_transactions_fragment_empty_text_sent">Ещё не отправлено Groestlcoin-монет</string>
-  <string name="wallet_transactions_fragment_empty_text_howto">Как получить Грёстлкоины?\nПокупайте на обычные деньги,\nпродавайте услуги или товары или\nзарабатывайте.</string>
+  <string name="wallet_transactions_fragment_empty_text_howto">Как получить Грoстлкоины?\nПокупайте на обычные деньги,\nпродавайте услуги или товары или\nзарабатывайте.</string>
   <string name="wallet_transactions_fragment_empty_remind_backup">Пожалуйста сделайте резервную копию кошелька\nперед получением любых платежей!</string>
   <string name="wallet_transactions_row_warning_backup">Поздравляем, вы получили первый платёж! Вы уже &lt;u&gt;сделали резервную копию кошелька&lt;/u&gt;, чтобы обезопаситься от потерь?</string>
   <string name="wallet_transactions_row_warning_storage_encryption">Подсказка: для улучшения безопасности вашего кошелька вы можете &lt;u&gt;зашифровать ваше устройство&lt;/u&gt;. Это также защитит данные других приложений.</string>
@@ -123,7 +123,7 @@
   <string name="sweep_wallet_fragment_decrypt_progress">Расшифровка…\nМожет занять до 2-х минут.</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_progress">Загружаю баланс…</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_failed_title">Загрузка баланса кошелька прошла с ошибкой</string>
-  <string name="sweep_wallet_fragment_request_wallet_balance_failed_connection">У вас плохое соединение с сетью Electrum.</string>
+  <string name="sweep_wallet_fragment_request_wallet_balance_failed_connection">У вас плохое соединение с сетью Electrum-GRS.</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_empty">Бумажный кошелек пуст.</string>
   <string name="sweep_wallet_fragment_insufficient_money_title">Недостаточно монет</string>
   <string name="sweep_wallet_fragment_insufficient_money_msg">Количество монет слишком мало для сканирования этого кошелька.</string>
@@ -300,7 +300,7 @@
   <string name="about_faq_summary">Частые вопросы по приложению</string>
   <string name="notification_coins_received_msg">Получено %s</string>
   <string name="notification_peers_connected_msg">подключено %d участников</string>
-  <string name="notification_inactivity_title">У вас всё ещё есть Грёстлкоины на этом устройстве!</string>
+  <string name="notification_inactivity_title">У вас всё ещё есть Грoстлкоины на этом устройстве!</string>
   <string name="notification_inactivity_message">Внимание, ваш баланс %s будет потерян, если вы удалите Groestlcoin Wallet до того, как перешлёте ваши средства.</string>
   <string name="notification_inactivity_message_donate">Если вам не нужны монеты, вы можете пожертвовать их проекту Groestlcoin Wallet.</string>
   <string name="notification_inactivity_action_dismiss">Напомнить позже</string>
@@ -309,7 +309,7 @@
   <string name="notification_channel_received_name">Полученные выплаты</string>
   <string name="notification_channel_ongoing_name">Фоновая активность</string>
   <string name="notification_channel_important_name">Важные предупреждения</string>
-  <string name="appwidget_wallet_balance_title">Баланс Грёстлкоинов</string>
+  <string name="appwidget_wallet_balance_title">Баланс Грoстлкоинов</string>
   <!--generic buttons-->
   <string name="button_ok">OK</string>
   <string name="button_dismiss">Отклонить</string>

@@ -123,7 +123,7 @@
   <string name="sweep_wallet_fragment_decrypt_progress">Dešifruji…\nTato operace může trvat až 2 minuty.</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_progress">Načítám bilanci…</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_failed_title">Načtení bilance peněženky selhalo</string>
-  <string name="sweep_wallet_fragment_request_wallet_balance_failed_connection">Máte špatné připojení k síti Electrum.</string>
+  <string name="sweep_wallet_fragment_request_wallet_balance_failed_connection">Máte špatné připojení k síti Electrum-GRS.</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_empty">Papírová peněženka je prázdná.</string>
   <string name="sweep_wallet_fragment_insufficient_money_title">Nemáte dostatek mincí</string>
   <string name="sweep_wallet_fragment_insufficient_money_msg">Počet mincí v peněžence je příliš nízký pro načtení.</string>

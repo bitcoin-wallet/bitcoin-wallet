@@ -6,10 +6,10 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.1.2'
+        classpath 'com.android.tools.build:gradle:7.2.0'
         //noinspection GradleDependency
         classpath 'net.sf.proguard:proguard-gradle:6.0.3'
-        classpath('fr.avianey.androidsvgdrawable:gradle-plugin:3.0.2') {
+        classpath('fr.avianey.androidsvgdrawable:gradle-plugin:3.1.1') {
             exclude group: 'xerces'
         }
     }

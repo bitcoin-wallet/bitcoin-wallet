@@ -11,7 +11,9 @@
 • Çevrimdışı olduğunuzda Bluetooth vasıtasıyla ödemeler.
 • Alınan Groestlcoin'ler için sistem bildirimleri.
 • Kağıt cüzdanların taranması (mesela soğuk depolama için kullanılanlar).
-• Groestlcoin bakiyesini görüntüleyen widget.
+• Groestlcoin bakiyesini görüntüleyen gereç.
+• Güvenlik: SegWit ve yeni bech32 biçimini destekler.
+• Gizlilik: Ayrı Orbot uygulaması aracılığıyla Tor'u destekler.
 
 
 <b>KATKIDA BULUNUN</b>
@@ -26,4 +28,4 @@ Tüm tercümeler Transifex üzerinde yönetilir:
 https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
 
 
-<i>Tüm riski siz üstlenmiş olursunuz!</i>
+<i>Kullanım kendi sorumluluğunuzdadır! Sadece cep boyutunda miktarlar için kullanın.</i>

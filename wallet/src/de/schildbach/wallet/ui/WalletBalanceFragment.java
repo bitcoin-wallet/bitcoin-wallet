@@ -55,8 +55,6 @@ public final class WalletBalanceFragment extends Fragment {
     private CurrencyTextView viewBalanceLocal;
     private TextView viewProgress;
 
-    private boolean showLocalBalance;
-
     private WalletActivityViewModel activityViewModel;
     private WalletBalanceViewModel viewModel;
 
@@ -69,8 +67,6 @@ public final class WalletBalanceFragment extends Fragment {
         this.activity = (WalletActivity) context;
         this.application = activity.getWalletApplication();
         this.config = application.getConfiguration();
-
-        showLocalBalance = getResources().getBoolean(R.bool.show_local_balance);
     }
 
     @Override
@@ -87,9 +83,7 @@ public final class WalletBalanceFragment extends Fragment {
             updateView();
             activityViewModel.balanceLoadingFinished();
         });
-        if (Constants.ENABLE_EXCHANGE_RATES) {
-            viewModel.getExchangeRate().observe(this, exchangeRate -> updateView());
-        }
+        viewModel.getExchangeRate().observe(this, exchangeRate -> updateView());
     }
 
     @Override
@@ -102,7 +96,7 @@ public final class WalletBalanceFragment extends Fragment {
     public void onViewCreated(final View view, final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        final boolean showExchangeRatesOption = Constants.ENABLE_EXCHANGE_RATES
+        final boolean showExchangeRatesOption = config.isEnableExchangeRates()
                 && getResources().getBoolean(R.bool.show_exchange_rates_option);
 
         viewBalance = view.findViewById(R.id.wallet_balance);
@@ -153,6 +147,9 @@ public final class WalletBalanceFragment extends Fragment {
     private void updateView() {
         final BlockchainState blockchainState = application.blockchainState.getValue();
         final Coin balance = viewModel.getBalance().getValue();
+        final boolean showLocalBalance =
+                getResources().getBoolean(R.bool.show_local_balance) && config.isEnableExchangeRates();
+
         final ExchangeRateEntry exchangeRate = viewModel.getExchangeRate().getValue();
 
         final boolean showProgress;

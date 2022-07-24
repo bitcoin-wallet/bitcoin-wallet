@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="de.schildbach.wallet"
     android:installLocation="internalOnly"
-    android:versionCode="81401"
-    android:versionName="8.14.1">
+    android:versionCode="90300"
+    android:versionName="9.03">
 
     <uses-sdk tools:ignore="OldTargetApi" />
 
@@ -74,6 +74,7 @@
             android:theme="@style/My.Theme.WithSplash" />
         <activity-alias
             android:name="de.schildbach.wallet.WalletActivity"
+            android:exported="true"
             android:targetActivity="de.schildbach.wallet.ui.WalletActivity">
             <intent-filter android:label="@string/app_name_short">
                 <action android:name="android.intent.action.MAIN" />
@@ -94,7 +95,8 @@
             android:configChanges="keyboard|keyboardHidden"
             android:label="@string/send_coins_activity_title"
             android:theme="@style/My.Theme.ChildActivity"
-            android:windowSoftInputMode="adjustResize">
+            android:windowSoftInputMode="adjustResize"
+            android:exported="true">
             <intent-filter android:label="@string/send_coins_activity_title">
                 <action android:name="android.intent.action.VIEW" />
 				<data android:scheme="groestlcoin" />
@@ -130,12 +132,7 @@
             android:configChanges="keyboard|keyboardHidden"
             android:label="@string/request_coins_activity_title"
             android:theme="@style/My.Theme.ChildActivity"
-            android:windowSoftInputMode="adjustResize" >
-            <intent-filter android:label="@string/request_coins_activity_title">
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
+            android:windowSoftInputMode="adjustResize" />
 
         <activity
             android:name="de.schildbach.wallet.ui.AddressBookActivity"
@@ -168,7 +165,8 @@
         <activity
             android:name="de.schildbach.wallet.ui.backup.RestoreWalletFromExternalActivity"
             android:configChanges="orientation|keyboard|keyboardHidden"
-            android:theme="@style/My.Theme.Dialog">
+            android:theme="@style/My.Theme.Dialog"
+            android:exported="true">
             <intent-filter android:label="@string/import_keys_intent_filter_action">
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -181,12 +179,7 @@
             android:configChanges="keyboard|keyboardHidden"
             android:stateNotNeeded="true"
             android:theme="@style/My.Theme.Fullscreen"
-            android:windowSoftInputMode="stateAlwaysHidden" >
-            <intent-filter android:label="@string/request_coins_activity_title">
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
+            android:windowSoftInputMode="stateAlwaysHidden" />
 
         <activity
             android:name="de.schildbach.wallet.ui.send.SweepWalletActivity"
@@ -207,7 +200,8 @@
 
         <receiver
             android:name="de.schildbach.wallet.WalletBalanceWidgetProvider"
-            android:label="@string/appwidget_wallet_balance_title">
+            android:label="@string/appwidget_wallet_balance_title"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -227,7 +221,8 @@
             android:name="de.schildbach.wallet.offline.AcceptBluetoothService"
             android:exported="false" />
 
-        <receiver android:name="de.schildbach.wallet.service.BootstrapReceiver">
+        <receiver android:name="de.schildbach.wallet.service.BootstrapReceiver"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>

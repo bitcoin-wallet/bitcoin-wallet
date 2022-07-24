@@ -1,9 +1,10 @@
 plugins {
     id 'java'
+    id 'java-library'
 }
 
 dependencies {
-    compile('com.google.android:android:4.0.1.2') {
+    implementation('com.google.android:android:4.0.1.2') {
         transitive false
     }
 }
@@ -20,6 +21,6 @@ sourceSets {
 }
 
 compileJava {
-    sourceCompatibility '1.6'
-    targetCompatibility '1.6'
+    sourceCompatibility '1.8'
+    targetCompatibility '1.8'
 }

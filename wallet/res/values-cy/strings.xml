@@ -125,7 +125,7 @@
   <string name="sweep_wallet_fragment_decrypt_progress">Yn dadgryptio…\nCymerir hyd at 2 funud.</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_progress">Yn llwytho\'r balans…</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_failed_title">Methwyd â llwytho\'r balans</string>
-  <string name="sweep_wallet_fragment_request_wallet_balance_failed_connection">Mae gennyt gysylltiad gwael â\'r rhwydwaith Electrum.</string>
+  <string name="sweep_wallet_fragment_request_wallet_balance_failed_connection">Mae gennyt gysylltiad gwael â\'r rhwydwaith Electrum-GRS.</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_empty">Mae\'r waled papur yn wag.</string>
   <string name="sweep_wallet_fragment_insufficient_money_title">Dim digon o Fitcoin</string>
   <string name="sweep_wallet_fragment_insufficient_money_msg">Mae swm y Groestlcoin yn y waled yn rhy fach i\'w ysgubo.</string>

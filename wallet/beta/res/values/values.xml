@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-	<string name="app_name">Groestlcoin Wallet [beta]</string>
-	<string name="app_name_short">Groestlcoin [beta]</string>
-	<string name="appwidget_wallet_balance_title">Groestlcoin Beta balance</string>
-</resources>

@@ -53,6 +53,7 @@ public class Configuration {
     public static final String PREFS_KEY_TRUSTED_PEERS = "trusted_peer";
     public static final String PREFS_KEY_TRUSTED_PEERS_ONLY = "trusted_peer_only";
     public static final String PREFS_KEY_BLOCK_EXPLORER = "block_explorer";
+    public static final String PREFS_KEY_ENABLE_EXCHANGE_RATES = "enable_exchange_rates";
     public static final String PREFS_KEY_DATA_USAGE = "data_usage";
     public static final String PREFS_KEY_NOTIFICATIONS = "notifications";
     public static final String PREFS_KEY_REMIND_BALANCE = "remind_balance";
@@ -107,6 +108,8 @@ public class Configuration {
             return Coin.MILLICOIN;
         else if (shift == 6)
             return Coin.MICROCOIN;
+        else if (shift == 8)
+            return Coin.SATOSHI;
         else
             throw new IllegalStateException("cannot handle shift: " + shift);
     }
@@ -125,8 +128,10 @@ public class Configuration {
             return new MonetaryFormat().shift(0).minDecimals(2).optionalDecimals(2, 2, 2);
         else if (shift == 3)
             return new MonetaryFormat().shift(3).minDecimals(2).optionalDecimals(2, 1);
-        else
+        else if (shift == 6)
             return new MonetaryFormat().shift(6).minDecimals(0).optionalDecimals(2);
+        else
+            return new MonetaryFormat().shift(8).minDecimals(0).optionalDecimals(0);
     }
 
     public String getOwnName() {
@@ -171,6 +176,10 @@ public class Configuration {
     public Uri getBlockExplorer() {
         return Uri.parse(prefs.getString(PREFS_KEY_BLOCK_EXPLORER,
                 res.getStringArray(R.array.preferences_block_explorer_values)[0]));
+    }
+
+    public boolean isEnableExchangeRates() {
+        return Constants.ENABLE_EXCHANGE_RATES && prefs.getBoolean(PREFS_KEY_ENABLE_EXCHANGE_RATES, true);
     }
 
     public boolean remindBalance() {
