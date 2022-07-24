@@ -4,3 +4,5 @@ res-prod/mipmap-*hdpi/
 testNet3/res/mipmap-*hdpi/
 .externalNativeBuild
 .cxx
+dev
+prod
