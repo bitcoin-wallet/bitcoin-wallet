@@ -27,7 +27,7 @@ import de.schildbach.wallet.data.PaymentIntent;
 import de.schildbach.wallet.util.Qr;
 import org.bitcoin.protocols.payments.Protos;
 import org.bitcoinj.core.Address;
-import org.bitcoinj.core.AddressFormatException;
+import org.bitcoinj.base.exceptions.AddressFormatException;
 import org.bitcoinj.core.DumpedPrivateKey;
 import org.bitcoinj.core.LegacyAddress;
 import org.bitcoinj.core.PrefixedChecksummedBytes;
