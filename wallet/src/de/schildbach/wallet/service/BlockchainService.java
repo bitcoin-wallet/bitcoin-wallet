@@ -77,7 +77,7 @@ import org.bitcoinj.core.TransactionBroadcast;
 import org.bitcoinj.core.TransactionConfidence.ConfidenceType;
 import org.bitcoinj.core.Utils;
 import org.bitcoinj.core.VersionMessage;
-import org.bitcoinj.core.listeners.AbstractPeerDataEventListener;
+import org.bitcoinj.core.listeners.BlockchainDownloadEventListener;
 import org.bitcoinj.core.listeners.PeerConnectedEventListener;
 import org.bitcoinj.core.listeners.PeerDataEventListener;
 import org.bitcoinj.core.listeners.PeerDisconnectedEventListener;
@@ -295,9 +295,9 @@ public class BlockchainService extends LifecycleService {
         }
     }
 
-    private final PeerDataEventListener blockchainDownloadListener = new BlockchainDownloadListener();
+    private final BlockchainDownloadEventListener blockchainDownloadListener = new BlockchainDownloadListener();
 
-    private class BlockchainDownloadListener extends AbstractPeerDataEventListener implements Runnable {
+    private class BlockchainDownloadListener implements BlockchainDownloadEventListener, Runnable {
         private final AtomicLong lastMessageTime = new AtomicLong(0);
         private final AtomicInteger blocksToDownload = new AtomicInteger();
         private final AtomicInteger blocksLeft = new AtomicInteger();
