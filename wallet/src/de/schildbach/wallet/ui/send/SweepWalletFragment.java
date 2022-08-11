@@ -56,6 +56,7 @@ import de.schildbach.wallet.ui.ProgressDialogFragment;
 import de.schildbach.wallet.ui.TransactionsAdapter;
 import de.schildbach.wallet.ui.scan.ScanActivity;
 import de.schildbach.wallet.util.MonetarySpannable;
+import org.bitcoinj.core.AddressFormatException;
 import org.bitcoinj.core.Coin;
 import org.bitcoinj.core.DumpedPrivateKey;
 import org.bitcoinj.core.ECKey;
@@ -191,8 +192,13 @@ public class SweepWalletFragment extends Fragment {
             final Intent intent = activity.getIntent();
 
             if (intent.hasExtra(SweepWalletActivity.INTENT_EXTRA_KEY)) {
-                final PrefixedChecksummedBytes privateKeyToSweep = (PrefixedChecksummedBytes) intent
-                        .getSerializableExtra(SweepWalletActivity.INTENT_EXTRA_KEY);
+                final String encodedKey = intent.getStringExtra(SweepWalletActivity.INTENT_EXTRA_KEY);
+                PrefixedChecksummedBytes privateKeyToSweep;
+                try {
+                    privateKeyToSweep = DumpedPrivateKey.fromBase58(Constants.NETWORK_PARAMETERS, encodedKey);
+                } catch (AddressFormatException x) {
+                    privateKeyToSweep = BIP38PrivateKey.fromBase58(Constants.NETWORK_PARAMETERS, encodedKey);
+                }
                 viewModel.privateKeyToSweep.setValue(privateKeyToSweep);
 
                 // delay until fragment is resumed
