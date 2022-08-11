@@ -41,7 +41,7 @@ import de.schildbach.wallet.util.MonetarySpannable;
 import org.bitcoinj.core.Coin;
 import org.bitcoinj.core.Monetary;
 import org.bitcoinj.utils.Fiat;
-import org.bitcoinj.utils.MonetaryFormat;
+import org.bitcoinj.base.utils.MonetaryFormat;
 
 /**
  * @author Andreas Schildbach
