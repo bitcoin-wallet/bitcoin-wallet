@@ -49,7 +49,7 @@ import org.bitcoinj.base.Sha256Hash;
 import org.bitcoinj.core.StoredBlock;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.Transaction.Purpose;
-import org.bitcoinj.params.AbstractBitcoinNetParams;
+import org.bitcoinj.params.BitcoinNetworkParams;
 import org.bitcoinj.base.utils.MonetaryFormat;
 import org.bitcoinj.wallet.Wallet;
 
@@ -84,9 +84,9 @@ public class BlockListAdapter extends ListAdapter<BlockListAdapter.ListItem, Rec
                 time = context.getString(R.string.block_row_now);
             final List<ListItem.TxItem> transactionItems = buildTransactionItems(context, blockHash, transactions,
                     wallet, addressBook);
-            if (((AbstractBitcoinNetParams) Constants.NETWORK_PARAMETERS).isRewardHalvingPoint(height))
+            if (((BitcoinNetworkParams) Constants.NETWORK_PARAMETERS).isRewardHalvingPoint(height))
                 items.add(new ListItem.SeparatorItem(context.getString(R.string.block_row_mining_reward_adjustment)));
-            if (((AbstractBitcoinNetParams) Constants.NETWORK_PARAMETERS).isDifficultyTransitionPoint(height))
+            if (((BitcoinNetworkParams) Constants.NETWORK_PARAMETERS).isDifficultyTransitionPoint(height))
                 items.add(new ListItem.SeparatorItem(context.getString(R.string.block_row_mining_difficulty_adjustment)));
             items.add(new ListItem.BlockItem(blockHash, height, time, format, transactionItems));
         }
