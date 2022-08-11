@@ -39,7 +39,7 @@ import de.schildbach.wallet.R;
 import de.schildbach.wallet.util.GenericUtils;
 import de.schildbach.wallet.util.MonetarySpannable;
 import org.bitcoinj.base.Coin;
-import org.bitcoinj.core.Monetary;
+import org.bitcoinj.base.Monetary;
 import org.bitcoinj.base.utils.Fiat;
 import org.bitcoinj.base.utils.MonetaryFormat;
 
