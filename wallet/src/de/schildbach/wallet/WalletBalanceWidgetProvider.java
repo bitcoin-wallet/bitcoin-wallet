@@ -43,7 +43,7 @@ import de.schildbach.wallet.util.MonetarySpannable;
 import org.bitcoinj.base.Coin;
 import org.bitcoinj.core.NetworkParameters;
 import org.bitcoinj.utils.ExchangeRate;
-import org.bitcoinj.utils.Fiat;
+import org.bitcoinj.base.utils.Fiat;
 import org.bitcoinj.base.utils.MonetaryFormat;
 import org.bitcoinj.wallet.Wallet.BalanceType;
 import org.slf4j.Logger;
