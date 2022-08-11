@@ -30,7 +30,7 @@ import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.service.BlockchainService;
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.NetworkParameters;
-import org.bitcoinj.core.Sha256Hash;
+import org.bitcoinj.base.Sha256Hash;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.TransactionInput;
 import org.bitcoinj.core.TransactionOutput;
