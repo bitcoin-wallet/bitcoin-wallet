@@ -23,6 +23,7 @@ import com.google.common.io.BaseEncoding;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
+import org.bitcoinj.base.BitcoinNetwork;
 import org.bitcoinj.base.Coin;
 import org.bitcoinj.base.ScriptType;
 import org.bitcoinj.core.Context;
@@ -70,7 +71,7 @@ public final class Constants {
 
     public final static class Files {
         private static final String FILENAME_NETWORK_SUFFIX = NETWORK_PARAMETERS.getId()
-                .equals(NetworkParameters.ID_MAINNET) ? "" : "-testnet";
+                .equals(BitcoinNetwork.ID_MAINNET) ? "" : "-testnet";
 
         /** Filename of the wallet. */
         public static final String WALLET_FILENAME_PROTOBUF = "wallet-protobuf" + FILENAME_NETWORK_SUFFIX;
@@ -108,7 +109,7 @@ public final class Constants {
 
     /** URL to fetch version alerts from. */
     public static final HttpUrl VERSION_URL = HttpUrl.parse("https://wallet.schildbach.de/version"
-            + (NETWORK_PARAMETERS.getId().equals(NetworkParameters.ID_MAINNET) ? "" : "-test"));
+            + (NETWORK_PARAMETERS.getId().equals(BitcoinNetwork.ID_MAINNET) ? "" : "-test"));
     /** URL to fetch dynamic fees from. */
     public static final HttpUrl DYNAMIC_FEES_URL = HttpUrl.parse("https://wallet.schildbach.de/fees");
 
@@ -128,7 +129,7 @@ public final class Constants {
     public static final String DEFAULT_EXCHANGE_CURRENCY = "USD";
 
     /** Donation address for tip/donate action. */
-    public static final String DONATION_ADDRESS = NETWORK_PARAMETERS.getId().equals(NetworkParameters.ID_MAINNET)
+    public static final String DONATION_ADDRESS = NETWORK_PARAMETERS.getId().equals(BitcoinNetwork.ID_MAINNET)
             ? "bc1qgm3m0qg0sxggd0klauec5wradqyd66ydrrwy3f" : null;
 
     /** Recipient e-mail address for reports. */
@@ -194,9 +195,9 @@ public final class Constants {
 
     /** Default ports for Electrum servers */
     public static final int ELECTRUM_SERVER_DEFAULT_PORT_TCP = NETWORK_PARAMETERS.getId()
-            .equals(NetworkParameters.ID_MAINNET) ? 50001 : 51001;
+            .equals(BitcoinNetwork.ID_MAINNET) ? 50001 : 51001;
     public static final int ELECTRUM_SERVER_DEFAULT_PORT_TLS = NETWORK_PARAMETERS.getId()
-            .equals(NetworkParameters.ID_MAINNET) ? 50002 : 51002;
+            .equals(BitcoinNetwork.ID_MAINNET) ? 50002 : 51002;
 
     /** Shared HTTP client, can reuse connections */
     public static final OkHttpClient HTTP_CLIENT;
