@@ -34,7 +34,7 @@ import de.schildbach.wallet.data.SelectedExchangeRateLiveData;
 import de.schildbach.wallet.util.Bluetooth;
 import de.schildbach.wallet.util.Qr;
 import org.bitcoinj.core.Address;
-import org.bitcoinj.core.Coin;
+import org.bitcoinj.base.Coin;
 import org.bitcoinj.protocols.payments.PaymentProtocol;
 import org.bitcoinj.script.Script;
 import org.bitcoinj.uri.BitcoinURI;

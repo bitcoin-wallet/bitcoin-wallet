@@ -23,7 +23,7 @@ import android.os.AsyncTask;
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
-import org.bitcoinj.core.Coin;
+import org.bitcoinj.base.Coin;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.utils.Threading;
 import org.bitcoinj.wallet.Wallet;
