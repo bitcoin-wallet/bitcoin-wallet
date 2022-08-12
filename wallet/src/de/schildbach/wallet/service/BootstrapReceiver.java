@@ -136,8 +136,8 @@ public class BootstrapReceiver extends BroadcastReceiver {
         notification.setSmallIcon(R.drawable.stat_notify_received_24dp);
         notification.setContentTitle(title);
         notification.setContentText(text);
-        notification.setContentIntent(PendingIntent.getActivity(application, 0, new Intent(application, WalletActivity.class),
-                0));
+        notification.setContentIntent(PendingIntent.getActivity(application, 0,
+                new Intent(application, WalletActivity.class), PendingIntent.FLAG_IMMUTABLE));
         notification.setAutoCancel(true);
 
         if (!canDonate) {
@@ -145,21 +145,21 @@ public class BootstrapReceiver extends BroadcastReceiver {
             dismissIntent.setAction(ACTION_DISMISS);
             notification.addAction(new NotificationCompat.Action.Builder(0,
                     application.getString(R.string.notification_inactivity_action_dismiss),
-                    PendingIntent.getBroadcast(application, 0, dismissIntent, 0)).build());
+                    PendingIntent.getBroadcast(application, 0, dismissIntent, PendingIntent.FLAG_IMMUTABLE)).build());
         }
 
         final Intent dismissForeverIntent = new Intent(application, BootstrapReceiver.class);
         dismissForeverIntent.setAction(ACTION_DISMISS_FOREVER);
         notification.addAction(new NotificationCompat.Action.Builder(0,
                 application.getString(R.string.notification_inactivity_action_dismiss_forever),
-                PendingIntent.getBroadcast(application, 0, dismissForeverIntent, 0)).build());
+                PendingIntent.getBroadcast(application, 0, dismissForeverIntent, PendingIntent.FLAG_IMMUTABLE)).build());
 
         if (canDonate) {
             final Intent donateIntent = new Intent(application, BootstrapReceiver.class);
             donateIntent.setAction(ACTION_DONATE);
             notification.addAction(new NotificationCompat.Action.Builder(0,
-                    application.getString(R.string.wallet_options_donate), PendingIntent.getBroadcast(application, 0,
-                    donateIntent, 0)).build());
+                    application.getString(R.string.wallet_options_donate),
+                    PendingIntent.getBroadcast(application, 0, donateIntent, PendingIntent.FLAG_IMMUTABLE)).build());
         }
 
         final NotificationManager nm = (NotificationManager) application.getSystemService(Context.NOTIFICATION_SERVICE);
