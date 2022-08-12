@@ -1,4 +1,4 @@
-v9.0-v9.03
+v9.0-v9.04
 
 * The app now requires Android 7.0 (Nougat) or higher.
 * Taproot - Phase I: Send to Bech32m addresses.
