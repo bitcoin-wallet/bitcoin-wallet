@@ -24,7 +24,6 @@ import android.app.job.JobService;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.os.Build;
 import android.os.PowerManager;
 import android.text.format.DateUtils;
 import de.schildbach.wallet.Configuration;
@@ -67,10 +66,8 @@ public class StartBlockchainService extends JobService {
         jobInfo.setOverrideDeadline(DateUtils.WEEK_IN_MILLIS);
         jobInfo.setRequiredNetworkType(expectLargeData ? JobInfo.NETWORK_TYPE_UNMETERED : JobInfo.NETWORK_TYPE_ANY);
         jobInfo.setRequiresDeviceIdle(true);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            jobInfo.setRequiresBatteryNotLow(true);
-            jobInfo.setRequiresStorageNotLow(true);
-        }
+        jobInfo.setRequiresBatteryNotLow(true);
+        jobInfo.setRequiresStorageNotLow(true);
         jobScheduler.schedule(jobInfo.build());
     }
 

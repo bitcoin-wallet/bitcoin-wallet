@@ -18,7 +18,6 @@
 package de.schildbach.wallet.ui;
 
 import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -53,8 +52,7 @@ public final class WalletActionsFragment extends Fragment {
 
         final View sendQrButton = view.findViewById(R.id.wallet_actions_send_qr);
         sendQrButton.setOnClickListener(v -> activity.handleScan(v));
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-            sendQrButton.setTooltipText(sendQrButton.getContentDescription());
+        sendQrButton.setTooltipText(sendQrButton.getContentDescription());
 
         return view;
     }

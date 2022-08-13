@@ -136,9 +136,8 @@ public final class SettingsFragment extends PreferenceFragment implements OnPref
             removeOrDisablePreference(batteryOptimizationPreference);
 
         final Preference notificationsPreference = findPreference(Configuration.PREFS_KEY_NOTIFICATIONS);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-            notificationsPreference.setIntent(new Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS)
-                    .putExtra(Settings.EXTRA_APP_PACKAGE, application.getPackageName()));
+        notificationsPreference.setIntent(new Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS)
+                .putExtra(Settings.EXTRA_APP_PACKAGE, application.getPackageName()));
         if (notificationsPreference.getIntent() == null || pm.resolveActivity(notificationsPreference.getIntent(), 0) == null)
             removeOrDisablePreference(notificationsPreference);
 
@@ -255,10 +254,7 @@ public final class SettingsFragment extends PreferenceFragment implements OnPref
     }
 
     private void removeOrDisablePreference(final Preference preference) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-            preference.getParent().removePreference(preference);
-        else
-            preference.setEnabled(false);
+        preference.getParent().removePreference(preference);
     }
 
     private static class RestrictToHex implements InputFilter {

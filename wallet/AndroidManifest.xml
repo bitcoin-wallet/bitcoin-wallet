@@ -8,7 +8,7 @@
     android:versionName="9.26">
 
     <uses-sdk
-        android:minSdkVersion="24"
+        android:minSdkVersion="26"
         android:targetSdkVersion="33" />
 
     <!-- normal permissions -->
