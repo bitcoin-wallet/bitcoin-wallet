@@ -99,7 +99,7 @@ public final class RequestCoinsFragment extends Fragment {
         this.activity = (AbstractWalletActivity) context;
         this.application = activity.getWalletApplication();
         this.config = application.getConfiguration();
-        this.clipboardManager = (ClipboardManager) activity.getSystemService(Context.CLIPBOARD_SERVICE);
+        this.clipboardManager = activity.getSystemService(ClipboardManager.class);
         this.bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         this.nfcAdapter = NfcAdapter.getDefaultAdapter(activity);
     }

@@ -88,7 +88,7 @@ public final class AcceptBluetoothService extends LifecycleService {
         super.onCreate();
         this.application = (WalletApplication) getApplication();
         final BluetoothAdapter bluetoothAdapter = checkNotNull(BluetoothAdapter.getDefaultAdapter());
-        final PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+        final PowerManager pm = getSystemService(PowerManager.class);
 
         wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, getClass().getName());
         wakeLock.acquire();

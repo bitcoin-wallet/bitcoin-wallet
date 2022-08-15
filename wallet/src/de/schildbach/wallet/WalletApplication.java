@@ -22,7 +22,6 @@ import android.app.Application;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.bluetooth.BluetoothAdapter;
-import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.media.AudioAttributes;
@@ -113,7 +112,7 @@ public class WalletApplication extends Application {
             CrashReporter.saveBackgroundTrace(throwable, packageInfo);
         };
 
-        activityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        activityManager = getSystemService(ActivityManager.class);
 
         walletFile = getFileStreamPath(Constants.Files.WALLET_FILENAME_PROTOBUF);
 
@@ -288,7 +287,7 @@ public class WalletApplication extends Application {
     private void initNotificationManager() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             final Stopwatch watch = Stopwatch.createStarted();
-            final NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            final NotificationManager nm = getSystemService(NotificationManager.class);
 
             final NotificationChannel received = new NotificationChannel(Constants.NOTIFICATION_CHANNEL_ID_RECEIVED,
                     getString(R.string.notification_channel_received_name), NotificationManager.IMPORTANCE_DEFAULT);

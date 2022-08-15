@@ -23,7 +23,6 @@ import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
 import android.app.ActivityOptions;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -131,7 +130,7 @@ public final class ScanActivity extends AbstractWalletActivity
     @Override
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        vibrator = getSystemService(Vibrator.class);
 
         viewModel = new ViewModelProvider(this).get(ScanViewModel.class);
         viewModel.showPermissionWarnDialog.observe(this, new Event.Observer<Void>() {

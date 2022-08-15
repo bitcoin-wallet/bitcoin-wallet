@@ -347,7 +347,7 @@ public class BlockchainService extends LifecycleService {
 
         public ImpedimentsLiveData(final WalletApplication application) {
             this.application = application;
-            this.connectivityManager = (ConnectivityManager) application.getSystemService(Context.CONNECTIVITY_SERVICE);
+            this.connectivityManager = application.getSystemService(ConnectivityManager.class);
             setValue(impediments);
         }
 
@@ -473,8 +473,8 @@ public class BlockchainService extends LifecycleService {
         application = (WalletApplication) getApplication();
         config = application.getConfiguration();
 
-        pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
-        nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        pm = getSystemService(PowerManager.class);
+        nm = getSystemService(NotificationManager.class);
 
         wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, getClass().getName());
         log.info("acquiring {}", wakeLock);

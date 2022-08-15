@@ -318,9 +318,8 @@ public class ReportIssueDialogFragment extends DialogFragment {
     private static void appendDeviceInfo(final Appendable report, final Context context) throws IOException {
         final Resources res = context.getResources();
         final android.content.res.Configuration config = res.getConfiguration();
-        final ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-        final DevicePolicyManager devicePolicyManager = (DevicePolicyManager) context
-                .getSystemService(Context.DEVICE_POLICY_SERVICE);
+        final ActivityManager activityManager = context.getSystemService(ActivityManager.class);
+        final DevicePolicyManager devicePolicyManager = context.getSystemService(DevicePolicyManager.class);
 
         report.append("Manufacturer: ").append(Build.MANUFACTURER).append("\n");
         report.append("Device Model: ").append(Build.MODEL).append("\n");

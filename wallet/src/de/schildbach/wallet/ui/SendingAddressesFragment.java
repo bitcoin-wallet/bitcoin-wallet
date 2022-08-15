@@ -73,7 +73,7 @@ public final class SendingAddressesFragment extends Fragment implements AddressB
         super.onAttach(context);
         this.activity = (AbstractWalletActivity) context;
         this.addressBookDao = AddressBookDatabase.getDatabase(context).addressBookDao();
-        this.clipboardManager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+        this.clipboardManager = context.getSystemService(ClipboardManager.class);
     }
 
     @Override

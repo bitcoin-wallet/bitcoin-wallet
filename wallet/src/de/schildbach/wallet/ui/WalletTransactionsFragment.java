@@ -89,7 +89,7 @@ public class WalletTransactionsFragment extends Fragment implements Transactions
         this.application = activity.getWalletApplication();
         this.config = application.getConfiguration();
         this.addressBookDao = AddressBookDatabase.getDatabase(context).addressBookDao();
-        this.devicePolicyManager = (DevicePolicyManager) application.getSystemService(Context.DEVICE_POLICY_SERVICE);
+        this.devicePolicyManager = application.getSystemService(DevicePolicyManager.class);
     }
 
     @Override

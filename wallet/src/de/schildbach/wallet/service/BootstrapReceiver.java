@@ -162,14 +162,14 @@ public class BootstrapReceiver extends BroadcastReceiver {
                     PendingIntent.getBroadcast(application, 0, donateIntent, PendingIntent.FLAG_IMMUTABLE)).build());
         }
 
-        final NotificationManager nm = (NotificationManager) application.getSystemService(Context.NOTIFICATION_SERVICE);
+        final NotificationManager nm = application.getSystemService(NotificationManager.class);
         nm.notify(Constants.NOTIFICATION_ID_INACTIVITY, notification.build());
     }
 
     @WorkerThread
     private void dismissNotification(final Context context) {
         log.info("dismissing inactivity notification");
-        final NotificationManager nm = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        final NotificationManager nm = context.getSystemService(NotificationManager.class);
         nm.cancel(Constants.NOTIFICATION_ID_INACTIVITY);
     }
 
@@ -177,7 +177,7 @@ public class BootstrapReceiver extends BroadcastReceiver {
     private void dismissNotificationForever(final Context context, final Configuration config) {
         log.info("dismissing inactivity notification forever");
         config.setRemindBalance(false);
-        final NotificationManager nm = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        final NotificationManager nm = context.getSystemService(NotificationManager.class);
         nm.cancel(Constants.NOTIFICATION_ID_INACTIVITY);
     }
 
@@ -186,7 +186,7 @@ public class BootstrapReceiver extends BroadcastReceiver {
         final Coin balance = wallet.getBalance(Wallet.BalanceType.AVAILABLE_SPENDABLE);
         SendCoinsActivity.startDonate(context, balance, FeeCategory.ECONOMIC,
                 Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        final NotificationManager nm = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        final NotificationManager nm = context.getSystemService(NotificationManager.class);
         nm.cancel(Constants.NOTIFICATION_ID_INACTIVITY);
         context.sendBroadcast(new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS));
     }
