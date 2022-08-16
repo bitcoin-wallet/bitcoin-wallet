@@ -26,6 +26,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
+import android.os.PowerManager;
 import android.os.Process;
 import android.preference.EditTextPreference;
 import android.preference.ListPreference;
@@ -59,6 +60,7 @@ public final class SettingsFragment extends PreferenceFragment implements OnPref
     private WalletApplication application;
     private Configuration config;
     private PackageManager pm;
+    private PowerManager powerManager;
 
     private final Handler handler = new Handler();
     private HandlerThread backgroundThread;
@@ -80,6 +82,7 @@ public final class SettingsFragment extends PreferenceFragment implements OnPref
         this.application = (WalletApplication) activity.getApplication();
         this.config = application.getConfiguration();
         this.pm = activity.getPackageManager();
+        this.powerManager = activity.getSystemService(PowerManager.class);
     }
 
     @Override
@@ -119,6 +122,10 @@ public final class SettingsFragment extends PreferenceFragment implements OnPref
                 Uri.parse("package:" + application.getPackageName())));
         if (dataUsagePreference.getIntent() == null || pm.resolveActivity(dataUsagePreference.getIntent(), 0) == null)
             removeOrDisablePreference(dataUsagePreference);
+
+        final Preference batteryOptimiationPreference = findPreference(Configuration.PREFS_KEY_BATTERY_OPTIMIZATION);
+        if (powerManager.isIgnoringBatteryOptimizations(activity.getPackageName()))
+            removeOrDisablePreference(batteryOptimiationPreference);
 
         final Preference notificationsPreference = findPreference(Configuration.PREFS_KEY_NOTIFICATIONS);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)

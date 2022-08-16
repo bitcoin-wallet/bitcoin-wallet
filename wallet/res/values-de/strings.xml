@@ -274,6 +274,8 @@
     <string name="preferences_enable_exchange_rates_summary">Ruft die Wechselkurse von einem Feed ab, um lokale Beträge auszurechnen.</string>
     <string name="preferences_data_usage_title">Datenverbrauch</string>
     <string name="preferences_data_usage_summary">Zeigt Optionen um die mobile Datennutzung einzuschränken.</string>
+    <string name="preferences_battery_optimization_title">Akkuoptimierung abschalten</string>
+    <string name="preferences_battery_optimization_summary">Um die Blockchain so aktuell wie möglich zu halten, schalte bitte die Akkuoptimierung für diese App ab.</string>
     <string name="preferences_notifications_title">Benachrichtigungen</string>
     <string name="preferences_notifications_summary">Zeigt Optionen um bestimmte Benachrichtigungen aus- oder einzuschalten.</string>
     <string name="preferences_remind_balance_title">Erinnerung an Guthaben</string>
