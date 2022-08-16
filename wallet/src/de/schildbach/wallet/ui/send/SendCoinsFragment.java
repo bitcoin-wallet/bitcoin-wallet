@@ -65,7 +65,6 @@ import de.schildbach.wallet.addressbook.AddressBookDatabase;
 import de.schildbach.wallet.addressbook.AddressBookEntry;
 import de.schildbach.wallet.data.PaymentIntent;
 import de.schildbach.wallet.data.PaymentIntent.Standard;
-import de.schildbach.wallet.integration.android.BitcoinIntegration;
 import de.schildbach.wallet.offline.DirectPaymentTask;
 import de.schildbach.wallet.service.BlockchainState;
 import de.schildbach.wallet.ui.AbstractWalletActivity;
@@ -361,7 +360,7 @@ public final class SendCoinsFragment extends Fragment {
                 initStateFromPaymentRequest(mimeType, ndefMessagePayload);
             } else if ((Intent.ACTION_VIEW.equals(action))
                     && PaymentProtocol.MIMETYPE_PAYMENTREQUEST.equals(mimeType)) {
-                final byte[] paymentRequest = BitcoinIntegration.paymentRequestFromIntent(intent);
+                final byte[] paymentRequest = paymentRequestFromIntent(intent);
 
                 if (intentUri != null)
                     initStateFromIntentUri(mimeType, intentUri);
@@ -739,9 +738,9 @@ public final class SendCoinsFragment extends Fragment {
                     log.info("returning result to calling activity: {}", callingActivity.flattenToString());
 
                     final Intent result = new Intent();
-                    BitcoinIntegration.transactionHashToResult(result, transaction.getTxId().toString());
+                    transactionHashToResult(result, transaction.getTxId().toString());
                     if (viewModel.paymentIntent.standard == Standard.BIP70)
-                        BitcoinIntegration.paymentToResult(result, payment.toByteArray());
+                        paymentToResult(result, payment.toByteArray());
                     activity.setResult(Activity.RESULT_OK, result);
                 }
             }
@@ -1283,5 +1282,41 @@ public final class SendCoinsFragment extends Fragment {
         else
             new RequestPaymentRequestTask.BluetoothRequestTask(backgroundHandler, callback, bluetoothAdapter)
                     .requestPaymentRequest(viewModel.paymentIntent.paymentRequestUrl);
+    }
+
+    // from BitcoinIntegration.java:
+
+    private static final String INTENT_EXTRA_PAYMENTREQUEST = "paymentrequest";
+    private static final String INTENT_EXTRA_PAYMENT = "payment";
+    private static final String INTENT_EXTRA_TRANSACTION_HASH = "transaction_hash";
+
+    /**
+     * Get payment request from intent. Meant for usage by applications accepting payment requests.
+     *
+     * @param intent intent
+     * @return payment request or null
+     */
+    private static byte[] paymentRequestFromIntent(final Intent intent) {
+        return intent.getByteArrayExtra(INTENT_EXTRA_PAYMENTREQUEST);
+    }
+
+    /**
+     * Put BIP70 payment message into result intent. Meant for usage by Bitcoin wallet applications.
+     *
+     * @param result  result intent
+     * @param payment payment message
+     */
+    private static void paymentToResult(final Intent result, final byte[] payment) {
+        result.putExtra(INTENT_EXTRA_PAYMENT, payment);
+    }
+
+    /**
+     * Put transaction hash into result intent. Meant for usage by Bitcoin wallet applications.
+     *
+     * @param result result intent
+     * @param txHash transaction hash
+     */
+    private static void transactionHashToResult(final Intent result, final String txHash) {
+        result.putExtra(INTENT_EXTRA_TRANSACTION_HASH, txHash);
     }
 }

@@ -9,7 +9,6 @@ configurations {
 }
 
 dependencies {
-    implementation project(':integration-android')
     implementation 'androidx.annotation:annotation:1.4.0'
     implementation 'androidx.core:core:1.8.0'
     implementation 'androidx.fragment:fragment:1.4.1'
