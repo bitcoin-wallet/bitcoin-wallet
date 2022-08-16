@@ -154,6 +154,7 @@ public class BlockchainService extends LifecycleService {
     private static final Logger log = LoggerFactory.getLogger(BlockchainService.class);
 
     public static void start(final Context context, final boolean cancelCoinsReceived) {
+        log.info("attempting to start {} in foreground", BlockchainService.class.getName());
         if (cancelCoinsReceived)
             ContextCompat.startForegroundService(context,
                     new Intent(BlockchainService.ACTION_CANCEL_COINS_RECEIVED, null, context, BlockchainService.class));
