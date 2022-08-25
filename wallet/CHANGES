@@ -1,3 +1,7 @@
+v9.05
+
+* Remnove integration-android and sample-integration-android sub-projects – they haven't caught on.
+
 v9.0-v9.04
 
 * The app now requires Android 7.0 (Nougat) or higher.
