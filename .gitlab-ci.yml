@@ -1,4 +1,4 @@
-image: ubuntu:jammy
+image: ${DOCKER_IMAGE}
 
 variables:
   ANDROID_HOME:             "$PWD/android-sdk"
@@ -19,6 +19,7 @@ before_script:
 build:
   parallel:
     matrix:
-      - JDK_PACKAGE: [ openjdk-11-jdk-headless ]
+      - DOCKER_IMAGE: [ ubuntu:jammy, debian:bookworm-slim ]
+        JDK_PACKAGE: [ openjdk-11-jdk-headless ]
   script:
     - gradle build --stacktrace
