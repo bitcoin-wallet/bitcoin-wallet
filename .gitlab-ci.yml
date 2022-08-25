@@ -19,6 +19,6 @@ before_script:
 build:
   parallel:
     matrix:
-      - JDK_PACKAGE: [ openjdk-11-jdk ]
+      - JDK_PACKAGE: [ openjdk-11-jdk-headless ]
   script:
     - gradle build --stacktrace
