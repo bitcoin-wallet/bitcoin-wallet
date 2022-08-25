@@ -2,19 +2,13 @@ image: ${DOCKER_IMAGE}
 
 variables:
   ANDROID_HOME:             "$PWD/android-sdk"
-  ANDROID_SDK_TOOLS:        "7583922_latest"
-  ANDROID_SDK_LICENSE_HASH: "24333f8a63b6825ea9c5514f83c2829b004d1fee"
 
 before_script:
   - apt-get update
   - apt-get -y upgrade
   - apt-get -y install ${JDK_PACKAGE}
-  - apt-get -y install wget gradle
-  - wget --quiet --output-document=commandlinetools-linux.zip https://dl.google.com/android/repository/commandlinetools-linux-${ANDROID_SDK_TOOLS}.zip
-  - mkdir -p ${ANDROID_HOME}
-  - unzip -d ${ANDROID_HOME} commandlinetools-linux.zip
-  - mkdir -p ${ANDROID_HOME}/licenses
-  - echo -e "\n${ANDROID_SDK_LICENSE_HASH}" >> ${ANDROID_HOME}/licenses/android-sdk-license
+  - apt-get -y install sdkmanager gradle
+  - yes | sdkmanager --licenses >/dev/null || true
 
 build:
   parallel:
