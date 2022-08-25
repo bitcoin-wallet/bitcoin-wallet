@@ -19,6 +19,6 @@ before_script:
 build:
   parallel:
     matrix:
-      - JDK_PACKAGE: [ openjdk-8-jdk, openjdk-11-jdk ]
+      - JDK_PACKAGE: [ openjdk-11-jdk ]
   script:
     - gradle build --stacktrace
