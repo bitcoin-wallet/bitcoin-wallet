@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:gravity="center"
+        android:height="64dp"
+        android:width="64dp">
+
+        <shape android:shape="oval">
+            <gradient
+                android:angle="270"
+                android:centerX="50%"
+                android:centerY="50%"
+                android:endColor="@color/appicon_gradient_end"
+                android:startColor="@color/appicon_gradient_start"
+                android:type="linear" />
+        </shape>
+    </item>
+    <item
+        android:gravity="center"
+        android:height="96dp"
+        android:width="96dp">
+
+        <bitmap android:src="@mipmap/ic_app_color_fg_108dp" />
+    </item>
+</layer-list>
