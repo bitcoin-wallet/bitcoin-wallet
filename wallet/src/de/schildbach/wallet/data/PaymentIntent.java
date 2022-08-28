@@ -43,6 +43,7 @@ import org.slf4j.LoggerFactory;
 import java.util.Arrays;
 
 import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * @author Andreas Schildbach
@@ -58,7 +59,7 @@ public final class PaymentIntent implements Parcelable {
 
         public Output(final Coin amount, final Script script) {
             this.amount = amount;
-            this.script = script;
+            this.script = checkNotNull(script);
         }
 
         public static Output valueOf(final PaymentProtocol.Output output)
