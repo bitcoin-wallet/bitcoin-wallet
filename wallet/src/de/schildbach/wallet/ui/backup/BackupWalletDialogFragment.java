@@ -70,8 +70,8 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.TimeZone;
 
-import static androidx.core.util.Preconditions.checkNotNull;
-import static androidx.core.util.Preconditions.checkState;
+import static com.google.common.base.Preconditions.checkNotNull;
+import static com.google.common.base.Preconditions.checkState;
 
 /**
  * @author Andreas Schildbach

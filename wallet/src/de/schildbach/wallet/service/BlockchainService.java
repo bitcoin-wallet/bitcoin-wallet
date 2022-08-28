@@ -106,7 +106,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
-import static androidx.core.util.Preconditions.checkState;
+import static com.google.common.base.Preconditions.checkState;
 
 /**
  * @author Andreas Schildbach

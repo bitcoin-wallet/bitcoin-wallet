@@ -87,7 +87,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
-import static androidx.core.util.Preconditions.checkState;
+import static com.google.common.base.Preconditions.checkState;
 
 /**
  * @author Andreas Schildbach

@@ -42,7 +42,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 
-import static androidx.core.util.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkArgument;
 
 /**
  * @author Andreas Schildbach

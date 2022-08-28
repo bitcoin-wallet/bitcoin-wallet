@@ -44,7 +44,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
-import static androidx.core.util.Preconditions.checkNotNull;
+import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * @author Andreas Schildbach
