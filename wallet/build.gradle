@@ -125,11 +125,3 @@ task svgToPngMipmap(type: fr.avianey.androidsvgdrawable.gradle.SvgDrawableTask) 
     outputFormat = 'PNG'
     outputType = 'mipmap'
 }
-
-task svgToPngMipmapProd(type: fr.avianey.androidsvgdrawable.gradle.SvgDrawableTask) {
-    from = files('graphics-prod/mipmap')
-    to = file('res-prod')
-    targetedDensities = ['xxhdpi', 'xxxhdpi']
-    outputFormat = 'PNG'
-    outputType = 'mipmap'
-}
