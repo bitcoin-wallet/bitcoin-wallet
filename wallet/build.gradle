@@ -16,6 +16,7 @@ dependencies {
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.coordinatorlayout:coordinatorlayout:1.2.0'
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
+    implementation 'androidx.lifecycle:lifecycle-livedata:2.5.1'
     implementation 'androidx.lifecycle:lifecycle-service:2.5.1'
     implementation 'androidx.sqlite:sqlite:2.2.0'
     implementation "androidx.room:room-runtime:2.4.3"
