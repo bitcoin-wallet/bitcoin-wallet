@@ -45,8 +45,7 @@
   <string name="wallet_options_technical_notes_title">Technické informace</string>
   <string name="wallet_options_donate">Přispěj</string>
   <string name="wallet_donate_address_label">Dar pro Bitcoin Wallet</string>
-  <string name="alert_dialogs_fragment_insecure_bluetooth_title">Bezpečnostní ohrožení</string>
-  <string name="alert_dialogs_fragment_insecure_bluetooth_message">Vaš zařízení s Bluetooth je zranitelné. Vaše Bitcoiny na tomto zařízení nejsou zabezpečené, bezohledu na to jakou používáte applikaci! Doporučujeme vám okamžitě vypnout funkci Bluetooth a u výrobce vašeho zařízení zkontrolovat systém Android pro aktualizaci která implementuje úroveň opravy zabezpečení \'%s\' nebo vyšší.</string>
+  <string name="alert_dialogs_fragment_insecure_device_title">Bezpečnostní ohrožení</string>
   <string name="wallet_low_storage_dialog_title">Na vnitřním úložišti není dostatek místa!</string>
   <string name="wallet_low_storage_dialog_msg">Bitcoin Wallet používá vnitřní úložiště pro ukládání transakcí a bloků. Pokud dojde místo v ůložišti, přestane fungovat a vaše Bitcoiny budou vystaveny riziku ztráty!\n\nChcete otevřít Správu Aplikací a odinstalovat nepotřebné aplikace?</string>
   <string name="wallet_low_storage_dialog_button_apps">Spravovat aplikace</string>

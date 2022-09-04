@@ -45,8 +45,7 @@
   <string name="wallet_options_technical_notes_title">技術的補足</string>
   <string name="wallet_options_donate">チップ/寄付</string>
   <string name="wallet_donate_address_label">Bitcoin Walletへ寄付する</string>
-  <string name="alert_dialogs_fragment_insecure_bluetooth_title">セキュリティ警告</string>
-  <string name="alert_dialogs_fragment_insecure_bluetooth_message">あなたのデバイスのBluetooth機能に脆弱性があります。このデバイスのビットコインは、コインを保存しているアプリに関わらず危険にさらされています!\n\nBluetoothを直ちにオフにして、セキュリティパッチレベル\'%s\'以降を実装したAndroid OSのアップデートがないかデバイスの製造者に確認してください。</string>
+  <string name="alert_dialogs_fragment_insecure_device_title">セキュリティ警告</string>
   <string name="wallet_low_storage_dialog_title">内部デバイスのストレージ容量が残りわずかです!</string>
   <string name="wallet_low_storage_dialog_msg">Bitcoin Walletはトランザクションやブロックを記憶するのに内部ストレージを使用します。もし容量が不足した場合、動作しなくなりあなたのビットコインが危機にさらされるでしょう!\n\n不要なアプリを削除するためにアプリケーションマネージャを開きますか?</string>
   <string name="wallet_low_storage_dialog_button_apps">アプリの管理</string>

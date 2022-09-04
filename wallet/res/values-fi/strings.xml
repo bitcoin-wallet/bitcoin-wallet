@@ -43,8 +43,7 @@
   <string name="wallet_options_technical_notes_title">Tekniset tiedot</string>
   <string name="wallet_options_donate">Anna tippiä tai lahjoita</string>
   <string name="wallet_donate_address_label">Lahjoitus Bitcoin Walletille</string>
-  <string name="alert_dialogs_fragment_insecure_bluetooth_title">Turvallisuusvaroitus</string>
-  <string name="alert_dialogs_fragment_insecure_bluetooth_message">Laitteesi Bluetooth-komponentti on haavoittuvainen. Tällä laitteella olevat Bitcoinit ovat uhan alla riippumatta ohjelmasta jossa säilytät niitä. Suosittelemme, että sammutat Bluetoothin välittömästi ja tarkista laitevalmistajaltasi kanssa että Android OS:n päivitys on tasolla \'%s\' tai myöhempi.</string>
+  <string name="alert_dialogs_fragment_insecure_device_title">Turvallisuusvaroitus</string>
   <string name="wallet_low_storage_dialog_title">Sisäinen tallennustila on vähissä!</string>
   <string name="wallet_low_storage_dialog_msg">Bitcoin Wallet käyttää sisäistä tallennustilaa muistaakseen varainsiirrot ja lohkot. Jos se ei saa tarpeeksi tallennustilaa, se lakkaa toimimasta ja Bitcoinisi ovat silloin vaarassa!\n\nHaluatko avata ohjelmien hallinan poistaaksesi tarpeettomia ohjelmia?</string>
   <string name="wallet_low_storage_dialog_button_apps">Hallitse sovelluksia</string>

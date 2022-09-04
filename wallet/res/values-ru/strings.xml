@@ -43,8 +43,7 @@
   <string name="wallet_options_technical_notes_title">Технические детали</string>
   <string name="wallet_options_donate">Пожертвовать</string>
   <string name="wallet_donate_address_label">Пожертвование для Bitcoin Wallet</string>
-  <string name="alert_dialogs_fragment_insecure_bluetooth_title">Предупреждение о безопасности</string>
-  <string name="alert_dialogs_fragment_insecure_bluetooth_message">Bluetooth модуль вашего устройства подвержен уязвимости. Ваши биткойны на этом устройстве находятся в опасности, вне зависимости от того, какое приложение используемого для их хранения!\n\nМы предлагаем вам немедленно выключить Bluetooth и проверить, есть ли у разработчика вашего устройства обновление Android, реализующее исправление безопасности \'%s\' или более позднее.</string>
+  <string name="alert_dialogs_fragment_insecure_device_title">Предупреждение о безопасности</string>
   <string name="wallet_low_storage_dialog_title">Мало места во внутреннем хранилище!</string>
   <string name="wallet_low_storage_dialog_msg">Bitcoin Wallet использует внутреннее хранилище для транзакций и блогов. Если оно переполнится, кошелек перестанет работать и вы рискуете потерять монеты!\n\nХотите открыть Application Manager и деинсталлировать ненужные приложения?</string>
   <string name="wallet_low_storage_dialog_button_apps">Управлять приложениями</string>

@@ -46,8 +46,7 @@
     <string name="wallet_options_technical_notes_title">Technische Hinweise</string>
     <string name="wallet_options_donate">Spenden</string>
     <string name="wallet_donate_address_label">Spende für Bitcoin Wallet</string>
-    <string name="alert_dialogs_fragment_insecure_bluetooth_title">Sicherheitswarnung</string>
-    <string name="alert_dialogs_fragment_insecure_bluetooth_message">Die Bluetooth-Komponente deines Geräts ist verwundbar. Deine Bitcoins auf diesem Gerät sind in Gefahr, unabhängig davon in welcher App du sie aufbewahrst!\n\nWir empfehlen dir, Bluetooth sofort auszuschalten und bei deinem Gerätehersteller zu prüfen, ob es ein Android-Update gibt, das Sicherheitspatch-Ebene \'%s\' oder später implementiert.</string>
+    <string name="alert_dialogs_fragment_insecure_device_title">Sicherheitswarnung</string>
     <string name="wallet_low_storage_dialog_title">Interner Speicher wird knapp!</string>
     <string name="wallet_low_storage_dialog_msg">Bitcoin Wallet nutzt internen Speicher um sich Transaktionen und Blöcke zu merken. Wenn der
 		Speicher vollläuft, wird es nicht mehr funktionieren und deine Bitcoins sind in Gefahr!\n\nMöchtest Du die

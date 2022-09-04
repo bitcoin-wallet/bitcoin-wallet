@@ -45,8 +45,7 @@
   <string name="wallet_options_technical_notes_title">Teknik notlar</string>
   <string name="wallet_options_donate">Bağış</string>
   <string name="wallet_donate_address_label">Bitcoin Wallet için Bağış</string>
-  <string name="alert_dialogs_fragment_insecure_bluetooth_title">Güvenlik uyarısı</string>
-  <string name="alert_dialogs_fragment_insecure_bluetooth_message">Cihazınızın Bluetooth bileşeni savunmasızdır. Bu cihazdaki Bitcoins\'leriniz, onları saklamak için kullandığınız uygulamadan bağımsız olarak tehlikededir!\n\nBluetooth\'u derhal kapatın ve güvenlik düzeltme eki seviyesi \'%s\' veya üstünü destekleyen bir Android veya OS güncellemesi için cihazınızın üreticisine danışın.</string>
+  <string name="alert_dialogs_fragment_insecure_device_title">Güvenlik uyarısı</string>
   <string name="wallet_low_storage_dialog_title">Dahili depolama alanı düşük!</string>
   <string name="wallet_low_storage_dialog_msg">Bitcoin cüzdanı muameleleri ve blokları hatırlamak için dahili depolama alanını kullanır. Bu alan yetersiz kalırsa cüzdan çalışmayı durduracak ve Bitcoinleriniz risk altında kalacaktır!\n\nKullanılmayan uygulamaları kaldırmak için Uygulama Yöneticisini başlatmak ister misiniz?</string>
   <string name="wallet_low_storage_dialog_button_apps">Uygulamaları yönet</string>

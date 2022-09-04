@@ -45,8 +45,7 @@
   <string name="wallet_options_technical_notes_title">Technische aantekeningen</string>
   <string name="wallet_options_donate">Geef fooi / Doneer</string>
   <string name="wallet_donate_address_label">Donatie aan Bitcoin Wallet</string>
-  <string name="alert_dialogs_fragment_insecure_bluetooth_title">Beveiligings alarm</string>
-  <string name="alert_dialogs_fragment_insecure_bluetooth_message">Bluetooth op je apparaat is kwetsbaar. Je Bitcoins op je apparaat lopen hierdoor risico ongeacht de app die je gebruikt om ze te bewaren!\n\nWe raden aan om Bluetooth direct uit te schakelen en contact op te nemen met de fabrikant van je apparaat voor een Android OS update dat beveiligingsniveau patch level \'%s\' of hoger heeft.</string>
+  <string name="alert_dialogs_fragment_insecure_device_title">Beveiligings alarm</string>
   <string name="wallet_low_storage_dialog_title">Interne opslag bijna vol!</string>
   <string name="wallet_low_storage_dialog_msg">Bitcoin Wallet gebruikt interne opslag voor transacties en blokken. Wanneer er te weinig opslag beschikbaar is zal het stoppen met werken en lopen uw bitcoins gevaar!\n\nWilt u de Applicatie beheer instellingen openen om ongebruikte apps te verwijderen?</string>
   <string name="wallet_low_storage_dialog_button_apps">Beheer apps</string>

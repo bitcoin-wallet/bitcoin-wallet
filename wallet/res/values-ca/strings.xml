@@ -41,8 +41,7 @@
   <string name="wallet_options_technical_notes_title">Notes tècniques</string>
   <string name="wallet_options_donate">Propina / donar</string>
   <string name="wallet_donate_address_label">Donar a Bitcoin Wallet</string>
-  <string name="alert_dialogs_fragment_insecure_bluetooth_title">Alerta de seguretat</string>
-  <string name="alert_dialogs_fragment_insecure_bluetooth_message">El component Bluetooth del teu dispositiu és vulnerable. Els teus bitcoins en aquest dispositiu estàn en risc, independentment de l\'aplicació que utilitzeu per emmagatzamar-los!\n\nEt suggerim que apaguis el Bluetooth immediatament i comprobis si el fabricant del teu dispositiu ha llançat una actualització que implementi un parche de seguretat nivell \"%s\" o superior.</string>
+  <string name="alert_dialogs_fragment_insecure_device_title">Alerta de seguretat</string>
   <string name="wallet_low_storage_dialog_title">Espai d\'emmagatzematge intern baix!</string>
   <string name="wallet_low_storage_dialog_msg">La Cartera de Bitcoin utilitza emmagatzematge intern per a recordar els blocs i les transaccions. Si es queda sense espai, deixara de funcionar i els teus bitcoins estaran en risc!\n\nVols obrir el Gestor d\'Aplicacions per a desinstal·lar aplicacions innecessàries?</string>
   <string name="wallet_low_storage_dialog_button_apps">Gestiona les aplicacions</string>

@@ -41,8 +41,7 @@
   <string name="wallet_options_technical_notes_title">Tekniske notater</string>
   <string name="wallet_options_donate">Tips / Doner</string>
   <string name="wallet_donate_address_label">Doner til Bitcoin Wallet</string>
-  <string name="alert_dialogs_fragment_insecure_bluetooth_title">Sikkerhetsvarsel</string>
-  <string name="alert_dialogs_fragment_insecure_bluetooth_message">Din enhets blåtann-komponent er sårbar. Dine bitcoin på denne enheten er i fare, uavhengig av appen du bruker til å lagre dem!\n\nVi foreslår at du slår av blåtann umiddelbart og sjekker med produsenten av enheten for en oppdatering av Android OS som implementerer sikkerhetsoppdateringsnivå \'%s\' eller nyere.</string>
+  <string name="alert_dialogs_fragment_insecure_device_title">Sikkerhetsvarsel</string>
   <string name="wallet_low_storage_dialog_title">Enhetens interne lagringsplass er lav!</string>
   <string name="wallet_low_storage_dialog_msg">Bitcoin Wallet bruker lagring internt for å huske transaksjoner og blokker. Hvis den løper tom for plass, vil den stoppe å virke og dine bitcoins vil være under risiko!\n\nVil du åpne app-håndteringen for å avinstallere ubrukte apps?</string>
   <string name="wallet_low_storage_dialog_button_apps">Håndter apps</string>

@@ -42,8 +42,7 @@
   <string name="wallet_options_technical_notes_title">Technikai megjegyzések</string>
   <string name="wallet_options_donate">Borravaló / támogatás</string>
   <string name="wallet_donate_address_label">Támogatás a Bitcoin Wallet-nek</string>
-  <string name="alert_dialogs_fragment_insecure_bluetooth_title">Biztonsági figyelmeztetés</string>
-  <string name="alert_dialogs_fragment_insecure_bluetooth_message">Eszközöd Bluetooth egysége sérülékenységet tartalmaz. Az ezen az eszközön tárolt bitcoinjaid veszélyben vannak, függetlenül a tárolásukra használt apptól!\n\nAzt javasoljuk, azonnal kapcsold ki a Bluetooth-t, és szerezz be az eszközöd gyártójától egy olyan Android rendszerfrissítést, amelynek a biztonsági javítás szintje legalább \'%s\'.</string>
+  <string name="alert_dialogs_fragment_insecure_device_title">Biztonsági figyelmeztetés</string>
   <string name="wallet_low_storage_dialog_title">Kevés a hely a készülék belső tárolóján!</string>
   <string name="wallet_low_storage_dialog_msg">A Bitcoin Wallet belső tárhelyet használ a tranzakciók és blokkok megjegyzéséhez. Ha kifogy a helyből, leáll a működése és a Bitcoin-jaid veszélyben lesznek!\n\nMeg akarod nyitni az Alkalmazáskezelőt, hogy eltávolítsd a szükségtelen alkalmazásokat?</string>
   <string name="wallet_low_storage_dialog_button_apps">Alkalmazások kezelése</string>

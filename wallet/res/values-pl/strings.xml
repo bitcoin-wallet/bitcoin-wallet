@@ -38,7 +38,7 @@
   <string name="wallet_options_technical_notes_title">Uwagi techniczne</string>
   <string name="wallet_options_donate">Napiwek / dotacja</string>
   <string name="wallet_donate_address_label">Dotacje dla Bitcoin Wallet</string>
-  <string name="alert_dialogs_fragment_insecure_bluetooth_title">Alert bezpieczeństwa</string>
+  <string name="alert_dialogs_fragment_insecure_device_title">Alert bezpieczeństwa</string>
   <string name="wallet_low_storage_dialog_title">Mało przestrzeni w pamięci wewnętrznej!</string>
   <string name="wallet_low_storage_dialog_msg">Bitcoin Wallet używa pamięć wewnętrzną na zapamiętywanie transakcji i bloków. Jak nie będzie miejsca w pamięci, portfel przestanie pracować i Twoje Bitcoiny będą narażone na ryzyko!\n\nChcesz otworzyć administratora aplikacji i odinstalować niepotrzebne aplikacje?</string>
   <string name="wallet_low_storage_dialog_button_apps">Zarządzaj aplikacjami</string>

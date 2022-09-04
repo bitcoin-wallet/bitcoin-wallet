@@ -45,8 +45,7 @@
   <string name="wallet_options_technical_notes_title">Nodiadau technegol</string>
   <string name="wallet_options_donate">Cildwrn / rhoddi</string>
   <string name="wallet_donate_address_label">Rodd-daliad i Bitcoin Wallet</string>
-  <string name="alert_dialogs_fragment_insecure_bluetooth_title">Rhybudd diogelwch</string>
-  <string name="alert_dialogs_fragment_insecure_bluetooth_message">Mae cydran Bluetooth dy ddyfais yn agored i niwed. Mae risg i Fitcoin ar y ddyfais hon, waeth pa bynnag ap wyt ti\'n ei ddefnyddio i\'w cadw.\n\nArgymhellwn troi Bluetooth i ffwrdd ar unwaith a gwirio gyda gwneuthurwr dy ddyfais am ddiweddariad i Android sy\'n gosod cywiriad diogelwch lefel \'%s\' neu ddiweddarach.</string>
+  <string name="alert_dialogs_fragment_insecure_device_title">Rhybudd diogelwch</string>
   <string name="wallet_low_storage_dialog_title">Dim llawer o le ar storfa fewnol y ddyfais!</string>
   <string name="wallet_low_storage_dialog_msg">Mae Waled Bitcoin yn defnyddio storfa fewnol i gofio trafodion a blociau. Os yw\'n rhedeg allan o le, mi fydd yn stopio gweithio a bydd risg i dy Fitcoin.\n\nWyt ti am agor y rheolwr apiau i ddadosod apiau nad wyt eu hangen?</string>
   <string name="wallet_low_storage_dialog_button_apps">Rheoli apiau</string>

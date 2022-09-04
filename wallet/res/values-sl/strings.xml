@@ -44,8 +44,7 @@
   <string name="wallet_options_technical_notes_title">Tehnične opombe</string>
   <string name="wallet_options_donate">Donacije</string>
   <string name="wallet_donate_address_label">Donacija za Bitcoin Wallet</string>
-  <string name="alert_dialogs_fragment_insecure_bluetooth_title">Varnostno opozorilo</string>
-  <string name="alert_dialogs_fragment_insecure_bluetooth_message">Bluetooth-komponenta na vaši napravi je varnostno ranljiva. Bitcoini na tej napravi niso varni, ne glede na to, v kateri aplikaciji jih hranite!\n\nSvetujemo vam, da takoj izklopite Bluetooth in preverite, ali proizvajalec vaše naprave nudi posodobitev sistema Android, ki vsebuje varnostni popravek stopnje \'%s\' ali novejše.</string>
+  <string name="alert_dialogs_fragment_insecure_device_title">Varnostno opozorilo</string>
   <string name="wallet_low_storage_dialog_title">Na notranjem pomnilniškem mediju zmanjkuje prostora!</string>
   <string name="wallet_low_storage_dialog_msg">Bitcoin Wallet uporablja notranji pomnilnik, da si zapomni nakazila in bloke. Če tu zmanjka prostora, bo denarnica prenehala delovati in vaši novci bodo v nevarnosti!\n\nŽelite odpreti Application Manager, da boste lahko odstranili odvečne aplikacije?</string>
   <string name="wallet_low_storage_dialog_button_apps">Upravljanje z aplikacijami</string>

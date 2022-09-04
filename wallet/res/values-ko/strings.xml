@@ -41,7 +41,7 @@
   <string name="wallet_options_technical_notes_title">기술 참조 노트</string>
   <string name="wallet_options_donate">팁 / 기부</string>
   <string name="wallet_donate_address_label">Bitcoin Wallet 앱의 기부 주소</string>
-  <string name="alert_dialogs_fragment_insecure_bluetooth_title">보안 경고</string>
+  <string name="alert_dialogs_fragment_insecure_device_title">보안 경고</string>
   <string name="wallet_low_storage_dialog_title">저장장치 용량 부족</string>
   <string name="wallet_low_storage_dialog_msg">비트코인 지갑은 거래 기록과 블록을 기억하기 위해 저장 장치의 공간을 사용합니다. 저장 공간이 부족할 경우 앱 작동이 중단될 수 있으며, 비트코인 보관과 거래에 문제가 있을 수 있습니다.\n\n불필요한 앱 정리를 위해 어플리케이션 매니저를 여시겠습니까?</string>
   <string name="wallet_low_storage_dialog_button_apps">앱 정리하기</string>
