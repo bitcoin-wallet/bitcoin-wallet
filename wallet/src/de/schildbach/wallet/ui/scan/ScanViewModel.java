@@ -27,5 +27,4 @@ import de.schildbach.wallet.ui.Event;
 public class ScanViewModel extends ViewModel {
     public final MutableLiveData<Event<Void>> showPermissionWarnDialog = new MutableLiveData<>();
     public final MutableLiveData<Event<Void>> showProblemWarnDialog = new MutableLiveData<>();
-    public final MutableLiveData<Event<Void>> maybeStartSceneTransition = new MutableLiveData<>();
 }

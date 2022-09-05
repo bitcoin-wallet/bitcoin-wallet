@@ -18,10 +18,7 @@
 package de.schildbach.wallet.ui.scan;
 
 import android.Manifest;
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
-import android.app.ActivityOptions;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -30,7 +27,6 @@ import android.content.pm.PackageManager;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.SurfaceTexture;
-import android.graphics.drawable.ColorDrawable;
 import android.hardware.Camera;
 import android.hardware.Camera.CameraInfo;
 import android.os.Bundle;
@@ -43,11 +39,10 @@ import android.view.Surface;
 import android.view.TextureView;
 import android.view.TextureView.SurfaceTextureListener;
 import android.view.View;
-import android.view.ViewAnimationUtils;
 import android.view.WindowManager;
-import android.view.animation.AccelerateInterpolator;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
+import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
@@ -65,7 +60,6 @@ import de.schildbach.wallet.R;
 import de.schildbach.wallet.ui.AbstractWalletActivity;
 import de.schildbach.wallet.ui.DialogBuilder;
 import de.schildbach.wallet.ui.Event;
-import de.schildbach.wallet.util.OnFirstPreDraw;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -78,21 +72,13 @@ import java.util.Map;
 @SuppressWarnings("deprecation")
 public final class ScanActivity extends AbstractWalletActivity
         implements SurfaceTextureListener, ActivityCompat.OnRequestPermissionsResultCallback {
-    private static final String INTENT_EXTRA_SCENE_TRANSITION_X = "scene_transition_x";
-    private static final String INTENT_EXTRA_SCENE_TRANSITION_Y = "scene_transition_y";
     public static final String INTENT_EXTRA_RESULT = "result";
 
     public static void startForResult(final Activity activity, @Nullable final View clickView, final int requestCode) {
         if (clickView != null) {
-            final int[] clickViewLocation = new int[2];
-            clickView.getLocationOnScreen(clickViewLocation);
             final Intent intent = new Intent(activity, ScanActivity.class);
-            intent.putExtra(ScanActivity.INTENT_EXTRA_SCENE_TRANSITION_X,
-                    (int) (clickViewLocation[0] + clickView.getWidth() / 2));
-            intent.putExtra(ScanActivity.INTENT_EXTRA_SCENE_TRANSITION_Y,
-                    (int) (clickViewLocation[1] + clickView.getHeight() / 2));
-            final ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(activity, clickView,
-                    "transition");
+            final ActivityOptionsCompat options = ActivityOptionsCompat.makeClipRevealAnimation(clickView, 0, 0,
+                    clickView.getWidth(), clickView.getHeight());
             activity.startActivityForResult(intent, requestCode, options.toBundle());
         } else {
             startForResult(activity, requestCode);
@@ -117,7 +103,6 @@ public final class ScanActivity extends AbstractWalletActivity
     private TextureView previewView;
 
     private volatile boolean surfaceCreated = false;
-    private Animator sceneTransition = null;
 
     private Vibrator vibrator;
     private HandlerThread cameraThread;
@@ -147,23 +132,6 @@ public final class ScanActivity extends AbstractWalletActivity
                         getString(R.string.scan_camera_problem_dialog_message));
             }
         });
-        viewModel.maybeStartSceneTransition.observe(this, new Event.Observer<Void>() {
-            @Override
-            protected void onEvent(final Void v) {
-                if (sceneTransition != null) {
-                    contentView.setAlpha(1);
-                    sceneTransition.addListener(new AnimatorListenerAdapter() {
-                        @Override
-                        public void onAnimationEnd(Animator animation) {
-                            getWindow().setBackgroundDrawable(new ColorDrawable(
-                                    getColor(android.R.color.black)));
-                        }
-                    });
-                    sceneTransition.start();
-                    sceneTransition = null;
-                }
-            }
-        });
 
         // Stick to the orientation the activity was started with. We cannot declare this in the
         // AndroidManifest.xml, because it's not allowed in combination with the windowIsTranslucent=true
@@ -186,30 +154,6 @@ public final class ScanActivity extends AbstractWalletActivity
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             log.info("missing {}, requesting", Manifest.permission.CAMERA);
             ActivityCompat.requestPermissions(this, new String[] { Manifest.permission.CAMERA }, 0);
-        }
-
-        if (savedInstanceState == null) {
-            final Intent intent = getIntent();
-            final int x = intent.getIntExtra(INTENT_EXTRA_SCENE_TRANSITION_X, -1);
-            final int y = intent.getIntExtra(INTENT_EXTRA_SCENE_TRANSITION_Y, -1);
-            if (x != -1 || y != -1) {
-                // Using alpha rather than visibility because 'invisible' will cause the surface view to never
-                // start up, so the animation will never start.
-                contentView.setAlpha(0);
-                getWindow().setBackgroundDrawable(
-                        new ColorDrawable(getColor(android.R.color.transparent)));
-                OnFirstPreDraw.listen(contentView, () -> {
-                    float finalRadius = (float) (Math.max(contentView.getWidth(), contentView.getHeight()));
-                    final int duration = getResources().getInteger(android.R.integer.config_mediumAnimTime);
-                    sceneTransition = ViewAnimationUtils.createCircularReveal(contentView, x, y, 0, finalRadius);
-                    sceneTransition.setDuration(duration);
-                    sceneTransition.setInterpolator(new AccelerateInterpolator());
-                    // TODO Here, the transition should start in a paused state, showing the first frame
-                    // of the animation. Sadly, RevealAnimator doesn't seem to support this, unlike
-                    // (subclasses of) ValueAnimator.
-                    return false;
-                });
-            }
         }
     }
 
@@ -338,7 +282,6 @@ public final class ScanActivity extends AbstractWalletActivity
 
                 if (nonContinuousAutoFocus)
                     cameraHandler.post(new AutoFocusRunnable(camera));
-                viewModel.maybeStartSceneTransition.postValue(Event.simple());
                 cameraHandler.post(fetchAndDecodeRunnable);
             } catch (final Exception x) {
                 log.info("problem opening camera", x);
