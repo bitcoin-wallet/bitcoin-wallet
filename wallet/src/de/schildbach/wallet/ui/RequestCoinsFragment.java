@@ -17,7 +17,6 @@
 
 package de.schildbach.wallet.ui;
 
-import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.content.ActivityNotFoundException;
 import android.content.ClipData;
@@ -44,6 +43,7 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.core.app.ShareCompat;
@@ -86,12 +86,19 @@ public final class RequestCoinsFragment extends Fragment {
     private TextView initiateRequestView;
     private CurrencyCalculatorLink amountCalculatorLink;
 
-    private static final int REQUEST_CODE_ENABLE_BLUETOOTH = 0;
     private static final String KEY_RECEIVE_ADDRESS = "receive_address";
 
     private RequestCoinsViewModel viewModel;
 
     private static final Logger log = LoggerFactory.getLogger(RequestCoinsFragment.class);
+
+    private final ActivityResultLauncher<Void> requestEnableBluetoothLauncher =
+            registerForActivityResult(new RequestEnableBluetooth(), enabled -> {
+                boolean started = false;
+                if (enabled && bluetoothAdapter != null)
+                    started = maybeStartBluetoothListening();
+                acceptBluetoothPaymentView.setChecked(started);
+            });
 
     @Override
     public void onAttach(final Context context) {
@@ -188,8 +195,7 @@ public final class RequestCoinsFragment extends Fragment {
                     maybeStartBluetoothListening();
                 } else {
                     // ask for permission to enable bluetooth
-                    startActivityForResult(new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE),
-                            REQUEST_CODE_ENABLE_BLUETOOTH);
+                    requestEnableBluetoothLauncher.launch(null);
                 }
             } else {
                 stopBluetoothListening();
@@ -262,16 +268,6 @@ public final class RequestCoinsFragment extends Fragment {
         if (savedInstanceState.containsKey(KEY_RECEIVE_ADDRESS))
             viewModel.freshReceiveAddress.setValue(Address.fromString(Constants.NETWORK_PARAMETERS,
                     savedInstanceState.getString(KEY_RECEIVE_ADDRESS)));
-    }
-
-    @Override
-    public void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
-        if (requestCode == REQUEST_CODE_ENABLE_BLUETOOTH) {
-            boolean started = false;
-            if (resultCode == Activity.RESULT_OK && bluetoothAdapter != null)
-                started = maybeStartBluetoothListening();
-            acceptBluetoothPaymentView.setChecked(started);
-        }
     }
 
     private boolean maybeStartBluetoothListening() {

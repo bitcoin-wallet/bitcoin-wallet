@@ -50,6 +50,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Filter;
 import android.widget.TextView;
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -77,6 +78,7 @@ import de.schildbach.wallet.ui.InputParser.BinaryInputParser;
 import de.schildbach.wallet.ui.InputParser.StreamInputParser;
 import de.schildbach.wallet.ui.InputParser.StringInputParser;
 import de.schildbach.wallet.ui.ProgressDialogFragment;
+import de.schildbach.wallet.ui.RequestEnableBluetooth;
 import de.schildbach.wallet.ui.TransactionsAdapter;
 import de.schildbach.wallet.ui.scan.ScanActivity;
 import de.schildbach.wallet.util.Bluetooth;
@@ -152,13 +154,22 @@ public final class SendCoinsFragment extends Fragment {
     private Button viewCancel;
 
     private static final int REQUEST_CODE_SCAN = 0;
-    private static final int REQUEST_CODE_ENABLE_BLUETOOTH_FOR_PAYMENT_REQUEST = 1;
-    private static final int REQUEST_CODE_ENABLE_BLUETOOTH_FOR_DIRECT_PAYMENT = 2;
 
     private AbstractWalletActivityViewModel walletActivityViewModel;
     private SendCoinsViewModel viewModel;
 
     private static final Logger log = LoggerFactory.getLogger(SendCoinsFragment.class);
+
+    private final ActivityResultLauncher<Void> requestEnableBluetoothForPaymentRequestLauncher =
+            registerForActivityResult(new RequestEnableBluetooth(), enabled -> {
+                if (viewModel.paymentIntent.isBluetoothPaymentRequestUrl())
+                    requestPaymentRequest();
+            });
+    private final ActivityResultLauncher<Void> requestEnableBluetoothForDirectPaymentLauncher =
+            registerForActivityResult(new RequestEnableBluetooth(), enabled -> {
+                if (viewModel.paymentIntent.isBluetoothPaymentUrl())
+                    directPaymentEnableView.setChecked(enabled);
+            });
 
     private final class ReceivingAddressListener
             implements OnFocusChangeListener, TextWatcher, AdapterView.OnItemClickListener {
@@ -415,8 +426,7 @@ public final class SendCoinsFragment extends Fragment {
         directPaymentEnableView.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (viewModel.paymentIntent.isBluetoothPaymentUrl() && isChecked && !bluetoothAdapter.isEnabled()) {
                 // ask for permission to enable bluetooth
-                startActivityForResult(new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE),
-                        REQUEST_CODE_ENABLE_BLUETOOTH_FOR_DIRECT_PAYMENT);
+                requestEnableBluetoothForDirectPaymentLauncher.launch(null);
             }
         });
 
@@ -522,12 +532,8 @@ public final class SendCoinsFragment extends Fragment {
                     }
                 }.parse();
             }
-        } else if (requestCode == REQUEST_CODE_ENABLE_BLUETOOTH_FOR_PAYMENT_REQUEST) {
-            if (viewModel.paymentIntent.isBluetoothPaymentRequestUrl())
-                requestPaymentRequest();
-        } else if (requestCode == REQUEST_CODE_ENABLE_BLUETOOTH_FOR_DIRECT_PAYMENT) {
-            if (viewModel.paymentIntent.isBluetoothPaymentUrl())
-                directPaymentEnableView.setChecked(resultCode == Activity.RESULT_OK);
+        } else {
+            super.onActivityResult(requestCode, resultCode, intent);
         }
     }
 
@@ -1194,8 +1200,7 @@ public final class SendCoinsFragment extends Fragment {
                     requestPaymentRequest();
                 else
                     // ask for permission to enable bluetooth
-                    startActivityForResult(new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE),
-                            REQUEST_CODE_ENABLE_BLUETOOTH_FOR_PAYMENT_REQUEST);
+                    requestEnableBluetoothForPaymentRequestLauncher.launch(null);
             } else if (paymentIntent.hasPaymentRequestUrl() && paymentIntent.isHttpPaymentRequestUrl()) {
                 requestPaymentRequest();
             } else {
