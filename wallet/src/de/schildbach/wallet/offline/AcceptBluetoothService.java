@@ -27,6 +27,7 @@ import android.os.IBinder;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
 import android.text.format.DateUtils;
+import androidx.annotation.WorkerThread;
 import androidx.core.app.NotificationCompat;
 import androidx.lifecycle.LifecycleService;
 import de.schildbach.wallet.Constants;
@@ -132,6 +133,7 @@ public final class AcceptBluetoothService extends LifecycleService {
         });
     }
 
+    @WorkerThread
     private boolean handleTx(final Transaction tx) {
         log.info("tx {} arrived via blueooth", tx.getTxId());
 
@@ -139,8 +141,8 @@ public final class AcceptBluetoothService extends LifecycleService {
         try {
             if (wallet.isTransactionRelevant(tx)) {
                 wallet.receivePending(tx, null);
-                new BlockchainServiceLiveData(this).observe(this,
-                        blockchainService -> blockchainService.broadcastTransaction(tx));
+                handler.post(() -> new BlockchainServiceLiveData(this).observe(this,
+                        blockchainService -> blockchainService.broadcastTransaction(tx)));
             } else {
                 log.info("tx {} irrelevant", tx.getTxId());
             }
