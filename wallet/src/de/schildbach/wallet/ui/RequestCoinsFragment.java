@@ -17,6 +17,7 @@
 
 package de.schildbach.wallet.ui;
 
+import android.Manifest;
 import android.bluetooth.BluetoothAdapter;
 import android.content.ActivityNotFoundException;
 import android.content.ClipData;
@@ -32,6 +33,7 @@ import android.net.Uri;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.SpannableStringBuilder;
 import android.view.LayoutInflater;
@@ -44,6 +46,7 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.core.app.ShareCompat;
@@ -92,6 +95,13 @@ public final class RequestCoinsFragment extends Fragment {
 
     private static final Logger log = LoggerFactory.getLogger(RequestCoinsFragment.class);
 
+    private final ActivityResultLauncher<String> requestPermissionLauncher =
+            registerForActivityResult(new ActivityResultContracts.RequestPermission(), granted -> {
+                if (granted)
+                    maybeStartBluetoothListening();
+                else
+                    acceptBluetoothPaymentView.setChecked(false);
+            });
     private final ActivityResultLauncher<Void> requestEnableBluetoothLauncher =
             registerForActivityResult(new RequestEnableBluetooth(), enabled -> {
                 boolean started = false;
@@ -188,18 +198,12 @@ public final class RequestCoinsFragment extends Fragment {
                 bluetoothAdapter != null &&
                         (Bluetooth.getAddress(bluetoothAdapter) != null || config.getLastBluetoothAddress() != null || config.getBluetoothAddress() != null) ?
                         View.VISIBLE : View.GONE);
-        acceptBluetoothPaymentView.setChecked(bluetoothAdapter != null && bluetoothAdapter.isEnabled());
+        acceptBluetoothPaymentView.setChecked(bluetoothAdapter != null && bluetoothAdapter.isEnabled() && checkBluetoothConnectPermission());
         acceptBluetoothPaymentView.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (bluetoothAdapter != null && isChecked) {
-                if (bluetoothAdapter.isEnabled()) {
-                    maybeStartBluetoothListening();
-                } else {
-                    // ask for permission to enable bluetooth
-                    requestEnableBluetoothLauncher.launch(null);
-                }
-            } else {
+            if (bluetoothAdapter != null && isChecked)
+                maybeStartBluetoothListening();
+            else
                 stopBluetoothListening();
-            }
         });
 
         initiateRequestView = view.findViewById(R.id.request_coins_fragment_initiate_request);
@@ -234,7 +238,7 @@ public final class RequestCoinsFragment extends Fragment {
         });
 
         final BluetoothAdapter bluetoothAdapter = this.bluetoothAdapter;
-        if (bluetoothAdapter != null && bluetoothAdapter.isEnabled() && acceptBluetoothPaymentView.isChecked())
+        if (bluetoothAdapter != null && bluetoothAdapter.isEnabled() && checkBluetoothConnectPermission() && acceptBluetoothPaymentView.isChecked())
             maybeStartBluetoothListening();
     }
 
@@ -270,20 +274,35 @@ public final class RequestCoinsFragment extends Fragment {
                     savedInstanceState.getString(KEY_RECEIVE_ADDRESS)));
     }
 
+    private boolean checkBluetoothConnectPermission() {
+        return Build.VERSION.SDK_INT < Build.VERSION_CODES.S || ContextCompat.checkSelfPermission(activity,
+                Manifest.permission.BLUETOOTH_CONNECT) == PackageManager.PERMISSION_GRANTED;
+    }
+
     private boolean maybeStartBluetoothListening() {
-        String bluetoothAddress = Bluetooth.getAddress(bluetoothAdapter);
-        if (bluetoothAddress == null)
-            bluetoothAddress = config.getLastBluetoothAddress();
-        if (bluetoothAddress == null)
-            bluetoothAddress = config.getBluetoothAddress();
-        if (bluetoothAddress != null && acceptBluetoothPaymentView.isChecked()) {
-            viewModel.bluetoothServiceIntent = new Intent(activity, AcceptBluetoothService.class);
-            ContextCompat.startForegroundService(activity, viewModel.bluetoothServiceIntent);
-            viewModel.bluetoothMac.setValue(Bluetooth.compressMac(bluetoothAddress));
-            return true;
-        } else {
-            return false;
+        if (!checkBluetoothConnectPermission()) {
+            log.info("missing {}, requesting", Manifest.permission.BLUETOOTH_CONNECT);
+            requestPermissionLauncher.launch(Manifest.permission.BLUETOOTH_CONNECT);
+        } else if (!bluetoothAdapter.isEnabled()) {
+            log.info("bluetooth disabled, requesting to enable");
+            requestEnableBluetoothLauncher.launch(null);
+        } else if (acceptBluetoothPaymentView.isChecked()) {
+            String bluetoothAddress = Bluetooth.getAddress(bluetoothAdapter);
+            if (bluetoothAddress == null)
+                bluetoothAddress = config.getLastBluetoothAddress();
+            if (bluetoothAddress == null)
+                bluetoothAddress = config.getBluetoothAddress();
+            if (bluetoothAddress != null) {
+                log.info("starting bluetooth service");
+                viewModel.bluetoothServiceIntent = new Intent(activity, AcceptBluetoothService.class);
+                ContextCompat.startForegroundService(activity, viewModel.bluetoothServiceIntent);
+                viewModel.bluetoothMac.setValue(Bluetooth.compressMac(bluetoothAddress));
+                return true;
+            } else {
+                log.info("no bluetooth mac, not starting service");
+            }
         }
+        return false;
     }
 
     private void stopBluetoothListening() {

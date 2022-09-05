@@ -17,6 +17,7 @@
 
 package de.schildbach.wallet.ui.send;
 
+import android.Manifest;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.content.ComponentName;
@@ -28,6 +29,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.nfc.NdefMessage;
 import android.nfc.NfcAdapter;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -51,7 +53,9 @@ import android.widget.EditText;
 import android.widget.Filter;
 import android.widget.TextView;
 import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
@@ -181,6 +185,13 @@ public final class SendCoinsFragment extends Fragment {
                         dialog.show();
                     }
                 }.parse();
+            });
+    private final ActivityResultLauncher<String> requestPermissionLauncher =
+            registerForActivityResult(new ActivityResultContracts.RequestPermission(), granted -> {
+                if (granted)
+                    maybeEnableBluetooth();
+                else
+                    directPaymentEnableView.setChecked(false);
             });
     private final ActivityResultLauncher<Void> requestEnableBluetoothForPaymentRequestLauncher =
             registerForActivityResult(new RequestEnableBluetooth(), enabled -> {
@@ -446,10 +457,8 @@ public final class SendCoinsFragment extends Fragment {
 
         directPaymentEnableView = view.findViewById(R.id.send_coins_direct_payment_enable);
         directPaymentEnableView.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (viewModel.paymentIntent.isBluetoothPaymentUrl() && isChecked && !bluetoothAdapter.isEnabled()) {
-                // ask for permission to enable bluetooth
-                requestEnableBluetoothForDirectPaymentLauncher.launch(null);
-            }
+            if (viewModel.paymentIntent.isBluetoothPaymentUrl() && isChecked)
+                maybeEnableBluetooth();
         });
 
         hintView = view.findViewById(R.id.send_coins_hint);
@@ -1196,7 +1205,7 @@ public final class SendCoinsFragment extends Fragment {
                 amountCalculatorLink.setBtcAmount(paymentIntent.getAmount());
 
                 if (paymentIntent.isBluetoothPaymentUrl())
-                    directPaymentEnableView.setChecked(bluetoothAdapter != null && bluetoothAdapter.isEnabled());
+                    directPaymentEnableView.setChecked(bluetoothAdapter != null && bluetoothAdapter.isEnabled() && checkBluetoothConnectPermission());
                 else if (paymentIntent.isHttpPaymentUrl())
                     directPaymentEnableView.setChecked(true);
 
@@ -1205,6 +1214,23 @@ public final class SendCoinsFragment extends Fragment {
                 handler.post(dryrunRunnable);
             }
         });
+    }
+
+    private boolean checkBluetoothConnectPermission() {
+        return Build.VERSION.SDK_INT < Build.VERSION_CODES.S || ContextCompat.checkSelfPermission(activity,
+                Manifest.permission.BLUETOOTH_CONNECT) == PackageManager.PERMISSION_GRANTED;
+    }
+
+    private void maybeEnableBluetooth() {
+        if (!checkBluetoothConnectPermission()) {
+            log.info("missing {}, requesting", Manifest.permission.BLUETOOTH_CONNECT);
+            requestPermissionLauncher.launch(Manifest.permission.BLUETOOTH_CONNECT);
+        } else if (!bluetoothAdapter.isEnabled()) {
+            log.info("bluetooth disabled, requesting to enable");
+            requestEnableBluetoothForDirectPaymentLauncher.launch(null);
+        } else {
+            log.info("bluetooth enabled, ready to connect");
+        }
     }
 
     private void requestPaymentRequest() {
