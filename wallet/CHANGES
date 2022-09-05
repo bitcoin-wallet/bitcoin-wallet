@@ -1,3 +1,7 @@
+v9.07
+
+* Fix an issue with direct bluetooth payments.
+
 v9.05-v9.06
 
 * Remnove integration-android and sample-integration-android sub-projects – they haven't caught on.
