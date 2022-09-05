@@ -153,13 +153,35 @@ public final class SendCoinsFragment extends Fragment {
     private Button viewGo;
     private Button viewCancel;
 
-    private static final int REQUEST_CODE_SCAN = 0;
-
     private AbstractWalletActivityViewModel walletActivityViewModel;
     private SendCoinsViewModel viewModel;
 
     private static final Logger log = LoggerFactory.getLogger(SendCoinsFragment.class);
 
+    private final ActivityResultLauncher<Void> scanLauncher =
+            registerForActivityResult(new ScanActivity.Scan(), input -> {
+                if (input == null) return;
+                new StringInputParser(input) {
+                    @Override
+                    protected void handlePaymentIntent(final PaymentIntent paymentIntent) {
+                        setState(null);
+
+                        updateStateFrom(paymentIntent);
+                    }
+
+                    @Override
+                    protected void handleDirectTransaction(final Transaction transaction) throws VerificationException {
+                        cannotClassify(input);
+                    }
+
+                    @Override
+                    protected void error(final int messageResId, final Object... messageArgs) {
+                        final DialogBuilder dialog = DialogBuilder.dialog(activity, R.string.button_scan, messageResId, messageArgs);
+                        dialog.singleDismissButton(null);
+                        dialog.show();
+                    }
+                }.parse();
+            });
     private final ActivityResultLauncher<Void> requestEnableBluetoothForPaymentRequestLauncher =
             registerForActivityResult(new RequestEnableBluetooth(), enabled -> {
                 if (viewModel.paymentIntent.isBluetoothPaymentRequestUrl())
@@ -502,42 +524,6 @@ public final class SendCoinsFragment extends Fragment {
     }
 
     @Override
-    public void onActivityResult(final int requestCode, final int resultCode, final Intent intent) {
-        handler.post(() -> onActivityResultResumed(requestCode, resultCode, intent));
-    }
-
-    private void onActivityResultResumed(final int requestCode, final int resultCode, final Intent intent) {
-        if (requestCode == REQUEST_CODE_SCAN) {
-            if (resultCode == Activity.RESULT_OK) {
-                final String input = intent.getStringExtra(ScanActivity.INTENT_EXTRA_RESULT);
-
-                new StringInputParser(input) {
-                    @Override
-                    protected void handlePaymentIntent(final PaymentIntent paymentIntent) {
-                        setState(null);
-
-                        updateStateFrom(paymentIntent);
-                    }
-
-                    @Override
-                    protected void handleDirectTransaction(final Transaction transaction) throws VerificationException {
-                        cannotClassify(input);
-                    }
-
-                    @Override
-                    protected void error(final int messageResId, final Object... messageArgs) {
-                        final DialogBuilder dialog = DialogBuilder.dialog(activity, R.string.button_scan, messageResId, messageArgs);
-                        dialog.singleDismissButton(null);
-                        dialog.show();
-                    }
-                }.parse();
-            }
-        } else {
-            super.onActivityResult(requestCode, resultCode, intent);
-        }
-    }
-
-    @Override
     public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
         inflater.inflate(R.menu.send_coins_fragment_options, menu);
 
@@ -572,7 +558,7 @@ public final class SendCoinsFragment extends Fragment {
     public boolean onOptionsItemSelected(final MenuItem item) {
         int itemId = item.getItemId();
         if (itemId == R.id.send_coins_options_scan) {
-            ScanActivity.startForResult(this, activity, REQUEST_CODE_SCAN);
+            scanLauncher.launch(null);
             return true;
         } else if (itemId == R.id.send_coins_options_fee_category_economic) {
             handleFeeCategory(FeeCategory.ECONOMIC);

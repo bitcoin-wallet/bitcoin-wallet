@@ -20,6 +20,7 @@ package de.schildbach.wallet.ui.scan;
 import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -40,12 +41,10 @@ import android.view.TextureView;
 import android.view.TextureView.SurfaceTextureListener;
 import android.view.View;
 import android.view.WindowManager;
-import androidx.annotation.Nullable;
+import androidx.activity.result.contract.ActivityResultContract;
 import androidx.core.app.ActivityCompat;
-import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 import com.google.zxing.BinaryBitmap;
@@ -72,25 +71,21 @@ import java.util.Map;
 @SuppressWarnings("deprecation")
 public final class ScanActivity extends AbstractWalletActivity
         implements SurfaceTextureListener, ActivityCompat.OnRequestPermissionsResultCallback {
-    public static final String INTENT_EXTRA_RESULT = "result";
+    private static final String INTENT_EXTRA_RESULT = "result";
 
-    public static void startForResult(final Activity activity, @Nullable final View clickView, final int requestCode) {
-        if (clickView != null) {
-            final Intent intent = new Intent(activity, ScanActivity.class);
-            final ActivityOptionsCompat options = ActivityOptionsCompat.makeClipRevealAnimation(clickView, 0, 0,
-                    clickView.getWidth(), clickView.getHeight());
-            activity.startActivityForResult(intent, requestCode, options.toBundle());
-        } else {
-            startForResult(activity, requestCode);
+    public static class Scan extends ActivityResultContract<Void, String> {
+        @Override
+        public Intent createIntent(final Context context, Void unused) {
+            return new Intent(context, ScanActivity.class);
         }
-    }
 
-    public static void startForResult(final Activity activity, final int resultCode) {
-        activity.startActivityForResult(new Intent(activity, ScanActivity.class), resultCode);
-    }
-
-    public static void startForResult(final Fragment fragment, final Activity activity, final int resultCode) {
-        fragment.startActivityForResult(new Intent(activity, ScanActivity.class), resultCode);
+        @Override
+        public String parseResult(final int resultCode, final Intent intent) {
+            if (resultCode == Activity.RESULT_OK)
+                return intent.getStringExtra(ScanActivity.INTENT_EXTRA_RESULT);
+            else
+                return null;
+        }
     }
 
     private static final long VIBRATE_DURATION = 50L;

@@ -23,7 +23,6 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
-import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
@@ -37,7 +36,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.view.ViewCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
@@ -82,7 +83,37 @@ public final class WalletActivity extends AbstractWalletActivity {
     private AbstractWalletActivityViewModel walletActivityViewModel;
     private WalletActivityViewModel viewModel;
 
-    private static final int REQUEST_CODE_SCAN = 0;
+    private final ActivityResultLauncher<Void> scanLauncher =
+            registerForActivityResult(new ScanActivity.Scan(), input -> {
+                if (input == null) return;
+                new StringInputParser(input) {
+                    @Override
+                    protected void handlePaymentIntent(final PaymentIntent paymentIntent) {
+                        SendCoinsActivity.start(WalletActivity.this, paymentIntent);
+                    }
+
+                    @Override
+                    protected void handlePrivateKey(final PrefixedChecksummedBytes key) {
+                        if (Constants.ENABLE_SWEEP_WALLET)
+                            SweepWalletActivity.start(WalletActivity.this, key);
+                        else
+                            super.handlePrivateKey(key);
+                    }
+
+                    @Override
+                    protected void handleDirectTransaction(final Transaction tx) throws VerificationException {
+                        walletActivityViewModel.broadcastTransaction(tx);
+                    }
+
+                    @Override
+                    protected void error(final int messageResId, final Object... messageArgs) {
+                        final DialogBuilder dialog = DialogBuilder.dialog(WalletActivity.this, R.string.button_scan,
+                                messageResId, messageArgs);
+                        dialog.singleDismissButton(null);
+                        dialog.show();
+                    }
+                }.parse();
+            });
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -331,44 +362,6 @@ public final class WalletActivity extends AbstractWalletActivity {
     }
 
     @Override
-    public void onActivityResult(final int requestCode, final int resultCode, final Intent intent) {
-        if (requestCode == REQUEST_CODE_SCAN) {
-            if (resultCode == Activity.RESULT_OK) {
-                final String input = intent.getStringExtra(ScanActivity.INTENT_EXTRA_RESULT);
-
-                new StringInputParser(input) {
-                    @Override
-                    protected void handlePaymentIntent(final PaymentIntent paymentIntent) {
-                        SendCoinsActivity.start(WalletActivity.this, paymentIntent);
-                    }
-
-                    @Override
-                    protected void handlePrivateKey(final PrefixedChecksummedBytes key) {
-                        if (Constants.ENABLE_SWEEP_WALLET)
-                            SweepWalletActivity.start(WalletActivity.this, key);
-                        else
-                            super.handlePrivateKey(key);
-                    }
-
-                    @Override
-                    protected void handleDirectTransaction(final Transaction tx) throws VerificationException {
-                        walletActivityViewModel.broadcastTransaction(tx);
-                    }
-
-                    @Override
-                    protected void error(final int messageResId, final Object... messageArgs) {
-                        final DialogBuilder dialog = DialogBuilder.dialog(WalletActivity.this, R.string.button_scan, messageResId, messageArgs);
-                        dialog.singleDismissButton(null);
-                        dialog.show();
-                    }
-                }.parse();
-            }
-        } else {
-            super.onActivityResult(requestCode, resultCode, intent);
-        }
-    }
-
-    @Override
     public boolean onCreateOptionsMenu(final Menu menu) {
         super.onCreateOptionsMenu(menu);
 
@@ -474,7 +467,13 @@ public final class WalletActivity extends AbstractWalletActivity {
         // The animation must be ended because of several graphical glitching that happens when the
         // Camera/SurfaceView is used while the animation is running.
         enterAnimation.end();
-        ScanActivity.startForResult(this, clickView, WalletActivity.REQUEST_CODE_SCAN);
+        if (clickView != null) {
+            final ActivityOptionsCompat options = ActivityOptionsCompat.makeClipRevealAnimation(clickView, 0, 0,
+                    clickView.getWidth(), clickView.getHeight());
+            scanLauncher.launch(null, options);
+        } else {
+            scanLauncher.launch(null);
+        }
     }
 
     private static final class QuickReturnBehavior extends CoordinatorLayout.Behavior<View> {

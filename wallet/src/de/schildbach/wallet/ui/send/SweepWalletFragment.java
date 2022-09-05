@@ -17,7 +17,6 @@
 
 package de.schildbach.wallet.ui.send;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -36,6 +35,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -119,9 +119,36 @@ public class SweepWalletFragment extends Fragment {
     private AbstractWalletActivityViewModel walletActivityViewModel;
     private SweepWalletViewModel viewModel;
 
-    private static final int REQUEST_CODE_SCAN = 0;
-
     private static final Logger log = LoggerFactory.getLogger(SweepWalletFragment.class);
+
+    private final ActivityResultLauncher<Void> scanLauncher =
+            registerForActivityResult(new ScanActivity.Scan(), input -> {
+                if (input == null) return;
+                new StringInputParser(input) {
+                    @Override
+                    protected void handlePrivateKey(final PrefixedChecksummedBytes key) {
+                        viewModel.privateKeyToSweep.setValue(key);
+                        setState(SweepWalletViewModel.State.DECODE_KEY);
+                        maybeDecodeKey();
+                    }
+
+                    @Override
+                    protected void handlePaymentIntent(final PaymentIntent paymentIntent) {
+                        cannotClassify(input);
+                    }
+
+                    @Override
+                    protected void handleDirectTransaction(final Transaction transaction) throws VerificationException {
+                        cannotClassify(input);
+                    }
+
+                    @Override
+                    protected void error(final int messageResId, final Object... messageArgs) {
+                        viewModel.showDialog.setValue(DialogEvent.dialog(R.string.button_scan,
+                                messageResId, messageArgs));
+                    }
+                }.parse();
+            });
 
     @Override
     public void onAttach(final Context context) {
@@ -249,40 +276,6 @@ public class SweepWalletFragment extends Fragment {
     }
 
     @Override
-    public void onActivityResult(final int requestCode, final int resultCode, final Intent intent) {
-        if (requestCode == REQUEST_CODE_SCAN) {
-            if (resultCode == Activity.RESULT_OK) {
-                final String input = intent.getStringExtra(ScanActivity.INTENT_EXTRA_RESULT);
-
-                new StringInputParser(input) {
-                    @Override
-                    protected void handlePrivateKey(final PrefixedChecksummedBytes key) {
-                        viewModel.privateKeyToSweep.setValue(key);
-                        setState(SweepWalletViewModel.State.DECODE_KEY);
-                        maybeDecodeKey();
-                    }
-
-                    @Override
-                    protected void handlePaymentIntent(final PaymentIntent paymentIntent) {
-                        cannotClassify(input);
-                    }
-
-                    @Override
-                    protected void handleDirectTransaction(final Transaction transaction) throws VerificationException {
-                        cannotClassify(input);
-                    }
-
-                    @Override
-                    protected void error(final int messageResId, final Object... messageArgs) {
-                        viewModel.showDialog.setValue(DialogEvent.dialog(R.string.button_scan,
-                                messageResId, messageArgs));
-                    }
-                }.parse();
-            }
-        }
-    }
-
-    @Override
     public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
         inflater.inflate(R.menu.sweep_wallet_fragment_options, menu);
 
@@ -303,7 +296,7 @@ public class SweepWalletFragment extends Fragment {
             handleReload();
             return true;
         } else if (itemId == R.id.sweep_wallet_options_scan) {
-            ScanActivity.startForResult(this, activity, REQUEST_CODE_SCAN);
+            scanLauncher.launch(null);
             return true;
         }
         return super.onOptionsItemSelected(item);
