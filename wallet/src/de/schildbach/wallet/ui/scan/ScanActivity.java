@@ -41,8 +41,9 @@ import android.view.TextureView;
 import android.view.TextureView.SurfaceTextureListener;
 import android.view.View;
 import android.view.WindowManager;
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContract;
-import androidx.core.app.ActivityCompat;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
@@ -69,8 +70,7 @@ import java.util.Map;
  * @author Andreas Schildbach
  */
 @SuppressWarnings("deprecation")
-public final class ScanActivity extends AbstractWalletActivity
-        implements SurfaceTextureListener, ActivityCompat.OnRequestPermissionsResultCallback {
+public final class ScanActivity extends AbstractWalletActivity implements SurfaceTextureListener {
     private static final String INTENT_EXTRA_RESULT = "result";
 
     public static class Scan extends ActivityResultContract<Void, String> {
@@ -106,6 +106,16 @@ public final class ScanActivity extends AbstractWalletActivity
     private ScanViewModel viewModel;
 
     private static final Logger log = LoggerFactory.getLogger(ScanActivity.class);
+
+    private final ActivityResultLauncher<String> requestPermissionLauncher =
+            registerForActivityResult(new ActivityResultContracts.RequestPermission(), granted -> {
+                if (granted) {
+                    maybeOpenCamera();
+                } else {
+                    log.info("missing {}, showing error", Manifest.permission.CAMERA);
+                    viewModel.showPermissionWarnDialog.setValue(Event.simple());
+                }
+            });
 
     @Override
     public void onCreate(final Bundle savedInstanceState) {
@@ -148,7 +158,7 @@ public final class ScanActivity extends AbstractWalletActivity
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             log.info("missing {}, requesting", Manifest.permission.CAMERA);
-            ActivityCompat.requestPermissions(this, new String[] { Manifest.permission.CAMERA }, 0);
+            requestPermissionLauncher.launch(Manifest.permission.CAMERA);
         }
     }
 
@@ -178,17 +188,6 @@ public final class ScanActivity extends AbstractWalletActivity
         // bleeding through to the calling activity, forcing it into a locked state until it is restarted.
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
         super.onDestroy();
-    }
-
-    @Override
-    public void onRequestPermissionsResult(final int requestCode, final String[] permissions,
-            final int[] grantResults) {
-        if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            maybeOpenCamera();
-        } else {
-            log.info("missing {}, showing error", Manifest.permission.CAMERA);
-            viewModel.showPermissionWarnDialog.setValue(Event.simple());
-        }
     }
 
     private void maybeOpenCamera() {
