@@ -1,3 +1,8 @@
+v9.08
+
+* Use activity result API for permission requests and activities that give a result.
+* Request permission for connecting and listening to bluetooth sockets on Android 12 and above.
+
 v9.07
 
 * Fix an issue with direct bluetooth payments.
