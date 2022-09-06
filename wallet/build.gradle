@@ -5,6 +5,7 @@ plugins {
 
 configurations {
     all*.exclude group: 'androidx.viewpager', module: 'viewpager'
+    all*.exclude group: 'androidx.core', module: 'core-ktx'
 }
 
 dependencies {
