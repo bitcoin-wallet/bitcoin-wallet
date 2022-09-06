@@ -4,7 +4,6 @@ plugins {
 }
 
 configurations {
-    all*.exclude group: 'com.google.android', module: 'android'
     all*.exclude group: 'androidx.viewpager', module: 'viewpager'
 }
 
