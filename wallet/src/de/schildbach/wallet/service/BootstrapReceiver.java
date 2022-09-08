@@ -22,7 +22,6 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import androidx.annotation.WorkerThread;
 import androidx.core.app.NotificationCompat;
 import de.schildbach.wallet.Configuration;
@@ -38,10 +37,15 @@ import org.bitcoinj.wallet.Wallet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
+
 /**
  * @author Andreas Schildbach
  */
 public class BootstrapReceiver extends BroadcastReceiver {
+    private final Executor executor = Executors.newSingleThreadExecutor();
+
     private static final Logger log = LoggerFactory.getLogger(BootstrapReceiver.class);
 
     private static final String ACTION_DISMISS = BootstrapReceiver.class.getPackage().getName() + ".dismiss";
@@ -53,7 +57,7 @@ public class BootstrapReceiver extends BroadcastReceiver {
     public void onReceive(final Context context, final Intent intent) {
         log.info("got broadcast: " + intent);
         final PendingResult result = goAsync();
-        AsyncTask.execute(() -> {
+        executor.execute(() -> {
             org.bitcoinj.core.Context.propagate(Constants.CONTEXT);
             onAsyncReceive(context, intent);
             result.finish();
