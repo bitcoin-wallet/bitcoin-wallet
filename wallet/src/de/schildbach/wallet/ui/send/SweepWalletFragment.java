@@ -37,6 +37,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.Nullable;
+import androidx.core.view.MenuProvider;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
@@ -160,8 +161,6 @@ public class SweepWalletFragment extends Fragment {
         super.onCreate(savedInstanceState);
         this.fragmentManager = getChildFragmentManager();
 
-        setHasOptionsMenu(true);
-
         if (!Constants.ENABLE_SWEEP_WALLET)
             throw new IllegalStateException("ENABLE_SWEEP_WALLET is disabled");
 
@@ -213,6 +212,37 @@ public class SweepWalletFragment extends Fragment {
         backgroundThread = new HandlerThread("backgroundThread", Process.THREAD_PRIORITY_BACKGROUND);
         backgroundThread.start();
         backgroundHandler = new Handler(backgroundThread.getLooper());
+
+        activity.addMenuProvider(new MenuProvider() {
+            @Override
+            public void onCreateMenu(final Menu menu, final MenuInflater inflater) {
+                inflater.inflate(R.menu.sweep_wallet_fragment_options, menu);
+            }
+
+            @Override
+            public void onPrepareMenu(final Menu menu) {
+                final SweepWalletViewModel.State state = viewModel.state.getValue();
+                final PackageManager pm = activity.getPackageManager();
+                final MenuItem reloadAction = menu.findItem(R.id.sweep_wallet_options_reload);
+                reloadAction.setEnabled(state == SweepWalletViewModel.State.CONFIRM_SWEEP && viewModel.walletToSweep.getValue() != null);
+                final MenuItem scanAction = menu.findItem(R.id.sweep_wallet_options_scan);
+                scanAction.setVisible(pm.hasSystemFeature(PackageManager.FEATURE_CAMERA) || pm.hasSystemFeature(PackageManager.FEATURE_CAMERA_FRONT));
+                scanAction.setEnabled(state == SweepWalletViewModel.State.DECODE_KEY || state == SweepWalletViewModel.State.CONFIRM_SWEEP);
+            }
+
+            @Override
+            public boolean onMenuItemSelected(final MenuItem item) {
+                int itemId = item.getItemId();
+                if (itemId == R.id.sweep_wallet_options_reload) {
+                    handleReload();
+                    return true;
+                } else if (itemId == R.id.sweep_wallet_options_scan) {
+                    scanLauncher.launch(null);
+                    return true;
+                }
+                return false;
+            }
+        });
 
         if (savedInstanceState == null) {
             final Intent intent = activity.getIntent();
@@ -273,37 +303,6 @@ public class SweepWalletFragment extends Fragment {
     public void onDestroy() {
         backgroundThread.getLooper().quit();
         super.onDestroy();
-    }
-
-    @Override
-    public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
-        inflater.inflate(R.menu.sweep_wallet_fragment_options, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    @Override
-    public void onPrepareOptionsMenu(final Menu menu) {
-        final SweepWalletViewModel.State state = viewModel.state.getValue();
-        final PackageManager pm = activity.getPackageManager();
-        final MenuItem reloadAction = menu.findItem(R.id.sweep_wallet_options_reload);
-        reloadAction.setEnabled(state == SweepWalletViewModel.State.CONFIRM_SWEEP && viewModel.walletToSweep.getValue() != null);
-        final MenuItem scanAction = menu.findItem(R.id.sweep_wallet_options_scan);
-        scanAction.setVisible(pm.hasSystemFeature(PackageManager.FEATURE_CAMERA) || pm.hasSystemFeature(PackageManager.FEATURE_CAMERA_FRONT));
-        scanAction.setEnabled(state == SweepWalletViewModel.State.DECODE_KEY || state == SweepWalletViewModel.State.CONFIRM_SWEEP);
-        super.onPrepareOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(final MenuItem item) {
-        int itemId = item.getItemId();
-        if (itemId == R.id.sweep_wallet_options_reload) {
-            handleReload();
-            return true;
-        } else if (itemId == R.id.sweep_wallet_options_scan) {
-            scanLauncher.launch(null);
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     private void handleReload() {
