@@ -56,6 +56,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
+import androidx.core.view.MenuProvider;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
@@ -346,8 +347,6 @@ public final class SendCoinsFragment extends Fragment {
         super.onCreate(savedInstanceState);
         this.fragmentManager = getChildFragmentManager();
 
-        setHasOptionsMenu(true);
-
         walletActivityViewModel = new ViewModelProvider(activity).get(AbstractWalletActivityViewModel.class);
         walletActivityViewModel.wallet.observe(this, wallet -> updateView());
         viewModel = new ViewModelProvider(this).get(SendCoinsViewModel.class);
@@ -384,6 +383,57 @@ public final class SendCoinsFragment extends Fragment {
         backgroundThread = new HandlerThread("backgroundThread", Process.THREAD_PRIORITY_BACKGROUND);
         backgroundThread.start();
         backgroundHandler = new Handler(backgroundThread.getLooper());
+
+        activity.addMenuProvider(new MenuProvider() {
+            @Override
+            public void onCreateMenu(final Menu menu, final MenuInflater inflater) {
+                inflater.inflate(R.menu.send_coins_fragment_options, menu);
+            }
+
+            @Override
+            public void onPrepareMenu(final Menu menu) {
+                final MenuItem scanAction = menu.findItem(R.id.send_coins_options_scan);
+                final PackageManager pm = activity.getPackageManager();
+                scanAction.setVisible(pm.hasSystemFeature(PackageManager.FEATURE_CAMERA)
+                        || pm.hasSystemFeature(PackageManager.FEATURE_CAMERA_FRONT));
+                scanAction.setEnabled(viewModel.state == SendCoinsViewModel.State.INPUT);
+
+                final MenuItem emptyAction = menu.findItem(R.id.send_coins_options_empty);
+                emptyAction.setEnabled(viewModel.state == SendCoinsViewModel.State.INPUT
+                        && viewModel.paymentIntent.mayEditAmount() && viewModel.balance.getValue() != null);
+
+                final MenuItem feeCategoryAction = menu.findItem(R.id.send_coins_options_fee_category);
+                feeCategoryAction.setEnabled(viewModel.state == SendCoinsViewModel.State.INPUT);
+                if (viewModel.feeCategory == FeeCategory.ECONOMIC)
+                    menu.findItem(R.id.send_coins_options_fee_category_economic).setChecked(true);
+                else if (viewModel.feeCategory == FeeCategory.NORMAL)
+                    menu.findItem(R.id.send_coins_options_fee_category_normal).setChecked(true);
+                else if (viewModel.feeCategory == FeeCategory.PRIORITY)
+                    menu.findItem(R.id.send_coins_options_fee_category_priority).setChecked(true);
+            }
+
+            @Override
+            public boolean onMenuItemSelected(final MenuItem item) {
+                int itemId = item.getItemId();
+                if (itemId == R.id.send_coins_options_scan) {
+                    scanLauncher.launch(null);
+                    return true;
+                } else if (itemId == R.id.send_coins_options_fee_category_economic) {
+                    handleFeeCategory(FeeCategory.ECONOMIC);
+                    return true;
+                } else if (itemId == R.id.send_coins_options_fee_category_normal) {
+                    handleFeeCategory(FeeCategory.NORMAL);
+                    return true;
+                } else if (itemId == R.id.send_coins_options_fee_category_priority) {
+                    handleFeeCategory(FeeCategory.PRIORITY);
+                    return true;
+                } else if (itemId == R.id.send_coins_options_empty) {
+                    handleEmpty();
+                    return true;
+                }
+                return false;
+            }
+        });
 
         if (savedInstanceState == null) {
             final Intent intent = activity.getIntent();
@@ -530,59 +580,6 @@ public final class SendCoinsFragment extends Fragment {
     public void onDestroy() {
         backgroundThread.getLooper().quit();
         super.onDestroy();
-    }
-
-    @Override
-    public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
-        inflater.inflate(R.menu.send_coins_fragment_options, menu);
-
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    @Override
-    public void onPrepareOptionsMenu(final Menu menu) {
-        final MenuItem scanAction = menu.findItem(R.id.send_coins_options_scan);
-        final PackageManager pm = activity.getPackageManager();
-        scanAction.setVisible(pm.hasSystemFeature(PackageManager.FEATURE_CAMERA)
-                || pm.hasSystemFeature(PackageManager.FEATURE_CAMERA_FRONT));
-        scanAction.setEnabled(viewModel.state == SendCoinsViewModel.State.INPUT);
-
-        final MenuItem emptyAction = menu.findItem(R.id.send_coins_options_empty);
-        emptyAction.setEnabled(viewModel.state == SendCoinsViewModel.State.INPUT
-                && viewModel.paymentIntent.mayEditAmount() && viewModel.balance.getValue() != null);
-
-        final MenuItem feeCategoryAction = menu.findItem(R.id.send_coins_options_fee_category);
-        feeCategoryAction.setEnabled(viewModel.state == SendCoinsViewModel.State.INPUT);
-        if (viewModel.feeCategory == FeeCategory.ECONOMIC)
-            menu.findItem(R.id.send_coins_options_fee_category_economic).setChecked(true);
-        else if (viewModel.feeCategory == FeeCategory.NORMAL)
-            menu.findItem(R.id.send_coins_options_fee_category_normal).setChecked(true);
-        else if (viewModel.feeCategory == FeeCategory.PRIORITY)
-            menu.findItem(R.id.send_coins_options_fee_category_priority).setChecked(true);
-
-        super.onPrepareOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(final MenuItem item) {
-        int itemId = item.getItemId();
-        if (itemId == R.id.send_coins_options_scan) {
-            scanLauncher.launch(null);
-            return true;
-        } else if (itemId == R.id.send_coins_options_fee_category_economic) {
-            handleFeeCategory(FeeCategory.ECONOMIC);
-            return true;
-        } else if (itemId == R.id.send_coins_options_fee_category_normal) {
-            handleFeeCategory(FeeCategory.NORMAL);
-            return true;
-        } else if (itemId == R.id.send_coins_options_fee_category_priority) {
-            handleFeeCategory(FeeCategory.PRIORITY);
-            return true;
-        } else if (itemId == R.id.send_coins_options_empty) {
-            handleEmpty();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     private void validateReceivingAddress() {
