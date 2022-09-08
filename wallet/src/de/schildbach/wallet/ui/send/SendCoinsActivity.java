@@ -48,13 +48,19 @@ public final class SendCoinsActivity extends AbstractWalletActivity {
 
     public static void start(final Context context, final PaymentIntent paymentIntent,
             final @Nullable FeeCategory feeCategory, final int intentFlags) {
+        final Intent intent = startIntent(context, paymentIntent, feeCategory, intentFlags);
+        context.startActivity(intent);
+    }
+
+    public static Intent startIntent(final Context context, final PaymentIntent paymentIntent,
+                                      final FeeCategory feeCategory, final int intentFlags) {
         final Intent intent = new Intent(context, SendCoinsActivity.class);
         intent.putExtra(INTENT_EXTRA_PAYMENT_INTENT, paymentIntent);
         if (feeCategory != null)
             intent.putExtra(INTENT_EXTRA_FEE_CATEGORY, feeCategory);
         if (intentFlags != 0)
             intent.setFlags(intentFlags);
-        context.startActivity(intent);
+        return intent;
     }
 
     public static void start(final Context context, final PaymentIntent paymentIntent) {
