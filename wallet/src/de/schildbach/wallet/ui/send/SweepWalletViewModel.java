@@ -38,6 +38,7 @@ public class SweepWalletViewModel extends AndroidViewModel {
     }
 
     private final WalletApplication application;
+    public final MutableLiveData<State> state = new MutableLiveData<>(State.DECODE_KEY);
     private DynamicFeeLiveData dynamicFees;
     public final MutableLiveData<String> progress = new MutableLiveData<>();
     public final MutableLiveData<PrefixedChecksummedBytes> privateKeyToSweep = new MutableLiveData<>();
@@ -45,8 +46,6 @@ public class SweepWalletViewModel extends AndroidViewModel {
     public final TransactionLiveData sentTransaction;
     public final MutableLiveData<DialogEvent> showDialog = new MutableLiveData<>();
     public final MutableLiveData<DialogEvent> showDialogWithRetryRequestBalance = new MutableLiveData<>();
-
-    public State state = State.DECODE_KEY;
 
     public SweepWalletViewModel(final Application application) {
         super(application);
