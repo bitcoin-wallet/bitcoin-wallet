@@ -113,9 +113,6 @@ public class SweepWalletFragment extends Fragment {
     private Button viewGo;
     private Button viewCancel;
 
-    private MenuItem reloadAction;
-    private MenuItem scanAction;
-
     private AbstractWalletActivityViewModel walletActivityViewModel;
     private SweepWalletViewModel viewModel;
 
@@ -190,6 +187,7 @@ public class SweepWalletFragment extends Fragment {
                 balanceView.setVisibility(View.GONE);
             }
             updateView();
+            activity.invalidateOptionsMenu();
         });
         viewModel.sentTransaction.observe(this, transaction -> {
             if (viewModel.state.getValue() == SweepWalletViewModel.State.SENDING) {
@@ -280,15 +278,19 @@ public class SweepWalletFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
         inflater.inflate(R.menu.sweep_wallet_fragment_options, menu);
-
-        reloadAction = menu.findItem(R.id.sweep_wallet_options_reload);
-        scanAction = menu.findItem(R.id.sweep_wallet_options_scan);
-
-        final PackageManager pm = activity.getPackageManager();
-        scanAction.setVisible(pm.hasSystemFeature(PackageManager.FEATURE_CAMERA)
-                || pm.hasSystemFeature(PackageManager.FEATURE_CAMERA_FRONT));
-
         super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(final Menu menu) {
+        final SweepWalletViewModel.State state = viewModel.state.getValue();
+        final PackageManager pm = activity.getPackageManager();
+        final MenuItem reloadAction = menu.findItem(R.id.sweep_wallet_options_reload);
+        reloadAction.setEnabled(state == SweepWalletViewModel.State.CONFIRM_SWEEP && viewModel.walletToSweep.getValue() != null);
+        final MenuItem scanAction = menu.findItem(R.id.sweep_wallet_options_scan);
+        scanAction.setVisible(pm.hasSystemFeature(PackageManager.FEATURE_CAMERA) || pm.hasSystemFeature(PackageManager.FEATURE_CAMERA_FRONT));
+        scanAction.setEnabled(state == SweepWalletViewModel.State.DECODE_KEY || state == SweepWalletViewModel.State.CONFIRM_SWEEP);
+        super.onPrepareOptionsMenu(menu);
     }
 
     @Override
@@ -502,12 +504,6 @@ public class SweepWalletFragment extends Fragment {
         }
 
         viewCancel.setEnabled(state != SweepWalletViewModel.State.PREPARATION);
-
-        // enable actions
-        if (reloadAction != null)
-            reloadAction.setEnabled(state == SweepWalletViewModel.State.CONFIRM_SWEEP && walletToSweep != null);
-        if (scanAction != null)
-            scanAction.setEnabled(state == SweepWalletViewModel.State.DECODE_KEY || state == SweepWalletViewModel.State.CONFIRM_SWEEP);
     }
 
     private void handleDecrypt() {
