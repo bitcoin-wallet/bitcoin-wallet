@@ -23,7 +23,6 @@ import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.Spanned;
@@ -50,11 +49,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Method;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 /**
  * @author Andreas Schildbach
  */
 public class WalletBalanceWidgetProvider extends AppWidgetProvider {
+    private final Executor executor = Executors.newSingleThreadExecutor();
+
     private static final StrikethroughSpan STRIKE_THRU_SPAN = new StrikethroughSpan();
 
     private static final Logger log = LoggerFactory.getLogger(WalletBalanceWidgetProvider.class);
@@ -62,7 +65,7 @@ public class WalletBalanceWidgetProvider extends AppWidgetProvider {
     @Override
     public void onUpdate(final Context context, final AppWidgetManager appWidgetManager, final int[] appWidgetIds) {
         final PendingResult result = goAsync();
-        AsyncTask.execute(() -> {
+        executor.execute(() -> {
             final WalletApplication application = (WalletApplication) context.getApplicationContext();
             final Coin balance = application.getWallet().getBalance(BalanceType.ESTIMATED);
             final Configuration config = application.getConfiguration();
@@ -82,7 +85,7 @@ public class WalletBalanceWidgetProvider extends AppWidgetProvider {
             log.info("app widget {} options changed: minWidth={}", appWidgetId,
                     newOptions.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_WIDTH));
         final PendingResult result = goAsync();
-        AsyncTask.execute(() -> {
+        executor.execute(() -> {
             final WalletApplication application = (WalletApplication) context.getApplicationContext();
             final Coin balance = application.getWallet().getBalance(BalanceType.ESTIMATED);
             final Configuration config = application.getConfiguration();
