@@ -36,6 +36,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.ViewAnimator;
+import androidx.core.view.MenuProvider;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
@@ -96,8 +97,6 @@ public class WalletTransactionsFragment extends Fragment implements Transactions
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.fragmentManager = getChildFragmentManager();
-
-        setHasOptionsMenu(true);
 
         activityViewModel = new ViewModelProvider(activity).get(WalletActivityViewModel.class);
         viewModel = new ViewModelProvider(this).get(WalletTransactionsViewModel.class);
@@ -161,6 +160,48 @@ public class WalletTransactionsFragment extends Fragment implements Transactions
         });
 
         adapter = new TransactionsAdapter(activity, this, this);
+
+        activity.addMenuProvider(new MenuProvider() {
+            @Override
+            public void onCreateMenu(final Menu menu, final MenuInflater inflater) {
+                inflater.inflate(R.menu.wallet_transactions_fragment_options, menu);
+                filterMenuItem = menu.findItem(R.id.wallet_transactions_options_filter);
+            }
+
+            @Override
+            public void onPrepareMenu(final Menu menu) {
+                final WalletTransactionsViewModel.Direction direction = viewModel.direction.getValue();
+                if (direction == null) {
+                    menu.findItem(R.id.wallet_transactions_options_filter_all).setChecked(true);
+                    filterMenuItem.setIcon(R.drawable.ic_filter_list_white_24dp);
+                } else if (direction == WalletTransactionsViewModel.Direction.RECEIVED) {
+                    menu.findItem(R.id.wallet_transactions_options_filter_received).setChecked(true);
+                    filterMenuItem.setIcon(R.drawable.transactions_list_filter_received);
+                } else if (direction == WalletTransactionsViewModel.Direction.SENT) {
+                    menu.findItem(R.id.wallet_transactions_options_filter_sent).setChecked(true);
+                    filterMenuItem.setIcon(R.drawable.transactions_list_filter_sent);
+                }
+            }
+
+            @Override
+            public boolean onMenuItemSelected(final MenuItem item) {
+                final int itemId = item.getItemId();
+                if (itemId == R.id.wallet_transactions_options_filter_all) {
+                    viewModel.setDirection(null);
+                    filterMenuItem.setIcon(R.drawable.ic_filter_list_white_24dp);
+                    return true;
+                } else if (itemId == R.id.wallet_transactions_options_filter_received) {
+                    viewModel.setDirection(WalletTransactionsViewModel.Direction.RECEIVED);
+                    filterMenuItem.setIcon(R.drawable.transactions_list_filter_received);
+                    return true;
+                } else if (itemId == R.id.wallet_transactions_options_filter_sent) {
+                    viewModel.setDirection(WalletTransactionsViewModel.Direction.SENT);
+                    filterMenuItem.setIcon(R.drawable.transactions_list_filter_sent);
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 
     @Override
@@ -200,50 +241,6 @@ public class WalletTransactionsFragment extends Fragment implements Transactions
     public void onResume() {
         super.onResume();
         viewModel.setWarning(warning());
-    }
-
-    @Override
-    public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
-        inflater.inflate(R.menu.wallet_transactions_fragment_options, menu);
-        filterMenuItem = menu.findItem(R.id.wallet_transactions_options_filter);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    @Override
-    public void onPrepareOptionsMenu(final Menu menu) {
-        final WalletTransactionsViewModel.Direction direction = viewModel.direction.getValue();
-        if (direction == null) {
-            menu.findItem(R.id.wallet_transactions_options_filter_all).setChecked(true);
-            filterMenuItem.setIcon(R.drawable.ic_filter_list_white_24dp);
-        } else if (direction == WalletTransactionsViewModel.Direction.RECEIVED) {
-            menu.findItem(R.id.wallet_transactions_options_filter_received).setChecked(true);
-            filterMenuItem.setIcon(R.drawable.transactions_list_filter_received);
-        } else if (direction == WalletTransactionsViewModel.Direction.SENT) {
-            menu.findItem(R.id.wallet_transactions_options_filter_sent).setChecked(true);
-            filterMenuItem.setIcon(R.drawable.transactions_list_filter_sent);
-        }
-        super.onPrepareOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(final MenuItem item) {
-        final int itemId = item.getItemId();
-        final WalletTransactionsViewModel.Direction direction;
-        if (itemId == R.id.wallet_transactions_options_filter_all) {
-            direction = null;
-            filterMenuItem.setIcon(R.drawable.ic_filter_list_white_24dp);
-        } else if (itemId == R.id.wallet_transactions_options_filter_received) {
-            direction = WalletTransactionsViewModel.Direction.RECEIVED;
-            filterMenuItem.setIcon(R.drawable.transactions_list_filter_received);
-        } else if (itemId == R.id.wallet_transactions_options_filter_sent) {
-            direction = WalletTransactionsViewModel.Direction.SENT;
-            filterMenuItem.setIcon(R.drawable.transactions_list_filter_sent);
-        } else {
-            return false;
-        }
-
-        viewModel.setDirection(direction);
-        return true;
     }
 
     @Override
