@@ -22,9 +22,11 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
+import androidx.core.view.MenuProvider;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
@@ -154,25 +156,30 @@ public final class AddressBookActivity extends AbstractWalletActivity {
 
         pager.setOffscreenPageLimit(1);
         pager.setAdapter(new AddressBookActivity.PagerAdapter());
-    }
 
-    @Override
-    public boolean onCreateOptionsMenu(final Menu menu) {
-        getMenuInflater().inflate(R.menu.address_book_activity_options, menu);
-        final PackageManager pm = getPackageManager();
-        menu.findItem(R.id.sending_addresses_options_scan).setVisible(pm.hasSystemFeature(PackageManager.FEATURE_CAMERA)
-                || pm.hasSystemFeature(PackageManager.FEATURE_CAMERA_FRONT));
-        return super.onCreateOptionsMenu(menu);
-    }
+        addMenuProvider(new MenuProvider() {
+            @Override
+            public void onCreateMenu(final Menu menu, final MenuInflater inflater) {
+                inflater.inflate(R.menu.address_book_activity_options, menu);
+            }
 
-    @Override
-    public boolean onOptionsItemSelected(final MenuItem item) {
-        int itemId = item.getItemId();
-        if (itemId == R.id.sending_addresses_options_scan) {
-            scanLauncher.launch(null);
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+            @Override
+            public void onPrepareMenu(final Menu menu) {
+                final PackageManager pm = getPackageManager();
+                menu.findItem(R.id.sending_addresses_options_scan).setVisible(pm.hasSystemFeature(PackageManager.FEATURE_CAMERA)
+                        || pm.hasSystemFeature(PackageManager.FEATURE_CAMERA_FRONT));
+            }
+
+            @Override
+            public boolean onMenuItemSelected(final MenuItem item) {
+                int itemId = item.getItemId();
+                if (itemId == R.id.sending_addresses_options_scan) {
+                    scanLauncher.launch(null);
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 
     private class PagerAdapter extends FragmentStateAdapter {
