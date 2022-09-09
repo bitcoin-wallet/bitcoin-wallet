@@ -21,8 +21,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import androidx.annotation.Nullable;
+import androidx.core.view.MenuProvider;
 import androidx.lifecycle.ViewModelProvider;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.R;
@@ -81,22 +83,26 @@ public final class SendCoinsActivity extends AbstractWalletActivity {
             }
         });
 
+        addMenuProvider(new MenuProvider() {
+            @Override
+            public void onCreateMenu(final Menu menu, final MenuInflater inflater) {
+                inflater.inflate(R.menu.send_coins_activity_options, menu);
+            }
+
+            @Override
+            public void onPrepareMenu(final Menu menu) {
+            }
+
+            @Override
+            public boolean onMenuItemSelected(final MenuItem item) {
+                if (item.getItemId() == R.id.send_coins_options_help) {
+                    viewModel.showHelpDialog.setValue(new Event<>(R.string.help_send_coins));
+                    return true;
+                }
+                return false;
+            }
+        });
+
         BlockchainService.start(this, false);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(final Menu menu) {
-        getMenuInflater().inflate(R.menu.send_coins_activity_options, menu);
-
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(final MenuItem item) {
-        if (item.getItemId() == R.id.send_coins_options_help) {
-            viewModel.showHelpDialog.setValue(new Event<>(R.string.help_send_coins));
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 }
