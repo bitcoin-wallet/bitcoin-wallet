@@ -102,16 +102,18 @@ android {
 
     packagingOptions {
         exclude 'META-INF/*.version'
+        exclude 'META-INF/*.kotlin_module'
         exclude 'META-INF/proguard/**'
         exclude 'META-INF/services/**'
-        exclude 'META-INF/com.android.tools/proguard/coroutines.pro'
+        exclude 'META-INF/**/coroutines.pro'
+        exclude 'DebugProbesKt.bin'
         exclude '**/*.proto'
+        exclude 'kotlin/**'
         exclude 'org/bouncycastle/x509/*.properties'
         exclude 'okhttp3/internal/publicsuffix/*'
         exclude 'org/bitcoinj/crypto/mnemonic/wordlist/english.txt'
         exclude 'org/bitcoinj/crypto/cacerts'
-        exclude 'org.bitcoin.production.checkpoints.txt'
-        exclude 'org.bitcoin.test.checkpoints.txt'
+        exclude 'org.bitcoin.*.checkpoints.txt'
     }
 }
 
