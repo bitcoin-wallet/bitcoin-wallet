@@ -1,3 +1,7 @@
+v9.09
+
+* Use MenuProvider API for options menus.
+
 v9.08
 
 * Use activity result API for permission requests and activities that give a result.
