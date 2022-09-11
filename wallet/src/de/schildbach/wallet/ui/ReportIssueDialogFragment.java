@@ -21,7 +21,7 @@ import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.admin.DevicePolicyManager;
-import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageInfo;
@@ -342,14 +342,15 @@ public class ReportIssueDialogFragment extends DialogFragment {
                 .append(String.valueOf(activityManager.getLargeMemoryClass()))
                 .append(activityManager.isLowRamDevice() ? " (low RAM device)" : "").append("\n");
         report.append("Storage Encryption Status: ").append(String.valueOf(devicePolicyManager.getStorageEncryptionStatus())).append("\n");
-        report.append("Bluetooth MAC: ").append(bluetoothMac()).append("\n");
+        report.append("Bluetooth MAC: ").append(bluetoothMac(context)).append("\n");
         report.append("Runtime: ").append(System.getProperty("java.vm.name")).append(" ")
                 .append(System.getProperty("java.vm.version")).append("\n");
     }
 
-    private static String bluetoothMac() {
+    private static String bluetoothMac(final Context context) {
         try {
-            return Bluetooth.getAddress(BluetoothAdapter.getDefaultAdapter());
+            final BluetoothManager bluetoothManager = context.getSystemService(BluetoothManager.class);
+            return Bluetooth.getAddress(bluetoothManager.getAdapter());
         } catch (final Exception x) {
             return x.getMessage();
         }

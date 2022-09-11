@@ -20,6 +20,7 @@ package de.schildbach.wallet.ui.send;
 import android.Manifest;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothManager;
 import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -341,6 +342,7 @@ public final class SendCoinsFragment extends Fragment {
         this.config = application.getConfiguration();
         this.addressBookDao = AddressBookDatabase.getDatabase(context).addressBookDao();
         this.contentResolver = application.getContentResolver();
+        this.bluetoothAdapter = application.getSystemService(BluetoothManager.class).getAdapter();
     }
 
     @Override
@@ -378,8 +380,6 @@ public final class SendCoinsFragment extends Fragment {
         });
         viewModel.dryrunTransaction.observe(this, transaction -> updateView());
         viewModel.dryrunException.observe(this, e -> updateView());
-
-        bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
         backgroundThread = new HandlerThread("backgroundThread", Process.THREAD_PRIORITY_BACKGROUND);
         backgroundThread.start();

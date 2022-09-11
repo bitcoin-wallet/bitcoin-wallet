@@ -18,6 +18,7 @@
 package de.schildbach.wallet.offline;
 
 import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -88,7 +89,8 @@ public final class AcceptBluetoothService extends LifecycleService {
 
         super.onCreate();
         this.application = (WalletApplication) getApplication();
-        final BluetoothAdapter bluetoothAdapter = checkNotNull(BluetoothAdapter.getDefaultAdapter());
+        final BluetoothManager bluetoothManager = getSystemService(BluetoothManager.class);
+        final BluetoothAdapter bluetoothAdapter = checkNotNull(bluetoothManager.getAdapter());
         final PowerManager pm = getSystemService(PowerManager.class);
 
         wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, getClass().getName());

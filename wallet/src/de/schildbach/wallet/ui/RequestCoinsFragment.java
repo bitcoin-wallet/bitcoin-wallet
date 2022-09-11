@@ -19,6 +19,7 @@ package de.schildbach.wallet.ui;
 
 import android.Manifest;
 import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothManager;
 import android.content.ActivityNotFoundException;
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -118,7 +119,7 @@ public final class RequestCoinsFragment extends Fragment {
         this.application = activity.getWalletApplication();
         this.config = application.getConfiguration();
         this.clipboardManager = activity.getSystemService(ClipboardManager.class);
-        this.bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        this.bluetoothAdapter = activity.getSystemService(BluetoothManager.class).getAdapter();
         this.nfcAdapter = NfcAdapter.getDefaultAdapter(activity);
     }
 

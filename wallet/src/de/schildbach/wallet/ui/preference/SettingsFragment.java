@@ -19,6 +19,7 @@ package de.schildbach.wallet.ui.preference;
 
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothManager;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -61,6 +62,7 @@ public final class SettingsFragment extends PreferenceFragment implements OnPref
     private Configuration config;
     private PackageManager pm;
     private PowerManager powerManager;
+    private BluetoothManager bluetoothManager;
 
     private final Handler handler = new Handler();
     private HandlerThread backgroundThread;
@@ -83,6 +85,7 @@ public final class SettingsFragment extends PreferenceFragment implements OnPref
         this.config = application.getConfiguration();
         this.pm = activity.getPackageManager();
         this.powerManager = activity.getSystemService(PowerManager.class);
+        this.bluetoothManager = activity.getSystemService(BluetoothManager.class);
     }
 
     @Override
@@ -225,7 +228,7 @@ public final class SettingsFragment extends PreferenceFragment implements OnPref
     }
 
     private void updateBluetoothAddress() {
-        final BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        final BluetoothAdapter bluetoothAdapter = bluetoothManager.getAdapter();
         if (bluetoothAdapter != null) {
             String bluetoothAddress = Bluetooth.getAddress(bluetoothAdapter);
             if (bluetoothAddress == null)
