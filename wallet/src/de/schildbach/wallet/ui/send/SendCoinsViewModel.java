@@ -31,6 +31,7 @@ import de.schildbach.wallet.data.SelectedExchangeRateLiveData;
 import de.schildbach.wallet.data.TransactionLiveData;
 import de.schildbach.wallet.data.WalletBalanceLiveData;
 import de.schildbach.wallet.ui.AddressAndLabel;
+import org.bitcoinj.core.Coin;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.wallet.Wallet.BalanceType;
 
@@ -61,6 +62,8 @@ public class SendCoinsViewModel extends AndroidViewModel {
     public PaymentIntent paymentIntent = null;
     @Nullable
     public AddressAndLabel validatedAddress = null;
+    @Nullable
+    public Coin amount = null;
     @Nullable
     public Boolean directPaymentAck = null;
     @Nullable

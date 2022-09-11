@@ -251,6 +251,7 @@ public final class SendCoinsFragment extends Fragment {
     private final CurrencyAmountView.Listener amountsListener = new CurrencyAmountView.Listener() {
         @Override
         public void changed() {
+            viewModel.amount = amountCalculatorLink.getAmount();
             updateView();
             handler.post(dryrunRunnable);
         }
@@ -624,7 +625,7 @@ public final class SendCoinsFragment extends Fragment {
         if (viewModel.dryrunTransaction != null)
             return viewModel.dryrunException == null;
         else if (viewModel.paymentIntent.mayEditAmount())
-            return amountCalculatorLink.hasAmount();
+            return viewModel.amount != null;
         else
             return viewModel.paymentIntent.hasAmount();
     }
@@ -681,7 +682,7 @@ public final class SendCoinsFragment extends Fragment {
 
         // final payment intent
         final PaymentIntent finalPaymentIntent = viewModel.paymentIntent.mergeWithEditedValues(
-                amountCalculatorLink.getAmount(),
+                viewModel.amount,
                 viewModel.validatedAddress != null ? viewModel.validatedAddress.address : null);
         final Coin finalAmount = finalPaymentIntent.getAmount();
 
@@ -849,6 +850,7 @@ public final class SendCoinsFragment extends Fragment {
     private void handleEmpty() {
         final Coin available = viewModel.balance.getValue();
         amountCalculatorLink.setBtcAmount(available);
+        viewModel.amount = available;
 
         updateView();
         handler.post(dryrunRunnable);
@@ -869,7 +871,7 @@ public final class SendCoinsFragment extends Fragment {
 
             final Wallet wallet = walletActivityViewModel.wallet.getValue();
             final Map<FeeCategory, Coin> fees = viewModel.dynamicFees.getValue();
-            final Coin amount = amountCalculatorLink.getAmount();
+            final Coin amount = viewModel.amount;
             if (amount != null && fees != null) {
                 try {
                     final Address dummy = wallet.currentReceiveAddress(); // won't be used, tx is never
@@ -1203,6 +1205,7 @@ public final class SendCoinsFragment extends Fragment {
 
                 receivingAddressView.setText(null);
                 amountCalculatorLink.setBtcAmount(paymentIntent.getAmount());
+                viewModel.amount = paymentIntent.getAmount();
 
                 if (paymentIntent.isBluetoothPaymentUrl())
                     directPaymentEnableView.setChecked(bluetoothAdapter != null && bluetoothAdapter.isEnabled() && checkBluetoothConnectPermission());
