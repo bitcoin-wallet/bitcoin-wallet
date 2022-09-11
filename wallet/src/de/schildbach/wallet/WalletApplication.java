@@ -52,6 +52,7 @@ import de.schildbach.wallet.util.WalletUtils;
 import org.bitcoinj.core.VersionMessage;
 import org.bitcoinj.crypto.LinuxSecureRandom;
 import org.bitcoinj.crypto.MnemonicCode;
+import org.bitcoinj.utils.ContextPropagatingThreadFactory;
 import org.bitcoinj.utils.Threading;
 import org.bitcoinj.wallet.UnreadableWalletException;
 import org.bitcoinj.wallet.Wallet;
@@ -151,7 +152,7 @@ public class WalletApplication extends Application {
         }
     }
 
-    private final Executor getWalletExecutor = Executors.newSingleThreadExecutor();
+    private final Executor getWalletExecutor = Executors.newSingleThreadExecutor(new ContextPropagatingThreadFactory("get wallet"));
     private final Object getWalletLock = new Object();
 
     @AnyThread
@@ -159,7 +160,6 @@ public class WalletApplication extends Application {
         getWalletExecutor.execute(new Runnable() {
             @Override
             public void run() {
-                org.bitcoinj.core.Context.propagate(Constants.CONTEXT);
                 synchronized (getWalletLock) {
                     initMnemonicCode();
                     if (walletFiles == null)
