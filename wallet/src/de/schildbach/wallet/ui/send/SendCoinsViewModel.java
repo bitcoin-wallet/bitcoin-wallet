@@ -50,6 +50,7 @@ public class SendCoinsViewModel extends AndroidViewModel {
     public final LiveData<List<AddressBookEntry>> addressBook;
     public final SelectedExchangeRateLiveData exchangeRate;
     public final DynamicFeeLiveData dynamicFees;
+    public final MutableLiveData<FeeCategory> feeCategory = new MutableLiveData<>(FeeCategory.NORMAL);
     public final WalletBalanceLiveData balance;
     public final MutableLiveData<String> progress = new MutableLiveData<>();
     public final TransactionLiveData sentTransaction;
@@ -58,7 +59,6 @@ public class SendCoinsViewModel extends AndroidViewModel {
     public State state = null;
     @Nullable
     public PaymentIntent paymentIntent = null;
-    public FeeCategory feeCategory = FeeCategory.NORMAL;
     @Nullable
     public AddressAndLabel validatedAddress = null;
     @Nullable

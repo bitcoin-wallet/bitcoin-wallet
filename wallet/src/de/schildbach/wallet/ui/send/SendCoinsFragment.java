@@ -362,6 +362,10 @@ public final class SendCoinsFragment extends Fragment {
             updateView();
             handler.post(dryrunRunnable);
         });
+        viewModel.feeCategory.observe(this, feeCategory -> {
+            updateView();
+            handler.post(dryrunRunnable);
+        });
         application.blockchainState.observe(this, blockchainState -> updateView());
         viewModel.balance.observe(this, coin -> activity.invalidateOptionsMenu());
         viewModel.progress.observe(this, new ProgressDialogFragment.Observer(fragmentManager));
@@ -403,12 +407,13 @@ public final class SendCoinsFragment extends Fragment {
                         && viewModel.paymentIntent.mayEditAmount() && viewModel.balance.getValue() != null);
 
                 final MenuItem feeCategoryAction = menu.findItem(R.id.send_coins_options_fee_category);
+                final FeeCategory feeCategory = viewModel.feeCategory.getValue();
                 feeCategoryAction.setEnabled(viewModel.state == SendCoinsViewModel.State.INPUT);
-                if (viewModel.feeCategory == FeeCategory.ECONOMIC)
+                if (feeCategory == FeeCategory.ECONOMIC)
                     menu.findItem(R.id.send_coins_options_fee_category_economic).setChecked(true);
-                else if (viewModel.feeCategory == FeeCategory.NORMAL)
+                else if (feeCategory == FeeCategory.NORMAL)
                     menu.findItem(R.id.send_coins_options_fee_category_normal).setChecked(true);
-                else if (viewModel.feeCategory == FeeCategory.PRIORITY)
+                else if (feeCategory == FeeCategory.PRIORITY)
                     menu.findItem(R.id.send_coins_options_fee_category_priority).setChecked(true);
             }
 
@@ -686,7 +691,7 @@ public final class SendCoinsFragment extends Fragment {
         final SendRequest sendRequest = finalPaymentIntent.toSendRequest();
         sendRequest.emptyWallet = viewModel.paymentIntent.mayEditAmount()
                 && finalAmount.equals(wallet.getBalance(BalanceType.AVAILABLE));
-        sendRequest.feePerKb = fees.get(viewModel.feeCategory);
+        sendRequest.feePerKb = fees.get(viewModel.feeCategory.getValue());
         sendRequest.memo = viewModel.paymentIntent.memo;
         sendRequest.exchangeRate = amountCalculatorLink.getExchangeRate();
         sendRequest.aesKey = encryptionKey;
@@ -837,11 +842,8 @@ public final class SendCoinsFragment extends Fragment {
     }
 
     private void handleFeeCategory(final FeeCategory feeCategory) {
-        viewModel.feeCategory = feeCategory;
         log.info("switching to {} fee category", feeCategory);
-
-        updateView();
-        handler.post(dryrunRunnable);
+        viewModel.feeCategory.setValue(feeCategory);
     }
 
     private void handleEmpty() {
@@ -877,7 +879,7 @@ public final class SendCoinsFragment extends Fragment {
                     sendRequest.signInputs = false;
                     sendRequest.emptyWallet = viewModel.paymentIntent.mayEditAmount()
                             && amount.equals(wallet.getBalance(BalanceType.AVAILABLE));
-                    sendRequest.feePerKb = fees.get(viewModel.feeCategory);
+                    sendRequest.feePerKb = fees.get(viewModel.feeCategory.getValue());
                     wallet.completeTx(sendRequest);
                     viewModel.dryrunTransaction = sendRequest.tx;
                 } catch (final Exception x) {
@@ -1005,13 +1007,14 @@ public final class SendCoinsFragment extends Fragment {
                     else
                         hintView.setText(viewModel.dryrunException.toString());
                 } else if (viewModel.dryrunTransaction != null && viewModel.dryrunTransaction.getFee() != null) {
+                    final FeeCategory feeCategory = viewModel.feeCategory.getValue();
                     hintView.setVisibility(View.VISIBLE);
                     final int hintResId;
                     final int colorResId;
-                    if (viewModel.feeCategory == FeeCategory.ECONOMIC) {
+                    if (feeCategory == FeeCategory.ECONOMIC) {
                         hintResId = R.string.send_coins_fragment_hint_fee_economic;
                         colorResId = R.color.fg_less_significant;
-                    } else if (viewModel.feeCategory == FeeCategory.PRIORITY) {
+                    } else if (feeCategory == FeeCategory.PRIORITY) {
                         hintResId = R.string.send_coins_fragment_hint_fee_priority;
                         colorResId = R.color.fg_less_significant;
                     } else {
@@ -1105,7 +1108,7 @@ public final class SendCoinsFragment extends Fragment {
 
         if (feeCategory != null) {
             log.info("got fee category {}", feeCategory);
-            viewModel.feeCategory = feeCategory;
+            viewModel.feeCategory.setValue(feeCategory);
         }
 
         updateStateFrom(paymentIntent);
