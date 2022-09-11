@@ -31,11 +31,19 @@ import de.schildbach.wallet.data.SelectedExchangeRateLiveData;
 import de.schildbach.wallet.data.TransactionLiveData;
 import de.schildbach.wallet.data.WalletBalanceLiveData;
 import de.schildbach.wallet.ui.AddressAndLabel;
+import org.bitcoinj.core.Address;
 import org.bitcoinj.core.Coin;
 import org.bitcoinj.core.Transaction;
+import org.bitcoinj.utils.ContextPropagatingThreadFactory;
+import org.bitcoinj.wallet.SendRequest;
+import org.bitcoinj.wallet.Wallet;
 import org.bitcoinj.wallet.Wallet.BalanceType;
 
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * @author Andreas Schildbach
@@ -48,6 +56,7 @@ public class SendCoinsViewModel extends AndroidViewModel {
     }
 
     private final WalletApplication application;
+    private final Wallet wallet;
     public final LiveData<List<AddressBookEntry>> addressBook;
     public final SelectedExchangeRateLiveData exchangeRate;
     public final DynamicFeeLiveData dynamicFees;
@@ -66,18 +75,50 @@ public class SendCoinsViewModel extends AndroidViewModel {
     public Coin amount = null;
     @Nullable
     public Boolean directPaymentAck = null;
-    @Nullable
-    public Transaction dryrunTransaction = null;
-    @Nullable
-    public Exception dryrunException = null;
+    public MutableLiveData<Transaction> dryrunTransaction = new MutableLiveData<>();
+    public MutableLiveData<Exception> dryrunException = new MutableLiveData<>();
+
+    private final ExecutorService executor = Executors.newSingleThreadExecutor(
+            new ContextPropagatingThreadFactory("send"));
 
     public SendCoinsViewModel(final Application application) {
         super(application);
         this.application = (WalletApplication) application;
+        this.wallet = this.application.getWallet();
         this.addressBook = AddressBookDatabase.getDatabase(this.application).addressBookDao().getAll();
         this.exchangeRate = new SelectedExchangeRateLiveData(this.application);
         this.dynamicFees = new DynamicFeeLiveData(this.application);
         this.balance = new WalletBalanceLiveData(this.application, BalanceType.AVAILABLE);
         this.sentTransaction = new TransactionLiveData(this.application);
+
+        dynamicFees.observeForever(dynamicFees -> maybeDryrun());
+        feeCategory.observeForever(feeCategory -> maybeDryrun());
+    }
+
+    @Override
+    protected void onCleared() {
+        executor.shutdown();
+    }
+
+    public void maybeDryrun() {
+        final Map<FeeCategory, Coin> fees = dynamicFees.getValue();
+        if (state == State.INPUT && amount != null && fees != null) {
+            final Address dummy = wallet.currentReceiveAddress(); // won't be used, tx is never committed
+            final SendRequest sendRequest = paymentIntent.mergeWithEditedValues(amount, dummy).toSendRequest();
+            sendRequest.signInputs = false;
+            sendRequest.emptyWallet =
+                    paymentIntent.mayEditAmount() && amount.equals(wallet.getBalance(BalanceType.AVAILABLE));
+            sendRequest.feePerKb = fees.get(feeCategory.getValue());
+            executor.execute(() -> {
+                dryrunTransaction.postValue(null);
+                dryrunException.postValue(null);
+                try {
+                    wallet.completeTx(sendRequest);
+                    dryrunTransaction.postValue(sendRequest.tx);
+                } catch (final Exception x) {
+                    dryrunException.postValue(x);
+                }
+            });
+        }
     }
 }
