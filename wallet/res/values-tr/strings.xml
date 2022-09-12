@@ -246,6 +246,7 @@
   <string name="preferences_precision_labels_4">BTC, 4 ondalık</string>
   <string name="preferences_precision_labels_2_3">mBTC, 2 ondalık</string>
   <string name="preferences_precision_labels_0_6">µBTC, ondalıksız</string>
+  <string name="preferences_precision_labels_0_8">sat, ondalıksız</string>
   <string name="preferences_own_name_title">Kendi adınız</string>
   <string name="preferences_own_name_summary">Adınız veya şirketinizin adı, müşterilerinize gönderdiğiniz ödeme taleplerine eklenecektir.</string>
   <string name="preferences_own_name_dialog_message">Kısa tut.</string>
@@ -265,8 +266,12 @@
   <string name="preferences_trusted_peer_only_summary">Güvenilen eş dışındaki eşlere bağlantıları engeller.</string>
   <string name="preferences_block_explorer_title">Blok kaşifi</string>
   <string name="preferences_block_explorer_summary">İşlemlere, adreslere ve bloklara göz atmak için kullanılacak harici blok gezgini.</string>
+  <string name="preferences_enable_exchange_rates_title">Yerel tutarları göster</string>
+  <string name="preferences_enable_exchange_rates_summary">Yerel tutarları hesaplamak için bir özet akışından döviz kurlarını alın.</string>
   <string name="preferences_data_usage_title">Veri kullanımı</string>
   <string name="preferences_data_usage_summary">Mobil ağlarda veri kullanımını kısıtlama seçeneklerini gösterin.</string>
+  <string name="preferences_battery_optimization_title">Pil optimizasyonunu devre dışı bırak</string>
+  <string name="preferences_battery_optimization_summary">Blok zinciriyle olabildiğince güncel kalmak için uygulama için pil optimizasyonunu devre dışı bırakın.</string>
   <string name="preferences_notifications_title">Bildirimler</string>
   <string name="preferences_notifications_summary">Belirli bildirimleri devre dışı bırakmak veya etkinleştirmek için seçenekleri gösterin.</string>
   <string name="preferences_remind_balance_title">Bakiye hatırlacısı</string>
