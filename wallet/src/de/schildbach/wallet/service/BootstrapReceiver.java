@@ -88,7 +88,7 @@ public class BootstrapReceiver extends BroadcastReceiver {
         } else if (ACTION_DISMISS_FOREVER.equals(action)) {
             dismissNotificationForever(context, application.getConfiguration());
         } else if (ACTION_DONATE.equals(action)) {
-            donate(context, application.getWallet());
+            donate(context);
         } else {
             throw new IllegalArgumentException(action);
         }
@@ -187,9 +187,8 @@ public class BootstrapReceiver extends BroadcastReceiver {
     }
 
     @WorkerThread
-    private void donate(final Context context, final Wallet wallet) {
-        final Coin balance = wallet.getBalance(Wallet.BalanceType.AVAILABLE_SPENDABLE);
-        SendCoinsActivity.startDonate(context, balance, FeeCategory.ECONOMIC,
+    private void donate(final Context context) {
+        SendCoinsActivity.startDonate(context, Constants.NETWORK_PARAMETERS.getMaxMoney(), FeeCategory.ECONOMIC,
                 Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         final NotificationManager nm = context.getSystemService(NotificationManager.class);
         nm.cancel(Constants.NOTIFICATION_ID_INACTIVITY);
