@@ -58,7 +58,8 @@
   <string name="wallet_old_sdk_dialog_title">Verze systému Android je příliš stará</string>
   <string name="wallet_old_sdk_dialog_message">Je pravděpodobné, že jedna z následujících verzí Bitcoin Wallet nebude podporovat vaše zařízení. V některých případech může být v takové situaci komplikované utratit Bitcoiny na tomto zařízení.\n\nPokud si nejste jistí co dělat, tak doporučujeme tyto Bitcoiny přemístit brzy do jiného zařízení.</string>
   <string name="alert_dialogs_fragment_settings_failed_title">Problém s otevřením nastavení.</string>
-  <string name="alert_dialogs_fragment_too_much_balance_dialog_message">Tato částka je poměrně vysoká na nosení v kapse. Převeďte ji prosím na bezpečnější místo.</string>
+  <string name="alert_dialogs_fragment_too_much_balance_dialog_title">Udržujte nízké riziko</string>
+  <string name="alert_dialogs_fragment_too_much_balance_dialog_message">Částka v peněžence je pro běžné nošení v kapse poměrně vysoká. Přesuňte prosím část na bezpečnější místo, například do hardwarové peněženky.</string>
   <string name="send_coins_activity_title">Zaslat Bitcoiny</string>
   <string name="send_coins_fragment_request_payment_request_progress">Stahuji podpis z %s…</string>
   <string name="send_coins_fragment_request_payment_request_failed_title">Načítání žádosti o platbu se nezdařilo</string>
@@ -245,6 +246,7 @@
   <string name="preferences_precision_labels_4">BTC, 4 desetinná místa</string>
   <string name="preferences_precision_labels_2_3">mBTC, 2 desetinná místa</string>
   <string name="preferences_precision_labels_0_6">µBTC, bez desetinných míst</string>
+  <string name="preferences_precision_labels_0_8">sat, bez desetinných míst</string>
   <string name="preferences_own_name_title">Vlastní jméno</string>
   <string name="preferences_own_name_summary">Vaše jméno nebo název vaší společnosti, který bude přidán k žádostem o platbu, které vystavíte svým zákazníkům.</string>
   <string name="preferences_own_name_dialog_message">Snažte se to zkrátit.</string>
@@ -264,6 +266,8 @@
   <string name="preferences_trusted_peer_only_summary">Připojovat pouze k peerům označeným za důvěryhodné.</string>
   <string name="preferences_block_explorer_title">Prohlížeč bloků</string>
   <string name="preferences_block_explorer_summary">Externí prohlížeč bloků použitý pro procházení transakcí, adres a bloků.</string>
+  <string name="preferences_enable_exchange_rates_title">Zobrazit lokální částky</string>
+  <string name="preferences_enable_exchange_rates_summary">Získat směnné kurzy ze zdroje pro výpočet lokálních částek.</string>
   <string name="preferences_data_usage_title">Využití dat</string>
   <string name="preferences_data_usage_summary">Otevřít nastavení pro omezení datového toku na mobilní síti.</string>
   <string name="preferences_notifications_title">Oznámení</string>
