@@ -102,6 +102,8 @@ public class SendCoinsViewModel extends AndroidViewModel {
 
     public void maybeDryrun() {
         final Map<FeeCategory, Coin> fees = dynamicFees.getValue();
+        dryrunTransaction.setValue(null);
+        dryrunException.setValue(null);
         if (state == State.INPUT && amount != null && fees != null) {
             final Address dummy = wallet.currentReceiveAddress(); // won't be used, tx is never committed
             final SendRequest sendRequest = paymentIntent.mergeWithEditedValues(amount, dummy).toSendRequest();
@@ -110,8 +112,6 @@ public class SendCoinsViewModel extends AndroidViewModel {
                     paymentIntent.mayEditAmount() && amount.equals(wallet.getBalance(BalanceType.AVAILABLE));
             sendRequest.feePerKb = fees.get(feeCategory.getValue());
             executor.execute(() -> {
-                dryrunTransaction.postValue(null);
-                dryrunException.postValue(null);
                 try {
                     wallet.completeTx(sendRequest);
                     dryrunTransaction.postValue(sendRequest.tx);
