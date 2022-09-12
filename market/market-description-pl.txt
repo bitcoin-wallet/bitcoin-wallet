@@ -1,7 +1,7 @@
-<b>Miej swoje Bitcoiny zawsze przy sobie, w Twojej kieszeni!<b> Możesz płacić przez szybkie zeskanowanie QR kodu. Jako sprzedawca otrzymujesz przelew szybko i bezpiecznie. Bitcoin Wallet jest pierwszą mobilną Bitcoin aplikacją oraz jest uważany za najbardziej bezpieczną.
+<b>Miej swoje Bitcoins zawsze przy sobie, w kieszeni!</b> Płacisz poprzez szybkie zeskanowanie kodu QR. Jako sprzedawca, otrzymujesz płatności niezawodnie i natychmiast. Bitcoin Wallet jest referencyjną implementacją "Uproszczonej Weryfikacji Płatności" opisanej w dokumencie Bitcoin Whitepaper.
 
 
-<b>NOWOŚCI</b>
+<b>FUNKCJE</b>
 
 • Bez rejestracji, przeglądarki i połączenia z chmurą. Ten portfel jest zdecentralizowany i peer-to-peer.
 • Wyświetlaj ilość bitcoinów w BTC, mBTC lub µBTC.
@@ -11,9 +11,12 @@
 • Powiadomienia o otrzymaniu monet.
 • Zamiatanie portfeli papierowych (np. Używanych do przechowywania w chłodni).
 • Widget z saldem Bitcoinów.
+• Bezpieczeństwo: Obsługuje Taproot, Segwit i nowy format bech32m.
+• Prywatność: Wspiera Tor przy użyciu oddzielnej aplikacji Orbot.
 
 
 <b>PRZYCZYNIĆ SIĘ</b>
+
 Bitcoin Wallet to oprogramowanie typu <b>open source</b> i <b>free software</b>. Licencja: GPLv3
 https://www.gnu.org/licenses/gpl-3.0.en.html
 
@@ -24,4 +27,4 @@ Wszystkie tłumaczenia są zarządzane przez Transifex:
 https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
 
 
-<i>Używasz na własne ryzyko!</i>
+<i>Używaj na własne ryzyko! Stosować tylko do kieszonkowych ilości.</i>
