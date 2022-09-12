@@ -1,3 +1,7 @@
+v9.11
+
+* Use BluetoothManager API.
+
 v9.09-v9.10
 
 * Use MenuProvider API for options menus.
