@@ -21,7 +21,9 @@ import android.app.Application;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
+import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.addressbook.AddressBookDatabase;
 import de.schildbach.wallet.addressbook.AddressBookEntry;
@@ -72,7 +74,8 @@ public class SendCoinsViewModel extends AndroidViewModel {
     @Nullable
     public AddressAndLabel validatedAddress = null;
     @Nullable
-    public Coin amount = null;
+    public final MutableLiveData<Coin> amount = new MutableLiveData<>(); // MAX_MONEY means available balance
+    public final MediatorLiveData<Coin> visibleAmount = new MediatorLiveData<>();
     @Nullable
     public Boolean directPaymentAck = null;
     public MutableLiveData<Transaction> dryrunTransaction = new MutableLiveData<>();
@@ -90,6 +93,8 @@ public class SendCoinsViewModel extends AndroidViewModel {
         this.dynamicFees = new DynamicFeeLiveData(this.application);
         this.balance = new WalletBalanceLiveData(this.application, BalanceType.AVAILABLE);
         this.sentTransaction = new TransactionLiveData(this.application);
+        this.visibleAmount.addSource(amount, amount -> amountOrBalanceChanged());
+        this.visibleAmount.addSource(balance, balance -> amountOrBalanceChanged());
 
         dynamicFees.observeForever(dynamicFees -> maybeDryrun());
         feeCategory.observeForever(feeCategory -> maybeDryrun());
@@ -100,8 +105,17 @@ public class SendCoinsViewModel extends AndroidViewModel {
         executor.shutdown();
     }
 
+    private void amountOrBalanceChanged() {
+        final Coin amount = this.amount.getValue();
+        if (amount != null && amount.equals(Constants.NETWORK_PARAMETERS.getMaxMoney()))
+            visibleAmount.setValue(this.balance.getValue());
+        else
+            visibleAmount.setValue(amount);
+    }
+
     public void maybeDryrun() {
-        final Map<FeeCategory, Coin> fees = dynamicFees.getValue();
+        final Map<FeeCategory, Coin> fees = this.dynamicFees.getValue();
+        final Coin amount = this.amount.getValue();
         dryrunTransaction.setValue(null);
         dryrunException.setValue(null);
         if (state == State.INPUT && amount != null && fees != null) {
@@ -109,7 +123,7 @@ public class SendCoinsViewModel extends AndroidViewModel {
             final SendRequest sendRequest = paymentIntent.mergeWithEditedValues(amount, dummy).toSendRequest();
             sendRequest.signInputs = false;
             sendRequest.emptyWallet =
-                    paymentIntent.mayEditAmount() && amount.equals(wallet.getBalance(BalanceType.AVAILABLE));
+                    paymentIntent.mayEditAmount() && amount.equals(Constants.NETWORK_PARAMETERS.getMaxMoney());
             sendRequest.feePerKb = fees.get(feeCategory.getValue());
             executor.execute(() -> {
                 try {

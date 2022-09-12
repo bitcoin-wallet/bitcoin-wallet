@@ -252,9 +252,7 @@ public final class SendCoinsFragment extends Fragment {
     private final CurrencyAmountView.Listener amountsListener = new CurrencyAmountView.Listener() {
         @Override
         public void changed() {
-            viewModel.amount = amountCalculatorLink.getAmount();
-            updateView();
-            viewModel.maybeDryrun();
+            viewModel.amount.setValue(amountCalculatorLink.getAmount());
         }
 
         @Override
@@ -378,6 +376,11 @@ public final class SendCoinsFragment extends Fragment {
             }
             updateView();
         });
+        viewModel.amount.observe(this, amount -> {
+            updateView();
+            viewModel.maybeDryrun();
+        });
+        viewModel.visibleAmount.observe(this, amount -> amountCalculatorLink.setBtcAmount(amount));
         viewModel.dryrunTransaction.observe(this, transaction -> updateView());
         viewModel.dryrunException.observe(this, e -> updateView());
 
@@ -620,7 +623,7 @@ public final class SendCoinsFragment extends Fragment {
         if (viewModel.dryrunTransaction.getValue() != null)
             return viewModel.dryrunException.getValue() == null;
         else if (viewModel.paymentIntent.mayEditAmount())
-            return viewModel.amount != null;
+            return viewModel.amount.getValue() != null;
         else
             return viewModel.paymentIntent.hasAmount();
     }
@@ -676,17 +679,17 @@ public final class SendCoinsFragment extends Fragment {
         setState(SendCoinsViewModel.State.SIGNING);
 
         // final payment intent
+        final Coin amount = viewModel.amount.getValue();
         final PaymentIntent finalPaymentIntent = viewModel.paymentIntent.mergeWithEditedValues(
-                viewModel.amount,
-                viewModel.validatedAddress != null ? viewModel.validatedAddress.address : null);
+                amount, viewModel.validatedAddress != null ? viewModel.validatedAddress.address : null);
         final Coin finalAmount = finalPaymentIntent.getAmount();
 
         // prepare send request
         final Map<FeeCategory, Coin> fees = viewModel.dynamicFees.getValue();
         final Wallet wallet = walletActivityViewModel.wallet.getValue();
         final SendRequest sendRequest = finalPaymentIntent.toSendRequest();
-        sendRequest.emptyWallet = viewModel.paymentIntent.mayEditAmount()
-                && finalAmount.equals(wallet.getBalance(BalanceType.AVAILABLE));
+        sendRequest.emptyWallet =
+                viewModel.paymentIntent.mayEditAmount() && amount.equals(Constants.NETWORK_PARAMETERS.getMaxMoney());
         sendRequest.feePerKb = fees.get(viewModel.feeCategory.getValue());
         sendRequest.memo = viewModel.paymentIntent.memo;
         sendRequest.exchangeRate = amountCalculatorLink.getExchangeRate();
@@ -843,12 +846,7 @@ public final class SendCoinsFragment extends Fragment {
     }
 
     private void handleEmpty() {
-        final Coin available = viewModel.balance.getValue();
-        amountCalculatorLink.setBtcAmount(available);
-        viewModel.amount = available;
-
-        updateView();
-        viewModel.maybeDryrun();
+        viewModel.amount.setValue(Constants.NETWORK_PARAMETERS.getMaxMoney());
     }
 
     private void setState(final SendCoinsViewModel.State state) {
@@ -1167,7 +1165,7 @@ public final class SendCoinsFragment extends Fragment {
 
                 receivingAddressView.setText(null);
                 amountCalculatorLink.setBtcAmount(paymentIntent.getAmount());
-                viewModel.amount = paymentIntent.getAmount();
+                viewModel.amount.setValue(paymentIntent.getAmount());
 
                 if (paymentIntent.isBluetoothPaymentUrl())
                     directPaymentEnableView.setChecked(bluetoothAdapter != null && bluetoothAdapter.isEnabled() && checkBluetoothConnectPermission());
