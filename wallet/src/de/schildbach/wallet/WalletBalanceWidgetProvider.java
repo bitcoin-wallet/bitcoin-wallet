@@ -41,6 +41,7 @@ import de.schildbach.wallet.util.GenericUtils;
 import de.schildbach.wallet.util.MonetarySpannable;
 import org.bitcoinj.core.Coin;
 import org.bitcoinj.core.NetworkParameters;
+import org.bitcoinj.utils.ContextPropagatingThreadFactory;
 import org.bitcoinj.utils.ExchangeRate;
 import org.bitcoinj.utils.Fiat;
 import org.bitcoinj.utils.MonetaryFormat;
@@ -56,7 +57,7 @@ import java.util.concurrent.Executors;
  * @author Andreas Schildbach
  */
 public class WalletBalanceWidgetProvider extends AppWidgetProvider {
-    private final Executor executor = Executors.newSingleThreadExecutor();
+    private final Executor executor = Executors.newSingleThreadExecutor(new ContextPropagatingThreadFactory("appwidget"));
 
     private static final StrikethroughSpan STRIKE_THRU_SPAN = new StrikethroughSpan();
 
