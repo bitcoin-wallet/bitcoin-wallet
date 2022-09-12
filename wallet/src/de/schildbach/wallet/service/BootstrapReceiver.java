@@ -32,6 +32,7 @@ import de.schildbach.wallet.ui.WalletActivity;
 import de.schildbach.wallet.ui.send.FeeCategory;
 import de.schildbach.wallet.ui.send.SendCoinsActivity;
 import org.bitcoinj.core.Coin;
+import org.bitcoinj.utils.ContextPropagatingThreadFactory;
 import org.bitcoinj.utils.MonetaryFormat;
 import org.bitcoinj.wallet.Wallet;
 import org.slf4j.Logger;
@@ -44,7 +45,7 @@ import java.util.concurrent.Executors;
  * @author Andreas Schildbach
  */
 public class BootstrapReceiver extends BroadcastReceiver {
-    private final Executor executor = Executors.newSingleThreadExecutor();
+    private final Executor executor = Executors.newSingleThreadExecutor(new ContextPropagatingThreadFactory("bootstrap"));
 
     private static final Logger log = LoggerFactory.getLogger(BootstrapReceiver.class);
 
