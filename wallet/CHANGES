@@ -1,3 +1,7 @@
+v9.12
+
+* Fix long-standing race when emptying wallet.
+
 v9.11
 
 * Use BluetoothManager API.
