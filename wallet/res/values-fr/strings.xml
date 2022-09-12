@@ -265,6 +265,8 @@
   <string name="preferences_trusted_peer_only_summary">Empêche la connexion à des pairs autres que le pair de confiance.</string>
   <string name="preferences_block_explorer_title">Explorateur de blocs</string>
   <string name="preferences_block_explorer_summary">L’explorateur de blocs externe à utiliser pour consulter les transactions, les adresses et les blocs.</string>
+  <string name="preferences_enable_exchange_rates_title">Afficher les montants locaux</string>
+  <string name="preferences_enable_exchange_rates_summary">Récupérer les taux de change d’un fil afin de calculer les montants locaux.</string>
   <string name="preferences_data_usage_title">Utilisation des données</string>
   <string name="preferences_data_usage_summary">Montrer les options de restriction de l’utilisation des données sur les réseaux mobiles.</string>
   <string name="preferences_notifications_title">Notifications</string>
