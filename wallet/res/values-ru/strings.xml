@@ -1,6 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
   <string name="toast_wallet_reset">Ваш кошелёк был сброшен!\nВосстановление займёт некоторое время.</string>
+  <string name="toast_start_external_document_failed">У вас не установлен Web-Бразуер для открытия внешнего документа.</string>
   <string name="wallet_disclaimer_fragment_remind_safety">Используйте на свой страх и риск. Прочитайте &lt;u&gt;заметки по безопасности&lt;/u&gt;.</string>
   <string name="wallet_disclaimer_fragment_remind_backup">Вам необходимо &lt;u&gt;сделать резервную копию вашего кошелька&lt;/u&gt;!</string>
   <string name="blockchain_state_progress_hours">%1$s, %2$d часов отставания</string>
@@ -8,9 +9,9 @@
   <string name="blockchain_state_progress_weeks">%1$s, %2$d недель отставания</string>
   <string name="blockchain_state_progress_months">%1$s, %2$d месяцев отставания</string>
   <string name="blockchain_state_progress_downloading">Синхронизация с сетью</string>
-  <string name="blockchain_state_progress_stalled">Синхронизация зависла</string>
-  <string name="blockchain_state_progress_problem_storage">Синхронизация: проблема с хранилищем</string>
-  <string name="blockchain_state_progress_problem_network">Синхронизация: проблема с сетью</string>
+  <string name="blockchain_state_progress_stalled">Синхронизация приостановлена.</string>
+  <string name="blockchain_state_progress_problem_storage">Проблема с синхронизацией: Недостаточно свободного места.</string>
+  <string name="blockchain_state_progress_problem_network">Проблема с синхронизацией: Нет интернет- соединения.</string>
   <string name="wallet_address_fragment_clipboard_msg">Адрес скопирован в буфер обмена</string>
   <string name="wallet_address_dialog_fragment_hint">Для защиты вашей конфиденциальности ваш адрес будет меняться , как только он получает деньги.</string>
   <string name="wallet_balance_fragment_insecure_device">Ваше устройство устарело и недостаточно защищено. Используйте только для небольших сумм денег.</string>
