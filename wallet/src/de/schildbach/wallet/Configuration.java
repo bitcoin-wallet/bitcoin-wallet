@@ -55,6 +55,7 @@ public class Configuration {
     public static final String PREFS_KEY_BLOCK_EXPLORER = "block_explorer";
     public static final String PREFS_KEY_ENABLE_EXCHANGE_RATES = "enable_exchange_rates";
     public static final String PREFS_KEY_DATA_USAGE = "data_usage";
+    public static final String PREFS_KEY_BATTERY_OPTIMIZATION = "battery_optimization";
     public static final String PREFS_KEY_NOTIFICATIONS = "notifications";
     public static final String PREFS_KEY_REMIND_BALANCE = "remind_balance";
     public static final String PREFS_KEY_DISCLAIMER = "disclaimer";

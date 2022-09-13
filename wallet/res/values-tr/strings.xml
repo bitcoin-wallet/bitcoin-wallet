@@ -45,8 +45,7 @@
   <string name="wallet_options_technical_notes_title">Teknik notlar</string>
   <string name="wallet_options_donate">Bağış</string>
   <string name="wallet_donate_address_label">Bitcoin Wallet için Bağış</string>
-  <string name="alert_dialogs_fragment_insecure_bluetooth_title">Güvenlik uyarısı</string>
-  <string name="alert_dialogs_fragment_insecure_bluetooth_message">Cihazınızın Bluetooth bileşeni savunmasızdır. Bu cihazdaki Bitcoins\'leriniz, onları saklamak için kullandığınız uygulamadan bağımsız olarak tehlikededir!\n\nBluetooth\'u derhal kapatın ve güvenlik düzeltme eki seviyesi \'%s\' veya üstünü destekleyen bir Android veya OS güncellemesi için cihazınızın üreticisine danışın.</string>
+  <string name="alert_dialogs_fragment_insecure_device_title">Güvenlik uyarısı</string>
   <string name="wallet_low_storage_dialog_title">Dahili depolama alanı düşük!</string>
   <string name="wallet_low_storage_dialog_msg">Bitcoin cüzdanı muameleleri ve blokları hatırlamak için dahili depolama alanını kullanır. Bu alan yetersiz kalırsa cüzdan çalışmayı durduracak ve Bitcoinleriniz risk altında kalacaktır!\n\nKullanılmayan uygulamaları kaldırmak için Uygulama Yöneticisini başlatmak ister misiniz?</string>
   <string name="wallet_low_storage_dialog_button_apps">Uygulamaları yönet</string>
@@ -247,6 +246,7 @@
   <string name="preferences_precision_labels_4">BTC, 4 ondalık</string>
   <string name="preferences_precision_labels_2_3">mBTC, 2 ondalık</string>
   <string name="preferences_precision_labels_0_6">µBTC, ondalıksız</string>
+  <string name="preferences_precision_labels_0_8">sat, ondalıksız</string>
   <string name="preferences_own_name_title">Kendi adınız</string>
   <string name="preferences_own_name_summary">Adınız veya şirketinizin adı, müşterilerinize gönderdiğiniz ödeme taleplerine eklenecektir.</string>
   <string name="preferences_own_name_dialog_message">Kısa tut.</string>
@@ -266,8 +266,12 @@
   <string name="preferences_trusted_peer_only_summary">Güvenilen eş dışındaki eşlere bağlantıları engeller.</string>
   <string name="preferences_block_explorer_title">Blok kaşifi</string>
   <string name="preferences_block_explorer_summary">İşlemlere, adreslere ve bloklara göz atmak için kullanılacak harici blok gezgini.</string>
+  <string name="preferences_enable_exchange_rates_title">Yerel tutarları göster</string>
+  <string name="preferences_enable_exchange_rates_summary">Yerel tutarları hesaplamak için bir özet akışından döviz kurlarını alın.</string>
   <string name="preferences_data_usage_title">Veri kullanımı</string>
   <string name="preferences_data_usage_summary">Mobil ağlarda veri kullanımını kısıtlama seçeneklerini gösterin.</string>
+  <string name="preferences_battery_optimization_title">Pil optimizasyonunu devre dışı bırak</string>
+  <string name="preferences_battery_optimization_summary">Blok zinciriyle olabildiğince güncel kalmak için uygulama için pil optimizasyonunu devre dışı bırakın.</string>
   <string name="preferences_notifications_title">Bildirimler</string>
   <string name="preferences_notifications_summary">Belirli bildirimleri devre dışı bırakmak veya etkinleştirmek için seçenekleri gösterin.</string>
   <string name="preferences_remind_balance_title">Bakiye hatırlacısı</string>

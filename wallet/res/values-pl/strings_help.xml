@@ -105,5 +105,21 @@
 		</p>
 	]]>
 	</string>
-
+  <string name="help_technical_notes">
+<![CDATA[
+        <p>
+            <b>Uwagi techniczne:</b>
+        </p>
+        <p>
+            Jako portfel SPV/lekki, Bitcoin Wallet podąża za łańcuchem najmocniejszego dowodu pracy (czasami nazywanym również „najdłuższym łańcuchem”, „łańcuchem wygranych” lub „łańcuchem bloków Bitcoin”).
+            Będziesz otrzymywać tylko płatności przychodzące i będziesz mógł płacić w tym łańcuchu.
+            Nie możemy udzielać żadnych gwarancji dotyczących Bitcoinów w sieciach mniejszościowych, czyli łańcuchach z mniejszą liczbą dowodów pracy.
+        </p>
+        <p>
+            W przeszłości łańcuchy mniejszości zawsze bardzo szybko traciły na znaczeniu.
+            Jeśli mimo wszystko chcesz podążać za łańcuchem mniejszości, zaleca się użycie funkcji \"zaufanego partnera\", aby połączyć się wyłącznie z implementacją bitcoind, która wymusza pożądany łańcuch.
+            Jeśli sieć między Twoim portfelem a zaufanym partnerem nie jest zaufana, użyj VPN do uwierzytelnienia tego połączenia.
+        </p>
+    ]]>
+    </string>
 </resources>

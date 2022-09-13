@@ -1,4 +1,4 @@
-<b>Mindig legyenek nálad a Bitcoin-jaid a zsebedben!</b> Úgy tudsz fizetni, hogy gyorsan beolvasol egy QR kódot. Kereskedőként megkapod a fizetséget megbízhatóan és azonnal. A Bitcoin Wallet az első mobil Bitcoin alkalmazás és vitathatatlanul a legbiztonságosabb is!
+<b>Legyenek a Bitcoinjaid mindig kéznél, a zsebedben!</b> Fizess egyszerűen QR-kód beolvasásával. Kereskedőként az utalásokat gyorsan és megbízhatóan fogadhatod. A Bitcoin Wallet a referencia az "Egyszerűsített Fizetési Igazolás" megvalósítására, ahogyan az a Bitcoin publikációban szerepel.
 
 
 <b>JELLEMZŐK</b>
@@ -11,6 +11,8 @@
 • Rendszerüzenet Bitcoin érkezésekor.
 • Papírtárcák besöprése (pl. amik hűtőháznak vannak használva).
 • Widget a Bitcoin egyenlegről.
+• Biztonság: Támogatott a Taproot, Segwit és az új bech32m címek.
+• Adatvédelem: Tor támogatás Orbot-on keresztül.
 
 
 <b>HOZZÁJÁRULÁS</b>
@@ -25,4 +27,4 @@ Minden fordítást a Transifex kezelt:
 https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
 
 
-<i>Saját felelősségedre használd!</i>
+<i>Kizárólag saját felelősségre! Csak zsebpénznyi összegek használatára.</i>

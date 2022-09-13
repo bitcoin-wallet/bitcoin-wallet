@@ -45,8 +45,7 @@
   <string name="wallet_options_technical_notes_title">技术手册</string>
   <string name="wallet_options_donate">技巧 / 捐助</string>
   <string name="wallet_donate_address_label">向比特币钱包 (Bitcoin Wallet) 捐款</string>
-  <string name="alert_dialogs_fragment_insecure_bluetooth_title">安全警告</string>
-  <string name="alert_dialogs_fragment_insecure_bluetooth_message">您的设备的蓝牙模块是不可靠的。无论您使用何种应用来保存比特币，它们的安全都会受到威胁！\n\n我们建议您立即关闭蓝牙开关，并且检查Android的系统更新（安全补丁等级“%s”或者更高）。</string>
+  <string name="alert_dialogs_fragment_insecure_device_title">安全警告</string>
   <string name="wallet_low_storage_dialog_title">内部设备存储空间不足！</string>
   <string name="wallet_low_storage_dialog_msg">比特币钱包使用内部存储设备来记录交易和区块。如果存储空间不足，它将会停止工作，并且您的比特币将存在风险！\n您是否想要打开应用程序管理器，以卸载掉一些不需要的应用程序？</string>
   <string name="wallet_low_storage_dialog_button_apps">管理应用程序</string>

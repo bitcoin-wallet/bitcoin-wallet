@@ -17,14 +17,16 @@
 
 package de.schildbach.wallet.ui;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
+import androidx.core.view.MenuProvider;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
@@ -52,12 +54,41 @@ public final class AddressBookActivity extends AbstractWalletActivity {
     private AbstractWalletActivityViewModel walletActivityViewModel;
     private AddressBookViewModel viewModel;
 
-    private static final int REQUEST_CODE_SCAN = 0;
-
     public static final int POSITION_WALLET_ADDRESSES = 0;
     public static final int POSITION_SENDING_ADDRESSES = 1;
     private static final int[] TAB_LABELS = { R.string.address_book_list_receiving_title,
             R.string.address_book_list_sending_title };
+
+    private final ActivityResultLauncher<Void> scanLauncher =
+            registerForActivityResult(new ScanActivity.Scan(), input -> {
+                if (input == null) return;
+                new InputParser.StringInputParser(input) {
+                    @Override
+                    protected void handlePaymentIntent(final PaymentIntent paymentIntent) {
+                        if (paymentIntent.hasAddress()) {
+                            final Wallet wallet = walletActivityViewModel.wallet.getValue();
+                            final Address address = paymentIntent.getAddress();
+                            if (!wallet.isAddressMine(address)) {
+                                viewModel.showEditAddressBookEntryDialog.setValue(new Event<>(address));
+                            } else {
+                                viewModel.showScanOwnAddressDialog.setValue(Event.simple());
+                            }
+                        } else {
+                            viewModel.showScanInvalidDialog.setValue(Event.simple());
+                        }
+                    }
+
+                    @Override
+                    protected void handleDirectTransaction(final Transaction transaction) throws VerificationException {
+                        cannotClassify(input);
+                    }
+
+                    @Override
+                    protected void error(final int messageResId, final Object... messageArgs) {
+                        viewModel.showScanInvalidDialog.setValue(Event.simple());
+                    }
+                }.parse();
+            });
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -125,63 +156,30 @@ public final class AddressBookActivity extends AbstractWalletActivity {
 
         pager.setOffscreenPageLimit(1);
         pager.setAdapter(new AddressBookActivity.PagerAdapter());
-    }
 
-    @Override
-    public void onActivityResult(final int requestCode, final int resultCode, final Intent intent) {
-        if (requestCode == REQUEST_CODE_SCAN) {
-            if (resultCode == Activity.RESULT_OK) {
-                final String input = intent.getStringExtra(ScanActivity.INTENT_EXTRA_RESULT);
-
-                new InputParser.StringInputParser(input) {
-                    @Override
-                    protected void handlePaymentIntent(final PaymentIntent paymentIntent) {
-                        if (paymentIntent.hasAddress()) {
-                            final Wallet wallet = walletActivityViewModel.wallet.getValue();
-                            final Address address = paymentIntent.getAddress();
-                            if (!wallet.isAddressMine(address)) {
-                                viewModel.showEditAddressBookEntryDialog.setValue(new Event<>(address));
-                            } else {
-                                viewModel.showScanOwnAddressDialog.setValue(Event.simple());
-                            }
-                        } else {
-                            viewModel.showScanInvalidDialog.setValue(Event.simple());
-                        }
-                    }
-
-                    @Override
-                    protected void handleDirectTransaction(final Transaction transaction) throws VerificationException {
-                        cannotClassify(input);
-                    }
-
-                    @Override
-                    protected void error(final int messageResId, final Object... messageArgs) {
-                        viewModel.showScanInvalidDialog.setValue(Event.simple());
-                    }
-                }.parse();
+        addMenuProvider(new MenuProvider() {
+            @Override
+            public void onCreateMenu(final Menu menu, final MenuInflater inflater) {
+                inflater.inflate(R.menu.address_book_activity_options, menu);
             }
-        } else {
-            super.onActivityResult(requestCode, resultCode, intent);
-        }
-    }
 
-    @Override
-    public boolean onCreateOptionsMenu(final Menu menu) {
-        getMenuInflater().inflate(R.menu.address_book_activity_options, menu);
-        final PackageManager pm = getPackageManager();
-        menu.findItem(R.id.sending_addresses_options_scan).setVisible(pm.hasSystemFeature(PackageManager.FEATURE_CAMERA)
-                || pm.hasSystemFeature(PackageManager.FEATURE_CAMERA_FRONT));
-        return super.onCreateOptionsMenu(menu);
-    }
+            @Override
+            public void onPrepareMenu(final Menu menu) {
+                final PackageManager pm = getPackageManager();
+                menu.findItem(R.id.sending_addresses_options_scan).setVisible(pm.hasSystemFeature(PackageManager.FEATURE_CAMERA)
+                        || pm.hasSystemFeature(PackageManager.FEATURE_CAMERA_FRONT));
+            }
 
-    @Override
-    public boolean onOptionsItemSelected(final MenuItem item) {
-        int itemId = item.getItemId();
-        if (itemId == R.id.sending_addresses_options_scan) {
-            ScanActivity.startForResult(this, REQUEST_CODE_SCAN);
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+            @Override
+            public boolean onMenuItemSelected(final MenuItem item) {
+                int itemId = item.getItemId();
+                if (itemId == R.id.sending_addresses_options_scan) {
+                    scanLauncher.launch(null);
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 
     private class PagerAdapter extends FragmentStateAdapter {

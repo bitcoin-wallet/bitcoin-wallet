@@ -8,12 +8,6 @@ This project contains several sub-projects:
      The Android app itself. This is probably what you're searching for.
  * __market__:
      App description and promo material for the Google Play app store.
- * __integration-android__:
-     A tiny library for integrating Bitcoin payments into your own Android app
-     (e.g. donations, in-app purchases).
- * __sample-integration-android__:
-     A minimal example app to demonstrate the integration of Bitcoin payments into
-     your Android app.
 
 
 ### PREREQUISITES FOR BUILDING

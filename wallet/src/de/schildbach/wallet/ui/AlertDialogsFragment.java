@@ -18,7 +18,6 @@
 package de.schildbach.wallet.ui;
 
 import android.app.Dialog;
-import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -119,13 +118,6 @@ public class AlertDialogsFragment extends Fragment {
             protected void onEvent(final String minSecurityPatchLevel) {
                 log.info("showing insecure device alert dialog");
                 createInsecureDeviceAlertDialog(minSecurityPatchLevel).show();
-            }
-        });
-        viewModel.showInsecureBluetoothAlertDialog.observe(this, new Event.Observer<String>() {
-            @Override
-            protected void onEvent(final String minSecurityPatchLevel) {
-                log.info("showing insecure bluetooth alert dialog");
-                createInsecureBluetoothAlertDialog(minSecurityPatchLevel).show();
             }
         });
         viewModel.showLowStorageAlertDialog.observe(this, new Event.Observer<Void>() {
@@ -253,21 +245,6 @@ public class AlertDialogsFragment extends Fragment {
                         return;
                     }
 
-                    // Maybe show insecure bluetooth alert.
-                    final String minSecurityPatchLevel = properties.get("min.security_patch.bluetooth");
-                    if (minSecurityPatchLevel != null) {
-                        log.info("according to \"{}\", minimum security patch level for bluetooth is {}",
-                                versionUrl, minSecurityPatchLevel);
-                        if (Build.VERSION.SECURITY_PATCH.compareTo(minSecurityPatchLevel) < 0) {
-                            final BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-                            if (bluetoothAdapter != null && BluetoothAdapter.getDefaultAdapter().isEnabled()) {
-                                viewModel.showInsecureBluetoothAlertDialog
-                                        .postValue(new Event<>(minSecurityPatchLevel));
-                                return;
-                            }
-                        }
-                    }
-
                     // Maybe show low storage alert.
                     final Intent stickyIntent = activity.registerReceiver(null,
                             new IntentFilter(Intent.ACTION_DEVICE_STORAGE_LOW));
@@ -352,27 +329,8 @@ public class AlertDialogsFragment extends Fragment {
 
     private Dialog createInsecureDeviceAlertDialog(final String minSecurityPatch) {
         final DialogBuilder dialog = DialogBuilder.warn(activity,
-                R.string.alert_dialogs_fragment_insecure_bluetooth_title,
+                R.string.alert_dialogs_fragment_insecure_device_title,
                 R.string.wallet_balance_fragment_insecure_device);
-        dialog.setNegativeButton(R.string.button_dismiss, null);
-        return dialog.create();
-    }
-
-    private Dialog createInsecureBluetoothAlertDialog(final String minSecurityPatch) {
-        final Intent settingsIntent = new Intent(android.provider.Settings.ACTION_BLUETOOTH_SETTINGS);
-        final DialogBuilder dialog = DialogBuilder.warn(activity,
-                R.string.alert_dialogs_fragment_insecure_bluetooth_title,
-                R.string.alert_dialogs_fragment_insecure_bluetooth_message, minSecurityPatch);
-        if (packageManager.resolveActivity(settingsIntent, 0) != null) {
-            dialog.setPositiveButton(R.string.button_settings, (d, id) -> {
-                try {
-                    startActivity(settingsIntent);
-                    activity.finish();
-                } catch (final Exception x) {
-                    viewModel.showSettingsFailedDialog.setValue(new Event<>(x.getMessage()));
-                }
-            });
-        }
         dialog.setNegativeButton(R.string.button_dismiss, null);
         return dialog.create();
     }

@@ -44,8 +44,7 @@
   <string name="wallet_options_technical_notes_title">Tekniske noter</string>
   <string name="wallet_options_donate">Giv drikkepenge / donér</string>
   <string name="wallet_donate_address_label">Donér til Bitcoin Wallet</string>
-  <string name="alert_dialogs_fragment_insecure_bluetooth_title">Sikkerhedsadvarsel</string>
-  <string name="alert_dialogs_fragment_insecure_bluetooth_message">Din enheds Bluetooth-komponent er sårbar. Dine bitcoin på denne enhed er i fare, uanset hvilken app du bruger til at opbevare dem!\n\nVi foreslår, at du slukker for Bluetooth med det samme og tjekker hos din producenten af din enhed, om der findes en opdatering til Android-systemet, som indeholder sikkerhedslukning niveau \"%s\" eller senere.</string>
+  <string name="alert_dialogs_fragment_insecure_device_title">Sikkerhedsadvarsel</string>
   <string name="wallet_low_storage_dialog_title">Enheds interne lagerplads er lav!</string>
   <string name="wallet_low_storage_dialog_msg">Bitcoin Wallet bruger intern lager til at huske overførsler og blokke. Hvis den løber tør for plads, vil den stoppe med at virke og dine Bitcoins vil være i fare!\n\nVil du åbne app-håndteringen for at afinstallere ubrugte apps?</string>
   <string name="wallet_low_storage_dialog_button_apps">Håndtér apps</string>

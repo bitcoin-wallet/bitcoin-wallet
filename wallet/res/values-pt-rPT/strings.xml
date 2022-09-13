@@ -43,8 +43,7 @@
   <string name="wallet_options_technical_notes_title">Notas técnicas</string>
   <string name="wallet_options_donate">Gratificação / donativo</string>
   <string name="wallet_donate_address_label">Doar para o projeto Bitcoin Wallet</string>
-  <string name="alert_dialogs_fragment_insecure_bluetooth_title">Alerta de segurança</string>
-  <string name="alert_dialogs_fragment_insecure_bluetooth_message">O componente de Bluetooth do seu dispositivo é vulnerável. Os seus Bitcoins neste dispositivo estão em risco, independentemente da aplicação que utilize para os armazenar!\n\nRecomendamos desligar o Bluetooth imediatamente e verificar se existe uma atualização do Android que implemente o nível de correção de segurança \'%s\' ou posterior.</string>
+  <string name="alert_dialogs_fragment_insecure_device_title">Alerta de segurança</string>
   <string name="wallet_low_storage_dialog_title">Pouco espaço no armazenamento do dispositivo interno!</string>
   <string name="wallet_low_storage_dialog_msg">Bitcoin Wallet utiliza o armazenamento interno para lembrar as transações e os blocos. Se este ficar sem espaço, este deixará de funcionar e as suas Bitcoins irão estar em risco!\n\nQuer abrir o Gestor de Aplicações para desinstalar as aplicações desnecessárias?</string>
   <string name="wallet_low_storage_dialog_button_apps">Gerir aplicações</string>

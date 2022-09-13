@@ -45,8 +45,7 @@
     <string name="wallet_options_technical_notes_title">Technical notes</string>
     <string name="wallet_options_donate">Tip / donate</string>
     <string name="wallet_donate_address_label">Donation for Bitcoin Wallet</string>
-    <string name="alert_dialogs_fragment_insecure_bluetooth_title">Security alert</string>
-    <string name="alert_dialogs_fragment_insecure_bluetooth_message">Your device\'s Bluetooth component is vulnerable. Your Bitcoins on this device are at risk, regardless of the app you\'re using to store them!\n\nWe suggest to switch off Bluetooth immediately and check with your device manufacturer for an Android OS update that implements security patch level \'%s\' or later.</string>
+    <string name="alert_dialogs_fragment_insecure_device_title">Security alert</string>
     <string name="wallet_low_storage_dialog_title">Internal device storage space low!</string>
     <string name="wallet_low_storage_dialog_msg">Bitcoin Wallet uses internal storage for remembering transactions and blocks. If it runs out of space, it will stop working and your Bitcoins will be at risk!\n\nDo you want to open the Application Manager to uninstall unneeded apps?</string>
     <string name="wallet_low_storage_dialog_button_apps">Manage apps</string>
@@ -271,6 +270,8 @@
     <string name="preferences_enable_exchange_rates_summary">Fetch exchange rates from a feed in order to calculate local amounts.</string>
     <string name="preferences_data_usage_title">Data usage</string>
     <string name="preferences_data_usage_summary">Show options to restrict data usage on mobile networks.</string>
+    <string name="preferences_battery_optimization_title">Disable battery optimization</string>
+    <string name="preferences_battery_optimization_summary">To stay as up-to-date with the blockchain as possible please disable battery optimization for this app.</string>
     <string name="preferences_notifications_title">Notifications</string>
     <string name="preferences_notifications_summary">Show options to disable or enable specific notifications.</string>
     <string name="preferences_remind_balance_title">Balance reminder</string>

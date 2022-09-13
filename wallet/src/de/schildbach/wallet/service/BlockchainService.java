@@ -106,7 +106,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
-import static androidx.core.util.Preconditions.checkState;
+import static com.google.common.base.Preconditions.checkState;
 
 /**
  * @author Andreas Schildbach
@@ -154,6 +154,7 @@ public class BlockchainService extends LifecycleService {
     private static final Logger log = LoggerFactory.getLogger(BlockchainService.class);
 
     public static void start(final Context context, final boolean cancelCoinsReceived) {
+        log.info("attempting to start {} in foreground", BlockchainService.class.getName());
         if (cancelCoinsReceived)
             ContextCompat.startForegroundService(context,
                     new Intent(BlockchainService.ACTION_CANCEL_COINS_RECEIVED, null, context, BlockchainService.class));
@@ -236,8 +237,8 @@ public class BlockchainService extends LifecycleService {
             }
             summaryNotification.setContentText(text);
         }
-        summaryNotification
-                .setContentIntent(PendingIntent.getActivity(this, 0, new Intent(this, WalletActivity.class), 0));
+        summaryNotification.setContentIntent(PendingIntent.getActivity(this, 0,
+                new Intent(this, WalletActivity.class), PendingIntent.FLAG_IMMUTABLE));
         nm.notify(Constants.NOTIFICATION_ID_COINS_RECEIVED, summaryNotification.build());
 
         // child notification
@@ -259,8 +260,8 @@ public class BlockchainService extends LifecycleService {
             else
                 childNotification.setContentText(addressStr);
         }
-        childNotification
-                .setContentIntent(PendingIntent.getActivity(this, 0, new Intent(this, WalletActivity.class), 0));
+        childNotification.setContentIntent(PendingIntent.getActivity(this, 0,
+                new Intent(this, WalletActivity.class), PendingIntent.FLAG_IMMUTABLE));
         childNotification.setSound(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.coins_received));
         nm.notify(transactionHash.toString(), Constants.NOTIFICATION_ID_COINS_RECEIVED, childNotification.build());
     }
@@ -347,7 +348,7 @@ public class BlockchainService extends LifecycleService {
 
         public ImpedimentsLiveData(final WalletApplication application) {
             this.application = application;
-            this.connectivityManager = (ConnectivityManager) application.getSystemService(Context.CONNECTIVITY_SERVICE);
+            this.connectivityManager = application.getSystemService(ConnectivityManager.class);
             setValue(impediments);
         }
 
@@ -473,8 +474,8 @@ public class BlockchainService extends LifecycleService {
         application = (WalletApplication) getApplication();
         config = application.getConfiguration();
 
-        pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
-        nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        pm = getSystemService(PowerManager.class);
+        nm = getSystemService(NotificationManager.class);
 
         wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, getClass().getName());
         log.info("acquiring {}", wakeLock);
@@ -485,7 +486,7 @@ public class BlockchainService extends LifecycleService {
                 R.string.notification_connectivity_syncing_trusted_peer :
                 R.string.notification_connectivity_syncing_message));
         connectivityNotification.setContentIntent(PendingIntent.getActivity(BlockchainService.this, 0,
-                new Intent(BlockchainService.this, WalletActivity.class), 0));
+                new Intent(BlockchainService.this, WalletActivity.class), PendingIntent.FLAG_IMMUTABLE));
         connectivityNotification.setWhen(System.currentTimeMillis());
         connectivityNotification.setOngoing(true);
         connectivityNotification.setPriority(NotificationCompat.PRIORITY_LOW);
