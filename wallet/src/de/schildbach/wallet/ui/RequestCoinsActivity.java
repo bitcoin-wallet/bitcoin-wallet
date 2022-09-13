@@ -21,8 +21,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import androidx.annotation.Nullable;
+import androidx.core.view.MenuProvider;
 import androidx.lifecycle.ViewModelProvider;
 import de.schildbach.wallet.R;
 import org.bitcoinj.script.Script;
@@ -63,26 +65,30 @@ public final class RequestCoinsActivity extends AbstractWalletActivity {
                 HelpDialogFragment.page(getSupportFragmentManager(), messageResId);
             }
         });
+
+        addMenuProvider(new MenuProvider() {
+            @Override
+            public void onCreateMenu(final Menu menu, final MenuInflater inflater) {
+                inflater.inflate(R.menu.request_coins_activity_options, menu);
+            }
+
+            @Override
+            public void onPrepareMenu(final Menu menu) {
+            }
+
+            @Override
+            public boolean onMenuItemSelected(final MenuItem item) {
+                if (item.getItemId() == R.id.request_coins_options_help) {
+                    viewModel.showHelpDialog.setValue(new Event<>(R.string.help_request_coins));
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 
     @Override
     public void onAttachedToWindow() {
         setShowWhenLocked(true);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(final Menu menu) {
-        getMenuInflater().inflate(R.menu.request_coins_activity_options, menu);
-
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(final MenuItem item) {
-        if (item.getItemId() == R.id.request_coins_options_help) {
-            viewModel.showHelpDialog.setValue(new Event<>(R.string.help_request_coins));
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 }

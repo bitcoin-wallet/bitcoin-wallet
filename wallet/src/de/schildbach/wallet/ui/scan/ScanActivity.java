@@ -18,10 +18,7 @@
 package de.schildbach.wallet.ui.scan;
 
 import android.Manifest;
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
-import android.app.ActivityOptions;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -31,7 +28,6 @@ import android.content.pm.PackageManager;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.SurfaceTexture;
-import android.graphics.drawable.ColorDrawable;
 import android.hardware.Camera;
 import android.hardware.Camera.CameraInfo;
 import android.os.Bundle;
@@ -44,14 +40,12 @@ import android.view.Surface;
 import android.view.TextureView;
 import android.view.TextureView.SurfaceTextureListener;
 import android.view.View;
-import android.view.ViewAnimationUtils;
 import android.view.WindowManager;
-import android.view.animation.AccelerateInterpolator;
-import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContract;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 import com.google.zxing.BinaryBitmap;
@@ -66,7 +60,6 @@ import de.schildbach.wallet.R;
 import de.schildbach.wallet.ui.AbstractWalletActivity;
 import de.schildbach.wallet.ui.DialogBuilder;
 import de.schildbach.wallet.ui.Event;
-import de.schildbach.wallet.util.OnFirstPreDraw;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -77,35 +70,22 @@ import java.util.Map;
  * @author Andreas Schildbach
  */
 @SuppressWarnings("deprecation")
-public final class ScanActivity extends AbstractWalletActivity
-        implements SurfaceTextureListener, ActivityCompat.OnRequestPermissionsResultCallback {
-    private static final String INTENT_EXTRA_SCENE_TRANSITION_X = "scene_transition_x";
-    private static final String INTENT_EXTRA_SCENE_TRANSITION_Y = "scene_transition_y";
-    public static final String INTENT_EXTRA_RESULT = "result";
+public final class ScanActivity extends AbstractWalletActivity implements SurfaceTextureListener {
+    private static final String INTENT_EXTRA_RESULT = "result";
 
-    public static void startForResult(final Activity activity, @Nullable final View clickView, final int requestCode) {
-        if (clickView != null) {
-            final int[] clickViewLocation = new int[2];
-            clickView.getLocationOnScreen(clickViewLocation);
-            final Intent intent = new Intent(activity, ScanActivity.class);
-            intent.putExtra(ScanActivity.INTENT_EXTRA_SCENE_TRANSITION_X,
-                    (int) (clickViewLocation[0] + clickView.getWidth() / 2));
-            intent.putExtra(ScanActivity.INTENT_EXTRA_SCENE_TRANSITION_Y,
-                    (int) (clickViewLocation[1] + clickView.getHeight() / 2));
-            final ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(activity, clickView,
-                    "transition");
-            activity.startActivityForResult(intent, requestCode, options.toBundle());
-        } else {
-            startForResult(activity, requestCode);
+    public static class Scan extends ActivityResultContract<Void, String> {
+        @Override
+        public Intent createIntent(final Context context, Void unused) {
+            return new Intent(context, ScanActivity.class);
         }
-    }
 
-    public static void startForResult(final Activity activity, final int resultCode) {
-        activity.startActivityForResult(new Intent(activity, ScanActivity.class), resultCode);
-    }
-
-    public static void startForResult(final Fragment fragment, final Activity activity, final int resultCode) {
-        fragment.startActivityForResult(new Intent(activity, ScanActivity.class), resultCode);
+        @Override
+        public String parseResult(final int resultCode, final Intent intent) {
+            if (resultCode == Activity.RESULT_OK)
+                return intent.getStringExtra(ScanActivity.INTENT_EXTRA_RESULT);
+            else
+                return null;
+        }
     }
 
     private static final long VIBRATE_DURATION = 50L;
@@ -118,7 +98,6 @@ public final class ScanActivity extends AbstractWalletActivity
     private TextureView previewView;
 
     private volatile boolean surfaceCreated = false;
-    private Animator sceneTransition = null;
 
     private Vibrator vibrator;
     private HandlerThread cameraThread;
@@ -128,10 +107,20 @@ public final class ScanActivity extends AbstractWalletActivity
 
     private static final Logger log = LoggerFactory.getLogger(ScanActivity.class);
 
+    private final ActivityResultLauncher<String> requestPermissionLauncher =
+            registerForActivityResult(new ActivityResultContracts.RequestPermission(), granted -> {
+                if (granted) {
+                    maybeOpenCamera();
+                } else {
+                    log.info("missing {}, showing error", Manifest.permission.CAMERA);
+                    viewModel.showPermissionWarnDialog.setValue(Event.simple());
+                }
+            });
+
     @Override
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        vibrator = getSystemService(Vibrator.class);
 
         viewModel = new ViewModelProvider(this).get(ScanViewModel.class);
         viewModel.showPermissionWarnDialog.observe(this, new Event.Observer<Void>() {
@@ -146,23 +135,6 @@ public final class ScanActivity extends AbstractWalletActivity
             protected void onEvent(final Void v) {
                 WarnDialogFragment.show(getSupportFragmentManager(), R.string.scan_camera_problem_dialog_title,
                         getString(R.string.scan_camera_problem_dialog_message));
-            }
-        });
-        viewModel.maybeStartSceneTransition.observe(this, new Event.Observer<Void>() {
-            @Override
-            protected void onEvent(final Void v) {
-                if (sceneTransition != null) {
-                    contentView.setAlpha(1);
-                    sceneTransition.addListener(new AnimatorListenerAdapter() {
-                        @Override
-                        public void onAnimationEnd(Animator animation) {
-                            getWindow().setBackgroundDrawable(new ColorDrawable(
-                                    getColor(android.R.color.black)));
-                        }
-                    });
-                    sceneTransition.start();
-                    sceneTransition = null;
-                }
             }
         });
 
@@ -186,31 +158,7 @@ public final class ScanActivity extends AbstractWalletActivity
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             log.info("missing {}, requesting", Manifest.permission.CAMERA);
-            ActivityCompat.requestPermissions(this, new String[] { Manifest.permission.CAMERA }, 0);
-        }
-
-        if (savedInstanceState == null) {
-            final Intent intent = getIntent();
-            final int x = intent.getIntExtra(INTENT_EXTRA_SCENE_TRANSITION_X, -1);
-            final int y = intent.getIntExtra(INTENT_EXTRA_SCENE_TRANSITION_Y, -1);
-            if (x != -1 || y != -1) {
-                // Using alpha rather than visibility because 'invisible' will cause the surface view to never
-                // start up, so the animation will never start.
-                contentView.setAlpha(0);
-                getWindow().setBackgroundDrawable(
-                        new ColorDrawable(getColor(android.R.color.transparent)));
-                OnFirstPreDraw.listen(contentView, () -> {
-                    float finalRadius = (float) (Math.max(contentView.getWidth(), contentView.getHeight()));
-                    final int duration = getResources().getInteger(android.R.integer.config_mediumAnimTime);
-                    sceneTransition = ViewAnimationUtils.createCircularReveal(contentView, x, y, 0, finalRadius);
-                    sceneTransition.setDuration(duration);
-                    sceneTransition.setInterpolator(new AccelerateInterpolator());
-                    // TODO Here, the transition should start in a paused state, showing the first frame
-                    // of the animation. Sadly, RevealAnimator doesn't seem to support this, unlike
-                    // (subclasses of) ValueAnimator.
-                    return false;
-                });
-            }
+            requestPermissionLauncher.launch(Manifest.permission.CAMERA);
         }
     }
 
@@ -240,17 +188,6 @@ public final class ScanActivity extends AbstractWalletActivity
         // bleeding through to the calling activity, forcing it into a locked state until it is restarted.
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
         super.onDestroy();
-    }
-
-    @Override
-    public void onRequestPermissionsResult(final int requestCode, final String[] permissions,
-            final int[] grantResults) {
-        if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            maybeOpenCamera();
-        } else {
-            log.info("missing {}, showing error", Manifest.permission.CAMERA);
-            viewModel.showPermissionWarnDialog.setValue(Event.simple());
-        }
     }
 
     private void maybeOpenCamera() {
@@ -339,7 +276,6 @@ public final class ScanActivity extends AbstractWalletActivity
 
                 if (nonContinuousAutoFocus)
                     cameraHandler.post(new AutoFocusRunnable(camera));
-                viewModel.maybeStartSceneTransition.postValue(Event.simple());
                 cameraHandler.post(fetchAndDecodeRunnable);
             } catch (final Exception x) {
                 log.info("problem opening camera", x);

@@ -41,6 +41,14 @@
         </Preference>
 
         <Preference
+            android:key="battery_optimization"
+            android:title="@string/preferences_battery_optimization_title"
+            android:summary="@string/preferences_battery_optimization_summary">
+            <intent
+                android:action="android.settings.IGNORE_BATTERY_OPTIMIZATION_SETTINGS" />
+        </Preference>
+
+        <Preference
             android:key="notifications"
             android:title="@string/preferences_notifications_title"
             android:summary="@string/preferences_notifications_summary" />

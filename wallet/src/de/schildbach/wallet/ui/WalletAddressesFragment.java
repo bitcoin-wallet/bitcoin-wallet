@@ -82,7 +82,7 @@ public final class WalletAddressesFragment extends Fragment implements AddressBo
         this.activity = (AbstractWalletActivity) context;
         this.application = activity.getWalletApplication();
         this.addressBookDao = AddressBookDatabase.getDatabase(context).addressBookDao();
-        this.clipboardManager = (ClipboardManager) activity.getSystemService(Context.CLIPBOARD_SERVICE);
+        this.clipboardManager = activity.getSystemService(ClipboardManager.class);
     }
 
     @Override

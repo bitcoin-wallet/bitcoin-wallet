@@ -40,7 +40,7 @@
   <string name="wallet_options_technical_notes_title">ملاحظات تقنية</string>
   <string name="wallet_options_donate">أترك بقشيش/ تبرع</string>
   <string name="wallet_donate_address_label">تبرع للبرنامج</string>
-  <string name="alert_dialogs_fragment_insecure_bluetooth_title">إنذار أمني</string>
+  <string name="alert_dialogs_fragment_insecure_device_title">إنذار أمني</string>
   <string name="wallet_low_storage_dialog_title">مساحة الذاكرة الداخلية مُتقلّصَة جدا !</string>
   <string name="wallet_low_storage_dialog_msg">تستخدم محفظة البيتكوين وحدة التخزين الداخلية لتذكر المعاملات والكتل. إذا نفدت مساحة التخزين تلك، فإنها سوف تتوقف عن العمل، وسوف تكن البيتكوين الخاصة بك في خطر!\n\nهل تريد فتح برنامج مدير التطبيقات لحذف التطبيقات غير الضرورية؟</string>
   <string name="wallet_low_storage_dialog_button_apps">إدارة التطبيقات</string>

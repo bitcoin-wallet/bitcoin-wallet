@@ -17,8 +17,9 @@
 
 package de.schildbach.wallet.ui;
 
-import android.app.Activity;
+import android.Manifest;
 import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothManager;
 import android.content.ActivityNotFoundException;
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -33,6 +34,7 @@ import android.net.Uri;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.SpannableStringBuilder;
 import android.view.LayoutInflater;
@@ -44,10 +46,13 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.core.app.ShareCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.view.MenuProvider;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
@@ -86,12 +91,26 @@ public final class RequestCoinsFragment extends Fragment {
     private TextView initiateRequestView;
     private CurrencyCalculatorLink amountCalculatorLink;
 
-    private static final int REQUEST_CODE_ENABLE_BLUETOOTH = 0;
     private static final String KEY_RECEIVE_ADDRESS = "receive_address";
 
     private RequestCoinsViewModel viewModel;
 
     private static final Logger log = LoggerFactory.getLogger(RequestCoinsFragment.class);
+
+    private final ActivityResultLauncher<String> requestPermissionLauncher =
+            registerForActivityResult(new ActivityResultContracts.RequestPermission(), granted -> {
+                if (granted)
+                    maybeStartBluetoothListening();
+                else
+                    acceptBluetoothPaymentView.setChecked(false);
+            });
+    private final ActivityResultLauncher<Void> requestEnableBluetoothLauncher =
+            registerForActivityResult(new RequestEnableBluetooth(), enabled -> {
+                boolean started = false;
+                if (enabled && bluetoothAdapter != null)
+                    started = maybeStartBluetoothListening();
+                acceptBluetoothPaymentView.setChecked(started);
+            });
 
     @Override
     public void onAttach(final Context context) {
@@ -99,8 +118,8 @@ public final class RequestCoinsFragment extends Fragment {
         this.activity = (AbstractWalletActivity) context;
         this.application = activity.getWalletApplication();
         this.config = application.getConfiguration();
-        this.clipboardManager = (ClipboardManager) activity.getSystemService(Context.CLIPBOARD_SERVICE);
-        this.bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        this.clipboardManager = activity.getSystemService(ClipboardManager.class);
+        this.bluetoothAdapter = activity.getSystemService(BluetoothManager.class).getAdapter();
         this.nfcAdapter = NfcAdapter.getDefaultAdapter(activity);
     }
 
@@ -108,8 +127,6 @@ public final class RequestCoinsFragment extends Fragment {
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.fragmentManager = getChildFragmentManager();
-
-        setHasOptionsMenu(true);
 
         viewModel = new ViewModelProvider(this).get(RequestCoinsViewModel.class);
         final Intent intent = activity.getIntent();
@@ -143,6 +160,37 @@ public final class RequestCoinsFragment extends Fragment {
             @Override
             protected void onEvent(final Bitmap bitmap) {
                 BitmapFragment.show(fragmentManager, bitmap);
+            }
+        });
+
+        activity.addMenuProvider(new MenuProvider() {
+            @Override
+            public void onCreateMenu(final Menu menu, final MenuInflater inflater) {
+                inflater.inflate(R.menu.request_coins_fragment_options, menu);
+            }
+
+            @Override
+            public void onPrepareMenu(final Menu menu) {
+                final boolean hasBitcoinUri = viewModel.bitcoinUri.getValue() != null;
+                menu.findItem(R.id.request_coins_options_copy).setEnabled(hasBitcoinUri);
+                menu.findItem(R.id.request_coins_options_share).setEnabled(hasBitcoinUri);
+                menu.findItem(R.id.request_coins_options_local_app).setEnabled(hasBitcoinUri);
+            }
+
+            @Override
+            public boolean onMenuItemSelected(final MenuItem item) {
+                int itemId = item.getItemId();
+                if (itemId == R.id.request_coins_options_copy) {
+                    handleCopy();
+                    return true;
+                } else if (itemId == R.id.request_coins_options_share) {
+                    handleShare();
+                    return true;
+                } else if (itemId == R.id.request_coins_options_local_app) {
+                    handleLocalApp();
+                    return true;
+                }
+                return false;
             }
         });
 
@@ -181,19 +229,12 @@ public final class RequestCoinsFragment extends Fragment {
                 bluetoothAdapter != null &&
                         (Bluetooth.getAddress(bluetoothAdapter) != null || config.getLastBluetoothAddress() != null || config.getBluetoothAddress() != null) ?
                         View.VISIBLE : View.GONE);
-        acceptBluetoothPaymentView.setChecked(bluetoothAdapter != null && bluetoothAdapter.isEnabled());
+        acceptBluetoothPaymentView.setChecked(bluetoothAdapter != null && bluetoothAdapter.isEnabled() && checkBluetoothConnectPermission());
         acceptBluetoothPaymentView.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (bluetoothAdapter != null && isChecked) {
-                if (bluetoothAdapter.isEnabled()) {
-                    maybeStartBluetoothListening();
-                } else {
-                    // ask for permission to enable bluetooth
-                    startActivityForResult(new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE),
-                            REQUEST_CODE_ENABLE_BLUETOOTH);
-                }
-            } else {
+            if (bluetoothAdapter != null && isChecked)
+                maybeStartBluetoothListening();
+            else
                 stopBluetoothListening();
-            }
         });
 
         initiateRequestView = view.findViewById(R.id.request_coins_fragment_initiate_request);
@@ -228,7 +269,7 @@ public final class RequestCoinsFragment extends Fragment {
         });
 
         final BluetoothAdapter bluetoothAdapter = this.bluetoothAdapter;
-        if (bluetoothAdapter != null && bluetoothAdapter.isEnabled() && acceptBluetoothPaymentView.isChecked())
+        if (bluetoothAdapter != null && bluetoothAdapter.isEnabled() && checkBluetoothConnectPermission() && acceptBluetoothPaymentView.isChecked())
             maybeStartBluetoothListening();
     }
 
@@ -264,30 +305,35 @@ public final class RequestCoinsFragment extends Fragment {
                     savedInstanceState.getString(KEY_RECEIVE_ADDRESS)));
     }
 
-    @Override
-    public void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
-        if (requestCode == REQUEST_CODE_ENABLE_BLUETOOTH) {
-            boolean started = false;
-            if (resultCode == Activity.RESULT_OK && bluetoothAdapter != null)
-                started = maybeStartBluetoothListening();
-            acceptBluetoothPaymentView.setChecked(started);
-        }
+    private boolean checkBluetoothConnectPermission() {
+        return Build.VERSION.SDK_INT < Build.VERSION_CODES.S || ContextCompat.checkSelfPermission(activity,
+                Manifest.permission.BLUETOOTH_CONNECT) == PackageManager.PERMISSION_GRANTED;
     }
 
     private boolean maybeStartBluetoothListening() {
-        String bluetoothAddress = Bluetooth.getAddress(bluetoothAdapter);
-        if (bluetoothAddress == null)
-            bluetoothAddress = config.getLastBluetoothAddress();
-        if (bluetoothAddress == null)
-            bluetoothAddress = config.getBluetoothAddress();
-        if (bluetoothAddress != null && acceptBluetoothPaymentView.isChecked()) {
-            viewModel.bluetoothServiceIntent = new Intent(activity, AcceptBluetoothService.class);
-            ContextCompat.startForegroundService(activity, viewModel.bluetoothServiceIntent);
-            viewModel.bluetoothMac.setValue(Bluetooth.compressMac(bluetoothAddress));
-            return true;
-        } else {
-            return false;
+        if (!checkBluetoothConnectPermission()) {
+            log.info("missing {}, requesting", Manifest.permission.BLUETOOTH_CONNECT);
+            requestPermissionLauncher.launch(Manifest.permission.BLUETOOTH_CONNECT);
+        } else if (!bluetoothAdapter.isEnabled()) {
+            log.info("bluetooth disabled, requesting to enable");
+            requestEnableBluetoothLauncher.launch(null);
+        } else if (acceptBluetoothPaymentView.isChecked()) {
+            String bluetoothAddress = Bluetooth.getAddress(bluetoothAdapter);
+            if (bluetoothAddress == null)
+                bluetoothAddress = config.getLastBluetoothAddress();
+            if (bluetoothAddress == null)
+                bluetoothAddress = config.getBluetoothAddress();
+            if (bluetoothAddress != null) {
+                log.info("starting bluetooth service");
+                viewModel.bluetoothServiceIntent = new Intent(activity, AcceptBluetoothService.class);
+                ContextCompat.startForegroundService(activity, viewModel.bluetoothServiceIntent);
+                viewModel.bluetoothMac.setValue(Bluetooth.compressMac(bluetoothAddress));
+                return true;
+            } else {
+                log.info("no bluetooth mac, not starting service");
+            }
         }
+        return false;
     }
 
     private void stopBluetoothListening() {
@@ -296,37 +342,6 @@ public final class RequestCoinsFragment extends Fragment {
             viewModel.bluetoothServiceIntent = null;
         }
         viewModel.bluetoothMac.setValue(null);
-    }
-
-    @Override
-    public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
-        inflater.inflate(R.menu.request_coins_fragment_options, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    @Override
-    public void onPrepareOptionsMenu(final Menu menu) {
-        final boolean hasBitcoinUri = viewModel.bitcoinUri.getValue() != null;
-        menu.findItem(R.id.request_coins_options_copy).setEnabled(hasBitcoinUri);
-        menu.findItem(R.id.request_coins_options_share).setEnabled(hasBitcoinUri);
-        menu.findItem(R.id.request_coins_options_local_app).setEnabled(hasBitcoinUri);
-        super.onPrepareOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(final MenuItem item) {
-        int itemId = item.getItemId();
-        if (itemId == R.id.request_coins_options_copy) {
-            handleCopy();
-            return true;
-        } else if (itemId == R.id.request_coins_options_share) {
-            handleShare();
-            return true;
-        } else if (itemId == R.id.request_coins_options_local_app) {
-            handleLocalApp();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     private void handleCopy() {

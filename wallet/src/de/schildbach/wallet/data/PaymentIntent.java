@@ -42,7 +42,8 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 
-import static androidx.core.util.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * @author Andreas Schildbach
@@ -56,9 +57,9 @@ public final class PaymentIntent implements Parcelable {
         public final Coin amount;
         public final Script script;
 
-        public Output(final Coin amount, final Script script) {
+        public Output(@Nullable final Coin amount, final Script script) {
             this.amount = amount;
-            this.script = script;
+            this.script = checkNotNull(script);
         }
 
         public static Output valueOf(final PaymentProtocol.Output output)
@@ -82,7 +83,7 @@ public final class PaymentIntent implements Parcelable {
 
             builder.append(getClass().getSimpleName());
             builder.append('[');
-            builder.append(hasAmount() ? amount.toPlainString() : "null");
+            builder.append(amount != null ? amount.toPlainString() : "null");
             builder.append(',');
             final Address toAddress = WalletUtils.getToAddress(script);
             if (ScriptPattern.isP2PK(script))
@@ -105,8 +106,12 @@ public final class PaymentIntent implements Parcelable {
 
         @Override
         public void writeToParcel(final Parcel dest, final int flags) {
-            dest.writeLong(amount.getValue());
-
+            if (amount != null) {
+                dest.writeByte((byte) 1);
+                dest.writeLong(amount.getValue());
+            } else {
+                dest.writeByte((byte) 0);
+            }
             final byte[] program = script.getProgram();
             dest.writeInt(program.length);
             dest.writeByteArray(program);
@@ -125,8 +130,10 @@ public final class PaymentIntent implements Parcelable {
         };
 
         private Output(final Parcel in) {
-            amount = Coin.valueOf(in.readLong());
-
+            if (in.readByte() != 0)
+                amount = Coin.valueOf(in.readLong());
+            else
+                amount = null;
             final int programLength = in.readInt();
             final byte[] program = new byte[programLength];
             in.readByteArray(program);

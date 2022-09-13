@@ -22,7 +22,6 @@ import android.app.job.JobParameters;
 import android.app.job.JobScheduler;
 import android.app.job.JobService;
 import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Build;
@@ -61,7 +60,7 @@ public class StartBlockchainService extends JobService {
                 lastUsedAgo / DateUtils.MINUTE_IN_MILLIS, expectLargeData ? " and expecting large data" : "",
                 interval / DateUtils.MINUTE_IN_MILLIS);
 
-        final JobScheduler jobScheduler = (JobScheduler) application.getSystemService(Context.JOB_SCHEDULER_SERVICE);
+        final JobScheduler jobScheduler = application.getSystemService(JobScheduler.class);
         final JobInfo.Builder jobInfo = new JobInfo.Builder(0, new ComponentName(application,
                 StartBlockchainService.class));
         jobInfo.setMinimumLatency(interval);
@@ -78,7 +77,7 @@ public class StartBlockchainService extends JobService {
     @Override
     public void onCreate() {
         super.onCreate();
-        pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+        pm = getSystemService(PowerManager.class);
     }
 
     @Override

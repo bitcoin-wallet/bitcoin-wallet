@@ -1,4 +1,4 @@
-<b>Draag je Bitcoins altijd bij je, in je broekzak!</b> Je kunt vlot betalen door een QR-code te scannen. Als winkelier ontvang je je betalingen betrouwbaar en onmiddelijk. Bitcoin Wallet is de eerste mobiele Bitcoin-app, en misschien wel de veiligste!
+<b>Neem je Bitcoins altijd mee in je broekzak!</b> Je kunt snel betalen door een QR-code te scannen. Als winkelier ontvang je je betalingen betrouwbaar en direct. Bitcoin Wallet is de eerste mobiele Bitcoin-app en misschien wel de veiligste!
 
 
 <b>EIGENSCHAPPEN</b>
@@ -27,4 +27,4 @@ Alle vertalingen worden geregeld via Transifex:
 https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
 
 
-<i>Gebruik op eigen risico!</i>
+<i>Het gebruik van de app is voor eigen risico! Niet bedoeld voor grote bedragen.</i>

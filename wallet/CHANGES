@@ -1,3 +1,32 @@
+v9.13
+
+* Update translations from Transifex.
+
+v9.12
+
+* Fix long-standing race when emptying wallet.
+
+v9.11
+
+* Use BluetoothManager API.
+
+v9.09-v9.10
+
+* Use MenuProvider API for options menus.
+
+v9.08
+
+* Use activity result API for permission requests and activities that give a result.
+* Request permission for connecting and listening to bluetooth sockets on Android 12 and above.
+
+v9.07
+
+* Fix an issue with direct bluetooth payments.
+
+v9.05-v9.06
+
+* Remnove integration-android and sample-integration-android sub-projects – they haven't caught on.
+
 v9.0-v9.04
 
 * The app now requires Android 7.0 (Nougat) or higher.

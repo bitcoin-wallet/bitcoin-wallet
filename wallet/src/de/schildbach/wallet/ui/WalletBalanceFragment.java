@@ -28,6 +28,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import androidx.core.view.MenuProvider;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import de.schildbach.wallet.Configuration;
@@ -71,7 +72,6 @@ public final class WalletBalanceFragment extends Fragment {
     @Override
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
 
         activityViewModel = new ViewModelProvider(activity).get(WalletActivityViewModel.class);
         viewModel = new ViewModelProvider(this).get(WalletBalanceViewModel.class);
@@ -83,6 +83,30 @@ public final class WalletBalanceFragment extends Fragment {
             activityViewModel.balanceLoadingFinished();
         });
         viewModel.getExchangeRate().observe(this, exchangeRate -> updateView());
+
+        activity.addMenuProvider(new MenuProvider() {
+            @Override
+            public void onCreateMenu(final Menu menu, final MenuInflater inflater) {
+                inflater.inflate(R.menu.wallet_balance_fragment_options, menu);
+            }
+
+            @Override
+            public void onPrepareMenu(final Menu menu) {
+                final Coin balance = viewModel.getBalance().getValue();
+                final boolean hasSomeBalance = balance != null && !balance.isLessThan(Constants.SOME_BALANCE_THRESHOLD);
+                menu.findItem(R.id.wallet_balance_options_donate)
+                        .setVisible(Constants.DONATION_ADDRESS != null && hasSomeBalance);
+            }
+
+            @Override
+            public boolean onMenuItemSelected(final MenuItem item) {
+                if (item.getItemId() == R.id.wallet_balance_options_donate) {
+                    handleDonate();
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 
     @Override
@@ -113,30 +137,6 @@ public final class WalletBalanceFragment extends Fragment {
         viewBalanceLocal.setStrikeThru(!Constants.NETWORK_PARAMETERS.getId().equals(NetworkParameters.ID_MAINNET));
 
         viewProgress = view.findViewById(R.id.wallet_balance_progress);
-    }
-
-    @Override
-    public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
-        inflater.inflate(R.menu.wallet_balance_fragment_options, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    @Override
-    public void onPrepareOptionsMenu(final Menu menu) {
-        final Coin balance = viewModel.getBalance().getValue();
-        final boolean hasSomeBalance = balance != null && !balance.isLessThan(Constants.SOME_BALANCE_THRESHOLD);
-        menu.findItem(R.id.wallet_balance_options_donate)
-                .setVisible(Constants.DONATION_ADDRESS != null && hasSomeBalance);
-        super.onPrepareOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(final MenuItem item) {
-        if (item.getItemId() == R.id.wallet_balance_options_donate) {
-            handleDonate();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     private void handleDonate() {

@@ -22,7 +22,7 @@ import android.app.Application;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.bluetooth.BluetoothAdapter;
-import android.content.Context;
+import android.bluetooth.BluetoothManager;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.media.AudioAttributes;
@@ -52,6 +52,7 @@ import de.schildbach.wallet.util.WalletUtils;
 import org.bitcoinj.core.VersionMessage;
 import org.bitcoinj.crypto.LinuxSecureRandom;
 import org.bitcoinj.crypto.MnemonicCode;
+import org.bitcoinj.utils.ContextPropagatingThreadFactory;
 import org.bitcoinj.utils.Threading;
 import org.bitcoinj.wallet.UnreadableWalletException;
 import org.bitcoinj.wallet.Wallet;
@@ -113,13 +114,14 @@ public class WalletApplication extends Application {
             CrashReporter.saveBackgroundTrace(throwable, packageInfo);
         };
 
-        activityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        activityManager = getSystemService(ActivityManager.class);
 
         walletFile = getFileStreamPath(Constants.Files.WALLET_FILENAME_PROTOBUF);
 
         final Configuration config = getConfiguration();
         config.updateLastVersionCode(packageInfo.versionCode);
-        final BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        final BluetoothManager bluetoothManager = getSystemService(BluetoothManager.class);
+        final BluetoothAdapter bluetoothAdapter = bluetoothManager.getAdapter();
         if (bluetoothAdapter != null)
             config.updateLastBluetoothAddress(Bluetooth.getAddress(bluetoothAdapter));
 
@@ -150,7 +152,7 @@ public class WalletApplication extends Application {
         }
     }
 
-    private final Executor getWalletExecutor = Executors.newSingleThreadExecutor();
+    private final Executor getWalletExecutor = Executors.newSingleThreadExecutor(new ContextPropagatingThreadFactory("get wallet"));
     private final Object getWalletLock = new Object();
 
     @AnyThread
@@ -158,7 +160,6 @@ public class WalletApplication extends Application {
         getWalletExecutor.execute(new Runnable() {
             @Override
             public void run() {
-                org.bitcoinj.core.Context.propagate(Constants.CONTEXT);
                 synchronized (getWalletLock) {
                     initMnemonicCode();
                     if (walletFiles == null)
@@ -288,7 +289,7 @@ public class WalletApplication extends Application {
     private void initNotificationManager() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             final Stopwatch watch = Stopwatch.createStarted();
-            final NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            final NotificationManager nm = getSystemService(NotificationManager.class);
 
             final NotificationChannel received = new NotificationChannel(Constants.NOTIFICATION_CHANNEL_ID_RECEIVED,
                     getString(R.string.notification_channel_received_name), NotificationManager.IMPORTANCE_DEFAULT);

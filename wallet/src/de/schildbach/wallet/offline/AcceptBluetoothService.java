@@ -18,6 +18,7 @@
 package de.schildbach.wallet.offline;
 
 import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -27,6 +28,7 @@ import android.os.IBinder;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
 import android.text.format.DateUtils;
+import androidx.annotation.WorkerThread;
 import androidx.core.app.NotificationCompat;
 import androidx.lifecycle.LifecycleService;
 import de.schildbach.wallet.Constants;
@@ -44,7 +46,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
-import static androidx.core.util.Preconditions.checkNotNull;
+import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * @author Andreas Schildbach
@@ -87,8 +89,9 @@ public final class AcceptBluetoothService extends LifecycleService {
 
         super.onCreate();
         this.application = (WalletApplication) getApplication();
-        final BluetoothAdapter bluetoothAdapter = checkNotNull(BluetoothAdapter.getDefaultAdapter());
-        final PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+        final BluetoothManager bluetoothManager = getSystemService(BluetoothManager.class);
+        final BluetoothAdapter bluetoothAdapter = checkNotNull(bluetoothManager.getAdapter());
+        final PowerManager pm = getSystemService(PowerManager.class);
 
         wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, getClass().getName());
         wakeLock.acquire();
@@ -132,6 +135,7 @@ public final class AcceptBluetoothService extends LifecycleService {
         });
     }
 
+    @WorkerThread
     private boolean handleTx(final Transaction tx) {
         log.info("tx {} arrived via blueooth", tx.getTxId());
 
@@ -139,8 +143,8 @@ public final class AcceptBluetoothService extends LifecycleService {
         try {
             if (wallet.isTransactionRelevant(tx)) {
                 wallet.receivePending(tx, null);
-                new BlockchainServiceLiveData(this).observe(this,
-                        blockchainService -> blockchainService.broadcastTransaction(tx));
+                handler.post(() -> new BlockchainServiceLiveData(this).observe(this,
+                        blockchainService -> blockchainService.broadcastTransaction(tx)));
             } else {
                 log.info("tx {} irrelevant", tx.getTxId());
             }

@@ -45,8 +45,7 @@
   <string name="wallet_options_technical_notes_title">技術的補足</string>
   <string name="wallet_options_donate">チップ/寄付</string>
   <string name="wallet_donate_address_label">Bitcoin Walletへ寄付する</string>
-  <string name="alert_dialogs_fragment_insecure_bluetooth_title">セキュリティ警告</string>
-  <string name="alert_dialogs_fragment_insecure_bluetooth_message">あなたのデバイスのBluetooth機能に脆弱性があります。このデバイスのビットコインは、コインを保存しているアプリに関わらず危険にさらされています!\n\nBluetoothを直ちにオフにして、セキュリティパッチレベル\'%s\'以降を実装したAndroid OSのアップデートがないかデバイスの製造者に確認してください。</string>
+  <string name="alert_dialogs_fragment_insecure_device_title">セキュリティ警告</string>
   <string name="wallet_low_storage_dialog_title">内部デバイスのストレージ容量が残りわずかです!</string>
   <string name="wallet_low_storage_dialog_msg">Bitcoin Walletはトランザクションやブロックを記憶するのに内部ストレージを使用します。もし容量が不足した場合、動作しなくなりあなたのビットコインが危機にさらされるでしょう!\n\n不要なアプリを削除するためにアプリケーションマネージャを開きますか?</string>
   <string name="wallet_low_storage_dialog_button_apps">アプリの管理</string>
@@ -247,6 +246,7 @@
   <string name="preferences_precision_labels_4">BTC、小数点以下4桁</string>
   <string name="preferences_precision_labels_2_3">mBTC、小数点以下2桁</string>
   <string name="preferences_precision_labels_0_6">µBTC、小数点無し</string>
+  <string name="preferences_precision_labels_0_8">sat、小数点無し</string>
   <string name="preferences_own_name_title">自身の名前</string>
   <string name="preferences_own_name_summary">あなたが発行する支払いリクエストに含めるあなたの名前、またはあなたの会社の名前。</string>
   <string name="preferences_own_name_dialog_message">短くしてください。</string>
@@ -266,8 +266,12 @@
   <string name="preferences_trusted_peer_only_summary">信頼されたピア以外に接続しない。</string>
   <string name="preferences_block_explorer_title">ブロックエクスプローラ</string>
   <string name="preferences_block_explorer_summary">トランザクション・アドレス・ブロックを閲覧するための外部のブロックエクスプローラ。</string>
+  <string name="preferences_enable_exchange_rates_title">地域の通貨での額を表示</string>
+  <string name="preferences_enable_exchange_rates_summary">地域の通貨での額を計算するためにフィードから為替レートを取得する。</string>
   <string name="preferences_data_usage_title">データの使用方法</string>
   <string name="preferences_data_usage_summary">モバイルネットワークにおけるデータ使用制限のオプションを表示する。</string>
+  <string name="preferences_battery_optimization_title">バッテリー使用量の最適化を無効にする</string>
+  <string name="preferences_battery_optimization_summary">ブロックチェーンを可能な限り最新に保ちたい場合、このアプリに対するバッテリー使用量の最適化を無効にしてください。</string>
   <string name="preferences_notifications_title">通知</string>
   <string name="preferences_notifications_summary">特定の通知を有効/無効にするオプションを表示する。</string>
   <string name="preferences_remind_balance_title">残金通知</string>

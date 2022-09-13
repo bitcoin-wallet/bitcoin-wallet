@@ -41,7 +41,7 @@
   <string name="wallet_options_technical_notes_title">Tekniska anteckningar</string>
   <string name="wallet_options_donate">Ge dricks/donera</string>
   <string name="wallet_donate_address_label">Donera till Bitcoin Wallet</string>
-  <string name="alert_dialogs_fragment_insecure_bluetooth_title">Säkerhetsvarning</string>
+  <string name="alert_dialogs_fragment_insecure_device_title">Säkerhetsvarning</string>
   <string name="wallet_low_storage_dialog_title">Lagringsutrymme snart slut</string>
   <string name="wallet_low_storage_dialog_msg">Bitcoin Wallet använder intern lagring för att komma ihåg transaktioner och block. Om lagringsutrymmet tar slut kommer den att sluta fungera och dina bitcoin hamnar i riskzonen!\n\nVill du öppna Application Manager för att avinstallera onödiga appar?</string>
   <string name="wallet_low_storage_dialog_button_apps">Hantera appar</string>
