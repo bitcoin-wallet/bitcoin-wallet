@@ -1,6 +1,8 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
   <string name="toast_wallet_reset">Lompakkosi nollattiin!\nPalautuminen kestää hetken.</string>
+  <string name="toast_start_external_document_failed">Ulkoisen asiakirjan avaamiseen ei ole asennettu verkkoselainta.</string>
+  <string name="toast_start_storage_provider_selector_failed">Mitään sopivaa pilvitallennustarjoajaa ei ole asennettu. \nYou tarvitsee esimerkiksi vastaavan kuin \"Nextcloud\" tai \"Google Drive\".</string>
   <string name="wallet_disclaimer_fragment_remind_safety">Käytät ohjelmaa omalla vastuulla. Lue &lt;u&gt;turvallisuusohjeet&lt;/u&gt;.</string>
   <string name="wallet_disclaimer_fragment_remind_backup">Sinun on &lt;u&gt;varmuuskopioitava lompakkosi&lt;/u&gt;!</string>
   <string name="blockchain_state_progress_hours">%1$s, %2$d tuntia takana</string>
@@ -9,8 +11,8 @@
   <string name="blockchain_state_progress_months">%1$s, %2$d kuukautta takana</string>
   <string name="blockchain_state_progress_downloading">Synkronoidaan verkon kanssa</string>
   <string name="blockchain_state_progress_stalled">Synkronointi kaatunut</string>
-  <string name="blockchain_state_progress_problem_storage">Synkronointi: Tilaongelma</string>
-  <string name="blockchain_state_progress_problem_network">Synkronointi: Verkko-ongelma</string>
+  <string name="blockchain_state_progress_problem_storage">Ongelma synkronoinnissa: Vähäinen tallennustila</string>
+  <string name="blockchain_state_progress_problem_network">Ongelma synkronoinnissa: Ei verkkoyhteyttä</string>
   <string name="wallet_address_fragment_clipboard_msg">Bitcoin-osoite on kopioitu leikepöydälle</string>
   <string name="wallet_address_dialog_fragment_hint">Suojellaksesi yksityisyyttäsi, osoitteesi vaihtuu aina kerran kun se vastaanottaa maksun.</string>
   <string name="wallet_balance_fragment_insecure_device">Laitteesi on vanha ja turvaton. Käytäthän vain pienten määrien kanssa.</string>
@@ -153,6 +155,7 @@
   <string name="address_book_options_scan_title">Skannaa osoite</string>
   <string name="address_book_options_scan_invalid">Skannattua tietoa ei tunnisteta</string>
   <string name="address_book_options_scan_own_address">Skannattu osoite on oma osoitteesi.</string>
+  <string name="address_book_row_current_address">Tämä on nykyinen osoitteesi vastaanottamista varten.</string>
   <string name="address_book_row_message_compromised_key">Tämä osoite on saatettu murtaa. Sinun ei tulisi enää käyttää sitä varojen vastaanottoon.</string>
   <string name="edit_address_book_entry_dialog_title_add">Lisää lähetysosoite</string>
   <string name="edit_address_book_entry_dialog_title_edit">Muokkaa lähetysosoitteen nimikettä</string>
@@ -230,6 +233,9 @@
   <string name="input_parser_invalid_paymentrequest">Kelvoton maksupyyntö:\n%s</string>
   <string name="input_parser_invalid_transaction">Kelvoton rahansiirto:\n%s</string>
   <string name="preferences_activity_title">Asetukset</string>
+  <string name="preferences_category_general">Yleinen</string>
+  <string name="preferences_category_privacy">Yksityisyyden hallinta</string>
+  <string name="preferences_category_merchants">Kauppiaat</string>
   <string name="preferences_category_diagnostics">Diagnostiikka</string>
   <string name="preferences_category_labs">Laboratoriot</string>
   <string name="preferences_precision_title">Nimellisarvo ja tarkkuus</string>
@@ -240,9 +246,12 @@
   <string name="preferences_precision_labels_2_3">mBTC, 2 desimaalia</string>
   <string name="preferences_precision_labels_0_6">µBTC, ei desimaalia</string>
   <string name="preferences_own_name_title">Oma nimi</string>
-  <string name="preferences_own_name_summary">Nimeä itsesi lisätäksesi nimesi maksupyyntöihin. Yritä pitää se lyhyenä.</string>
+  <string name="preferences_own_name_summary">Nimesi tai yrityksesi nimi lisätään asiakkaille lähettämiisi maksupyyntöihin.</string>
+  <string name="preferences_own_name_dialog_message">Pidä se lyhyenä.</string>
   <string name="preferences_send_coins_autoclose_title">Sulje kolikoiden lähetysikkuna automaattisesti</string>
   <string name="preferences_send_coins_autoclose_summary">Kun maksu on suoritettu, lähetysikkuna sulkeutuu automaattisesti.</string>
+  <string name="preferences_sync_mode_title">Tietojen käyttö vs. Yksityisyys</string>
+  <string name="preferences_sync_mode_summary">Valitse vähäinen datankäyttö ja parempi yksityisyys synkronoidessasi verkon kanssa.</string>
   <string name="preferences_trusted_peer_title">Luotettu vertainen</string>
   <string name="preferences_trusted_peer_summary">Yhdistettävän vertaisen IP-osoite tai isäntänimi.</string>
   <string name="preferences_trusted_peer_resolve_progress">Selvitetään…</string>
