@@ -11,8 +11,8 @@
   <string name="blockchain_state_progress_months">%1$s, %2$d maanden achter</string>
   <string name="blockchain_state_progress_downloading">Synchroniseren met netwerk</string>
   <string name="blockchain_state_progress_stalled">Synchronisatie gestremd</string>
-  <string name="blockchain_state_progress_problem_storage">Synchronisatie: Opslagprobleem</string>
-  <string name="blockchain_state_progress_problem_network">Synchroniseren: Netwerkprobleem</string>
+  <string name="blockchain_state_progress_problem_storage">Fout tijdens het synchroniseren: Te weinig opslagcapaciteit</string>
+  <string name="blockchain_state_progress_problem_network">Fout tijdens het synchroniseren: Geen netwerkverbinding</string>
   <string name="wallet_address_fragment_clipboard_msg">Bitcoinadres gekopieërd naar klembord</string>
   <string name="wallet_address_dialog_fragment_hint">Om je privacy te beschermen zal het adres wijzigen zodra een betaling ontvangen is.</string>
   <string name="wallet_balance_fragment_insecure_device">Je apparaat is oud en onveilig. Gebruik aub alleen voor kleine hoeveelheden.</string>
@@ -26,7 +26,7 @@
   <string name="exchange_rates_options_search">Zoek wisselkoers</string>
   <string name="wallet_transactions_fragment_empty_text_received">Nog geen Bitcoins ontvangen</string>
   <string name="wallet_transactions_fragment_empty_text_sent">Nog geen Bitcoins verzonden</string>
-  <string name="wallet_transactions_fragment_empty_text_howto">Hoe kom ik aan Bitcoins?\nKoop voor regulier geld,\nverkoop goedreen of diensen of\nverdien door te werken.</string>
+  <string name="wallet_transactions_fragment_empty_text_howto">Hoe verkrijg ik Bitcoins?\nKoop voor regulier geld,\nverkoop goederen of diensten, of\nverdien door te werken.</string>
   <string name="wallet_transactions_fragment_empty_remind_backup">Maak a.u.b. een backup van je portemonnee\nvoordat er Bitcoins worden ontvangen!</string>
   <string name="wallet_transactions_row_warning_backup">Gefeliciteerd, u heeft uw eerste betaling ontvangen! Heeft u al een &lt;u&gt;back-up gemaakt van uw portemonnee&lt;/u&gt;, om verlies tegen te gaan?</string>
   <string name="wallet_transactions_row_warning_storage_encryption">Tip: om de veiligheid van je portemonnee te vergroten, kun je &lt;u&gt;je apparaat versleutelen&lt;/u&gt;. Dit beschermt ook de gegevens van andere apps.</string>
@@ -51,8 +51,8 @@
   <string name="wallet_low_storage_dialog_button_apps">Beheer apps</string>
   <string name="wallet_timeskew_dialog_title">Check je datum- en tijdsinstellingen</string>
   <string name="wallet_timeskew_dialog_msg">De tijd van je apparaat wijkt af met %d minuten. Hierdoor kun je waarschijnlijk geen Bitcoins verzenden of ontvangen.\n\nCheck je instellingen voor datum, tijd en tijdzone en pas die indien nodig aan.</string>
-  <string name="wallet_version_dialog_title">Een nieuwe versie is beschikbaar!</string>
-  <string name="wallet_version_dialog_msg">Deze versie fikst belangrijke bugs. Voor details, zie het wijzigingslogboek op %s.</string>
+  <string name="wallet_version_dialog_title">Er is een nieuwe versie beschikbaar!</string>
+  <string name="wallet_version_dialog_msg">Deze versie lost belangrijke fouten op. Voor details, zie het wijzigingslogboek op %s.</string>
   <string name="wallet_version_dialog_msg_deprecated">Wanneer je geen update ziet wordt jouw Android-versie waarschijnlijk niet meer ondersteund.</string>
   <string name="wallet_version_dialog_button_binary">Download</string>
   <string name="wallet_old_sdk_dialog_title">Android-versie is verouderd</string>
@@ -61,7 +61,7 @@
   <string name="alert_dialogs_fragment_too_much_balance_dialog_message">Dit is relatief veel om op zak te hebben. Verplaats iets naar een veiligere plek.</string>
   <string name="send_coins_activity_title">Verzend BTC</string>
   <string name="send_coins_fragment_request_payment_request_progress">Handtekening van %s ophalen…</string>
-  <string name="send_coins_fragment_request_payment_request_failed_title">Ophalen betalingsverzoek is gefaald</string>
+  <string name="send_coins_fragment_request_payment_request_failed_title">Ophalen betalingsverzoek is mislukt</string>
   <string name="send_coins_fragment_request_payment_request_failed_message">De betaler (%1$s) gebruikt een incompatibel betalingsprotocol (reden: %2$s).</string>
   <string name="send_coins_fragment_request_payment_request_wrong_signature">Verkeerde handtekening!</string>
   <string name="send_coins_fragment_payee_verified_by">geverifieerd door: %s</string>
@@ -246,7 +246,7 @@
   <string name="preferences_precision_labels_2_3">mBTC, 2 decimale getallen</string>
   <string name="preferences_precision_labels_0_6">µBTC, geen decimalen</string>
   <string name="preferences_own_name_title">Je naam</string>
-  <string name="preferences_own_name_summary">Je naam, voor om toe te voegen aan betalingsverzoeken. Probeer het kort te houden.</string>
+  <string name="preferences_own_name_summary">Je naam om toe te voegen aan betalingsverzoeken. Probeer het kort te houden.</string>
   <string name="preferences_own_name_dialog_message">Hou het kort.</string>
   <string name="preferences_send_coins_autoclose_title">Dialoog voor verzonden coins automatisch sluiten.</string>
   <string name="preferences_send_coins_autoclose_summary">Als de betaling is voltooid zal de verzend dialoog automatisch sluiten.</string>
@@ -280,7 +280,7 @@
   <string name="preferences_initiate_reset_summary">Reset blokketen, transacties en wallet-inhoud. Herstel kan enige tijd duren dus doe dit alleen als je weet waarom.</string>
   <string name="preferences_initiate_reset_dialog_message">Wil je de blokketen resetten en opnieuw laden?\n\nDit zal tijdelijk de wallet-inhoud en transacties laten verbergen. Beiden zullen terugkomen tijdens het synchronisatieproces. Zorg dat je een betrouwbare verbinding hebt met het internet.</string>
   <string name="preferences_initiate_reset_dialog_positive">Reset</string>
-  <string name="preferences_extended_public_key_title">Toon extended public key</string>
+  <string name="preferences_extended_public_key_title">Toon uitgebreide public key</string>
   <string name="preferences_extended_public_key_summary">Toon de uitgebreide public key van je portemonnee zodat het geïmporteerd kan worden in andere apps en services. Wees voorzichtig: hiermee geef je je monetaire privacy prijs aan die app.</string>
   <string name="bitmap_fragment_share">Deel…</string>
   <string name="extended_public_key_fragment_title">Extended Public Key</string>
