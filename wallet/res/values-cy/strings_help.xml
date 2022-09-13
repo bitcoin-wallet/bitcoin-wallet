@@ -16,7 +16,7 @@
 			Caiff taliadau a dderbyniwyd eu nodi mewn gwyrdd a thaliadau a anfonwyd mewn coch.
 		</p>
 		<p>
-			Gellir anfon neu wneud cais am Fitcoin trwy tapio\'r botymau yn y bar gweithredoedd.
+			Gellir anfon neu wneud cais am Bitcoin trwy tapio\'r botymau yn y bar gweithredoedd.
 			Mae rhagor o opsiynau ar gael yn y dewislen opsiynau.
 		</p>
 	]]>
@@ -24,11 +24,11 @@
   <string name="help_request_coins">
 <![CDATA[
 		<p>
-			Gan ddefnyddio\'r deialog hwn, gellir wneud cais am Fitcoin gan dalwr.
+			Gan ddefnyddio\'r deialog hwn, gellir wneud cais am Bitcoin gan dalwr.
 			Rhaid bod y talwr eisoes hefyd wedi gosod waled Bitcoin.
 		</p>
 		<p>
-			Yn gyntaf, gellir rhoi swm o Fitcoin i wneud cais amdano.
+			Yn gyntaf, gellir rhoi swm o Bitcoin i wneud cais amdano.
 		</p>
 		<p>
 			Yna, rwyt naill ai\'n cael y talwr i sganio\'r cod QR a gynhyrchwyd.
@@ -76,7 +76,7 @@
 		</p>
 		<p>
 			Mae Bitcoin yn cael eu cadw ar y ddyfais.
-			<b>Os wyt ti\'n ei golli, mi fyddi\'n colli dy Fitcoin.</b>
+			<b>Os wyt ti\'n ei golli, mi fyddi\'n colli dy Bitcoin.</b>
 		</p>
 		<p>
 			Golygir hyn bod angen <b>cadw copi wrth gefn o dy waled</b>!
@@ -84,12 +84,12 @@
 			Cadwa dy gopi wrth gefn yn ddiogel a chofia dy gyfrinair.
 		</p>
 		<p>
-			<b>Cyn dadosod</b> (neu glirio data apiau/ailosod dy ddyfais), <b>trosglwydda dy Fitcoin i waled arall</b>.
+			<b>Cyn dadosod</b> (neu glirio data apiau/ailosod dy ddyfais), <b>trosglwydda dy Bitcoin i waled arall</b>.
 			Caiff Bitcoin sy\'n weddill eu colli.
 		</p>
 		<p>
 			<b>Ni ellir dad-wneud taliadau</b>.
-			Os wyt yn anfon dy Fitcoin i\'r gwagle, does bron dim modd o\'u cael nhw nôl.
+			Os wyt yn anfon dy Bitcoin i\'r gwagle, does bron dim modd o\'u cael nhw nôl.
 		</p>
 		<p>
 			<b>Cadwa dy ddyfais yn ddiogel!</b>

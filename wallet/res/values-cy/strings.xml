@@ -47,7 +47,7 @@
   <string name="wallet_donate_address_label">Rodd-daliad i Bitcoin Wallet</string>
   <string name="alert_dialogs_fragment_insecure_device_title">Rhybudd diogelwch</string>
   <string name="wallet_low_storage_dialog_title">Dim llawer o le ar storfa fewnol y ddyfais!</string>
-  <string name="wallet_low_storage_dialog_msg">Mae Waled Bitcoin yn defnyddio storfa fewnol i gofio trafodion a blociau. Os yw\'n rhedeg allan o le, mi fydd yn stopio gweithio a bydd risg i dy Fitcoin.\n\nWyt ti am agor y rheolwr apiau i ddadosod apiau nad wyt eu hangen?</string>
+  <string name="wallet_low_storage_dialog_msg">Mae Waled Bitcoin yn defnyddio storfa fewnol i gofio trafodion a blociau. Os yw\'n rhedeg allan o le, mi fydd yn stopio gweithio a bydd risg i dy Bitcoin.\n\nWyt ti am agor y rheolwr apiau i ddadosod apiau nad wyt eu hangen?</string>
   <string name="wallet_low_storage_dialog_button_apps">Rheoli apiau</string>
   <string name="wallet_timeskew_dialog_title">Gwirio gosodiadau dyddiad ac amser</string>
   <string name="wallet_timeskew_dialog_msg">Mae amser dy ddyfais i ffwrdd o %d munud. Mae\'n debyg na ellir anfon na derbyn Bitcoin oherwydd hyn.\n\nDylet wirio ac, os angen, cywiro dy osodiadau dyddiad, amser a chylchfa amser.</string>
@@ -77,7 +77,7 @@
   <string name="send_coins_fragment_hint_fee">Telir ffi rhwydwaith o %s.</string>
   <string name="send_coins_fragment_hint_fee_priority">Telir ffi blaenoriaeth o %s. Os wyt ti eisiau cadw ffioedd yn isel, defnyddia \'blaenoriaeth\' dim ond pan wyt ti angen cadarnhad cyn gynted â phosib.</string>
   <string name="send_coins_fragment_hint_dusty_send">Mae\'r swm yn rhy fach i\'w anfon.</string>
-  <string name="send_coins_fragment_hint_insufficient_money">Dim digon o Fitcoin ar gel. Rwyt %s yn fyr. Gall hyn fod oherwydd y ffi rhwydwaith.</string>
+  <string name="send_coins_fragment_hint_insufficient_money">Dim digon o Bitcoin ar gel. Rwyt %s yn fyr. Gall hyn fod oherwydd y ffi rhwydwaith.</string>
   <string name="send_coins_fragment_hint_empty_wallet_failed">Dyw cyfanswm y mân daliadau yn dy waled ddim o werth gellir ei anfon.</string>
   <string name="send_coins_fragment_hint_replaying">Dyw taliadau ddim yn bosib ar hyn o bryd am fod ailadrodd ar y gweill.</string>
   <string name="send_coins_fragment_direct_payment_enable">Anfon taliad yn uniongyrchol i\'r talai.</string>
@@ -89,7 +89,7 @@
   <string name="send_coins_fragment_button_back">Nôl</string>
   <string name="send_coins_fragment_significant_fee_title">Ffi rhwydwaith sylweddol</string>
   <string name="send_coins_fragment_significant_fee_message">Mae\'r ffi rhwydwaith ar gyfer y taliad hwn (%1$s) yn uchel o\'i gymharu â\'r swm (%2$s). Wyt ti am ei anfon beth bynnag?</string>
-  <string name="send_coins_fragment_insufficient_money_title">Dim digon o Fitcoin ar gael</string>
+  <string name="send_coins_fragment_insufficient_money_title">Dim digon o Bitcoin ar gael</string>
   <string name="send_coins_fragment_insufficient_money_msg1">Rwyt %s yn fyr.</string>
   <string name="send_coins_fragment_insufficient_money_msg2">Wyt ti am dalu gyda phopeth sydd gennyt?</string>
   <string name="send_coins_fragment_empty_wallet_failed_title">Methwyd gwagio\'r waled</string>
@@ -112,7 +112,7 @@
   <string name="raise_fee_dialog_state_done">Cwblhawyd.</string>
   <string name="raise_fee_dialog_button_raise">Codi</string>
   <string name="sweep_wallet_activity_title">Ysgubo waled papur</string>
-  <string name="sweep_wallet_fragment_intro">Rwyt ar fin ysgubo i waled neu gwpon papur. Bydd hyn yn tynnu\'r holl Fitcoin o\'r papur i dy waled ar y ddyfais hon. Pan fydd y trafodyn wedi\'i gadarnhau, bydd y papur gwerth dim byd ac am resymau diogelwch ni ddylid ei ddefnyddio eto.</string>
+  <string name="sweep_wallet_fragment_intro">Rwyt ar fin ysgubo i waled neu gwpon papur. Bydd hyn yn tynnu\'r holl Bitcoin o\'r papur i dy waled ar y ddyfais hon. Pan fydd y trafodyn wedi\'i gadarnhau, bydd y papur gwerth dim byd ac am resymau diogelwch ni ddylid ei ddefnyddio eto.</string>
   <string name="sweep_wallet_fragment_hint">Defnyddir waledau papur yn bennaf ar gyfer storio oer. Mae rhai peiriannau arian yn y wal yn eu hargraffu ar slip o bapur yn hytrach nag anfon Bitcoin yn uniongyrchol at dy ddyfais symudol. Mae rhai pobol weithiau yn defnyddio waledi papur i basio gwertho o gwmpas (ni argymhellir hyn).</string>
   <string name="sweep_wallet_fragment_wallet_unknown">Dechreua gan sganio allwedd breifat waled papur. Defnyddia\'r botwm gweithred camera.</string>
   <string name="sweep_wallet_fragment_encrypted">Mae\'r allwedd breifat hon wedi\'i diogelu gan gyfrinair.</string>
@@ -126,7 +126,7 @@
   <string name="sweep_wallet_fragment_request_wallet_balance_failed_title">Methwyd â llwytho\'r balans</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_failed_connection">Mae gennyt gysylltiad gwael â\'r rhwydwaith Electrum.</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_empty">Mae\'r waled papur yn wag.</string>
-  <string name="sweep_wallet_fragment_insufficient_money_title">Dim digon o Fitcoin</string>
+  <string name="sweep_wallet_fragment_insufficient_money_title">Dim digon o Bitcoin</string>
   <string name="sweep_wallet_fragment_insufficient_money_msg">Mae swm y Bitcoin yn y waled yn rhy fach i\'w ysgubo.</string>
   <string name="sweep_wallet_options_reload">Ail-lwytho\'r balans</string>
   <string name="maintenance_dialog_title">Argymhellir gwaith cynnal a chadw</string>
@@ -134,13 +134,13 @@
   <string name="maintenance_dialog_state_decrypting">Yn dadamgrymptio…</string>
   <string name="maintenance_dialog_state_done">Cwblhawyd.</string>
   <string name="maintenance_dialog_button_move">Symud</string>
-  <string name="request_coins_activity_title">Gwneud cais am Fitcoin</string>
+  <string name="request_coins_activity_title">Gwneud cais am Bitcoin</string>
   <string name="request_coins_fragment_amount_label">Swm i geisio amdano (opsiynol)</string>
   <string name="request_coins_fragment_accept_bluetooth_payment">Derbyn taliad trwy Bluetooth am brosesu mwy dibynadwy</string>
   <string name="request_coins_fragment_initiate_request_qr">Caiff yr anfonwr sganio\'r cod hwn.</string>
   <string name="request_coins_fragment_initiate_request_nfc">Neu dapio ar ddyfais gydag NFC wedi\'i alluogi.</string>
   <string name="request_coins_clipboard_msg">Copïwyd y cais Bitcoin i\'r clipfwrdd</string>
-  <string name="request_coins_share_dialog_title">Rhannu cais am Fitcoin…</string>
+  <string name="request_coins_share_dialog_title">Rhannu cais am Bitcoin…</string>
   <string name="request_coins_no_local_app_msg">Ni chanfuwyd ap Bitcoin arall</string>
   <string name="request_coins_options_local_app_title">Cais oddi wrth ap lleol</string>
   <string name="address_book_activity_title">Llyfr cyfeiriadau</string>
@@ -190,7 +190,7 @@
   <string name="peer_list_fragment_empty">Dim cyfoedion wedi cysylltu</string>
   <string name="peer_list_row_ping_time">⇆ %d&#x2009;me</string>
   <string name="import_keys_dialog_title">Adfer waled</string>
-  <string name="restore_wallet_dialog_replace_warning">Rwyt ar fin newid dy waled gyfredol. Caiff unrhyw Fitcoin yn dy waled eu colli oni bai bod gennyt gopi wrth gefn gwahanol o\'r waled.</string>
+  <string name="restore_wallet_dialog_replace_warning">Rwyt ar fin newid dy waled gyfredol. Caiff unrhyw Bitcoin yn dy waled eu colli oni bai bod gennyt gopi wrth gefn gwahanol o\'r waled.</string>
   <string name="import_keys_dialog_warning">Pwysig: Paid â llwytho allweddau preifat o ffynhonellau amheus! Os wyt ti, gall eraill gael rheolaeth dros dy gyllid.</string>
   <string name="import_keys_dialog_button_import">Adfer</string>
   <string name="restore_wallet_dialog_success">Adferwyd y waled.</string>
@@ -322,7 +322,7 @@
   <string name="notification_peer_not_connected">heb gysylltu</string>
   <string name="notification_inactivity_title">Mae gennyt Bitcoin yn dal i fod ar y ddyfais hon!</string>
   <string name="notification_inactivity_message">Cofia caiff dy falans o %s ei golli os wyt yn dadosod Waled Bitcoin heb yn gyntaf ei anfon i ffwrdd.</string>
-  <string name="notification_inactivity_message_donate">Os nad wyt yn poeni am dy Fitcoin, gellir eu cyfrannu fel rhodd i\'r prosiect Bitcoin Wallet.</string>
+  <string name="notification_inactivity_message_donate">Os nad wyt yn poeni am dy Bitcoin, gellir eu cyfrannu fel rhodd i\'r prosiect Bitcoin Wallet.</string>
   <string name="notification_inactivity_action_dismiss">Atgoffa fi\'n hwyrach</string>
   <string name="notification_inactivity_action_dismiss_forever">Peidio fy atgoffa</string>
   <string name="notification_bluetooth_service_listening">Yn barod i dderbyn taliadau drwy Bluetooth</string>
@@ -345,7 +345,7 @@
   <string name="button_paste">Gludo</string>
   <string name="button_share">Rhannu</string>
   <string name="button_set_as_default">Gosod fel rhagosodedig</string>
-  <string name="button_request_coins">Gwneud cais am Fitcoin</string>
+  <string name="button_request_coins">Gwneud cais am Bitcoin</string>
   <string name="button_send_coins">Anfon Bitcoin</string>
   <string name="button_scan">Sganio</string>
   <string name="button_settings">Gosodiadau</string>
