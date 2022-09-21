@@ -263,8 +263,6 @@
   <string name="preferences_data_usage_summary">Prikaži možnosti za omejitev porabe podatkov prek mobilnih omrežij.</string>
   <string name="preferences_notifications_title">Obvestila</string>
   <string name="preferences_notifications_summary">Prikaži nastavitve prikazovanja obvestil</string>
-  <string name="preferences_remind_balance_title">Opomnik stanja</string>
-  <string name="preferences_remind_balance_summary">Po nekaj tednih neuporabe vas bo aplikacija obvestila, če še ne bo prazna.</string>
   <string name="preferences_show_disclaimer_title">Prikaži zavrnitev odgovornosti</string>
   <string name="preferences_show_disclaimer_summary">Ste res prebali varnostna navodila? Ste naredili varnostno kopijo in jo shranili na varno mesto?</string>
   <string name="preferences_bluetooth_address_title">Naslov Bluetooth</string>

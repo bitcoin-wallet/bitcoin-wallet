@@ -268,8 +268,6 @@
   <string name="preferences_data_usage_summary">Mostra le opzioni per restringere l\'utilizzo dei dati su reti mobili.</string>
   <string name="preferences_notifications_title">Notifiche</string>
   <string name="preferences_notifications_summary">Mostra le opzioni per disabilitare o abilitare notifiche specifiche.</string>
-  <string name="preferences_remind_balance_title">Promemoria saldo.</string>
-  <string name="preferences_remind_balance_summary">Dopo un paio di settimane in disuso, l\'app notificherà se ci sono ancora monete nel portafoglio.</string>
   <string name="preferences_show_disclaimer_title">Controlla l\'esenzione delle responsabilità</string>
   <string name="preferences_show_disclaimer_summary">Hai veramente letto le note di sicurezza? Hai già fatto il backup del tuo portafogli in un posto sicuro?</string>
   <string name="preferences_bluetooth_address_title">Indirizzo Bluetooth</string>

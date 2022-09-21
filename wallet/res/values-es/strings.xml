@@ -261,8 +261,6 @@
   <string name="preferences_data_usage_summary">Mostrar opciones para limitar el uso de datos en redes móviles.</string>
   <string name="preferences_notifications_title">Notificaciones</string>
   <string name="preferences_notifications_summary">Mostrar opciones para deshabilitar o habilitar notificaciones específicas.</string>
-  <string name="preferences_remind_balance_title">Aviso de balance</string>
-  <string name="preferences_remind_balance_summary">Después de unas semanas sin uso, la aplicación te notificará que aún tienes Bitcoins en la billetera.</string>
   <string name="preferences_show_disclaimer_title">Mostrar disclaimer</string>
   <string name="preferences_show_disclaimer_summary">¿De verdad leíste las notas de seguridad? ¿Ya aseguraste tu monedero en un lugar seguro?</string>
   <string name="preferences_bluetooth_address_title">Dirección bluethooth</string>

@@ -272,8 +272,6 @@
   <string name="preferences_data_usage_summary">Opciók megjelenítése a mobilhálózatokon történő adathasználat korlátozásához.</string>
   <string name="preferences_notifications_title">Értesítések</string>
   <string name="preferences_notifications_summary">Beállítások mutatása az értesítések engedélyezéséhez vagy tiltásához.</string>
-  <string name="preferences_remind_balance_title">Egyenleg emlékeztető</string>
-  <string name="preferences_remind_balance_summary">Néhány hét nem használat után az alkalmazás értesít, ha még vannak érméid a tárcában.</string>
   <string name="preferences_show_disclaimer_title">Figyelmeztetések mutatása</string>
   <string name="preferences_show_disclaimer_summary">Tényleg elolvastad a biztonsági megjegyzéseket? Elmentetted már a tárcádat biztonságos helyre?</string>
   <string name="preferences_bluetooth_address_title">Bluetooth cím</string>

@@ -240,8 +240,6 @@
   <string name="preferences_block_explorer_summary">用來瀏覽交易資料、位址、以及區塊的外部區塊探索網站</string>
   <string name="preferences_data_usage_title">資料使用量</string>
   <string name="preferences_data_usage_summary">顯示限制行動網路資料使用量的選項</string>
-  <string name="preferences_remind_balance_title">餘額提醒</string>
-  <string name="preferences_remind_balance_summary">這個應用程式在兩個禮拜沒被使用後，會提醒你錢包裡面是否還有錢。</string>
   <string name="preferences_show_disclaimer_title">顯示免責提示</string>
   <string name="preferences_show_disclaimer_summary">像是：確定看過安全提示了嗎？已經把錢包備份到安全的地方了嗎？</string>
   <string name="preferences_report_issue_title">問題回報</string>

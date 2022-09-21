@@ -57,7 +57,7 @@ public class Configuration {
     public static final String PREFS_KEY_DATA_USAGE = "data_usage";
     public static final String PREFS_KEY_BATTERY_OPTIMIZATION = "battery_optimization";
     public static final String PREFS_KEY_NOTIFICATIONS = "notifications";
-    public static final String PREFS_KEY_REMIND_BALANCE = "remind_balance";
+    public static final String PREFS_KEY_REMIND_BALANCE_TIME = "remind_balance_time";
     public static final String PREFS_KEY_DISCLAIMER = "disclaimer";
     public static final String PREFS_KEY_BLUETOOTH_ADDRESS = "bluetooth_address";
 
@@ -183,12 +183,22 @@ public class Configuration {
         return Constants.ENABLE_EXCHANGE_RATES && prefs.getBoolean(PREFS_KEY_ENABLE_EXCHANGE_RATES, true);
     }
 
-    public boolean remindBalance() {
-        return prefs.getBoolean(PREFS_KEY_REMIND_BALANCE, true);
+    private long getRemindBalanceTime() {
+        return prefs.getLong(PREFS_KEY_REMIND_BALANCE_TIME, 0);
     }
 
-    public void setRemindBalance(final boolean remindBalance) {
-        prefs.edit().putBoolean(PREFS_KEY_REMIND_BALANCE, remindBalance).apply();
+    private void setRemindBalanceTime(final long remindBalanceTime) {
+        prefs.edit().putLong(PREFS_KEY_REMIND_BALANCE_TIME, remindBalanceTime).apply();
+    }
+
+    public boolean isTimeToRemindBalance() {
+        final long now = System.currentTimeMillis();
+        return now >= getRemindBalanceTime();
+    }
+
+    public void setRemindBalanceTimeIn(final long durationMs) {
+        final long now = System.currentTimeMillis();
+        setRemindBalanceTime(now + durationMs);
     }
 
     public boolean remindBackup() {
@@ -282,8 +292,8 @@ public class Configuration {
     public void touchLastUsed() {
         final long prefsLastUsed = prefs.getLong(PREFS_KEY_LAST_USED, 0);
         final long now = System.currentTimeMillis();
-        prefs.edit().putLong(PREFS_KEY_LAST_USED, now).apply();
-
+        prefs.edit().putLong(PREFS_KEY_LAST_USED, now).putLong(PREFS_KEY_REMIND_BALANCE_TIME,
+                now + Constants.LAST_USAGE_THRESHOLD_INACTIVE_MS).apply();
         log.info("just being used - last used {} minutes ago", (now - prefsLastUsed) / DateUtils.MINUTE_IN_MILLIS);
     }
 

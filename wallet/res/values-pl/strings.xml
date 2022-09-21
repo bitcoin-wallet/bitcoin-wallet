@@ -272,8 +272,6 @@
   <string name="preferences_data_usage_summary">Pokaż opcje ograniczenia transferu danych przez sieci mobilne</string>
   <string name="preferences_notifications_title">Powiadomienia</string>
   <string name="preferences_notifications_summary">Pokaż opcje wyłączenia lub włączenia pewnych powiadomień.</string>
-  <string name="preferences_remind_balance_title">Przypomnienie o saldzie</string>
-  <string name="preferences_remind_balance_summary">Po kilku tygodniach nieużywania aplikacja poinformuje, czy są jeszcze monety w portfelu.</string>
   <string name="preferences_show_disclaimer_title">Pokaż wyłączenie odpowiedzialności</string>
   <string name="preferences_show_disclaimer_summary">Czy naprawdę przeczytałeś wskazówki bezpieczeństwa? Czy wykonałeś kopię portfela w bezpiecznym miejscu?</string>
   <string name="preferences_bluetooth_address_title">Adres Bluetooth</string>

@@ -240,8 +240,6 @@
   <string name="preferences_block_explorer_summary">Explorador de blocos externo para visualizar as transações, endereços e blocos.</string>
   <string name="preferences_data_usage_title">Uso de dados</string>
   <string name="preferences_data_usage_summary">Mostrar opções para restringir o uso de dados em redes móveis.</string>
-  <string name="preferences_remind_balance_title">Aviso de saldo</string>
-  <string name="preferences_remind_balance_summary">Após ficar alguns semanas sem ser utilizado, o app irá notificar se ainda existem bitcoins na carteira.</string>
   <string name="preferences_show_disclaimer_title">Mostrar aviso legal</string>
   <string name="preferences_show_disclaimer_summary">Você realmente leu as notas de segurança? Já fez backup de sua carteira para um lugar seguro?</string>
   <string name="preferences_report_issue_title">Informar problema</string>

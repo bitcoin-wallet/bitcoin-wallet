@@ -22,6 +22,7 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.text.format.DateUtils;
 import androidx.annotation.WorkerThread;
 import androidx.core.app.NotificationCompat;
 import de.schildbach.wallet.Configuration;
@@ -84,7 +85,7 @@ public class BootstrapReceiver extends BroadcastReceiver {
             // if the app hasn't been used for a while and contains coins, maybe show reminder
             maybeShowInactivityNotification(application);
         } else if (ACTION_DISMISS.equals(action)) {
-            dismissNotification(context);
+            dismissNotification(context, application.getConfiguration());
         } else if (ACTION_DISMISS_FOREVER.equals(action)) {
             dismissNotificationForever(context, application.getConfiguration());
         } else {
@@ -111,7 +112,7 @@ public class BootstrapReceiver extends BroadcastReceiver {
     @WorkerThread
     private void maybeShowInactivityNotification(final WalletApplication application) {
         final Configuration config = application.getConfiguration();
-        if (!config.remindBalance() || !config.hasBeenUsed() || config.getLastUsedAgo() <= Constants.LAST_USAGE_THRESHOLD_INACTIVE_MS)
+        if (!config.isTimeToRemindBalance())
             return;
 
         final Wallet wallet = application.getWallet();
@@ -175,8 +176,9 @@ public class BootstrapReceiver extends BroadcastReceiver {
     }
 
     @WorkerThread
-    private void dismissNotification(final Context context) {
+    private void dismissNotification(final Context context, final Configuration config) {
         log.info("dismissing inactivity notification");
+        config.setRemindBalanceTimeIn(DateUtils.DAY_IN_MILLIS);
         final NotificationManager nm = context.getSystemService(NotificationManager.class);
         nm.cancel(Constants.NOTIFICATION_ID_INACTIVITY);
     }
@@ -184,7 +186,7 @@ public class BootstrapReceiver extends BroadcastReceiver {
     @WorkerThread
     private void dismissNotificationForever(final Context context, final Configuration config) {
         log.info("dismissing inactivity notification forever");
-        config.setRemindBalance(false);
+        config.setRemindBalanceTimeIn(DateUtils.WEEK_IN_MILLIS * 52);
         final NotificationManager nm = context.getSystemService(NotificationManager.class);
         nm.cancel(Constants.NOTIFICATION_ID_INACTIVITY);
     }

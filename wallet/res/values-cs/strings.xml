@@ -272,8 +272,6 @@
   <string name="preferences_data_usage_summary">Otevřít nastavení pro omezení datového toku na mobilní síti.</string>
   <string name="preferences_notifications_title">Oznámení</string>
   <string name="preferences_notifications_summary">Zobrazit možnosti pro zakázání nebo povolení konkrétních oznámení.</string>
-  <string name="preferences_remind_balance_title">Připomínka bilance</string>
-  <string name="preferences_remind_balance_summary">Upozornění po několika týdnech nepoužití aplikace, pokud jsou v peněžence stále peníze.</string>
   <string name="preferences_show_disclaimer_title">Zobrazit odmítnutí odpovědnosti</string>
   <string name="preferences_show_disclaimer_summary">Opravdu jste si přečetli bezpečnostní pokyny? Už jste zálohovali peněženku na bezpečné místo?</string>
   <string name="preferences_bluetooth_address_title">Bluetooth adresa</string>

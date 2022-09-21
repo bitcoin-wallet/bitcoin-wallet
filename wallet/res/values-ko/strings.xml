@@ -242,8 +242,6 @@
   <string name="preferences_block_explorer_summary">트랜잭션, 주소, 블럭을 검색하기 위한 외부의 블럭 탐색기 사용</string>
   <string name="preferences_data_usage_title">데이터 사용량</string>
   <string name="preferences_data_usage_summary">모바일 네트워크에서 사용할 데이터 사용량 제한 설정을 보여줍니다.</string>
-  <string name="preferences_remind_balance_title">잔액 알림</string>
-  <string name="preferences_remind_balance_summary">앱에 잔액이 남아 있는 상태에서 몇 주간 사용을 하지 않으면 앱이 알람을 보냅니다.</string>
   <string name="preferences_show_disclaimer_title">면책 조항 표시</string>
   <string name="preferences_report_issue_title">오류 보고</string>
   <string name="preferences_initiate_reset_title">블럭체인 재설정</string>

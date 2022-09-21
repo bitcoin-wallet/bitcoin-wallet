@@ -277,8 +277,6 @@
     <string name="preferences_battery_optimization_summary">Um die Blockchain so aktuell wie möglich zu halten, schalte bitte die Akkuoptimierung für diese App ab.</string>
     <string name="preferences_notifications_title">Benachrichtigungen</string>
     <string name="preferences_notifications_summary">Zeigt Optionen um bestimmte Benachrichtigungen aus- oder einzuschalten.</string>
-    <string name="preferences_remind_balance_title">Erinnerung an Guthaben</string>
-    <string name="preferences_remind_balance_summary">Nach einigen Wochen Nicht-Nutzung wird die App daran erinnern wenn sich noch Bitcoins in der Wallet befinden.</string>
     <string name="preferences_show_disclaimer_title">Disclaimer anzeigen</string>
     <string name="preferences_show_disclaimer_summary">Hast du wirklich die Sicherheitshinweise gelesen? Hast du deine Wallet bereits an einen sicheren Ort gesichert?</string>
     <string name="preferences_bluetooth_address_title">Bluetooth-Adresse</string>

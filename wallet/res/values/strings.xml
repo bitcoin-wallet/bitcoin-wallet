@@ -274,8 +274,6 @@
     <string name="preferences_battery_optimization_summary">To stay as up-to-date with the blockchain as possible please disable battery optimization for this app.</string>
     <string name="preferences_notifications_title">Notifications</string>
     <string name="preferences_notifications_summary">Show options to disable or enable specific notifications.</string>
-    <string name="preferences_remind_balance_title">Balance reminder</string>
-    <string name="preferences_remind_balance_summary">After a couple of weeks of not being used, the app will notify if there are still coins in the wallet.</string>
     <string name="preferences_show_disclaimer_title">Show disclaimer</string>
     <string name="preferences_show_disclaimer_summary">Have you really read the safety notes? Did you already back up your wallet to a safe place?</string>
     <string name="preferences_bluetooth_address_title">Bluetooth address</string>

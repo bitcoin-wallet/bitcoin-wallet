@@ -264,8 +264,6 @@
   <string name="preferences_data_usage_summary">Näytä asetukset rajoittaaksesi datan käyttöä mobiiliverkoissa.</string>
   <string name="preferences_notifications_title">Ilmoitukset</string>
   <string name="preferences_notifications_summary">Näytä valinnat ottaaksesi käyttöön tiettyjä ilmoituksia.</string>
-  <string name="preferences_remind_balance_title">Saldomuistutin</string>
-  <string name="preferences_remind_balance_summary">Kun käyttöä ei ole muutamaan viikkoon, sovellus ilmoittaa mikäli lompakossa on vielä kolikoita jäljellä.</string>
   <string name="preferences_show_disclaimer_title">Näytä vastuuvapauslauseke</string>
   <string name="preferences_show_disclaimer_summary">Oletko varmasti lukenut turvallisuusohjeet? Varmuuskopioitko jo lompakkosi turvalliseen paikkaan?</string>
   <string name="preferences_report_issue_title">Ilmoita ongelmasta</string>

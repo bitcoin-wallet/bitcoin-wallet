@@ -268,8 +268,6 @@
   <string name="preferences_data_usage_summary">Toon opties om bandbreedte op mobiele netwerken te beperken.</string>
   <string name="preferences_notifications_title">Notificaties</string>
   <string name="preferences_notifications_summary">Toon opties om specifieke notificaties aan en uit te zetten.</string>
-  <string name="preferences_remind_balance_title">Saldo herinnering</string>
-  <string name="preferences_remind_balance_summary">Als de app een paar weken niet gebruikt is zal de wallet laten merken dat er nog steeds coins aanwezig.</string>
   <string name="preferences_show_disclaimer_title">Toon disclaimer</string>
   <string name="preferences_show_disclaimer_summary">Heb je echt de veiligheidsaanwijzingen gelezen? Heb je al op een veilige plek een backup gemaakt van je portemonnee?</string>
   <string name="preferences_bluetooth_address_title">Bluetoothadres</string>

@@ -242,8 +242,6 @@
   <string name="preferences_block_explorer_summary">Ekstern blokkleser som kan brukes til å se gjennom transaksjoner, adresser og blokker.</string>
   <string name="preferences_data_usage_title">Dataforbruk</string>
   <string name="preferences_data_usage_summary">Vis innstillinger for restriksjon for dataforbruk på mobile nettverk.</string>
-  <string name="preferences_remind_balance_title">Saldopåminnelse</string>
-  <string name="preferences_remind_balance_summary">Etter et par uker uten bruk vil appen varsle om det fortsatt er penger i lommeboken.</string>
   <string name="preferences_show_disclaimer_title">Vis ansvarsfraskrivelse</string>
   <string name="preferences_show_disclaimer_summary">Har du virkelig lest sikkerhetsnotatene? Har du allerede sikkerhetskopiert lommeboken til et trygt sted?</string>
   <string name="preferences_report_issue_title">Rapporter problem</string>

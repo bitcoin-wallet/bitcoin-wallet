@@ -20,12 +20,6 @@
             android:defaultValue="true" />
 
         <CheckBoxPreference
-            android:key="remind_balance"
-            android:title="@string/preferences_remind_balance_title"
-            android:summary="@string/preferences_remind_balance_summary"
-            android:defaultValue="true" />
-
-        <CheckBoxPreference
             android:key="disclaimer"
             android:title="@string/preferences_show_disclaimer_title"
             android:summary="@string/preferences_show_disclaimer_summary"

@@ -271,8 +271,6 @@
   <string name="preferences_data_usage_summary">Montrer les options de restriction de l’utilisation des données sur les réseaux mobiles.</string>
   <string name="preferences_notifications_title">Notifications</string>
   <string name="preferences_notifications_summary">Afficher des options pour désactiver ou activer des notifications particulières.</string>
-  <string name="preferences_remind_balance_title">Rappel de solde</string>
-  <string name="preferences_remind_balance_summary">Après quelques semaines sans utilisation, l’appli vous signalera s’il y a encore des pièces dans le porte-monnaie.</string>
   <string name="preferences_show_disclaimer_title">Afficher l’avis de non-responsabilité</string>
   <string name="preferences_show_disclaimer_summary">Avez-vous vraiment lu les consignes de sécurité ? Avez-vous déjà sauvegardé votre porte-monnaie en lieu sûr ?</string>
   <string name="preferences_bluetooth_address_title">Adresse Bluetooth</string>

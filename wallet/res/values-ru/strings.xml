@@ -255,8 +255,6 @@
   <string name="preferences_data_usage_title">Использование данных</string>
   <string name="preferences_data_usage_summary">Показать опции ограничения использования данных в мобильных сетях.</string>
   <string name="preferences_notifications_title">Уведомления</string>
-  <string name="preferences_remind_balance_title">Напоминание баланса</string>
-  <string name="preferences_remind_balance_summary">Если приложение не использовалось несколько недель, вам придёт напоминание, если в бумажнике есть монеты.</string>
   <string name="preferences_show_disclaimer_title">Показать отказ от ответственности</string>
   <string name="preferences_show_disclaimer_summary">Вы действительно прочитали заметки о безопасности? Вы уже храните резервную копию кошелька в безопасном месте?</string>
   <string name="preferences_report_issue_title">Сообщить о проблеме</string>

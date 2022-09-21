@@ -241,8 +241,6 @@
   <string name="preferences_block_explorer_summary">Extern block-utforskare för att leta efter transaktioner, adresser och block.</string>
   <string name="preferences_data_usage_title">Dataanvändning</string>
   <string name="preferences_data_usage_summary">Visa alternativ för att begränsa dataanvändning över mobila nätverk.</string>
-  <string name="preferences_remind_balance_title">Påminnelse om summa</string>
-  <string name="preferences_remind_balance_summary">Efter ett par veckors inaktivitet kommer appen ge en påminnelse om det fortfarande finns ett belopp i plånboken.</string>
   <string name="preferences_show_disclaimer_title">Visa ansvarsfriskrivning</string>
   <string name="preferences_show_disclaimer_summary">Läste du verkligen säkerhetsinformationen? Har du redan säkerhetskopierat din plånbok till en säker plats?</string>
   <string name="preferences_report_issue_title">Rapportera problem</string>

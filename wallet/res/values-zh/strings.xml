@@ -268,8 +268,6 @@
   <string name="preferences_data_usage_summary">显示限制移动网络数据流量消耗的选项。</string>
   <string name="preferences_notifications_title">通知</string>
   <string name="preferences_notifications_summary">显示选项，可禁用或启用各种通知。</string>
-  <string name="preferences_remind_balance_title">余额提示</string>
-  <string name="preferences_remind_balance_summary">如果几个星期后都没有被使用，并且钱包里有余额，应用程序将发出通知。</string>
   <string name="preferences_show_disclaimer_title">显示声明</string>
   <string name="preferences_show_disclaimer_summary">您真的已经读过安全须知了吗？您已经把钱包备份到安全的位置了吗？</string>
   <string name="preferences_bluetooth_address_title">蓝牙地址</string>

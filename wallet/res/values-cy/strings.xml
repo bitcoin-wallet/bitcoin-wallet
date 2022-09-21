@@ -268,8 +268,6 @@
   <string name="preferences_data_usage_summary">Dangos opsiynau i gyfyngu defnydd data ar rwydweithiau symudol.</string>
   <string name="preferences_notifications_title">Hysbysiadau</string>
   <string name="preferences_notifications_summary">Dangos dewisiadau i alluogi neu analluogi hysbysiadau penodol.</string>
-  <string name="preferences_remind_balance_title">Atogffa o\'r balans</string>
-  <string name="preferences_remind_balance_summary">Ar ôl cwpl o wythnosau heb ei ddefnyddio, bydd yr ap yn rhoi gwybod os oes Bitcoin dal yn y waled.</string>
   <string name="preferences_show_disclaimer_title">Dangos ymwadiad</string>
   <string name="preferences_show_disclaimer_summary">Wyt ti wir wedi darllen y nodiadau diogelwch? Wyt ti eisoes wedi cadw copi wrth gefn o dy waled i le diogel?</string>
   <string name="preferences_bluetooth_address_title">Cyfeiriad Bluethooth</string>

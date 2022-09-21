@@ -255,8 +255,6 @@
   <string name="preferences_data_usage_summary">Mostrar as opções para limitar a utilização de dados nas redes móveis.</string>
   <string name="preferences_notifications_title">Notificações</string>
   <string name="preferences_notifications_summary">Mostrar opções para desativar ou ativar notificações específicas.</string>
-  <string name="preferences_remind_balance_title">Lembrete de saldo</string>
-  <string name="preferences_remind_balance_summary">Após ficar alguns semanas sem ser utilizado, a aplicação irá notificar se ainda existem bitcoins na carteira.</string>
   <string name="preferences_show_disclaimer_title">Mostrar limitação de responsabilidade</string>
   <string name="preferences_show_disclaimer_summary">Leu realmente as notas de segurança? Já fez a cópia de segurança da sua carteira para um lugar seguro?</string>
   <string name="preferences_report_issue_title">Comunicar problema</string>

@@ -274,8 +274,6 @@
   <string name="preferences_battery_optimization_summary">Blok zinciriyle olabildiğince güncel kalmak için uygulama için pil optimizasyonunu devre dışı bırakın.</string>
   <string name="preferences_notifications_title">Bildirimler</string>
   <string name="preferences_notifications_summary">Belirli bildirimleri devre dışı bırakmak veya etkinleştirmek için seçenekleri gösterin.</string>
-  <string name="preferences_remind_balance_title">Bakiye hatırlacısı</string>
-  <string name="preferences_remind_balance_summary">İki hafta kullanılmaz ise, uygulama cüzdanda hâlâ Bitcoin bulunduğunu bildirecektir.</string>
   <string name="preferences_show_disclaimer_title">Sorumluluk reddini göster</string>
   <string name="preferences_show_disclaimer_summary">Güvenlik notlarını gerçekten okudunuz mu? Cüzdanınızı zaten güvenli bir yere yedeklediniz mi?</string>
   <string name="preferences_bluetooth_address_title">Bluetooth adresi</string>

@@ -245,8 +245,6 @@
   <string name="preferences_block_explorer_summary">Explorador de blocs extern a utilitzar per cercar transaccions, adreces i blocs.</string>
   <string name="preferences_data_usage_title">Ús de dades</string>
   <string name="preferences_data_usage_summary">Mostra opcions per a restringir l\'ús de dades en xarxes mòbils. </string>
-  <string name="preferences_remind_balance_title">Recordatori de balanç</string>
-  <string name="preferences_remind_balance_summary">Després de no ser utilitzat durant un parell de setmanes, l\'aplicació us avisarà si encara hi ha monedes a la cartera.</string>
   <string name="preferences_show_disclaimer_title">Ensenyar renúncies</string>
   <string name="preferences_show_disclaimer_summary">Has llegit les notes de seguretat? Ja has fet una còpia de seguretat i l\'has guardat en un lloc segur?</string>
   <string name="preferences_report_issue_title">Avisa d\'un problema</string>

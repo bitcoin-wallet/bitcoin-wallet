@@ -194,7 +194,6 @@
   <string name="preferences_block_explorer_summary">مكتشف الكتل الخارجي الذي سيتم إستخدامه لعرض التعاملات و العناوين و الكتل.</string>
   <string name="preferences_data_usage_title">استخدام البيانات</string>
   <string name="preferences_data_usage_summary">إظهار الخيارات لتقييد استخدام البيانات على شبكات الانترنت المحمول اللاسلكية</string>
-  <string name="preferences_remind_balance_title">تذكير بالميزانية</string>
   <string name="preferences_show_disclaimer_title">عرض التنبيه</string>
   <string name="preferences_show_disclaimer_summary">هل قمت بقراءة ملاحظات السلامة ؟ و هل عمدت إلى حفظ نسخة إحتياطية لمحفظتك في مكان آمن ؟</string>
   <string name="preferences_report_issue_title">الإبلاغ عن مشكلة</string>
