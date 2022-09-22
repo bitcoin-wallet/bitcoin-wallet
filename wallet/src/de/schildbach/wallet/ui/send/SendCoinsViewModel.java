@@ -100,11 +100,6 @@ public class SendCoinsViewModel extends AndroidViewModel {
         feeCategory.observeForever(feeCategory -> maybeDryrun());
     }
 
-    @Override
-    protected void onCleared() {
-        executor.shutdown();
-    }
-
     private void amountOrBalanceChanged() {
         final Coin amount = this.amount.getValue();
         if (amount != null && amount.equals(Constants.NETWORK_PARAMETERS.getMaxMoney()))
