@@ -171,7 +171,8 @@ public class Configuration {
     }
 
     public boolean isTrustedPeersOnly() {
-        return getTrustedPeers() != null && getTrustedPeersOnly();
+        final Set<HostAndPort> trustedPeers = getTrustedPeers();
+        return trustedPeers != null && !trustedPeers.isEmpty() && getTrustedPeersOnly();
     }
 
     public Uri getBlockExplorer() {
