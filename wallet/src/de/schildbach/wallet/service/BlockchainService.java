@@ -17,6 +17,7 @@
 
 package de.schildbach.wallet.service;
 
+import android.app.ForegroundServiceStartNotAllowedException;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -29,6 +30,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Binder;
+import android.os.Build;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.IBinder;
@@ -154,6 +156,18 @@ public class BlockchainService extends LifecycleService {
     private static final Logger log = LoggerFactory.getLogger(BlockchainService.class);
 
     public static void start(final Context context, final boolean cancelCoinsReceived) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            try {
+                attemptStart(context, cancelCoinsReceived);
+            } catch (final ForegroundServiceStartNotAllowedException x) {
+                log.info("failed to start in foreground", x);
+            }
+        } else {
+            attemptStart(context, cancelCoinsReceived);
+        }
+    }
+
+    private static void attemptStart(final Context context, final boolean cancelCoinsReceived) {
         log.info("attempting to start {} in foreground", BlockchainService.class.getName());
         if (cancelCoinsReceived)
             ContextCompat.startForegroundService(context,
