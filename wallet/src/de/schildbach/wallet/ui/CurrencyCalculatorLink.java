@@ -130,14 +130,14 @@ public final class CurrencyCalculatorLink {
                 final Coin btcAmount = (Coin) btcAmountView.getAmount();
                 if (btcAmount != null) {
                     btcAmountView.setHint(null);
-                    localAmountView.setAmount(null, false);
+                    localAmountView.setAmount(null);
                     localAmountView.setHint(coinToFiat(btcAmount));
                 }
             } else {
                 final Fiat localAmount = (Fiat) localAmountView.getAmount();
                 if (localAmount != null) {
                     localAmountView.setHint(null);
-                    btcAmountView.setAmount(null, false);
+                    btcAmountView.setAmount(null);
                     btcAmountView.setHint(fiatToCoin(localAmount));
                 }
             }
@@ -174,13 +174,13 @@ public final class CurrencyCalculatorLink {
         this.listener = null;
 
         if (exchangeDirection) {
-            btcAmountView.setAmount(amount, false);
+            btcAmountView.setAmount(amount);
             if (exchangeRate != null)
                 localAmountView.setHint(coinToFiat(amount));
         } else {
             btcAmountView.setHint(amount);
             if (exchangeRate != null)
-                localAmountView.setAmount(coinToFiat(amount), false);
+                localAmountView.setAmount(coinToFiat(amount));
         }
 
         this.listener = listener;
