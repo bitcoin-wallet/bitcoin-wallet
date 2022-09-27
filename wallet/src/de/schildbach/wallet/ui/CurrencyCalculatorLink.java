@@ -97,9 +97,10 @@ public final class CurrencyCalculatorLink {
     }
 
     public void setExchangeRate(final ExchangeRate exchangeRate) {
-        this.exchangeRate = exchangeRate;
-
-        update();
+        if (!exchangeRate.equals(this.exchangeRate)) {
+            this.exchangeRate = exchangeRate;
+            update();
+        }
     }
 
     public ExchangeRate getExchangeRate() {
