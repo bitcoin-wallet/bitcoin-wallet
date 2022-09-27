@@ -214,7 +214,14 @@ public final class CurrencyAmountView extends FrameLayout {
         if (!Objects.equals(newStr, oldStr)) {
             if (!fireListener)
                 textViewListener.setFire(false);
+            final int selectionStart = textView.getSelectionStart();
+            final int selectionEnd = textView.getSelectionEnd();
             textView.setText(newSpannable);
+            if (textView instanceof EditText && newSpannable != null && selectionStart != -1 && selectionEnd != -1) {
+                // preserve cursor position
+                final int limit = newSpannable.length();
+                ((EditText) textView).setSelection(Math.min(selectionStart, limit), Math.min(selectionEnd, limit));
+            }
             if (!fireListener)
                 textViewListener.setFire(true);
         }
