@@ -206,13 +206,15 @@ public final class CurrencyAmountView extends FrameLayout {
     }
 
     public void setAmount(@Nullable final Monetary amount, final boolean fireListener) {
-        if (!Objects.equals(amount, getAmount())) {
+        final Monetary oldAmount = getAmount();
+        final Spannable oldSpannable = oldAmount != null ? new MonetarySpannable(inputFormat, amountSigned, oldAmount) : null;
+        final Spannable newSpannable = amount != null ? new MonetarySpannable(inputFormat, amountSigned, amount) : null;
+        final String oldStr = oldSpannable != null ? oldSpannable.toString() : null;
+        final String newStr = newSpannable != null ? newSpannable.toString() : null;
+        if (!Objects.equals(newStr, oldStr)) {
             if (!fireListener)
                 textViewListener.setFire(false);
-            if (amount != null)
-                textView.setText(new MonetarySpannable(inputFormat, amountSigned, amount));
-            else
-                textView.setText(null);
+            textView.setText(newSpannable);
             if (!fireListener)
                 textViewListener.setFire(true);
         }
