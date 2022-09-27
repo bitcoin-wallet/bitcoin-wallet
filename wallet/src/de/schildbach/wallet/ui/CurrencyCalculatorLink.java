@@ -90,9 +90,10 @@ public final class CurrencyCalculatorLink {
     }
 
     public void setEnabled(final boolean enabled) {
-        this.enabled = enabled;
-
-        update();
+        if (enabled != this.enabled) {
+            this.enabled = enabled;
+            update();
+        }
     }
 
     public void setExchangeRate(final ExchangeRate exchangeRate) {
