@@ -149,9 +149,10 @@ public final class CurrencyCalculatorLink {
     }
 
     public void setExchangeDirection(final boolean exchangeDirection) {
-        this.exchangeDirection = exchangeDirection;
-
-        update();
+        if (exchangeDirection != this.exchangeDirection) {
+            this.exchangeDirection = exchangeDirection;
+            update();
+        }
     }
 
     public boolean getExchangeDirection() {
