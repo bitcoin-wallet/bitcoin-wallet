@@ -73,11 +73,11 @@ public class AlertDialogsFragment extends Fragment {
                 createTimeskewAlertDialog(diffMinutes).show();
             }
         });
-        viewModel.showVersionAlertDialog.observe(this, new Event.Observer<Void>() {
+        viewModel.showVersionAlertDialog.observe(this, new Event.Observer<Installer>() {
             @Override
-            protected void onEvent(final Void v) {
+            protected void onEvent(final Installer market) {
                 log.info("showing version alert dialog");
-                createVersionAlertDialog().show();
+                createVersionAlertDialog(market).show();
             }
         });
         viewModel.showInsecureDeviceAlertDialog.observe(this, new Event.Observer<String>() {
@@ -128,20 +128,19 @@ public class AlertDialogsFragment extends Fragment {
         return dialog.create();
     }
 
-    private Dialog createVersionAlertDialog() {
-        final Installer installer = viewModel.installer != null ? viewModel.installer : Installer.F_DROID;
+    private Dialog createVersionAlertDialog(final Installer market) {
         final Intent marketIntent = new Intent(Intent.ACTION_VIEW,
-                Uri.parse(installer.appStorePageFor(activity).toString()));
+                Uri.parse(market.appStorePageFor(activity).toString()));
         final Intent binaryIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.BINARY_URL));
 
         final StringBuilder message = new StringBuilder(
-                getString(R.string.wallet_version_dialog_msg, installer.displayName));
+                getString(R.string.wallet_version_dialog_msg, market.displayName));
         if (Build.VERSION.SDK_INT < Constants.SDK_DEPRECATED_BELOW)
             message.append("\n\n").append(getString(R.string.wallet_version_dialog_msg_deprecated));
         final DialogBuilder dialog = DialogBuilder.warn(activity, R.string.wallet_version_dialog_title, message);
 
         if (packageManager.resolveActivity(marketIntent, 0) != null) {
-            dialog.setPositiveButton(installer.displayName, (d, id) -> {
+            dialog.setPositiveButton(market.displayName, (d, id) -> {
                 startActivity(marketIntent);
                 activity.finish();
             });

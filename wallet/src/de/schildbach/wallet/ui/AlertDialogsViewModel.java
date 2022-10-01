@@ -67,7 +67,7 @@ public class AlertDialogsViewModel extends AndroidViewModel {
     private final WalletApplication application;
     public final @Nullable Installer installer;
     public final MutableLiveData<Event<Long>> showTimeskewAlertDialog = new MutableLiveData<>();
-    public final MutableLiveData<Event<Void>> showVersionAlertDialog = new MutableLiveData<>();
+    public final MutableLiveData<Event<Installer>> showVersionAlertDialog = new MutableLiveData<>();
     public final MutableLiveData<Event<String>> showInsecureDeviceAlertDialog = new MutableLiveData<>();
     public final MutableLiveData<Event<Void>> showLowStorageAlertDialog = new MutableLiveData<>();
     public final MutableLiveData<Event<String>> showSettingsFailedDialog = new MutableLiveData<>();
@@ -164,6 +164,7 @@ public class AlertDialogsViewModel extends AndroidViewModel {
                 String recommendedVersionKey = "version";
                 Integer recommendedVersion = properties.containsKey(recommendedVersionKey) ?
                         Ints.tryParse(properties.get(recommendedVersionKey)) : null;
+                Installer recommendedMarket = Installer.F_DROID;
                 if (installer != null) {
                     final String versionKey = "version." + installer.name().toLowerCase(Locale.US);
                     final Integer version = properties.containsKey(versionKey) ?
@@ -171,13 +172,14 @@ public class AlertDialogsViewModel extends AndroidViewModel {
                     if (recommendedVersion == null || (version != null && version > recommendedVersion)) {
                         recommendedVersionKey = versionKey;
                         recommendedVersion = version;
+                        recommendedMarket = installer;
                     }
                 }
                 if (recommendedVersion != null) {
-                    log.info("according to \"{}\", strongly recommended minimum app {} is \"{}\"",
-                            versionUrl, recommendedVersionKey, recommendedVersion);
+                    log.info("according to \"{}\" strongly recommended minimum app {} is \"{}\", recommended " +
+                            "market is {}", versionUrl, recommendedVersionKey, recommendedVersion, recommendedMarket);
                     if (recommendedVersion > application.packageInfo().versionCode) {
-                        showVersionAlertDialog.postValue(Event.simple());
+                        showVersionAlertDialog.postValue(new Event<>(recommendedMarket));
                         return;
                     }
                 }
