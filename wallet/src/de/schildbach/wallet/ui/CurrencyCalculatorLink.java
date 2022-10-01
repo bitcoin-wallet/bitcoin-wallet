@@ -25,6 +25,8 @@ import org.bitcoinj.core.Coin;
 import org.bitcoinj.utils.ExchangeRate;
 import org.bitcoinj.utils.Fiat;
 
+import java.util.Objects;
+
 /**
  * @author Andreas Schildbach
  */
@@ -97,7 +99,7 @@ public final class CurrencyCalculatorLink {
     }
 
     public void setExchangeRate(final ExchangeRate exchangeRate) {
-        if (!exchangeRate.equals(this.exchangeRate)) {
+        if (!Objects.equals(exchangeRate, this.exchangeRate)) {
             this.exchangeRate = exchangeRate;
             update();
         }
