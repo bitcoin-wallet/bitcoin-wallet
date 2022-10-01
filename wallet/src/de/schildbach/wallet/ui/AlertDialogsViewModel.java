@@ -161,25 +161,24 @@ public class AlertDialogsViewModel extends AndroidViewModel {
                 }
 
                 // Maybe show version alert.
-                String versionKey = null;
-                String version = null;
+                String recommendedVersionKey = "version";
+                Integer recommendedVersion = properties.containsKey(recommendedVersionKey) ?
+                        Ints.tryParse(properties.get(recommendedVersionKey)) : null;
                 if (installer != null) {
-                    versionKey = "version." + installer.name().toLowerCase(Locale.US);
-                    version = properties.get(versionKey);
+                    final String versionKey = "version." + installer.name().toLowerCase(Locale.US);
+                    final Integer version = properties.containsKey(versionKey) ?
+                            Ints.tryParse(properties.get(versionKey)) : null;
+                    if (recommendedVersion == null || (version != null && version > recommendedVersion)) {
+                        recommendedVersionKey = versionKey;
+                        recommendedVersion = version;
+                    }
                 }
-                if (version == null) {
-                    versionKey = "version";
-                    version = properties.get(versionKey);
-                }
-                if (version != null) {
-                    log.info("according to \"{}\", strongly recommended minimum app {} is \"{}\"", versionUrl,
-                            versionKey, version);
-                    final Integer recommendedVersionCode = Ints.tryParse(version);
-                    if (recommendedVersionCode != null) {
-                        if (recommendedVersionCode > application.packageInfo().versionCode) {
-                            showVersionAlertDialog.postValue(Event.simple());
-                            return;
-                        }
+                if (recommendedVersion != null) {
+                    log.info("according to \"{}\", strongly recommended minimum app {} is \"{}\"",
+                            versionUrl, recommendedVersionKey, recommendedVersion);
+                    if (recommendedVersion > application.packageInfo().versionCode) {
+                        showVersionAlertDialog.postValue(Event.simple());
+                        return;
                     }
                 }
 
