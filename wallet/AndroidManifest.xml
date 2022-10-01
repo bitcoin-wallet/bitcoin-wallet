@@ -61,6 +61,21 @@
         android:smallScreens="true"
         android:xlargeScreens="true" />
 
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="https" android:host="wallet.schildbach.de" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="https" android:host="f-droid.org" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="https" android:host="play.google.com" />
+        </intent>
+    </queries>
+
     <application
         android:name="de.schildbach.wallet.WalletApplication"
         android:hasFragileUserData="true"
