@@ -1064,6 +1064,8 @@ public final class SendCoinsFragment extends Fragment {
             privateKeyPasswordView.setNextFocusUpId(activeAmountViewId);
             privateKeyPasswordView.setNextFocusDownId(R.id.send_coins_go);
             privateKeyPasswordView.setNextFocusForwardId(R.id.send_coins_go);
+            viewCancel.setNextFocusUpId(
+                    privateKeyPasswordViewVisible ? R.id.send_coins_private_key_password : activeAmountViewId);
             viewGo.setNextFocusUpId(
                     privateKeyPasswordViewVisible ? R.id.send_coins_private_key_password : activeAmountViewId);
         } else {
