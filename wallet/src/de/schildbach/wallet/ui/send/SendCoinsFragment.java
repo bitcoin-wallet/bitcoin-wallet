@@ -1012,11 +1012,13 @@ public final class SendCoinsFragment extends Fragment {
                 directPaymentMessageView.setVisibility(View.GONE);
             }
 
-            viewCancel.setEnabled(viewModel.state != SendCoinsViewModel.State.REQUEST_PAYMENT_REQUEST
+            final boolean viewCancelEnabled = viewModel.state != SendCoinsViewModel.State.REQUEST_PAYMENT_REQUEST
                     && viewModel.state != SendCoinsViewModel.State.DECRYPTING
-                    && viewModel.state != SendCoinsViewModel.State.SIGNING);
-            viewGo.setEnabled(everythingPlausible() && dryrunTransaction != null && wallet != null
-                    && fees != null && (blockchainState == null || !blockchainState.replaying));
+                    && viewModel.state != SendCoinsViewModel.State.SIGNING;
+            viewCancel.setEnabled(viewCancelEnabled);
+            final boolean viewGoEnabled = everythingPlausible() && dryrunTransaction != null && wallet != null
+                    && fees != null && (blockchainState == null || !blockchainState.replaying);
+            viewGo.setEnabled(viewGoEnabled);
 
             if (viewModel.state == null || viewModel.state == SendCoinsViewModel.State.REQUEST_PAYMENT_REQUEST) {
                 viewCancel.setText(R.string.button_cancel);
@@ -1051,8 +1053,14 @@ public final class SendCoinsFragment extends Fragment {
             final int activeAmountViewId = amountCalculatorLink.activeTextView().getId();
             receivingAddressView.setNextFocusDownId(activeAmountViewId);
             receivingAddressView.setNextFocusForwardId(activeAmountViewId);
-            amountCalculatorLink.setNextFocusId(
-                    privateKeyPasswordViewVisible ? R.id.send_coins_private_key_password : R.id.send_coins_go);
+            if (privateKeyPasswordViewVisible)
+                amountCalculatorLink.setNextFocusId(R.id.send_coins_private_key_password);
+            else if (viewGoEnabled)
+                amountCalculatorLink.setNextFocusId(R.id.send_coins_go);
+            else if (viewCancelEnabled)
+                amountCalculatorLink.setNextFocusId(R.id.send_coins_cancel);
+            else
+                amountCalculatorLink.setNextFocusId(View.NO_ID);
             privateKeyPasswordView.setNextFocusUpId(activeAmountViewId);
             privateKeyPasswordView.setNextFocusDownId(R.id.send_coins_go);
             privateKeyPasswordView.setNextFocusForwardId(R.id.send_coins_go);
