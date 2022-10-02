@@ -254,7 +254,6 @@ public final class CurrencyAmountView extends FrameLayout {
 
     public void setNextFocusId(final int nextFocusId) {
         textView.setNextFocusDownId(nextFocusId);
-        textView.setNextFocusForwardId(nextFocusId);
     }
 
     private boolean isValidAmount(final boolean zeroIsValid) {

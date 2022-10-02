@@ -1052,7 +1052,6 @@ public final class SendCoinsFragment extends Fragment {
             // focus linking
             final int activeAmountViewId = amountCalculatorLink.activeTextView().getId();
             receivingAddressView.setNextFocusDownId(activeAmountViewId);
-            receivingAddressView.setNextFocusForwardId(activeAmountViewId);
             if (privateKeyPasswordViewVisible)
                 amountCalculatorLink.setNextFocusId(R.id.send_coins_private_key_password);
             else if (viewGoEnabled)
@@ -1063,7 +1062,6 @@ public final class SendCoinsFragment extends Fragment {
                 amountCalculatorLink.setNextFocusId(View.NO_ID);
             privateKeyPasswordView.setNextFocusUpId(activeAmountViewId);
             privateKeyPasswordView.setNextFocusDownId(R.id.send_coins_go);
-            privateKeyPasswordView.setNextFocusForwardId(R.id.send_coins_go);
             viewCancel.setNextFocusUpId(
                     privateKeyPasswordViewVisible ? R.id.send_coins_private_key_password : activeAmountViewId);
             viewGo.setNextFocusUpId(
