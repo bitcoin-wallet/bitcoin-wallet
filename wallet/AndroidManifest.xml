@@ -256,4 +256,8 @@
             android:name="android.nfc.disable_beam_default"
             android:value="true" />
     </application>
+
+    <!-- remove unnecessary merged nodes -->
+    <permission android:name="${applicationId}.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" tools:node="remove" />
+    <uses-permission android:name="${applicationId}.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" tools:node="remove" />
 </manifest>
