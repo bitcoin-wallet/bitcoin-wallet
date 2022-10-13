@@ -133,6 +133,7 @@
     <string name="sweep_wallet_fragment_request_wallet_balance_empty">Die Paper-Wallet ist leer.</string>
     <string name="sweep_wallet_fragment_insufficient_money_title">Nicht genug Bitcoins</string>
     <string name="sweep_wallet_fragment_insufficient_money_msg">Das zu leerende Guthaben ist zu gering zum Entleeren.</string>
+    <string name="sweep_wallet_fragment_decode_failed">Kann privaten Schlüssel nicht dekodieren</string>
     <string name="sweep_wallet_options_reload">Guthaben aktualisieren</string>
     <string name="maintenance_dialog_title">Wartung empfohlen</string>
     <string name="maintenance_dialog_message">Du hast %1$s auf unsicheren Adressen erhalten. Möchtest du diese Bitcoins auf sichere Adressen verschieben? Eine geringe Netzwerk-Gebühr von %2$s wird gezahlt.</string>

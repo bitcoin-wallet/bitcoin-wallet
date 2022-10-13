@@ -130,6 +130,7 @@
     <string name="sweep_wallet_fragment_request_wallet_balance_empty">The paper wallet is empty.</string>
     <string name="sweep_wallet_fragment_insufficient_money_title">Not enough coins</string>
     <string name="sweep_wallet_fragment_insufficient_money_msg">The amount of coins in the wallet is too small for sweeping.</string>
+    <string name="sweep_wallet_fragment_decode_failed">Cannot decode private key</string>
     <string name="sweep_wallet_options_reload">Reload balance</string>
     <string name="maintenance_dialog_title">Maintenance recommended</string>
     <string name="maintenance_dialog_message">You received %1$s to unsecure addresses. Would you like to move these coins to secure addresses? A small network fee of %2$s will be paid.</string>
