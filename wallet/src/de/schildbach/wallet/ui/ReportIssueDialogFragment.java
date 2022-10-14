@@ -29,6 +29,7 @@ import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.widget.Button;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
@@ -89,6 +90,7 @@ public class ReportIssueDialogFragment extends DialogFragment {
 
     private AbstractWalletActivity activity;
     private WalletApplication application;
+    private PowerManager powerManager;
 
     private Button positiveButton;
 
@@ -101,6 +103,7 @@ public class ReportIssueDialogFragment extends DialogFragment {
         super.onAttach(context);
         this.activity = (AbstractWalletActivity) context;
         this.application = activity.getWalletApplication();
+        this.powerManager = activity.getSystemService(PowerManager.class);
     }
 
     @Override
@@ -227,6 +230,9 @@ public class ReportIssueDialogFragment extends DialogFragment {
             report.append("Installer: ").append(installer.displayName).append(" (").append(installerPackageName).append(")\n");
         else
             report.append("Installer: unknown\n");
+        final boolean isIgnoringBatteryOptimization =
+                powerManager.isIgnoringBatteryOptimizations(application.getPackageName());
+        report.append("Battery optimization: ").append(isIgnoringBatteryOptimization ? "no" : "yes").append("\n");
         report.append("Timezone: ").append(TimeZone.getDefault().getID()).append("\n");
         calendar.setTimeInMillis(System.currentTimeMillis());
         report.append("Current time: ").append(String.format(Locale.US, "%tF %tT %tZ", calendar, calendar, calendar)).append("\n");
