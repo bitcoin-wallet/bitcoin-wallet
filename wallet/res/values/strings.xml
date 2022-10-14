@@ -61,6 +61,9 @@
     <string name="alert_dialogs_fragment_settings_failed_title">Problem with opening of settings</string>
     <string name="alert_dialogs_fragment_too_much_balance_dialog_title">Keep the risk low</string>
     <string name="alert_dialogs_fragment_too_much_balance_dialog_message">The amount in your wallet is quite high for carrying in your pocket. Please move some to a safer place, like a cold wallet.</string>
+    <string name="alert_dialogs_fragment_battery_optimization_dialog_title">Receive payments in background</string>
+    <string name="alert_dialogs_fragment_battery_optimization_dialog_message">At the moment your device is configured to only notify incoming payments while Bitcoin Wallet is visible – due to battery usage.\n\nWe suggest allowing the app to always stay up-to-date with the blockchain, even in the background.\n\nDon\'t worry, we\'ll still mind your battery.</string>
+    <string name="alert_dialogs_fragment_battery_optimization_dialog_button_allow">Allow</string>
     <string name="send_coins_activity_title">Send Bitcoins</string>
     <string name="send_coins_fragment_request_payment_request_progress">Fetching signature from %s…</string>
     <string name="send_coins_fragment_request_payment_request_failed_title">Fetching payment request failed</string>

@@ -24,9 +24,11 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
+import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.R;
 import de.schildbach.wallet.util.Installer;
@@ -49,6 +51,7 @@ public class AlertDialogsFragment extends Fragment {
 
     private AbstractWalletActivity activity;
     private PackageManager packageManager;
+    private Configuration config;
 
     private AlertDialogsViewModel viewModel;
 
@@ -59,6 +62,7 @@ public class AlertDialogsFragment extends Fragment {
         super.onAttach(context);
         this.activity = (AbstractWalletActivity) context;
         this.packageManager = activity.getPackageManager();
+        this.config = activity.getWalletApplication().getConfiguration();
     }
 
     @Override
@@ -108,6 +112,17 @@ public class AlertDialogsFragment extends Fragment {
                 createTooMuchBalanceAlertDialog().show();
             }
         });
+        viewModel.showBatteryOptimizationDialog.observe(this, new Event.Observer<Void>() {
+            @Override
+            protected void onEvent(final Void v) {
+                log.info("showing battery optimization dialog");
+                createBatteryOptimizationDialog().show();
+            }
+        });
+        viewModel.startBatteryOptimizationActivity.observe(this, v ->
+                startActivity(new Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS,
+                        Uri.parse("package:" + activity.getPackageName())))
+        );
     }
 
     private Dialog createTimeskewAlertDialog(final long diffMinutes) {
@@ -197,6 +212,17 @@ public class AlertDialogsFragment extends Fragment {
                 R.string.alert_dialogs_fragment_too_much_balance_dialog_title,
                 R.string.alert_dialogs_fragment_too_much_balance_dialog_message);
         dialog.singleDismissButton(null);
+        return dialog.create();
+    }
+
+    private Dialog createBatteryOptimizationDialog() {
+        final DialogBuilder dialog = DialogBuilder.dialog(activity,
+                R.string.alert_dialogs_fragment_battery_optimization_dialog_title,
+                R.string.alert_dialogs_fragment_battery_optimization_dialog_message);
+        dialog.setPositiveButton(R.string.alert_dialogs_fragment_battery_optimization_dialog_button_allow,
+                (d, which) -> viewModel.handleBatteryOptimizationDialogPositiveButton());
+        dialog.setNegativeButton(R.string.button_dismiss,
+                (d, which) -> viewModel.handleBatteryOptimizationDialogNegativeButton());
         return dialog.create();
     }
 }

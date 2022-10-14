@@ -17,19 +17,24 @@
 
 package de.schildbach.wallet.ui;
 
+import android.Manifest;
 import android.app.Application;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Build;
+import android.os.PowerManager;
 import android.text.format.DateUtils;
 import androidx.annotation.MainThread;
 import androidx.annotation.Nullable;
 import androidx.annotation.WorkerThread;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 import com.google.common.base.Splitter;
 import com.google.common.primitives.Ints;
+import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.util.CrashReporter;
@@ -65,6 +70,8 @@ import java.util.concurrent.Executors;
  */
 public class AlertDialogsViewModel extends AndroidViewModel {
     private final WalletApplication application;
+    private final Configuration config;
+    private final PowerManager powerManager;
     public final @Nullable Installer installer;
     public final MutableLiveData<Event<Long>> showTimeskewAlertDialog = new MutableLiveData<>();
     public final MutableLiveData<Event<Installer>> showVersionAlertDialog = new MutableLiveData<>();
@@ -72,6 +79,8 @@ public class AlertDialogsViewModel extends AndroidViewModel {
     public final MutableLiveData<Event<Void>> showLowStorageAlertDialog = new MutableLiveData<>();
     public final MutableLiveData<Event<String>> showSettingsFailedDialog = new MutableLiveData<>();
     public final MutableLiveData<Event<Void>> showTooMuchBalanceAlertDialog = new MutableLiveData<>();
+    public final MutableLiveData<Event<Void>> showBatteryOptimizationDialog = new MutableLiveData<>();
+    public final MutableLiveData<Event<Void>> startBatteryOptimizationActivity = new MutableLiveData<>();
 
     private final ExecutorService executor = Executors.newSingleThreadExecutor(
             new ContextPropagatingThreadFactory("query-versions"));
@@ -81,6 +90,8 @@ public class AlertDialogsViewModel extends AndroidViewModel {
     public AlertDialogsViewModel(final Application application) {
         super(application);
         this.application = (WalletApplication) application;
+        this.config = this.application.getConfiguration();
+        this.powerManager = application.getSystemService(PowerManager.class);
         this.installer = Installer.from(application);
 
         process();
@@ -207,6 +218,16 @@ public class AlertDialogsViewModel extends AndroidViewModel {
                     }
                 }
 
+                // Maybe show battery optimization dialog.
+                if (config.isTimeForBatteryOptimizationDialog() &&
+                        ContextCompat.checkSelfPermission(application,
+                                Manifest.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS) == PackageManager.PERMISSION_GRANTED &&
+                        !powerManager.isIgnoringBatteryOptimizations(application.getPackageName()) &&
+                        !application.getWallet().getTransactions(true).isEmpty()) {
+                    showBatteryOptimizationDialog.postValue(Event.simple());
+                    return;
+                }
+
                 log.info("all good, no alert dialog shown");
             }
         } catch (final Exception x) {
@@ -219,5 +240,16 @@ public class AlertDialogsViewModel extends AndroidViewModel {
                 log.warn("problem parsing", x);
             }
         }
+    }
+
+    @MainThread
+    public void handleBatteryOptimizationDialogPositiveButton() {
+        startBatteryOptimizationActivity.setValue(Event.simple());
+        config.removeBatteryOptimizationDialogTime();
+    }
+
+    @MainThread
+    public void handleBatteryOptimizationDialogNegativeButton() {
+        config.setBatteryOptimizationDialogTimeIn(DateUtils.WEEK_IN_MILLIS * 12);
     }
 }

@@ -67,6 +67,7 @@ public class Configuration {
     private static final String PREFS_KEY_LAST_EXCHANGE_DIRECTION = "last_exchange_direction";
     private static final String PREFS_KEY_CHANGE_LOG_VERSION = "change_log_version";
     private static final String PREFS_KEY_REMIND_BACKUP = "remind_backup";
+    private static final String PREFS_KEY_BATTERY_OPTIMIZATION_DIALOG_TIME = "battery_optimization_dialog_time";
     private static final String PREFS_KEY_LAST_BACKUP = "last_backup";
     private static final String PREFS_KEY_LAST_RESTORE = "last_restore";
     private static final String PREFS_KEY_LAST_ENCRYPT_KEYS = "last_encrypt_keys";
@@ -182,6 +183,28 @@ public class Configuration {
 
     public boolean isEnableExchangeRates() {
         return Constants.ENABLE_EXCHANGE_RATES && prefs.getBoolean(PREFS_KEY_ENABLE_EXCHANGE_RATES, true);
+    }
+
+    private long getBatteryOptimizationDialogTime() {
+        return prefs.getLong(PREFS_KEY_BATTERY_OPTIMIZATION_DIALOG_TIME, 0);
+    }
+
+    public boolean isTimeForBatteryOptimizationDialog() {
+        final long now = System.currentTimeMillis();
+        return now >= getBatteryOptimizationDialogTime();
+    }
+
+    private void setBatteryOptimizationDialogTime(final long batteryOptimizationDialogTime) {
+        prefs.edit().putLong(PREFS_KEY_BATTERY_OPTIMIZATION_DIALOG_TIME, batteryOptimizationDialogTime).apply();
+    }
+
+    public void setBatteryOptimizationDialogTimeIn(final long durationMs) {
+        final long now = System.currentTimeMillis();
+        setBatteryOptimizationDialogTime(now + durationMs);
+    }
+
+    public void removeBatteryOptimizationDialogTime() {
+        prefs.edit().remove(PREFS_KEY_BATTERY_OPTIMIZATION_DIALOG_TIME).apply();
     }
 
     private long getRemindBalanceTime() {

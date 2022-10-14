@@ -64,6 +64,9 @@
     <string name="alert_dialogs_fragment_settings_failed_title">Problem beim Öffnen der Einstellungen</string>
     <string name="alert_dialogs_fragment_too_much_balance_dialog_title">Minimiere das Risiko</string>
     <string name="alert_dialogs_fragment_too_much_balance_dialog_message">Der Betrag in deiner Wallet ist ziemlich hoch, um in der Tasche getragen zu werden. Bitte verschiebe etwas an einen sichereren Ort, etwa in ein Cold Wallet.</string>
+    <string name="alert_dialogs_fragment_battery_optimization_dialog_title">Empfange Zahlungen im Hintergrund</string>
+    <string name="alert_dialogs_fragment_battery_optimization_dialog_message">Im Moment ist dein Gerät so eingestellt, dass über eingehende Zahlungen nur informiert wird, wenn Bitcoin Wallet sichtbar ist – aus Gründen des Akkuverbrauchs.\n\nWir empfehlen, der App zu erlauben, auch im Hintergrund die Blockchain up-to-date zu halten.\n\nKeine Angst, wir achten trotzdem auf deinen Akku.</string>
+    <string name="alert_dialogs_fragment_battery_optimization_dialog_button_allow">Erlauben</string>
     <string name="send_coins_activity_title">Bitcoins senden</string>
     <string name="send_coins_fragment_request_payment_request_progress">Rufe Signatur von %s ab…</string>
     <string name="send_coins_fragment_request_payment_request_failed_title">Abrufen der Zahlungsanforderung fehlgeschlagen</string>
