@@ -66,7 +66,7 @@ public class Configuration {
     private static final String PREFS_KEY_BEST_CHAIN_HEIGHT_EVER = "best_chain_height_ever";
     private static final String PREFS_KEY_LAST_EXCHANGE_DIRECTION = "last_exchange_direction";
     private static final String PREFS_KEY_CHANGE_LOG_VERSION = "change_log_version";
-    public static final String PREFS_KEY_REMIND_BACKUP = "remind_backup";
+    private static final String PREFS_KEY_REMIND_BACKUP = "remind_backup";
     private static final String PREFS_KEY_LAST_BACKUP = "last_backup";
     private static final String PREFS_KEY_LAST_RESTORE = "last_restore";
     private static final String PREFS_KEY_LAST_ENCRYPT_KEYS = "last_encrypt_keys";
