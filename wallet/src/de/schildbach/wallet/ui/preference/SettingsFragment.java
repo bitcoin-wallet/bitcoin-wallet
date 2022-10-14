@@ -128,12 +128,12 @@ public final class SettingsFragment extends PreferenceFragment implements OnPref
         if (dataUsagePreference.getIntent() == null || pm.resolveActivity(dataUsagePreference.getIntent(), 0) == null)
             removeOrDisablePreference(dataUsagePreference);
 
-        final Preference batteryOptimiationPreference = findPreference(Configuration.PREFS_KEY_BATTERY_OPTIMIZATION);
+        final Preference batteryOptimizationPreference = findPreference(Configuration.PREFS_KEY_BATTERY_OPTIMIZATION);
         if (ContextCompat.checkSelfPermission(activity, Manifest.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS) == PackageManager.PERMISSION_GRANTED)
-            batteryOptimiationPreference.setIntent(new Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS,
+            batteryOptimizationPreference.setIntent(new Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS,
                     Uri.parse("package:" + application.getPackageName())));
-        if (powerManager.isIgnoringBatteryOptimizations(application.getPackageName()) || pm.resolveActivity(batteryOptimiationPreference.getIntent(), 0) == null)
-            removeOrDisablePreference(batteryOptimiationPreference);
+        if (powerManager.isIgnoringBatteryOptimizations(application.getPackageName()) || pm.resolveActivity(batteryOptimizationPreference.getIntent(), 0) == null)
+            removeOrDisablePreference(batteryOptimizationPreference);
 
         final Preference notificationsPreference = findPreference(Configuration.PREFS_KEY_NOTIFICATIONS);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
