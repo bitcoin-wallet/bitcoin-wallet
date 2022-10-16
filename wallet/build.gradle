@@ -41,7 +41,7 @@ ext {
 }
 
 android {
-    compileSdkVersion 'android-31'
+    compileSdkVersion 'android-33'
     buildToolsVersion '33.0.0'
 
     defaultConfig {
