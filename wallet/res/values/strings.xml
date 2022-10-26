@@ -180,7 +180,7 @@
     <string name="transaction_row_message_purpose_raise_fee">This transaction raises the network fee for a previous payment.</string>
     <string name="transaction_row_message_received_direct">This payment has been received directly. There is a risk it might never become spendable.</string>
     <string name="transaction_row_message_received_unconfirmed_delayed">The confirmation of this payment is delayed, likely due to an overload of the Bitcoin network.</string>
-    <string name="transaction_row_message_received_unconfirmed_unlocked">This payment should become spendable in a few minutes.</string>
+    <string name="transaction_row_message_received_unconfirmed_unlocked">This payment should not be trusted until it is confirmed. Confirmations take a few minutes.</string>
     <string name="transaction_row_message_received_unconfirmed_chain_forking">Due to maintenance on the Bitcoin network, this transaction should not be trusted until it is fully confirmed.</string>
     <string name="transaction_row_message_received_in_conflict">This payment has an increased risk of being reversed by the sender! If you can, wait for confirmation.</string>
     <string name="transaction_row_message_received_dead">This payment has been reversed by the sender.</string>

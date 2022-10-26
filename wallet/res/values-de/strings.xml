@@ -183,7 +183,7 @@
     <string name="transaction_row_message_purpose_raise_fee">Diese Transaktion erhöht die Netzwerk-Gebühr für eine vorherige Zahlung.</string>
     <string name="transaction_row_message_received_direct">Diese Zahlung wurde direkt empfangen. Es besteht das Risiko, daß sie niemals verfügbar wird.</string>
     <string name="transaction_row_message_received_unconfirmed_delayed">Die Bestätigung dieser Zahlung ist verspätet, wahrscheinlich aufgrund einer Überlastung des Bitcoin-Netzes.</string>
-    <string name="transaction_row_message_received_unconfirmed_unlocked">Diese Zahlung sollte in ein paar Minuten verfügbar werden.</string>
+    <string name="transaction_row_message_received_unconfirmed_unlocked">Dieser Zahlung sollte nicht vertraut werden bis sie bestätigt ist. Bestätigungen benötigen ein paar Minuten.</string>
     <string name="transaction_row_message_received_unconfirmed_chain_forking">Wegen Wartungsarbeiten am Bitcoin-Netzwerk sollte dieser Zahlung nicht vertraut werden bis sie voll bestätigt ist.</string>
     <string name="transaction_row_message_received_in_conflict">Diese Zahlung hat ein erhöhtes Risiko daß sie vom Sender rückgängig gemacht wird! Warte wenn möglich auf Bestätigung.</string>
     <string name="transaction_row_message_received_dead">Diese Zahlung wurde vom Sender rückgängig gemacht.</string>
