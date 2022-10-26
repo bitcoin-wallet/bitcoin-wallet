@@ -1,3 +1,7 @@
+v9.24
+
+* The app language can be selected independent of the system language on Android 13 and above.
+
 v9.23
 
 * Target Android 13.
