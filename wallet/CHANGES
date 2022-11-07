@@ -1,4 +1,4 @@
-v9.24
+v9.24-v9.25
 
 * The app language can be selected independent of the system language on Android 13 and above.
 
