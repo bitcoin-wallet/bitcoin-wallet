@@ -17,6 +17,7 @@
 
 package de.schildbach.wallet.ui;
 
+import android.Manifest;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -25,6 +26,8 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
@@ -56,6 +59,11 @@ public class AlertDialogsFragment extends Fragment {
     private AlertDialogsViewModel viewModel;
 
     private static final Logger log = LoggerFactory.getLogger(AlertDialogsFragment.class);
+
+    private final ActivityResultLauncher<String> requestPermissionLauncher =
+            registerForActivityResult(new ActivityResultContracts.RequestPermission(), granted -> {
+                // do nothing
+            });
 
     @Override
     public void onAttach(final Context context) {
@@ -123,6 +131,11 @@ public class AlertDialogsFragment extends Fragment {
                 startActivity(new Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS,
                         Uri.parse("package:" + activity.getPackageName())))
         );
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            viewModel.requestNotificationPermissionDialog.observe(this, v ->
+                    requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+            );
+        }
     }
 
     private Dialog createTimeskewAlertDialog(final long diffMinutes) {

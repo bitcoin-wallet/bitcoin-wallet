@@ -81,6 +81,7 @@ public class AlertDialogsViewModel extends AndroidViewModel {
     public final MutableLiveData<Event<Void>> showTooMuchBalanceAlertDialog = new MutableLiveData<>();
     public final MutableLiveData<Event<Void>> showBatteryOptimizationDialog = new MutableLiveData<>();
     public final MutableLiveData<Event<Void>> startBatteryOptimizationActivity = new MutableLiveData<>();
+    public final MutableLiveData<Event<Void>> requestNotificationPermissionDialog = new MutableLiveData<>();
 
     private final ExecutorService executor = Executors.newSingleThreadExecutor(
             new ContextPropagatingThreadFactory("query-versions"));
@@ -218,13 +219,24 @@ public class AlertDialogsViewModel extends AndroidViewModel {
                     }
                 }
 
+                final boolean walletIsEmpty = application.getWallet().getTransactions(true).isEmpty();
+
                 // Maybe show battery optimization dialog.
                 if (config.isTimeForBatteryOptimizationDialog() &&
                         ContextCompat.checkSelfPermission(application,
                                 Manifest.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS) == PackageManager.PERMISSION_GRANTED &&
                         !powerManager.isIgnoringBatteryOptimizations(application.getPackageName()) &&
-                        !application.getWallet().getTransactions(true).isEmpty()) {
+                        !walletIsEmpty) {
                     showBatteryOptimizationDialog.postValue(Event.simple());
+                    return;
+                }
+
+                // Maybe request notification permission.
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
+                        ContextCompat.checkSelfPermission(application,
+                                Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED &&
+                        !walletIsEmpty) {
+                    requestNotificationPermissionDialog.postValue(Event.simple());
                     return;
                 }
 
