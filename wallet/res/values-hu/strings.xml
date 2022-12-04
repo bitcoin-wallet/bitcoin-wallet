@@ -2,6 +2,7 @@
 <resources>
   <string name="toast_wallet_reset">A tárcád alapállapotba került!\nA visszaállítás némi időt vesz igénybe.</string>
   <string name="toast_start_external_document_failed">Nincs böngésző telepítve amivel a külső dokumentum megnyitható.</string>
+  <string name="toast_start_external_document_error">Webböngésző hiba: %s</string>
   <string name="toast_start_storage_provider_selector_failed">Nincs alkalmas felhőszolgáltatás telepítve.\nAmi hasznos lehet az a \"Nextcloud\" vagy \"Google Drive\".</string>
   <string name="wallet_disclaimer_fragment_remind_safety">Csak saját felelősségre használd. Olvasd el a &lt;u&gt;biztonsági megjegyzéseket&lt;/u&gt;.</string>
   <string name="wallet_disclaimer_fragment_remind_backup">Szükséges &lt;u&gt;biztonsági mentést készítened a tárcádról&lt;/u&gt;!</string>
@@ -60,6 +61,9 @@
   <string name="alert_dialogs_fragment_settings_failed_title">Probléma a beállítások megnyitásával</string>
   <string name="alert_dialogs_fragment_too_much_balance_dialog_title">Csökkentsd a kockázatot</string>
   <string name="alert_dialogs_fragment_too_much_balance_dialog_message">A tárcádban tárolt összeg meglehetősen magas ahhoz képest, hogy mindig a zsebedben hordd. Kérjük küldd el egy részét egy biztonságosabb helyre, például egy hidegtárcába.</string>
+  <string name="alert_dialogs_fragment_battery_optimization_dialog_title">Kifizetések fogadása a háttérben</string>
+  <string name="alert_dialogs_fragment_battery_optimization_dialog_message">Jelenleg a készüléked beállításai miatt a beérkező kifizetések értesítései csak aktív Bitcoin Wallet mellett jelennek meg – akkumulátorhasználat csökkentése miatt.\n\nAzt javasoljuk engedélyezd az alkalmazásnak a blokklánc folyamatos figyelését a háttérben is.\n\nNe aggódj, figyelünk az akkumulátorra is.</string>
+  <string name="alert_dialogs_fragment_battery_optimization_dialog_button_allow">Engedélyez</string>
   <string name="send_coins_activity_title">Bitcoin küldése</string>
   <string name="send_coins_fragment_request_payment_request_progress">Aláírás begyűjtése tőle: %s…</string>
   <string name="send_coins_fragment_request_payment_request_failed_title">Fizetési kérelem begyűjtése sikertelen</string>
@@ -129,6 +133,7 @@
   <string name="sweep_wallet_fragment_request_wallet_balance_empty">A papírtárca üres.</string>
   <string name="sweep_wallet_fragment_insufficient_money_title">Nincs elég érme</string>
   <string name="sweep_wallet_fragment_insufficient_money_msg">A tárcában lévő összeg túl kevés a söpréshez.</string>
+  <string name="sweep_wallet_fragment_decode_failed">Privát kulcs visszafejtése sikertelen</string>
   <string name="sweep_wallet_options_reload">Egyenleg újratöltése</string>
   <string name="maintenance_dialog_title">Karbantartás ajánlott</string>
   <string name="maintenance_dialog_message">Kaptál %1$s-t nem biztonságos címekre. Szeretnéd áthelyezni ezeket az érméket biztonságos címekre? Egy kis hálózati díj, %2$s kerül kifizetésre.</string>
@@ -175,7 +180,7 @@
   <string name="transaction_row_message_purpose_raise_fee">Ez a tranzakció felemeli a hálózati díjat egy korábbi fizetésért.</string>
   <string name="transaction_row_message_received_direct">Ez a fizetés közvetlenül érkezett. Fennáll a veszélye, hogy talán soha nem lesz elkölthető.</string>
   <string name="transaction_row_message_received_unconfirmed_delayed">Ennek a kifizetésnek a megerősítése késik, valószínűleg a Bitcoin hálózat leterheltsége miatt.</string>
-  <string name="transaction_row_message_received_unconfirmed_unlocked">Ez a kifizetés perceken belül hozzáférhetővé válik.</string>
+  <string name="transaction_row_message_received_unconfirmed_unlocked">Ez a kifizetés nem tényszerű amíg nincs megerősítve. A megerősítés pár percet vesz igénybe.</string>
   <string name="transaction_row_message_received_unconfirmed_chain_forking">A Bitcoin hálózat karbantartása miatt ez a tranzakció nem megbízható amíg teljesen megerősítésre nem kerül.</string>
   <string name="transaction_row_message_received_in_conflict">Ennek a kifizetésnek megnövelt a kockázata a küldő általi visszafordításra. Ha tudsz, várj a megerősítésre.</string>
   <string name="transaction_row_message_received_dead">A kifizetés visszafordítva a küldő által.</string>
@@ -270,6 +275,8 @@
   <string name="preferences_enable_exchange_rates_summary">Árfolyamok lekérdezése adatfolyamból a helyi pénznembe történő átszámoláshoz.</string>
   <string name="preferences_data_usage_title">Adathasználat</string>
   <string name="preferences_data_usage_summary">Opciók megjelenítése a mobilhálózatokon történő adathasználat korlátozásához.</string>
+  <string name="preferences_battery_optimization_title">Akkumulátor optimalizálás letiltása</string>
+  <string name="preferences_battery_optimization_summary">Ahhoz, hogy mindig naprakész maradjon a blokklánc kérjük tiltsd le az akkumulátor optimalizálását ehhez az alkalmazáshoz.</string>
   <string name="preferences_notifications_title">Értesítések</string>
   <string name="preferences_notifications_summary">Beállítások mutatása az értesítések engedélyezéséhez vagy tiltásához.</string>
   <string name="preferences_show_disclaimer_title">Figyelmeztetések mutatása</string>
