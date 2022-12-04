@@ -2,6 +2,7 @@
 <resources>
   <string name="toast_wallet_reset">ウォレットはリセットされました!\n復元には多少時間がかかります。</string>
   <string name="toast_start_external_document_failed">外部文書を開くためのウェブブラウザがインストールされていません。</string>
+  <string name="toast_start_external_document_error">ウェブブラウザのエラー: %s</string>
   <string name="toast_start_storage_provider_selector_failed">利用できるクラウドストレージプロバイダがインストールされていません。\n\"Nextcloud\"や\"Google Drive\"などが必要です。</string>
   <string name="wallet_disclaimer_fragment_remind_safety">自己の責任においてご使用下さい。&lt;u&gt;安全に関する注意事項&lt;/u&gt;をお読み下さい。</string>
   <string name="wallet_disclaimer_fragment_remind_backup">&lt;u&gt;ウォレットをバックアップ&lt;/u&gt;する必要があります!</string>
@@ -60,6 +61,9 @@
   <string name="alert_dialogs_fragment_settings_failed_title">設定を開けませんでした</string>
   <string name="alert_dialogs_fragment_too_much_balance_dialog_title">リスクを軽減しましょう</string>
   <string name="alert_dialogs_fragment_too_much_balance_dialog_message">ウォレットの残高がポケットに入れて持ち歩くには多すぎます。一部をコールドウォレットなどの安全な場所に移動させてください。</string>
+  <string name="alert_dialogs_fragment_battery_optimization_dialog_title">バックグラウンドでの支払いの受け取り</string>
+  <string name="alert_dialogs_fragment_battery_optimization_dialog_message">現在この端末はBitcoin Walletが表示されているときのみ支払いの受け取りを通知するように設定されています。バッテリー使用量のためです。\n\nこのアプリがバックグラウンドの状態でも常に最新のブロックチェーンに追随するのを許可するよう提案します。\n\n心配しないでください、バッテリーには配慮します。</string>
+  <string name="alert_dialogs_fragment_battery_optimization_dialog_button_allow">許可</string>
   <string name="send_coins_activity_title">ビットコインの送金</string>
   <string name="send_coins_fragment_request_payment_request_progress">%s から署名の取得中……</string>
   <string name="send_coins_fragment_request_payment_request_failed_title">支払いリクエストの取得に失敗しました</string>
@@ -129,6 +133,7 @@
   <string name="sweep_wallet_fragment_request_wallet_balance_empty">ペーパーウォレットは空です。</string>
   <string name="sweep_wallet_fragment_insufficient_money_title">充分なコインがありません</string>
   <string name="sweep_wallet_fragment_insufficient_money_msg">ウォレット内のコインがスイープするには不十分です。</string>
+  <string name="sweep_wallet_fragment_decode_failed">秘密鍵をデコードできませんでした</string>
   <string name="sweep_wallet_options_reload">残高のリロード</string>
   <string name="maintenance_dialog_title">補修をお勧めします</string>
   <string name="maintenance_dialog_message">安全でないアドレス宛てに %1$s を受け取りました。このコインを安全なアドレスに移動しますか? 少額ですがネットワーク手数料として %2$s が支払われます。</string>
@@ -175,7 +180,7 @@
   <string name="transaction_row_message_purpose_raise_fee">このトランザクションは前の支払いのネットワーク手数料を増額します。</string>
   <string name="transaction_row_message_received_direct">この支払は直接届きました。利用可能とならないリスクがあります。</string>
   <string name="transaction_row_message_received_unconfirmed_delayed">この支払いの確認が遅れています。おそらくビットコインネットワークの過負荷によるものです。</string>
-  <string name="transaction_row_message_received_unconfirmed_unlocked">この支払は数分程度で利用可能となります。</string>
+  <string name="transaction_row_message_received_unconfirmed_unlocked">この支払いは確認がなされるまで信頼すべきではありません。確認には数分かかります。</string>
   <string name="transaction_row_message_received_unconfirmed_chain_forking">ビットコインネットワークがメンテナンス中のため、このトランザクションは完全に確認されるまで信用するべきではありません。</string>
   <string name="transaction_row_message_received_in_conflict">この支払いは、送金者によって引き戻されるリスクが高くなっています! 可能であれば確認されるのを待ってください。</string>
   <string name="transaction_row_message_received_dead">この支払は送金者により、引き戻されました。</string>
