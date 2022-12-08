@@ -1,3 +1,8 @@
+v10.0
+
+* The app now requires Android 8.0 (Oreo) or higher.
+* Rename of the git branch 'master' to `main`.
+
 v9.24-v9.26
 
 * The app language can be selected independent of the system language on Android 13 and above.
