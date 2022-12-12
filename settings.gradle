@@ -5,7 +5,7 @@ import org.gradle.api.GradleScriptException
 def minGradleVersion = GradleVersion.version("4.4")
 
 if (GradleVersion.current() < minGradleVersion)
-    throw new GradleScriptException("build requires Gradle ${minGradleVersion} or later", null)
+    throw new GradleScriptException("build requires Gradle ${minGradleVersion.version} or later", null)
 
 gradle.startParameter.excludedTaskNames << "lint"
 gradle.startParameter.excludedTaskNames << "lintVitalDevRelease"
