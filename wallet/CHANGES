@@ -1,3 +1,7 @@
+v10.01
+
+* On Android 13 and above, the user is asked for notification permission when the time feels right.
+
 v10.0
 
 * The app now requires Android 8.0 (Oreo) or higher.
