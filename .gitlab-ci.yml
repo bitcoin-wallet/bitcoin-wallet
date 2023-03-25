@@ -1,19 +1,40 @@
-image: ${DOCKER_IMAGE}
-
 variables:
-  ANDROID_HOME:             "$PWD/android-sdk"
+  ANDROID_HOME: $PWD/android-sdk
 
 before_script:
   - apt-get update
-  - apt-get -y upgrade
-  - apt-get -y install ${JDK_PACKAGE}
-  - apt-get -y install sdkmanager gradle
-  - yes | sdkmanager --licenses >/dev/null || true
 
-build:
-  parallel:
-    matrix:
-      - DOCKER_IMAGE: [ ubuntu:jammy, debian:bookworm-slim ]
-        JDK_PACKAGE: [ openjdk-11-jdk-headless ]
+after_script:
+  - gradle --version
+
+bullseye-jdk11:
+  image: debian:bullseye-backports
   script:
+    - apt-get -y install openjdk-11-jdk-headless
+    - apt-get -y install sdkmanager gradle
+    - yes | sdkmanager --licenses >/dev/null || true
+    - gradle build --stacktrace
+
+bookworm-jdk17:
+  image: debian:bookworm-slim
+  script:
+    - apt-get -y install openjdk-17-jdk-headless
+    - apt-get -y install sdkmanager gradle
+    - yes | sdkmanager --licenses >/dev/null || true
+    - gradle build --stacktrace
+
+jammy-jdk11:
+  image: ubuntu:jammy
+  script:
+    - apt-get -y install openjdk-11-jdk-headless
+    - apt-get -y install sdkmanager gradle
+    - yes | sdkmanager --licenses >/dev/null || true
+    - gradle build --stacktrace
+
+lunar-jdk17:
+  image: ubuntu:lunar
+  script:
+    - apt-get -y install openjdk-17-jdk-headless
+    - apt-get -y install sdkmanager gradle
+    - yes | sdkmanager --licenses >/dev/null || true
     - gradle build --stacktrace
