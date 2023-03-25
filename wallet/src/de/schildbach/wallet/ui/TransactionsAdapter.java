@@ -327,7 +327,7 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
                     this.message = SpannedString
                             .valueOf(context.getString(R.string.transaction_row_message_received_direct));
                     this.messageColor = colorInsignificant;
-                } else if (!sent && value.compareTo(Transaction.MIN_NONDUST_OUTPUT) < 0) {
+                } else if (!sent && value.compareTo(Constants.MIN_NONDUST) < 0) {
                     this.message = SpannedString
                             .valueOf(context.getString(R.string.transaction_row_message_received_dust));
                     this.messageColor = colorInsignificant;
