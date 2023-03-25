@@ -77,7 +77,6 @@ import org.bitcoinj.core.StoredBlock;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.TransactionBroadcast;
 import org.bitcoinj.core.TransactionConfidence.ConfidenceType;
-import org.bitcoinj.core.Utils;
 import org.bitcoinj.core.VersionMessage;
 import org.bitcoinj.core.listeners.AbstractPeerDataEventListener;
 import org.bitcoinj.core.listeners.PeerConnectedEventListener;
@@ -98,6 +97,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.InetSocketAddress;
+import java.time.Instant;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.EnumSet;
@@ -556,7 +557,7 @@ public class BlockchainService extends LifecycleService {
                     if (!blockChainFileExists && earliestKeyCreationTimeSecs > 0) {
                         try {
                             log.info("loading checkpoints for birthdate {} from '{}'",
-                                    Utils.dateTimeFormat(earliestKeyCreationTimeSecs * 1000),
+                                    DateTimeFormatter.ISO_INSTANT.format(Instant.ofEpochSecond(earliestKeyCreationTimeSecs)),
                                     Constants.Files.CHECKPOINTS_ASSET);
                             final Stopwatch watch = Stopwatch.createStarted();
                             final InputStream checkpointsInputStream = getAssets()
