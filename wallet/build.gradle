@@ -32,7 +32,7 @@ dependencies {
     implementation 'com.squareup.moshi:moshi:1.11.0'
     //noinspection GradleDependency
     implementation 'org.slf4j:slf4j-api:1.7.36'
-    implementation 'com.github.tony19:logback-android:2.0.1'
+    implementation 'com.github.tony19:logback-android:3.0.0'
     testImplementation 'junit:junit:4.13.2'
 }
 
