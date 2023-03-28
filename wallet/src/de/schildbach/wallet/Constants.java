@@ -33,6 +33,7 @@ import org.bitcoinj.utils.MonetaryFormat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -166,6 +167,10 @@ public final class Constants {
     public static final long LAST_USAGE_THRESHOLD_TODAY_MS = DateUtils.DAY_IN_MILLIS;
     public static final long LAST_USAGE_THRESHOLD_RECENTLY_MS = DateUtils.WEEK_IN_MILLIS;
     public static final long LAST_USAGE_THRESHOLD_INACTIVE_MS = 4 * DateUtils.WEEK_IN_MILLIS;
+
+    public static final Duration SERVICE_STOP_DELAY_AFTER_START = Duration.ofMinutes(1);
+    public static final Duration SERVICE_STOP_DELAY_AFTER_TRANSACTION = Duration.ofMinutes(5);
+    public static final Duration SERVICE_STOP_DELAY_AFTER_EVENT = Duration.ofSeconds(30);
 
     public static final long DELAYED_TRANSACTION_THRESHOLD_MS = 2 * DateUtils.HOUR_IN_MILLIS;
 

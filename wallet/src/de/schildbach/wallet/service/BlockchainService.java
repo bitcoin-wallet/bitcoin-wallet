@@ -97,6 +97,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.InetSocketAddress;
+import java.time.Duration;
 import java.time.Instant;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -291,7 +292,7 @@ public class BlockchainService extends LifecycleService {
 
         @Override
         public void onPeerConnected(final Peer peer, final int peerCount) {
-            postDelayedStopSelf(DateUtils.MINUTE_IN_MILLIS / 2);
+            postDelayedStopSelf(Constants.SERVICE_STOP_DELAY_AFTER_EVENT);
             changed(peerCount);
         }
 
@@ -320,7 +321,7 @@ public class BlockchainService extends LifecycleService {
 
         @Override
         public void onChainDownloadStarted(final Peer peer, final int blocksToDownload) {
-            postDelayedStopSelf(DateUtils.MINUTE_IN_MILLIS / 2);
+            postDelayedStopSelf(Constants.SERVICE_STOP_DELAY_AFTER_EVENT);
             this.blocksToDownload.set(blocksToDownload);
             if (blocksToDownload >= CONNECTIVITY_NOTIFICATION_PROGRESS_MIN_BLOCKS) {
                 config.maybeIncrementBestChainHeightEver(blockChain.getChainHead().getHeight() + blocksToDownload);
@@ -345,7 +346,7 @@ public class BlockchainService extends LifecycleService {
         public void run() {
             lastMessageTime.set(System.currentTimeMillis());
 
-            postDelayedStopSelf(DateUtils.MINUTE_IN_MILLIS / 2);
+            postDelayedStopSelf(Constants.SERVICE_STOP_DELAY_AFTER_EVENT);
             final int blocksToDownload = this.blocksToDownload.get();
             final int blocksLeft = this.blocksLeft.get();
             if (blocksToDownload >= CONNECTIVITY_NOTIFICATION_PROGRESS_MIN_BLOCKS)
@@ -445,9 +446,9 @@ public class BlockchainService extends LifecycleService {
             log.info("stop is deferred because service still bound");
     };
 
-    private void postDelayedStopSelf(final long ms) {
+    private void postDelayedStopSelf(final Duration delay) {
         delayHandler.removeCallbacks(delayedStopSelfRunnable);
-        delayHandler.postDelayed(delayedStopSelfRunnable, ms);
+        delayHandler.postDelayed(delayedStopSelfRunnable, delay.toMillis());
     }
 
     private final BroadcastReceiver deviceIdleModeReceiver = new BroadcastReceiver() {
@@ -593,7 +594,7 @@ public class BlockchainService extends LifecycleService {
         final NewTransactionLiveData newTransaction = new NewTransactionLiveData(wallet.getValue());
         newTransaction.observe(this, tx -> {
             final Wallet wallet = BlockchainService.this.wallet.getValue();
-            postDelayedStopSelf(5 * DateUtils.MINUTE_IN_MILLIS);
+            postDelayedStopSelf(Constants.SERVICE_STOP_DELAY_AFTER_TRANSACTION);
             final Coin amount = tx.getValue(wallet);
             if (amount.isPositive()) {
                 final Address address = WalletUtils.getWalletAddressOfReceived(tx, wallet);
@@ -682,7 +683,7 @@ public class BlockchainService extends LifecycleService {
                 peerGroup.startAsync();
                 peerGroup.startBlockChainDownload(blockchainDownloadListener);
 
-                postDelayedStopSelf(DateUtils.MINUTE_IN_MILLIS / 2);
+                postDelayedStopSelf(Constants.SERVICE_STOP_DELAY_AFTER_START);
             }
 
             private void shutdown() {
@@ -701,7 +702,7 @@ public class BlockchainService extends LifecycleService {
     @Override
     public int onStartCommand(final Intent intent, final int flags, final int startId) {
         super.onStartCommand(intent, flags, startId);
-        postDelayedStopSelf(DateUtils.MINUTE_IN_MILLIS);
+        postDelayedStopSelf(Constants.SERVICE_STOP_DELAY_AFTER_START);
 
         if (intent != null) {
             final String action = intent.getAction();
