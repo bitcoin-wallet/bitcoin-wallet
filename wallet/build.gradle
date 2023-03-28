@@ -5,6 +5,8 @@ plugins {
 
 configurations {
     all*.exclude group: 'androidx.viewpager', module: 'viewpager'
+    all*.exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib-jdk7'
+    all*.exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib-jdk8'
 }
 
 dependencies {
@@ -16,8 +18,8 @@ dependencies {
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.coordinatorlayout:coordinatorlayout:1.2.0'
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
-    implementation 'androidx.lifecycle:lifecycle-livedata:2.5.1'
-    implementation 'androidx.lifecycle:lifecycle-service:2.5.1'
+    implementation 'androidx.lifecycle:lifecycle-livedata:2.6.1'
+    implementation 'androidx.lifecycle:lifecycle-service:2.6.1'
     implementation 'androidx.sqlite:sqlite:2.3.1'
     implementation "androidx.room:room-runtime:2.5.1"
     annotationProcessor "androidx.room:room-compiler:2.5.1"
