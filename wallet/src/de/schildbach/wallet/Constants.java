@@ -168,9 +168,16 @@ public final class Constants {
     public static final long LAST_USAGE_THRESHOLD_RECENTLY_MS = DateUtils.WEEK_IN_MILLIS;
     public static final long LAST_USAGE_THRESHOLD_INACTIVE_MS = 4 * DateUtils.WEEK_IN_MILLIS;
 
-    public static final Duration SERVICE_STOP_DELAY_AFTER_START = Duration.ofMinutes(1);
-    public static final Duration SERVICE_STOP_DELAY_AFTER_TRANSACTION = Duration.ofMinutes(5);
-    public static final Duration SERVICE_STOP_DELAY_AFTER_EVENT = Duration.ofSeconds(30);
+    public static final Duration SERVICE_STOP_DELAY_AFTER_START =
+            NETWORK_PARAMETERS.getId().equals(NetworkParameters.ID_MAINNET) ?
+                    Duration.ofMinutes(1) :
+                    Duration.ofMinutes(2);
+    public static final Duration SERVICE_STOP_DELAY_AFTER_TRANSACTION =
+            Duration.ofMinutes(5);
+    public static final Duration SERVICE_STOP_DELAY_AFTER_EVENT =
+            NETWORK_PARAMETERS.getId().equals(NetworkParameters.ID_MAINNET) ?
+                    Duration.ofSeconds(30) :
+                    Duration.ofMinutes(2);
 
     public static final long DELAYED_TRANSACTION_THRESHOLD_MS = 2 * DateUtils.HOUR_IN_MILLIS;
 
