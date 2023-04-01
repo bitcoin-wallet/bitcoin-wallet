@@ -30,8 +30,8 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
+import java.time.Instant;
+import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -93,9 +93,9 @@ public class CrashReporter {
         synchronized (backgroundTracesFile) {
             try (final PrintWriter writer = new PrintWriter(
                     new OutputStreamWriter(new FileOutputStream(backgroundTracesFile, true), StandardCharsets.UTF_8))) {
-                final Calendar now = new GregorianCalendar(UTC);
-                writer.println(String.format(Locale.US, "\n--- collected at %tF %tT %tZ on version %s (%d) ---\n", now,
-                        now, now, packageInfo.versionName, packageInfo.versionCode));
+                final String now = DateTimeFormatter.ISO_INSTANT.format(Instant.now());
+                writer.println(String.format(Locale.US, "\n--- collected at %s on version %s (%d) ---\n",
+                        now, packageInfo.versionName, packageInfo.versionCode));
                 appendTrace(writer, throwable);
             } catch (final IOException x) {
                 log.error("problem writing background trace", x);
