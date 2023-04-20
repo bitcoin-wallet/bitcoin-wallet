@@ -33,6 +33,7 @@ import org.bitcoinj.utils.MonetaryFormat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -167,6 +168,17 @@ public final class Constants {
     public static final long LAST_USAGE_THRESHOLD_RECENTLY_MS = DateUtils.WEEK_IN_MILLIS;
     public static final long LAST_USAGE_THRESHOLD_INACTIVE_MS = 4 * DateUtils.WEEK_IN_MILLIS;
 
+    public static final Duration SERVICE_STOP_DELAY_AFTER_START =
+            NETWORK_PARAMETERS.getId().equals(NetworkParameters.ID_MAINNET) ?
+                    Duration.ofMinutes(1) :
+                    Duration.ofMinutes(2);
+    public static final Duration SERVICE_STOP_DELAY_AFTER_TRANSACTION =
+            Duration.ofMinutes(5);
+    public static final Duration SERVICE_STOP_DELAY_AFTER_EVENT =
+            NETWORK_PARAMETERS.getId().equals(NetworkParameters.ID_MAINNET) ?
+                    Duration.ofSeconds(30) :
+                    Duration.ofMinutes(2);
+
     public static final long DELAYED_TRANSACTION_THRESHOLD_MS = 2 * DateUtils.HOUR_IN_MILLIS;
 
     public static final long AUTOCLOSE_DELAY_MS = 1000;
@@ -175,6 +187,8 @@ public final class Constants {
     public static final Coin TOO_MUCH_BALANCE_THRESHOLD = Coin.COIN.divide(32);
     /** A balance above this amount will cause the donate option to be shown */
     public static final Coin SOME_BALANCE_THRESHOLD = Coin.COIN.divide(1600);
+    /** Values less than this are considered not spendable in an economic way */
+    public static final Coin MIN_NONDUST = Coin.valueOf(546); // satoshis
 
     public static final int SDK_DEPRECATED_BELOW = Build.VERSION_CODES.O;
     public static final String SECURITY_PATCH_INSECURE_BELOW = "2021-07-01";

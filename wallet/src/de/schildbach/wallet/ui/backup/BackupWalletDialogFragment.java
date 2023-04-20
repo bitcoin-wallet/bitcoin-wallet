@@ -49,7 +49,6 @@ import de.schildbach.wallet.ui.AbstractWalletActivityViewModel;
 import de.schildbach.wallet.ui.DialogBuilder;
 import de.schildbach.wallet.ui.ShowPasswordCheckListener;
 import de.schildbach.wallet.util.Crypto;
-import de.schildbach.wallet.util.Iso8601Format;
 import de.schildbach.wallet.util.Toast;
 import de.schildbach.wallet.util.WalletUtils;
 import org.bitcoinj.wallet.Protos;
@@ -66,6 +65,8 @@ import java.io.Reader;
 import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
+import java.time.Instant;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.TimeZone;
@@ -316,12 +317,10 @@ public class BackupWalletDialogFragment extends DialogFragment {
         passwordView.setEnabled(false);
         passwordAgainView.setEnabled(false);
 
-        final DateFormat dateFormat = new Iso8601Format("yyyy-MM-dd-HH-mm");
-        dateFormat.setTimeZone(TimeZone.getDefault());
-
+        final DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm");
         final StringBuilder filename = new StringBuilder(Constants.Files.EXTERNAL_WALLET_BACKUP);
         filename.append('-');
-        filename.append(dateFormat.format(new Date()));
+        filename.append(dateFormat.format(Instant.now().atZone(TimeZone.getDefault().toZoneId())));
 
         try {
             createDocumentLauncher.launch(filename.toString());
