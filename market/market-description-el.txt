@@ -22,7 +22,7 @@ https://www.gnu.org/licenses/gpl-3.0.en.html
 https://github.com/bitcoin-wallet/bitcoin-wallet
 
 Διαχείρηση όλων των μεταφράσεων μέσω του Transifex:
-https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
+https://explore.transifex.com/bitcoin-wallet/bitcoin-wallet/
 
 
 <i>Χρησιμοποιήστε με δική σας ευθύνη!</i>

@@ -24,7 +24,7 @@ Náš zdrojový kód je k dispozici na GitHubu:
 https://github.com/bitcoin-wallet/bitcoin-wallet
 
 Veškeré překlady jsou spravovány přes Transifex:
-https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
+https://explore.transifex.com/bitcoin-wallet/bitcoin-wallet/
 
 
 <i>Používejte jen na vlastní nebezpečí! Používejte pouze pro malé částky.</i>

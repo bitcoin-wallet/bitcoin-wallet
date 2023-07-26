@@ -6,5 +6,5 @@ However if you've got a question or would like to start a discussion, please pos
 [Bitcoin stack exchange](https://bitcoin.stackexchange.com/questions/tagged/bitcoin-wallet-app).
 
 If you would like to contribute language translations, we prefer if you use our
-[Transifex project](https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/). Languages will be
+[Transifex project](https://explore.transifex.com/bitcoin-wallet/bitcoin-wallet/). Languages will be
 synced from there regularly.

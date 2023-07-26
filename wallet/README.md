@@ -100,7 +100,7 @@ You can import the project into IntelliJ IDEA or Android Studio, as it uses Grad
 
 ### TRANSLATIONS
 
-The source language is English. Translations for all languages except German [happen on Transifex](https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/).
+The source language is English. Translations for all languages except German [happen on Transifex](https://explore.transifex.com/bitcoin-wallet/bitcoin-wallet/).
 
 The English resources are pushed to Transifex. Changes are pulled and committed to the git
 repository from time to time. It can be done by manually downloading the files, but using the `tx`

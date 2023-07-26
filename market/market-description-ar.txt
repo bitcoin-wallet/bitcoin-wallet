@@ -21,7 +21,7 @@ https://www.gnu.org/licenses/gpl-3.0.ar.html
 https://github.com/bitcoin-wallet/bitcoin-wallet
 
 كل الترجمات مدارة عبر Transifex:
-https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
+https://explore.transifex.com/bitcoin-wallet/bitcoin-wallet/
 
 
 استخدم على مسؤوليتك الشخصية !

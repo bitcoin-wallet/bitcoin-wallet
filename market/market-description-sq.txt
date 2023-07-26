@@ -22,7 +22,7 @@ Kodi jonë burimor është i hapur në GitHub:
 https://github.com/bitcoin-wallet/bitcoin-wallet
 
 Të gjitha përkthimet menagjohen nga Transifex:
-https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
+https://explore.transifex.com/bitcoin-wallet/bitcoin-wallet/
 
 
 <i>Përdoreni në përgjegjësin tuaj!<i>

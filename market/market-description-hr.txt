@@ -21,7 +21,7 @@ Naš izvorni kod je dostušan na GitHub-u:
 https://github.com/bitcoin-wallet/bitcoin-wallet
 
 Sve transakcije se provode preko Transifex-a:
-https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
+https://explore.transifex.com/bitcoin-wallet/bitcoin-wallet/
 
 
 <i>Koristi na svoj vlastiti rizik.</i>

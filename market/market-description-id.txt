@@ -16,6 +16,6 @@ Jika Anda ingin berkontribusi kepada Bitcoin Wallet, proyeknya berada di
 https://github.com/bitcoin-wallet/bitcoin-wallet
 
 Semua terjemahan dikelola via Transifex:
-https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
+https://explore.transifex.com/bitcoin-wallet/bitcoin-wallet/
 
 <i>Gunakan dengan resiko Anda!</i>

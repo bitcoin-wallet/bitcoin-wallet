@@ -22,7 +22,7 @@ Lähdekoodi saatavilla GitHub:sta:
 https://github.com/bitcoin-wallet/bitcoin-wallet
 
 Kaikki käännökset on hallinnoitu Transifex:n kautta:
-https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
+https://explore.transifex.com/bitcoin-wallet/bitcoin-wallet/
 
 
 <i>Käytä omalla vastuulla!</i>
