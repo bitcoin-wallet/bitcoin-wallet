@@ -22,10 +22,8 @@ import android.app.job.JobParameters;
 import android.app.job.JobScheduler;
 import android.app.job.JobService;
 import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.os.Build;
 import android.os.PowerManager;
 import android.text.format.DateUtils;
 import de.schildbach.wallet.Configuration;
@@ -61,24 +59,22 @@ public class StartBlockchainService extends JobService {
                 lastUsedAgo / DateUtils.MINUTE_IN_MILLIS, expectLargeData ? " and expecting large data" : "",
                 interval / DateUtils.MINUTE_IN_MILLIS);
 
-        final JobScheduler jobScheduler = (JobScheduler) application.getSystemService(Context.JOB_SCHEDULER_SERVICE);
+        final JobScheduler jobScheduler = application.getSystemService(JobScheduler.class);
         final JobInfo.Builder jobInfo = new JobInfo.Builder(0, new ComponentName(application,
                 StartBlockchainService.class));
         jobInfo.setMinimumLatency(interval);
         jobInfo.setOverrideDeadline(DateUtils.WEEK_IN_MILLIS);
         jobInfo.setRequiredNetworkType(expectLargeData ? JobInfo.NETWORK_TYPE_UNMETERED : JobInfo.NETWORK_TYPE_ANY);
         jobInfo.setRequiresDeviceIdle(true);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            jobInfo.setRequiresBatteryNotLow(true);
-            jobInfo.setRequiresStorageNotLow(true);
-        }
+        jobInfo.setRequiresBatteryNotLow(true);
+        jobInfo.setRequiresStorageNotLow(true);
         jobScheduler.schedule(jobInfo.build());
     }
 
     @Override
     public void onCreate() {
         super.onCreate();
-        pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+        pm = getSystemService(PowerManager.class);
     }
 
     @Override

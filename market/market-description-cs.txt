@@ -11,7 +11,9 @@
 • Pokud jste offline, stále můžete platit přes Bluetooth.
 • Systémové notifikace při přijaté platbě
 • Načítání papírových peněženek (např. ty co se používají u cold storage).
-• Widget pro zobrazení Groestlcoin bilance.
+• Widget pro zobrazení Bitcoin bilance.
+• Bezpečnost: Podporuje Taproot, Segwit a nový formát bech32m.
+• Soukromí: Podporuje Tor prostřednictvím samostatné aplikace Orbot.
 
 
 <b>PŘISPĚJTE</b>
@@ -26,4 +28,4 @@ Veškeré překlady jsou spravovány přes Transifex:
 https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
 
 
-<i>Použití na vlastní riziko!</i>
+<i>Používejte jen na vlastní nebezpečí! Používejte pouze pro malé částky.</i>

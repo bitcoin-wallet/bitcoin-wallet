@@ -104,4 +104,21 @@
 		</p>
 	]]>
 	</string>
+  <string name="help_technical_notes">
+<![CDATA[
+        <p>
+            <b>Technikai megjegyzések:</b>
+        </p>
+        <p>
+            A Bitcoin Wallet egyszerűsített fizetési igazolást használ és a legtöbb elvégzett munkát tartalmazó láncot követi (néha \"leghosszabb láncnak\", \"nyertes láncnak\" vagy \"Bitcoin blokkláncnak\" is nevezik).
+            Csak ezen a láncon könyvelt pénzt tudsz elkölteni illetve fogadni.
+            Semmilyen garancia nem vonatkozik a mellékláncokra, azaz ami kevesebb elvégzett munkát tartalmaz.
+        </p>
+        <p>
+            Mindmáig a mellékláncok kivétel nélkül elég hamar jelentéktelenné váltak.
+            Ha mégis ilyen láncot szeretnél követni, akkor javasolt a \"megbízható peer\" funkció használata, hogy kizárólag ahhoz a bitcoind verzióhoz csatlakozz, ami csakis a kiválasztott lánc használatát követeli.
+            Ha a tárcád és a megbízható peer közötti kapcsolat nem biztonságos, akkor használj VPN-t a kapcsolat hitelesítéséhez.
+        </p>
+    ]]>
+    </string>
 </resources>

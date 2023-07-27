@@ -23,9 +23,7 @@ import android.app.Dialog;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Typeface;
-import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.Html;
@@ -36,6 +34,8 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
@@ -49,7 +49,6 @@ import de.schildbach.wallet.ui.AbstractWalletActivityViewModel;
 import de.schildbach.wallet.ui.DialogBuilder;
 import de.schildbach.wallet.ui.ShowPasswordCheckListener;
 import de.schildbach.wallet.util.Crypto;
-import de.schildbach.wallet.util.Iso8601Format;
 import de.schildbach.wallet.util.Toast;
 import de.schildbach.wallet.util.WalletUtils;
 import org.bitcoinj.wallet.Protos;
@@ -66,12 +65,13 @@ import java.io.Reader;
 import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
+import java.time.Instant;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.TimeZone;
 
-import static androidx.core.util.Preconditions.checkNotNull;
-import static androidx.core.util.Preconditions.checkState;
+import static com.google.common.base.Preconditions.checkState;
 
 /**
  * @author Andreas Schildbach
@@ -97,9 +97,77 @@ public class BackupWalletDialogFragment extends DialogFragment {
     private AbstractWalletActivityViewModel walletActivityViewModel;
     private BackupWalletViewModel viewModel;
 
-    private static final int REQUEST_CODE_CREATE_DOCUMENT = 0;
-
     private static final Logger log = LoggerFactory.getLogger(BackupWalletDialogFragment.class);
+
+    private final ActivityResultLauncher<String> createDocumentLauncher =
+            registerForActivityResult(new ActivityResultContracts.CreateDocument(Constants.MIMETYPE_WALLET_BACKUP),
+                    uri -> {
+                        if (uri != null) {
+                            walletActivityViewModel.wallet.observe(this, new Observer<Wallet>() {
+                                @Override
+                                public void onChanged(final Wallet wallet) {
+                                    walletActivityViewModel.wallet.removeObserver(this);
+
+                                    final String targetProvider = WalletUtils.uriToProvider(uri);
+                                    final String password = passwordView.getText().toString().trim();
+                                    checkState(!password.isEmpty());
+                                    wipePasswords();
+                                    dismiss();
+
+                                    byte[] plainBytes = null;
+                                    try (final Writer cipherOut = new OutputStreamWriter(
+                                            activity.getContentResolver().openOutputStream(uri),
+                                            StandardCharsets.UTF_8)) {
+                                        final Protos.Wallet walletProto =
+                                                new WalletProtobufSerializer().walletToProto(wallet);
+                                        final ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                                        walletProto.writeTo(baos);
+                                        baos.close();
+                                        plainBytes = baos.toByteArray();
+
+                                        final String cipherText = Crypto.encrypt(plainBytes, password.toCharArray());
+                                        cipherOut.write(cipherText);
+                                        cipherOut.flush();
+
+                                        log.info("backed up wallet to: '{}'{}, {} characters written", uri,
+                                                targetProvider != null ? " (" + targetProvider + ")" : "",
+                                                cipherText.length());
+                                    } catch (final IOException x) {
+                                        log.error("problem backing up wallet to " + uri, x);
+                                        ErrorDialogFragment.showDialog(getParentFragmentManager(), x.toString());
+                                        return;
+                                    }
+
+                                    try (final Reader cipherIn = new InputStreamReader(
+                                            activity.getContentResolver().openInputStream(uri),
+                                            StandardCharsets.UTF_8)) {
+                                        final StringBuilder cipherText = new StringBuilder();
+                                        CharStreams.copy(cipherIn, cipherText);
+                                        cipherIn.close();
+
+                                        final byte[] plainBytes2 = Crypto.decryptBytes(cipherText.toString(),
+                                                password.toCharArray());
+                                        if (!Arrays.equals(plainBytes, plainBytes2))
+                                            throw new IOException("verification failed");
+
+                                        log.info("verified successfully: '" + uri + "'");
+                                        application.getConfiguration().disarmBackupReminder();
+                                        SuccessDialogFragment.showDialog(getParentFragmentManager(),
+                                                targetProvider != null ? targetProvider : uri.toString());
+                                    } catch (final IOException x) {
+                                        log.error("problem verifying backup from " + uri, x);
+                                        ErrorDialogFragment.showDialog(getParentFragmentManager(), x.toString());
+                                        return;
+                                    }
+                                }
+                            });
+                        } else {
+                            log.info("cancelled backing up wallet");
+                            passwordView.setEnabled(true);
+                            passwordAgainView.setEnabled(true);
+                            activity.finish();
+                        }
+                    });
 
     private final TextWatcher textWatcher = new TextWatcher() {
         @Override
@@ -249,92 +317,16 @@ public class BackupWalletDialogFragment extends DialogFragment {
         passwordView.setEnabled(false);
         passwordAgainView.setEnabled(false);
 
-        final DateFormat dateFormat = new Iso8601Format("yyyy-MM-dd-HH-mm");
-        dateFormat.setTimeZone(TimeZone.getDefault());
-
+        final DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm");
         final StringBuilder filename = new StringBuilder(Constants.Files.EXTERNAL_WALLET_BACKUP);
         filename.append('-');
-        filename.append(dateFormat.format(new Date()));
+        filename.append(dateFormat.format(Instant.now().atZone(TimeZone.getDefault().toZoneId())));
 
-        final Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
-        intent.addCategory(Intent.CATEGORY_OPENABLE);
-        intent.setType(Constants.MIMETYPE_WALLET_BACKUP);
-        intent.putExtra(Intent.EXTRA_TITLE, filename.toString());
         try {
-            startActivityForResult(intent, REQUEST_CODE_CREATE_DOCUMENT);
+            createDocumentLauncher.launch(filename.toString());
         } catch (final ActivityNotFoundException x) {
-            log.warn("Cannot open document selector: {}", intent);
+            log.warn("Cannot open document selector: {}", filename);
             new Toast(activity).longToast(R.string.toast_start_storage_provider_selector_failed);
-        }
-    }
-
-    @Override
-    public void onActivityResult(final int requestCode, final int resultCode, final Intent intent) {
-        if (requestCode == REQUEST_CODE_CREATE_DOCUMENT) {
-            if (resultCode == Activity.RESULT_OK) {
-                walletActivityViewModel.wallet.observe(this, new Observer<Wallet>() {
-                    @Override
-                    public void onChanged(final Wallet wallet) {
-                        walletActivityViewModel.wallet.removeObserver(this);
-
-                        final Uri targetUri = checkNotNull(intent.getData());
-                        final String targetProvider = WalletUtils.uriToProvider(targetUri);
-                        final String password = passwordView.getText().toString().trim();
-                        checkState(!password.isEmpty());
-                        wipePasswords();
-                        dismiss();
-
-                        byte[] plainBytes = null;
-                        try (final Writer cipherOut = new OutputStreamWriter(
-                                activity.getContentResolver().openOutputStream(targetUri), StandardCharsets.UTF_8)) {
-                            final Protos.Wallet walletProto = new WalletProtobufSerializer().walletToProto(wallet);
-                            final ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                            walletProto.writeTo(baos);
-                            baos.close();
-                            plainBytes = baos.toByteArray();
-
-                            final String cipherText = Crypto.encrypt(plainBytes, password.toCharArray());
-                            cipherOut.write(cipherText);
-                            cipherOut.flush();
-
-                            log.info("backed up wallet to: '{}'{}, {} characters written", targetUri,
-                                    targetProvider != null ? " (" + targetProvider + ")" : "", cipherText.length());
-                        } catch (final IOException x) {
-                            log.error("problem backing up wallet to " + targetUri, x);
-                            ErrorDialogFragment.showDialog(getParentFragmentManager(), x.toString());
-                            return;
-                        }
-
-                        try (final Reader cipherIn = new InputStreamReader(
-                                activity.getContentResolver().openInputStream(targetUri), StandardCharsets.UTF_8)) {
-                            final StringBuilder cipherText = new StringBuilder();
-                            CharStreams.copy(cipherIn, cipherText);
-                            cipherIn.close();
-
-                            final byte[] plainBytes2 = Crypto.decryptBytes(cipherText.toString(),
-                                    password.toCharArray());
-                            if (!Arrays.equals(plainBytes, plainBytes2))
-                                throw new IOException("verification failed");
-
-                            log.info("verified successfully: '" + targetUri + "'");
-                            application.getConfiguration().disarmBackupReminder();
-                            SuccessDialogFragment.showDialog(getParentFragmentManager(),
-                                    targetProvider != null ? targetProvider : targetUri.toString());
-                        } catch (final IOException x) {
-                            log.error("problem verifying backup from " + targetUri, x);
-                            ErrorDialogFragment.showDialog(getParentFragmentManager(), x.toString());
-                            return;
-                        }
-                    }
-                });
-            } else if (resultCode == Activity.RESULT_CANCELED) {
-                log.info("cancelled backing up wallet");
-                passwordView.setEnabled(true);
-                passwordAgainView.setEnabled(true);
-                activity.finish();
-            }
-        } else {
-            super.onActivityResult(requestCode, resultCode, intent);
         }
     }
 

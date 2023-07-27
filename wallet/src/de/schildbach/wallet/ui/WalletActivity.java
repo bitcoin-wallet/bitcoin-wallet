@@ -23,7 +23,6 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
-import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
@@ -34,10 +33,14 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.core.app.ActivityOptionsCompat;
+import androidx.core.view.MenuProvider;
 import androidx.core.view.ViewCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
@@ -82,7 +85,37 @@ public final class WalletActivity extends AbstractWalletActivity {
     private AbstractWalletActivityViewModel walletActivityViewModel;
     private WalletActivityViewModel viewModel;
 
-    private static final int REQUEST_CODE_SCAN = 0;
+    private final ActivityResultLauncher<Void> scanLauncher =
+            registerForActivityResult(new ScanActivity.Scan(), input -> {
+                if (input == null) return;
+                new StringInputParser(input) {
+                    @Override
+                    protected void handlePaymentIntent(final PaymentIntent paymentIntent) {
+                        SendCoinsActivity.start(WalletActivity.this, paymentIntent);
+                    }
+
+                    @Override
+                    protected void handlePrivateKey(final PrefixedChecksummedBytes key) {
+                        if (Constants.ENABLE_SWEEP_WALLET)
+                            SweepWalletActivity.start(WalletActivity.this, key);
+                        else
+                            super.handlePrivateKey(key);
+                    }
+
+                    @Override
+                    protected void handleDirectTransaction(final Transaction tx) throws VerificationException {
+                        walletActivityViewModel.broadcastTransaction(tx);
+                    }
+
+                    @Override
+                    protected void error(final int messageResId, final Object... messageArgs) {
+                        final DialogBuilder dialog = DialogBuilder.dialog(WalletActivity.this, R.string.button_scan,
+                                messageResId, messageArgs);
+                        dialog.singleDismissButton(null);
+                        dialog.show();
+                    }
+                }.parse();
+            });
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -188,6 +221,93 @@ public final class WalletActivity extends AbstractWalletActivity {
 
         handleIntent(getIntent());
 
+        addMenuProvider(new MenuProvider() {
+            @Override
+            public void onCreateMenu(final Menu menu, final MenuInflater inflater) {
+                inflater.inflate(R.menu.wallet_options, menu);
+            }
+
+            @Override
+            public void onPrepareMenu(final Menu menu) {
+                final Resources res = getResources();
+                final boolean showExchangeRatesOption = config.isEnableExchangeRates()
+                        && res.getBoolean(R.bool.show_exchange_rates_option);
+                menu.findItem(R.id.wallet_options_exchange_rates).setVisible(showExchangeRatesOption);
+                menu.findItem(R.id.wallet_options_sweep_wallet).setVisible(Constants.ENABLE_SWEEP_WALLET);
+                final String externalStorageState = Environment.getExternalStorageState();
+                final boolean enableRestoreWalletOption = Environment.MEDIA_MOUNTED.equals(externalStorageState)
+                        || Environment.MEDIA_MOUNTED_READ_ONLY.equals(externalStorageState);
+                menu.findItem(R.id.wallet_options_restore_wallet).setEnabled(enableRestoreWalletOption);
+                final Boolean isEncrypted = viewModel.walletEncrypted.getValue();
+                if (isEncrypted != null) {
+                    final MenuItem encryptKeysOption = menu.findItem(R.id.wallet_options_encrypt_keys);
+                    encryptKeysOption.setTitle(isEncrypted ? R.string.wallet_options_encrypt_keys_change
+                            : R.string.wallet_options_encrypt_keys_set);
+                    encryptKeysOption.setVisible(true);
+                }
+                final Boolean isLegacyFallback = viewModel.walletLegacyFallback.getValue();
+                if (isLegacyFallback != null) {
+                    final MenuItem requestLegacyOption = menu.findItem(R.id.wallet_options_request_legacy);
+                    requestLegacyOption.setVisible(isLegacyFallback);
+                }
+            }
+
+            @Override
+            public boolean onMenuItemSelected(final MenuItem item) {
+                int itemId = item.getItemId();
+                if (itemId == R.id.wallet_options_request) {
+                    handleRequestCoins();
+                    return true;
+                } else if (itemId == R.id.wallet_options_request_legacy) {
+                    RequestCoinsActivity.start(WalletActivity.this, Script.ScriptType.P2PKH);
+                    return true;
+                } else if (itemId == R.id.wallet_options_send) {
+                    handleSendCoins();
+                    return true;
+                } else if (itemId == R.id.wallet_options_scan) {
+                    handleScan(null);
+                    return true;
+                } else if (itemId == R.id.wallet_options_address_book) {
+                    AddressBookActivity.start(WalletActivity.this);
+                    return true;
+                } else if (itemId == R.id.wallet_options_exchange_rates) {
+                    startActivity(new Intent(WalletActivity.this, ExchangeRatesActivity.class));
+                    return true;
+                } else if (itemId == R.id.wallet_options_sweep_wallet) {
+                    SweepWalletActivity.start(WalletActivity.this);
+                    return true;
+                } else if (itemId == R.id.wallet_options_network_monitor) {
+                    startActivity(new Intent(WalletActivity.this, NetworkMonitorActivity.class));
+                    return true;
+                } else if (itemId == R.id.wallet_options_restore_wallet) {
+                    viewModel.showRestoreWalletDialog.setValue(Event.simple());
+                    return true;
+                } else if (itemId == R.id.wallet_options_backup_wallet) {
+                    viewModel.showBackupWalletDialog.setValue(Event.simple());
+                    return true;
+                } else if (itemId == R.id.wallet_options_encrypt_keys) {
+                    viewModel.showEncryptKeysDialog.setValue(Event.simple());
+                    return true;
+                } else if (itemId == R.id.wallet_options_preferences) {
+                    startActivity(new Intent(WalletActivity.this, PreferenceActivity.class));
+                    return true;
+                } else if (itemId == R.id.wallet_options_safety) {
+                    viewModel.showHelpDialog.setValue(new Event<>(R.string.help_safety));
+                    return true;
+                } else if (itemId == R.id.wallet_options_technical_notes) {
+                    viewModel.showHelpDialog.setValue(new Event<>(R.string.help_technical_notes));
+                    return true;
+                } else if (itemId == R.id.wallet_options_report_issue) {
+                    viewModel.showReportIssueDialog.setValue(Event.simple());
+                    return true;
+                } else if (itemId == R.id.wallet_options_help) {
+                    viewModel.showHelpDialog.setValue(new Event<>(R.string.help_wallet));
+                    return true;
+                }
+                return false;
+            }
+        });
+
         final FragmentManager fragmentManager = getSupportFragmentManager();
         MaybeMaintenanceFragment.add(fragmentManager);
         AlertDialogsFragment.add(fragmentManager);
@@ -216,13 +336,10 @@ public final class WalletActivity extends AbstractWalletActivity {
     private AnimatorSet buildEnterAnimation(final View contentView) {
         final Drawable background = getWindow().getDecorView().getBackground();
         final int duration = getResources().getInteger(android.R.integer.config_mediumAnimTime);
-        final Animator splashBackgroundFadeOut = AnimatorInflater.loadAnimator(WalletActivity.this, R.animator.fade_out_drawable);
-        final Animator splashForegroundFadeOut = AnimatorInflater.loadAnimator(WalletActivity.this, R.animator.fade_out_drawable);
-        splashBackgroundFadeOut.setTarget(((LayerDrawable) background).getDrawable(1));
-        splashForegroundFadeOut.setTarget(((LayerDrawable) background).getDrawable(2));
+        final Animator splashFadeOut = AnimatorInflater.loadAnimator(WalletActivity.this, R.animator.fade_out_drawable);
+        splashFadeOut.setTarget(((LayerDrawable) background).getDrawable(1));
         final AnimatorSet fragmentEnterAnimation = new AnimatorSet();
-        final AnimatorSet.Builder fragmentEnterAnimationBuilder =
-                fragmentEnterAnimation.play(splashBackgroundFadeOut).with(splashForegroundFadeOut);
+        final AnimatorSet.Builder fragmentEnterAnimationBuilder = fragmentEnterAnimation.play(splashFadeOut);
 
         final View slideInLeftView = contentView.findViewWithTag("slide_in_left");
         if (slideInLeftView != null) {
@@ -333,138 +450,6 @@ public final class WalletActivity extends AbstractWalletActivity {
         }
     }
 
-    @Override
-    public void onActivityResult(final int requestCode, final int resultCode, final Intent intent) {
-        if (requestCode == REQUEST_CODE_SCAN) {
-            if (resultCode == Activity.RESULT_OK) {
-                final String input = intent.getStringExtra(ScanActivity.INTENT_EXTRA_RESULT);
-
-                new StringInputParser(input) {
-                    @Override
-                    protected void handlePaymentIntent(final PaymentIntent paymentIntent) {
-                        SendCoinsActivity.start(WalletActivity.this, paymentIntent);
-                    }
-
-                    @Override
-                    protected void handlePrivateKey(final PrefixedChecksummedBytes key) {
-                        if (Constants.ENABLE_SWEEP_WALLET)
-                            SweepWalletActivity.start(WalletActivity.this, key);
-                        else
-                            super.handlePrivateKey(key);
-                    }
-
-                    @Override
-                    protected void handleDirectTransaction(final Transaction tx) throws VerificationException {
-                        walletActivityViewModel.broadcastTransaction(tx);
-                    }
-
-                    @Override
-                    protected void error(final int messageResId, final Object... messageArgs) {
-                        final DialogBuilder dialog = DialogBuilder.dialog(WalletActivity.this, R.string.button_scan, messageResId, messageArgs);
-                        dialog.singleDismissButton(null);
-                        dialog.show();
-                    }
-                }.parse();
-            }
-        } else {
-            super.onActivityResult(requestCode, resultCode, intent);
-        }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(final Menu menu) {
-        super.onCreateOptionsMenu(menu);
-
-        getMenuInflater().inflate(R.menu.wallet_options, menu);
-
-        return true;
-    }
-
-    @Override
-    public boolean onPrepareOptionsMenu(final Menu menu) {
-        super.onPrepareOptionsMenu(menu);
-
-        final Resources res = getResources();
-
-        final boolean showExchangeRatesOption = config.isEnableExchangeRates()
-                && res.getBoolean(R.bool.show_exchange_rates_option);
-        menu.findItem(R.id.wallet_options_exchange_rates).setVisible(showExchangeRatesOption);
-        menu.findItem(R.id.wallet_options_sweep_wallet).setVisible(Constants.ENABLE_SWEEP_WALLET);
-        final String externalStorageState = Environment.getExternalStorageState();
-        final boolean enableRestoreWalletOption = Environment.MEDIA_MOUNTED.equals(externalStorageState)
-                || Environment.MEDIA_MOUNTED_READ_ONLY.equals(externalStorageState);
-        menu.findItem(R.id.wallet_options_restore_wallet).setEnabled(enableRestoreWalletOption);
-        final Boolean isEncrypted = viewModel.walletEncrypted.getValue();
-        if (isEncrypted != null) {
-            final MenuItem encryptKeysOption = menu.findItem(R.id.wallet_options_encrypt_keys);
-            encryptKeysOption.setTitle(isEncrypted ? R.string.wallet_options_encrypt_keys_change
-                    : R.string.wallet_options_encrypt_keys_set);
-            encryptKeysOption.setVisible(true);
-        }
-        final Boolean isLegacyFallback = viewModel.walletLegacyFallback.getValue();
-        if (isLegacyFallback != null) {
-            final MenuItem requestLegacyOption = menu.findItem(R.id.wallet_options_request_legacy);
-            requestLegacyOption.setVisible(isLegacyFallback);
-        }
-
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(final MenuItem item) {
-        int itemId = item.getItemId();
-        if (itemId == R.id.wallet_options_request) {
-            handleRequestCoins();
-            return true;
-        } else if (itemId == R.id.wallet_options_request_legacy) {
-            RequestCoinsActivity.start(this, Script.ScriptType.P2PKH);
-            return true;
-        } else if (itemId == R.id.wallet_options_send) {
-            handleSendCoins();
-            return true;
-        } else if (itemId == R.id.wallet_options_scan) {
-            handleScan(null);
-            return true;
-        } else if (itemId == R.id.wallet_options_address_book) {
-            AddressBookActivity.start(this);
-            return true;
-        } else if (itemId == R.id.wallet_options_exchange_rates) {
-            startActivity(new Intent(this, ExchangeRatesActivity.class));
-            return true;
-        } else if (itemId == R.id.wallet_options_sweep_wallet) {
-            SweepWalletActivity.start(this);
-            return true;
-        } else if (itemId == R.id.wallet_options_network_monitor) {
-            startActivity(new Intent(this, NetworkMonitorActivity.class));
-            return true;
-        } else if (itemId == R.id.wallet_options_restore_wallet) {
-            viewModel.showRestoreWalletDialog.setValue(Event.simple());
-            return true;
-        } else if (itemId == R.id.wallet_options_backup_wallet) {
-            viewModel.showBackupWalletDialog.setValue(Event.simple());
-            return true;
-        } else if (itemId == R.id.wallet_options_encrypt_keys) {
-            viewModel.showEncryptKeysDialog.setValue(Event.simple());
-            return true;
-        } else if (itemId == R.id.wallet_options_preferences) {
-            startActivity(new Intent(this, PreferenceActivity.class));
-            return true;
-        } else if (itemId == R.id.wallet_options_safety) {
-            viewModel.showHelpDialog.setValue(new Event<>(R.string.help_safety));
-            return true;
-        } else if (itemId == R.id.wallet_options_technical_notes) {
-            viewModel.showHelpDialog.setValue(new Event<>(R.string.help_technical_notes));
-            return true;
-        } else if (itemId == R.id.wallet_options_report_issue) {
-            viewModel.showReportIssueDialog.setValue(Event.simple());
-            return true;
-        } else if (itemId == R.id.wallet_options_help) {
-            viewModel.showHelpDialog.setValue(new Event<>(R.string.help_wallet));
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
     public void handleRequestCoins() {
         RequestCoinsActivity.start(this);
     }
@@ -477,7 +462,13 @@ public final class WalletActivity extends AbstractWalletActivity {
         // The animation must be ended because of several graphical glitching that happens when the
         // Camera/SurfaceView is used while the animation is running.
         enterAnimation.end();
-        ScanActivity.startForResult(this, clickView, WalletActivity.REQUEST_CODE_SCAN);
+        if (clickView != null) {
+            final ActivityOptionsCompat options = ActivityOptionsCompat.makeClipRevealAnimation(clickView, 0, 0,
+                    clickView.getWidth(), clickView.getHeight());
+            scanLauncher.launch(null, options);
+        } else {
+            scanLauncher.launch(null);
+        }
     }
 
     private static final class QuickReturnBehavior extends CoordinatorLayout.Behavior<View> {

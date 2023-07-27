@@ -37,7 +37,7 @@ public final class SweepWalletActivity extends AbstractWalletActivity {
 
     public static void start(final Context context, final PrefixedChecksummedBytes key) {
         final Intent intent = new Intent(context, SweepWalletActivity.class);
-        intent.putExtra(INTENT_EXTRA_KEY, key);
+        intent.putExtra(INTENT_EXTRA_KEY, key.toString());
         context.startActivity(intent);
     }
 

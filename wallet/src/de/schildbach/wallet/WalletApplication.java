@@ -22,7 +22,7 @@ import android.app.Application;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.bluetooth.BluetoothAdapter;
-import android.content.Context;
+import android.bluetooth.BluetoothManager;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.media.AudioAttributes;
@@ -57,8 +57,8 @@ import de.schildbach.wallet.util.CrashReporter;
 import de.schildbach.wallet.util.Toast;
 import de.schildbach.wallet.util.WalletUtils;
 import org.bitcoinj.core.VersionMessage;
-import org.bitcoinj.crypto.LinuxSecureRandom;
 import org.bitcoinj.crypto.MnemonicCode;
+import org.bitcoinj.utils.ContextPropagatingThreadFactory;
 import org.bitcoinj.utils.Threading;
 import org.bitcoinj.wallet.UnreadableWalletException;
 import org.bitcoinj.wallet.Wallet;
@@ -95,13 +95,14 @@ public class WalletApplication extends Application {
 
     private static final Logger log = LoggerFactory.getLogger(WalletApplication.class);
 
+    public WalletApplication() {
+        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+                .detectAll().permitDiskReads().permitDiskWrites().penaltyLog().build());
+    }
+
     @Override
     public void onCreate() {
-        new LinuxSecureRandom(); // init proper random number generator
-
         Logging.init(getFilesDir());
-
-        initStrictMode();
 
         Threading.throwOnLockCycles();
         org.bitcoinj.core.Context.enableStrictMode();
@@ -121,13 +122,14 @@ public class WalletApplication extends Application {
             CrashReporter.saveBackgroundTrace(throwable, packageInfo);
         };
 
-        activityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        activityManager = getSystemService(ActivityManager.class);
 
         walletFile = getFileStreamPath(Constants.Files.WALLET_FILENAME_PROTOBUF);
 
         final Configuration config = getConfiguration();
         config.updateLastVersionCode(packageInfo.versionCode);
-        final BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        final BluetoothManager bluetoothManager = getSystemService(BluetoothManager.class);
+        final BluetoothAdapter bluetoothAdapter = bluetoothManager.getAdapter();
         if (bluetoothAdapter != null)
             config.updateLastBluetoothAddress(Bluetooth.getAddress(bluetoothAdapter));
 
@@ -169,7 +171,7 @@ public class WalletApplication extends Application {
         }
     }
 
-    private final Executor getWalletExecutor = Executors.newSingleThreadExecutor();
+    private final Executor getWalletExecutor = Executors.newSingleThreadExecutor(new ContextPropagatingThreadFactory("get wallet"));
     private final Object getWalletLock = new Object();
 
     @AnyThread
@@ -177,7 +179,6 @@ public class WalletApplication extends Application {
         getWalletExecutor.execute(new Runnable() {
             @Override
             public void run() {
-                org.bitcoinj.core.Context.propagate(Constants.CONTEXT);
                 synchronized (getWalletLock) {
                     initMnemonicCode();
                     if (walletFiles == null)
@@ -299,34 +300,27 @@ public class WalletApplication extends Application {
         }
     }
 
-    public static void initStrictMode() {
-        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().detectAll().permitDiskReads()
-                .permitDiskWrites().penaltyLog().build());
-    }
-
     private void initNotificationManager() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            final Stopwatch watch = Stopwatch.createStarted();
-            final NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        final Stopwatch watch = Stopwatch.createStarted();
+        final NotificationManager nm = getSystemService(NotificationManager.class);
 
-            final NotificationChannel received = new NotificationChannel(Constants.NOTIFICATION_CHANNEL_ID_RECEIVED,
-                    getString(R.string.notification_channel_received_name), NotificationManager.IMPORTANCE_DEFAULT);
-            received.setSound(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.coins_received),
-                    new AudioAttributes.Builder().setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-                            .setLegacyStreamType(AudioManager.STREAM_NOTIFICATION)
-                            .setUsage(AudioAttributes.USAGE_NOTIFICATION_EVENT).build());
-            nm.createNotificationChannel(received);
+        final NotificationChannel received = new NotificationChannel(Constants.NOTIFICATION_CHANNEL_ID_RECEIVED,
+                getString(R.string.notification_channel_received_name), NotificationManager.IMPORTANCE_DEFAULT);
+        received.setSound(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.coins_received),
+                new AudioAttributes.Builder().setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                        .setLegacyStreamType(AudioManager.STREAM_NOTIFICATION)
+                        .setUsage(AudioAttributes.USAGE_NOTIFICATION_EVENT).build());
+        nm.createNotificationChannel(received);
 
-            final NotificationChannel ongoing = new NotificationChannel(Constants.NOTIFICATION_CHANNEL_ID_ONGOING,
-                    getString(R.string.notification_channel_ongoing_name), NotificationManager.IMPORTANCE_LOW);
-            nm.createNotificationChannel(ongoing);
+        final NotificationChannel ongoing = new NotificationChannel(Constants.NOTIFICATION_CHANNEL_ID_ONGOING,
+                getString(R.string.notification_channel_ongoing_name), NotificationManager.IMPORTANCE_LOW);
+        nm.createNotificationChannel(ongoing);
 
-            final NotificationChannel important = new NotificationChannel(Constants.NOTIFICATION_CHANNEL_ID_IMPORTANT,
-                    getString(R.string.notification_channel_important_name), NotificationManager.IMPORTANCE_HIGH);
-            nm.createNotificationChannel(important);
+        final NotificationChannel important = new NotificationChannel(Constants.NOTIFICATION_CHANNEL_ID_IMPORTANT,
+                getString(R.string.notification_channel_important_name), NotificationManager.IMPORTANCE_HIGH);
+        nm.createNotificationChannel(important);
 
-            log.info("created notification channels, took {}", watch);
-        }
+        log.info("created notification channels, took {}", watch);
     }
 
     private PackageInfo packageInfo;

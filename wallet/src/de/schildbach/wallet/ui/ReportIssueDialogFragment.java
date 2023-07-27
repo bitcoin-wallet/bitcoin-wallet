@@ -21,7 +21,7 @@ import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.admin.DevicePolicyManager;
-import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageInfo;
@@ -29,6 +29,7 @@ import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.widget.Button;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
@@ -45,7 +46,6 @@ import de.schildbach.wallet.util.Installer;
 import org.bitcoinj.core.Sha256Hash;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.TransactionOutput;
-import org.bitcoinj.core.Utils;
 import org.bitcoinj.script.ScriptException;
 import org.bitcoinj.wallet.Wallet;
 import org.slf4j.Logger;
@@ -53,10 +53,10 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Calendar;
+import java.time.Instant;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Formatter;
-import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
@@ -89,6 +89,7 @@ public class ReportIssueDialogFragment extends DialogFragment {
 
     private AbstractWalletActivity activity;
     private WalletApplication application;
+    private PowerManager powerManager;
 
     private Button positiveButton;
 
@@ -101,6 +102,7 @@ public class ReportIssueDialogFragment extends DialogFragment {
         super.onAttach(context);
         this.activity = (AbstractWalletActivity) context;
         this.application = activity.getWalletApplication();
+        this.powerManager = activity.getSystemService(PowerManager.class);
     }
 
     @Override
@@ -213,7 +215,6 @@ public class ReportIssueDialogFragment extends DialogFragment {
             throws IOException {
         final PackageInfo pi = application.packageInfo();
         final Configuration config = application.getConfiguration();
-        final Calendar calendar = new GregorianCalendar(UTC);
 
         report.append("Version: ").append(pi.versionName).append(" (").append(String.valueOf(pi.versionCode)).append(
                 ")\n");
@@ -227,35 +228,26 @@ public class ReportIssueDialogFragment extends DialogFragment {
             report.append("Installer: ").append(installer.displayName).append(" (").append(installerPackageName).append(")\n");
         else
             report.append("Installer: unknown\n");
+        final boolean isIgnoringBatteryOptimization =
+                powerManager.isIgnoringBatteryOptimizations(application.getPackageName());
+        report.append("Battery optimization: ").append(isIgnoringBatteryOptimization ? "no" : "yes").append("\n");
         report.append("Timezone: ").append(TimeZone.getDefault().getID()).append("\n");
-        calendar.setTimeInMillis(System.currentTimeMillis());
-        report.append("Current time: ").append(String.format(Locale.US, "%tF %tT %tZ", calendar, calendar, calendar)).append("\n");
-        calendar.setTimeInMillis(WalletApplication.TIME_CREATE_APPLICATION);
-        report.append("Time of app launch: ").append(String.format(Locale.US, "%tF %tT %tZ", calendar, calendar,
-                calendar)).append("\n");
-        calendar.setTimeInMillis(pi.firstInstallTime);
-        report.append("Time of first app install: ").append(String.format(Locale.US, "%tF %tT %tZ", calendar,
-                calendar, calendar)).append("\n");
-        calendar.setTimeInMillis(pi.lastUpdateTime);
-        report.append("Time of last app update: ").append(String.format(Locale.US, "%tF %tT %tZ", calendar, calendar,
-                calendar)).append("\n");
+        report.append("Current time: ").append(DateTimeFormatter.ISO_INSTANT.format(Instant.now())).append("\n");
+        report.append("Time of app launch: ").append(DateTimeFormatter.ISO_INSTANT.format(Instant.ofEpochMilli(WalletApplication.TIME_CREATE_APPLICATION))).append("\n");
+        report.append("Time of first app install: ").append(DateTimeFormatter.ISO_INSTANT.format(Instant.ofEpochMilli(pi.firstInstallTime))).append("\n");
+        report.append("Time of last app update: ").append(DateTimeFormatter.ISO_INSTANT.format(Instant.ofEpochMilli(pi.lastUpdateTime))).append("\n");
         final long lastBackupTime = config.getLastBackupTime();
-        calendar.setTimeInMillis(lastBackupTime);
-        report.append("Time of last backup: ").append(lastBackupTime > 0 ? String.format(Locale.US, "%tF %tT %tZ",
-                calendar, calendar, calendar) : "none").append("\n");
+        report.append("Time of last backup: ").append(lastBackupTime > 0 ?
+                DateTimeFormatter.ISO_INSTANT.format(Instant.ofEpochMilli(lastBackupTime)) : "none").append("\n");
         final long lastRestoreTime = config.getLastRestoreTime();
-        calendar.setTimeInMillis(lastRestoreTime);
-        report.append("Time of last restore: ").append(lastRestoreTime > 0 ? String.format(Locale.US, "%tF %tT %tZ",
-                calendar, calendar, calendar) : "none").append("\n");
+        report.append("Time of last restore: ").append(lastRestoreTime > 0 ?
+                DateTimeFormatter.ISO_INSTANT.format(Instant.ofEpochMilli(lastRestoreTime)) : "none").append("\n");
         final long lastEncryptKeysTime = config.getLastEncryptKeysTime();
-        calendar.setTimeInMillis(lastEncryptKeysTime);
-        report.append("Time of last encrypt keys: ").append(lastEncryptKeysTime > 0 ? String.format(Locale.US, "%tF " +
-                "%tT %tZ", calendar, calendar, calendar) :
-                "none").append("\n");
+        report.append("Time of last encrypt keys: ").append(lastEncryptKeysTime > 0 ?
+                DateTimeFormatter.ISO_INSTANT.format(Instant.ofEpochMilli(lastEncryptKeysTime)) : "none").append("\n");
         final long lastBlockchainResetTime = config.getLastBlockchainResetTime();
-        calendar.setTimeInMillis(lastBlockchainResetTime);
-        report.append("Time of last blockchain reset: ").append(lastBlockchainResetTime > 0
-                ? String.format(Locale.US, "%tF %tT %tZ", calendar, calendar, calendar) : "none").append("\n");
+        report.append("Time of last blockchain reset: ").append(lastBlockchainResetTime > 0 ?
+                DateTimeFormatter.ISO_INSTANT.format(Instant.ofEpochMilli(lastBlockchainResetTime)) : "none").append("\n");
         report.append("Network: ").append(Constants.NETWORK_PARAMETERS.getId()).append("\n");
         report.append("Sync mode: ").append(config.getSyncMode().name()).append("\n");
         final Wallet wallet = walletActivityViewModel.wallet.getValue();
@@ -281,7 +273,7 @@ public class ReportIssueDialogFragment extends DialogFragment {
         final int lastBlockSeenHeight = wallet.getLastBlockSeenHeight();
         final Date lastBlockSeenTime = wallet.getLastBlockSeenTime();
         report.append("Last block seen: ").append(String.valueOf(lastBlockSeenHeight)).append(" (")
-                .append(lastBlockSeenTime == null ? "time unknown" : Utils.dateTimeFormat(lastBlockSeenTime))
+                .append(lastBlockSeenTime == null ? "time unknown" : DateTimeFormatter.ISO_INSTANT.format(lastBlockSeenTime.toInstant()))
                 .append(")\n");
         report.append("Best chain height ever: ").append(Integer.toString(config.getBestChainHeightEver()))
                 .append("\n");
@@ -302,11 +294,10 @@ public class ReportIssueDialogFragment extends DialogFragment {
         for (int i = 0; i < indent; i++)
             report.append("  - ");
 
+        final String lastModified = DateTimeFormatter.ISO_INSTANT.format(Instant.ofEpochMilli(file.lastModified()));
         final Formatter formatter = new Formatter(report);
-        final Calendar calendar = new GregorianCalendar(UTC);
-        calendar.setTimeInMillis(file.lastModified());
-        formatter.format(Locale.US, "%tF %tT %8d kB  %s\n",
-                calendar, calendar, file.length() / 1024, file.getName());
+        formatter.format(Locale.US, "%s %8d kB  %s\n",
+                lastModified, file.length() / 1024, file.getName());
         formatter.close();
 
         final File[] files = file.listFiles();
@@ -318,9 +309,8 @@ public class ReportIssueDialogFragment extends DialogFragment {
     private static void appendDeviceInfo(final Appendable report, final Context context) throws IOException {
         final Resources res = context.getResources();
         final android.content.res.Configuration config = res.getConfiguration();
-        final ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-        final DevicePolicyManager devicePolicyManager = (DevicePolicyManager) context
-                .getSystemService(Context.DEVICE_POLICY_SERVICE);
+        final ActivityManager activityManager = context.getSystemService(ActivityManager.class);
+        final DevicePolicyManager devicePolicyManager = context.getSystemService(DevicePolicyManager.class);
 
         report.append("Manufacturer: ").append(Build.MANUFACTURER).append("\n");
         report.append("Device Model: ").append(Build.MODEL).append("\n");
@@ -343,14 +333,15 @@ public class ReportIssueDialogFragment extends DialogFragment {
                 .append(String.valueOf(activityManager.getLargeMemoryClass()))
                 .append(activityManager.isLowRamDevice() ? " (low RAM device)" : "").append("\n");
         report.append("Storage Encryption Status: ").append(String.valueOf(devicePolicyManager.getStorageEncryptionStatus())).append("\n");
-        report.append("Bluetooth MAC: ").append(bluetoothMac()).append("\n");
+        report.append("Bluetooth MAC: ").append(bluetoothMac(context)).append("\n");
         report.append("Runtime: ").append(System.getProperty("java.vm.name")).append(" ")
                 .append(System.getProperty("java.vm.version")).append("\n");
     }
 
-    private static String bluetoothMac() {
+    private static String bluetoothMac(final Context context) {
         try {
-            return Bluetooth.getAddress(BluetoothAdapter.getDefaultAdapter());
+            final BluetoothManager bluetoothManager = context.getSystemService(BluetoothManager.class);
+            return Bluetooth.getAddress(bluetoothManager.getAdapter());
         } catch (final Exception x) {
             return x.getMessage();
         }

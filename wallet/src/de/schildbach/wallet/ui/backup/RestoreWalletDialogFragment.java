@@ -23,7 +23,6 @@ import android.app.Dialog;
 import android.content.ActivityNotFoundException;
 import android.content.ContentResolver;
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -33,7 +32,8 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
-import androidx.annotation.Nullable;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
@@ -69,7 +69,6 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class RestoreWalletDialogFragment extends DialogFragment {
     private static final String FRAGMENT_TAG = RestoreWalletDialogFragment.class.getName();
     private static final String KEY_BACKUP_URI = "backup_uri";
-    private static final int REQUEST_CODE_OPEN_DOCUMENT = 0;
 
     private AbstractWalletActivity activity;
     private WalletApplication application;
@@ -85,6 +84,17 @@ public class RestoreWalletDialogFragment extends DialogFragment {
     private RestoreWalletViewModel viewModel;
 
     private static final Logger log = LoggerFactory.getLogger(RestoreWalletDialogFragment.class);
+
+    private final ActivityResultLauncher<String[]> openDocumentLauncher =
+            registerForActivityResult(new ActivityResultContracts.OpenDocument(), uri -> {
+                if (uri != null) {
+                    viewModel.backupUri.setValue(uri);
+                } else {
+                    log.info("cancelled restoring wallet");
+                    dismiss();
+                    maybeFinishActivity();
+                }
+            });
 
     public static void showPick(final FragmentManager fm) {
         final DialogFragment newFragment = new RestoreWalletDialogFragment();
@@ -146,36 +156,12 @@ public class RestoreWalletDialogFragment extends DialogFragment {
         if (args != null) {
             viewModel.backupUri.setValue((Uri) args.getParcelable(KEY_BACKUP_URI));
         } else {
-            final Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-            intent.addCategory(Intent.CATEGORY_OPENABLE);
-            intent.setType("*/*");
             try {
-                startActivityForResult(intent, REQUEST_CODE_OPEN_DOCUMENT);
+                openDocumentLauncher.launch(new String[] { "*/*" });
             } catch (final ActivityNotFoundException x) {
-                log.warn("Cannot open document selector: {}", intent);
+                log.warn("Cannot open document selector: {}", "*/*");
                 new Toast(activity).longToast(R.string.toast_start_storage_provider_selector_failed);
             }
-        }
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if (requestCode == REQUEST_CODE_OPEN_DOCUMENT) {
-            if (resultCode == Activity.RESULT_OK) {
-                if (data != null) {
-                    viewModel.backupUri.setValue(data.getData());
-                } else {
-                    log.info("didn't get uri");
-                    dismiss();
-                    maybeFinishActivity();
-                }
-            } else if (resultCode == Activity.RESULT_CANCELED) {
-                log.info("cancelled restoring wallet");
-                dismiss();
-                maybeFinishActivity();
-            }
-        } else {
-            super.onActivityResult(requestCode, resultCode, data);
         }
     }
 

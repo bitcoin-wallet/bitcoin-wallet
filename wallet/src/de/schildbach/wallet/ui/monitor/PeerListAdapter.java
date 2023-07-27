@@ -72,7 +72,7 @@ public class PeerListAdapter extends ListAdapter<PeerListAdapter.ListItem, PeerL
             final VersionMessage versionMessage = peer.getPeerVersionMessage();
             final String version = versionMessage.subVer;
             final String protocol = "protocol: " + versionMessage.clientVersion;
-            final String services = peer.toStringServices(versionMessage.localServices).toLowerCase(Locale.US);
+            final String services = VersionMessage.toStringServices(versionMessage.localServices).toLowerCase(Locale.US);
             final long pingTime = peer.getPingTime();
             final String ping = pingTime < Long.MAX_VALUE ?
                     context.getString(R.string.peer_list_row_ping_time, pingTime) : null;

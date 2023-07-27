@@ -8,21 +8,15 @@ This project contains several sub-projects:
      The Android app itself. This is probably what you're searching for.
  * __market__:
      App description and promo material for the Google Play app store.
- * __integration-android__:
-     A tiny library for integrating digitial payments into your own Android app
-     (e.g. donations, in-app purchases).
- * __sample-integration-android__:
-     A minimal example app to demonstrate integration of digital payments into
-     your Android app.
 
 
 ### PREREQUISITES FOR BUILDING
 
-You'll need git, a Java 8 or 11 SDK and Gradle 4.4 (or later) for this. We'll assume Ubuntu 20.04 LTS (Focal Fossa)
-for the package installs, which comes with OpenJDK 8, OpenJDK 11 and Gradle 4.4.1 out of the box.
+You'll need git, a Java 11 SDK and Gradle between 4.4 and 6.9.x for this. We'll assume Ubuntu 22.04 LTS (Jammy Jellyfish)
+for the package installs, which comes with OpenJDK 11 and Gradle 4.4.1 out of the box.
 
     # first time only
-    sudo apt install git gradle openjdk-8-jdk
+    sudo apt install git gradle openjdk-11-jdk
 
 Create a directory for the Android SDK (e.g. `android-sdk`) and point the `ANDROID_HOME` variable to it.
 

@@ -26,7 +26,6 @@ import android.view.ViewParent;
 import android.widget.FrameLayout;
 import androidx.fragment.app.Fragment;
 import de.schildbach.wallet.R;
-import de.schildbach.wallet.util.CheatSheet;
 
 /**
  * @author Andreas Schildbach
@@ -53,7 +52,7 @@ public final class WalletActionsFragment extends Fragment {
 
         final View sendQrButton = view.findViewById(R.id.wallet_actions_send_qr);
         sendQrButton.setOnClickListener(v -> activity.handleScan(v));
-        CheatSheet.setup(sendQrButton);
+        sendQrButton.setTooltipText(sendQrButton.getContentDescription());
 
         return view;
     }

@@ -32,6 +32,7 @@ import android.widget.EditText;
 import android.widget.SearchView;
 import android.widget.SearchView.OnQueryTextListener;
 import android.widget.ViewAnimator;
+import androidx.core.view.MenuProvider;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -70,7 +71,6 @@ public final class ExchangeRatesFragment extends Fragment implements OnSharedPre
     @Override
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
 
         viewModel = new ViewModelProvider(this).get(ExchangeRatesViewModel.class);
         if (config.isEnableExchangeRates()) {
@@ -110,6 +110,48 @@ public final class ExchangeRatesFragment extends Fragment implements OnSharedPre
         config.registerOnSharedPreferenceChangeListener(this);
 
         viewModel.setInitialExchangeRate(config.getExchangeCurrencyCode());
+
+        activity.addMenuProvider(new MenuProvider() {
+            @Override
+            public void onCreateMenu(final Menu menu, final MenuInflater inflater) {
+                inflater.inflate(R.menu.exchange_rates_fragment_options, menu);
+            }
+
+            @Override
+            public void onPrepareMenu(final Menu menu) {
+                final MenuItem searchMenuItem = menu.findItem(R.id.exchange_rates_options_search);
+                if (config.isEnableExchangeRates()) {
+                    final SearchView searchView = (SearchView) searchMenuItem.getActionView();
+                    searchView.setOnQueryTextListener(new OnQueryTextListener() {
+                        @Override
+                        public boolean onQueryTextChange(final String newText) {
+                            viewModel.setConstraint(Strings.emptyToNull(newText.trim()));
+                            maybeSubmitList();
+                            return true;
+                        }
+
+                        @Override
+                        public boolean onQueryTextSubmit(final String query) {
+                            searchView.clearFocus();
+                            return true;
+                        }
+                    });
+
+                    // Workaround for not being able to style the SearchView
+                    final int id = getResources().getIdentifier("android:id/search_src_text", null, null);
+                    final EditText searchInput = searchView.findViewById(id);
+                    searchInput.setTextColor(activity.getColor(R.color.fg_on_dark_bg_network_significant));
+                    searchInput.setHintTextColor(activity.getColor(R.color.fg_on_dark_bg_network_insignificant));
+                } else {
+                    searchMenuItem.setVisible(false);
+                }
+            }
+
+            @Override
+            public boolean onMenuItemSelected(final MenuItem menuItem) {
+                return false;
+            }
+        });
     }
 
     @Override
@@ -155,41 +197,6 @@ public final class ExchangeRatesFragment extends Fragment implements OnSharedPre
         } else {
             return false;
         }
-    }
-
-    @Override
-    public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
-        inflater.inflate(R.menu.exchange_rates_fragment_options, menu);
-
-        final MenuItem searchMenuItem = menu.findItem(R.id.exchange_rates_options_search);
-        if (config.isEnableExchangeRates()) {
-            final SearchView searchView = (SearchView) searchMenuItem.getActionView();
-            searchView.setOnQueryTextListener(new OnQueryTextListener() {
-                @Override
-                public boolean onQueryTextChange(final String newText) {
-                    viewModel.setConstraint(Strings.emptyToNull(newText.trim()));
-                    maybeSubmitList();
-                    return true;
-                }
-
-                @Override
-                public boolean onQueryTextSubmit(final String query) {
-                    searchView.clearFocus();
-                    return true;
-                }
-            });
-
-            // Workaround for not being able to style the SearchView
-            final int id = searchView.getContext().getResources().getIdentifier("android:id/search_src_text", null,
-                    null);
-            final EditText searchInput = searchView.findViewById(id);
-            searchInput.setTextColor(activity.getColor(R.color.fg_on_dark_bg_network_significant));
-            searchInput.setHintTextColor(activity.getColor(R.color.fg_on_dark_bg_network_insignificant));
-        } else {
-            searchMenuItem.setVisible(false);
-        }
-
-        super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
