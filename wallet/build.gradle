@@ -152,5 +152,4 @@ task svgToPngMipmapProd(type: fr.avianey.androidsvgdrawable.gradle.SvgDrawableTa
 
 clean {
     file('libs').deleteDir()
-
 }
