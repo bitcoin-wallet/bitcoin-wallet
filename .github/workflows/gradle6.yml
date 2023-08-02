@@ -27,6 +27,9 @@ jobs:
       - name: Setup Android SDK
         uses: android-actions/setup-android@v2
 
+      - name: Install Android SDK components
+        run: sdkmanager --install "build-tools;33.0.2" "platform-tools" "platforms;android-33"
+
       - name: Build with Gradle
         run: |
            ./gradlew wrapper --gradle-version=${{ matrix.gradle }}
