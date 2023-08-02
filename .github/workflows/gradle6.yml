@@ -33,7 +33,6 @@ jobs:
       - name: Build with Gradle
         run: |
            ./gradlew wrapper --gradle-version=${{ matrix.gradle }}
-           ./gradlew wrapper --gradle-version=${{ matrix.gradle }}
            ./gradlew clean build
 
       - name: Upload artifacts
