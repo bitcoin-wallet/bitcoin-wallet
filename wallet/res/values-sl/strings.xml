@@ -29,7 +29,7 @@
   <string name="wallet_transactions_fragment_empty_remind_backup">Prosimo, naredite varnostno kopijo denarnice, preen prejmete bitcoine!</string>
   <string name="wallet_transactions_row_warning_backup">Čestitke, prejeli ste prvo plačilo! Ste že napravili &lt;u&gt;rezervno kopijo ključev&lt;/u&gt; za zaščito pred izgubo novcev?</string>
   <string name="wallet_transactions_row_warning_storage_encryption">Naimg: za povečano varnost denarnice lahko &lt;u&gt;svojo napravo šifrirate&lt;/u&gt;. To zaščiti tudi podatke drugih aplikacij.</string>
-  <string name="wallet_transactions_row_warning_chain_forking">Na omrežju Bitcoin potekajo vzdrževalna dela. Svetujemo, da v tem času ne pošiljate ali prejemate sredstev. &lt;u&gt;Več informacij&lt;/u&gt;</string>
+  <string name="wallet_transactions_row_warning_chain_forking">Na omrežju Groestlcoin potekajo vzdrževalna dela. Svetujemo, da v tem času ne pošiljate ali prejemate sredstev. &lt;u&gt;Več informacij&lt;/u&gt;</string>
   <string name="wallet_transactions_fragment_coinbase">narudarjeno</string>
   <string name="wallet_transactions_fragment_internal">notranji</string>
   <string name="wallet_transactions_options_filter">Filter</string>
@@ -43,10 +43,10 @@
   <string name="wallet_options_safety">O varnosti</string>
   <string name="wallet_options_technical_notes_title">Tehnične opombe</string>
   <string name="wallet_options_donate">Donacije</string>
-  <string name="wallet_donate_address_label">Donacija za Bitcoin Wallet</string>
+  <string name="wallet_donate_address_label">Donacija za Groestlcoin Wallet</string>
   <string name="alert_dialogs_fragment_insecure_device_title">Varnostno opozorilo</string>
   <string name="wallet_low_storage_dialog_title">Na notranjem pomnilniškem mediju zmanjkuje prostora!</string>
-  <string name="wallet_low_storage_dialog_msg">Bitcoin Wallet uporablja notranji pomnilnik, da si zapomni nakazila in bloke. Če tu zmanjka prostora, bo denarnica prenehala delovati in vaši novci bodo v nevarnosti!\n\nŽelite odpreti Application Manager, da boste lahko odstranili odvečne aplikacije?</string>
+  <string name="wallet_low_storage_dialog_msg">Groestlcoin Wallet uporablja notranji pomnilnik, da si zapomni nakazila in bloke. Če tu zmanjka prostora, bo denarnica prenehala delovati in vaši novci bodo v nevarnosti!\n\nŽelite odpreti Application Manager, da boste lahko odstranili odvečne aplikacije?</string>
   <string name="wallet_low_storage_dialog_button_apps">Upravljanje z aplikacijami</string>
   <string name="wallet_timeskew_dialog_title">Preverite nastavitve časa!</string>
   <string name="wallet_timeskew_dialog_msg">Čas na vaši napravi prehiteva ali zaostaja za %d minut. Zaradi tega verjetno ne morete prejemati ali pošiljati bitcoinov.\n\nProsimo, preverite in popravite svoje časovne nastavitve.</string>
@@ -55,7 +55,7 @@
   <string name="wallet_version_dialog_msg_deprecated">Če ne vidite nove verzije, vaša verzija Androida najbrž ni več podprta.</string>
   <string name="wallet_version_dialog_button_binary">Prenos</string>
   <string name="wallet_old_sdk_dialog_title">Verzija Androida je zastarela</string>
-  <string name="wallet_old_sdk_dialog_message">Možno je, da bližnja naslednja verzija aplikacije Bitcoin Wallet vaše naprave ne bo več podpirala. V nekaterih primerih bo potem lahko težko priti do novcev, ki jih imate shranjene tu.\n\nČe niste popolnoma prepričani, kaj počnete, svetujemo, da novce čim prej prenesete drugam.</string>
+  <string name="wallet_old_sdk_dialog_message">Možno je, da bližnja naslednja verzija aplikacije Groestlcoin Wallet vaše naprave ne bo več podpirala. V nekaterih primerih bo potem lahko težko priti do novcev, ki jih imate shranjene tu.\n\nČe niste popolnoma prepričani, kaj počnete, svetujemo, da novce čim prej prenesete drugam.</string>
   <string name="alert_dialogs_fragment_settings_failed_title">Težava pri odpiranju nastavitev</string>
   <string name="alert_dialogs_fragment_too_much_balance_dialog_message">Ta znesek je precej visok za prenašanje v žepu. Prosimo, prestavite ga na varnejše mesto.</string>
   <string name="send_coins_activity_title">Pošlji novce</string>
@@ -239,11 +239,11 @@
   <string name="preferences_category_labs">V razvoju</string>
   <string name="preferences_precision_title">Enota in prikaz številk</string>
   <string name="preferences_precision_summary">Enota za prikaz. Ne vpliva na računanje.</string>
-  <string name="preferences_precision_labels_8">BTC, 8 decimalnih mest</string>
-  <string name="preferences_precision_labels_6">BTC, 6 decimalnih mest</string>
-  <string name="preferences_precision_labels_4">BTC, 4 decimalna mesta</string>
-  <string name="preferences_precision_labels_2_3">mBTC, 2 decimalni mesti</string>
-  <string name="preferences_precision_labels_0_6">µBTC, brez decimalnih mest</string>
+  <string name="preferences_precision_labels_8">GRS, 8 decimalnih mest</string>
+  <string name="preferences_precision_labels_6">GRS, 6 decimalnih mest</string>
+  <string name="preferences_precision_labels_4">GRS, 4 decimalna mesta</string>
+  <string name="preferences_precision_labels_2_3">mGRS, 2 decimalni mesti</string>
+  <string name="preferences_precision_labels_0_6">µGRS, brez decimalnih mest</string>
   <string name="preferences_own_name_title">Lastno ime</string>
   <string name="preferences_own_name_summary">Vaše ime ali ime vašega podjetja. Doda se v zahtevke za plačilo, ki jih izdate svojim strankam.</string>
   <string name="preferences_own_name_dialog_message">Naj bo kratko.</string>
@@ -315,7 +315,7 @@
   <string name="notification_peer_not_connected">brez povezave</string>
   <string name="notification_inactivity_title">Na tej napravi imate še vedno bitcoine!</string>
   <string name="notification_inactivity_message">Vaše stanje %s bo izgubljeno, če aplikacijo ostranite, ne da bi bitcoine prej poslali drugam.</string>
-  <string name="notification_inactivity_message_donate">Če vam je za novce vseeno, jih lahko tudi podarite projektu Bitcoin Wallet.</string>
+  <string name="notification_inactivity_message_donate">Če vam je za novce vseeno, jih lahko tudi podarite projektu Groestlcoin Wallet.</string>
   <string name="notification_inactivity_action_dismiss">Spomni me kasneje</string>
   <string name="notification_inactivity_action_dismiss_forever">Ne spomni me</string>
   <string name="notification_bluetooth_service_listening">Pripravljen na prejemanje plačil prek Bluetooth</string>

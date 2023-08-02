@@ -45,7 +45,7 @@
     <string name="wallet_options_safety">Safety notes</string>
     <string name="wallet_options_technical_notes_title">Technical notes</string>
     <string name="wallet_options_donate">Tip / donate</string>
-    <string name="wallet_donate_address_label">Donation for Bitcoin Wallet</string>
+    <string name="wallet_donate_address_label">Donation for Groestlcoin Wallet</string>
     <string name="alert_dialogs_fragment_insecure_device_title">Security alert</string>
     <string name="wallet_low_storage_dialog_title">Internal device storage space low!</string>
     <string name="wallet_low_storage_dialog_msg">Groestlcoin Wallet uses internal storage for remembering transactions and blocks. If it runs out of space, it will stop working and your Groestlcoins will be at risk!\n\nDo you want to open the Application Manager to uninstall unneeded apps?</string>
@@ -62,9 +62,9 @@
     <string name="alert_dialogs_fragment_too_much_balance_dialog_title">Keep the risk low</string>
     <string name="alert_dialogs_fragment_too_much_balance_dialog_message">The amount in your wallet is quite high for carrying in your pocket. Please move some to a safer place, like a cold wallet.</string>
     <string name="alert_dialogs_fragment_battery_optimization_dialog_title">Receive payments in background</string>
-    <string name="alert_dialogs_fragment_battery_optimization_dialog_message">At the moment your device is configured to only notify incoming payments while Bitcoin Wallet is visible – due to battery usage.\n\nWe suggest allowing the app to always stay up-to-date with the blockchain, even in the background.\n\nDon\'t worry, we\'ll still mind your battery.</string>
+    <string name="alert_dialogs_fragment_battery_optimization_dialog_message">At the moment your device is configured to only notify incoming payments while Groestlcoin Wallet is visible – due to battery usage.\n\nWe suggest allowing the app to always stay up-to-date with the blockchain, even in the background.\n\nDon\'t worry, we\'ll still mind your battery.</string>
     <string name="alert_dialogs_fragment_battery_optimization_dialog_button_allow">Allow</string>
-    <string name="send_coins_activity_title">Send Bitcoins</string>
+    <string name="send_coins_activity_title">Send Groestlcoins</string>
     <string name="send_coins_fragment_request_payment_request_progress">Fetching signature from %s…</string>
     <string name="send_coins_fragment_request_payment_request_failed_title">Fetching payment request failed</string>
     <string name="send_coins_fragment_request_payment_request_failed_message">The payee (%1$s) is using an incompatible payment protocol (reason: %2$s).</string>
@@ -179,9 +179,9 @@
     <string name="transaction_row_message_purpose_key_rotation">This transaction strengthens your wallet against theft. &lt;u&gt;More info.&lt;/u&gt;</string>
     <string name="transaction_row_message_purpose_raise_fee">This transaction raises the network fee for a previous payment.</string>
     <string name="transaction_row_message_received_direct">This payment has been received directly. There is a risk it might never become spendable.</string>
-    <string name="transaction_row_message_received_unconfirmed_delayed">The confirmation of this payment is delayed, likely due to an overload of the Bitcoin network.</string>
+    <string name="transaction_row_message_received_unconfirmed_delayed">The confirmation of this payment is delayed, likely due to an overload of the Groestlcoin network.</string>
     <string name="transaction_row_message_received_unconfirmed_unlocked">This payment should not be trusted until it is confirmed. Confirmations take a few minutes.</string>
-    <string name="transaction_row_message_received_unconfirmed_chain_forking">Due to maintenance on the Bitcoin network, this transaction should not be trusted until it is fully confirmed.</string>
+    <string name="transaction_row_message_received_unconfirmed_chain_forking">Due to maintenance on the Groestlcoin network, this transaction should not be trusted until it is fully confirmed.</string>
     <string name="transaction_row_message_received_in_conflict">This payment has an increased risk of being reversed by the sender! If you can, wait for confirmation.</string>
     <string name="transaction_row_message_received_dead">This payment has been reversed by the sender.</string>
     <string name="transaction_row_message_received_dust">This small amount can probably never be spent economically.</string>

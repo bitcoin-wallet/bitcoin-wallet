@@ -44,7 +44,7 @@
   <string name="wallet_options_safety">Bezpečnost</string>
   <string name="wallet_options_technical_notes_title">Technické informace</string>
   <string name="wallet_options_donate">Přispěj</string>
-  <string name="wallet_donate_address_label">Dar pro Bitcoin Wallet</string>
+  <string name="wallet_donate_address_label">Dar pro Groestlcoin Wallet</string>
   <string name="alert_dialogs_fragment_insecure_device_title">Bezpečnostní ohrožení</string>
   <string name="wallet_low_storage_dialog_title">Na vnitřním úložišti není dostatek místa!</string>
   <string name="wallet_low_storage_dialog_msg">Groestlcoin Wallet používá vnitřní úložiště pro ukládání transakcí a bloků. Pokud dojde místo v ůložišti, přestane fungovat a vaše Groestlcoiny budou vystaveny riziku ztráty!\n\nChcete otevřít Správu Aplikací a odinstalovat nepotřebné aplikace?</string>
@@ -60,7 +60,7 @@
   <string name="alert_dialogs_fragment_settings_failed_title">Problém s otevřením nastavení.</string>
   <string name="alert_dialogs_fragment_too_much_balance_dialog_title">Udržujte nízké riziko</string>
   <string name="alert_dialogs_fragment_too_much_balance_dialog_message">Částka v peněžence je pro běžné nošení v kapse poměrně vysoká. Přesuňte prosím část na bezpečnější místo, například do hardwarové peněženky.</string>
-  <string name="send_coins_activity_title">Zaslat Bitcoiny</string>
+  <string name="send_coins_activity_title">Zaslat Groestlcoiny</string>
   <string name="send_coins_fragment_request_payment_request_progress">Stahuji podpis z %s…</string>
   <string name="send_coins_fragment_request_payment_request_failed_title">Načítání žádosti o platbu se nezdařilo</string>
   <string name="send_coins_fragment_request_payment_request_failed_message">Příjemce (%1$s) používá nekompatibilní platební protokol (důvod: %2$s).</string>
@@ -241,12 +241,12 @@
   <string name="preferences_category_labs">Laboratoř</string>
   <string name="preferences_precision_title">Denominace a přesnost</string>
   <string name="preferences_precision_summary">Jednotka pro zobrazování částek. Neovlivňuje výpočty.</string>
-  <string name="preferences_precision_labels_8">BTC, 8 desetinných míst</string>
-  <string name="preferences_precision_labels_6">BTC, 6 desetinných míst</string>
-  <string name="preferences_precision_labels_4">BTC, 4 desetinná místa</string>
-  <string name="preferences_precision_labels_2_3">mBTC, 2 desetinná místa</string>
-  <string name="preferences_precision_labels_0_6">µBTC, bez desetinných míst</string>
-  <string name="preferences_precision_labels_0_8">sat, bez desetinných míst</string>
+  <string name="preferences_precision_labels_8">GRS, 8 desetinných míst</string>
+  <string name="preferences_precision_labels_6">GRS, 6 desetinných míst</string>
+  <string name="preferences_precision_labels_4">GRS, 4 desetinná místa</string>
+  <string name="preferences_precision_labels_2_3">mGRS, 2 desetinná místa</string>
+  <string name="preferences_precision_labels_0_6">µGRS, bez desetinných míst</string>
+  <string name="preferences_precision_labels_0_8">gro, bez desetinných míst</string>
   <string name="preferences_own_name_title">Vlastní jméno</string>
   <string name="preferences_own_name_summary">Vaše jméno nebo název vaší společnosti, který bude přidán k žádostem o platbu, které vystavíte svým zákazníkům.</string>
   <string name="preferences_own_name_dialog_message">Snažte se to zkrátit.</string>
