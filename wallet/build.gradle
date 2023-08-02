@@ -26,7 +26,7 @@ dependencies {
     implementation 'androidx.sqlite:sqlite:2.3.1'
     implementation "androidx.room:room-runtime:2.5.1"
     annotationProcessor "androidx.room:room-compiler:2.5.1"
-    implementation 'org.bitcoinj:bitcoinj-core:0.16.2'
+    implementation 'com.github.groestlcoin:groestlcoinj-core:0.16.2'
     implementation 'com.google.guava:guava:31.1-android'
     implementation 'com.google.zxing:core:3.5.1'
     //noinspection GradleDependency
@@ -56,8 +56,8 @@ android {
             abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64'
         }
 
-        minSdkVersion 24
-        targetSdkVersion 30
+        minSdkVersion 26
+        targetSdkVersion 33
     }
 
     externalNativeBuild {
