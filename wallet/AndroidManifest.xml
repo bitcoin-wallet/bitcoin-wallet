@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="de.schildbach.wallet"
     android:installLocation="internalOnly"
-    android:versionCode="100300"
+    android:versionCode="100301"
     android:versionName="10.03">
 
     <!-- normal permissions -->
