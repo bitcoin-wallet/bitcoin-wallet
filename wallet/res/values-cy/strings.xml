@@ -124,7 +124,7 @@
   <string name="sweep_wallet_fragment_decrypt_progress">Yn dadgryptio…\nCymerir hyd at 2 funud.</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_progress">Yn llwytho\'r balans…</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_failed_title">Methwyd â llwytho\'r balans</string>
-  <string name="sweep_wallet_fragment_request_wallet_balance_failed_connection">Mae gennyt gysylltiad gwael â\'r rhwydwaith Electrum.</string>
+  <string name="sweep_wallet_fragment_request_wallet_balance_failed_connection">Mae gennyt gysylltiad gwael â\'r rhwydwaith Electrum-GRS.</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_empty">Mae\'r waled papur yn wag.</string>
   <string name="sweep_wallet_fragment_insufficient_money_title">Dim digon o Groestlcoin</string>
   <string name="sweep_wallet_fragment_insufficient_money_msg">Mae swm y Groestlcoin yn y waled yn rhy fach i\'w ysgubo.</string>
@@ -301,7 +301,7 @@
   <string name="about_license_title">Trwydded</string>
   <string name="about_source_title">Cod wreiddiol</string>
   <string name="about_category_credits">Mae\'r ap hwn yn defnyddio…</string>
-  <string name="about_credits_bitcoinj_title">bitcoinj %s, gweithrediad protocol Groestlcoin</string>
+  <string name="about_credits_bitcoinj_title">groestlcoinj %s, gweithrediad protocol Groestlcoin</string>
   <string name="about_credits_zxing_title">ZXing, llyfrgell prosesu codau QR</string>
   <string name="about_credits_bouncycastle_title">Bouncy Castle, llyfrgell cryptograffeg</string>
   <string name="about_credits_okhttp_title">OkHttp, llyfrgell cleient HTTP</string>

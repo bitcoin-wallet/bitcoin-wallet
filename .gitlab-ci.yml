@@ -15,7 +15,7 @@ bullseye-jdk11:
     - yes | sdkmanager --licenses >/dev/null || true
     - gradle build --stacktrace
   artifacts:
-    name: bitcoin-wallet-$CI_JOB_NAME-$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA
+    name: groestlcoin-wallet-$CI_JOB_NAME-$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA
     paths:
       - wallet/build/outputs/apk/**/*.apk
 
@@ -27,7 +27,7 @@ bookworm-jdk17:
     - yes | sdkmanager --licenses >/dev/null || true
     - gradle build --stacktrace
   artifacts:
-    name: bitcoin-wallet-$CI_JOB_NAME-$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA
+    name: groestlcoin-wallet-$CI_JOB_NAME-$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA
     paths:
       - wallet/build/outputs/apk/**/*.apk
 
@@ -39,7 +39,7 @@ jammy-jdk11:
     - yes | sdkmanager --licenses >/dev/null || true
     - gradle build --stacktrace
   artifacts:
-    name: bitcoin-wallet-$CI_JOB_NAME-$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA
+    name: groestlcoin-wallet-$CI_JOB_NAME-$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA
     paths:
       - wallet/build/outputs/apk/**/*.apk
 
@@ -51,6 +51,6 @@ lunar-jdk17:
     - yes | sdkmanager --licenses >/dev/null || true
     - gradle build --stacktrace
   artifacts:
-    name: bitcoin-wallet-$CI_JOB_NAME-$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA
+    name: groestlcoin-wallet-$CI_JOB_NAME-$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA
     paths:
       - wallet/build/outputs/apk/**/*.apk

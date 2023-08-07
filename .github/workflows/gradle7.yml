@@ -10,39 +10,37 @@ jobs:
         os: [ubuntu-latest, macos-latest, windows-latest]
         java: ['11', '17']
         distribution: ['temurin']
-        gradle: ['7.4.2']
+        gradle: ['7.5.1']
       fail-fast: false
     name: JAVA ${{ matrix.java }} OS ${{ matrix.os }} Gradle ${{ matrix.gradle }}
     steps:
-      - uses: actions/checkout@v1
-
-      - run:  sed -i -e "s|7.2.0|7.2.1|g" build.gradle
+      - uses: actions/checkout@v3
 
       - name: Set up JDK
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v3
         with:
           distribution: ${{ matrix.distribution }}
           java-version: ${{ matrix.java }}
 
       - name: Setup Android SDK
-        uses: android-actions/setup-android@v2
+        uses: android-actions/setup-android@v2.0.10
 
-      - name: Install Android SDK components
+      - name: Install build-tools 33.0.2, platformtools and platform android-33
         run: sdkmanager --install "build-tools;33.0.2" "platform-tools" "platforms;android-33"
 
       - name: Build with Gradle
         run: |
            ./gradlew wrapper --gradle-version=${{ matrix.gradle }}
-           ./gradlew clean build
+           ./gradlew clean build --stacktrace
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: groestlcoin-wallet-JAVA${{ matrix.java }}-${{ matrix.os }}-${{ matrix.gradle }}
           path: |
             wallet/build/outputs/apk/
 
       - name: Download artifacts
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: groestlcoin-wallet-JAVA${{ matrix.java }}-${{ matrix.os }}-${{ matrix.gradle }}

@@ -48,17 +48,17 @@ public final class Constants {
     public static final NetworkParameters NETWORK_PARAMETERS =
             !BuildConfig.FLAVOR.equals("prod") ? TestNet3Params.get() : MainNetParams.get();
 
-    /** Bitcoinj global context. */
+    /** Groestlcoinj global context. */
     public static final Context CONTEXT = new Context(NETWORK_PARAMETERS);
 
     /**
-     * The type of Bitcoin addresses used for the initial wallet: {@link Script.ScriptType#P2PKH} for classic
+     * The type of Groestlcoin addresses used for the initial wallet: {@link Script.ScriptType#P2PKH} for classic
      * Base58, {@link Script.ScriptType#P2WPKH} for segwit Bech32.
      */
     public static final Script.ScriptType DEFAULT_OUTPUT_SCRIPT_TYPE = Script.ScriptType.P2WPKH;
 
     /**
-     * The type of Bitcoin addresses to upgrade the current wallet to: {@link Script.ScriptType#P2PKH} for classic
+     * The type of Groestlcoin addresses to upgrade the current wallet to: {@link Script.ScriptType#P2PKH} for classic
      * Base58, {@link Script.ScriptType#P2WPKH} for segwit Bech32.
      */
     public static final Script.ScriptType UPGRADE_OUTPUT_SCRIPT_TYPE = Script.ScriptType.P2WPKH;

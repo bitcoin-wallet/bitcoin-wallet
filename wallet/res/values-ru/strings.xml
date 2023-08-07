@@ -123,7 +123,7 @@
   <string name="sweep_wallet_fragment_decrypt_progress">Расшифровка…\nМожет занять до 2-х минут.</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_progress">Загружаю баланс…</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_failed_title">Загрузка баланса кошелька прошла с ошибкой</string>
-  <string name="sweep_wallet_fragment_request_wallet_balance_failed_connection">У вас плохое соединение с сетью Electrum.</string>
+  <string name="sweep_wallet_fragment_request_wallet_balance_failed_connection">У вас плохое соединение с сетью Electrum-GRS.</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_empty">Бумажный кошелек пуст.</string>
   <string name="sweep_wallet_fragment_insufficient_money_title">Недостаточно монет</string>
   <string name="sweep_wallet_fragment_insufficient_money_msg">Количество монет слишком мало для сканирования этого кошелька.</string>
@@ -285,7 +285,7 @@
   <string name="about_license_title">Лицензия</string>
   <string name="about_source_title">Исходный код</string>
   <string name="about_category_credits">Это приложение использует…</string>
-  <string name="about_credits_bitcoinj_title">bitcoinj %s, реализация протокола Groestlcoin</string>
+  <string name="about_credits_bitcoinj_title">groestlcoinj %s, реализация протокола Groestlcoin</string>
   <string name="about_credits_zxing_title">ZXing, библиотека обработки QR-кодов</string>
   <string name="about_credits_bouncycastle_title">Bouncy Castle, криптографическая библиотека</string>
   <string name="about_credits_okhttp_title">OkHttp, библиотека для работы клиента HTTP</string>

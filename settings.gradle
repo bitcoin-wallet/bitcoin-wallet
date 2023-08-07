@@ -3,7 +3,7 @@ import org.gradle.api.GradleScriptException
 
 // required Gradle version
 def minGradleVersion = GradleVersion.version("4.4") // including
-def maxGradleVersion = GradleVersion.version("7.4.3") // excluding
+def maxGradleVersion = GradleVersion.version("7.6.3") // excluding
 
 if (GradleVersion.current() < minGradleVersion || GradleVersion.current() >= maxGradleVersion)
     throw new GradleScriptException("build requires Gradle between ${minGradleVersion.version} (including) and ${maxGradleVersion.version} (excluding)", null)

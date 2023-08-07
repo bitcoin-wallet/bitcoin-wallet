@@ -27,7 +27,7 @@
   <string name="wallet_transactions_fragment_empty_text_received">Nie otrzymano jeszcze żadnych Groestlcoinów.</string>
   <string name="wallet_transactions_fragment_empty_text_sent">Nie wysłano jeszcze żadnych Groestlcoinów.</string>
   <string name="wallet_transactions_fragment_empty_text_howto">Jak zdobyć Groestlcoiny?\nWymień za tradycyjną walutę,\nsprzedawaj dobra bądź usługi lub\nzarabiaj pracując.</string>
-  <string name="wallet_transactions_fragment_empty_remind_backup">Utwórz kopię zapasową swojego portfela\nprzed otrzymaniem bitcoinów!</string>
+  <string name="wallet_transactions_fragment_empty_remind_backup">Utwórz kopię zapasową swojego portfela\nprzed otrzymaniem groestlcoinów!</string>
   <string name="wallet_transactions_row_warning_backup">Gratulacje, otrzymałeś swoją pierwszą płatność! Czy już &lt;u&gt;wykonałeś kopię zapasową swojego portfela&lt;/u&gt;, by ochronić się przed jej utratą?</string>
   <string name="wallet_transactions_row_warning_storage_encryption">Wskazówka: aby zwiększyć bezpieczeństwo swojego portfela, możesz &lt;u&gt;zaszyfrować swoje urządzenie&lt;/u&gt;. Chroni to również dane innych aplikacji.</string>
   <string name="wallet_transactions_row_warning_chain_forking">Sieć Groestlcoin jest w trakcie konserwacji. Radzimy, aby nie wysyłać ani nie odbierać żadnych monet do czasu zakończenia konserwacji. &lt;u&gt;Więcej informacji.&lt;/u&gt;</string>
@@ -125,7 +125,7 @@
   <string name="sweep_wallet_fragment_decrypt_progress">Deszyfracja…\nMoże zająć do 2 minut.</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_progress">Wczytywanie salda…</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_failed_title">Błąd wczytywania salda</string>
-  <string name="sweep_wallet_fragment_request_wallet_balance_failed_connection">Masz złe połączenie z siecią Electrum.</string>
+  <string name="sweep_wallet_fragment_request_wallet_balance_failed_connection">Masz złe połączenie z siecią Electrum-GRS.</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_empty">Papierowy portfel jest pusty.</string>
   <string name="sweep_wallet_fragment_insufficient_money_title">Brak wystarczającej ilości monet</string>
   <string name="sweep_wallet_fragment_insufficient_money_msg">Ilość monet w tym portfelu jest zbyt mała aby zaimportować.</string>
@@ -305,7 +305,7 @@
   <string name="about_license_title">Licencja</string>
   <string name="about_source_title">Kod źródłowy</string>
   <string name="about_category_credits">Ta aplikacja używa…</string>
-  <string name="about_credits_bitcoinj_title">bitcoinj %s, implementacja protokołu Groestlcoin</string>
+  <string name="about_credits_bitcoinj_title">groestlcoinj %s, implementacja protokołu Groestlcoin</string>
   <string name="about_credits_zxing_title">ZXing, biblioteka do przetwarzania kodów QR</string>
   <string name="about_credits_bouncycastle_title">Bouncy Castle, biblioteka kryptograficzna</string>
   <string name="about_credits_okhttp_title">OkHttp, biblioteka klienta HTTP</string>

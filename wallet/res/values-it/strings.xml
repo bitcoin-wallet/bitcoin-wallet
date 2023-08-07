@@ -124,7 +124,7 @@
   <string name="sweep_wallet_fragment_decrypt_progress">Decrittazione in corso…\n impiega fino a un massimo di 2 minuti.</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_progress">Caricamento saldo…</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_failed_title">Caricamento saldo del portafoglio fallito</string>
-  <string name="sweep_wallet_fragment_request_wallet_balance_failed_connection">Hai una connessione carente con la rete Electrum.</string>
+  <string name="sweep_wallet_fragment_request_wallet_balance_failed_connection">Hai una connessione carente con la rete Electrum-GRS.</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_empty">Il portafoglio cartaceo è vuoto.</string>
   <string name="sweep_wallet_fragment_insufficient_money_title">Non hai abbastanza soldi disponibili</string>
   <string name="sweep_wallet_fragment_insufficient_money_msg">La quantità di coins che hai nel portafoglio è troppo piccolo</string>
@@ -228,7 +228,7 @@
   <string name="input_parser_io_error">Impossibile leggere i dati:\n%s</string>
   <string name="input_parser_cannot_classify">Impossibile classificare l\'input:\n%s</string>
   <string name="input_parser_invalid_bitcoin_uri">URI Groestlcoin errato:\n%s</string>
-  <string name="input_parser_invalid_address">Ricevuto indirizzo bitcoin non valido!\n(Hai mescolato la mainnet con la testnet?)</string>
+  <string name="input_parser_invalid_address">Ricevuto indirizzo groestlcoin non valido!\n(Hai mescolato la mainnet con la testnet?)</string>
   <string name="input_parser_unverifyable_paymentrequest">Impossibile verificare la richiesta di pagamento:\n%s</string>
   <string name="input_parser_invalid_paymentrequest">Richiesta di pagamento invalida:\n%s</string>
   <string name="input_parser_invalid_transaction">Transazione non valida:\n%s</string>
@@ -301,7 +301,7 @@
   <string name="about_license_title">Licenza</string>
   <string name="about_source_title">Codice Sorgente</string>
   <string name="about_category_credits">Questa applicazione fa uso di…</string>
-  <string name="about_credits_bitcoinj_title">bitcoinj %s, un\'implementazione del protocollo Groestlcoin</string>
+  <string name="about_credits_bitcoinj_title">groestlcoinj %s, un\'implementazione del protocollo Groestlcoin</string>
   <string name="about_credits_zxing_title">ZXing, una libreria di elaborazione di QR-code</string>
   <string name="about_credits_bouncycastle_title">Bouncy Castle, una libreria di crittografia</string>
   <string name="about_credits_okhttp_title">OkHttp, una libreria HTTP client</string>

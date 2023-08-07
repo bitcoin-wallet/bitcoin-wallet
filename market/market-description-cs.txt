@@ -11,7 +11,7 @@
 • Pokud jste offline, stále můžete platit přes Bluetooth.
 • Systémové notifikace při přijaté platbě
 • Načítání papírových peněženek (např. ty co se používají u cold storage).
-• Widget pro zobrazení Bitcoin bilance.
+• Widget pro zobrazení Groestlcoin bilance.
 • Bezpečnost: Podporuje Taproot, Segwit a nový formát bech32m.
 • Soukromí: Podporuje Tor prostřednictvím samostatné aplikace Orbot.
 

@@ -124,7 +124,7 @@
   <string name="sweep_wallet_fragment_decrypt_progress">正在解密…\n需要花费2分钟左右。</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_progress">正在载入金额…</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_failed_title">载入钱包金额失败</string>
-  <string name="sweep_wallet_fragment_request_wallet_balance_failed_connection">您和Electrum网络的链接不良。</string>
+  <string name="sweep_wallet_fragment_request_wallet_balance_failed_connection">您和Electrum-GRS网络的链接不良。</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_empty">纸钱包是空的。</string>
   <string name="sweep_wallet_fragment_insufficient_money_title">格羅斯币不足</string>
   <string name="sweep_wallet_fragment_insufficient_money_msg">该钱包上的格羅斯币金额太小，无法交换。</string>
@@ -302,7 +302,7 @@
   <string name="about_license_title">许可协议</string>
   <string name="about_source_title">源代码</string>
   <string name="about_category_credits">此应用正在使用...</string>
-  <string name="about_credits_bitcoinj_title">bitcoinj %s, 一个格羅斯币协议库</string>
+  <string name="about_credits_bitcoinj_title">groestlcoinj %s, 一个格羅斯币协议库</string>
   <string name="about_credits_zxing_title">ZXing，一个QR码处理库</string>
   <string name="about_credits_bouncycastle_title">Bouncy Castle，一个密码学函数库</string>
   <string name="about_credits_okhttp_title">OkHttp，一个HTTP客户端函数库</string>

@@ -1288,7 +1288,7 @@ public final class SendCoinsFragment extends Fragment {
     }
 
     /**
-     * Put BIP70 payment message into result intent. Meant for usage by Bitcoin wallet applications.
+     * Put BIP70 payment message into result intent. Meant for usage by Groestlcoin wallet applications.
      *
      * @param result  result intent
      * @param payment payment message
@@ -1298,7 +1298,7 @@ public final class SendCoinsFragment extends Fragment {
     }
 
     /**
-     * Put transaction hash into result intent. Meant for usage by Bitcoin wallet applications.
+     * Put transaction hash into result intent. Meant for usage by Groestlcoin wallet applications.
      *
      * @param result result intent
      * @param txHash transaction hash

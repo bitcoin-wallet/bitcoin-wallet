@@ -47,7 +47,7 @@
   <string name="wallet_donate_address_label">Donatie aan Groestlcoin Wallet</string>
   <string name="alert_dialogs_fragment_insecure_device_title">Beveiligings alarm</string>
   <string name="wallet_low_storage_dialog_title">Interne opslag bijna vol!</string>
-  <string name="wallet_low_storage_dialog_msg">Groestlcoin Wallet gebruikt interne opslag voor transacties en blokken. Wanneer er te weinig opslag beschikbaar is zal het stoppen met werken en lopen uw bitcoins gevaar!\n\nWilt u de Applicatie beheer instellingen openen om ongebruikte apps te verwijderen?</string>
+  <string name="wallet_low_storage_dialog_msg">Groestlcoin Wallet gebruikt interne opslag voor transacties en blokken. Wanneer er te weinig opslag beschikbaar is zal het stoppen met werken en lopen uw groestlcoins gevaar!\n\nWilt u de Applicatie beheer instellingen openen om ongebruikte apps te verwijderen?</string>
   <string name="wallet_low_storage_dialog_button_apps">Beheer apps</string>
   <string name="wallet_timeskew_dialog_title">Check je datum- en tijdsinstellingen</string>
   <string name="wallet_timeskew_dialog_msg">De tijd van je apparaat wijkt af met %d minuten. Hierdoor kun je waarschijnlijk geen Groestlcoins verzenden of ontvangen.\n\nCheck je instellingen voor datum, tijd en tijdzone en pas die indien nodig aan.</string>
@@ -56,7 +56,7 @@
   <string name="wallet_version_dialog_msg_deprecated">Wanneer je geen update ziet wordt jouw Android-versie waarschijnlijk niet meer ondersteund.</string>
   <string name="wallet_version_dialog_button_binary">Download</string>
   <string name="wallet_old_sdk_dialog_title">Android-versie is verouderd</string>
-  <string name="wallet_old_sdk_dialog_message">De kans bestaat dat één van de volgende versies van Groestlcoin Wallet uw apparaat niet langer ondersteunen zal. In sommige gevallen kan het lastig worden nog met bitcoins te kunnen betalen vanaf dit apparaat.\n\nTenzij u weet wat u doet wordt u aanbevolen om coins elders onder te brengen.</string>
+  <string name="wallet_old_sdk_dialog_message">De kans bestaat dat één van de volgende versies van Groestlcoin Wallet uw apparaat niet langer ondersteunen zal. In sommige gevallen kan het lastig worden nog met groestlcoins te kunnen betalen vanaf dit apparaat.\n\nTenzij u weet wat u doet wordt u aanbevolen om coins elders onder te brengen.</string>
   <string name="alert_dialogs_fragment_settings_failed_title">Probleem met het openen van de instellingen</string>
   <string name="alert_dialogs_fragment_too_much_balance_dialog_message">Dit is relatief veel om op zak te hebben. Verplaats iets naar een veiligere plek.</string>
   <string name="send_coins_activity_title">Verzend GRS</string>
@@ -113,7 +113,7 @@
   <string name="raise_fee_dialog_button_raise">Verhoog</string>
   <string name="sweep_wallet_activity_title">Importeer papieren wallet</string>
   <string name="sweep_wallet_fragment_intro">U staat op het punt een papieren wallet of coupon te scannen. Dit verplaatst alle coins van dat papier naar de portemonnee op dit apparaat. Zodra deze transactie is bevestigd zal het papier zijn waarde hebben verloren en om veiligheidsredenen niet meer opnieuw gebruikt moeten worden.</string>
-  <string name="sweep_wallet_fragment_hint">Papieren wallets worden meestal gebruikt voor offline opslag. Sommige geldautomaten printen ze uit op een bon in plaats van de coins direct naar uw mobiele apparaat te versturen. Van te voren met bitcoins opgewaardeerde papieren wallets worden door sommige mensen gebruikt om waarde aan elkaar door te geven (niet aanbevolen).</string>
+  <string name="sweep_wallet_fragment_hint">Papieren wallets worden meestal gebruikt voor offline opslag. Sommige geldautomaten printen ze uit op een bon in plaats van de coins direct naar uw mobiele apparaat te versturen. Van te voren met groestlcoins opgewaardeerde papieren wallets worden door sommige mensen gebruikt om waarde aan elkaar door te geven (niet aanbevolen).</string>
   <string name="sweep_wallet_fragment_wallet_unknown">Begin met het scannen van de geheime sleutel van de papieren portemonnee. Gebruik de camera actieknop.</string>
   <string name="sweep_wallet_fragment_encrypted">Deze privé-sleutel is met een wachtwoord beveiligd.</string>
   <string name="sweep_wallet_fragment_password">wachtwoord</string>
@@ -124,10 +124,10 @@
   <string name="sweep_wallet_fragment_decrypt_progress">Decoderen…\nDit kan tot 2 minuten duren.</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_progress">Saldo wordt geladen…</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_failed_title">Saldo laden mislukt.</string>
-  <string name="sweep_wallet_fragment_request_wallet_balance_failed_connection">Je hebt een slechte verbinding met het Electrum-netwerk.</string>
+  <string name="sweep_wallet_fragment_request_wallet_balance_failed_connection">Je hebt een slechte verbinding met het Electrum-GRS-netwerk.</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_empty">De papieren portemonnee is leeg</string>
   <string name="sweep_wallet_fragment_insufficient_money_title">Niet genoeg saldo</string>
-  <string name="sweep_wallet_fragment_insufficient_money_msg">De hoeveelheid bitcoins in de wallet is te laag om te kunnen overdragen.</string>
+  <string name="sweep_wallet_fragment_insufficient_money_msg">De hoeveelheid groestlcoins in de wallet is te laag om te kunnen overdragen.</string>
   <string name="sweep_wallet_options_reload">Saldo verversen</string>
   <string name="maintenance_dialog_title">Onderhoud aanbevolen</string>
   <string name="maintenance_dialog_message">U ontving %1$s op onveilige adressen. Wilt U deze Groestlcoins overbrengen naar veilige adressen? Kleine netwerkkosten ter grootte van %2$s zal worden afgedragen.</string>
@@ -190,7 +190,7 @@
   <string name="peer_list_fragment_empty">Geen connecties</string>
   <string name="peer_list_row_ping_time">⇆ %d&#x2009;ms</string>
   <string name="import_keys_dialog_title">Herstel portemonnee</string>
-  <string name="restore_wallet_dialog_replace_warning">U staat op het punt uw huidige wallet te vervangen. Tenzij u een losse back-up van uw Wallet heeft gemaakt zullen alle bitcoins die nog in uw huidige wallet aanwezig zijn verloren gaan!</string>
+  <string name="restore_wallet_dialog_replace_warning">U staat op het punt uw huidige wallet te vervangen. Tenzij u een losse back-up van uw Wallet heeft gemaakt zullen alle groestlcoins die nog in uw huidige wallet aanwezig zijn verloren gaan!</string>
   <string name="import_keys_dialog_warning">Belangrijk: Laad geen prive-sleutels van twijfelachtige bronnen! Anderen kunnen anders wellicht over je saldo beschikken.</string>
   <string name="import_keys_dialog_button_import">Herstellen</string>
   <string name="restore_wallet_dialog_success">Portemonnee is hersteld.</string>
@@ -301,7 +301,7 @@
   <string name="about_license_title">Licentie</string>
   <string name="about_source_title">Broncode</string>
   <string name="about_category_credits">Deze app gebruikt…</string>
-  <string name="about_credits_bitcoinj_title">bitcoinj %s, een Groestlcoin protocol implementatie</string>
+  <string name="about_credits_bitcoinj_title">groestlcoinj %s, een Groestlcoin protocol implementatie</string>
   <string name="about_credits_zxing_title">ZXing, een QR-code processing bibliotheek</string>
   <string name="about_credits_bouncycastle_title">Bouncy Castle, een cryptografische bibliotheek</string>
   <string name="about_credits_okhttp_title">OkHttp, een HTTP-client-bibliotheek</string>
@@ -319,7 +319,7 @@
   <string name="notification_peer_connected">verbonden</string>
   <string name="notification_peer_not_connected">niet verbonden</string>
   <string name="notification_inactivity_title">Je hebt nog steeds Groestlcoins op dit apparaat!</string>
-  <string name="notification_inactivity_message">Onthou dat je saldo van %s verloren zal zijn als je de app verwijdert zonder de bitcoins eerst te verzenden.</string>
+  <string name="notification_inactivity_message">Onthou dat je saldo van %s verloren zal zijn als je de app verwijdert zonder de groestlcoins eerst te verzenden.</string>
   <string name="notification_inactivity_message_donate">Als je geen waarde hecht aan je coins zou je deze ook kunnen doneren aan het Groestlcoin Wallet project</string>
   <string name="notification_inactivity_action_dismiss">Opnieuw vragen</string>
   <string name="notification_inactivity_action_dismiss_forever">Niet herinneren</string>

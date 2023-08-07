@@ -124,7 +124,7 @@
   <string name="sweep_wallet_fragment_decrypt_progress">Puretaan salausta…\nKuluu enintään 2 minuuttia.</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_progress">Ladataan saldoa…</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_failed_title">Lompakon saldon lataaminen epäonnistui</string>
-  <string name="sweep_wallet_fragment_request_wallet_balance_failed_connection">Sinulla on huono yhteys Electrum-verkkoon.</string>
+  <string name="sweep_wallet_fragment_request_wallet_balance_failed_connection">Sinulla on huono yhteys Electrum-GRS-verkkoon.</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_empty">Paperinen lompakko on tyhjä.</string>
   <string name="sweep_wallet_fragment_insufficient_money_title">Varoja ei ole tarpeeksi</string>
   <string name="sweep_wallet_fragment_insufficient_money_msg">Lompakossa ei ole tarpeeksi varoja pyyhkäisyä varten.</string>
@@ -294,7 +294,7 @@
   <string name="about_license_title">Lisenssi</string>
   <string name="about_source_title">Lähdekoodi</string>
   <string name="about_category_credits">Tämä sovellus käyttää…</string>
-  <string name="about_credits_bitcoinj_title">bitcoinj %s, implementaatio Groestlcoin-protokollasta</string>
+  <string name="about_credits_bitcoinj_title">groestlcoinj %s, implementaatio Groestlcoin-protokollasta</string>
   <string name="about_credits_zxing_title">ZXing, QR-koodien prosessointikirjasto</string>
   <string name="about_credits_bouncycastle_title">Bouncy Castle, kryptografiakirjasto</string>
   <string name="about_credits_okhttp_title">OkHttp, HTTP-asiakaskirjasto</string>

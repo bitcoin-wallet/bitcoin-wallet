@@ -30,7 +30,7 @@
   <string name="wallet_transactions_fragment_empty_remind_backup">Groestlcoin almadan önce\nlütfen cüzdanınızı yedekleyin!</string>
   <string name="wallet_transactions_row_warning_backup">Tebrikler, ilk ödemenizi aldınız! Kaybetme riskine karşı korunmak için &lt;u&gt;cüzdanınızı yedeklediniz mi&lt;/u&gt;?</string>
   <string name="wallet_transactions_row_warning_storage_encryption">İpucu: cüzdanınızın güvenliğini arttırmak için &lt;u&gt;cihazınızı şifreleyebilirsiniz&lt;/u&gt;. Bu aynı zamanda diğer uygulamaları da koruyacaktır.</string>
-  <string name="wallet_transactions_row_warning_chain_forking">Groestlcoin ağı bakımdadır. Bakım bitene kadar bitcoin gönderip almanızı tavsiye etmiyoruz. &lt;u&gt;Daha fazla bilgi.&lt;/u&gt;</string>
+  <string name="wallet_transactions_row_warning_chain_forking">Groestlcoin ağı bakımdadır. Bakım bitene kadar groestlcoin gönderip almanızı tavsiye etmiyoruz. &lt;u&gt;Daha fazla bilgi.&lt;/u&gt;</string>
   <string name="wallet_transactions_fragment_coinbase">madenden</string>
   <string name="wallet_transactions_fragment_internal">dahili</string>
   <string name="wallet_transactions_options_filter">Filtre</string>
@@ -56,7 +56,7 @@
   <string name="wallet_version_dialog_msg_deprecated">Eğer bir güncelleme görmüyorsanız, bu muhtemelen sizin Android sürümünüzün artık desteklenmediği anlamına gelir.</string>
   <string name="wallet_version_dialog_button_binary">İndir</string>
   <string name="wallet_old_sdk_dialog_title">Android sürümü eski</string>
-  <string name="wallet_old_sdk_dialog_message">Gelecek Groestlcoin Wallet sürümünün cihazınızı desteklememesi mümkündür. Bazı durumlarda bu cihazla bitcoin harcamak zor olabilir.\n\nGroestlcoinlerinizi güvenli bir yere aktarmanız tavsiye edilir.</string>
+  <string name="wallet_old_sdk_dialog_message">Gelecek Groestlcoin Wallet sürümünün cihazınızı desteklememesi mümkündür. Bazı durumlarda bu cihazla groestlcoin harcamak zor olabilir.\n\nGroestlcoinlerinizi güvenli bir yere aktarmanız tavsiye edilir.</string>
   <string name="alert_dialogs_fragment_settings_failed_title">Ayarları açarken bir sorun oluştu</string>
   <string name="alert_dialogs_fragment_too_much_balance_dialog_title">Riski düşük tutun</string>
   <string name="alert_dialogs_fragment_too_much_balance_dialog_message">Cüzdanınızdaki miktar, cebinizde tutmak için oldukça fazla. Lütfen bir miktarını soğuk cüzdan gibi daha güvenli bir alana taşıyın.</string>
@@ -78,7 +78,7 @@
   <string name="send_coins_fragment_hint_fee">%s değerinde ağ ücreti ödenecektir.</string>
   <string name="send_coins_fragment_hint_fee_priority">%s değerinde öncelik ücreti ödenecektir. Eğer düşük bir ücret sizin için önemliyse, \'öncelik\' seçeneğini sadece teyidi mümkün olduğu kadar çabuk almak için kullanın.</string>
   <string name="send_coins_fragment_hint_dusty_send">Bu meblağ göndermek için çok düşüktür.</string>
-  <string name="send_coins_fragment_hint_insufficient_money">Yeterli miktarda bitcoin yok. Unutmayın %s. Bu aynı zamanda ağ ücretinden de olabilir.</string>
+  <string name="send_coins_fragment_hint_insufficient_money">Yeterli miktarda groestlcoin yok. Unutmayın %s. Bu aynı zamanda ağ ücretinden de olabilir.</string>
   <string name="send_coins_fragment_hint_empty_wallet_failed">Cüzdanınızdaki düşük ödemelerin miktarı gönderilebilir değere erişmiyor.</string>
   <string name="send_coins_fragment_hint_replaying">Şu anda ödeme yapmak mümkün değildir çünkü bir tekrar oynatma sürmektedir.</string>
   <string name="send_coins_fragment_direct_payment_enable">Ödemeyi doğrudan alacaklıya gönder.</string>
@@ -113,8 +113,8 @@
   <string name="raise_fee_dialog_state_done">Tamamlandı.</string>
   <string name="raise_fee_dialog_button_raise">Arttır</string>
   <string name="sweep_wallet_activity_title">Kağıt cüzdanı tara</string>
-  <string name="sweep_wallet_fragment_intro">Bir kupon ya da kağıt cüzdan taramak üzeresiniz. Bunu yapmanız bu kağıttaki tüm bitcoinleri cihazınızdaki cüzdana taşıyacaktır. İşlem onaylandığında kağıt değersiz olacak ve güvenlik nedeniyle tekrar kullanılmayacaktır.</string>
-  <string name="sweep_wallet_fragment_hint">Kağıt cüzdanlar en sık soğuk depolama için kullanılır. Bazı bankamatikler doğrudan mobil cihazınıza bitcoin yollamaktan ziyade bunu kağıt çıktısına yazarlar. Bazı kişiler de bazen ön yüklü kağıt cüzdanları para değeri aktarmak için kullanırlar (tavsiye edilmez).</string>
+  <string name="sweep_wallet_fragment_intro">Bir kupon ya da kağıt cüzdan taramak üzeresiniz. Bunu yapmanız bu kağıttaki tüm groestlcoinleri cihazınızdaki cüzdana taşıyacaktır. İşlem onaylandığında kağıt değersiz olacak ve güvenlik nedeniyle tekrar kullanılmayacaktır.</string>
+  <string name="sweep_wallet_fragment_hint">Kağıt cüzdanlar en sık soğuk depolama için kullanılır. Bazı bankamatikler doğrudan mobil cihazınıza groestlcoin yollamaktan ziyade bunu kağıt çıktısına yazarlar. Bazı kişiler de bazen ön yüklü kağıt cüzdanları para değeri aktarmak için kullanırlar (tavsiye edilmez).</string>
   <string name="sweep_wallet_fragment_wallet_unknown">Kağıt cüzdanın özel anahtarını tarayarak başlayın. Kameranın etkinleştirme düğmesini kullanın.</string>
   <string name="sweep_wallet_fragment_encrypted">Özel anahtar bir parola ile korunmuştur.</string>
   <string name="sweep_wallet_fragment_password">parola</string>
@@ -125,13 +125,13 @@
   <string name="sweep_wallet_fragment_decrypt_progress">Şifre çözülüyor…\n 2 dakikaya kadar sürebilir.</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_progress">Bakiye yükleniyor…</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_failed_title">Cüzdan bakiyesinin yüklenmesi başarısız</string>
-  <string name="sweep_wallet_fragment_request_wallet_balance_failed_connection">Electrum ağıyla kötü bir bağlantınız var.</string>
+  <string name="sweep_wallet_fragment_request_wallet_balance_failed_connection">Electrum-GRS ağıyla kötü bir bağlantınız var.</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_empty">Kağıt cüzdan boş.</string>
   <string name="sweep_wallet_fragment_insufficient_money_title">Para yeterli değil</string>
   <string name="sweep_wallet_fragment_insufficient_money_msg">Cüzdandaki Groestlcoin miktarı işlenmek için çok düşük.</string>
   <string name="sweep_wallet_options_reload">Bakiyeyi tekrar yükle</string>
   <string name="maintenance_dialog_title">Bakım tavsiye edilir</string>
-  <string name="maintenance_dialog_message">Güvensiz adreslere %1$s aldınız. Bu bitcoinleri güvenli adreslere taşımak ister misiniz? %2$s tutarında düşük bir şebeke ücreti ödenecektir.</string>
+  <string name="maintenance_dialog_message">Güvensiz adreslere %1$s aldınız. Bu groestlcoinleri güvenli adreslere taşımak ister misiniz? %2$s tutarında düşük bir şebeke ücreti ödenecektir.</string>
   <string name="maintenance_dialog_state_decrypting">Şifre çözülüyor…</string>
   <string name="maintenance_dialog_state_done">Tamamlandı.</string>
   <string name="maintenance_dialog_button_move">Taşı</string>
@@ -229,7 +229,7 @@
   <string name="input_parser_io_error">Veri okunamadı:\n%s</string>
   <string name="input_parser_cannot_classify">Girdi tanınamadı:\n%s</string>
   <string name="input_parser_invalid_bitcoin_uri">Geçersiz Groestlcoin URI\'si:\n%s</string>
-  <string name="input_parser_invalid_address">Geçersiz bitcoin adresi alındı!\n(esas ağ ile deneme ağı karışmış olmasın?)</string>
+  <string name="input_parser_invalid_address">Geçersiz groestlcoin adresi alındı!\n(esas ağ ile deneme ağı karışmış olmasın?)</string>
   <string name="input_parser_unverifyable_paymentrequest">Ödeme talebi denetlenemedi:\n%s</string>
   <string name="input_parser_invalid_paymentrequest">Geçersiz ödeme talebi:\n%s</string>
   <string name="input_parser_invalid_transaction">Geçersiz işlem:\n%s</string>
@@ -306,7 +306,7 @@
   <string name="about_license_title">Lisans</string>
   <string name="about_source_title">Kaynak kodu</string>
   <string name="about_category_credits">Bu uygulama şunları kullanmaktadır…</string>
-  <string name="about_credits_bitcoinj_title">bitcoinj %s, Groestlcoin protokolü uygulaması</string>
+  <string name="about_credits_bitcoinj_title">groestlcoinj %s, Groestlcoin protokolü uygulaması</string>
   <string name="about_credits_zxing_title">ZXing, QR kodlarını işleme kütüphanesi</string>
   <string name="about_credits_bouncycastle_title">Bouncy Castle, bir kriptografi kütüphanesi</string>
   <string name="about_credits_okhttp_title">OkHttp, bir HTTP istemci kitaplığı</string>

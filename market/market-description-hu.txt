@@ -1,4 +1,4 @@
-<b>Legyenek a Bitcoinjaid mindig kéznél, a zsebedben!</b> Fizess egyszerűen QR-kód beolvasásával. Kereskedőként az utalásokat gyorsan és megbízhatóan fogadhatod. A Bitcoin Wallet a referencia az "Egyszerűsített Fizetési Igazolás" megvalósítására, ahogyan az a Bitcoin publikációban szerepel.
+<b>Legyenek a Groestlcoinjaid mindig kéznél, a zsebedben!</b> Fizess egyszerűen QR-kód beolvasásával. Kereskedőként az utalásokat gyorsan és megbízhatóan fogadhatod. A Groestlcoin Wallet a referencia az "Egyszerűsített Fizetési Igazolás" megvalósítására, ahogyan az a Groestlcoin publikációban szerepel.
 
 
 <b>JELLEMZŐK</b>
@@ -11,7 +11,7 @@
 • Offline állapotban is fizethetsz - Bluetooth segítségével.
 • Rendszerüzenet Groestlcoin érkezésekor.
 • Papírtárcák besöprése (pl. amik hűtőháznak vannak használva).
-• Widget a Bitcoin egyenlegről.
+• Widget a Groestlcoin egyenlegről.
 • Biztonság: Támogatott a Taproot, Segwit és az új bech32m címek.
 • Adatvédelem: Tor támogatás Orbot-on keresztül.
 

@@ -113,7 +113,7 @@
 		</p>
 		<p>
 			In passato, le catene più sono sempre diventate irrilevanti molto rapidamente.
-			Se desideri seguire comunque una catena minore, ti consigliamo di utilizzare la funzione \"peer attendibile\" per connetterti esclusivamente ad un\'implementazione bitcoind che impone la catena desiderata.
+			Se desideri seguire comunque una catena minore, ti consigliamo di utilizzare la funzione \"peer attendibile\" per connetterti esclusivamente ad un\'implementazione groestlcoind che impone la catena desiderata.
 			Se la rete tra il tuo portafoglio e il peer attendibile non è affidabile, usa una VPN per autenticare quella connessione.
 		</p>
 	]]>

@@ -116,7 +116,7 @@
         </p>
         <p>
             Mindmáig a mellékláncok kivétel nélkül elég hamar jelentéktelenné váltak.
-            Ha mégis ilyen láncot szeretnél követni, akkor javasolt a \"megbízható peer\" funkció használata, hogy kizárólag ahhoz a bitcoind verzióhoz csatlakozz, ami csakis a kiválasztott lánc használatát követeli.
+            Ha mégis ilyen láncot szeretnél követni, akkor javasolt a \"megbízható peer\" funkció használata, hogy kizárólag ahhoz a groestlcoind verzióhoz csatlakozz, ami csakis a kiválasztott lánc használatát követeli.
             Ha a tárcád és a megbízható peer közötti kapcsolat nem biztonságos, akkor használj VPN-t a kapcsolat hitelesítéséhez.
         </p>
     ]]>

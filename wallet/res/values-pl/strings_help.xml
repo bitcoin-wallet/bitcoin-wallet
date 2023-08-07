@@ -117,7 +117,7 @@
         </p>
         <p>
             W przeszłości łańcuchy mniejszości zawsze bardzo szybko traciły na znaczeniu.
-            Jeśli mimo wszystko chcesz podążać za łańcuchem mniejszości, zaleca się użycie funkcji \"zaufanego partnera\", aby połączyć się wyłącznie z implementacją bitcoind, która wymusza pożądany łańcuch.
+            Jeśli mimo wszystko chcesz podążać za łańcuchem mniejszości, zaleca się użycie funkcji \"zaufanego partnera\", aby połączyć się wyłącznie z implementacją groestlcoind, która wymusza pożądany łańcuch.
             Jeśli sieć między Twoim portfelem a zaufanym partnerem nie jest zaufana, użyj VPN do uwierzytelnienia tego połączenia.
         </p>
     ]]>

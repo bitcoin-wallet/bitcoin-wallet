@@ -1,4 +1,4 @@
-<b>Cluda dy Bitcoin yn dy boced!</b>Gellir talu'n gyflym gan sganio cod QR. Fel masnachwr, gellir derbyn taliadau yn syth ac yn ddibynadwy. Waled Bitcoin yw'r ap Bitcoin cyntaf a hefyd, gellir dadlau, y mwyaf diogel!
+<b>Cluda dy Groestlcoin yn dy boced!</b>Gellir talu'n gyflym gan sganio cod QR. Fel masnachwr, gellir derbyn taliadau yn syth ac yn ddibynadwy. Waled Groestlcoin yw'r ap Groestlcoin cyntaf a hefyd, gellir dadlau, y mwyaf diogel!
 
 
 <b>NODWEDDION</b>
@@ -17,7 +17,7 @@
 
 <b>CYFRANNU</b>
 
-Mae Bitcoin Walllet yn <b>feddalwedd am ddim</b> ac yn <b>god agored</b>. Trwydded: GPLv3
+Mae Groestlcoin Walllet yn <b>feddalwedd am ddim</b> ac yn <b>god agored</b>. Trwydded: GPLv3
 https://www.gnu.org/licenses/gpl-3.0.en.html
 
 Mae ein cod ar gael ar GitHub:

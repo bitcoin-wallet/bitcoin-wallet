@@ -1,246 +1,51 @@
-v10.01-v10.03
+v10.03
+* Updated to Bitcoin Wallet 10.03
 
-* On Android 13 and above, the user is asked for notification permission when the time feels right.
+v9.03
+* Updated to Bitcoin Wallet 9.03
 
-v10.0
-
-* The app now requires Android 8.0 (Oreo) or higher.
-* Rename of the git branch 'master' to `main`.
-
-v9.24-v9.26
-
-* The app language can be selected independent of the system language on Android 13 and above.
-
-v9.23
-
-* Target Android 13.
-
-v9.22
-
-* Target Android 12.
-
-v9.17-v9.21
-
-* Important bugfix for version alerts.
-
-v9.16
-
-* Important bugfix for inputting fiat amounts.
-
-v9.13-v9.15
-
-* Update translations from Transifex.
-
-v9.12
-
-* Fix long-standing race when emptying wallet.
-
-v9.11
-
-* Use BluetoothManager API.
-
-v9.09-v9.10
-
-* Use MenuProvider API for options menus.
-
-v9.08
-
-* Use activity result API for permission requests and activities that give a result.
-* Request permission for connecting and listening to bluetooth sockets on Android 12 and above.
-
-v9.07
-
-* Fix an issue with direct bluetooth payments.
-
-v9.05-v9.06
-
-* Remnove integration-android and sample-integration-android sub-projects – they haven't caught on.
-
-v9.0-v9.04
-
-* The app now requires Android 7.0 (Nougat) or higher.
-* Taproot - Phase I: Send to Bech32m addresses.
-* Satoshi (sat) denomination can be selected in the settings.
-
-v8.19
-
-* Target Android 11.
-
-v8.17-v8.18
-
-* Use D8 for bytecode desugaring.
-* Add more block explorers.
-
-v8.15-v8.16
-
-* Setting for enabling of showing local amounts.
-* Update translations from Transifex.
-
-v8.10-v8.14
-
-* Based on bitcoinj 0.15.10.
-
-v8.08-v8.09
-
-* Update translations from Transifex.
-* Based on bitcoinj 0.15.9.
-
-v8.04-v8.07
-
-* Trusted peers with custom TCP ports are now supported. Use the IPv4:port or [IPv6]:port syntax.
-
-v8.0-v8.03
-
-* The app now requires Android 6.0 (Marshmallow) or higher.
-* On modern devices: Introduce a blockchain synchronization mode that prioritizes privacy vs data usage.
-
-v7.62-v7.69
-
-* Allow multiple trusted peers by separating them with a space character.
-
-v7.60-v7.61
-
-* Visual overhaul of the transactions list.
-
-v7.59
-
-* Visual overhaul of the exchange rates list.
-
-v7.58
-
-* Visual overhaul of the network monitor.
-
-v7.57
-
-* Visual overhaul of the address book.
-
-v7.56
-
-* Remove the ability to directly add an address to the address book from the clipboard due to safety concerns.
-  The QR code scanner can still be used, and addresses you've already sent to can be added as well.
-
-v7.55
-
-* Minor bugfixes.
-
-v7.52-v7.54
-
-* Get rid of the last internal content provider; replace it with a repository and an SQLite database.
-
-v7.50-v7.51
-
-* Use CoinGecko.com for exchange rates, as BitcoinAverage.com is currently broken.
-* The color of the transaction confirmation indicator has been changed. It now starts red with one confirmation,
-  slowly blending to green for 7 confirmations.
-* On Android 9 and older, switched the app-widget back to dark. On Android 10, use the dark/light system setting.
-
-v7.47-v7.49
-
-* Restructure the settings page.
-* Update translations from Transifex.
-
-v7.46
-
-* Improve offline payments via Bluetooth for Android 8.1 (Oreo) and up.
-  Merchants should configure their own Bluetooth address in the settings.
-
-v7.44-v7.45
-
-* Fix a build reproducibility issue.
-* Update translations from Transifex.
-
-v7.43
-
-* Customize the connectivity notification in trusted peer mode.
-
-v7.42
-
-* Fix layout on 10in tablets.
-
-v7.41
-
-* Fix issue with not being able to send due to blockchain replay.
-* Based on bitcoinj 0.15.6.
-
-v7.38-v7.40
-
-* Improve design of app-widget.
-* Update translations from Transifex.
-
-v7.37
-
-* Directly link from the settings to the notification settings.
-
-v7.36
-
-* More improvements on blockchain sync.
-
-v7.35
-
-* Implement light mode for app-widget.
-
-v7.34
-
-* Directly link from the settings to the data usage settings.
-
-v7.33
-
-* Show progress in connectivity notification.
-* Update translations from Transifex.
-
-v7.32
-
-* Enabled Java 8 language features.
-
-v7.30-v7.31
-
-* Use storage access framework for restoring wallet backups.
-* More improvements on blockchain sync.
-
-v7.28-v7.29
-
-* Various improvements on blockchain sync.
-
-v7.27
-
-* Use Gradle build variants for testnet (dev) and mainnet (prod) flavors.
-* Notifications are now subtly colored.
-* On Android 10, when uninstalling the app users have the choice to keep their wallet in app-private storage.
-* Update translations from Transifex.
-
-v7.25-v7.26
-
-* Fix wallet not syncing in the background on modern devices.
-
-v7.24
-
-* Various optimizations.
-
-v7.23
-
-* Update Android Gradle plugin to 3.1.0.
-  This means it doesn't build reproducably without external help like 'disorderfs'.
-  See https://issuetracker.google.com/issues/110237303
-* Modernize the sample-integration-android subproject a bit.
-* Various small bugfixes.
 v8.14
 * Updated to Bitcoin Wallet 8.14
+
+v7.38.1
+* Fix send and receive buttons in some languages where the text is too long. The Scan button was pushed off the screen.
+
+v7.38
+* Updated to Bitcoin Wallet 7.38
 
 v7.22
 * Updated to Bitcoin Wallet 7.22
 * Use blockchain sync notifications if more than 1 hour behind
 
-v7.11.1
-* Use Gradle 4.6
-
 v7.11
 * Updated to Bitcoin Wallet 7.11
+
+v5.24.2
+* Updated icons/graphics for mainnet and testnet, Can receive v2 transactions (if not RBF) without waiting for a block confirmation, Fixed widget preview to reflect GRS
+
+v5.24.1
+* Added TestNet version (-test), Other fixes, Updated checkpoints
+
+v5.24.0
+* Update to Bitcoin Wallet 5.24
 
 v4.46.3
 * Corrected xpub
 
+v4.46.2
+* Rebrand as Groestlcoin
+
 v4.46
 * Updated to Bitcoin Wallet 4.46
+
+v2.11.26
+* Updated DNS Seeds and Checkpoints
+
+v0.25
+* Updated Protocol and Checkpoints
+
+v0.24-beta
+* Fixes some hashing
 
 v0.23-beta
 * Updated marketing and help files for Groestlcoin
@@ -248,9 +53,11 @@ v0.23-beta
 v0.22-beta
 * fixed paper wallet sweep
 
-v0.21-beta
-* changed to beta
-* updated icons
+v0.20-beta
+* More fixes:Exchange Rates, Formatting of Currencies, Transaction Details
 
-v0.20-alpha
-* updated to Bitcoin Wallet 4.14
+v0.16-beta
+* More fixes, graphics update!
+
+v0.15-beta
+* First beta release

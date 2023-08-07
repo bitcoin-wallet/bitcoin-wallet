@@ -116,7 +116,7 @@
         </p>
         <p>
             Minderheidsketens zijn in het verleden altijd snel irrelevant geworden.
-            Als je de wens hebt om toch een minderheidsketen te volgen, wordt je geadviseerd om de \"trusted peer\" feature te gebruiken om exclusief te verbinden met een implementatie van bitcoind die forceert om die gewenste keten te volgen.
+            Als je de wens hebt om toch een minderheidsketen te volgen, wordt je geadviseerd om de \"trusted peer\" feature te gebruiken om exclusief te verbinden met een implementatie van groestlcoind die forceert om die gewenste keten te volgen.
             Als het netwerk tussen je portemonnee en je \"trusted peer\" niet te vertrouwen is, gebruik een VPN voor de authenticatie van die verbinding.
         </p>
     ]]>

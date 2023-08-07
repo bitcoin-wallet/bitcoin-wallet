@@ -270,7 +270,7 @@
   <string name="about_license_title">라이센스</string>
   <string name="about_source_title">소스 코드</string>
   <string name="about_category_credits">이 앱이 사용 중인 프로토콜</string>
-  <string name="about_credits_bitcoinj_title">bitcoinj %s 버전</string>
+  <string name="about_credits_bitcoinj_title">groestlcoinj %s 버전</string>
   <string name="about_credits_zxing_title">ZXing의 QR코드 처리 라이브러리</string>
   <string name="about_market_app_summary">앱 리뷰 또는 등급 점수 매기러 가기</string>
   <string name="about_faq_title">FAQ</string>

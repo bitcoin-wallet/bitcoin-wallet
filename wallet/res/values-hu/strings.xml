@@ -28,7 +28,7 @@
   <string name="wallet_transactions_fragment_empty_text_received">Eddig nem érkezett Groestlcoin.</string>
   <string name="wallet_transactions_fragment_empty_text_sent">Eddig nem lett küldve Groestlcoin.</string>
   <string name="wallet_transactions_fragment_empty_text_howto">Groestlcoint szerezhetsz\nhagyományos pénz eladásával,\náruért/szolgáltatásért cserébe,\nvagy munkával.</string>
-  <string name="wallet_transactions_fragment_empty_remind_backup">Készíts biztonsági mentést a tárcádról,\nmielőtt bitcoint fogadsz!</string>
+  <string name="wallet_transactions_fragment_empty_remind_backup">Készíts biztonsági mentést a tárcádról,\nmielőtt groestlcoint fogadsz!</string>
   <string name="wallet_transactions_row_warning_backup">Gratulálunk, megérkezett az első kifizetésed! Már készítettél &lt;u&gt;biztonsági mentést a tárcádról&lt;/u&gt;, hogy megóvd a veszteségtől?</string>
   <string name="wallet_transactions_row_warning_storage_encryption">Tipp: a tárcád biztonságának növeléséhez &lt;u&gt;titkosíthatod a készüléked&lt;/u&gt;. Ez más alkalmazások adatait is védi.</string>
   <string name="wallet_transactions_row_warning_chain_forking">A Groestlcoin hálózat jelenleg karbantartás alatt áll. Nem javasolt érméket küldeni vagy fogadni a karbantartás ideje alatt. &lt;u&gt;További információ.&lt;/u&gt;</string>
@@ -129,7 +129,7 @@
   <string name="sweep_wallet_fragment_decrypt_progress">Visszafejtés…\nMaximum 2 percig tart.</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_progress">Egyenleg betöltése…</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_failed_title">Tárcaegyenleg betöltése sikertelen</string>
-  <string name="sweep_wallet_fragment_request_wallet_balance_failed_connection">Rossz minőségű a kapcsolatod az Electrum hálózatához.</string>
+  <string name="sweep_wallet_fragment_request_wallet_balance_failed_connection">Rossz minőségű a kapcsolatod az Electrum-GRS hálózatához.</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_empty">A papírtárca üres.</string>
   <string name="sweep_wallet_fragment_insufficient_money_title">Nincs elég érme</string>
   <string name="sweep_wallet_fragment_insufficient_money_msg">A tárcában lévő összeg túl kevés a söpréshez.</string>
@@ -234,7 +234,7 @@
   <string name="input_parser_io_error">Nem lehet olvasni az adatot:\n%s</string>
   <string name="input_parser_cannot_classify">Nem lehet felismerni a bemenetet:\n%s</string>
   <string name="input_parser_invalid_bitcoin_uri">Érvénytelen Groestlcoin URI:\n%s</string>
-  <string name="input_parser_invalid_address">A kapott bitcoin cím érvénytelen!\n(Össze van keverve a mainnet/testnet?)</string>
+  <string name="input_parser_invalid_address">A kapott groestlcoin cím érvénytelen!\n(Össze van keverve a mainnet/testnet?)</string>
   <string name="input_parser_unverifyable_paymentrequest">Nem lehet megerősíteni a fizetési kérelmet:\n%s</string>
   <string name="input_parser_invalid_paymentrequest">Érvénytelen fizetési kérelem:\n%s</string>
   <string name="input_parser_invalid_transaction">Érvénytelen tranzakció:\n%s</string>
@@ -312,7 +312,7 @@
   <string name="about_license_title">Licensz</string>
   <string name="about_source_title">Forráskód</string>
   <string name="about_category_credits">Ez az app a következőket használja…</string>
-  <string name="about_credits_bitcoinj_title">Az applikáció bitcoinj %s-t használ</string>
+  <string name="about_credits_bitcoinj_title">Az applikáció groestlcoinj %s-t használ</string>
   <string name="about_credits_zxing_title">ZXing, egy QR-kód feldolgozó könyvtár</string>
   <string name="about_credits_bouncycastle_title">Bouncy Castle, egy kriptografikus könyvtár</string>
   <string name="about_credits_okhttp_title">OkHttp, egy HTTP kliens könyvtár</string>

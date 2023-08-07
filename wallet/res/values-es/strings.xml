@@ -22,8 +22,8 @@
   <string name="exchange_rates_fragment_balance">saldo</string>
   <string name="exchange_rates_fragment_source">Precio extraído de %s</string>
   <string name="exchange_rates_options_search">Buscar tasa de cambio</string>
-  <string name="wallet_transactions_fragment_empty_text_received">Aún no se han recibido bitcoins.</string>
-  <string name="wallet_transactions_fragment_empty_text_sent">Aún no se han enviado bitcoins.</string>
+  <string name="wallet_transactions_fragment_empty_text_received">Aún no se han recibido groestlcoins.</string>
+  <string name="wallet_transactions_fragment_empty_text_sent">Aún no se han enviado groestlcoins.</string>
   <string name="wallet_transactions_fragment_empty_text_howto">¿Cómo obtener Groestlcoins?\nCámbialos por dinero tradicional,\nvende bienes o servicios o\ngánalos trabajando</string>
   <string name="wallet_transactions_fragment_empty_remind_backup">Por favor haga una copia de seguridad de su billetera\nantes de recibir Groestlcoins!</string>
   <string name="wallet_transactions_row_warning_backup">Enhorabuena. ¡Has recibido tu primer pago! ¿Has hecho ya una &lt;u&gt;copia de seguridad de tu cartera&lt;/u&gt; como protección frente a pérdidas?</string>
@@ -87,7 +87,7 @@
   <string name="send_coins_fragment_button_back">Atrás</string>
   <string name="send_coins_fragment_significant_fee_title">Comisión de red significativa</string>
   <string name="send_coins_fragment_significant_fee_message">La comisión de la red para este pago (%1$s) es elevado en relación al monto (%2$s). Quiere enviarlo de todos modos?</string>
-  <string name="send_coins_fragment_insufficient_money_title">No hay suficientes bitcoins disponibles</string>
+  <string name="send_coins_fragment_insufficient_money_title">No hay suficientes groestlcoins disponibles</string>
   <string name="send_coins_fragment_insufficient_money_msg1">Te faltan %s.</string>
   <string name="send_coins_fragment_insufficient_money_msg2">¿Deseas pagar con todo lo que tienes?</string>
   <string name="send_coins_fragment_empty_wallet_failed_title">El vaciado de la cartera falló.</string>
@@ -96,7 +96,7 @@
   <string name="send_coins_sending_msg">Enviando…</string>
   <string name="send_coins_sent_msg">¡Enviado!</string>
   <string name="send_coins_failed_msg">¡Error!</string>
-  <string name="send_coins_error_msg">¡Problema enviando bitcoins!</string>
+  <string name="send_coins_error_msg">¡Problema enviando groestlcoins!</string>
   <string name="send_coins_options_fee_category">Comisión</string>
   <string name="send_coins_options_fee_category_economic">Económico</string>
   <string name="send_coins_options_fee_category_normal">Normal</string>
@@ -110,8 +110,8 @@
   <string name="raise_fee_dialog_state_done">Hecho.</string>
   <string name="raise_fee_dialog_button_raise">Incrementar</string>
   <string name="sweep_wallet_activity_title">Convertir cartera de papel</string>
-  <string name="sweep_wallet_fragment_intro">Vas a convertir una cartera de papel. Esto transferirá todos los bitcoins del papel a tu cartera en este dispositivo. Cuando la transacción esté confirmada, el papel ya no tendrá valor y, por razones de seguridad, no debería ser reutilizado.</string>
-  <string name="sweep_wallet_fragment_hint">Las carteras de papel normalmente se utilizan para la el depósito offline. Algunos cajeros ATM los imprimen en el recibo de papel en lugar de enviar los bitcoins directamente al dispositivo móvil. A veces se usan carteras de papel prepago para enviar valores a otras personas (no recomendado).</string>
+  <string name="sweep_wallet_fragment_intro">Vas a convertir una cartera de papel. Esto transferirá todos los groestlcoins del papel a tu cartera en este dispositivo. Cuando la transacción esté confirmada, el papel ya no tendrá valor y, por razones de seguridad, no debería ser reutilizado.</string>
+  <string name="sweep_wallet_fragment_hint">Las carteras de papel normalmente se utilizan para la el depósito offline. Algunos cajeros ATM los imprimen en el recibo de papel en lugar de enviar los groestlcoins directamente al dispositivo móvil. A veces se usan carteras de papel prepago para enviar valores a otras personas (no recomendado).</string>
   <string name="sweep_wallet_fragment_wallet_unknown">Empieza escaneando la clave de una cartera de papel. Usa el botón de la cámara.</string>
   <string name="sweep_wallet_fragment_encrypted">Esta clave está protegida con una contraseña.</string>
   <string name="sweep_wallet_fragment_password">Contraseña</string>
@@ -122,13 +122,13 @@
   <string name="sweep_wallet_fragment_decrypt_progress">Desencriptando…\nPuede tardar hasta 2 minutos.</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_progress">Cargando saldo…</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_failed_title">Error al cargar el saldo de la cartera</string>
-  <string name="sweep_wallet_fragment_request_wallet_balance_failed_connection">Tienes una mala conexión a la red de Electrum.</string>
+  <string name="sweep_wallet_fragment_request_wallet_balance_failed_connection">Tienes una mala conexión a la red de Electrum-GRS.</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_empty">La billetera de papel está vacía.</string>
-  <string name="sweep_wallet_fragment_insufficient_money_title">No hay suficientes bitcoins</string>
-  <string name="sweep_wallet_fragment_insufficient_money_msg">La cantidad de bitcoins en tu cartera es demasiado pequeña para ser convertidos.</string>
+  <string name="sweep_wallet_fragment_insufficient_money_title">No hay suficientes groestlcoins</string>
+  <string name="sweep_wallet_fragment_insufficient_money_msg">La cantidad de groestlcoins en tu cartera es demasiado pequeña para ser convertidos.</string>
   <string name="sweep_wallet_options_reload">recargar el saldo</string>
   <string name="maintenance_dialog_title">Se recomienda mantenimiento</string>
-  <string name="maintenance_dialog_message">Recibíste %1$s a en direcciones no seguras ¿Te gustaría mover estas bitcoins a direcciones seguras? Se pagará una pequeña cuota de red de %2$s.</string>
+  <string name="maintenance_dialog_message">Recibíste %1$s a en direcciones no seguras ¿Te gustaría mover estas groestlcoins a direcciones seguras? Se pagará una pequeña cuota de red de %2$s.</string>
   <string name="maintenance_dialog_state_decrypting">Desencriptando…</string>
   <string name="maintenance_dialog_state_done">Hecho.</string>
   <string name="maintenance_dialog_button_move">Mover</string>
@@ -146,7 +146,7 @@
   <string name="address_book_list_receiving_random">Direcciones antiguas</string>
   <string name="address_book_list_sending_title">Direcciones para envíos</string>
   <string name="address_book_empty_text">No hay entradas en la libreta de direcciones</string>
-  <string name="address_book_context_send_title">Enviar bitcoins a la dirección</string>
+  <string name="address_book_context_send_title">Enviar groestlcoins a la dirección</string>
   <string name="address_book_context_edit_title">Editar dirección</string>
   <string name="address_book_context_remove_title">Eliminar dirección</string>
   <string name="address_book_context_copy_to_clipboard_title">Copiar al portapapeles</string>
@@ -154,7 +154,7 @@
   <string name="address_book_options_scan_invalid">No se reconocen los datos escaneados</string>
   <string name="address_book_options_scan_own_address">La dirección escaneada es la tuya</string>
   <string name="address_book_row_current_address">Esta es tu dirección actual para recibir.</string>
-  <string name="address_book_row_message_compromised_key">Esta dirección podría ya no ser segura. No debería seguir utilizándola para recibir bitcoins.</string>
+  <string name="address_book_row_message_compromised_key">Esta dirección podría ya no ser segura. No debería seguir utilizándola para recibir groestlcoins.</string>
   <string name="edit_address_book_entry_dialog_title_add">Añadir dirección de envío</string>
   <string name="edit_address_book_entry_dialog_title_edit">Editar etiqueta de dirección de envío</string>
   <string name="edit_address_book_entry_dialog_title_add_receive">Añadir nombre a tu dirección</string>
@@ -188,7 +188,7 @@
   <string name="peer_list_fragment_empty">No hay pares conectados</string>
   <string name="peer_list_row_ping_time">⇆ %d&#x2009;ms</string>
   <string name="import_keys_dialog_title">Restaurar cartera</string>
-  <string name="restore_wallet_dialog_replace_warning">Está a punto de reemplazar su cartera actual. Todas las bitcoins en la cartera actual se perderán a menos que tenga una copia de seguridad.</string>
+  <string name="restore_wallet_dialog_replace_warning">Está a punto de reemplazar su cartera actual. Todas las groestlcoins en la cartera actual se perderán a menos que tenga una copia de seguridad.</string>
   <string name="import_keys_dialog_warning">Importante: ¡No cargue claves de origen dudoso! Podría perder el control sobre sus fondos.</string>
   <string name="import_keys_dialog_button_import">Restaurar</string>
   <string name="restore_wallet_dialog_success">La cartera ha sido restaurado.</string>
@@ -293,7 +293,7 @@
   <string name="about_license_title">Licencia</string>
   <string name="about_source_title">Código fuente</string>
   <string name="about_category_credits">Esta aplicación utiliza…</string>
-  <string name="about_credits_bitcoinj_title">bitcoinj %s</string>
+  <string name="about_credits_bitcoinj_title">groestlcoinj %s</string>
   <string name="about_credits_zxing_title">ZXing</string>
   <string name="about_credits_bouncycastle_title">Bouncy Castle, una biblioteca de criptografía</string>
   <string name="about_credits_okhttp_title">OkHttp, una biblioteca de cliente HTTP</string>
@@ -335,7 +335,7 @@
   <string name="button_paste">Pegar</string>
   <string name="button_share">Compartir</string>
   <string name="button_set_as_default">Establecer como predeterminado</string>
-  <string name="button_request_coins">Pedir bitcoins</string>
+  <string name="button_request_coins">Pedir groestlcoins</string>
   <string name="button_send_coins">Enviar</string>
   <string name="button_scan">Explorar</string>
   <string name="button_settings">Ajustes</string>

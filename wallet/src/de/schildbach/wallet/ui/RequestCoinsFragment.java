@@ -346,7 +346,7 @@ public final class RequestCoinsFragment extends Fragment {
 
     private void handleCopy() {
         final Uri request = viewModel.bitcoinUri.getValue();
-        clipboardManager.setPrimaryClip(ClipData.newRawUri("Bitcoin payment request", request));
+        clipboardManager.setPrimaryClip(ClipData.newRawUri("Groestlcoin payment request", request));
         log.info("payment request copied to clipboard: {}", request);
         new Toast(activity).toast(R.string.request_coins_clipboard_msg);
     }
