@@ -25,6 +25,8 @@ import org.bitcoinj.core.Coin;
 import org.bitcoinj.utils.ExchangeRate;
 import org.bitcoinj.utils.Fiat;
 
+import java.util.Objects;
+
 /**
  * @author Andreas Schildbach
  */
@@ -90,15 +92,17 @@ public final class CurrencyCalculatorLink {
     }
 
     public void setEnabled(final boolean enabled) {
-        this.enabled = enabled;
-
-        update();
+        if (enabled != this.enabled) {
+            this.enabled = enabled;
+            update();
+        }
     }
 
     public void setExchangeRate(final ExchangeRate exchangeRate) {
-        this.exchangeRate = exchangeRate;
-
-        update();
+        if (!Objects.equals(exchangeRate, this.exchangeRate)) {
+            this.exchangeRate = exchangeRate;
+            update();
+        }
     }
 
     public ExchangeRate getExchangeRate() {
@@ -107,23 +111,12 @@ public final class CurrencyCalculatorLink {
 
     @Nullable
     public Coin getAmount() {
-        if (exchangeDirection) {
+        if (exchangeDirection)
             return (Coin) btcAmountView.getAmount();
-        } else if (exchangeRate != null) {
-            final Fiat localAmount = (Fiat) localAmountView.getAmount();
-            if (localAmount == null)
-                return null;
-            try {
-                final Coin btcAmount = exchangeRate.fiatToCoin(localAmount);
-                if (((Coin) btcAmount).isGreaterThan(Constants.NETWORK_PARAMETERS.getMaxMoney()))
-                    throw new ArithmeticException();
-                return btcAmount;
-            } catch (ArithmeticException x) {
-                return null;
-            }
-        } else {
+        else if (exchangeRate != null)
+            return fiatToCoin((Fiat) localAmountView.getAmount());
+        else
             return null;
-        }
     }
 
     public boolean hasAmount() {
@@ -141,27 +134,15 @@ public final class CurrencyCalculatorLink {
                 final Coin btcAmount = (Coin) btcAmountView.getAmount();
                 if (btcAmount != null) {
                     btcAmountView.setHint(null);
-                    localAmountView.setAmount(null, false);
-                    try {
-                        final Fiat localAmount = exchangeRate.coinToFiat(btcAmount);
-                        localAmountView.setHint(localAmount);
-                    } catch (final ArithmeticException x) {
-                        localAmountView.setHint(null);
-                    }
+                    localAmountView.setAmount(null);
+                    localAmountView.setHint(coinToFiat(btcAmount));
                 }
             } else {
                 final Fiat localAmount = (Fiat) localAmountView.getAmount();
                 if (localAmount != null) {
                     localAmountView.setHint(null);
-                    btcAmountView.setAmount(null, false);
-                    try {
-                        final Coin btcAmount = exchangeRate.fiatToCoin(localAmount);
-                        if (((Coin) btcAmount).isGreaterThan(Constants.NETWORK_PARAMETERS.getMaxMoney()))
-                            throw new ArithmeticException();
-                        btcAmountView.setHint(btcAmount);
-                    } catch (final ArithmeticException x) {
-                        btcAmountView.setHint(null);
-                    }
+                    btcAmountView.setAmount(null);
+                    btcAmountView.setHint(fiatToCoin(localAmount));
                 }
             }
         } else {
@@ -172,9 +153,10 @@ public final class CurrencyCalculatorLink {
     }
 
     public void setExchangeDirection(final boolean exchangeDirection) {
-        this.exchangeDirection = exchangeDirection;
-
-        update();
+        if (exchangeDirection != this.exchangeDirection) {
+            this.exchangeDirection = exchangeDirection;
+            update();
+        }
     }
 
     public boolean getExchangeDirection() {
@@ -196,7 +178,15 @@ public final class CurrencyCalculatorLink {
         final Listener listener = this.listener;
         this.listener = null;
 
-        btcAmountView.setAmount(amount, true);
+        if (exchangeDirection) {
+            btcAmountView.setAmount(amount);
+            if (exchangeRate != null)
+                localAmountView.setHint(coinToFiat(amount));
+        } else {
+            btcAmountView.setHint(amount);
+            if (exchangeRate != null)
+                localAmountView.setAmount(coinToFiat(amount));
+        }
 
         this.listener = listener;
     }
@@ -204,5 +194,28 @@ public final class CurrencyCalculatorLink {
     public void setNextFocusId(final int nextFocusId) {
         btcAmountView.setNextFocusId(nextFocusId);
         localAmountView.setNextFocusId(nextFocusId);
+    }
+
+    private Fiat coinToFiat(final Coin coinAmount) {
+        if (coinAmount == null)
+            return null;
+        try {
+            return exchangeRate.coinToFiat(coinAmount);
+        } catch (final ArithmeticException x) {
+            return null;
+        }
+    }
+
+    private Coin fiatToCoin(final Fiat fiatAmount) {
+        if (fiatAmount == null)
+            return null;
+        try {
+            final Coin coin = exchangeRate.fiatToCoin(fiatAmount);
+            if (coin.isGreaterThan(Constants.NETWORK_PARAMETERS.getMaxMoney()))
+                throw new ArithmeticException();
+            return coin;
+        } catch (final ArithmeticException x) {
+            return null;
+        }
     }
 }

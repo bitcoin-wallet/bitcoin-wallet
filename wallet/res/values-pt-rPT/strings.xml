@@ -43,8 +43,7 @@
   <string name="wallet_options_technical_notes_title">Notas técnicas</string>
   <string name="wallet_options_donate">Gratificação / donativo</string>
   <string name="wallet_donate_address_label">Doar para o projeto Groestlcoin Wallet</string>
-  <string name="alert_dialogs_fragment_insecure_bluetooth_title">Alerta de segurança</string>
-  <string name="alert_dialogs_fragment_insecure_bluetooth_message">O componente de Bluetooth do seu dispositivo é vulnerável. Os seus Groestlcoins neste dispositivo estão em risco, independentemente da aplicação que utilize para os armazenar!\n\nRecomendamos desligar o Bluetooth imediatamente e verificar se existe uma atualização do Android que implemente o nível de correção de segurança \'%s\' ou posterior.</string>
+  <string name="alert_dialogs_fragment_insecure_device_title">Alerta de segurança</string>
   <string name="wallet_low_storage_dialog_title">Pouco espaço no armazenamento do dispositivo interno!</string>
   <string name="wallet_low_storage_dialog_msg">Groestlcoin Wallet utiliza o armazenamento interno para lembrar as transações e os blocos. Se este ficar sem espaço, este deixará de funcionar e as suas Groestlcoins irão estar em risco!\n\nQuer abrir o Gestor de Aplicações para desinstalar as aplicações desnecessárias?</string>
   <string name="wallet_low_storage_dialog_button_apps">Gerir aplicações</string>
@@ -76,7 +75,7 @@
   <string name="send_coins_fragment_hint_fee">Será paga uma taxa de rede de %s.</string>
   <string name="send_coins_fragment_hint_fee_priority">Será paga uma taxa na prioridade %s. Utilize a \'prioridade\' apenas quando precisar que a confirmação ocorra o mais cedo possível.</string>
   <string name="send_coins_fragment_hint_dusty_send">O valor é demasiado pequeno para enviar.</string>
-  <string name="send_coins_fragment_hint_insufficient_money">Sem Groestlcoins suficientes. Faltam-lhe %s. Isto pode dever-se também a comissão da rede.</string>
+  <string name="send_coins_fragment_hint_insufficient_money">Sem groestlcoins suficientes. Faltam-lhe %s. Isto pode dever-se também a comissão da rede.</string>
   <string name="send_coins_fragment_hint_empty_wallet_failed">A quantidade de pequenos pagamentos na sua carteira não somam um valor suficiente para envio.</string>
   <string name="send_coins_fragment_hint_replaying">Neste momento os pagamentos não são possíveis porque está a decorrer uma repetição.</string>
   <string name="send_coins_fragment_direct_payment_enable">Enviar o pagamento diretamente para o beneficiário</string>
@@ -111,8 +110,8 @@
   <string name="raise_fee_dialog_state_done">Concluído.</string>
   <string name="raise_fee_dialog_button_raise">Aumentar</string>
   <string name="sweep_wallet_activity_title">Converter carteira de papel</string>
-  <string name="sweep_wallet_fragment_intro">Vai converter uma carteira de papel ou cupão. Isto irá mover todos os Groestlcoins nessa carteira de papel para a sua carteira neste dispositivo. Quando a transação for confirmada, a carteira de papel não terá valor e não deve ser usada novamente por questões de segurança.</string>
-  <string name="sweep_wallet_fragment_hint">As carteiras de papel são usadas normalmente para armazenamento seguro não ligado à Internet (cold storage). Alguns terminais bancários imprimem-nas em papel em vez de enviar as Groestlcoins diretamente para o seu dispositivo. As pessoas por vezes usam cartiras de papel pré-carregadas para transacionarem o valor para outras pessoas (não recomendado).</string>
+  <string name="sweep_wallet_fragment_intro">Vai converter uma carteira de papel ou cupão. Isto irá mover todos os groestlcoins nessa carteira de papel para a sua carteira neste dispositivo. Quando a transação for confirmada, a carteira de papel não terá valor e não deve ser usada novamente por questões de segurança.</string>
+  <string name="sweep_wallet_fragment_hint">As carteiras de papel são usadas normalmente para armazenamento seguro não ligado à Internet (cold storage). Alguns terminais bancários imprimem-nas em papel em vez de enviar as groestlcoins diretamente para o seu dispositivo. As pessoas por vezes usam cartiras de papel pré-carregadas para transacionarem o valor para outras pessoas (não recomendado).</string>
   <string name="sweep_wallet_fragment_wallet_unknown">Comece por digitalizar a chave privada de uma carteira de papel. Use o botão da câmara.</string>
   <string name="sweep_wallet_fragment_encrypted">Esta chave privada está protegida com uma palavra-passe.</string>
   <string name="sweep_wallet_fragment_password">palavra-passe</string>
@@ -129,7 +128,7 @@
   <string name="sweep_wallet_fragment_insufficient_money_msg">A quantidade de moedas na carteira é muito pequena para limpar.</string>
   <string name="sweep_wallet_options_reload">Recarregar saldo</string>
   <string name="maintenance_dialog_title">Recomendada a manutenção</string>
-  <string name="maintenance_dialog_message">Recebeu %1$s num endereço não seguro, Gostaria de mover esses Groestlcoins para um endereço seguro? Será cobrada uma pequena taxa de rede de %2$s.</string>
+  <string name="maintenance_dialog_message">Recebeu %1$s num endereço não seguro, Gostaria de mover esses groestlcoins para um endereço seguro? Será cobrada uma pequena taxa de rede de %2$s.</string>
   <string name="maintenance_dialog_state_decrypting">A desencriptar…</string>
   <string name="maintenance_dialog_state_done">Concluído.</string>
   <string name="maintenance_dialog_button_move">Mover</string>
@@ -188,12 +187,12 @@
   <string name="peer_list_fragment_empty">Sem pares ligados</string>
   <string name="peer_list_row_ping_time">⇆ %d&#x2009;ms</string>
   <string name="import_keys_dialog_title">Restaurar carteira</string>
-  <string name="restore_wallet_dialog_replace_warning">Está prestes a substituir a sua carteira atual. Quaisquer Groestlcoins contidos na carteira atual serão perdidos, a não ser que tenha feito uma cópia de segurança.</string>
+  <string name="restore_wallet_dialog_replace_warning">Está prestes a substituir a sua carteira atual. Quaisquer groestlcoins contidos na carteira atual serão perdidos, a não ser que tenha feito uma cópia de segurança.</string>
   <string name="import_keys_dialog_warning">Importante: não carregue chaves privadas de fontes duvidosas! Se o fizer, outras pessoas podem controlar o seu saldo.</string>
   <string name="import_keys_dialog_button_import">Restaurar</string>
   <string name="restore_wallet_dialog_success">A carteira foi restaurada.</string>
   <string name="restore_wallet_dialog_success_replay">A sua carteira foi restaurada com sucesso. O saldo será determinado em seguida. Isso poderá levar algum tempo.</string>
-  <string name="restore_wallet_dialog_success_encrypted">Aviso: A sua carteira está protegida por um PIN que será pedido quando for gastar os Groestlcoins contidos nela. Certifique-se que ainda se lembra dele antes de receber Groestlcoins nesta carteira.</string>
+  <string name="restore_wallet_dialog_success_encrypted">Aviso: A sua carteira está protegida por um PIN que será pedido quando for gastar os groestlcoins contidos nela. Certifique-se que ainda se lembra dele antes de receber groestlcoins nesta carteira.</string>
   <string name="import_keys_dialog_failure">Não foi possível restaurar a sua carteira:\n\n%s\n\nPalavra-passe errada?</string>
   <string name="export_keys_dialog_title">Copiar carteira</string>
   <string name="backup_wallet_dialog_message">A sua cópia de segurança será encriptada com a palavra-passe escolhida e será guardada no armazenamento externo.</string>
@@ -226,7 +225,7 @@
   <string name="input_parser_io_error">Não é possível ler os dados:\n%s</string>
   <string name="input_parser_cannot_classify">Não é possível reconhecer a entrada:\n%s</string>
   <string name="input_parser_invalid_bitcoin_uri">URl de Groestlcoin inválidoI:\n%s</string>
-  <string name="input_parser_invalid_address">Foi obtido um endereço Groestlcoin inválido !\n(Misturando mainnet/testnet?)</string>
+  <string name="input_parser_invalid_address">Foi obtido um endereço groestlcoin inválido !\n(Misturando mainnet/testnet?)</string>
   <string name="input_parser_unverifyable_paymentrequest">Não é possível verificar o pedido de pagamento:\n%s</string>
   <string name="input_parser_invalid_paymentrequest">Pedido de pagamento inválido:\n%s</string>
   <string name="input_parser_invalid_transaction">Transação inválida:\n%s</string>
@@ -256,8 +255,6 @@
   <string name="preferences_data_usage_summary">Mostrar as opções para limitar a utilização de dados nas redes móveis.</string>
   <string name="preferences_notifications_title">Notificações</string>
   <string name="preferences_notifications_summary">Mostrar opções para desativar ou ativar notificações específicas.</string>
-  <string name="preferences_remind_balance_title">Lembrete de saldo</string>
-  <string name="preferences_remind_balance_summary">Após ficar alguns semanas sem ser utilizado, a aplicação irá notificar se ainda existem Groestlcoins na carteira.</string>
   <string name="preferences_show_disclaimer_title">Mostrar limitação de responsabilidade</string>
   <string name="preferences_show_disclaimer_summary">Leu realmente as notas de segurança? Já fez a cópia de segurança da sua carteira para um lugar seguro?</string>
   <string name="preferences_report_issue_title">Comunicar problema</string>
@@ -288,7 +285,7 @@
   <string name="about_license_title">Licença</string>
   <string name="about_source_title">Código fonte</string>
   <string name="about_category_credits">Esta aplicação está a usar…</string>
-  <string name="about_credits_bitcoinj_title">Groestlcoinj %s, uma implementação do protocol de Groestlcoin</string>
+  <string name="about_credits_bitcoinj_title">groestlcoinj %s, uma implementação do protocol de Groestlcoin</string>
   <string name="about_credits_zxing_title">ZXing, uma biblioteca de processamento de código QR</string>
   <string name="about_credits_bouncycastle_title">Bouncy Castle, uma biblioteca de criptografia</string>
   <string name="about_credits_okhttp_title">OkHttp, um cliente de biblioteca HTTP</string>
@@ -304,7 +301,7 @@
   <string name="notification_peers_connected_msg">%d pares ligados</string>
   <string name="notification_inactivity_title">Ainda tem Groestlcoins neste dispositivo!</string>
   <string name="notification_inactivity_message">Lembre-se que o seu saldo de %s será perdido se desinstalar o programa Groestlcoin Wallet sem enviar primeiro o saldo para outra carteira.</string>
-  <string name="notification_inactivity_message_donate">Se não quiser saber mais dos seus Groestlcoins, pode fazer um donativo para o projeto Groestlcoin Wallet.</string>
+  <string name="notification_inactivity_message_donate">Se não quiser saber mais dos seus groestlcoins, pode fazer um donativo para o projeto Groestlcoin Wallet.</string>
   <string name="notification_inactivity_action_dismiss">Lembrar + tarde</string>
   <string name="notification_inactivity_action_dismiss_forever">Não lembrar-me</string>
   <string name="notification_channel_received_name">Pagamentos recebidos</string>

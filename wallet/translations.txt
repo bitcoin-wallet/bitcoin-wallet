@@ -22,4 +22,4 @@ mk
 Биткоин -> Грoстлкоин
 
 hebrew (he)
-גרוסטלקוין -> גרוסטלקוין // from right to left
+גרוסטלקוין -> ביטקוין // from right to left

@@ -17,10 +17,9 @@
 
 package de.schildbach.wallet.ui;
 
-import android.app.Activity;
 import android.content.DialogInterface.OnClickListener;
-import android.content.Intent;
 import android.os.Bundle;
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.lifecycle.ViewModelProvider;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.data.PaymentIntent;
@@ -38,7 +37,47 @@ import org.bitcoinj.core.VerificationException;
 public final class SendCoinsQrActivity extends AbstractWalletActivity {
     private AbstractWalletActivityViewModel walletActivityViewModel;
 
-    private static final int REQUEST_CODE_SCAN = 0;
+    private final ActivityResultLauncher<Void> scanLauncher =
+            registerForActivityResult(new ScanActivity.Scan(), input -> {
+                if (input != null) {
+                    new StringInputParser(input) {
+                        @Override
+                        protected void handlePaymentIntent(final PaymentIntent paymentIntent) {
+                            SendCoinsActivity.start(SendCoinsQrActivity.this, paymentIntent);
+                            SendCoinsQrActivity.this.finish();
+                        }
+
+                        @Override
+                        protected void handlePrivateKey(final PrefixedChecksummedBytes key) {
+                            if (Constants.ENABLE_SWEEP_WALLET) {
+                                SweepWalletActivity.start(SendCoinsQrActivity.this, key);
+                                SendCoinsQrActivity.this.finish();
+                            } else {
+                                super.handlePrivateKey(key);
+                            }
+                        }
+
+                        @Override
+                        protected void handleDirectTransaction(final Transaction transaction) throws VerificationException {
+                            walletActivityViewModel.broadcastTransaction(transaction);
+                            SendCoinsQrActivity.this.finish();
+                        }
+
+                        @Override
+                        protected void error(final int messageResId, final Object... messageArgs) {
+                            final DialogBuilder dialog = DialogBuilder.dialog(SendCoinsQrActivity.this, 0,
+                                    messageResId, messageArgs);
+                            dialog.singleDismissButton(dismissListener);
+                            dialog.show();
+                        }
+
+                        private final OnClickListener dismissListener =
+                                (dialog, which) -> SendCoinsQrActivity.this.finish();
+                    }.parse();
+                } else {
+                    finish();
+                }
+            });
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -47,49 +86,6 @@ public final class SendCoinsQrActivity extends AbstractWalletActivity {
         walletActivityViewModel = new ViewModelProvider(this).get(AbstractWalletActivityViewModel.class);
 
         if (savedInstanceState == null)
-            ScanActivity.startForResult(this, REQUEST_CODE_SCAN);
-    }
-
-    @Override
-    public void onActivityResult(final int requestCode, final int resultCode, final Intent intent) {
-        if (requestCode == REQUEST_CODE_SCAN && resultCode == Activity.RESULT_OK) {
-            final String input = intent.getStringExtra(ScanActivity.INTENT_EXTRA_RESULT);
-
-            new StringInputParser(input) {
-                @Override
-                protected void handlePaymentIntent(final PaymentIntent paymentIntent) {
-                    SendCoinsActivity.start(SendCoinsQrActivity.this, paymentIntent);
-
-                    SendCoinsQrActivity.this.finish();
-                }
-
-                @Override
-                protected void handlePrivateKey(final PrefixedChecksummedBytes key) {
-                    if (Constants.ENABLE_SWEEP_WALLET) {
-                        SweepWalletActivity.start(SendCoinsQrActivity.this, key);
-                        SendCoinsQrActivity.this.finish();
-                    } else {
-                        super.handlePrivateKey(key);
-                    }
-                }
-
-                @Override
-                protected void handleDirectTransaction(final Transaction transaction) throws VerificationException {
-                    walletActivityViewModel.broadcastTransaction(transaction);
-                    SendCoinsQrActivity.this.finish();
-                }
-
-                @Override
-                protected void error(final int messageResId, final Object... messageArgs) {
-                    final DialogBuilder dialog = DialogBuilder.dialog(SendCoinsQrActivity.this, 0, messageResId, messageArgs);
-                    dialog.singleDismissButton(dismissListener);
-                    dialog.show();
-                }
-
-                private final OnClickListener dismissListener = (dialog, which) -> SendCoinsQrActivity.this.finish();
-            }.parse();
-        } else {
-            finish();
-        }
+            scanLauncher.launch(null);
     }
 }

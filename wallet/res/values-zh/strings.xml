@@ -45,8 +45,7 @@
   <string name="wallet_options_technical_notes_title">技术手册</string>
   <string name="wallet_options_donate">技巧 / 捐助</string>
   <string name="wallet_donate_address_label">向格羅斯币钱包 (Groestlcoin Wallet) 捐款</string>
-  <string name="alert_dialogs_fragment_insecure_bluetooth_title">安全警告</string>
-  <string name="alert_dialogs_fragment_insecure_bluetooth_message">您的设备的蓝牙模块是不可靠的。无论您使用何种应用来保存格羅斯币，它们的安全都会受到威胁！\n\n我们建议您立即关闭蓝牙开关，并且检查Android的系统更新（安全补丁等级“%s”或者更高）。</string>
+  <string name="alert_dialogs_fragment_insecure_device_title">安全警告</string>
   <string name="wallet_low_storage_dialog_title">内部设备存储空间不足！</string>
   <string name="wallet_low_storage_dialog_msg">格羅斯币钱包使用内部存储设备来记录交易和区块。如果存储空间不足，它将会停止工作，并且您的格羅斯币将存在风险！\n您是否想要打开应用程序管理器，以卸载掉一些不需要的应用程序？</string>
   <string name="wallet_low_storage_dialog_button_apps">管理应用程序</string>
@@ -269,8 +268,6 @@
   <string name="preferences_data_usage_summary">显示限制移动网络数据流量消耗的选项。</string>
   <string name="preferences_notifications_title">通知</string>
   <string name="preferences_notifications_summary">显示选项，可禁用或启用各种通知。</string>
-  <string name="preferences_remind_balance_title">余额提示</string>
-  <string name="preferences_remind_balance_summary">如果几个星期后都没有被使用，并且钱包里有余额，应用程序将发出通知。</string>
   <string name="preferences_show_disclaimer_title">显示声明</string>
   <string name="preferences_show_disclaimer_summary">您真的已经读过安全须知了吗？您已经把钱包备份到安全的位置了吗？</string>
   <string name="preferences_bluetooth_address_title">蓝牙地址</string>
@@ -305,7 +302,7 @@
   <string name="about_license_title">许可协议</string>
   <string name="about_source_title">源代码</string>
   <string name="about_category_credits">此应用正在使用...</string>
-  <string name="about_credits_bitcoinj_title">Groestlcoinj %s, 一个格羅斯币协议库</string>
+  <string name="about_credits_bitcoinj_title">groestlcoinj %s, 一个格羅斯币协议库</string>
   <string name="about_credits_zxing_title">ZXing，一个QR码处理库</string>
   <string name="about_credits_bouncycastle_title">Bouncy Castle，一个密码学函数库</string>
   <string name="about_credits_okhttp_title">OkHttp，一个HTTP客户端函数库</string>

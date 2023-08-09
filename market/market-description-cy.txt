@@ -17,10 +17,10 @@
 
 <b>CYFRANNU</b>
 
-Mae Waled Groestlcoin yn feddalwedd <b>cod agored</b> ac <b>am ddim</b>. Trwydded: GPLv3
+Mae Groestlcoin Walllet yn <b>feddalwedd am ddim</b> ac yn <b>god agored</b>. Trwydded: GPLv3
 https://www.gnu.org/licenses/gpl-3.0.en.html
 
-Mae ein cod gwreiddiol ar gael ar GitHub:
+Mae ein cod ar gael ar GitHub:
 https://github.com/Groestlcoin/groestlcoin-wallet
 
 Rheolir pob cyfieithiad trwy Transifex:

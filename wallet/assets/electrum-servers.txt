@@ -1,2 +1,2 @@
-tls:electrum-test1.groestlcoin.org::5298df7122bf5776878243cd4f2b8a5872201ace1c6932443d6eb24fd5c58ba1
-tls:electrum-test2.groestlcoin.org::9efebdfe13ecc79535a5aae0b1d012b815d56e30778b3d42236f0aadaa191b69
+tls:electrum-test1.groestlcoin.org::5d4def5b9784dd1b2adaefe5666e335c6c5a4a7180c6ca79fbccdac8bee739e5
+tls:electrum-test2.groestlcoin.org::e4399b184a1500f2a5b81d30ed7546256771a981829929b057470d357716ff7e

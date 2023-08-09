@@ -55,8 +55,9 @@ public class Configuration {
     public static final String PREFS_KEY_BLOCK_EXPLORER = "block_explorer";
     public static final String PREFS_KEY_ENABLE_EXCHANGE_RATES = "enable_exchange_rates";
     public static final String PREFS_KEY_DATA_USAGE = "data_usage";
+    public static final String PREFS_KEY_BATTERY_OPTIMIZATION = "battery_optimization";
     public static final String PREFS_KEY_NOTIFICATIONS = "notifications";
-    public static final String PREFS_KEY_REMIND_BALANCE = "remind_balance";
+    public static final String PREFS_KEY_REMIND_BALANCE_TIME = "remind_balance_time";
     public static final String PREFS_KEY_DISCLAIMER = "disclaimer";
     public static final String PREFS_KEY_BLUETOOTH_ADDRESS = "bluetooth_address";
 
@@ -65,7 +66,8 @@ public class Configuration {
     private static final String PREFS_KEY_BEST_CHAIN_HEIGHT_EVER = "best_chain_height_ever";
     private static final String PREFS_KEY_LAST_EXCHANGE_DIRECTION = "last_exchange_direction";
     private static final String PREFS_KEY_CHANGE_LOG_VERSION = "change_log_version";
-    public static final String PREFS_KEY_REMIND_BACKUP = "remind_backup";
+    private static final String PREFS_KEY_REMIND_BACKUP = "remind_backup";
+    private static final String PREFS_KEY_BATTERY_OPTIMIZATION_DIALOG_TIME = "battery_optimization_dialog_time";
     private static final String PREFS_KEY_LAST_BACKUP = "last_backup";
     private static final String PREFS_KEY_LAST_RESTORE = "last_restore";
     private static final String PREFS_KEY_LAST_ENCRYPT_KEYS = "last_encrypt_keys";
@@ -170,7 +172,8 @@ public class Configuration {
     }
 
     public boolean isTrustedPeersOnly() {
-        return getTrustedPeers() != null && getTrustedPeersOnly();
+        final Set<HostAndPort> trustedPeers = getTrustedPeers();
+        return trustedPeers != null && !trustedPeers.isEmpty() && getTrustedPeersOnly();
     }
 
     public Uri getBlockExplorer() {
@@ -182,12 +185,44 @@ public class Configuration {
         return Constants.ENABLE_EXCHANGE_RATES && prefs.getBoolean(PREFS_KEY_ENABLE_EXCHANGE_RATES, true);
     }
 
-    public boolean remindBalance() {
-        return prefs.getBoolean(PREFS_KEY_REMIND_BALANCE, true);
+    private long getBatteryOptimizationDialogTime() {
+        return prefs.getLong(PREFS_KEY_BATTERY_OPTIMIZATION_DIALOG_TIME, 0);
     }
 
-    public void setRemindBalance(final boolean remindBalance) {
-        prefs.edit().putBoolean(PREFS_KEY_REMIND_BALANCE, remindBalance).apply();
+    public boolean isTimeForBatteryOptimizationDialog() {
+        final long now = System.currentTimeMillis();
+        return now >= getBatteryOptimizationDialogTime();
+    }
+
+    private void setBatteryOptimizationDialogTime(final long batteryOptimizationDialogTime) {
+        prefs.edit().putLong(PREFS_KEY_BATTERY_OPTIMIZATION_DIALOG_TIME, batteryOptimizationDialogTime).apply();
+    }
+
+    public void setBatteryOptimizationDialogTimeIn(final long durationMs) {
+        final long now = System.currentTimeMillis();
+        setBatteryOptimizationDialogTime(now + durationMs);
+    }
+
+    public void removeBatteryOptimizationDialogTime() {
+        prefs.edit().remove(PREFS_KEY_BATTERY_OPTIMIZATION_DIALOG_TIME).apply();
+    }
+
+    private long getRemindBalanceTime() {
+        return prefs.getLong(PREFS_KEY_REMIND_BALANCE_TIME, 0);
+    }
+
+    private void setRemindBalanceTime(final long remindBalanceTime) {
+        prefs.edit().putLong(PREFS_KEY_REMIND_BALANCE_TIME, remindBalanceTime).apply();
+    }
+
+    public boolean isTimeToRemindBalance() {
+        final long now = System.currentTimeMillis();
+        return now >= getRemindBalanceTime();
+    }
+
+    public void setRemindBalanceTimeIn(final long durationMs) {
+        final long now = System.currentTimeMillis();
+        setRemindBalanceTime(now + durationMs);
     }
 
     public boolean remindBackup() {
@@ -281,8 +316,8 @@ public class Configuration {
     public void touchLastUsed() {
         final long prefsLastUsed = prefs.getLong(PREFS_KEY_LAST_USED, 0);
         final long now = System.currentTimeMillis();
-        prefs.edit().putLong(PREFS_KEY_LAST_USED, now).apply();
-
+        prefs.edit().putLong(PREFS_KEY_LAST_USED, now).putLong(PREFS_KEY_REMIND_BALANCE_TIME,
+                now + Constants.LAST_USAGE_THRESHOLD_INACTIVE_MS).apply();
         log.info("just being used - last used {} minutes ago", (now - prefsLastUsed) / DateUtils.MINUTE_IN_MILLIS);
     }
 

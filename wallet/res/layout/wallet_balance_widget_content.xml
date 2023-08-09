@@ -8,11 +8,10 @@
 
     <ImageView
         android:id="@+id/widget_app_icon"
-        android:layout_width="wrap_content"
+        android:layout_width="72dp"
         android:layout_height="match_parent"
-        android:layout_marginLeft="12dp"
         android:contentDescription="@string/app_name"
-        android:src="@mipmap/ic_app_color_48dp"
+        android:src="@drawable/app_icon"
         android:visibility="gone" />
 
     <LinearLayout

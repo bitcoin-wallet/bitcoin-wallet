@@ -75,8 +75,11 @@ public abstract class AbstractWalletActivity extends FragmentActivity {
         try {
             startActivity(new Intent(Intent.ACTION_VIEW, url));
         } catch (final ActivityNotFoundException x) {
-            log.info("Cannot view {}", url);
+            log.info("Cannot view " + url, x);
             new Toast(this).longToast(R.string.toast_start_external_document_failed);
+        } catch (final Exception x) {
+            log.info("Cannot view " + url, x);
+            new Toast(this).longToast(getString(R.string.toast_start_external_document_error, x.getClass().getName()));
         }
     }
 }

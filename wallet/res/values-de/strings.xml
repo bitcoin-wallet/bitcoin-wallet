@@ -3,6 +3,7 @@
 
     <string name="toast_wallet_reset">Deine Wallet wurde zurückgesetzt!\nDie Wiederherstellung wird einige Zeit benötigen.</string>
     <string name="toast_start_external_document_failed">Es ist kein Web-Browser installiert um das externe Dokument zu öffnen.</string>
+    <string name="toast_start_external_document_error">Fehler des Web-Browsers: %s</string>
     <string name="toast_start_storage_provider_selector_failed">Es ist kein passender Netzspeicher-Dienst installiert.\nDu brauchst so etwas wie \"Nextcloud\" oder \"Google Drive\".</string>
     <string name="wallet_disclaimer_fragment_remind_safety">Nutzung auf eigene Gefahr. Lies die &lt;u&gt;Sicherheitshinweise&lt;/u&gt;.</string>
     <string name="wallet_disclaimer_fragment_remind_backup">Bitte &lt;u&gt;sichere deine Wallet&lt;/u&gt;!</string>
@@ -46,8 +47,7 @@
     <string name="wallet_options_technical_notes_title">Technische Hinweise</string>
     <string name="wallet_options_donate">Spenden</string>
     <string name="wallet_donate_address_label">Spende für Groestlcoin Wallet</string>
-    <string name="alert_dialogs_fragment_insecure_bluetooth_title">Sicherheitswarnung</string>
-    <string name="alert_dialogs_fragment_insecure_bluetooth_message">Die Bluetooth-Komponente deines Geräts ist verwundbar. Deine Groestlcoins auf diesem Gerät sind in Gefahr, unabhängig davon in welcher App du sie aufbewahrst!\n\nWir empfehlen dir, Bluetooth sofort auszuschalten und bei deinem Gerätehersteller zu prüfen, ob es ein Android-Update gibt, das Sicherheitspatch-Ebene \'%s\' oder später implementiert.</string>
+    <string name="alert_dialogs_fragment_insecure_device_title">Sicherheitswarnung</string>
     <string name="wallet_low_storage_dialog_title">Interner Speicher wird knapp!</string>
     <string name="wallet_low_storage_dialog_msg">Groestlcoin Wallet nutzt internen Speicher um sich Transaktionen und Blöcke zu merken. Wenn der
 		Speicher vollläuft, wird es nicht mehr funktionieren und deine Groestlcoins sind in Gefahr!\n\nMöchtest Du die
@@ -64,6 +64,9 @@
     <string name="alert_dialogs_fragment_settings_failed_title">Problem beim Öffnen der Einstellungen</string>
     <string name="alert_dialogs_fragment_too_much_balance_dialog_title">Minimiere das Risiko</string>
     <string name="alert_dialogs_fragment_too_much_balance_dialog_message">Der Betrag in deiner Wallet ist ziemlich hoch, um in der Tasche getragen zu werden. Bitte verschiebe etwas an einen sichereren Ort, etwa in ein Cold Wallet.</string>
+    <string name="alert_dialogs_fragment_battery_optimization_dialog_title">Empfange Zahlungen im Hintergrund</string>
+    <string name="alert_dialogs_fragment_battery_optimization_dialog_message">Im Moment ist dein Gerät so eingestellt, dass über eingehende Zahlungen nur informiert wird, wenn Groestlcoin Wallet sichtbar ist – aus Gründen des Akkuverbrauchs.\n\nWir empfehlen, der App zu erlauben, auch im Hintergrund die Blockchain up-to-date zu halten.\n\nKeine Angst, wir achten trotzdem auf deinen Akku.</string>
+    <string name="alert_dialogs_fragment_battery_optimization_dialog_button_allow">Erlauben</string>
     <string name="send_coins_activity_title">Groestlcoins senden</string>
     <string name="send_coins_fragment_request_payment_request_progress">Rufe Signatur von %s ab…</string>
     <string name="send_coins_fragment_request_payment_request_failed_title">Abrufen der Zahlungsanforderung fehlgeschlagen</string>
@@ -133,6 +136,7 @@
     <string name="sweep_wallet_fragment_request_wallet_balance_empty">Die Paper-Wallet ist leer.</string>
     <string name="sweep_wallet_fragment_insufficient_money_title">Nicht genug Groestlcoins</string>
     <string name="sweep_wallet_fragment_insufficient_money_msg">Das zu leerende Guthaben ist zu gering zum Entleeren.</string>
+    <string name="sweep_wallet_fragment_decode_failed">Kann privaten Schlüssel nicht dekodieren</string>
     <string name="sweep_wallet_options_reload">Guthaben aktualisieren</string>
     <string name="maintenance_dialog_title">Wartung empfohlen</string>
     <string name="maintenance_dialog_message">Du hast %1$s auf unsicheren Adressen erhalten. Möchtest du diese Groestlcoins auf sichere Adressen verschieben? Eine geringe Netzwerk-Gebühr von %2$s wird gezahlt.</string>
@@ -179,7 +183,7 @@
     <string name="transaction_row_message_purpose_raise_fee">Diese Transaktion erhöht die Netzwerk-Gebühr für eine vorherige Zahlung.</string>
     <string name="transaction_row_message_received_direct">Diese Zahlung wurde direkt empfangen. Es besteht das Risiko, daß sie niemals verfügbar wird.</string>
     <string name="transaction_row_message_received_unconfirmed_delayed">Die Bestätigung dieser Zahlung ist verspätet, wahrscheinlich aufgrund einer Überlastung des Groestlcoin-Netzes.</string>
-    <string name="transaction_row_message_received_unconfirmed_unlocked">Diese Zahlung sollte in ein paar Minuten verfügbar werden.</string>
+    <string name="transaction_row_message_received_unconfirmed_unlocked">Dieser Zahlung sollte nicht vertraut werden bis sie bestätigt ist. Bestätigungen benötigen ein paar Minuten.</string>
     <string name="transaction_row_message_received_unconfirmed_chain_forking">Wegen Wartungsarbeiten am Groestlcoin-Netzwerk sollte dieser Zahlung nicht vertraut werden bis sie voll bestätigt ist.</string>
     <string name="transaction_row_message_received_in_conflict">Diese Zahlung hat ein erhöhtes Risiko daß sie vom Sender rückgängig gemacht wird! Warte wenn möglich auf Bestätigung.</string>
     <string name="transaction_row_message_received_dead">Diese Zahlung wurde vom Sender rückgängig gemacht.</string>
@@ -274,10 +278,10 @@
     <string name="preferences_enable_exchange_rates_summary">Ruft die Wechselkurse von einem Feed ab, um lokale Beträge auszurechnen.</string>
     <string name="preferences_data_usage_title">Datenverbrauch</string>
     <string name="preferences_data_usage_summary">Zeigt Optionen um die mobile Datennutzung einzuschränken.</string>
+    <string name="preferences_battery_optimization_title">Akkuoptimierung abschalten</string>
+    <string name="preferences_battery_optimization_summary">Um die Blockchain so aktuell wie möglich zu halten, schalte bitte die Akkuoptimierung für diese App ab.</string>
     <string name="preferences_notifications_title">Benachrichtigungen</string>
     <string name="preferences_notifications_summary">Zeigt Optionen um bestimmte Benachrichtigungen aus- oder einzuschalten.</string>
-    <string name="preferences_remind_balance_title">Erinnerung an Guthaben</string>
-    <string name="preferences_remind_balance_summary">Nach einigen Wochen Nicht-Nutzung wird die App daran erinnern wenn sich noch Groestlcoins in der Wallet befinden.</string>
     <string name="preferences_show_disclaimer_title">Disclaimer anzeigen</string>
     <string name="preferences_show_disclaimer_summary">Hast du wirklich die Sicherheitshinweise gelesen? Hast du deine Wallet bereits an einen sicheren Ort gesichert?</string>
     <string name="preferences_bluetooth_address_title">Bluetooth-Adresse</string>
@@ -311,7 +315,7 @@
     <string name="about_license_title">Lizenz</string>
     <string name="about_source_title">Quellcode</string>
     <string name="about_category_credits">Diese App nutzt…</string>
-    <string name="about_credits_bitcoinj_title">Groestlcoinj %s, eine Implementierung des Groestlcoin-Protokolls</string>
+    <string name="about_credits_bitcoinj_title">groestlcoinj %s, eine Implementierung des Groestlcoin-Protokolls</string>
     <string name="about_credits_zxing_title">ZXing, eine QR-Code-Bibliothek</string>
     <string name="about_credits_bouncycastle_title">Bouncy Castle, eine Kryptographie-Bibliothek</string>
     <string name="about_credits_okhttp_title">OkHttp, eine HTTP-Client-Bibliothek</string>

@@ -36,6 +36,7 @@ import org.bitcoinj.utils.MonetaryFormat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -47,17 +48,17 @@ public final class Constants {
     public static final NetworkParameters NETWORK_PARAMETERS =
             !BuildConfig.FLAVOR.equals("prod") ? TestNet3Params.get() : MainNetParams.get();
 
-    /** Bitcoinj global context. */
+    /** Groestlcoinj global context. */
     public static final Context CONTEXT = new Context(NETWORK_PARAMETERS);
 
     /**
-     * The type of Bitcoin addresses used for the initial wallet: {@link Script.ScriptType#P2PKH} for classic
+     * The type of Groestlcoin addresses used for the initial wallet: {@link Script.ScriptType#P2PKH} for classic
      * Base58, {@link Script.ScriptType#P2WPKH} for segwit Bech32.
      */
     public static final Script.ScriptType DEFAULT_OUTPUT_SCRIPT_TYPE = Script.ScriptType.P2WPKH;
 
     /**
-     * The type of Bitcoin addresses to upgrade the current wallet to: {@link Script.ScriptType#P2PKH} for classic
+     * The type of Groestlcoin addresses to upgrade the current wallet to: {@link Script.ScriptType#P2PKH} for classic
      * Base58, {@link Script.ScriptType#P2WPKH} for segwit Bech32.
      */
     public static final Script.ScriptType UPGRADE_OUTPUT_SCRIPT_TYPE = Script.ScriptType.P2WPKH;
@@ -110,10 +111,10 @@ public final class Constants {
     }
 
     /** URL to fetch version alerts from. */
-    public static final HttpUrl VERSION_URL = HttpUrl.parse("https://wallet.schildbach.de/version"
+    public static final HttpUrl VERSION_URL = HttpUrl.parse("https://groestlcoin.org/groestlcoin-wallet-version"
             + (NETWORK_PARAMETERS.getId().equals(NetworkParameters.ID_MAINNET) ? "" : "-test"));
     /** URL to fetch dynamic fees from. */
-    public static final HttpUrl DYNAMIC_FEES_URL = HttpUrl.parse("https://wallet.schildbach.de/fees");
+    public static final HttpUrl DYNAMIC_FEES_URL = HttpUrl.parse("https://groestlcoin.org/fees");
 
     /** MIME type used for transmitting single transactions. */
     public static final String MIMETYPE_TRANSACTION = "application/x-grstx";
@@ -170,6 +171,17 @@ public final class Constants {
     public static final long LAST_USAGE_THRESHOLD_RECENTLY_MS = DateUtils.WEEK_IN_MILLIS;
     public static final long LAST_USAGE_THRESHOLD_INACTIVE_MS = 4 * DateUtils.WEEK_IN_MILLIS;
 
+    public static final Duration SERVICE_STOP_DELAY_AFTER_START =
+            NETWORK_PARAMETERS.getId().equals(NetworkParameters.ID_MAINNET) ?
+                    Duration.ofMinutes(1) :
+                    Duration.ofMinutes(2);
+    public static final Duration SERVICE_STOP_DELAY_AFTER_TRANSACTION =
+            Duration.ofMinutes(5);
+    public static final Duration SERVICE_STOP_DELAY_AFTER_EVENT =
+            NETWORK_PARAMETERS.getId().equals(NetworkParameters.ID_MAINNET) ?
+                    Duration.ofSeconds(30) :
+                    Duration.ofMinutes(2);
+
     public static final long DELAYED_TRANSACTION_THRESHOLD_MS = 2 * DateUtils.HOUR_IN_MILLIS;
 
     public static final long AUTOCLOSE_DELAY_MS = 1000;
@@ -178,9 +190,11 @@ public final class Constants {
     public static final Coin TOO_MUCH_BALANCE_THRESHOLD = Coin.COIN.multiply(1000);
     /** A balance above this amount will cause the donate option to be shown */
     public static final Coin SOME_BALANCE_THRESHOLD = Coin.COIN;
+    /** Values less than this are considered not spendable in an economic way */
+    public static final Coin MIN_NONDUST = Coin.valueOf(546); // satoshis
 
-    public static final int SDK_DEPRECATED_BELOW = Build.VERSION_CODES.N;
-    public static final String SECURITY_PATCH_INSECURE_BELOW = "2020-10-01";
+    public static final int SDK_DEPRECATED_BELOW = Build.VERSION_CODES.O;
+    public static final String SECURITY_PATCH_INSECURE_BELOW = "2021-07-01";
 
     public static final int NOTIFICATION_ID_CONNECTIVITY = 1;
     public static final int NOTIFICATION_ID_COINS_RECEIVED = 2;

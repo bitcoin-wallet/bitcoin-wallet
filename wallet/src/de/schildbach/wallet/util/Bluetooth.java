@@ -52,9 +52,13 @@ public class Bluetooth {
         if (adapter == null)
             return null;
 
-        final String address = adapter.getAddress();
-        if (!MARSHMELLOW_FAKE_MAC.equals(address))
-            return address;
+        try {
+            final String address = adapter.getAddress();
+            if (!MARSHMELLOW_FAKE_MAC.equals(address))
+                return address;
+        } catch (final SecurityException x) {
+            log.info("Problem determining Bluetooth MAC via official API", x);
+        }
 
         // Horrible reflection hack needed to get the Bluetooth MAC for Marshmellow and above.
         try {

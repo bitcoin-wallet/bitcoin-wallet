@@ -15,16 +15,22 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package de.schildbach.wallet.ui.scan;
+package de.schildbach.wallet.ui;
 
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
-import de.schildbach.wallet.ui.Event;
+import android.app.Activity;
+import android.bluetooth.BluetoothAdapter;
+import android.content.Context;
+import android.content.Intent;
+import androidx.activity.result.contract.ActivityResultContract;
 
-/**
- * @author Andreas Schildbach
- */
-public class ScanViewModel extends ViewModel {
-    public final MutableLiveData<Event<Void>> showPermissionWarnDialog = new MutableLiveData<>();
-    public final MutableLiveData<Event<Void>> showProblemWarnDialog = new MutableLiveData<>();
+public class RequestEnableBluetooth extends ActivityResultContract<Void, Boolean> {
+    @Override
+    public Intent createIntent(final Context context, Void unused) {
+        return new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+    }
+
+    @Override
+    public Boolean parseResult(final int resultCode, final Intent intent) {
+        return resultCode == Activity.RESULT_OK;
+    }
 }

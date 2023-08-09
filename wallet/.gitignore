@@ -1,5 +1,5 @@
-res/mipmap-*hdpi/
-res-prod/mipmap-*hdpi/
+res/mipmap-*hdpi/ic_app_color_fg_108dp.png
+res-prod/mipmap-*hdpi/ic_app_color_fg_108dp.png
 
 testNet3/res/mipmap-*hdpi/
 .externalNativeBuild
