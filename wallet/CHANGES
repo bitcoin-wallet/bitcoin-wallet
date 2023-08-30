@@ -1,3 +1,7 @@
+v10.04
+
+* Provide reproducible reference build via Docker or Podman.
+
 v10.01-v10.03
 
 * On Android 13 and above, the user is asked for notification permission when the time feels right.
