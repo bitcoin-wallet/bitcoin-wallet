@@ -23,17 +23,17 @@ RUN /usr/bin/apt-get update && \
 # give up privileges
 USER builder
 
-# copy source code
+# copy project source code
 WORKDIR /home/builder
-COPY --chown=builder / .
+COPY --chown=builder / project/
 
 # accept SDK licenses
 ENV ANDROID_HOME /home/builder/android-sdk
 RUN yes | /usr/bin/sdkmanager --licenses >/dev/null
 
-# build
-RUN /usr/bin/gradle --no-build-cache --no-daemon --no-parallel clean :wallet:assembleRelease
+# build project
+RUN /usr/bin/gradle --project-dir project/ --no-build-cache --no-daemon --no-parallel clean :wallet:assembleRelease
 
 # export build output
 FROM scratch AS export-stage
-COPY --from=build-stage /home/builder/wallet/build/outputs/apk/*/release/bitcoin-wallet-*-release-unsigned.apk /
+COPY --from=build-stage /home/builder/project/wallet/build/outputs/apk/*/release/bitcoin-wallet-*-release-unsigned.apk /
