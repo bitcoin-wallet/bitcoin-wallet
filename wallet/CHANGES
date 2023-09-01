@@ -1,4 +1,4 @@
-v10.04
+v10.04-v10.05
 
 * Provide reproducible reference build via Docker or Podman.
 
