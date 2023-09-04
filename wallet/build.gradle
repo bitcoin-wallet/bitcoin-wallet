@@ -55,6 +55,7 @@ android {
         all {
             minifyEnabled true
             shrinkResources true
+            crunchPngs false
             proguardFile 'proguard.cfg'
         }
         debug {
