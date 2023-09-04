@@ -46,9 +46,6 @@ android {
 
     defaultConfig {
         applicationId 'de.schildbach'
-        dexOptions {
-            preDexLibraries false
-        }
     }
 
     buildTypes {
