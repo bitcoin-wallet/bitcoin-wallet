@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="de.schildbach.wallet"
     android:installLocation="internalOnly"
-    android:versionCode="100500"
-    android:versionName="10.05">
+    android:versionCode="100600"
+    android:versionName="10.06">
 
     <uses-sdk
         android:minSdkVersion="26"

@@ -1,6 +1,6 @@
-v10.04-v10.05
+v10.04-v10.06
 
-* Provide reproducible reference build via Docker or Podman.
+* Provide reproducible reference build via buildah, Docker or Podman.
 
 v10.01-v10.03
 
