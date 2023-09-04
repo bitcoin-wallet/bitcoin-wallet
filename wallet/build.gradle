@@ -54,7 +54,7 @@ android {
     buildTypes {
         all {
             minifyEnabled true
-            shrinkResources false
+            shrinkResources true
             proguardFile 'proguard.cfg'
         }
         debug {
