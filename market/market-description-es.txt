@@ -24,7 +24,7 @@ Nuestro código fuente está disponible en GitHub:
 https://github.com/bitcoin-wallet/bitcoin-wallet
 
 Todas las traducciones son administradas a través de Transifex:
-https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
+https://explore.transifex.com/bitcoin-wallet/bitcoin-wallet/
 
 
 <i>¡Úsalo bajo tu propio riesgo!</i>

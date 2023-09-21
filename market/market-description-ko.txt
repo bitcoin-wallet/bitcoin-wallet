@@ -22,7 +22,7 @@ https://www.gnu.org/licenses/gpl-3.0.en.html
 https://github.com/bitcoin-wallet/bitcoin-wallet
 
 모든 번역은 Transifex 웹사이트를 통해 이루어집니다.
-https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
+https://explore.transifex.com/bitcoin-wallet/bitcoin-wallet/
 
 
 <i>이 앱을 사용하는 것은 앱 사용에 따른 위험에 동의하는 것입니다!</i>

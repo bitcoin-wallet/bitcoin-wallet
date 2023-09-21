@@ -24,7 +24,7 @@ https://www.gnu.org/licenses/gpl-3.0.en.html
 https://github.com/bitcoin-wallet/bitcoin-wallet
 
 همهٔ ترجمها توسط Transifex مدیریت شده.
-https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
+https://explore.transifex.com/bitcoin-wallet/bitcoin-wallet/
 
 
 با ریسک خود استفاده کنید.

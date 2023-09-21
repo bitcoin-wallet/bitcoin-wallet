@@ -21,7 +21,7 @@ https://www.gnu.org/licenses/gpl-3.0.en.html
 https://github.com/bitcoin-wallet/bitcoin-wallet
 
 सभी अनुवाद Transifex के माध्यम से प्रबंधित कर रहे हैं:
-https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
+https://explore.transifex.com/bitcoin-wallet/bitcoin-wallet/
 
 
 अपने जोखिम पर उपयोग करें!

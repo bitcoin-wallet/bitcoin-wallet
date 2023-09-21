@@ -10,8 +10,7 @@ after_script:
 bullseye-jdk11:
   image: debian:bullseye-backports
   script:
-    - apt-get -y install openjdk-11-jdk-headless
-    - apt-get -y install sdkmanager gradle
+    - apt-get -y install openjdk-11-jdk-headless gradle sdkmanager
     - yes | sdkmanager --licenses >/dev/null || true
     - gradle build --stacktrace
   artifacts:
@@ -22,8 +21,7 @@ bullseye-jdk11:
 bookworm-jdk17:
   image: debian:bookworm-slim
   script:
-    - apt-get -y install openjdk-17-jdk-headless
-    - apt-get -y install sdkmanager gradle
+    - apt-get -y install openjdk-17-jdk-headless gradle sdkmanager
     - yes | sdkmanager --licenses >/dev/null || true
     - gradle build --stacktrace
   artifacts:
@@ -34,8 +32,7 @@ bookworm-jdk17:
 jammy-jdk11:
   image: ubuntu:jammy
   script:
-    - apt-get -y install openjdk-11-jdk-headless
-    - apt-get -y install sdkmanager gradle
+    - apt-get -y install openjdk-11-jdk-headless gradle sdkmanager
     - yes | sdkmanager --licenses >/dev/null || true
     - gradle build --stacktrace
   artifacts:
@@ -46,8 +43,7 @@ jammy-jdk11:
 lunar-jdk17:
   image: ubuntu:lunar
   script:
-    - apt-get -y install openjdk-17-jdk-headless
-    - apt-get -y install sdkmanager gradle
+    - apt-get -y install openjdk-17-jdk-headless gradle sdkmanager
     - yes | sdkmanager --licenses >/dev/null || true
     - gradle build --stacktrace
   artifacts:
