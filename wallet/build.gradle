@@ -20,7 +20,7 @@ dependencies {
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
     implementation 'androidx.lifecycle:lifecycle-livedata:2.6.1'
     implementation 'androidx.lifecycle:lifecycle-service:2.6.1'
-    implementation 'androidx.sqlite:sqlite:2.3.1'
+    implementation 'androidx.sqlite:sqlite:2.4.0'
     implementation "androidx.room:room-runtime:2.5.2"
     annotationProcessor "androidx.room:room-compiler:2.5.2"
     implementation 'org.bitcoinj:bitcoinj-core:0.16.2'
