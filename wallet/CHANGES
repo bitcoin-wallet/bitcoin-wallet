@@ -1,4 +1,4 @@
-v10.04-v10.06
+v10.04-v10.07
 
 * Provide reproducible reference build via buildah, Docker or Podman.
 
