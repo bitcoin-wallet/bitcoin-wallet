@@ -241,7 +241,8 @@
 
         <service
             android:name="de.schildbach.wallet.offline.AcceptBluetoothService"
-            android:exported="false" />
+            android:exported="false"
+            android:foregroundServiceType="connectedDevice" />
 
         <receiver
             android:name="de.schildbach.wallet.service.BootstrapReceiver"
