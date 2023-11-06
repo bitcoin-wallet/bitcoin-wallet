@@ -25,7 +25,7 @@ A forráskódunk elérhető a GitHub-on:
 https://github.com/Groestlcoin/groestlcoin-wallet
 
 Minden fordítást a Transifex kezelt:
-https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
+https://explore.transifex.com/bitcoin-wallet/bitcoin-wallet/
 
 
 <i>Kizárólag saját felelősségre! Csak zsebpénznyi összegek használatára.</i>

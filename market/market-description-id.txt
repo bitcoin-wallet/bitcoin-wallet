@@ -17,6 +17,6 @@ Jika Anda ingin berkontribusi kepada Groestlcoin Wallet, proyeknya berada di
 https://github.com/Groestlcoin/groestlcoin-wallet
 
 Semua terjemahan dikelola via Transifex:
-https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
+https://explore.transifex.com/bitcoin-wallet/bitcoin-wallet/
 
 <i>Gunakan dengan resiko Anda!</i>

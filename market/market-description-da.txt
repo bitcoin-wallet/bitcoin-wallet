@@ -23,7 +23,7 @@ Vores kildekode er tilgængelig på GitHub:
 https://github.com/Groestlcoin/groestlcoin-wallet
 
 Alle oversættelser håndteres via Transifex:
-https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
+https://explore.transifex.com/bitcoin-wallet/bitcoin-wallet/
 
 
 <i>Brug for egen risiko!</i>

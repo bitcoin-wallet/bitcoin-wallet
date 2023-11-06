@@ -23,7 +23,7 @@ https://www.gnu.org/licenses/gpl-3.0.en.html
 https://github.com/Groestlcoin/groestlcoin-wallet
 
 所有的本地化翻译均在 Transifex 上进行：
-https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
+https://explore.transifex.com/bitcoin-wallet/bitcoin-wallet/
 
 
 <i>您需要自担风险！</i>

@@ -25,7 +25,7 @@ Kaynak kodumuz GitHub'da mevcuttur:
 https://github.com/Groestlcoin/groestlcoin-wallet
 
 Tüm tercümeler Transifex üzerinde yönetilir:
-https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
+https://explore.transifex.com/bitcoin-wallet/bitcoin-wallet/
 
 
 <i>Kullanım kendi sorumluluğunuzdadır! Sadece cep boyutunda miktarlar için kullanın.</i>
