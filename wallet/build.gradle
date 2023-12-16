@@ -10,7 +10,7 @@ configurations {
 }
 
 dependencies {
-    implementation 'androidx.annotation:annotation:1.7.0'
+    implementation 'androidx.annotation:annotation:1.7.1'
     implementation 'androidx.core:core:1.12.0'
     implementation 'androidx.activity:activity:1.8.1'
     implementation 'androidx.fragment:fragment:1.6.2'
