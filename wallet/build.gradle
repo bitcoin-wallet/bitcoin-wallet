@@ -24,7 +24,7 @@ dependencies {
     implementation "androidx.room:room-runtime:2.6.1"
     annotationProcessor "androidx.room:room-compiler:2.6.1"
     implementation 'org.bitcoinj:bitcoinj-core:0.16.2'
-    implementation 'com.google.guava:guava:32.0.1-android'
+    implementation 'com.google.guava:guava:33.0.0-android'
     implementation 'com.google.zxing:core:3.5.2'
     //noinspection GradleDependency
     implementation 'com.squareup.okhttp3:okhttp:3.14.9'
