@@ -548,7 +548,7 @@ public class SweepWalletFragment extends Fragment {
             }
 
             @Override
-            protected void onEmptyWalletFailed() {
+            protected void onEmptyWalletFailed(Exception exception) {
                 viewModel.state.setValue(SweepWalletViewModel.State.FAILED);
                 viewModel.showDialog.setValue(DialogEvent.warn(
                         R.string.sweep_wallet_fragment_insufficient_money_title,
