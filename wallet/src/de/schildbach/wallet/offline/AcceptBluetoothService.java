@@ -23,6 +23,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.ServiceInfo;
+import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.PowerManager;
@@ -104,7 +106,11 @@ public final class AcceptBluetoothService extends LifecycleService {
         notification.setWhen(System.currentTimeMillis());
         notification.setOngoing(true);
         notification.setPriority(NotificationCompat.PRIORITY_LOW);
-        startForeground(Constants.NOTIFICATION_ID_BLUETOOTH, notification.build());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
+            startForeground(Constants.NOTIFICATION_ID_BLUETOOTH, notification.build(),
+                    ServiceInfo.FOREGROUND_SERVICE_TYPE_CONNECTED_DEVICE);
+        else
+            startForeground(Constants.NOTIFICATION_ID_BLUETOOTH, notification.build());
 
         registerReceiver(bluetoothStateChangeReceiver, new IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED));
 
