@@ -121,7 +121,7 @@ public class PeerListAdapter extends ListAdapter<PeerListAdapter.ListItem, PeerL
                     .hash().asLong();
         }
 
-        private static final HashFunction ID_HASH = Hashing.farmHashFingerprint64();
+        private static final HashFunction ID_HASH = Hashing.goodFastHash(Long.SIZE);
     }
 
     public interface OnClickListener {
