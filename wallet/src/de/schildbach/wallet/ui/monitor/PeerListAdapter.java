@@ -43,10 +43,12 @@ import org.bitcoinj.core.VersionMessage;
 import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.EnumSet;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * @author Andreas Schildbach
@@ -55,6 +57,7 @@ public class PeerListAdapter extends ListAdapter<PeerListAdapter.ListItem, PeerL
     public static List<ListItem> buildListItems(final Context context, final List<Peer> peers,
             final Map<InetAddress, String> hostnames) {
         final List<ListItem> items = new ArrayList<>(peers.size());
+        final Set<Long> itemIds = new HashSet<>(peers.size());
         for (final Peer peer : peers) {
             final PeerAddress peerAddress = peer.getAddress();
             final InetAddress inetAddress = peerAddress.getAddr();
@@ -83,7 +86,10 @@ public class PeerListAdapter extends ListAdapter<PeerListAdapter.ListItem, PeerL
             } else {
                 icon = null;
             }
-            items.add(new ListItem(hostAndPort, displayHostAndPort, height, version, protocol, services, ping, icon));
+            final ListItem item = new ListItem(hostAndPort, displayHostAndPort, height, version, protocol, services,
+                    ping, icon);
+            if (itemIds.add(item.id))
+                items.add(item);
         }
         return items;
     }
