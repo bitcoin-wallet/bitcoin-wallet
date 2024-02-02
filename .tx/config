@@ -17,14 +17,14 @@ lang_map = sl_SI:sl, pt_PT:pt-rPT, pt_BR:pt-rBR, zh_TW:zh-rTW
 
 [bitcoin-wallet.market-promo-text]
 type = TXT
-source_file = market/market-promo-text.txt
+source_file = metadata/en-US/short_description.txt
 source_lang = en
-file_filter = market/market-promo-text-<lang>.txt
+file_filter = metadata/<lang>/short_description.txt
 lang_map = sl_SI:sl, pt_PT:pt-PT, pt_BR:pt-BR, zh_TW:zh-TW
 
 [bitcoin-wallet.market-description]
 type = TXT
-source_file = market/market-description.txt
+source_file = metadata/en-US/full_description.txt
 source_lang = en
-file_filter = market/market-description-<lang>.txt
+file_filter = metadata/<lang>/full_description.txt
 lang_map = sl_SI:sl, pt_PT:pt-PT, pt_BR:pt-BR, zh_TW:zh-TW
