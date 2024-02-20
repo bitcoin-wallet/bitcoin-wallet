@@ -208,7 +208,7 @@ public class BlockListAdapter extends ListAdapter<BlockListAdapter.ListItem, Rec
             }
         }
 
-        private static final HashFunction ID_HASH = Hashing.farmHashFingerprint64();
+        private static final HashFunction ID_HASH = Hashing.goodFastHash(Long.SIZE);
     }
 
     public interface OnClickListener {
