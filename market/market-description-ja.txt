@@ -24,7 +24,7 @@ https://www.gnu.org/licenses/gpl-3.0.ja.html
 https://github.com/bitcoin-wallet/bitcoin-wallet
 
 全ての翻訳はTransifexで管理されています:
-https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
+https://explore.transifex.com/bitcoin-wallet/bitcoin-wallet/
 
 
 <i>自己責任でお使いください! ポケットに入るくらいの残高のみに使ってください。</i>

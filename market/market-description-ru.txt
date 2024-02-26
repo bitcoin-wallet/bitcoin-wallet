@@ -24,7 +24,7 @@ https://www.gnu.org/licenses/gpl-3.0.ru.html
 https://github.com/bitcoin-wallet/bitcoin-wallet
 
 Все переводы сделаны через Transifex:
-https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
+https://explore.transifex.com/bitcoin-wallet/bitcoin-wallet/
 
 
 <i>Используйте на свой страх и риск!</i>

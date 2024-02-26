@@ -22,7 +22,7 @@ El nostre codi està disponible a GitHub:
 https://github.com/bitcoin-wallet/bitcoin-wallet
 
 Totes les traduccions estan gestionades a través de Transifex:
-https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
+https://explore.transifex.com/bitcoin-wallet/bitcoin-wallet/
 
 
 <i>Utilitza-la sota la teva responsabilitat!</i>

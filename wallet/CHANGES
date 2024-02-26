@@ -1,3 +1,15 @@
+v10.11-v10.13
+
+* Update sanity check for network fee.
+
+v10.09-v10.10
+
+* Target Android 14.
+
+v10.04-v10.08
+
+* Provide reproducible reference build via buildah, Docker or Podman.
+
 v10.01-v10.03
 
 * On Android 13 and above, the user is asked for notification permission when the time feels right.

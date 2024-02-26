@@ -82,7 +82,7 @@ public abstract class SendCoinsOfflineTask {
             } catch (final CouldNotAdjustDownwards x) {
                 log.info("send failed, could not adjust downwards: {}", x.getMessage());
 
-                callbackHandler.post(() -> onEmptyWalletFailed());
+                callbackHandler.post(() -> onEmptyWalletFailed(x));
             } catch (final CompletionException x) {
                 log.info("send failed, cannot complete: {}", x.getMessage());
 
@@ -97,8 +97,8 @@ public abstract class SendCoinsOfflineTask {
 
     protected abstract void onInvalidEncryptionKey();
 
-    protected void onEmptyWalletFailed() {
-        onFailure(new CouldNotAdjustDownwards());
+    protected void onEmptyWalletFailed(Exception exception) {
+        onFailure(exception);
     }
 
     protected abstract void onFailure(Exception exception);

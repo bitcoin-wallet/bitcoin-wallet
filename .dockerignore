@@ -1,0 +1,5 @@
+**/.*
+**/build.Containerfile
+**/local.properties
+**/build
+**/*.iml

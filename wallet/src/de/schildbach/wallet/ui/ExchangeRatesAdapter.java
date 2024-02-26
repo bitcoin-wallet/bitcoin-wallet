@@ -96,7 +96,7 @@ public class ExchangeRatesAdapter extends ListAdapter<ExchangeRatesAdapter.ListI
             return ID_HASH.newHasher().putUnencodedChars(source).putUnencodedChars(currencyCode).hash().asLong();
         }
 
-        private static final HashFunction ID_HASH = Hashing.farmHashFingerprint64();
+        private static final HashFunction ID_HASH = Hashing.goodFastHash(Long.SIZE);
     }
 
     public interface OnClickListener {

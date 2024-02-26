@@ -26,6 +26,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.pm.ServiceInfo;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -858,12 +859,20 @@ public class BlockchainService extends LifecycleService {
             connectivityNotification.setSmallIcon(R.drawable.stat_notify_peers, Math.min(numPeers, 4));
             connectivityNotification.setContentText(getString(R.string.notification_peers_connected_msg, numPeers));
         }
-        startForeground(Constants.NOTIFICATION_ID_CONNECTIVITY, connectivityNotification.build());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
+            startForeground(Constants.NOTIFICATION_ID_CONNECTIVITY, connectivityNotification.build(),
+                    ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC);
+        else
+            startForeground(Constants.NOTIFICATION_ID_CONNECTIVITY, connectivityNotification.build());
     }
 
     private void startForegroundProgress(final int blocksToDownload, final int blocksLeft) {
         connectivityNotification.setProgress(blocksToDownload, blocksToDownload - blocksLeft, false);
-        startForeground(Constants.NOTIFICATION_ID_CONNECTIVITY, connectivityNotification.build());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
+            startForeground(Constants.NOTIFICATION_ID_CONNECTIVITY, connectivityNotification.build(),
+                    ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC);
+        else
+            startForeground(Constants.NOTIFICATION_ID_CONNECTIVITY, connectivityNotification.build());
     }
 
     @MainThread
