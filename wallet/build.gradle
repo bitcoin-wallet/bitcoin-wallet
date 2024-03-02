@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'androidsvgdrawable'
+    id 'com.google.protobuf'
 }
 
 configurations {
@@ -11,6 +12,7 @@ configurations {
 
 dependencies {
     api 'org.bouncycastle:bcprov-jdk15to18:1.77'
+    api 'com.google.protobuf:protobuf-javalite:3.18.0'
     implementation 'androidx.annotation:annotation:1.5.0'
     implementation 'androidx.core:core:1.9.0'
     implementation 'androidx.activity:activity:1.7.2'
@@ -35,6 +37,22 @@ dependencies {
     implementation 'com.github.tony19:logback-android:3.0.0'
     testImplementation 'junit:junit:4.13.2'
     implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
+}
+
+protobuf {
+    protoc {
+        artifact = 'com.google.protobuf:protoc:3.18.0'
+    }
+    generateProtoTasks {
+        all().each { task ->
+            task.builtins {
+                java {
+                    option "lite"
+                }
+            }
+        }
+    }
+    generatedFilesBaseDir = new File(projectDir, '/src') // workaround for '$projectDir/src'
 }
 
 ext {

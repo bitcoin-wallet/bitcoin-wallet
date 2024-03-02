@@ -58,12 +58,12 @@ import de.schildbach.wallet.ui.TransactionsAdapter;
 import de.schildbach.wallet.ui.scan.ScanActivity;
 import de.schildbach.wallet.util.MonetarySpannable;
 import de.schildbach.wallet.util.Toast;
-import org.bitcoinj.core.AddressFormatException;
+import org.bitcoinj.base.exceptions.AddressFormatException;
 import org.bitcoinj.base.Coin;
-import org.bitcoinj.core.DumpedPrivateKey;
+import org.bitcoinj.crypto.DumpedPrivateKey;
 import org.bitcoinj.crypto.ECKey;
 import org.bitcoinj.core.NetworkParameters;
-import org.bitcoinj.core.PrefixedChecksummedBytes;
+
 import org.bitcoinj.base.Sha256Hash;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.TransactionConfidence;
@@ -75,6 +75,7 @@ import org.bitcoinj.core.UTXO;
 import org.bitcoinj.core.VerificationException;
 import org.bitcoinj.crypto.BIP38PrivateKey;
 import org.bitcoinj.base.utils.MonetaryFormat;
+import org.bitcoinj.crypto.EncodedPrivateKey;
 import org.bitcoinj.utils.Threading;
 import org.bitcoinj.wallet.SendRequest;
 import org.bitcoinj.wallet.Wallet;
@@ -125,7 +126,7 @@ public class SweepWalletFragment extends Fragment {
                 if (input == null) return;
                 new StringInputParser(input) {
                     @Override
-                    protected void handlePrivateKey(final PrefixedChecksummedBytes key) {
+                    protected void handlePrivateKey(final EncodedPrivateKey key) {
                         viewModel.privateKeyToSweep.setValue(key);
                         viewModel.state.setValue(SweepWalletViewModel.State.DECODE_KEY);
                         maybeDecodeKey();
@@ -250,7 +251,7 @@ public class SweepWalletFragment extends Fragment {
 
             if (intent.hasExtra(SweepWalletActivity.INTENT_EXTRA_KEY)) {
                 final String encodedKey = intent.getStringExtra(SweepWalletActivity.INTENT_EXTRA_KEY);
-                PrefixedChecksummedBytes privateKeyToSweep;
+                EncodedPrivateKey privateKeyToSweep;
                 try {
                     privateKeyToSweep = DumpedPrivateKey.fromBase58(Constants.NETWORK_PARAMETERS, encodedKey);
                 } catch (AddressFormatException x) {
@@ -316,7 +317,7 @@ public class SweepWalletFragment extends Fragment {
 
     private void maybeDecodeKey() {
         checkState(viewModel.state.getValue() == SweepWalletViewModel.State.DECODE_KEY);
-        final PrefixedChecksummedBytes privateKeyToSweep = viewModel.privateKeyToSweep.getValue();
+        final EncodedPrivateKey privateKeyToSweep = viewModel.privateKeyToSweep.getValue();
         checkState(privateKeyToSweep != null);
 
         if (privateKeyToSweep instanceof DumpedPrivateKey) {
@@ -449,7 +450,7 @@ public class SweepWalletFragment extends Fragment {
 
     private void updateView() {
         final SweepWalletViewModel.State state = viewModel.state.getValue();
-        final PrefixedChecksummedBytes privateKeyToSweep = viewModel.privateKeyToSweep.getValue();
+        final EncodedPrivateKey privateKeyToSweep = viewModel.privateKeyToSweep.getValue();
         final Wallet wallet = walletActivityViewModel.wallet.getValue();
         final Map<FeeCategory, Coin> fees = viewModel.getDynamicFees().getValue();
         final MonetaryFormat btcFormat = config.getFormat();

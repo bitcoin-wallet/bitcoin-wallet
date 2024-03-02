@@ -36,7 +36,7 @@ import de.schildbach.wallet.util.Qr;
 import org.bitcoinj.base.Address;
 import org.bitcoinj.base.Coin;
 import org.bitcoinj.protocols.payments.PaymentProtocol;
-import org.bitcoinj.script.Script;
+import org.bitcoinj.base.ScriptType;
 import org.bitcoinj.uri.BitcoinURI;
 import org.bitcoinj.wallet.Wallet;
 
@@ -112,13 +112,13 @@ public class RequestCoinsViewModel extends AndroidViewModel {
     }
 
     public static class FreshReceiveAddressLiveData extends AbstractWalletLiveData<Address> {
-        private Script.ScriptType outputScriptType = null;
+        private ScriptType outputScriptType = null;
 
         public FreshReceiveAddressLiveData(final WalletApplication application) {
             super(application);
         }
 
-        public void overrideOutputScriptType(final Script.ScriptType outputScriptType) {
+        public void overrideOutputScriptType(final ScriptType outputScriptType) {
             this.outputScriptType = outputScriptType;
         }
 
@@ -135,7 +135,7 @@ public class RequestCoinsViewModel extends AndroidViewModel {
         private void maybeLoad() {
             if (getValue() == null) {
                 final Wallet wallet = getWallet();
-                final Script.ScriptType outputScriptType = this.outputScriptType;
+                final ScriptType outputScriptType = this.outputScriptType;
                 AsyncTask.execute(() -> {
                     org.bitcoinj.core.Context.propagate(Constants.CONTEXT);
                     postValue(outputScriptType != null ? wallet.freshReceiveAddress(outputScriptType)

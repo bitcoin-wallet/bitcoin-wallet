@@ -22,8 +22,8 @@ import android.bluetooth.BluetoothServerSocket;
 import android.bluetooth.BluetoothSocket;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.util.Bluetooth;
-import org.bitcoin.protocols.payments.Protos;
-import org.bitcoin.protocols.payments.Protos.PaymentACK;
+import org.bitcoinj.protobuf.payments.Protos;
+import org.bitcoinj.protobuf.payments.Protos.PaymentACK;
 import org.bitcoinj.core.ProtocolException;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.protocols.payments.PaymentProtocol;
@@ -33,6 +33,7 @@ import org.slf4j.LoggerFactory;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.nio.ByteBuffer;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
@@ -76,7 +77,7 @@ public abstract class AcceptBluetoothThread extends Thread {
                         is.readFully(msg);
 
                         try {
-                            final Transaction tx = new Transaction(Constants.NETWORK_PARAMETERS, msg);
+                            final Transaction tx = Transaction.read(ByteBuffer.wrap(msg));
 
                             if (!handleTx(tx))
                                 ack = false;

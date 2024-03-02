@@ -39,6 +39,8 @@ import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.R;
 import de.schildbach.wallet.exchangerate.ExchangeRateEntry;
 import de.schildbach.wallet.service.BlockchainState;
+
+import org.bitcoinj.base.BitcoinNetwork;
 import org.bitcoinj.base.Coin;
 import org.bitcoinj.core.NetworkParameters;
 import org.bitcoinj.utils.ExchangeRate;
@@ -242,7 +244,7 @@ public class ExchangeRatesAdapter extends ListAdapter<ExchangeRatesAdapter.ListI
             holder.walletView.setFormat(Constants.LOCAL_FORMAT);
             if (listItem.balanceAsFiat != null) {
                 holder.walletView.setAmount(listItem.balanceAsFiat);
-                holder.walletView.setStrikeThru(!Constants.NETWORK_PARAMETERS.getId().equals(NetworkParameters.ID_MAINNET));
+                holder.walletView.setStrikeThru(!Constants.NETWORK_PARAMETERS.getId().equals(BitcoinNetwork.ID_MAINNET));
             } else {
                 holder.walletView.setText("n/a");
                 holder.walletView.setStrikeThru(false);

@@ -46,6 +46,8 @@ import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+
+import org.bitcoinj.base.BitcoinNetwork;
 import org.bitcoinj.base.Coin;
 import org.bitcoinj.params.MainNetParams;
 import org.bitcoinj.utils.ContextPropagatingThreadFactory;
@@ -211,7 +213,7 @@ public class AlertDialogsViewModel extends AndroidViewModel {
                 }
 
                 // Maybe show too much balance alert.
-                if (Constants.NETWORK_PARAMETERS.getId().equals(MainNetParams.ID_MAINNET)) {
+                if (Constants.NETWORK_PARAMETERS.getId().equals(BitcoinNetwork.ID_MAINNET)) {
                     final Coin balance = application.getWallet().getBalance();
                     if (balance.isGreaterThan(Constants.TOO_MUCH_BALANCE_THRESHOLD)) {
                         showTooMuchBalanceAlertDialog.postValue(Event.simple());

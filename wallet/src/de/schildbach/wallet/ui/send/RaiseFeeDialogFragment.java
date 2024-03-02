@@ -49,6 +49,7 @@ import org.bitcoinj.base.Coin;
 import org.bitcoinj.base.Sha256Hash;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.TransactionOutput;
+import org.bitcoinj.crypto.AesKey;
 import org.bitcoinj.wallet.KeyChain.KeyPurpose;
 import org.bitcoinj.wallet.SendRequest;
 import org.bitcoinj.wallet.Wallet;
@@ -212,7 +213,7 @@ public class RaiseFeeDialogFragment extends DialogFragment {
         if (wallet.isEncrypted()) {
             new DeriveKeyTask(backgroundHandler, application.scryptIterationsTarget()) {
                 @Override
-                protected void onSuccess(final KeyParameter encryptionKey, final boolean wasChanged) {
+                protected void onSuccess(final AesKey encryptionKey, final boolean wasChanged) {
                     if (wasChanged)
                         WalletUtils.autoBackupWallet(activity, wallet);
                     doRaiseFee(wallet, encryptionKey);
@@ -225,7 +226,7 @@ public class RaiseFeeDialogFragment extends DialogFragment {
         }
     }
 
-    private void doRaiseFee(final Wallet wallet, final KeyParameter encryptionKey) {
+    private void doRaiseFee(final Wallet wallet, final AesKey encryptionKey) {
         // construct child-pays-for-parent
         final TransactionOutput outputToSpend = checkNotNull(findSpendableOutput(wallet, transaction, feeRaise));
         final Transaction transactionToSend = new Transaction(Constants.NETWORK_PARAMETERS);

@@ -23,7 +23,7 @@ import androidx.annotation.Nullable;
 import com.google.common.base.Objects;
 import de.schildbach.wallet.Constants;
 import org.bitcoinj.base.Address;
-import org.bitcoinj.core.AddressFormatException;
+import org.bitcoinj.base.exceptions.AddressFormatException;
 import org.bitcoinj.core.NetworkParameters;
 
 /**

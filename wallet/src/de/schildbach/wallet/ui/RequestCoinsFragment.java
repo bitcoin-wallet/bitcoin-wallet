@@ -66,8 +66,8 @@ import de.schildbach.wallet.util.Bluetooth;
 import de.schildbach.wallet.util.Nfc;
 import de.schildbach.wallet.util.Toast;
 import org.bitcoinj.base.Address;
+import org.bitcoinj.base.ScriptType;
 import org.bitcoinj.protocols.payments.PaymentProtocol;
-import org.bitcoinj.script.Script;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -131,7 +131,7 @@ public final class RequestCoinsFragment extends Fragment {
         viewModel = new ViewModelProvider(this).get(RequestCoinsViewModel.class);
         final Intent intent = activity.getIntent();
         if (intent.hasExtra(RequestCoinsActivity.INTENT_EXTRA_OUTPUT_SCRIPT_TYPE))
-            viewModel.freshReceiveAddress.overrideOutputScriptType((Script.ScriptType) intent
+            viewModel.freshReceiveAddress.overrideOutputScriptType((ScriptType) intent
                     .getSerializableExtra(RequestCoinsActivity.INTENT_EXTRA_OUTPUT_SCRIPT_TYPE));
         viewModel.freshReceiveAddress.observe(this, address -> log.info("request coins address: {}", address));
         viewModel.qrCode.observe(this, qrCode -> {

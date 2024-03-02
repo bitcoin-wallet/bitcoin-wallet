@@ -150,7 +150,7 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
                     textColor = colorError;
                     lessSignificantColor = colorError;
                     valueColor = colorError;
-                } else if (DefaultCoinSelector.isSelectable(tx)) {
+                } else if (DefaultCoinSelector.isSelectable(tx, Constants.NETWORK_PARAMETERS.network())) {
                     textColor = colorSignificant;
                     lessSignificantColor = colorLessSignificant;
                     valueColor = sent ? colorValueNegative : colorValuePositive;

@@ -27,9 +27,10 @@ import de.schildbach.wallet.ui.InputParser.StringInputParser;
 import de.schildbach.wallet.ui.scan.ScanActivity;
 import de.schildbach.wallet.ui.send.SendCoinsActivity;
 import de.schildbach.wallet.ui.send.SweepWalletActivity;
-import org.bitcoinj.core.PrefixedChecksummedBytes;
+
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.VerificationException;
+import org.bitcoinj.crypto.EncodedPrivateKey;
 
 /**
  * @author Andreas Schildbach
@@ -48,7 +49,7 @@ public final class SendCoinsQrActivity extends AbstractWalletActivity {
                         }
 
                         @Override
-                        protected void handlePrivateKey(final PrefixedChecksummedBytes key) {
+                        protected void handlePrivateKey(final EncodedPrivateKey key) {
                             if (Constants.ENABLE_SWEEP_WALLET) {
                                 SweepWalletActivity.start(SendCoinsQrActivity.this, key);
                                 SendCoinsQrActivity.this.finish();
