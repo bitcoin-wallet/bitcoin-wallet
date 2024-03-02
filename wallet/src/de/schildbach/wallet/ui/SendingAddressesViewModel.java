@@ -27,9 +27,9 @@ import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.addressbook.AddressBookEntry;
 import de.schildbach.wallet.data.AbstractWalletLiveData;
-import org.bitcoinj.core.Address;
-import org.bitcoinj.core.ECKey;
-import org.bitcoinj.core.LegacyAddress;
+import org.bitcoinj.base.Address;
+import org.bitcoinj.crypto.ECKey;
+import org.bitcoinj.base.LegacyAddress;
 import org.bitcoinj.wallet.Wallet;
 
 import java.util.HashSet;

@@ -24,7 +24,7 @@ import okhttp3.HttpUrl;
 import okhttp3.MediaType;
 import okio.BufferedSource;
 import org.bitcoinj.utils.ExchangeRate;
-import org.bitcoinj.utils.Fiat;
+import org.bitcoinj.base.utils.Fiat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

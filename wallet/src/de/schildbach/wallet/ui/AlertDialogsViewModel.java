@@ -46,7 +46,7 @@ import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-import org.bitcoinj.core.Coin;
+import org.bitcoinj.base.Coin;
 import org.bitcoinj.params.MainNetParams;
 import org.bitcoinj.utils.ContextPropagatingThreadFactory;
 import org.slf4j.Logger;

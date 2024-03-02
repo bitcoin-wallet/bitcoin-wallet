@@ -33,7 +33,7 @@ import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.ui.AbstractWalletActivity;
 import de.schildbach.wallet.ui.Event;
 import de.schildbach.wallet.ui.HelpDialogFragment;
-import org.bitcoinj.core.Coin;
+import org.bitcoinj.base.Coin;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

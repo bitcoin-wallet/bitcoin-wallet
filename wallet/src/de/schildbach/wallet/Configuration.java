@@ -26,8 +26,8 @@ import com.google.common.base.Splitter;
 import com.google.common.base.Strings;
 import com.google.common.net.HostAndPort;
 import de.schildbach.wallet.util.Formats;
-import org.bitcoinj.core.Coin;
-import org.bitcoinj.utils.MonetaryFormat;
+import org.bitcoinj.base.Coin;
+import org.bitcoinj.base.utils.MonetaryFormat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

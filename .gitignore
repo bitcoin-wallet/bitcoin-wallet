@@ -11,3 +11,5 @@ local.properties
 *.iml
 bin/
 gen/
+.DS_STORE
+gradle/.DS_STORE
