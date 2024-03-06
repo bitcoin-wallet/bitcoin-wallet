@@ -177,7 +177,7 @@ public class AddressBookAdapter extends ListAdapter<AddressBookAdapter.ListItem,
             }
         }
 
-        private static final HashFunction ID_HASH = Hashing.farmHashFingerprint64();
+        private static final HashFunction ID_HASH = Hashing.goodFastHash(Long.SIZE);
     }
 
     public interface OnClickListener {

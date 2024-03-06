@@ -818,7 +818,7 @@ public final class SendCoinsFragment extends Fragment {
             }
 
             @Override
-            protected void onEmptyWalletFailed() {
+            protected void onEmptyWalletFailed(Exception exception) {
                 setState(SendCoinsViewModel.State.INPUT);
 
                 final DialogBuilder dialog = DialogBuilder.warn(activity,

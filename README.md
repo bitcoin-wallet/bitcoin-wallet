@@ -26,7 +26,7 @@ and unpack it to `$ANDROID_HOME/`.
 Finally, the last preparative step is acquiring the source code. Again in your workspace, use:
 
     # first time only
-    git clone -b master https://github.com/bitcoin-wallet/bitcoin-wallet.git bitcoin-wallet
+    git clone -b main https://github.com/bitcoin-wallet/bitcoin-wallet.git bitcoin-wallet
     cd bitcoin-wallet
 
 
