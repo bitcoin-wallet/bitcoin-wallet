@@ -54,10 +54,9 @@
                 android:showAsAction="never"
                 android:title="@string/import_keys_dialog_title" />
             <item
-                android:id="@+id/wallet_options_encrypt_keys"
+                android:id="@+id/wallet_options_protection"
                 android:showAsAction="never"
-                android:title="@string/encrypt_keys_dialog_title"
-                android:visible="false" />
+                android:title="@string/encrypt_keys_dialog_title"/>
         </menu>
     </item>
     <item

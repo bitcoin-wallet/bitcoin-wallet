@@ -19,6 +19,7 @@ package de.schildbach.wallet.util;
 
 import org.bitcoinj.params.MainNetParams;
 import org.bitcoinj.params.TestNet3Params;
+import org.bitcoinj.wallet.WalletProtobufSerializer;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -29,13 +30,15 @@ import java.io.IOException;
 public class WalletUtilsTest {
     @Test
     public void restoreWalletFromProtobufOrBase58() throws Exception {
-        WalletUtils.restoreWalletFromProtobuf(getClass().getResourceAsStream("backup-protobuf-testnet"),
+        WalletProtobufSerializer serializer = new WalletProtobufSerializer();
+        WalletUtils.restoreWalletFromProtobuf(serializer, getClass().getResourceAsStream("backup-protobuf-testnet"),
                 TestNet3Params.get());
     }
 
     @Test(expected = IOException.class)
     public void restoreWalletFromProtobuf_wrongNetwork() throws Exception {
-        WalletUtils.restoreWalletFromProtobuf(getClass().getResourceAsStream("backup-protobuf-testnet"),
+        WalletProtobufSerializer serializer = new WalletProtobufSerializer();
+        WalletUtils.restoreWalletFromProtobuf(serializer, getClass().getResourceAsStream("backup-protobuf-testnet"),
                 MainNetParams.get());
     }
 }

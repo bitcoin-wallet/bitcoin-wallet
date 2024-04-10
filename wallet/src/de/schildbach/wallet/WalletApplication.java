@@ -42,6 +42,8 @@ import com.google.common.hash.HashCode;
 import com.google.common.hash.Hasher;
 import com.google.common.hash.Hashing;
 import com.google.common.util.concurrent.SettableFuture;
+
+import de.schildbach.wallet.crypto.HWKeyCrypterFactory;
 import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.service.BlockchainState;
 import de.schildbach.wallet.ui.Event;
@@ -50,6 +52,7 @@ import de.schildbach.wallet.util.CrashReporter;
 import de.schildbach.wallet.util.Toast;
 import de.schildbach.wallet.util.WalletUtils;
 import org.bitcoinj.core.VersionMessage;
+import org.bitcoinj.crypto.KeyCrypterFactory;
 import org.bitcoinj.crypto.MnemonicCode;
 import org.bitcoinj.utils.ContextPropagatingThreadFactory;
 import org.bitcoinj.utils.Threading;
@@ -163,8 +166,9 @@ public class WalletApplication extends Application {
             public void run() {
                 synchronized (getWalletLock) {
                     initMnemonicCode();
-                    if (walletFiles == null)
+                    if (walletFiles == null) {
                         loadWalletFromProtobuf();
+                    }
                 }
                 listener.onWalletLoaded(walletFiles.getWallet());
             }
@@ -175,7 +179,10 @@ public class WalletApplication extends Application {
                 if (walletFile.exists()) {
                     try (final FileInputStream walletStream = new FileInputStream(walletFile)) {
                         final Stopwatch watch = Stopwatch.createStarted();
-                        wallet = new WalletProtobufSerializer().readWallet(walletStream);
+                        KeyCrypterFactory keyCrypterFactory = new HWKeyCrypterFactory(WalletApplication.this);
+                        WalletProtobufSerializer serializer = new WalletProtobufSerializer();
+                        serializer.setKeyCrypterFactory(keyCrypterFactory);
+                        wallet = serializer.readWallet(walletStream);
                         watch.stop();
 
                         if (!wallet.network().equals(Constants.NETWORK_PARAMETERS.network()))
@@ -212,7 +219,6 @@ public class WalletApplication extends Application {
                     WalletUtils.autoBackupWallet(WalletApplication.this, wallet); // ...and backup asap
                     watch.stop();
                     log.info("fresh {} wallet created, took {}", Constants.DEFAULT_OUTPUT_SCRIPT_TYPE, watch);
-
                     config.armBackupReminder();
                 }
             }

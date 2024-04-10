@@ -204,10 +204,11 @@ public class WalletUtils {
         }
     }
 
-    public static Wallet restoreWalletFromProtobuf(final InputStream is,
-            final NetworkParameters expectedNetworkParameters) throws IOException {
+    public static Wallet restoreWalletFromProtobuf(final WalletProtobufSerializer serializer,
+                                                   final InputStream is,
+                                                   final NetworkParameters expectedNetworkParameters) throws IOException {
         try {
-            final Wallet wallet = new WalletProtobufSerializer().readWallet(is, true, null);
+            final Wallet wallet = serializer.readWallet(is, true, null);
 
             if (!wallet.getParams().equals(expectedNetworkParameters))
                 throw new IOException("bad wallet backup network parameters: " + wallet.getParams().getId());

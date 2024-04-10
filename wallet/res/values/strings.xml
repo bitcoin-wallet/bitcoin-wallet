@@ -206,6 +206,7 @@
     <string name="export_keys_dialog_title">Back up wallet</string>
     <string name="backup_wallet_dialog_message">Your backup will be encrypted with the chosen password and written to external storage.</string>
     <string name="backup_wallet_dialog_warning_encrypted">Your wallet is protected by a spending PIN. Make sure you remember the PIN in addition to the backup password!</string>
+    <string name="backup_wallet_dialog_warning_hw_encrypted">Your wallet is secured with hardware (HW) encryption, which is linked specifically to your device. The backup of your wallet will be protected solely by the backup password, enabling it to be imported on other devices. Please ensure you remember the backup password and reactivate HW encryption after importing the backup file!</string>
     <string name="export_keys_dialog_button_export">Back up</string>
     <string name="export_keys_dialog_success"><![CDATA[<p>Your wallet has been backed up to <tt>%s</tt></p><p><b>If the only place your backup exists is on your device, you run the risk of losing both at the same time!</b></p><p>In any case, make sure you remember your backup password.</p>]]></string>
     <string name="export_keys_dialog_failure">Your wallet could not be backed up:\n%s</string>
@@ -215,9 +216,13 @@
     <string name="import_export_keys_dialog_show">Show password</string>
     <string name="import_export_keys_dialog_failure_title">Error</string>
     <string name="import_keys_intent_filter_action">Restore wallet</string>
-    <string name="encrypt_keys_dialog_title">Spending PIN</string>
-    <string name="encrypt_keys_dialog_message">Spending from your wallet will be protected with the chosen PIN.</string>
-    <string name="encrypt_keys_dialog_warning">Important: You need to remember your PIN! Do not use common numbers (like birthdates).</string>
+    <string name="encrypt_keys_dialog_title">Wallet protection</string>
+    <string name="encrypt_keys_dialog_radio_spending_pin">Spending PIN</string>
+    <string name="encrypt_keys_dialog_radio_hardware_encryption">Hardware encryption</string>
+    <string name="encrypt_keys_dialog_message_keystore">Spending from your wallet will require biometric authentication (fingerprint, iris, face scan).</string>
+    <string name="encrypt_keys_dialog_message_spending_pin">Spending from your wallet will be protected with the chosen PIN.</string>
+    <string name="encrypt_keys_dialog_warning_spending_pin">Important: You need to remember your PIN! Do not use common numbers (like birthdates).</string>
+    <string name="encrypt_keys_dialog_warning_keystore">Important: Your encryption key will be bound to your device. Be sure to make a back up to avoid losing access to your funds if the device is lost.</string>
     <string name="encrypt_keys_dialog_password_old">Old PIN</string>
     <string name="encrypt_keys_dialog_password_strength_weak">weak</string>
     <string name="encrypt_keys_dialog_password_strength_fair">fair</string>
@@ -339,6 +344,22 @@
     <string name="notification_channel_ongoing_name">Background activity</string>
     <string name="notification_channel_important_name">Important alerts</string>
     <string name="appwidget_wallet_balance_title">Bitcoin balance</string>
+    <string name="biometric_hardward_not_available">No biometric hardware available</string>
+    <string name="biometric_hardward_not_available_info">This device does not support biometric authentication. Please use Spending PIN instead of KeyStore encryption</string>
+    <string name="biometric_hardward_currently_not_available">Biometric hardware is currently unavailable</string>
+    <string name="biometric_auth_not_enrolled">Biometric authentication not enrolled</string>
+    <string name="biometric_auth_not_enrolled_info">Please enroll biometric authentication to use KeyStore encryption</string>
+    <string name="biometric_update_required">Security update required</string>
+    <string name="biometric_update_required_info">A security update is required to use KeyStore encryption with biometric authentication</string>
+    <string name="biometric_unsupported_version">Unsupported android version</string>
+    <string name="biometric_unsupported_version_info">This android version does not support the required strong biometric authentication (fingerprint, iris, or face)</string>
+    <string name="biometric_unknown_error">Unknown error</string>
+    <string name="biometric_unknown_error_info">An unknown error occurred. Please make sure this device supports strong biometric authentication (fingerprint, iris, or face)</string>
+    <string name="biometric_auth">Biometric Authentication</string>
+    <string name="biometric_auth_required_info">Authentication is required to continue</string>
+    <string name="biometric_auth_utilised_info">This app uses biometric authentication to protect your data.</string>
+    <string name="biometric_auth_cancelled">Authentication cancelled</string>
+
 
     <!-- generic buttons -->
     <string name="button_ok">OK</string>

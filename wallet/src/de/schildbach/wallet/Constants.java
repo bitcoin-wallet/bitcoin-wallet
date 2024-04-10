@@ -131,8 +131,6 @@ public final class Constants {
     public static final String DEFAULT_EXCHANGE_CURRENCY = "USD";
 
     /** Donation address for tip/donate action. */
-    //public static final String DONATION_ADDRESS = NETWORK_PARAMETERS.getId().equals(NetworkParameters.ID_MAINNET)
-    //? "bc1qdde452znpy4lpksqt766hskkmpxcw6cp0s4jvk" : null;
     public static final String DONATION_ADDRESS = NETWORK_PARAMETERS.getId().equals(BitcoinNetwork.ID_MAINNET)
             ? "bc1q6swnv7p95wvxwdpld8f6a8zrzxwmaumh2qg2n4" : null;
 
@@ -209,6 +207,12 @@ public final class Constants {
     /** Desired number of scrypt iterations for deriving the spending PIN */
     public static final int SCRYPT_ITERATIONS_TARGET = 65536;
     public static final int SCRYPT_ITERATIONS_TARGET_LOWRAM = 32768;
+
+    /** KeyStore Key Reference */
+    public static final String KEY_STORE_KEY_REF = "BitcoinWalletKey";
+    /** KeyStore Provider */
+    public static final String KEY_STORE_PROVIDER = "AndroidKeyStore";
+    public static final String KEY_STORE_TRANSFORMATION = "AES/GCM/NoPadding";
 
     /** Default ports for Electrum servers */
     public static final int ELECTRUM_SERVER_DEFAULT_PORT_TCP = NETWORK_PARAMETERS.getId()
