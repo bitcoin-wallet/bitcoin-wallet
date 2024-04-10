@@ -19,7 +19,7 @@ package de.schildbach.wallet.ui;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-import org.bitcoinj.core.Address;
+import org.bitcoinj.base.Address;
 
 /**
  * @author Andreas Schildbach

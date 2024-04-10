@@ -39,12 +39,14 @@ import de.schildbach.wallet.ui.WalletActivity;
 import de.schildbach.wallet.ui.send.SendCoinsActivity;
 import de.schildbach.wallet.util.GenericUtils;
 import de.schildbach.wallet.util.MonetarySpannable;
-import org.bitcoinj.core.Coin;
+
+import org.bitcoinj.base.BitcoinNetwork;
+import org.bitcoinj.base.Coin;
 import org.bitcoinj.core.NetworkParameters;
 import org.bitcoinj.utils.ContextPropagatingThreadFactory;
 import org.bitcoinj.utils.ExchangeRate;
-import org.bitcoinj.utils.Fiat;
-import org.bitcoinj.utils.MonetaryFormat;
+import org.bitcoinj.base.utils.Fiat;
+import org.bitcoinj.base.utils.MonetaryFormat;
 import org.bitcoinj.wallet.Wallet.BalanceType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -141,7 +143,7 @@ public class WalletBalanceWidgetProvider extends AppWidgetProvider {
                     new ForegroundColorSpan(context.getColor(R.color.fg_insignificant_darkdefault)) };
             localBalanceStr = new MonetarySpannable(localFormat, localBalance).applyMarkup(prefixSpans,
                     MonetarySpannable.STANDARD_INSIGNIFICANT_SPANS);
-            if (!Constants.NETWORK_PARAMETERS.getId().equals(NetworkParameters.ID_MAINNET))
+            if (!Constants.NETWORK_PARAMETERS.getId().equals(BitcoinNetwork.ID_MAINNET))
                 localBalanceStr.setSpan(STRIKE_THRU_SPAN, 0, localBalanceStr.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         } else {
             localBalanceStr = null;

@@ -44,9 +44,10 @@ import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.ui.AbstractWalletActivity;
 import de.schildbach.wallet.ui.DialogBuilder;
 import de.schildbach.wallet.util.WalletUtils;
-import org.bitcoinj.core.Coin;
+import org.bitcoinj.base.Coin;
 import org.bitcoinj.core.Transaction;
-import org.bitcoinj.utils.MonetaryFormat;
+import org.bitcoinj.base.utils.MonetaryFormat;
+import org.bitcoinj.crypto.AesKey;
 import org.bitcoinj.wallet.DeterministicUpgradeRequiresPassword;
 import org.bitcoinj.wallet.Wallet;
 import org.bouncycastle.crypto.params.KeyParameter;
@@ -197,7 +198,7 @@ public class MaintenanceDialogFragment extends DialogFragment {
         if (wallet.isEncrypted()) {
             new DeriveKeyTask(backgroundHandler, application.scryptIterationsTarget()) {
                 @Override
-                protected void onSuccess(final KeyParameter encryptionKey, final boolean wasChanged) {
+                protected void onSuccess(final AesKey encryptionKey, final boolean wasChanged) {
                     if (wasChanged)
                         WalletUtils.autoBackupWallet(activity, wallet);
                     doMaintenance(encryptionKey);
@@ -210,7 +211,7 @@ public class MaintenanceDialogFragment extends DialogFragment {
         }
     }
 
-    private void doMaintenance(final KeyParameter encryptionKey) {
+    private void doMaintenance(final AesKey encryptionKey) {
         backgroundHandler.post(() -> {
             org.bitcoinj.core.Context.propagate(Constants.CONTEXT);
 

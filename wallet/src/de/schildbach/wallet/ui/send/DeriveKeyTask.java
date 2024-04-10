@@ -20,6 +20,8 @@ package de.schildbach.wallet.ui.send;
 import android.os.Handler;
 import android.os.Looper;
 import de.schildbach.wallet.Constants;
+
+import org.bitcoinj.crypto.AesKey;
 import org.bitcoinj.crypto.KeyCrypter;
 import org.bitcoinj.crypto.KeyCrypterScrypt;
 import org.bitcoinj.wallet.Wallet;
@@ -54,7 +56,7 @@ public abstract class DeriveKeyTask {
             org.bitcoinj.core.Context.propagate(Constants.CONTEXT);
 
             // Key derivation takes time.
-            KeyParameter key = keyCrypter.deriveKey(password);
+            AesKey key = keyCrypter.deriveKey(password);
             boolean wasChanged = false;
 
             // If the key isn't derived using the desired parameters, derive a new key.
@@ -66,7 +68,7 @@ public abstract class DeriveKeyTask {
                             scryptIterationsTarget);
 
                     final KeyCrypterScrypt newKeyCrypter = new KeyCrypterScrypt(scryptIterationsTarget);
-                    final KeyParameter newKey = newKeyCrypter.deriveKey(password);
+                    final AesKey newKey = newKeyCrypter.deriveKey(password);
 
                     // Re-encrypt wallet with new key.
                     try {
@@ -81,11 +83,11 @@ public abstract class DeriveKeyTask {
             }
 
             // Hand back the (possibly changed) encryption key.
-            final KeyParameter keyToReturn = key;
+            final AesKey keyToReturn = key;
             final boolean keyToReturnWasChanged = wasChanged;
             callbackHandler.post(() -> onSuccess(keyToReturn, keyToReturnWasChanged));
         });
     }
 
-    protected abstract void onSuccess(KeyParameter encryptionKey, boolean changed);
+    protected abstract void onSuccess(AesKey encryptionKey, boolean changed);
 }

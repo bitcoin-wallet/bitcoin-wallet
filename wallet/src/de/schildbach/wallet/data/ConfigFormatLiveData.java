@@ -21,7 +21,7 @@ import android.content.SharedPreferences;
 import androidx.lifecycle.LiveData;
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.WalletApplication;
-import org.bitcoinj.utils.MonetaryFormat;
+import org.bitcoinj.base.utils.MonetaryFormat;
 
 /**
  * @author Andreas Schildbach

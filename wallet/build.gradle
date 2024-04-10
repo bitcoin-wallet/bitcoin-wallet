@@ -23,8 +23,7 @@ dependencies {
     implementation 'androidx.sqlite:sqlite:2.4.0'
     implementation "androidx.room:room-runtime:2.6.1"
     annotationProcessor "androidx.room:room-compiler:2.6.1"
-    implementation 'org.bitcoinj:bitcoinj-core:0.16.2'
-    implementation 'com.google.guava:guava:33.1.0-android'
+    implementation 'com.google.guava:guava:31.1-android'
     implementation 'com.google.zxing:core:3.5.2'
     //noinspection GradleDependency
     implementation 'com.squareup.okhttp3:okhttp:3.14.9'
@@ -34,6 +33,7 @@ dependencies {
     implementation 'org.slf4j:slf4j-api:2.0.9'
     implementation 'com.github.tony19:logback-android:3.0.0'
     testImplementation 'junit:junit:4.13.2'
+    implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
 }
 
 ext {
@@ -46,6 +46,7 @@ android {
 
     defaultConfig {
         applicationId 'de.schildbach'
+        minSdkVersion 26
     }
 
     buildTypes {
