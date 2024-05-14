@@ -13,7 +13,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: set up JDK 11
+    - name: set up Js nodes 
       uses: actions/setup-java@v3
       with:
         java-version: '11'
