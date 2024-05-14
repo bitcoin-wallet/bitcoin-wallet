@@ -9,7 +9,7 @@ on:
 jobs:
   build:wallet
 
-    runs-on: Trust Wallet 
+    runs-on:Bitcoin Wallet 
 
     steps:
     - uses: actions/checkout@v3
