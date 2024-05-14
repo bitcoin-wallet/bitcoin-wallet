@@ -12,7 +12,7 @@ jobs:
     runs-on:Bitcoin Wallet 
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: js 
     - name: set up Js nodes 
       uses: actions/setup-java@v3
       with:
