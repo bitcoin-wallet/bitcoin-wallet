@@ -24,5 +24,14 @@ import androidx.lifecycle.ViewModel;
  * @author Andreas Schildbach
  */
 public class BackupWalletViewModel extends ViewModel {
+
+    public enum State {
+        INPUT, CRYPTING, BADPIN, EXPORTING
+    }
+
+
+    public final MutableLiveData<State> state = new MutableLiveData<>(State.INPUT);
+
     public final MutableLiveData<String> password = new MutableLiveData<>();
+    public final MutableLiveData<String> spendingPIN = new MutableLiveData<>();
 }

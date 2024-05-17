@@ -51,9 +51,13 @@ import de.schildbach.wallet.ui.ShowPasswordCheckListener;
 import de.schildbach.wallet.util.Crypto;
 import de.schildbach.wallet.util.Toast;
 import de.schildbach.wallet.util.WalletUtils;
+
+import org.bitcoinj.crypto.KeyCrypter;
+import org.bitcoinj.crypto.KeyCrypterScrypt;
 import org.bitcoinj.wallet.Protos;
 import org.bitcoinj.wallet.Wallet;
 import org.bitcoinj.wallet.WalletProtobufSerializer;
+import org.bouncycastle.crypto.params.KeyParameter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -64,12 +68,12 @@ import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.Writer;
 import java.nio.charset.StandardCharsets;
-import java.text.DateFormat;
 import java.time.Instant;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.TimeZone;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 import static com.google.common.base.Preconditions.checkState;
 
@@ -92,11 +96,16 @@ public class BackupWalletDialogFragment extends DialogFragment {
     private View passwordMismatchView;
     private CheckBox showView;
     private TextView warningView;
+    private View spendingPINViewGroup;
+    private EditText spendingPINView;
+    private TextView badSpendingPINView;
     private Button positiveButton, negativeButton;
-
+    private boolean spendingPINSet =  false;
+    private String pin;
+    private Executor executor = Executors.newSingleThreadExecutor();
+    private Wallet wallet;
     private AbstractWalletActivityViewModel walletActivityViewModel;
     private BackupWalletViewModel viewModel;
-
     private static final Logger log = LoggerFactory.getLogger(BackupWalletDialogFragment.class);
 
     private final ActivityResultLauncher<String> createDocumentLauncher =
@@ -136,6 +145,10 @@ public class BackupWalletDialogFragment extends DialogFragment {
                                         log.error("problem backing up wallet to " + uri, x);
                                         ErrorDialogFragment.showDialog(getParentFragmentManager(), x.toString());
                                         return;
+                                    } finally {
+                                        if (badEncryptionState()) {
+                                            reEncryptWallet();
+                                        }
                                     }
 
                                     try (final Reader cipherIn = new InputStreamReader(
@@ -169,10 +182,25 @@ public class BackupWalletDialogFragment extends DialogFragment {
                         }
                     });
 
-    private final TextWatcher textWatcher = new TextWatcher() {
+    private final TextWatcher passwordTextWatcher = new TextWatcher() {
         @Override
         public void onTextChanged(final CharSequence s, final int start, final int before, final int count) {
             viewModel.password.postValue(s.toString().trim());
+        }
+
+        @Override
+        public void beforeTextChanged(final CharSequence s, final int start, final int count, final int after) {
+        }
+
+        @Override
+        public void afterTextChanged(final Editable s) {
+        }
+    };
+
+    private final TextWatcher spendingPINTextWatcher = new TextWatcher() {
+        @Override
+        public void onTextChanged(final CharSequence s, final int start, final int before, final int count) {
+            viewModel.spendingPIN.postValue(s.toString().trim());
         }
 
         @Override
@@ -189,6 +217,7 @@ public class BackupWalletDialogFragment extends DialogFragment {
         super.onAttach(context);
         this.activity = (AbstractWalletActivity) context;
         this.application = activity.getWalletApplication();
+        this.wallet = application.getWallet();
     }
 
     @Override
@@ -216,7 +245,17 @@ public class BackupWalletDialogFragment extends DialogFragment {
 
         showView = view.findViewById(R.id.backup_wallet_dialog_show);
 
+        spendingPINViewGroup = view.findViewById(R.id.backup_wallet_dialog_spending_pin_group);
+        spendingPINView = view.findViewById(R.id.backup_wallet_dialog_spending_pin);
+        badSpendingPINView = view.findViewById(R.id.backup_wallet_dialog_bad_spending_pin);
+
         warningView = view.findViewById(R.id.backup_wallet_dialog_warning_encrypted);
+
+        if (wallet.isEncrypted()) {
+            warningView.setVisibility(wallet.isEncrypted() ? View.VISIBLE : View.GONE);
+            spendingPINViewGroup.setVisibility(wallet.isEncrypted() ? View.VISIBLE : View.GONE);
+            spendingPINSet =wallet.isEncrypted();
+        }
 
         final DialogBuilder builder = DialogBuilder.custom(activity, R.string.export_keys_dialog_title, view);
         // dummies, just to make buttons show
@@ -237,13 +276,23 @@ public class BackupWalletDialogFragment extends DialogFragment {
                 activity.finish();
             });
 
-            passwordView.addTextChangedListener(textWatcher);
-            passwordAgainView.addTextChangedListener(textWatcher);
-
+            passwordView.addTextChangedListener(passwordTextWatcher);
+            passwordAgainView.addTextChangedListener(passwordTextWatcher);
+            spendingPINView.addTextChangedListener(spendingPINTextWatcher);
             showView.setOnCheckedChangeListener(new ShowPasswordCheckListener(passwordView, passwordAgainView));
 
-            walletActivityViewModel.wallet.observe(BackupWalletDialogFragment.this,
-                    wallet -> warningView.setVisibility(wallet.isEncrypted() ? View.VISIBLE : View.GONE));
+            viewModel.spendingPIN.observe(BackupWalletDialogFragment.this, spendingPIN -> {
+                badSpendingPINView.setVisibility(View.INVISIBLE);
+                if (positiveButton != null) {
+                    positiveButton.setEnabled(preConditionsSatisfied());
+                }
+
+            });
+
+            viewModel.state.observe(BackupWalletDialogFragment.this, state -> {
+                updateView();
+            });
+
             viewModel.password.observe(BackupWalletDialogFragment.this, password -> {
                 passwordMismatchView.setVisibility(View.INVISIBLE);
 
@@ -268,10 +317,7 @@ public class BackupWalletDialogFragment extends DialogFragment {
                 }
 
                 if (positiveButton != null) {
-                    final Wallet wallet = walletActivityViewModel.wallet.getValue();
-                    final boolean hasPassword = !password.isEmpty();
-                    final boolean hasPasswordAgain = !passwordAgainView.getText().toString().trim().isEmpty();
-                    positiveButton.setEnabled(wallet != null && hasPassword && hasPasswordAgain);
+                    positiveButton.setEnabled(preConditionsSatisfied());
                 }
             });
         });
@@ -281,8 +327,9 @@ public class BackupWalletDialogFragment extends DialogFragment {
 
     @Override
     public void onDismiss(final DialogInterface dialog) {
-        passwordView.removeTextChangedListener(textWatcher);
-        passwordAgainView.removeTextChangedListener(textWatcher);
+        passwordView.removeTextChangedListener(passwordTextWatcher);
+        passwordAgainView.removeTextChangedListener(passwordTextWatcher);
+        spendingPINView.removeTextChangedListener(spendingPINTextWatcher);
 
         showView.setOnCheckedChangeListener(null);
 
@@ -293,6 +340,11 @@ public class BackupWalletDialogFragment extends DialogFragment {
 
     @Override
     public void onCancel(final DialogInterface dialog) {
+        // re-encrypt wallet if it was previously decrypted
+        if (badEncryptionState()) {
+            reEncryptWallet();
+        }
+
         activity.finish();
         super.onCancel(dialog);
     }
@@ -302,15 +354,115 @@ public class BackupWalletDialogFragment extends DialogFragment {
         final String passwordAgain = passwordAgainView.getText().toString().trim();
 
         if (passwordAgain.equals(password)) {
-            backupWallet();
+
+            if (wallet.isEncrypted()) {
+                setState(BackupWalletViewModel.State.CRYPTING);
+
+                executor.execute(() -> {
+                    final String inputPIN = spendingPINView.getText().toString().trim();
+
+                    try {
+                        final KeyCrypter keyCrypter = wallet.getKeyCrypter();
+                        final KeyParameter derivedAesKey = keyCrypter.deriveKey(inputPIN);
+                        wallet.decrypt(derivedAesKey);
+                        pin = inputPIN;
+
+                        log.info("wallet successfully decrypted for back up");
+                        setState(BackupWalletViewModel.State.EXPORTING);
+                        backupWallet();
+
+                    } catch (final Wallet.BadWalletEncryptionKeyException x) {
+                        log.info("wallet decryption failed, bad spending password: " + x.getMessage());
+                        setState(BackupWalletViewModel.State.BADPIN);
+                    }
+                });
+            } else {
+                setState(BackupWalletViewModel.State.EXPORTING);
+                backupWallet();
+                setState(BackupWalletViewModel.State.INPUT);
+            }
         } else {
             passwordMismatchView.setVisibility(View.VISIBLE);
+            setState(BackupWalletViewModel.State.INPUT);
         }
+    }
+
+    private void setState(final BackupWalletViewModel.State state) {
+        viewModel.state.postValue(state);
+    }
+
+    private void updateView() {
+
+        BackupWalletViewModel.State currentState = viewModel.state.getValue();
+
+        if (currentState == BackupWalletViewModel.State.INPUT || currentState ==BackupWalletViewModel.State.BADPIN) {
+            showView.setEnabled(true);
+            negativeButton.setEnabled(true); // prevent the user from cancelling in a decrypted wallet state
+            positiveButton.setEnabled(preConditionsSatisfied());
+            positiveButton.setText(R.string.export_keys_dialog_button_export);
+            spendingPINView.setEnabled(true);
+            passwordView.setEnabled(true);
+            passwordAgainView.setEnabled(true);
+            if (currentState ==BackupWalletViewModel.State.BADPIN) {
+                badSpendingPINView.setVisibility(View.VISIBLE);
+            }
+        } else if (currentState == BackupWalletViewModel.State.CRYPTING) {
+            negativeButton.setEnabled(false); // prevent the user from cancelling in a decrypted wallet state
+            showView.setEnabled(false);
+            positiveButton.setEnabled(false);
+            positiveButton.setText(R.string.backup_wallet_dialog_state_verifying);
+            spendingPINView.setEnabled(false);
+            passwordView.setEnabled(false);
+            passwordAgainView.setEnabled(false);
+        } else if (currentState == BackupWalletViewModel.State.EXPORTING) {
+            negativeButton.setEnabled(true);
+            positiveButton.setEnabled(false);
+            positiveButton.setText(R.string.backup_wallet_dialog_state_verifying);
+            spendingPINView.setEnabled(false);
+            passwordView.setEnabled(false);
+            passwordAgainView.setEnabled(false);
+        }
+    }
+
+    private boolean isSpendingPINPlausible() {
+        if (wallet == null)
+            return false;
+        if (!wallet.isEncrypted())
+            return true;
+        return !spendingPINView.getText().toString().trim().isEmpty();
+    }
+    private void reEncryptWallet() {
+        executor.execute(() -> {
+            checkState(!wallet.isEncrypted());
+
+            try {
+                checkState(!pin.isEmpty());
+                final KeyCrypterScrypt keyCrypter = new KeyCrypterScrypt(application.scryptIterationsTarget());
+                final KeyParameter aesKey = keyCrypter.deriveKey(pin);
+
+                wallet.encrypt(keyCrypter , aesKey);
+                log.info("wallet successfully decrypted");
+            } catch (final Wallet.BadWalletEncryptionKeyException x) {
+                log.error("wallet decryption failed, bad spending password");
+            }
+
+        });
+    }
+
+    private boolean badEncryptionState() {
+        return !spendingPINSet ? false : !wallet.isEncrypted();
+    }
+
+    private boolean preConditionsSatisfied() {
+        final boolean hasPassword = !passwordView.getText().toString().trim().isEmpty();
+        final boolean hasPasswordAgain = !passwordAgainView.getText().toString().trim().isEmpty();
+        return wallet != null && hasPassword && hasPasswordAgain && isSpendingPINPlausible();
     }
 
     private void wipePasswords() {
         passwordView.setText(null);
         passwordAgainView.setText(null);
+        spendingPINView.setText(null);
     }
 
     private void backupWallet() {
