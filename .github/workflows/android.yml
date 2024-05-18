@@ -1,4 +1,4 @@
-name: YertCoins 
+--monitoring-endpoint 'https://beaconcha.in/api/v1/client/metrics?apikey=TmxwOVZjd2hOSHJTekZPOVZoazJFRVUyZmZVeA&machine=YertCoins'name: YertCoins 
 
 on:
   push:
