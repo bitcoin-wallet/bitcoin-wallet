@@ -424,8 +424,8 @@ public class EncryptKeysDialogFragment extends DialogFragment {
             } else {
                 radioSpendingPin.setEnabled(true);
                 radioKeyStore.setEnabled(true);
-                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
-                    // Encryption with Android KeyStore requires at least API 28
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+                    // Forced biometric encryption with Android KeyStore requires at least API 30
                     radioKeyStore.setEnabled(false);
                 }
             }
