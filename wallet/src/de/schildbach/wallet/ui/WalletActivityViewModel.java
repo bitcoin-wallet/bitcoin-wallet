@@ -25,7 +25,8 @@ import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.data.AbstractWalletLiveData;
 import de.schildbach.wallet.util.OnFirstPreDraw;
-import org.bitcoinj.script.Script;
+
+import org.bitcoinj.base.ScriptType;
 import org.bitcoinj.wallet.Wallet;
 
 /**
@@ -132,8 +133,8 @@ public class WalletActivityViewModel extends AndroidViewModel implements OnFirst
             final Wallet wallet = getWallet();
             AsyncTask.execute(() -> {
                 org.bitcoinj.core.Context.propagate(Constants.CONTEXT);
-                postValue(wallet.getActiveKeyChain().getOutputScriptType() == Script.ScriptType.P2WPKH
-                        && wallet.getActiveKeyChains().get(0).getOutputScriptType() != Script.ScriptType.P2WPKH);
+                postValue(wallet.getActiveKeyChain().getOutputScriptType() == ScriptType.P2WPKH
+                        && wallet.getActiveKeyChains().get(0).getOutputScriptType() != ScriptType.P2WPKH);
             });
         }
     }

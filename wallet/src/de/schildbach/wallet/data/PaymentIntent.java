@@ -25,9 +25,9 @@ import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.util.Bluetooth;
 import de.schildbach.wallet.util.GenericUtils;
 import de.schildbach.wallet.util.WalletUtils;
-import org.bitcoinj.core.Address;
-import org.bitcoinj.core.AddressFormatException;
-import org.bitcoinj.core.Coin;
+import org.bitcoinj.base.Address;
+import org.bitcoinj.base.exceptions.AddressFormatException;
+import org.bitcoinj.base.Coin;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.protocols.payments.PaymentProtocol;
 import org.bitcoinj.protocols.payments.PaymentProtocolException;
@@ -65,7 +65,7 @@ public final class PaymentIntent implements Parcelable {
         public static Output valueOf(final PaymentProtocol.Output output)
                 throws PaymentProtocolException.InvalidOutputs {
             try {
-                final Script script = new Script(output.scriptData);
+                final Script script = Script.parse(output.scriptData);
                 return new PaymentIntent.Output(output.amount, script);
             } catch (final ScriptException x) {
                 throw new PaymentProtocolException.InvalidOutputs(
@@ -137,7 +137,7 @@ public final class PaymentIntent implements Parcelable {
             final int programLength = in.readInt();
             final byte[] program = new byte[programLength];
             in.readByteArray(program);
-            script = new Script(program);
+            script = Script.parse(program);
         }
     }
 

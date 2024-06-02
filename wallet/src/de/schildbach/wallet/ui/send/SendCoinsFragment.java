@@ -70,6 +70,7 @@ import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.addressbook.AddressBookDao;
 import de.schildbach.wallet.addressbook.AddressBookDatabase;
 import de.schildbach.wallet.addressbook.AddressBookEntry;
+import de.schildbach.wallet.crypto.HWKeyCrypter;
 import de.schildbach.wallet.data.PaymentIntent;
 import de.schildbach.wallet.data.PaymentIntent.Standard;
 import de.schildbach.wallet.offline.DirectPaymentTask;
@@ -90,18 +91,21 @@ import de.schildbach.wallet.ui.scan.ScanActivity;
 import de.schildbach.wallet.util.Bluetooth;
 import de.schildbach.wallet.util.Nfc;
 import de.schildbach.wallet.util.WalletUtils;
-import org.bitcoin.protocols.payments.Protos.Payment;
-import org.bitcoinj.core.Address;
-import org.bitcoinj.core.AddressFormatException;
-import org.bitcoinj.core.Coin;
+
+import org.bitcoinj.crypto.AesKey;
+import org.bitcoinj.protobuf.payments.Protos.Payment;
+import org.bitcoinj.base.Address;
+import org.bitcoinj.base.exceptions.AddressFormatException;
+import org.bitcoinj.base.Coin;
 import org.bitcoinj.core.InsufficientMoneyException;
-import org.bitcoinj.core.PrefixedChecksummedBytes;
+
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.TransactionConfidence;
 import org.bitcoinj.core.TransactionConfidence.ConfidenceType;
 import org.bitcoinj.core.VerificationException;
+import org.bitcoinj.crypto.EncodedPrivateKey;
 import org.bitcoinj.protocols.payments.PaymentProtocol;
-import org.bitcoinj.utils.MonetaryFormat;
+import org.bitcoinj.base.utils.MonetaryFormat;
 import org.bitcoinj.utils.Threading;
 import org.bitcoinj.wallet.KeyChain.KeyPurpose;
 import org.bitcoinj.wallet.SendRequest;
@@ -109,7 +113,6 @@ import org.bitcoinj.wallet.Wallet;
 import org.bitcoinj.wallet.Wallet.BalanceType;
 import org.bitcoinj.wallet.Wallet.CouldNotAdjustDownwards;
 import org.bitcoinj.wallet.Wallet.DustySendRequested;
-import org.bouncycastle.crypto.params.KeyParameter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -632,7 +635,9 @@ public final class SendCoinsFragment extends Fragment {
         final Wallet wallet = walletActivityViewModel.wallet.getValue();
         if (wallet == null)
             return false;
-        if (!wallet.isEncrypted())
+        if (!wallet.isEncrypted() && !(wallet.getKeyCrypter() instanceof HWKeyCrypter))
+            return true;
+        if (wallet.getKeyCrypter() instanceof HWKeyCrypter)
             return true;
         return !privateKeyPasswordView.getText().toString().trim().isEmpty();
     }
@@ -659,10 +664,10 @@ public final class SendCoinsFragment extends Fragment {
         privateKeyBadPasswordView.setVisibility(View.INVISIBLE);
 
         final Wallet wallet = walletActivityViewModel.wallet.getValue();
-        if (wallet.isEncrypted()) {
+        if (wallet.isEncrypted() && !(wallet.getKeyCrypter() instanceof HWKeyCrypter)) {
             new DeriveKeyTask(backgroundHandler, application.scryptIterationsTarget()) {
                 @Override
-                protected void onSuccess(final KeyParameter encryptionKey, final boolean wasChanged) {
+                protected void onSuccess(final AesKey encryptionKey, final boolean wasChanged) {
                     if (wasChanged)
                         WalletUtils.autoBackupWallet(activity, wallet);
                     signAndSendPayment(encryptionKey);
@@ -670,12 +675,15 @@ public final class SendCoinsFragment extends Fragment {
             }.deriveKey(wallet, privateKeyPasswordView.getText().toString().trim());
 
             setState(SendCoinsViewModel.State.DECRYPTING);
+        } else if (wallet.isEncrypted() && wallet.getKeyCrypter() instanceof HWKeyCrypter) {
+            AesKey unusedAesKey = new AesKey(new byte[0]);
+            signAndSendPayment(unusedAesKey);
         } else {
             signAndSendPayment(null);
         }
     }
 
-    private void signAndSendPayment(final KeyParameter encryptionKey) {
+    private void signAndSendPayment(final AesKey encryptionKey) {
         setState(SendCoinsViewModel.State.SIGNING);
 
         // final payment intent
@@ -1045,7 +1053,7 @@ public final class SendCoinsFragment extends Fragment {
 
             final boolean privateKeyPasswordViewVisible = (viewModel.state == SendCoinsViewModel.State.INPUT
                     || viewModel.state == SendCoinsViewModel.State.DECRYPTING) && wallet != null
-                    && wallet.isEncrypted();
+                    && wallet.isEncrypted() && !(wallet.getKeyCrypter() instanceof HWKeyCrypter);
             privateKeyPasswordViewGroup.setVisibility(privateKeyPasswordViewVisible ? View.VISIBLE : View.GONE);
             privateKeyPasswordView.setEnabled(viewModel.state == SendCoinsViewModel.State.INPUT);
 
@@ -1094,7 +1102,7 @@ public final class SendCoinsFragment extends Fragment {
             }
 
             @Override
-            protected void handlePrivateKey(final PrefixedChecksummedBytes key) {
+            protected void handlePrivateKey(final EncodedPrivateKey key) {
                 throw new UnsupportedOperationException();
             }
 

@@ -5,7 +5,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.1.4'
+        classpath 'com.android.tools.build:gradle:4.2.2'
         //noinspection GradleDependency
         classpath 'net.sf.proguard:proguard-gradle:6.2.2'
         classpath('fr.avianey.androidsvgdrawable:gradle-plugin:3.0.2') {

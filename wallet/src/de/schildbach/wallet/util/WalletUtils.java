@@ -28,15 +28,15 @@ import androidx.annotation.Nullable;
 import com.google.common.base.Stopwatch;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.service.BlockchainService;
-import org.bitcoinj.core.Address;
+import org.bitcoinj.base.Address;
 import org.bitcoinj.core.NetworkParameters;
-import org.bitcoinj.core.Sha256Hash;
+import org.bitcoinj.base.Sha256Hash;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.TransactionInput;
 import org.bitcoinj.core.TransactionOutput;
 import org.bitcoinj.script.Script;
 import org.bitcoinj.script.ScriptException;
-import org.bitcoinj.wallet.Protos;
+import org.bitcoinj.protobuf.wallet.Protos;
 import org.bitcoinj.wallet.UnreadableWalletException;
 import org.bitcoinj.wallet.Wallet;
 import org.bitcoinj.wallet.WalletProtobufSerializer;
@@ -204,10 +204,11 @@ public class WalletUtils {
         }
     }
 
-    public static Wallet restoreWalletFromProtobuf(final InputStream is,
-            final NetworkParameters expectedNetworkParameters) throws IOException {
+    public static Wallet restoreWalletFromProtobuf(final WalletProtobufSerializer serializer,
+                                                   final InputStream is,
+                                                   final NetworkParameters expectedNetworkParameters) throws IOException {
         try {
-            final Wallet wallet = new WalletProtobufSerializer().readWallet(is, true, null);
+            final Wallet wallet = serializer.readWallet(is, true, null);
 
             if (!wallet.getParams().equals(expectedNetworkParameters))
                 throw new IOException("bad wallet backup network parameters: " + wallet.getParams().getId());

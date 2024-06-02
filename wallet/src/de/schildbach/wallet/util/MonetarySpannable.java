@@ -24,8 +24,8 @@ import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
 import androidx.annotation.Nullable;
 import de.schildbach.wallet.Constants;
-import org.bitcoinj.core.Monetary;
-import org.bitcoinj.utils.MonetaryFormat;
+import org.bitcoinj.base.Monetary;
+import org.bitcoinj.base.utils.MonetaryFormat;
 
 import java.util.regex.Matcher;
 

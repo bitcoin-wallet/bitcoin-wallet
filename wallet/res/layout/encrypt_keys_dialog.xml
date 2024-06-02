@@ -13,11 +13,28 @@
         android:layout_marginRight="@dimen/list_entry_padding_horizontal_lax"
         android:orientation="vertical">
 
+        <RadioGroup
+            android:id="@+id/encrypt_keys_dialog_radio_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <RadioButton android:id="@+id/encrypt_keys_dialog_radio_spending_pin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="@string/encrypt_keys_dialog_radio_spending_pin"/>
+            <RadioButton android:id="@+id/encrypt_keys_dialog_radio_keystore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/encrypt_keys_dialog_radio_hardware_encryption"/>
+        </RadioGroup>
+
         <TextView
+            android:id="@+id/encrypt_keys_dialog_message"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/list_entry_padding_vertical"
-            android:text="@string/encrypt_keys_dialog_message" />
+            android:text="@string/encrypt_keys_dialog_message_spending_pin" />
 
         <LinearLayout
             android:id="@+id/encrypt_keys_dialog_password_old_group"
@@ -50,6 +67,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/encrypt_keys_dialog_password_new_group"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/list_entry_padding_vertical"
@@ -84,11 +102,12 @@
             android:text="@string/encrypt_keys_dialog_show" />
 
         <TextView
+            android:id="@+id/encrypt_keys_dialog_warning"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/list_entry_padding_vertical_lax"
             android:layout_marginTop="@dimen/list_entry_padding_vertical_lax"
-            android:text="@string/encrypt_keys_dialog_warning"
+            android:text="@string/encrypt_keys_dialog_warning_spending_pin"
             android:textColor="@color/fg_less_significant"
             android:textSize="@dimen/font_size_small" />
     </LinearLayout>

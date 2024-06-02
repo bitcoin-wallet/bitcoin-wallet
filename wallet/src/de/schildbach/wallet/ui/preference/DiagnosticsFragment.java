@@ -28,8 +28,9 @@ import de.schildbach.wallet.R;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.ui.DialogBuilder;
+
+import org.bitcoinj.base.ScriptType;
 import org.bitcoinj.crypto.DeterministicKey;
-import org.bitcoinj.script.Script;
 import org.bitcoinj.wallet.DeterministicKeyChain;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -96,7 +97,7 @@ public final class DiagnosticsFragment extends PreferenceFragment {
     private void handleExtendedPublicKey() {
         final DeterministicKeyChain activeKeyChain = application.getWallet().getActiveKeyChain();
         final DeterministicKey extendedKey = activeKeyChain.getWatchingKey();
-        final Script.ScriptType outputScriptType = activeKeyChain.getOutputScriptType();
+        final ScriptType outputScriptType = activeKeyChain.getOutputScriptType();
         final long creationTimeSeconds = extendedKey.getCreationTimeSeconds();
         final String base58 = String.format(Locale.US, "%s?c=%d&h=bip32",
                 extendedKey.serializePubB58(Constants.NETWORK_PARAMETERS, outputScriptType), creationTimeSeconds);

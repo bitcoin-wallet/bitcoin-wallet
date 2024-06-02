@@ -23,7 +23,8 @@ import android.os.Bundle;
 import de.schildbach.wallet.R;
 import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.ui.AbstractWalletActivity;
-import org.bitcoinj.core.PrefixedChecksummedBytes;
+
+import org.bitcoinj.crypto.EncodedPrivateKey;
 
 /**
  * @author Andreas Schildbach
@@ -35,7 +36,7 @@ public final class SweepWalletActivity extends AbstractWalletActivity {
         context.startActivity(new Intent(context, SweepWalletActivity.class));
     }
 
-    public static void start(final Context context, final PrefixedChecksummedBytes key) {
+    public static void start(final Context context, final EncodedPrivateKey key) {
         final Intent intent = new Intent(context, SweepWalletActivity.class);
         intent.putExtra(INTENT_EXTRA_KEY, key.toString());
         context.startActivity(intent);

@@ -33,7 +33,7 @@ import androidx.lifecycle.ViewModelProvider;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.R;
 import de.schildbach.wallet.util.WalletUtils;
-import org.bitcoinj.core.Address;
+import org.bitcoinj.base.Address;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

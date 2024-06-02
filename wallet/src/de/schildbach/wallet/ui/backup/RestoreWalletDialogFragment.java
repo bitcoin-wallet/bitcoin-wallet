@@ -42,6 +42,7 @@ import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.R;
 import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.crypto.HWKeyCrypterFactory;
 import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.ui.AbstractWalletActivity;
 import de.schildbach.wallet.ui.DialogBuilder;
@@ -50,7 +51,10 @@ import de.schildbach.wallet.ui.ShowPasswordCheckListener;
 import de.schildbach.wallet.util.Crypto;
 import de.schildbach.wallet.util.Toast;
 import de.schildbach.wallet.util.WalletUtils;
+
+import org.bitcoinj.crypto.KeyCrypterFactory;
 import org.bitcoinj.wallet.Wallet;
+import org.bitcoinj.wallet.WalletProtobufSerializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -241,7 +245,10 @@ public class RestoreWalletDialogFragment extends DialogFragment {
         final byte[] plainText = Crypto.decryptBytes(cipherText.toString(), password.toCharArray());
         final InputStream is = new ByteArrayInputStream(plainText);
 
-        return WalletUtils.restoreWalletFromProtobuf(is, Constants.NETWORK_PARAMETERS);
+        KeyCrypterFactory keyCrypterFactory = new HWKeyCrypterFactory(application);
+        WalletProtobufSerializer serializer = new WalletProtobufSerializer();
+        serializer.setKeyCrypterFactory(keyCrypterFactory);
+        return WalletUtils.restoreWalletFromProtobuf(serializer, is, Constants.NETWORK_PARAMETERS);
     }
 
     public static class SuccessDialogFragment extends DialogFragment {
@@ -274,6 +281,9 @@ public class RestoreWalletDialogFragment extends DialogFragment {
             if (showEncryptedMessage) {
                 message.append("\n\n");
                 message.append(getString(R.string.restore_wallet_dialog_success_encrypted));
+            } else {
+                message.append("\n\n");
+                message.append("Warning: Your wallet is currently unencrypted. You can encrypt your wallet under Settings > Safety > Wallet protection");
             }
             final DialogBuilder dialog = DialogBuilder.dialog(activity, 0, message);
             dialog.setNeutralButton(R.string.button_ok, (dialog1, id) -> {

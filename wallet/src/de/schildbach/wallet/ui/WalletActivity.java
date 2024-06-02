@@ -63,10 +63,11 @@ import de.schildbach.wallet.ui.send.SweepWalletActivity;
 import de.schildbach.wallet.util.CrashReporter;
 import de.schildbach.wallet.util.Nfc;
 import de.schildbach.wallet.util.OnFirstPreDraw;
-import org.bitcoinj.core.PrefixedChecksummedBytes;
+
+import org.bitcoinj.base.ScriptType;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.VerificationException;
-import org.bitcoinj.script.Script;
+import org.bitcoinj.crypto.EncodedPrivateKey;
 
 /**
  * @author Andreas Schildbach
@@ -95,7 +96,7 @@ public final class WalletActivity extends AbstractWalletActivity {
                     }
 
                     @Override
-                    protected void handlePrivateKey(final PrefixedChecksummedBytes key) {
+                    protected void handlePrivateKey(final EncodedPrivateKey key) {
                         if (Constants.ENABLE_SWEEP_WALLET)
                             SweepWalletActivity.start(WalletActivity.this, key);
                         else
@@ -238,13 +239,6 @@ public final class WalletActivity extends AbstractWalletActivity {
                 final boolean enableRestoreWalletOption = Environment.MEDIA_MOUNTED.equals(externalStorageState)
                         || Environment.MEDIA_MOUNTED_READ_ONLY.equals(externalStorageState);
                 menu.findItem(R.id.wallet_options_restore_wallet).setEnabled(enableRestoreWalletOption);
-                final Boolean isEncrypted = viewModel.walletEncrypted.getValue();
-                if (isEncrypted != null) {
-                    final MenuItem encryptKeysOption = menu.findItem(R.id.wallet_options_encrypt_keys);
-                    encryptKeysOption.setTitle(isEncrypted ? R.string.wallet_options_encrypt_keys_change
-                            : R.string.wallet_options_encrypt_keys_set);
-                    encryptKeysOption.setVisible(true);
-                }
                 final Boolean isLegacyFallback = viewModel.walletLegacyFallback.getValue();
                 if (isLegacyFallback != null) {
                     final MenuItem requestLegacyOption = menu.findItem(R.id.wallet_options_request_legacy);
@@ -259,7 +253,7 @@ public final class WalletActivity extends AbstractWalletActivity {
                     handleRequestCoins();
                     return true;
                 } else if (itemId == R.id.wallet_options_request_legacy) {
-                    RequestCoinsActivity.start(WalletActivity.this, Script.ScriptType.P2PKH);
+                    RequestCoinsActivity.start(WalletActivity.this, ScriptType.P2PKH);
                     return true;
                 } else if (itemId == R.id.wallet_options_send) {
                     handleSendCoins();
@@ -285,7 +279,7 @@ public final class WalletActivity extends AbstractWalletActivity {
                 } else if (itemId == R.id.wallet_options_backup_wallet) {
                     viewModel.showBackupWalletDialog.setValue(Event.simple());
                     return true;
-                } else if (itemId == R.id.wallet_options_encrypt_keys) {
+                } else if (itemId == R.id.wallet_options_protection) {
                     viewModel.showEncryptKeysDialog.setValue(Event.simple());
                     return true;
                 } else if (itemId == R.id.wallet_options_preferences) {

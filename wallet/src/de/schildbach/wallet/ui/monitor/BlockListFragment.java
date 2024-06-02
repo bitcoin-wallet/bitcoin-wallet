@@ -38,7 +38,7 @@ import de.schildbach.wallet.addressbook.AddressBookEntry;
 import de.schildbach.wallet.ui.AbstractWalletActivity;
 import de.schildbach.wallet.ui.AbstractWalletActivityViewModel;
 import de.schildbach.wallet.ui.StickToTopLinearLayoutManager;
-import org.bitcoinj.core.Sha256Hash;
+import org.bitcoinj.base.Sha256Hash;
 import org.bitcoinj.core.StoredBlock;
 import org.bitcoinj.wallet.Wallet;
 import org.slf4j.Logger;

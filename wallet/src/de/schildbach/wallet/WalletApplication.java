@@ -42,6 +42,8 @@ import com.google.common.hash.HashCode;
 import com.google.common.hash.Hasher;
 import com.google.common.hash.Hashing;
 import com.google.common.util.concurrent.SettableFuture;
+
+import de.schildbach.wallet.crypto.HWKeyCrypterFactory;
 import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.service.BlockchainState;
 import de.schildbach.wallet.ui.Event;
@@ -50,6 +52,7 @@ import de.schildbach.wallet.util.CrashReporter;
 import de.schildbach.wallet.util.Toast;
 import de.schildbach.wallet.util.WalletUtils;
 import org.bitcoinj.core.VersionMessage;
+import org.bitcoinj.crypto.KeyCrypterFactory;
 import org.bitcoinj.crypto.MnemonicCode;
 import org.bitcoinj.utils.ContextPropagatingThreadFactory;
 import org.bitcoinj.utils.Threading;
@@ -63,6 +66,7 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.time.Duration;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -162,8 +166,9 @@ public class WalletApplication extends Application {
             public void run() {
                 synchronized (getWalletLock) {
                     initMnemonicCode();
-                    if (walletFiles == null)
+                    if (walletFiles == null) {
                         loadWalletFromProtobuf();
+                    }
                 }
                 listener.onWalletLoaded(walletFiles.getWallet());
             }
@@ -174,10 +179,13 @@ public class WalletApplication extends Application {
                 if (walletFile.exists()) {
                     try (final FileInputStream walletStream = new FileInputStream(walletFile)) {
                         final Stopwatch watch = Stopwatch.createStarted();
-                        wallet = new WalletProtobufSerializer().readWallet(walletStream);
+                        KeyCrypterFactory keyCrypterFactory = new HWKeyCrypterFactory(WalletApplication.this);
+                        WalletProtobufSerializer serializer = new WalletProtobufSerializer();
+                        serializer.setKeyCrypterFactory(keyCrypterFactory);
+                        wallet = serializer.readWallet(walletStream);
                         watch.stop();
 
-                        if (!wallet.getParams().equals(Constants.NETWORK_PARAMETERS))
+                        if (!wallet.network().equals(Constants.NETWORK_PARAMETERS.network()))
                             throw new UnreadableWalletException(
                                     "bad wallet network parameters: " + wallet.getParams().getId());
 
@@ -195,23 +203,22 @@ public class WalletApplication extends Application {
                             new Toast(WalletApplication.this).postLongToast(R.string.toast_wallet_reset);
                     }
 
-                    if (!wallet.getParams().equals(Constants.NETWORK_PARAMETERS))
+                    if (!wallet.network().equals(Constants.NETWORK_PARAMETERS.network()))
                         throw new Error("bad wallet network parameters: " + wallet.getParams().getId());
 
                     wallet.cleanup();
-                    walletFiles = wallet.autosaveToFile(walletFile, Constants.Files.WALLET_AUTOSAVE_DELAY_MS,
-                            TimeUnit.MILLISECONDS, null);
+                    final Duration duration = Duration.ofMillis(Constants.Files.WALLET_AUTOSAVE_DELAY_MS);
+                    walletFiles = wallet.autosaveToFile(walletFile, duration, null);
                 } else {
                     final Stopwatch watch = Stopwatch.createStarted();
-                    wallet = Wallet.createDeterministic(Constants.NETWORK_PARAMETERS,
+                    wallet = Wallet.createDeterministic(Constants.NETWORK_PARAMETERS.network(),
                             Constants.DEFAULT_OUTPUT_SCRIPT_TYPE);
-                    walletFiles = wallet.autosaveToFile(walletFile, Constants.Files.WALLET_AUTOSAVE_DELAY_MS,
-                            TimeUnit.MILLISECONDS, null);
+                    final Duration duration = Duration.ofMillis(Constants.Files.WALLET_AUTOSAVE_DELAY_MS);
+                    walletFiles = wallet.autosaveToFile(walletFile, duration, null);
                     autosaveWalletNow(); // persist...
                     WalletUtils.autoBackupWallet(WalletApplication.this, wallet); // ...and backup asap
                     watch.stop();
                     log.info("fresh {} wallet created, took {}", Constants.DEFAULT_OUTPUT_SCRIPT_TYPE, watch);
-
                     config.armBackupReminder();
                 }
             }
