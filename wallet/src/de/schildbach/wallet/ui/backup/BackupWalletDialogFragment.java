@@ -72,8 +72,10 @@ import java.time.Instant;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.TimeZone;
-import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 import static com.google.common.base.Preconditions.checkState;
 
@@ -100,8 +102,7 @@ public class BackupWalletDialogFragment extends DialogFragment {
     private EditText spendingPINView;
     private TextView badSpendingPINView;
     private Button positiveButton, negativeButton;
-    private Executor executor = Executors.newSingleThreadExecutor();
-    private Wallet backupWallet;
+    private ExecutorService executor = Executors.newSingleThreadExecutor();
     private AbstractWalletActivityViewModel walletActivityViewModel;
     private BackupWalletViewModel viewModel;
     private static final Logger log = LoggerFactory.getLogger(BackupWalletDialogFragment.class);
@@ -110,15 +111,14 @@ public class BackupWalletDialogFragment extends DialogFragment {
             registerForActivityResult(new ActivityResultContracts.CreateDocument(Constants.MIMETYPE_WALLET_BACKUP),
                     uri -> {
                         if (uri != null) {
-                            walletActivityViewModel.wallet.observe(this, new Observer<Wallet>() {
+                            viewModel.walletToBackup.observe(this, new Observer<Wallet>() {
                                 @Override
-                                public void onChanged(final Wallet wallet) {
+                                public void onChanged(final Wallet walletToBackup) {
                                     walletActivityViewModel.wallet.removeObserver(this);
 
                                     final String targetProvider = WalletUtils.uriToProvider(uri);
                                     final String password = passwordView.getText().toString().trim();
                                     checkState(!password.isEmpty());
-                                    checkState(backupWallet != null);
                                     wipePasswords();
                                     dismiss();
 
@@ -127,7 +127,7 @@ public class BackupWalletDialogFragment extends DialogFragment {
                                             activity.getContentResolver().openOutputStream(uri),
                                             StandardCharsets.UTF_8)) {
                                         final Protos.Wallet walletProto =
-                                                new WalletProtobufSerializer().walletToProto(backupWallet);
+                                                new WalletProtobufSerializer().walletToProto(walletToBackup);
                                         final ByteArrayOutputStream baos = new ByteArrayOutputStream();
                                         walletProto.writeTo(baos);
                                         baos.close();
@@ -165,7 +165,6 @@ public class BackupWalletDialogFragment extends DialogFragment {
                                     } catch (final IOException x) {
                                         log.error("problem verifying backup from " + uri, x);
                                         ErrorDialogFragment.showDialog(getParentFragmentManager(), x.toString());
-                                        return;
                                     }
                                 }
                             });
@@ -345,35 +344,36 @@ public class BackupWalletDialogFragment extends DialogFragment {
             final Wallet wallet = walletActivityViewModel.wallet.getValue();
             if (wallet.isEncrypted()) {
                 setState(BackupWalletViewModel.State.CRYPTING);
-                executor.execute(() -> {
-                    final String inputPIN = spendingPINView.getText().toString().trim();
+                final String inputPIN = spendingPINView.getText().toString().trim();
 
-                    try {
-                        backupWallet = new WalletProtobufSerializer()
-                                .readWallet(Constants.NETWORK_PARAMETERS, null,
-                                        new WalletProtobufSerializer().walletToProto(wallet));
+                try {
+                    final Protos.Wallet protosWallet = new WalletProtobufSerializer().walletToProto(wallet);
+                    final Wallet backupWallet = new WalletProtobufSerializer()
+                            .readWallet(Constants.NETWORK_PARAMETERS, null, protosWallet);
 
-                        final KeyCrypter keyCrypter = backupWallet.getKeyCrypter();
+                    final KeyCrypter keyCrypter = backupWallet.getKeyCrypter();
+                    Future<?> future = executor.submit(() -> {
+                        org.bitcoinj.core.Context.propagate(Constants.CONTEXT);
                         final KeyParameter derivedAesKey = keyCrypter.deriveKey(inputPIN);
                         backupWallet.decrypt(derivedAesKey);
                         log.info("backup wallet successfully decrypted for back up");
-                        setState(BackupWalletViewModel.State.EXPORTING);
-                        backupWallet();
+                    });
+                    future.get();
+                    viewModel.walletToBackup.setValue(backupWallet);
+                    setState(BackupWalletViewModel.State.EXPORTING);
+                    backupWallet();
 
-                    } catch (final Wallet.BadWalletEncryptionKeyException e) {
-                        log.info("wallet decryption failed, bad spending password: " + e.getMessage());
-                        backupWallet = null;
-                        setState(BackupWalletViewModel.State.BADPIN);
-                    } catch (UnreadableWalletException e) {
-                        log.info("wallet deserialization failed: " + e.getMessage());
-                        ErrorDialogFragment.showDialog(getParentFragmentManager(), e.toString());
-                    }
-                });
+                } catch (final Wallet.BadWalletEncryptionKeyException e) {
+                    log.info("wallet decryption failed, bad spending password: " + e.getMessage());
+                    setState(BackupWalletViewModel.State.BADPIN);
+                } catch (UnreadableWalletException | ExecutionException | InterruptedException e) {
+                    log.info("wallet deserialization failed: " + e.getMessage());
+                    ErrorDialogFragment.showDialog(getParentFragmentManager(), e.toString());
+                }
             } else {
+                viewModel.walletToBackup.setValue(wallet);
                 setState(BackupWalletViewModel.State.EXPORTING);
-                backupWallet = walletActivityViewModel.wallet.getValue();
                 backupWallet();
-                backupWallet = null;
                 setState(BackupWalletViewModel.State.INPUT);
             }
         } else {
