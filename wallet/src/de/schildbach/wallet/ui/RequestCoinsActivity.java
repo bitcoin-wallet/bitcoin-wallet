@@ -86,9 +86,4 @@ public final class RequestCoinsActivity extends AbstractWalletActivity {
             }
         });
     }
-
-    @Override
-    public void onAttachedToWindow() {
-        setShowWhenLocked(true);
-    }
 }

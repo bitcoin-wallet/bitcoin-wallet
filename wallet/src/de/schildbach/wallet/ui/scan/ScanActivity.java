@@ -217,11 +217,6 @@ public final class ScanActivity extends AbstractWalletActivity implements Surfac
     }
 
     @Override
-    public void onAttachedToWindow() {
-        setShowWhenLocked(true);
-    }
-
-    @Override
     public void onBackPressed() {
         scannerView.setVisibility(View.GONE);
         setResult(RESULT_CANCELED);

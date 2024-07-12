@@ -155,7 +155,8 @@
             android:configChanges="keyboard|keyboardHidden"
             android:label="@string/request_coins_activity_title"
             android:theme="@style/My.Theme.ChildActivity"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="adjustResize"
+            android:showWhenLocked="true" />
 
         <activity
             android:name="de.schildbach.wallet.ui.AddressBookActivity"
@@ -202,7 +203,8 @@
             android:configChanges="keyboard|keyboardHidden"
             android:stateNotNeeded="true"
             android:theme="@style/My.Theme.Fullscreen"
-            android:windowSoftInputMode="stateAlwaysHidden" />
+            android:windowSoftInputMode="stateAlwaysHidden"
+            android:showWhenLocked="true" />
 
         <activity
             android:name="de.schildbach.wallet.ui.send.SweepWalletActivity"
