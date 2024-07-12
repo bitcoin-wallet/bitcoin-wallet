@@ -193,9 +193,7 @@ public final class WalletActivity extends AbstractWalletActivity {
         });
         viewModel.enterAnimation.observe(this, state -> {
             if (state == WalletActivityViewModel.EnterAnimationState.WAITING) {
-                // API level 26: enterAnimation.setCurrentPlayTime(0);
-                for (final Animator animation : enterAnimation.getChildAnimations())
-                    ((ValueAnimator) animation).setCurrentPlayTime(0);
+                enterAnimation.setCurrentPlayTime(0);
             } else if (state == WalletActivityViewModel.EnterAnimationState.ANIMATING) {
                 reportFullyDrawn();
                 enterAnimation.start();
