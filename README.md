@@ -12,7 +12,7 @@ This project contains several sub-projects:
 
 ### PREREQUISITES FOR BUILDING
 
-You'll need git, a Java 11 SDK and Gradle between 4.4 and 6.9.x for this. We'll assume Ubuntu 22.04 LTS (Jammy Jellyfish)
+You'll need git, a Java 11 SDK and Gradle between 4.4 and 6.9.x for this. We'll assume Ubuntu 24.04 LTS (Noble Numbat)
 for the package installs, which comes with OpenJDK 11 and Gradle 4.4.1 out of the box.
 
     # first time only
