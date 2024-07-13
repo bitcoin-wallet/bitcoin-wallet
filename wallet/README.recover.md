@@ -82,6 +82,7 @@ password.
 We need wallet-tool from bitcoinj. First, in a working directory, let's get bitcoinj:
 
     git clone -b release-0.16 https://github.com/bitcoinj/bitcoinj.git
+    cd bitcoinj
 
 Make sure everything is compiled and ready to go by using once:
 
