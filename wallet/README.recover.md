@@ -10,6 +10,8 @@ Normally, this shouldn't be needed. It is much preferred to just use **Options >
   device.
 - Legislation in your country forbids you to continue using the app and you missed the chance to
   move your coins out while it was still legal.
+- the app refuses to import your old BASE58 format backup file (mine was from 2103) with th error message
+  ```unreadable wallet```upon entering the correct passphrase in the wallet restore dialog
 - The app suddenly goes out of service for whatever reason. This event is extremely unlikely,
   given the fact that the app is open source and many developers from all over the world have and
   know the code.
