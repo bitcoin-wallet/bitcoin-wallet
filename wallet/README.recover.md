@@ -24,7 +24,7 @@ refrain from sending your coins to a temporary wallet created in that environmen
 lost e.g. on a power outage or computer failure. Your desired destination wallet should already be
 set up and you should have one of its receiving addresses or a QR code at hand.
 
-Alternatively, you can also use Ubuntu on Windows 10 64-bit, if you've fully upgraded to the Fall Creators Update (version 1709 or later). Open the Windows Start Menu, search for and start `Turn Windows features on or off`. Scroll down and tick the `Windows Subsystem for Linux` feature. Restart your computer when prompted. Next, install `Ubuntu` from the Windows Store. Once the download has completed, select `Launch`. It will prompt you to pick a username and complete the installation. From now on, you can start into a Linux shell by selecting `Ubuntu` from the Windows Start Menu.
+Alternatively, you can also use Ubuntu on Windows 10/11 64-bit (fully upgraded). Open the Windows Start Menu, search for and start `Turn Windows features on or off`. Scroll down and tick the `Windows Subsystem for Linux` feature. Restart your computer when prompted. Next, install `Ubuntu` from the Windows Store. Once the download has completed, select `Launch`. It will prompt you to pick a username and complete the installation. From now on, you can start into a Linux shell by selecting `Ubuntu` from the Windows Start Menu.
 
 You should be at least a bit familiar with the Linux shell. Commands `in fixed-width font like this`
 are meant to be executed as a shell command. Before you execute each command by pressing return,
