@@ -43,29 +43,3 @@ bookworm-jdk17:
     name: bitcoin-wallet-$CI_JOB_NAME-$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA
     paths:
       - wallet/build/outputs/apk/**/*.apk
-
-jammy-jdk11:
-  image: ubuntu:jammy
-  script:
-    - apt-get update
-    - apt-get -y install openjdk-11-jdk-headless gradle sdkmanager
-    - yes | sdkmanager --licenses >/dev/null || true
-    - gradle build --stacktrace
-    - gradle --version
-  artifacts:
-    name: bitcoin-wallet-$CI_JOB_NAME-$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA
-    paths:
-      - wallet/build/outputs/apk/**/*.apk
-
-lunar-jdk17:
-  image: ubuntu:lunar
-  script:
-    - apt-get update
-    - apt-get -y install openjdk-17-jdk-headless gradle sdkmanager
-    - yes | sdkmanager --licenses >/dev/null || true
-    - gradle build --stacktrace
-    - gradle --version
-  artifacts:
-    name: bitcoin-wallet-$CI_JOB_NAME-$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA
-    paths:
-      - wallet/build/outputs/apk/**/*.apk
