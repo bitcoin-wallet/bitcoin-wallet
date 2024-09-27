@@ -37,7 +37,7 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           # Upload entire repository
-          path: '.'
+          path:https://github.dev/bitcoin-wallet/bitcoin-wallet/blob/c8492b87f3fc0c90d788eebc890a94d28a6f9503/.github/workflows/static.yml
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
