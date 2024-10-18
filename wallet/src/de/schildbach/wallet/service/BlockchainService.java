@@ -791,6 +791,12 @@ public class BlockchainService extends LifecycleService {
         }
     }
 
+    @Override
+    public void onTimeout(final int startId) {
+        log.info("onTimeout({}) called, trying to stop", startId);
+        stopSelf();
+    }
+
     @Nullable
     public TransactionBroadcast broadcastTransaction(final Transaction tx) {
         if (peerGroup != null) {
