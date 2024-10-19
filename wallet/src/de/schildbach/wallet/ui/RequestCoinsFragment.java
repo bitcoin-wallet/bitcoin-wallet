@@ -203,6 +203,11 @@ public final class RequestCoinsFragment extends Fragment {
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
             final Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.request_coins_fragment, container, false);
+        view.setOnApplyWindowInsetsListener((v, insets) -> {
+            v.setPadding(insets.getSystemWindowInsetLeft(), insets.getSystemWindowInsetTop(),
+                    insets.getSystemWindowInsetRight(), v.getPaddingBottom());
+            return insets;
+        });
 
         qrView = view.findViewById(R.id.request_coins_qr);
 

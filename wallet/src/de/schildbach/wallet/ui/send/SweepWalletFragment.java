@@ -268,6 +268,11 @@ public class SweepWalletFragment extends Fragment {
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
             final Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.sweep_wallet_fragment, container, false);
+        view.setOnApplyWindowInsetsListener((v, insets) -> {
+            v.setPadding(insets.getSystemWindowInsetLeft(), insets.getSystemWindowInsetTop(),
+                    insets.getSystemWindowInsetRight(), v.getPaddingBottom());
+            return insets;
+        });
 
         messageView = view.findViewById(R.id.sweep_wallet_fragment_message);
 

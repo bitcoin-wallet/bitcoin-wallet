@@ -17,6 +17,7 @@
 
 package de.schildbach.wallet.ui.preference;
 
+import android.os.Bundle;
 import android.view.MenuItem;
 import de.schildbach.wallet.R;
 
@@ -26,6 +27,16 @@ import java.util.List;
  * @author Andreas Schildbach
  */
 public final class PreferenceActivity extends android.preference.PreferenceActivity {
+    @Override
+    public void onCreate(final Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        findViewById(android.R.id.content).setOnApplyWindowInsetsListener((v, insets) -> {
+            v.setPadding(v.getPaddingLeft(), insets.getSystemWindowInsetTop(), v.getPaddingRight(),
+                    v.getPaddingBottom());
+            return insets;
+        });
+    }
+
     @Override
     public void onBuildHeaders(final List<Header> target) {
         loadHeadersFromResource(R.xml.preference_headers, target);

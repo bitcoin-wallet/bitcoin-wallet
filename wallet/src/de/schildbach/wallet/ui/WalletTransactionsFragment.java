@@ -233,6 +233,12 @@ public class WalletTransactionsFragment extends Fragment implements Transactions
                     outRect.bottom += PADDING;
             }
         });
+        recyclerView.setOnApplyWindowInsetsListener((v, insets) -> {
+            final boolean hasBottomBar = !getResources().getBoolean(R.bool.wallet_actions_top);
+            v.setPadding(v.getPaddingLeft(), v.getPaddingTop(), v.getPaddingRight(),
+                    hasBottomBar ? v.getPaddingBottom() : insets.getSystemWindowInsetBottom());
+            return insets;
+        });
 
         return view;
     }

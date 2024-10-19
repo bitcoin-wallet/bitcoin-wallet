@@ -132,6 +132,11 @@ public final class WalletAddressesFragment extends Fragment implements AddressBo
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(activity));
         recyclerView.setAdapter(adapter);
+        recyclerView.setOnApplyWindowInsetsListener((v, insets) -> {
+            v.setPadding(v.getPaddingLeft(), v.getPaddingTop(), v.getPaddingRight(),
+                    insets.getSystemWindowInsetBottom());
+            return insets;
+        });
         return view;
     }
 

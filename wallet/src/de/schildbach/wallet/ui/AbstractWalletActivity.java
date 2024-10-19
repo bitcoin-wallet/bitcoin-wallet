@@ -20,9 +20,12 @@ package de.schildbach.wallet.ui;
 import android.app.ActivityManager.TaskDescription;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
+import androidx.activity.EdgeToEdge;
+import androidx.activity.SystemBarStyle;
 import androidx.fragment.app.FragmentActivity;
 import de.schildbach.wallet.R;
 import de.schildbach.wallet.WalletApplication;
@@ -41,6 +44,7 @@ public abstract class AbstractWalletActivity extends FragmentActivity {
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         application = (WalletApplication) getApplication();
+        EdgeToEdge.enable(this, SystemBarStyle.dark(Color.TRANSPARENT));
         setTaskDescription(new TaskDescription(null, null, getColor(R.color.bg_action_bar)));
         super.onCreate(savedInstanceState);
     }

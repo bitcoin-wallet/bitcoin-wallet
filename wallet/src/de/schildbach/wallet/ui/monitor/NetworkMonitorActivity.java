@@ -44,6 +44,11 @@ public final class NetworkMonitorActivity extends AbstractWalletActivity {
         setContentView(R.layout.network_monitor_content);
         final ViewPager2 pager = findViewById(R.id.network_monitor_pager);
         final ViewPagerTabs pagerTabs = findViewById(R.id.network_monitor_pager_tabs);
+        findViewById(R.id.network_monitor_group).setOnApplyWindowInsetsListener((v, insets) -> {
+            v.setPadding(v.getPaddingLeft(), insets.getSystemWindowInsetTop(), v.getPaddingRight(),
+                    v.getPaddingBottom());
+            return insets;
+        });
 
         pagerTabs.addTabLabels(TAB_LABELS);
 
@@ -54,7 +59,7 @@ public final class NetworkMonitorActivity extends AbstractWalletActivity {
             recyclerView.setClipToPadding(false);
             recyclerView.getViewTreeObserver().addOnGlobalLayoutListener(() -> {
                 final int width = recyclerView.getWidth();
-                recyclerView.setPadding(0, 0, width / 2, 0);
+                recyclerView.setPadding(0, recyclerView.getPaddingTop(), width / 2, recyclerView.getPaddingBottom());
                 pager.setCurrentItem(0);
             });
             pager.setUserInputEnabled(false);

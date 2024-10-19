@@ -128,6 +128,14 @@ public final class WalletActivity extends AbstractWalletActivity {
 
         setContentView(R.layout.wallet_content);
         contentView = findViewById(android.R.id.content);
+        final View insetTopView = contentView.findViewWithTag("inset_top");
+        if (insetTopView != null) {
+            insetTopView.setOnApplyWindowInsetsListener((v, insets) -> {
+                v.setPadding(v.getPaddingLeft(), insets.getSystemWindowInsetTop(),
+                        v.getPaddingRight(), v.getPaddingBottom());
+                return insets;
+            });
+        }
         exchangeRatesFragment = findViewById(R.id.wallet_main_twopanes_exchange_rates);
         levitateView = contentView.findViewWithTag("levitate");
 
