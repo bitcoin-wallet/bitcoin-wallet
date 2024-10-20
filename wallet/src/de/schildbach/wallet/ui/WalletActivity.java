@@ -38,6 +38,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.LinearLayout;
 import androidx.activity.EdgeToEdge;
 import androidx.activity.SystemBarStyle;
 import androidx.activity.result.ActivityResultLauncher;
@@ -140,6 +141,20 @@ public final class WalletActivity extends AbstractWalletActivity {
                 return insets;
             });
         }
+        final View insetBottomView = contentView.findViewWithTag("inset_bottom");
+        if (insetBottomView != null) {
+            insetBottomView.setOnApplyWindowInsetsListener((v, insets) -> {
+                final int insetBottom = insets.getSystemWindowInsetBottom();
+                if (insetBottom > 0 && v instanceof LinearLayout) {
+                    final LinearLayout layout = (LinearLayout) v;
+                    layout.setShowDividers(layout.getShowDividers() | LinearLayout.SHOW_DIVIDER_END);
+                }
+                v.setPadding(v.getPaddingLeft(), v.getPaddingTop(),
+                        v.getPaddingRight(),  insets.getSystemWindowInsetBottom());
+                return insets;
+            });
+        }
+
         exchangeRatesFragment = findViewById(R.id.wallet_main_twopanes_exchange_rates);
         levitateView = contentView.findViewWithTag("levitate");
 
