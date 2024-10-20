@@ -44,7 +44,8 @@ public abstract class AbstractWalletActivity extends FragmentActivity {
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         application = (WalletApplication) getApplication();
-        EdgeToEdge.enable(this, SystemBarStyle.dark(Color.TRANSPARENT));
+        EdgeToEdge.enable(this, SystemBarStyle.dark(Color.TRANSPARENT), SystemBarStyle.light(Color.TRANSPARENT,
+                Color.TRANSPARENT));
         setTaskDescription(new TaskDescription(null, null, getColor(R.color.bg_action_bar)));
         super.onCreate(savedInstanceState);
     }
