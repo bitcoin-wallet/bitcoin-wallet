@@ -34,6 +34,7 @@ import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.Nullable;
@@ -269,8 +270,13 @@ public class SweepWalletFragment extends Fragment {
             final Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.sweep_wallet_fragment, container, false);
         view.setOnApplyWindowInsetsListener((v, insets) -> {
+            final int insetBottom = insets.getSystemWindowInsetBottom();
+            if (insetBottom > 0) {
+                final LinearLayout layout = (LinearLayout) v;
+                layout.setShowDividers(layout.getShowDividers() | LinearLayout.SHOW_DIVIDER_END);
+            }
             v.setPadding(insets.getSystemWindowInsetLeft(), insets.getSystemWindowInsetTop(),
-                    insets.getSystemWindowInsetRight(), v.getPaddingBottom());
+                    insets.getSystemWindowInsetRight(), insetBottom);
             return insets;
         });
 
