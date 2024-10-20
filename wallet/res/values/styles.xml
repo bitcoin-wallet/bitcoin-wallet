@@ -70,6 +70,7 @@
         <item name="android:textColor">@color/fg_on_dark_bg_network</item>
         <item name="android:textSize">@dimen/font_size_tiny</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:background">?android:attr/selectableItemBackground</item>
     </style>
 
     <style name="My.Widget.ActionButton.Overflow" parent="@android:style/Widget.Material.ActionButton.Overflow">
