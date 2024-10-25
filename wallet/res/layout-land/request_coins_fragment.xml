@@ -16,10 +16,8 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:background="@color/bg_level0"
-        android:paddingBottom="@dimen/list_entry_padding_vertical"
-        android:paddingLeft="@dimen/list_entry_padding_horizontal"
-        android:paddingRight="@dimen/list_entry_padding_horizontal"
-        android:paddingTop="@dimen/list_entry_padding_vertical"
+        android:paddingLeft="@dimen/list_entry_padding_horizontal_lax"
+        android:paddingRight="@dimen/list_entry_padding_horizontal_lax"
         android:orientation="vertical">
 
         <androidx.cardview.widget.CardView
@@ -27,8 +25,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="@dimen/list_entry_padding_vertical"
-            android:layout_marginTop="@dimen/list_entry_padding_vertical"
+            android:layout_marginBottom="@dimen/list_entry_padding_vertical_lax"
+            android:layout_marginTop="@dimen/list_entry_padding_vertical_lax"
             android:elevation="2dp"
             android:foreground="?android:attr/selectableItemBackground">
 

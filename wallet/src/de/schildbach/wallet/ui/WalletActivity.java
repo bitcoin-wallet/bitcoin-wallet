@@ -25,6 +25,7 @@ import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.nfc.NdefMessage;
@@ -37,6 +38,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.LinearLayout;
+import androidx.activity.EdgeToEdge;
+import androidx.activity.SystemBarStyle;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.app.ActivityOptionsCompat;
@@ -119,6 +123,7 @@ public final class WalletActivity extends AbstractWalletActivity {
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
+        EdgeToEdge.enable(this, SystemBarStyle.dark(Color.TRANSPARENT), SystemBarStyle.dark(Color.TRANSPARENT));
         super.onCreate(savedInstanceState);
         this.application = getWalletApplication();
         this.config = application.getConfiguration();
@@ -128,6 +133,28 @@ public final class WalletActivity extends AbstractWalletActivity {
 
         setContentView(R.layout.wallet_content);
         contentView = findViewById(android.R.id.content);
+        final View insetTopView = contentView.findViewWithTag("inset_top");
+        if (insetTopView != null) {
+            insetTopView.setOnApplyWindowInsetsListener((v, insets) -> {
+                v.setPadding(v.getPaddingLeft(), insets.getSystemWindowInsetTop(),
+                        v.getPaddingRight(), v.getPaddingBottom());
+                return insets;
+            });
+        }
+        final View insetBottomView = contentView.findViewWithTag("inset_bottom");
+        if (insetBottomView != null) {
+            insetBottomView.setOnApplyWindowInsetsListener((v, insets) -> {
+                final int insetBottom = insets.getSystemWindowInsetBottom();
+                if (insetBottom > 0 && v instanceof LinearLayout) {
+                    final LinearLayout layout = (LinearLayout) v;
+                    layout.setShowDividers(layout.getShowDividers() | LinearLayout.SHOW_DIVIDER_END);
+                }
+                v.setPadding(v.getPaddingLeft(), v.getPaddingTop(),
+                        v.getPaddingRight(),  insets.getSystemWindowInsetBottom());
+                return insets;
+            });
+        }
+
         exchangeRatesFragment = findViewById(R.id.wallet_main_twopanes_exchange_rates);
         levitateView = contentView.findViewWithTag("levitate");
 

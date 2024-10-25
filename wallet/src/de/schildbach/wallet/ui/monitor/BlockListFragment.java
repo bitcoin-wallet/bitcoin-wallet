@@ -112,6 +112,11 @@ public final class BlockListFragment extends Fragment implements BlockListAdapte
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new StickToTopLinearLayoutManager(activity));
         recyclerView.setAdapter(adapter);
+        recyclerView.setOnApplyWindowInsetsListener((v, insets) -> {
+            v.setPadding(v.getPaddingLeft(), v.getPaddingTop(), v.getPaddingRight(),
+                    insets.getSystemWindowInsetBottom());
+            return insets;
+        });
         return view;
     }
 

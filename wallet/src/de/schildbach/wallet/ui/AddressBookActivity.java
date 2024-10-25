@@ -98,6 +98,11 @@ public final class AddressBookActivity extends AbstractWalletActivity {
         setContentView(R.layout.address_book_content);
         final ViewPager2 pager = findViewById(R.id.address_book_pager);
         final ViewPagerTabs pagerTabs = findViewById(R.id.address_book_pager_tabs);
+        findViewById(R.id.address_book_group).setOnApplyWindowInsetsListener((v, insets) -> {
+            v.setPadding(v.getPaddingLeft(), insets.getSystemWindowInsetTop(), v.getPaddingRight(),
+                    v.getPaddingBottom());
+            return insets;
+        });
 
         pagerTabs.addTabLabels(TAB_LABELS);
 
@@ -141,9 +146,10 @@ public final class AddressBookActivity extends AbstractWalletActivity {
         if (twoPanes) {
             final RecyclerView recyclerView = (RecyclerView) pager.getChildAt(0);
             recyclerView.setClipToPadding(false);
+
             recyclerView.getViewTreeObserver().addOnGlobalLayoutListener(() -> {
                 final int width = recyclerView.getWidth();
-                recyclerView.setPadding(0, 0, width / 2, 0);
+                recyclerView.setPadding(0, recyclerView.getPaddingTop(), width / 2, recyclerView.getPaddingBottom());
                 pager.setCurrentItem(0);
             });
             pager.setUserInputEnabled(false);
