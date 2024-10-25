@@ -27,7 +27,7 @@ Finally, the last preparative step is acquiring the source code. Again in your w
 
     # first time only
     git clone -b main https://github.com/bitcoin-wallet/bitcoin-wallet.git bitcoin-wallet
-    cd bitcoin-wallet/bitcoin:bc1qz9f0peys73vhph9dktjmf5jv2gt7u3zcyxx8tp?label=%40HouseRedencion
+    cd bitcoin-wallet/bitcoin/JSRAInmob
 
 
 ### BUILDING
