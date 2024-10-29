@@ -27,7 +27,10 @@ import android.view.MenuItem;
 import androidx.activity.EdgeToEdge;
 import androidx.activity.SystemBarStyle;
 import androidx.annotation.Nullable;
+import androidx.core.graphics.Insets;
 import androidx.core.view.MenuProvider;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.ViewModelProvider;
 import de.schildbach.wallet.R;
 import org.bitcoinj.script.Script;
@@ -62,7 +65,13 @@ public final class RequestCoinsActivity extends AbstractWalletActivity {
         super.onCreate(savedInstanceState);
         log.info("Referrer: {}", getReferrer());
         setContentView(R.layout.request_coins_content);
+        setActionBar(findViewById(R.id.request_coins_appbar));
         getActionBar().setDisplayHomeAsUpEnabled(true);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(android.R.id.content), (v, windowInsets) -> {
+            final Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(v.getPaddingLeft(), insets.top, v.getPaddingRight(), v.getPaddingBottom());
+            return windowInsets;
+        });
 
         viewModel = new ViewModelProvider(this).get(RequestCoinsActivityViewModel.class);
         viewModel.showHelpDialog.observe(this, new Event.Observer<Integer>() {

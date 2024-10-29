@@ -278,7 +278,7 @@ public class SweepWalletFragment extends Fragment {
                 final LinearLayout layout = (LinearLayout) v;
                 layout.setShowDividers(layout.getShowDividers() | LinearLayout.SHOW_DIVIDER_END);
             }
-            v.setPadding(insets.left, insets.top, insets.right, insets.bottom);
+            v.setPadding(insets.left, v.getPaddingTop(), insets.right, insets.bottom);
             return windowInsets;
         });
 

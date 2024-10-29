@@ -178,7 +178,7 @@
         <activity
             android:name="de.schildbach.wallet.ui.preference.PreferenceActivity"
             android:label="@string/preferences_activity_title"
-            android:theme="@style/My.Theme" />
+            android:theme="@android:style/Theme.Material.Light.DarkActionBar" />
 
         <activity
             android:name="de.schildbach.wallet.ui.backup.BackupWalletActivity"

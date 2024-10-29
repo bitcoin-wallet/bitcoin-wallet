@@ -168,7 +168,7 @@ public final class ExchangeRatesFragment extends Fragment implements OnSharedPre
         recyclerView.setAdapter(adapter);
         ViewCompat.setOnApplyWindowInsetsListener(recyclerView, (v, windowInsets) -> {
             final Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(insets.left, insets.top, insets.right, insets.bottom);
+            v.setPadding(insets.left, v.getPaddingTop(), insets.right, insets.bottom);
             return windowInsets;
         });
         return view;

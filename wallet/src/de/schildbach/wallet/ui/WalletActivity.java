@@ -135,6 +135,7 @@ public final class WalletActivity extends AbstractWalletActivity {
         viewModel = new ViewModelProvider(this).get(WalletActivityViewModel.class);
 
         setContentView(R.layout.wallet_content);
+        setActionBar(findViewById(R.id.wallet_appbar));
         getActionBar().setDisplayHomeAsUpEnabled(false);
         contentView = findViewById(android.R.id.content);
         final View insetTopView = contentView.findViewWithTag("inset_top");

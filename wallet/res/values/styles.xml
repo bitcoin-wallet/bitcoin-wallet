@@ -2,13 +2,10 @@
 <resources
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <style name="My.Theme" parent="@android:style/Theme.Material.Light.DarkActionBar">
-        <item name="android:actionBarTheme">@style/My.ThemeOverlay.ActionBar</item>
-        <item name="android:actionBarStyle">@style/My.Widget.ActionBar</item>
-        <item name="android:actionMenuTextColor">@color/fg_on_dark_bg_network</item>
-        <item name="android:actionButtonStyle">@style/My.Widget.ActionButton</item>
+    <style name="My.Theme" parent="@android:style/Theme.Material.Light.NoActionBar">
         <item name="android:actionOverflowButtonStyle">@style/My.Widget.ActionButton.Overflow</item>
         <item name="android:actionOverflowMenuStyle">@style/My.Widget.PopupMenu.Overflow</item>
+        <item name="android:actionButtonStyle">@style/My.Widget.ActionButton</item>
         <item name="android:textViewStyle">@style/My.Widget.TextView</item>
         <item name="android:editTextStyle">@style/My.Widget.EditText</item>
         <item name="android:autoCompleteTextViewStyle">@style/My.Widget.AutoCompleteTextView</item>
@@ -31,23 +28,19 @@
         <item name="android:background">@color/bg_level3</item>
     </style>
 
-    <style name="My.ThemeOverlay.ActionBar" parent="@android:style/ThemeOverlay.Material.ActionBar">
-        <item name="android:colorControlNormal">@color/fg_on_dark_bg_network_significant</item>
-    </style>
-
-    <style name="My.Widget.ActionBar" parent="@android:style/Widget.Material.Light.ActionBar.Solid">
+    <style name="My.Widget.Toolbar" parent="@android:style/Widget.Material.Toolbar">
         <item name="android:background">@color/bg_action_bar</item>
-        <item name="android:titleTextStyle">@style/My.TextAppearance.Widget.ActionBar.Title</item>
-        <item name="android:subtitleTextStyle">@style/My.TextAppearance.Widget.ActionBar.Subtitle</item>
-        <item name="android:displayOptions">showTitle</item>
+        <item name="android:titleTextAppearance">@style/My.TextAppearance.Widget.Toolbar.Title</item>
+        <item name="android:subtitleTextAppearance">@style/My.TextAppearance.Widget.Toolbar.Subtitle</item>
+        <item name="android:navigationIcon">@drawable/ic_back_white_24dp</item>
     </style>
 
-    <style name="My.TextAppearance.Widget.ActionBar.Title" parent="@android:style/TextAppearance.Material.Widget.ActionBar.Title">
+    <style name="My.TextAppearance.Widget.Toolbar.Title" parent="@android:style/TextAppearance.Material.Widget.Toolbar.Title">
         <item name="android:textColor">@color/fg_on_dark_bg_network_significant</item>
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="My.TextAppearance.Widget.ActionBar.Subtitle" parent="@android:style/TextAppearance.Material.Widget.ActionBar.Subtitle">
+    <style name="My.TextAppearance.Widget.Toolbar.Subtitle" parent="@android:style/TextAppearance.Material.Widget.Toolbar.Subtitle">
         <item name="android:textColor">@color/fg_on_dark_bg_network_insignificant</item>
         <item name="android:textStyle">normal</item>
     </style>

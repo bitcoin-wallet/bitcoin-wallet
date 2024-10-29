@@ -6,6 +6,12 @@
     android:orientation="vertical"
     android:tag="inset_top">
 
+    <Toolbar
+        android:id="@+id/wallet_appbar"
+        style="@style/My.Widget.Toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0px"

@@ -7,6 +7,12 @@
     android:background="@color/bg_level0"
     android:orientation="vertical">
 
+    <Toolbar
+        android:id="@+id/address_book_appbar"
+        style="@style/My.Widget.Toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize" />
+
     <de.schildbach.wallet.util.ViewPagerTabs
         android:id="@+id/address_book_pager_tabs"
         android:layout_width="match_parent"

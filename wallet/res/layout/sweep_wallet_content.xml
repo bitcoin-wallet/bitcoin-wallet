@@ -1,15 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_level1"
-    android:fillViewport="true"
-    android:scrollbars="none">
+    android:orientation="vertical">
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/sweep_wallet_fragment"
-        android:name="de.schildbach.wallet.ui.send.SweepWalletFragment"
+    <Toolbar
+        android:id="@+id/sweep_wallet_appbar"
+        style="@style/My.Widget.Toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-</ScrollView>
+        android:layout_height="?android:attr/actionBarSize" />
+
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:layout_weight="1"
+        android:fillViewport="true"
+        android:scrollbars="none">
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/sweep_wallet_fragment"
+            android:name="de.schildbach.wallet.ui.send.SweepWalletFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </ScrollView>
+</LinearLayout>

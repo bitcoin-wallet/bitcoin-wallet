@@ -23,6 +23,9 @@ import android.graphics.Color;
 import android.os.Bundle;
 import androidx.activity.EdgeToEdge;
 import androidx.activity.SystemBarStyle;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import de.schildbach.wallet.R;
 import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.ui.AbstractWalletActivity;
@@ -51,7 +54,13 @@ public final class SweepWalletActivity extends AbstractWalletActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.sweep_wallet_content);
+        setActionBar(findViewById(R.id.sweep_wallet_appbar));
         getActionBar().setDisplayHomeAsUpEnabled(true);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(android.R.id.content), (v, windowInsets) -> {
+            final Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(v.getPaddingLeft(), insets.top, v.getPaddingRight(), v.getPaddingBottom());
+            return windowInsets;
+        });
 
         BlockchainService.start(this, false);
     }

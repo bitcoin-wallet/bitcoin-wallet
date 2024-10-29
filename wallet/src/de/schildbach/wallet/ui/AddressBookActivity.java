@@ -104,6 +104,7 @@ public final class AddressBookActivity extends AbstractWalletActivity {
         final FragmentManager fragmentManager = getSupportFragmentManager();
 
         setContentView(R.layout.address_book_content);
+        setActionBar(findViewById(R.id.address_book_appbar));
         getActionBar().setDisplayHomeAsUpEnabled(true);
 
         final ViewPager2 pager = findViewById(R.id.address_book_pager);
