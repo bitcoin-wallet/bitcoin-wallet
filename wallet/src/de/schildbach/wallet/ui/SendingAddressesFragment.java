@@ -31,6 +31,9 @@ import android.view.ViewGroup;
 import android.widget.ViewAnimator;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
@@ -124,10 +127,10 @@ public final class SendingAddressesFragment extends Fragment implements AddressB
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(activity));
         recyclerView.setAdapter(adapter);
-        recyclerView.setOnApplyWindowInsetsListener((v, insets) -> {
-            v.setPadding(v.getPaddingLeft(), v.getPaddingTop(), v.getPaddingRight(),
-                    insets.getSystemWindowInsetBottom());
-            return insets;
+        ViewCompat.setOnApplyWindowInsetsListener(recyclerView, (v, windowInsets) -> {
+            final Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(v.getPaddingLeft(), v.getPaddingTop(), v.getPaddingRight(), insets.bottom);
+            return windowInsets;
         });
         return view;
     }

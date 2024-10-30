@@ -29,7 +29,10 @@ import androidx.activity.EdgeToEdge;
 import androidx.activity.SystemBarStyle;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
+import androidx.core.graphics.Insets;
 import androidx.core.view.MenuProvider;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
@@ -105,10 +108,10 @@ public final class AddressBookActivity extends AbstractWalletActivity {
 
         final ViewPager2 pager = findViewById(R.id.address_book_pager);
         final ViewPagerTabs pagerTabs = findViewById(R.id.address_book_pager_tabs);
-        findViewById(R.id.address_book_group).setOnApplyWindowInsetsListener((v, insets) -> {
-            v.setPadding(v.getPaddingLeft(), insets.getSystemWindowInsetTop(), v.getPaddingRight(),
-                    v.getPaddingBottom());
-            return insets;
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.address_book_group), (v, windowInsets) -> {
+            final Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(v.getPaddingLeft(), insets.top, v.getPaddingRight(), v.getPaddingBottom());
+            return windowInsets;
         });
 
         pagerTabs.addTabLabels(TAB_LABELS);

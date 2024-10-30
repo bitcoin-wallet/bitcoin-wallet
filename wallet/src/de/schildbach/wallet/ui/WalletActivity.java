@@ -44,8 +44,10 @@ import androidx.activity.SystemBarStyle;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.app.ActivityOptionsCompat;
+import androidx.core.graphics.Insets;
 import androidx.core.view.MenuProvider;
 import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 import com.google.common.primitives.Floats;
@@ -137,23 +139,22 @@ public final class WalletActivity extends AbstractWalletActivity {
         contentView = findViewById(android.R.id.content);
         final View insetTopView = contentView.findViewWithTag("inset_top");
         if (insetTopView != null) {
-            insetTopView.setOnApplyWindowInsetsListener((v, insets) -> {
-                v.setPadding(v.getPaddingLeft(), insets.getSystemWindowInsetTop(),
-                        v.getPaddingRight(), v.getPaddingBottom());
-                return insets;
+            ViewCompat.setOnApplyWindowInsetsListener(insetTopView, (v, windowInsets) -> {
+                final Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+                v.setPadding(v.getPaddingLeft(), insets.top, v.getPaddingRight(), v.getPaddingBottom());
+                return windowInsets;
             });
         }
         final View insetBottomView = contentView.findViewWithTag("inset_bottom");
         if (insetBottomView != null) {
-            insetBottomView.setOnApplyWindowInsetsListener((v, insets) -> {
-                final int insetBottom = insets.getSystemWindowInsetBottom();
-                if (insetBottom > 0 && v instanceof LinearLayout) {
+            ViewCompat.setOnApplyWindowInsetsListener(insetBottomView, (v, windowInsets) -> {
+                final Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+                if (insets.bottom > 0 && v instanceof LinearLayout) {
                     final LinearLayout layout = (LinearLayout) v;
                     layout.setShowDividers(layout.getShowDividers() | LinearLayout.SHOW_DIVIDER_END);
                 }
-                v.setPadding(v.getPaddingLeft(), v.getPaddingTop(),
-                        v.getPaddingRight(),  insets.getSystemWindowInsetBottom());
-                return insets;
+                v.setPadding(v.getPaddingLeft(), v.getPaddingTop(), v.getPaddingRight(), insets.bottom);
+                return windowInsets;
             });
         }
 

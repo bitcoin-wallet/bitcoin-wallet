@@ -38,7 +38,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.Nullable;
+import androidx.core.graphics.Insets;
 import androidx.core.view.MenuProvider;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
@@ -269,15 +272,14 @@ public class SweepWalletFragment extends Fragment {
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
             final Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.sweep_wallet_fragment, container, false);
-        view.setOnApplyWindowInsetsListener((v, insets) -> {
-            final int insetBottom = insets.getSystemWindowInsetBottom();
-            if (insetBottom > 0) {
+        ViewCompat.setOnApplyWindowInsetsListener(view, (v, windowInsets) -> {
+            final Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+            if (insets.bottom > 0) {
                 final LinearLayout layout = (LinearLayout) v;
                 layout.setShowDividers(layout.getShowDividers() | LinearLayout.SHOW_DIVIDER_END);
             }
-            v.setPadding(insets.getSystemWindowInsetLeft(), insets.getSystemWindowInsetTop(),
-                    insets.getSystemWindowInsetRight(), insetBottom);
-            return insets;
+            v.setPadding(insets.left, insets.top, insets.right, insets.bottom);
+            return windowInsets;
         });
 
         messageView = view.findViewById(R.id.sweep_wallet_fragment_message);
