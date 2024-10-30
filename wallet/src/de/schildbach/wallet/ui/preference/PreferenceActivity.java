@@ -30,6 +30,7 @@ public final class PreferenceActivity extends android.preference.PreferenceActiv
     @Override
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getActionBar().setDisplayHomeAsUpEnabled(true);
         findViewById(android.R.id.content).setOnApplyWindowInsetsListener((v, insets) -> {
             v.setPadding(v.getPaddingLeft(), insets.getSystemWindowInsetTop(), v.getPaddingRight(),
                     v.getPaddingBottom());

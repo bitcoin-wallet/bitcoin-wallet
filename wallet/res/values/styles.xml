@@ -22,10 +22,6 @@
         <item name="android:windowBackground">@drawable/background_splash</item>
     </style>
 
-    <style name="My.Theme.ChildActivity" parent="@style/My.Theme">
-        <item name="android:actionBarStyle">@style/My.Widget.ActionBar.ChildActivity</item>
-    </style>
-
     <style name="My.Theme.Fullscreen" parent="@android:style/Theme.Material.NoActionBar">
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowBackground">@android:color/black</item>
@@ -44,10 +40,6 @@
         <item name="android:titleTextStyle">@style/My.TextAppearance.Widget.ActionBar.Title</item>
         <item name="android:subtitleTextStyle">@style/My.TextAppearance.Widget.ActionBar.Subtitle</item>
         <item name="android:displayOptions">showTitle</item>
-    </style>
-
-    <style name="My.Widget.ActionBar.ChildActivity" parent="@style/My.Widget.ActionBar">
-        <item name="android:displayOptions">homeAsUp|showTitle</item>
     </style>
 
     <style name="My.TextAppearance.Widget.ActionBar.Title" parent="@android:style/TextAppearance.Material.Widget.ActionBar.Title">

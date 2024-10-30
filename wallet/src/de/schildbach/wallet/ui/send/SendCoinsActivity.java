@@ -85,6 +85,7 @@ public final class SendCoinsActivity extends AbstractWalletActivity {
         super.onCreate(savedInstanceState);
         log.info("Referrer: {}", getReferrer());
         setContentView(R.layout.send_coins_content);
+        getActionBar().setDisplayHomeAsUpEnabled(true);
 
         viewModel = new ViewModelProvider(this).get(SendCoinsActivityViewModel.class);
         viewModel.showHelpDialog.observe(this, new Event.Observer<Integer>() {
