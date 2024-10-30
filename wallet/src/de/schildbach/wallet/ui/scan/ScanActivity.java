@@ -40,7 +40,6 @@ import android.view.Surface;
 import android.view.TextureView;
 import android.view.TextureView.SurfaceTextureListener;
 import android.view.View;
-import android.view.WindowManager;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContract;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -142,9 +141,6 @@ public final class ScanActivity extends AbstractWalletActivity implements Surfac
         // AndroidManifest.xml, because it's not allowed in combination with the windowIsTranslucent=true
         // theme attribute.
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
-        // Draw under navigation and status bars.
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
 
         setContentView(R.layout.scan_activity);
         contentView = findViewById(android.R.id.content);
