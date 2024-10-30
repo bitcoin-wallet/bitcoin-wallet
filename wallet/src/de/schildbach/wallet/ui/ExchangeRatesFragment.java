@@ -138,7 +138,7 @@ public final class ExchangeRatesFragment extends Fragment implements OnSharedPre
                     });
 
                     // Workaround for not being able to style the SearchView
-                    final int id = getResources().getIdentifier("android:id/search_src_text", null, null);
+                    final int id = activity.getResources().getIdentifier("android:id/search_src_text", null, null);
                     final EditText searchInput = searchView.findViewById(id);
                     searchInput.setTextColor(activity.getColor(R.color.fg_on_dark_bg_network_significant));
                     searchInput.setHintTextColor(activity.getColor(R.color.fg_on_dark_bg_network_insignificant));
