@@ -106,7 +106,7 @@
             android:id="@+id/exchange_rate_row_context_bar"
             android:theme="@style/My.ThemeOverlay.ContextBar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="?android:attr/actionBarSize"
             android:visibility="gone" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>
