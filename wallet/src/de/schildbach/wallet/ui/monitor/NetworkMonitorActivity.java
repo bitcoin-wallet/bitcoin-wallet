@@ -17,7 +17,10 @@
 
 package de.schildbach.wallet.ui.monitor;
 
+import android.graphics.Color;
 import android.os.Bundle;
+import androidx.activity.EdgeToEdge;
+import androidx.activity.SystemBarStyle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
@@ -39,6 +42,8 @@ public final class NetworkMonitorActivity extends AbstractWalletActivity {
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
+        EdgeToEdge.enable(this, SystemBarStyle.dark(Color.TRANSPARENT), SystemBarStyle.light(Color.TRANSPARENT,
+                Color.TRANSPARENT));
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.network_monitor_content);

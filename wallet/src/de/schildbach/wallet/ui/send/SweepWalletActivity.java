@@ -19,7 +19,10 @@ package de.schildbach.wallet.ui.send;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import androidx.activity.EdgeToEdge;
+import androidx.activity.SystemBarStyle;
 import de.schildbach.wallet.R;
 import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.ui.AbstractWalletActivity;
@@ -43,6 +46,8 @@ public final class SweepWalletActivity extends AbstractWalletActivity {
 
     @Override
     public void onCreate(final Bundle savedInstanceState) {
+        EdgeToEdge.enable(this, SystemBarStyle.dark(Color.TRANSPARENT), SystemBarStyle.light(Color.TRANSPARENT,
+                Color.TRANSPARENT));
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.sweep_wallet_content);

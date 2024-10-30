@@ -20,10 +20,13 @@ package de.schildbach.wallet.ui;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import androidx.activity.EdgeToEdge;
+import androidx.activity.SystemBarStyle;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.core.view.MenuProvider;
@@ -92,6 +95,8 @@ public final class AddressBookActivity extends AbstractWalletActivity {
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
+        EdgeToEdge.enable(this, SystemBarStyle.dark(Color.TRANSPARENT), SystemBarStyle.light(Color.TRANSPARENT,
+                Color.TRANSPARENT));
         super.onCreate(savedInstanceState);
         final FragmentManager fragmentManager = getSupportFragmentManager();
 

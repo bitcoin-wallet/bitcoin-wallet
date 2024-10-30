@@ -19,10 +19,13 @@ package de.schildbach.wallet.ui.send;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import androidx.activity.EdgeToEdge;
+import androidx.activity.SystemBarStyle;
 import androidx.annotation.Nullable;
 import androidx.core.view.MenuProvider;
 import androidx.lifecycle.ViewModelProvider;
@@ -77,6 +80,8 @@ public final class SendCoinsActivity extends AbstractWalletActivity {
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
+        EdgeToEdge.enable(this, SystemBarStyle.dark(Color.TRANSPARENT), SystemBarStyle.light(Color.TRANSPARENT,
+                Color.TRANSPARENT));
         super.onCreate(savedInstanceState);
         log.info("Referrer: {}", getReferrer());
         setContentView(R.layout.send_coins_content);

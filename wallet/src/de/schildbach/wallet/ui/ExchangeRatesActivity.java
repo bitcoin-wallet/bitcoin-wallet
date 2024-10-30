@@ -17,7 +17,10 @@
 
 package de.schildbach.wallet.ui;
 
+import android.graphics.Color;
 import android.os.Bundle;
+import androidx.activity.EdgeToEdge;
+import androidx.activity.SystemBarStyle;
 import de.schildbach.wallet.R;
 
 /**
@@ -26,6 +29,8 @@ import de.schildbach.wallet.R;
 public final class ExchangeRatesActivity extends AbstractWalletActivity {
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
+        EdgeToEdge.enable(this, SystemBarStyle.dark(Color.TRANSPARENT), SystemBarStyle.light(Color.TRANSPARENT,
+                Color.TRANSPARENT));
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.exchange_rates_content);
