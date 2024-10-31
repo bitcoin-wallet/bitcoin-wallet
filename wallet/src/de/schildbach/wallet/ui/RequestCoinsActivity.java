@@ -69,7 +69,9 @@ public final class RequestCoinsActivity extends AbstractWalletActivity {
         getActionBar().setDisplayHomeAsUpEnabled(true);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(android.R.id.content), (v, windowInsets) -> {
             final Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(v.getPaddingLeft(), insets.top, v.getPaddingRight(), v.getPaddingBottom());
+            final boolean imeVisible = windowInsets.isVisible(WindowInsetsCompat.Type.ime());
+            v.setPadding(v.getPaddingLeft(), insets.top, v.getPaddingRight(),
+                    imeVisible ? windowInsets.getInsets(WindowInsetsCompat.Type.ime()).bottom : 0);
             return windowInsets;
         });
 
