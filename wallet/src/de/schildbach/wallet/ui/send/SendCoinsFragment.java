@@ -485,11 +485,18 @@ public final class SendCoinsFragment extends Fragment {
         final View view = inflater.inflate(R.layout.send_coins_fragment, container, false);
         ViewCompat.setOnApplyWindowInsetsListener(view, (v, windowInsets) -> {
             final Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
-            if (insets.bottom > 0) {
-                final LinearLayout layout = (LinearLayout) v;
-                layout.setShowDividers(layout.getShowDividers() | LinearLayout.SHOW_DIVIDER_END);
+            final boolean imeVisible = windowInsets.isVisible(WindowInsetsCompat.Type.ime());
+            if (imeVisible) {
+                final Insets ime = windowInsets.getInsets(WindowInsetsCompat.Type.ime());
+                v.setPadding(insets.left, v.getPaddingTop(), insets.right, ime.bottom);
+            } else {
+                v.setPadding(insets.left, v.getPaddingTop(), insets.right, insets.bottom);
             }
-            v.setPadding(insets.left, v.getPaddingTop(), insets.right, insets.bottom);
+            final LinearLayout layout = (LinearLayout) v;
+            if (insets.bottom > 0 && !imeVisible)
+                layout.setShowDividers(layout.getShowDividers() | LinearLayout.SHOW_DIVIDER_END);
+            else
+                layout.setShowDividers(layout.getShowDividers() & ~LinearLayout.SHOW_DIVIDER_END);
             return windowInsets;
         });
 
