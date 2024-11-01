@@ -25,6 +25,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toolbar;
 import androidx.activity.EdgeToEdge;
 import androidx.activity.SystemBarStyle;
 import androidx.activity.result.ActivityResultLauncher;
@@ -104,7 +105,9 @@ public final class AddressBookActivity extends AbstractWalletActivity {
         final FragmentManager fragmentManager = getSupportFragmentManager();
 
         setContentView(R.layout.address_book_content);
-        setActionBar(findViewById(R.id.address_book_appbar));
+        final Toolbar appbar = findViewById(R.id.address_book_appbar);
+        appbar.getNavigationIcon().setTint(getColor(R.color.fg_on_dark_bg_network_significant));
+        setActionBar(appbar);
         getActionBar().setDisplayHomeAsUpEnabled(true);
 
         final ViewPager2 pager = findViewById(R.id.address_book_pager);

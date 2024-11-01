@@ -19,6 +19,7 @@ package de.schildbach.wallet.ui.monitor;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.widget.Toolbar;
 import androidx.activity.EdgeToEdge;
 import androidx.activity.SystemBarStyle;
 import androidx.annotation.NonNull;
@@ -50,7 +51,9 @@ public final class NetworkMonitorActivity extends AbstractWalletActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.network_monitor_content);
-        setActionBar(findViewById(R.id.network_monitor_appbar));
+        final Toolbar appbar = findViewById(R.id.network_monitor_appbar);
+        appbar.getNavigationIcon().setTint(getColor(R.color.fg_on_dark_bg_network_significant));
+        setActionBar(appbar);
         getActionBar().setDisplayHomeAsUpEnabled(true);
 
         final ViewPager2 pager = findViewById(R.id.network_monitor_pager);
