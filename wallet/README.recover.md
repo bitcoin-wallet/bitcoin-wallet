@@ -37,11 +37,7 @@ requiring your Ubuntu user password.
 
 On your PC, within your Linux shell, install the following Ubuntu packages:
 
-    sudo apt install openjdk-11-jdk android-tools-adb openssl git gradle
-
-On your Android device, go to Settings > Developer options and enable "USB debugging". On most
-recent devices you need to go to Settings > About first and tap on "Build number" multiple times
-until you see the "You are now a developer" message.
+    sudo apt install openjdk-11-jdk openssl git gradle
 
 
 ## LOCATING THE BACKUP FILES
