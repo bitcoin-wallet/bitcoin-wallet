@@ -15,6 +15,7 @@
         <!-- Various domains to fetch exchange rates from. -->
         <domain includeSubdomains="true">coingecko.com</domain>
         <domain includeSubdomains="true">bitcoinaverage.com</domain>
+        <domain includeSubdomains="true">cryptocompare.com</domain>
 
         <trust-anchors>
             <certificates src="system" />
