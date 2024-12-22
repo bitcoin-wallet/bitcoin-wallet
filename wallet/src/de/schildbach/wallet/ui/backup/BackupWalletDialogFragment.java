@@ -51,9 +51,13 @@ import de.schildbach.wallet.ui.ShowPasswordCheckListener;
 import de.schildbach.wallet.util.Crypto;
 import de.schildbach.wallet.util.Toast;
 import de.schildbach.wallet.util.WalletUtils;
+
+import org.bitcoinj.crypto.KeyCrypter;
 import org.bitcoinj.wallet.Protos;
+import org.bitcoinj.wallet.UnreadableWalletException;
 import org.bitcoinj.wallet.Wallet;
 import org.bitcoinj.wallet.WalletProtobufSerializer;
+import org.bouncycastle.crypto.params.KeyParameter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -64,12 +68,14 @@ import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.Writer;
 import java.nio.charset.StandardCharsets;
-import java.text.DateFormat;
 import java.time.Instant;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.TimeZone;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 import static com.google.common.base.Preconditions.checkState;
 
@@ -92,20 +98,22 @@ public class BackupWalletDialogFragment extends DialogFragment {
     private View passwordMismatchView;
     private CheckBox showView;
     private TextView warningView;
+    private View spendingPINViewGroup;
+    private EditText spendingPINView;
+    private TextView badSpendingPINView;
     private Button positiveButton, negativeButton;
-
+    private ExecutorService executor = Executors.newSingleThreadExecutor();
     private AbstractWalletActivityViewModel walletActivityViewModel;
     private BackupWalletViewModel viewModel;
-
     private static final Logger log = LoggerFactory.getLogger(BackupWalletDialogFragment.class);
 
     private final ActivityResultLauncher<String> createDocumentLauncher =
             registerForActivityResult(new ActivityResultContracts.CreateDocument(Constants.MIMETYPE_WALLET_BACKUP),
                     uri -> {
                         if (uri != null) {
-                            walletActivityViewModel.wallet.observe(this, new Observer<Wallet>() {
+                            viewModel.walletToBackup.observe(this, new Observer<Wallet>() {
                                 @Override
-                                public void onChanged(final Wallet wallet) {
+                                public void onChanged(final Wallet walletToBackup) {
                                     walletActivityViewModel.wallet.removeObserver(this);
 
                                     final String targetProvider = WalletUtils.uriToProvider(uri);
@@ -119,7 +127,7 @@ public class BackupWalletDialogFragment extends DialogFragment {
                                             activity.getContentResolver().openOutputStream(uri),
                                             StandardCharsets.UTF_8)) {
                                         final Protos.Wallet walletProto =
-                                                new WalletProtobufSerializer().walletToProto(wallet);
+                                                new WalletProtobufSerializer().walletToProto(walletToBackup);
                                         final ByteArrayOutputStream baos = new ByteArrayOutputStream();
                                         walletProto.writeTo(baos);
                                         baos.close();
@@ -157,7 +165,6 @@ public class BackupWalletDialogFragment extends DialogFragment {
                                     } catch (final IOException x) {
                                         log.error("problem verifying backup from " + uri, x);
                                         ErrorDialogFragment.showDialog(getParentFragmentManager(), x.toString());
-                                        return;
                                     }
                                 }
                             });
@@ -169,10 +176,25 @@ public class BackupWalletDialogFragment extends DialogFragment {
                         }
                     });
 
-    private final TextWatcher textWatcher = new TextWatcher() {
+    private final TextWatcher passwordTextWatcher = new TextWatcher() {
         @Override
         public void onTextChanged(final CharSequence s, final int start, final int before, final int count) {
             viewModel.password.postValue(s.toString().trim());
+        }
+
+        @Override
+        public void beforeTextChanged(final CharSequence s, final int start, final int count, final int after) {
+        }
+
+        @Override
+        public void afterTextChanged(final Editable s) {
+        }
+    };
+
+    private final TextWatcher spendingPINTextWatcher = new TextWatcher() {
+        @Override
+        public void onTextChanged(final CharSequence s, final int start, final int before, final int count) {
+            viewModel.spendingPIN.postValue(s.toString().trim());
         }
 
         @Override
@@ -216,6 +238,10 @@ public class BackupWalletDialogFragment extends DialogFragment {
 
         showView = view.findViewById(R.id.backup_wallet_dialog_show);
 
+        spendingPINViewGroup = view.findViewById(R.id.backup_wallet_dialog_spending_pin_group);
+        spendingPINView = view.findViewById(R.id.backup_wallet_dialog_spending_pin);
+        badSpendingPINView = view.findViewById(R.id.backup_wallet_dialog_bad_spending_pin);
+
         warningView = view.findViewById(R.id.backup_wallet_dialog_warning_encrypted);
 
         final DialogBuilder builder = DialogBuilder.custom(activity, R.string.export_keys_dialog_title, view);
@@ -237,13 +263,28 @@ public class BackupWalletDialogFragment extends DialogFragment {
                 activity.finish();
             });
 
-            passwordView.addTextChangedListener(textWatcher);
-            passwordAgainView.addTextChangedListener(textWatcher);
-
+            passwordView.addTextChangedListener(passwordTextWatcher);
+            passwordAgainView.addTextChangedListener(passwordTextWatcher);
+            spendingPINView.addTextChangedListener(spendingPINTextWatcher);
             showView.setOnCheckedChangeListener(new ShowPasswordCheckListener(passwordView, passwordAgainView));
 
-            walletActivityViewModel.wallet.observe(BackupWalletDialogFragment.this,
-                    wallet -> warningView.setVisibility(wallet.isEncrypted() ? View.VISIBLE : View.GONE));
+            walletActivityViewModel.wallet.observe(BackupWalletDialogFragment.this, wallet ->{
+                warningView.setVisibility(wallet.isEncrypted() ? View.VISIBLE : View.GONE);
+                spendingPINViewGroup.setVisibility(wallet.isEncrypted() ? View.VISIBLE : View.GONE);
+            });
+
+            viewModel.spendingPIN.observe(BackupWalletDialogFragment.this, spendingPIN -> {
+                badSpendingPINView.setVisibility(View.INVISIBLE);
+                if (positiveButton != null) {
+                    positiveButton.setEnabled(preConditionsSatisfied());
+                }
+
+            });
+
+            viewModel.state.observe(BackupWalletDialogFragment.this, state -> {
+                updateView();
+            });
+
             viewModel.password.observe(BackupWalletDialogFragment.this, password -> {
                 passwordMismatchView.setVisibility(View.INVISIBLE);
 
@@ -268,10 +309,7 @@ public class BackupWalletDialogFragment extends DialogFragment {
                 }
 
                 if (positiveButton != null) {
-                    final Wallet wallet = walletActivityViewModel.wallet.getValue();
-                    final boolean hasPassword = !password.isEmpty();
-                    final boolean hasPasswordAgain = !passwordAgainView.getText().toString().trim().isEmpty();
-                    positiveButton.setEnabled(wallet != null && hasPassword && hasPasswordAgain);
+                    positiveButton.setEnabled(preConditionsSatisfied());
                 }
             });
         });
@@ -281,8 +319,9 @@ public class BackupWalletDialogFragment extends DialogFragment {
 
     @Override
     public void onDismiss(final DialogInterface dialog) {
-        passwordView.removeTextChangedListener(textWatcher);
-        passwordAgainView.removeTextChangedListener(textWatcher);
+        passwordView.removeTextChangedListener(passwordTextWatcher);
+        passwordAgainView.removeTextChangedListener(passwordTextWatcher);
+        spendingPINView.removeTextChangedListener(spendingPINTextWatcher);
 
         showView.setOnCheckedChangeListener(null);
 
@@ -302,21 +341,107 @@ public class BackupWalletDialogFragment extends DialogFragment {
         final String passwordAgain = passwordAgainView.getText().toString().trim();
 
         if (passwordAgain.equals(password)) {
-            backupWallet();
+            final Wallet wallet = walletActivityViewModel.wallet.getValue();
+            if (wallet.isEncrypted()) {
+                setState(BackupWalletViewModel.State.CRYPTING);
+                final String inputPIN = spendingPINView.getText().toString().trim();
+
+                try {
+                    final Protos.Wallet protosWallet = new WalletProtobufSerializer().walletToProto(wallet);
+                    final Wallet backupWallet = new WalletProtobufSerializer()
+                            .readWallet(Constants.NETWORK_PARAMETERS, null, protosWallet);
+
+                    final KeyCrypter keyCrypter = backupWallet.getKeyCrypter();
+                    Future<?> future = executor.submit(() -> {
+                        org.bitcoinj.core.Context.propagate(Constants.CONTEXT);
+                        final KeyParameter derivedAesKey = keyCrypter.deriveKey(inputPIN);
+                        backupWallet.decrypt(derivedAesKey);
+                        log.info("backup wallet successfully decrypted for back up");
+                    });
+                    future.get();
+                    viewModel.walletToBackup.setValue(backupWallet);
+                    setState(BackupWalletViewModel.State.EXPORTING);
+                    backupWallet();
+
+                } catch (final Wallet.BadWalletEncryptionKeyException e) {
+                    log.info("wallet decryption failed, bad spending password: " + e.getMessage());
+                    setState(BackupWalletViewModel.State.BADPIN);
+                } catch (UnreadableWalletException | ExecutionException | InterruptedException e) {
+                    log.info("wallet deserialization failed: " + e.getMessage());
+                    ErrorDialogFragment.showDialog(getParentFragmentManager(), e.toString());
+                }
+            } else {
+                viewModel.walletToBackup.setValue(wallet);
+                setState(BackupWalletViewModel.State.EXPORTING);
+                backupWallet();
+                setState(BackupWalletViewModel.State.INPUT);
+            }
         } else {
             passwordMismatchView.setVisibility(View.VISIBLE);
+            setState(BackupWalletViewModel.State.INPUT);
         }
+    }
+
+    private void setState(final BackupWalletViewModel.State state) {
+        viewModel.state.postValue(state);
+    }
+
+    private void updateView() {
+
+        BackupWalletViewModel.State currentState = viewModel.state.getValue();
+
+        if (currentState == BackupWalletViewModel.State.INPUT || currentState ==BackupWalletViewModel.State.BADPIN) {
+            showView.setEnabled(true);
+            negativeButton.setEnabled(true);
+            positiveButton.setEnabled(preConditionsSatisfied());
+            positiveButton.setText(R.string.export_keys_dialog_button_export);
+            spendingPINView.setEnabled(true);
+            passwordView.setEnabled(true);
+            passwordAgainView.setEnabled(true);
+            if (currentState ==BackupWalletViewModel.State.BADPIN) {
+                badSpendingPINView.setVisibility(View.VISIBLE);
+            }
+        } else if (currentState == BackupWalletViewModel.State.CRYPTING) {
+            negativeButton.setEnabled(true);
+            showView.setEnabled(false);
+            positiveButton.setEnabled(false);
+            positiveButton.setText(R.string.backup_wallet_dialog_state_verifying);
+            spendingPINView.setEnabled(false);
+            passwordView.setEnabled(false);
+            passwordAgainView.setEnabled(false);
+        } else if (currentState == BackupWalletViewModel.State.EXPORTING) {
+            negativeButton.setEnabled(true);
+            positiveButton.setEnabled(false);
+            positiveButton.setText(R.string.backup_wallet_dialog_state_verifying);
+            spendingPINView.setEnabled(false);
+            passwordView.setEnabled(false);
+            passwordAgainView.setEnabled(false);
+        }
+    }
+
+    private boolean isSpendingPINPlausible() {
+        final Wallet wallet = walletActivityViewModel.wallet.getValue();
+        if (wallet == null)
+            return false;
+        if (!wallet.isEncrypted())
+            return true;
+        return !spendingPINView.getText().toString().trim().isEmpty();
+    }
+
+    private boolean preConditionsSatisfied() {
+        final Wallet wallet = walletActivityViewModel.wallet.getValue();
+        final boolean hasPassword = !passwordView.getText().toString().trim().isEmpty();
+        final boolean hasPasswordAgain = !passwordAgainView.getText().toString().trim().isEmpty();
+        return wallet != null && hasPassword && hasPasswordAgain && isSpendingPINPlausible();
     }
 
     private void wipePasswords() {
         passwordView.setText(null);
         passwordAgainView.setText(null);
+        spendingPINView.setText(null);
     }
 
     private void backupWallet() {
-        passwordView.setEnabled(false);
-        passwordAgainView.setEnabled(false);
-
         final DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm");
         final StringBuilder filename = new StringBuilder(Constants.Files.EXTERNAL_WALLET_BACKUP);
         filename.append('-');
