@@ -63,11 +63,12 @@ public class AbstractWalletActivityViewModel extends AndroidViewModel {
                             wallet.receivePending(tx, null);
                             final TransactionBroadcast broadcast = blockchainService.broadcastTransaction(tx);
                             if (broadcast != null) {
-                                broadcast.future().addListener(() -> {
+                                final ListenableFuture broadcastFuture = broadcast.future();
+                                broadcastFuture.addListener(() -> {
                                     log.info("broadcasting transaction {} complete, dropping all peers", tx.getTxId());
                                     blockchainService.dropAllPeers();
                                 }, Threading.SAME_THREAD);
-                                future.setFuture(broadcast.future());
+                                future.setFuture(broadcastFuture);
                             } else {
                                 log.info("impediments; will send {} later", tx.getTxId());
                                 future.cancel(false);
