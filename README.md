@@ -7,7 +7,7 @@ This project contains several sub-projects:
  * __wallet__:
      The Android app itself. This is probably what you're searching for.
  * __market__:
-     App description and promo material for the Google Play app store.
+     App description and promo material for the app stores.
 
 
 ### PREREQUISITES FOR BUILDING
