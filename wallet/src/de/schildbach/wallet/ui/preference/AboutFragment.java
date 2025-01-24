@@ -87,7 +87,7 @@ public final class AboutFragment extends PreferenceFragment {
         });
 
         Installer installer = Installer.from(application);
-        if (installer == null)
+        if (installer == null || installer == Installer.GOOGLE_PLAY)
             installer = Installer.F_DROID;
         final Preference marketPref = findPreference(KEY_ABOUT_MARKET_APP);
         marketPref.setTitle(getString(R.string.about_market_app_title, installer.displayName));
