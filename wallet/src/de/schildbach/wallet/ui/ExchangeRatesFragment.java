@@ -32,7 +32,10 @@ import android.widget.EditText;
 import android.widget.SearchView;
 import android.widget.SearchView.OnQueryTextListener;
 import android.widget.ViewAnimator;
+import androidx.core.graphics.Insets;
 import androidx.core.view.MenuProvider;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -138,7 +141,7 @@ public final class ExchangeRatesFragment extends Fragment implements OnSharedPre
                     });
 
                     // Workaround for not being able to style the SearchView
-                    final int id = getResources().getIdentifier("android:id/search_src_text", null, null);
+                    final int id = activity.getResources().getIdentifier("android:id/search_src_text", null, null);
                     final EditText searchInput = searchView.findViewById(id);
                     searchInput.setTextColor(activity.getColor(R.color.fg_on_dark_bg_network_significant));
                     searchInput.setHintTextColor(activity.getColor(R.color.fg_on_dark_bg_network_insignificant));
@@ -163,6 +166,11 @@ public final class ExchangeRatesFragment extends Fragment implements OnSharedPre
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(activity));
         recyclerView.setAdapter(adapter);
+        ViewCompat.setOnApplyWindowInsetsListener(recyclerView, (v, windowInsets) -> {
+            final Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(insets.left, v.getPaddingTop(), insets.right, insets.bottom);
+            return windowInsets;
+        });
         return view;
     }
 

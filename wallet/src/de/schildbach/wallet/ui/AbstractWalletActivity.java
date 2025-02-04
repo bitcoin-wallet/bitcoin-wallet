@@ -21,10 +21,8 @@ import android.app.ActivityManager.TaskDescription;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.WindowManager;
 import androidx.fragment.app.FragmentActivity;
 import de.schildbach.wallet.R;
 import de.schildbach.wallet.WalletApplication;
@@ -58,17 +56,6 @@ public abstract class AbstractWalletActivity extends FragmentActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    @SuppressWarnings("deprecation")
-    @Override
-    public void setShowWhenLocked(final boolean showWhenLocked) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1)
-            super.setShowWhenLocked(showWhenLocked);
-        else if (showWhenLocked)
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
-        else
-            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
     }
 
     public void startExternalDocument(final Uri url) {

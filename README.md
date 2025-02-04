@@ -6,13 +6,13 @@ This project contains several sub-projects:
 
  * __wallet__:
      The Android app itself. This is probably what you're searching for.
- * __market__:
-     App description and promo material for the Google Play app store.
+ * __metadata__:
+     App description and promo material for the app stores.
 
 
 ### PREREQUISITES FOR BUILDING
 
-You'll need git, a Java 11 SDK and Gradle between 4.4 and 6.9.x for this. We'll assume Ubuntu 22.04 LTS (Jammy Jellyfish)
+You'll need git, a Java 11 SDK and Gradle between 4.4 and 6.9.x for this. We'll assume Ubuntu 24.04 LTS (Noble Numbat)
 for the package installs, which comes with OpenJDK 11 and Gradle 4.4.1 out of the box.
 
     # first time only

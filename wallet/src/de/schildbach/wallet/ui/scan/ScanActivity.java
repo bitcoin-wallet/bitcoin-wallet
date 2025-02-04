@@ -25,6 +25,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.SurfaceTexture;
@@ -40,7 +41,8 @@ import android.view.Surface;
 import android.view.TextureView;
 import android.view.TextureView.SurfaceTextureListener;
 import android.view.View;
-import android.view.WindowManager;
+import androidx.activity.EdgeToEdge;
+import androidx.activity.SystemBarStyle;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContract;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -119,6 +121,7 @@ public final class ScanActivity extends AbstractWalletActivity implements Surfac
 
     @Override
     public void onCreate(final Bundle savedInstanceState) {
+        EdgeToEdge.enable(this, SystemBarStyle.dark(Color.TRANSPARENT), SystemBarStyle.dark(Color.TRANSPARENT));
         super.onCreate(savedInstanceState);
         vibrator = getSystemService(Vibrator.class);
 
@@ -142,9 +145,6 @@ public final class ScanActivity extends AbstractWalletActivity implements Surfac
         // AndroidManifest.xml, because it's not allowed in combination with the windowIsTranslucent=true
         // theme attribute.
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
-        // Draw under navigation and status bars.
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
 
         setContentView(R.layout.scan_activity);
         contentView = findViewById(android.R.id.content);
@@ -214,11 +214,6 @@ public final class ScanActivity extends AbstractWalletActivity implements Surfac
 
     @Override
     public void onSurfaceTextureUpdated(final SurfaceTexture surface) {
-    }
-
-    @Override
-    public void onAttachedToWindow() {
-        setShowWhenLocked(true);
     }
 
     @Override

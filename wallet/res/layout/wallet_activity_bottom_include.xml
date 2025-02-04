@@ -7,7 +7,8 @@
     android:divider="@drawable/divider_dark"
     android:animateLayoutChanges="true"
     android:orientation="vertical"
-    android:showDividers="middle">
+    android:showDividers="middle"
+    android:tag="inset_bottom">
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/wallet_actions_fragment"

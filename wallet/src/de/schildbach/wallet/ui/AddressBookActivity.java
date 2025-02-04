@@ -20,13 +20,20 @@ package de.schildbach.wallet.ui;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toolbar;
+import androidx.activity.EdgeToEdge;
+import androidx.activity.SystemBarStyle;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
+import androidx.core.graphics.Insets;
 import androidx.core.view.MenuProvider;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
@@ -92,12 +99,24 @@ public final class AddressBookActivity extends AbstractWalletActivity {
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
+        EdgeToEdge.enable(this, SystemBarStyle.dark(getColor(R.color.bg_action_bar)),
+                SystemBarStyle.light(Color.TRANSPARENT, Color.TRANSPARENT));
         super.onCreate(savedInstanceState);
         final FragmentManager fragmentManager = getSupportFragmentManager();
 
         setContentView(R.layout.address_book_content);
+        final Toolbar appbar = findViewById(R.id.address_book_appbar);
+        appbar.getNavigationIcon().setTint(getColor(R.color.fg_on_dark_bg_network_significant));
+        setActionBar(appbar);
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+
         final ViewPager2 pager = findViewById(R.id.address_book_pager);
         final ViewPagerTabs pagerTabs = findViewById(R.id.address_book_pager_tabs);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.address_book_group), (v, windowInsets) -> {
+            final Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(v.getPaddingLeft(), insets.top, v.getPaddingRight(), v.getPaddingBottom());
+            return windowInsets;
+        });
 
         pagerTabs.addTabLabels(TAB_LABELS);
 
@@ -141,9 +160,10 @@ public final class AddressBookActivity extends AbstractWalletActivity {
         if (twoPanes) {
             final RecyclerView recyclerView = (RecyclerView) pager.getChildAt(0);
             recyclerView.setClipToPadding(false);
+
             recyclerView.getViewTreeObserver().addOnGlobalLayoutListener(() -> {
                 final int width = recyclerView.getWidth();
-                recyclerView.setPadding(0, 0, width / 2, 0);
+                recyclerView.setPadding(0, recyclerView.getPaddingTop(), width / 2, recyclerView.getPaddingBottom());
                 pager.setCurrentItem(0);
             });
             pager.setUserInputEnabled(false);

@@ -10,22 +10,22 @@ configurations {
 }
 
 dependencies {
-    implementation 'androidx.annotation:annotation:1.7.1'
-    implementation 'androidx.core:core:1.12.0'
-    implementation 'androidx.activity:activity:1.8.2'
-    implementation 'androidx.fragment:fragment:1.6.2'
+    implementation 'androidx.annotation:annotation:1.9.1'
+    implementation 'androidx.core:core:1.13.1'
+    implementation 'androidx.activity:activity:1.9.3'
+    implementation 'androidx.fragment:fragment:1.7.1'
     implementation 'androidx.recyclerview:recyclerview:1.3.2'
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.coordinatorlayout:coordinatorlayout:1.2.0'
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
-    implementation 'androidx.lifecycle:lifecycle-livedata:2.6.2'
-    implementation 'androidx.lifecycle:lifecycle-service:2.6.2'
+    implementation 'androidx.lifecycle:lifecycle-livedata:2.7.0'
+    implementation 'androidx.lifecycle:lifecycle-service:2.7.0'
     implementation 'androidx.sqlite:sqlite:2.4.0'
     implementation "androidx.room:room-runtime:2.6.1"
     annotationProcessor "androidx.room:room-compiler:2.6.1"
-    implementation 'org.bitcoinj:bitcoinj-core:0.16.2'
-    implementation 'com.google.guava:guava:33.0.0-android'
-    implementation 'com.google.zxing:core:3.5.2'
+    implementation 'org.bitcoinj:bitcoinj-core:0.16.5'
+    implementation 'com.google.guava:guava:33.4.0-android'
+    implementation 'com.google.zxing:core:3.5.3'
     //noinspection GradleDependency
     implementation 'com.squareup.okhttp3:okhttp:3.14.9'
     //noinspection GradleDependency
@@ -42,7 +42,7 @@ ext {
 
 android {
     compileSdkVersion 'android-34'
-    buildToolsVersion '34.0.0'
+    buildToolsVersion '35.0.0'
 
     defaultConfig {
         applicationId 'de.schildbach'
@@ -102,12 +102,17 @@ android {
     packagingOptions {
         exclude 'META-INF/*.version'
         exclude 'META-INF/*.kotlin_module'
+        exclude 'META-INF/kotlin-project-structure-metadata.json'
         exclude 'META-INF/proguard/**'
-        exclude 'META-INF/services/**'
+        exclude 'META-INF/services/**' // ineffective, for some reason
         exclude 'META-INF/**/coroutines.pro'
+        exclude 'META-INF/androidx/annotation/annotation/LICENSE.txt'
         exclude 'DebugProbesKt.bin'
         exclude '**/*.proto'
         exclude 'kotlin/**'
+        exclude 'kotlinx/**'
+        exclude 'commonMain/**'
+        exclude 'nonJvmMain/**'
         exclude 'org/bouncycastle/x509/*.properties'
         exclude 'okhttp3/internal/publicsuffix/*'
         exclude 'org/bitcoinj/crypto/mnemonic/wordlist/english.txt'

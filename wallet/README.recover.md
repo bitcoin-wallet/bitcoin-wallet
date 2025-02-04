@@ -24,7 +24,7 @@ refrain from sending your coins to a temporary wallet created in that environmen
 lost e.g. on a power outage or computer failure. Your desired destination wallet should already be
 set up and you should have one of its receiving addresses or a QR code at hand.
 
-Alternatively, you can also use Ubuntu on Windows 10 64-bit, if you've fully upgraded to the Fall Creators Update (version 1709 or later). Open the Windows Start Menu, search for and start `Turn Windows features on or off`. Scroll down and tick the `Windows Subsystem for Linux` feature. Restart your computer when prompted. Next, install `Ubuntu` from the Windows Store. Once the download has completed, select `Launch`. It will prompt you to pick a username and complete the installation. From now on, you can start into a Linux shell by selecting `Ubuntu` from the Windows Start Menu.
+Alternatively, you can also use Ubuntu on Windows 10/11 64-bit (fully upgraded). Open the Windows Start Menu, search for and start `Turn Windows features on or off`. Scroll down and tick the `Windows Subsystem for Linux` feature. Restart your computer when prompted. Next, install `Ubuntu` from the Windows Store. Once the download has completed, select `Launch`. It will prompt you to pick a username and complete the installation. From now on, you can start into a Linux shell by selecting `Ubuntu` from the Windows Start Menu.
 
 You should be at least a bit familiar with the Linux shell. Commands `in fixed-width font like this`
 are meant to be executed as a shell command. Before you execute each command by pressing return,
@@ -37,11 +37,7 @@ requiring your Ubuntu user password.
 
 On your PC, within your Linux shell, install the following Ubuntu packages:
 
-    sudo apt install openjdk-8-jdk android-tools-adb openssl git gradle
-
-On your Android device, go to Settings > Developer options and enable "USB debugging". On most
-recent devices you need to go to Settings > About first and tap on "Build number" multiple times
-until you see the "You are now a developer" message.
+    sudo apt install openjdk-11-jdk openssl git gradle
 
 
 ## LOCATING THE BACKUP FILES
@@ -81,27 +77,27 @@ password.
 
 We need wallet-tool from bitcoinj. First, in a working directory, let's get bitcoinj:
 
-    git clone -b release-0.15 https://github.com/bitcoinj/bitcoinj.git
+    git clone -b release-0.16 https://github.com/bitcoinj/bitcoinj.git
+    cd bitcoinj
 
 Make sure everything is compiled and ready to go by using once:
 
-    cd bitcoinj/tools
-    ./wallet-tool
+    gradle clean bitcoinj-tools:installDist
 
 Now use wallet-tool to sync the wallet from your backup:
 
-    ./wallet-tool reset --wallet=/tmp/bitcoin-wallet-decrypted-backup
-    ./wallet-tool sync --wallet=/tmp/bitcoin-wallet-decrypted-backup --debuglog
+    tools/build/install/wallet-tool/bin/wallet-tool reset --wallet=/tmp/bitcoin-wallet-decrypted-backup
+    tools/build/install/wallet-tool/bin/wallet-tool sync --wallet=/tmp/bitcoin-wallet-decrypted-backup --debuglog
 
 The sync process will take anywhere from a few minutes to hours. Wallet-tool will return to the
 shell prompt if its finished syncing. Have a look at the wallet:
 
-    ./wallet-tool dump --wallet=/tmp/bitcoin-wallet-decrypted-backup
+    tools/build/install/wallet-tool/bin/wallet-tool dump --wallet=/tmp/bitcoin-wallet-decrypted-backup
 
 Does the balance look right? You can see all transactions that ever touched your wallet. Now empty
 your entire wallet to the desired destination wallet if that's what you want:
 
-    ./wallet-tool send --wallet=/tmp/bitcoin-wallet-decrypted-backup --output=<receiving address of destination wallet>:ALL
+    tools/build/install/wallet-tool/bin/wallet-tool send --wallet=/tmp/bitcoin-wallet-decrypted-backup --output=<receiving address of destination wallet>:ALL
 
 If your wallet was protected by a spending PIN, you need to supply that PIN using the `--password=<PIN>` option.
 
@@ -112,7 +108,7 @@ are confirmed, you're done and you can skip the next paragraph to EPILOGUE.
 
 You can also get a list of your private keys, e.g. to claim coins other than Bitcoin which may sit on the same keys. To dump the private keys use:
 
-    ./wallet-tool dump --wallet=/tmp/bitcoin-wallet-decrypted-backup --dump-privkeys
+    tools/build/install/wallet-tool/bin/wallet-tool dump --wallet=/tmp/bitcoin-wallet-decrypted-backup --dump-privkeys
 
 Again, if your wallet was protected by a spending PIN, you need to supply that PIN using the `--password=<PIN>` option.
 

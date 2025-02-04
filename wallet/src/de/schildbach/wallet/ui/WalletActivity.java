@@ -25,6 +25,7 @@ import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.nfc.NdefMessage;
@@ -37,11 +38,16 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.LinearLayout;
+import androidx.activity.EdgeToEdge;
+import androidx.activity.SystemBarStyle;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.app.ActivityOptionsCompat;
+import androidx.core.graphics.Insets;
 import androidx.core.view.MenuProvider;
 import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 import com.google.common.primitives.Floats;
@@ -119,6 +125,8 @@ public final class WalletActivity extends AbstractWalletActivity {
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
+        EdgeToEdge.enable(this, SystemBarStyle.dark(getColor(R.color.bg_action_bar)),
+                SystemBarStyle.dark(Color.TRANSPARENT));
         super.onCreate(savedInstanceState);
         this.application = getWalletApplication();
         this.config = application.getConfiguration();
@@ -127,7 +135,30 @@ public final class WalletActivity extends AbstractWalletActivity {
         viewModel = new ViewModelProvider(this).get(WalletActivityViewModel.class);
 
         setContentView(R.layout.wallet_content);
+        setActionBar(findViewById(R.id.wallet_appbar));
+        getActionBar().setDisplayHomeAsUpEnabled(false);
         contentView = findViewById(android.R.id.content);
+        final View insetTopView = contentView.findViewWithTag("inset_top");
+        if (insetTopView != null) {
+            ViewCompat.setOnApplyWindowInsetsListener(insetTopView, (v, windowInsets) -> {
+                final Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+                v.setPadding(v.getPaddingLeft(), insets.top, v.getPaddingRight(), v.getPaddingBottom());
+                return windowInsets;
+            });
+        }
+        final View insetBottomView = contentView.findViewWithTag("inset_bottom");
+        if (insetBottomView != null) {
+            ViewCompat.setOnApplyWindowInsetsListener(insetBottomView, (v, windowInsets) -> {
+                final Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+                if (insets.bottom > 0 && v instanceof LinearLayout) {
+                    final LinearLayout layout = (LinearLayout) v;
+                    layout.setShowDividers(layout.getShowDividers() | LinearLayout.SHOW_DIVIDER_END);
+                }
+                v.setPadding(v.getPaddingLeft(), v.getPaddingTop(), v.getPaddingRight(), insets.bottom);
+                return windowInsets;
+            });
+        }
+
         exchangeRatesFragment = findViewById(R.id.wallet_main_twopanes_exchange_rates);
         levitateView = contentView.findViewWithTag("levitate");
 
@@ -193,9 +224,7 @@ public final class WalletActivity extends AbstractWalletActivity {
         });
         viewModel.enterAnimation.observe(this, state -> {
             if (state == WalletActivityViewModel.EnterAnimationState.WAITING) {
-                // API level 26: enterAnimation.setCurrentPlayTime(0);
-                for (final Animator animation : enterAnimation.getChildAnimations())
-                    ((ValueAnimator) animation).setCurrentPlayTime(0);
+                enterAnimation.setCurrentPlayTime(0);
             } else if (state == WalletActivityViewModel.EnterAnimationState.ANIMATING) {
                 reportFullyDrawn();
                 enterAnimation.start();

@@ -19,12 +19,19 @@ package de.schildbach.wallet.ui;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toolbar;
+import androidx.activity.EdgeToEdge;
+import androidx.activity.SystemBarStyle;
 import androidx.annotation.Nullable;
+import androidx.core.graphics.Insets;
 import androidx.core.view.MenuProvider;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.ViewModelProvider;
 import de.schildbach.wallet.R;
 import org.bitcoinj.script.Script;
@@ -54,9 +61,22 @@ public final class RequestCoinsActivity extends AbstractWalletActivity {
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
+        EdgeToEdge.enable(this, SystemBarStyle.dark(getColor(R.color.bg_action_bar)),
+                SystemBarStyle.light(Color.TRANSPARENT, Color.TRANSPARENT));
         super.onCreate(savedInstanceState);
         log.info("Referrer: {}", getReferrer());
         setContentView(R.layout.request_coins_content);
+        final Toolbar appbar = findViewById(R.id.request_coins_appbar);
+        appbar.getNavigationIcon().setTint(getColor(R.color.fg_on_dark_bg_network_significant));
+        setActionBar(appbar);
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(android.R.id.content), (v, windowInsets) -> {
+            final Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+            final boolean imeVisible = windowInsets.isVisible(WindowInsetsCompat.Type.ime());
+            v.setPadding(v.getPaddingLeft(), insets.top, v.getPaddingRight(),
+                    imeVisible ? windowInsets.getInsets(WindowInsetsCompat.Type.ime()).bottom : 0);
+            return windowInsets;
+        });
 
         viewModel = new ViewModelProvider(this).get(RequestCoinsActivityViewModel.class);
         viewModel.showHelpDialog.observe(this, new Event.Observer<Integer>() {
@@ -85,10 +105,5 @@ public final class RequestCoinsActivity extends AbstractWalletActivity {
                 return false;
             }
         });
-    }
-
-    @Override
-    public void onAttachedToWindow() {
-        setShowWhenLocked(true);
     }
 }

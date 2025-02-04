@@ -1,7 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.fragment.app.FragmentContainerView
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_level0"
+    android:orientation="vertical">
+
+    <Toolbar
+        android:id="@+id/exchange_rates_appbar"
+        style="@style/My.Widget.Toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize" />
+
+    <androidx.fragment.app.FragmentContainerView
     android:id="@+id/exchange_rates_fragment"
     android:name="de.schildbach.wallet.ui.ExchangeRatesFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent" />
+</LinearLayout>
