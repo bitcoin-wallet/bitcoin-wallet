@@ -44,6 +44,7 @@ RUN --mount=target=/home/builder/android-sdk,type=cache,uid=1000,gid=1000,sharin
 
 # build project
 RUN --mount=target=/home/builder/android-sdk,type=cache,uid=1000,gid=1000,sharing=locked \
+    --mount=target=/home/builder/.gradle,type=cache,uid=1000,gid=1000,sharing=locked \
     if [ -e /dev/fuse ] ; \
       then /bin/mv project project.u && /bin/mkdir project && \
       /usr/bin/disorderfs --sort-dirents=yes --reverse-dirents=no project.u project ; \
