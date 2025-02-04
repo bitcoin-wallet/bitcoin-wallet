@@ -39,10 +39,12 @@ COPY --chown=builder / project/
 
 # accept SDK licenses
 ENV ANDROID_HOME /home/builder/android-sdk
-RUN yes | /usr/bin/sdkmanager --licenses >/dev/null
+RUN --mount=target=/home/builder/android-sdk,type=cache,uid=1000,gid=1000,sharing=locked \
+    yes | /usr/bin/sdkmanager --licenses >/dev/null
 
 # build project
-RUN if [ -e /dev/fuse ] ; \
+RUN --mount=target=/home/builder/android-sdk,type=cache,uid=1000,gid=1000,sharing=locked \
+    if [ -e /dev/fuse ] ; \
       then /bin/mv project project.u && /bin/mkdir project && \
       /usr/bin/disorderfs --sort-dirents=yes --reverse-dirents=no project.u project ; \
     fi && \
