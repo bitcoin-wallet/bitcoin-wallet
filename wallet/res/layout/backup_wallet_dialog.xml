@@ -91,5 +91,36 @@
             android:text="@string/backup_wallet_dialog_warning_encrypted"
             android:textColor="@color/fg_less_significant"
             android:textSize="@dimen/font_size_small" />
+
+        <LinearLayout
+            android:id="@+id/backup_wallet_dialog_spending_pin_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/list_entry_padding_vertical"
+            android:divider="@drawable/divider_field"
+            android:orientation="horizontal"
+            android:showDividers="middle"
+            android:visibility="gone">
+
+            <EditText
+                android:id="@+id/backup_wallet_dialog_spending_pin"
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="@string/private_key_password"
+                android:imeOptions="flagNoExtractUi"
+                android:inputType="numberPassword"
+                android:singleLine="true" />
+
+            <TextView
+                android:id="@+id/backup_wallet_dialog_bad_spending_pin"
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/private_key_bad_password"
+                android:textColor="@color/fg_error"
+                android:textStyle="bold"
+                android:visibility="invisible" />
+        </LinearLayout>
     </LinearLayout>
 </ScrollView>
