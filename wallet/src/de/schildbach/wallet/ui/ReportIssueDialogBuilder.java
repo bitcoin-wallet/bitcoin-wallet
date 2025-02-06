@@ -32,6 +32,7 @@ import androidx.core.content.FileProvider;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.R;
 import de.schildbach.wallet.util.CrashReporter;
+import java.nio.file.Files;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -147,7 +148,7 @@ public abstract class ReportIssueDialogBuilder extends DialogBuilder implements 
                 final CharSequence walletDump = collectWalletDump();
 
                 if (walletDump != null) {
-                    final File file = File.createTempFile("wallet-dump.", ".txt", reportDir);
+                    final File file = Files.createTempFile(reportDir.toPath(), "wallet-dump.", ".txt").toFile();
 
                     final Writer writer = new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8);
                     writer.write(walletDump.toString());
@@ -162,7 +163,7 @@ public abstract class ReportIssueDialogBuilder extends DialogBuilder implements 
         }
 
         try {
-            final File savedBackgroundTraces = File.createTempFile("background-traces.", ".txt", reportDir);
+            final File savedBackgroundTraces = Files.createTempFile(reportDir.toPath(), "background-traces.", ".txt").toFile();
             if (CrashReporter.collectSavedBackgroundTraces(savedBackgroundTraces)) {
                 attachments.add(FileProvider.getUriForFile(activity, activity.getPackageName() + ".file_attachment",
                         savedBackgroundTraces));
