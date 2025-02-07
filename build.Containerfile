@@ -21,7 +21,7 @@ FROM debian:bullseye-backports AS build-stage
 # install debian packages
 ENV DEBIAN_FRONTEND noninteractive
 RUN /usr/bin/apt-get update && \
-    /usr/bin/apt-get --yes install disorderfs openjdk-11-jdk-headless gradle sdkmanager && \
+    /usr/bin/apt-get --yes --no-install-recommends install disorderfs openjdk-11-jdk-headless gradle sdkmanager && \
     /bin/ln -fs /usr/share/zoneinfo/CET /etc/localtime && \
     /usr/sbin/dpkg-reconfigure --frontend noninteractive tzdata && \
     /bin/ln -s /proc/self/mounts /etc/mtab && \
