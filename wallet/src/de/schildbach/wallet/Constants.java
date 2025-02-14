@@ -187,7 +187,7 @@ public final class Constants {
     public static final Coin TOO_MUCH_BALANCE_THRESHOLD = Coin.COIN.divide(32);
     /** A balance above this amount will cause the donate option to be shown */
     public static final Coin SOME_BALANCE_THRESHOLD = Coin.COIN.divide(1600);
-    /** Values less than this are considered not spendable in an economic way */
+    /** Values less than this are considered not spendable in an economical way */
     public static final Coin MIN_NONDUST = Coin.valueOf(546); // satoshis
 
     public static final int SDK_DEPRECATED_BELOW = Build.VERSION_CODES.P;
