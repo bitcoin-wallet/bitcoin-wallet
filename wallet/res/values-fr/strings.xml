@@ -248,6 +248,7 @@
   <string name="preferences_precision_labels_2_3">mBTC, 2 décimales</string>
   <string name="preferences_precision_labels_2_6">µBTC, 2 décimales</string>
   <string name="preferences_precision_labels_0_6">µBTC, pas de décimale</string>
+  <string name="preferences_precision_labels_0_8">sat, pas de décimale</string>
   <string name="preferences_own_name_title">Votre nom</string>
   <string name="preferences_own_name_summary">Votre nom ou celui de votre entreprise, qui seront ajoutés aux demandes de paiements que vous envoyez à vos clients.</string>
   <string name="preferences_own_name_dialog_message">Soyez bref.</string>

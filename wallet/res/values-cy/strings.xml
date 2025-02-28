@@ -247,6 +247,7 @@
   <string name="preferences_precision_labels_2_3">mBTC, 2 lle degol</string>
   <string name="preferences_precision_labels_2_6">µBTC, 2 lle degol</string>
   <string name="preferences_precision_labels_0_6">µBTC, dim llefydd degol</string>
+  <string name="preferences_precision_labels_0_8">sat, dim llefydd degol</string>
   <string name="preferences_own_name_title">Enw dy hun</string>
   <string name="preferences_own_name_summary">Dy enw di neu dy gwmni, i\'w ychwanegu at geisiadau am daliadau gan gwsmeriaid.</string>
   <string name="preferences_own_name_dialog_message">Cadw hi\'n fyr.</string>

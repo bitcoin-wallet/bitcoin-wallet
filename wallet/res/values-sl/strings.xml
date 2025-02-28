@@ -246,6 +246,7 @@
   <string name="preferences_precision_labels_2_3">mBTC, 2 decimalni mesti</string>
   <string name="preferences_precision_labels_2_6">µBTC, 2 decimalni mesti</string>
   <string name="preferences_precision_labels_0_6">µBTC, brez decimalnih mest</string>
+  <string name="preferences_precision_labels_0_8">sat, brez decimalnih mest</string>
   <string name="preferences_own_name_title">Lastno ime</string>
   <string name="preferences_own_name_summary">Vaše ime ali ime vašega podjetja. Doda se v zahtevke za plačilo, ki jih izdate svojim strankam.</string>
   <string name="preferences_own_name_dialog_message">Naj bo kratko.</string>

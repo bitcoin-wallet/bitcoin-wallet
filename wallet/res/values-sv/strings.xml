@@ -229,6 +229,7 @@
   <string name="preferences_precision_labels_2_3">mBTC, 2 decimaler</string>
   <string name="preferences_precision_labels_2_6">µBTC, 2 decimaler</string>
   <string name="preferences_precision_labels_0_6">µBTC, inga decimaler</string>
+  <string name="preferences_precision_labels_0_8">sat, inga decimaler</string>
   <string name="preferences_own_name_title">Ditt namn</string>
   <string name="preferences_own_name_summary">Skriv ditt namn för att användas vid betalningsmottagande. Gärna kort.</string>
   <string name="preferences_send_coins_autoclose_title">Stäng \"skicka bitcoin\"-dialogen automatiskt.</string>

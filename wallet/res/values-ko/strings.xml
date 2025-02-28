@@ -230,6 +230,7 @@
   <string name="preferences_precision_labels_2_3">mBTC, 소수 2자리</string>
   <string name="preferences_precision_labels_2_6">µBTC, 소수 2자리</string>
   <string name="preferences_precision_labels_0_6">µBTC, 소수 표시안함</string>
+  <string name="preferences_precision_labels_0_8">sat, 소수 표시안함</string>
   <string name="preferences_own_name_title">소유자명</string>
   <string name="preferences_own_name_summary">결제요청에 추가될 당신의 이름입니다. 짧게 입력해주세요.</string>
   <string name="preferences_send_coins_autoclose_title">송금 대화창을 자동으로 닫기</string>

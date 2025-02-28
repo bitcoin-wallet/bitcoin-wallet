@@ -230,6 +230,7 @@
   <string name="preferences_precision_labels_2_3">mBTC, 2 desimaler</string>
   <string name="preferences_precision_labels_2_6">µBTC, 2 desimaler</string>
   <string name="preferences_precision_labels_0_6">µBTC, ingen desimaler</string>
+  <string name="preferences_precision_labels_0_8">sat, ingen desimaler</string>
   <string name="preferences_own_name_title">Ditt navn</string>
   <string name="preferences_own_name_summary">Ditt navn, som skal legges til betalingsforespørsler. Prøv å holde det kort.</string>
   <string name="preferences_send_coins_autoclose_title">Automatisk lukk dialogboksen send mynter</string>

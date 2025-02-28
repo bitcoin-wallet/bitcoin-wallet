@@ -245,6 +245,7 @@
   <string name="preferences_precision_labels_2_3">mBTC, 2 lugares decimales</string>
   <string name="preferences_precision_labels_2_6">µBTC, 2 lugares decimales</string>
   <string name="preferences_precision_labels_0_6">µBTC, sin decimales</string>
+  <string name="preferences_precision_labels_0_8">sat, sin decimales</string>
   <string name="preferences_own_name_title">Su nombre</string>
   <string name="preferences_own_name_summary">Ponte un nombre, que será añadido a las solicitudes de pago. Trata de que sea corto.</string>
   <string name="preferences_send_coins_autoclose_title">Cerrar automáticamente el diálogo de envío de Bitcoins</string>
