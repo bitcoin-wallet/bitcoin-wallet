@@ -478,23 +478,17 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
                         return false;
                     if (!Objects.equals(oldTransactionItem.fee, newTransactionItem.fee))
                         return false;
-                    if (!Objects.equals(oldTransactionItem.feeFormat.format(Coin.COIN).toString(),
-                            newTransactionItem.feeFormat.format(Coin.COIN).toString()))
+                    if (!Objects.equals(oldTransactionItem.feeFormat, newTransactionItem.feeFormat))
                         return false;
                     if (!Objects.equals(oldTransactionItem.value, newTransactionItem.value))
                         return false;
-                    if (!Objects.equals(oldTransactionItem.valueFormat.format(Coin.COIN).toString(),
-                            newTransactionItem.valueFormat.format(Coin.COIN).toString()))
+                    if (!Objects.equals(oldTransactionItem.valueFormat, newTransactionItem.valueFormat))
                         return false;
                     if (!Objects.equals(oldTransactionItem.valueColor, newTransactionItem.valueColor))
                         return false;
                     if (!Objects.equals(oldTransactionItem.fiat, newTransactionItem.fiat))
                         return false;
-                    if (!Objects.equals(
-                            oldTransactionItem.fiatFormat != null
-                                    ? oldTransactionItem.fiatFormat.format(Coin.COIN).toString() : null,
-                            newTransactionItem.fiatFormat != null
-                                    ? newTransactionItem.fiatFormat.format(Coin.COIN).toString() : null))
+                    if (!Objects.equals(oldTransactionItem.fiatFormat, newTransactionItem.fiatFormat))
                         return false;
                     if (!Objects.equals(oldTransactionItem.fiatPrefixColor, newTransactionItem.fiatPrefixColor))
                         return false;
@@ -544,20 +538,14 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
                             && Objects.equals(oldTransactionItem.addressTypeface, newTransactionItem.addressTypeface)))
                         changes.add(ChangeType.ADDRESS);
                     if (!(Objects.equals(oldTransactionItem.fee, newTransactionItem.fee)
-                            && Objects.equals(oldTransactionItem.feeFormat.format(Coin.COIN).toString(),
-                                    newTransactionItem.feeFormat.format(Coin.COIN).toString())))
+                            && Objects.equals(oldTransactionItem.feeFormat, newTransactionItem.feeFormat)))
                         changes.add(ChangeType.FEE);
                     if (!(Objects.equals(oldTransactionItem.value, newTransactionItem.value)
-                            && Objects.equals(oldTransactionItem.valueFormat.format(Coin.COIN).toString(),
-                                    newTransactionItem.valueFormat.format(Coin.COIN).toString())
+                            && Objects.equals(oldTransactionItem.valueFormat, newTransactionItem.valueFormat)
                             && Objects.equals(oldTransactionItem.valueColor, newTransactionItem.valueColor)))
                         changes.add(ChangeType.VALUE);
                     if (!(Objects.equals(oldTransactionItem.fiat, newTransactionItem.fiat)
-                            && Objects.equals(
-                                    oldTransactionItem.fiatFormat != null
-                                            ? oldTransactionItem.fiatFormat.format(Coin.COIN).toString() : null,
-                                    newTransactionItem.fiatFormat != null
-                                            ? newTransactionItem.fiatFormat.format(Coin.COIN).toString() : null)
+                            && Objects.equals(oldTransactionItem.fiatFormat, newTransactionItem.fiatFormat)
                             && Objects.equals(oldTransactionItem.fiatPrefixColor, newTransactionItem.fiatPrefixColor)))
                         changes.add(ChangeType.FIAT);
                     if (!(Objects.equals(oldTransactionItem.message, newTransactionItem.message)
