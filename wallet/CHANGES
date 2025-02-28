@@ -1,3 +1,8 @@
+v10.25
+
+* Add mBTC and µBTC denominations with more decimal places.
+* Migrate market metadata to fastlane structure.
+
 v10.17-v10.24
 
 * Support edge-to-edge layout.
