@@ -224,7 +224,9 @@
   <string name="preferences_precision_labels_8">BTC，小數 8 位</string>
   <string name="preferences_precision_labels_6">BTC，小數 6 位</string>
   <string name="preferences_precision_labels_4">BTC，小數 4 位</string>
+  <string name="preferences_precision_labels_4_3">mBTC，小數 4 位</string>
   <string name="preferences_precision_labels_2_3">mBTC，小數 2 位</string>
+  <string name="preferences_precision_labels_2_6">µBTC，小數 2 位</string>
   <string name="preferences_precision_labels_0_6">µBTC，沒有小數</string>
   <string name="preferences_own_name_title">本名</string>
   <string name="preferences_own_name_summary">你自己的名字，用來放到請款資料中。請盡量簡短。</string>

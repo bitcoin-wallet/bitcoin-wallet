@@ -229,7 +229,9 @@
   <string name="preferences_precision_labels_8">BTC, 8 xifres decimals</string>
   <string name="preferences_precision_labels_6">BTC, 6 xifres decimals</string>
   <string name="preferences_precision_labels_4">BTC, 4 xifres decimals</string>
+  <string name="preferences_precision_labels_4_3">mBTC, 4 xifres decimals</string>
   <string name="preferences_precision_labels_2_3">mBTC, 2 xifres decimals</string>
+  <string name="preferences_precision_labels_2_6">µBTC, 2 xifres decimals</string>
   <string name="preferences_precision_labels_0_6">µBTC, sense decimals</string>
   <string name="preferences_own_name_title">Nom propi</string>
   <string name="preferences_own_name_summary">El teu propi nom, que s\'afegeix a les sol·licituds de pagament. Intenta que sigui breu.</string>

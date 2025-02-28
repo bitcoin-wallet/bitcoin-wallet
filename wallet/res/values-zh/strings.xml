@@ -243,7 +243,9 @@
   <string name="preferences_precision_labels_8">BTC, 8 位小数</string>
   <string name="preferences_precision_labels_6">BTC, 6 位小数</string>
   <string name="preferences_precision_labels_4">BTC, 4 位小数</string>
+  <string name="preferences_precision_labels_4_3">mBTC, 4位小数</string>
   <string name="preferences_precision_labels_2_3">mBTC, 2位小数</string>
+  <string name="preferences_precision_labels_2_6">µBTC, 2位小数</string>
   <string name="preferences_precision_labels_0_6">µBTC, 没有小数位</string>
   <string name="preferences_own_name_title">你的名字</string>
   <string name="preferences_own_name_summary">在你向你的顾客提供的支付请求上添加你或者你的公司的名称。</string>

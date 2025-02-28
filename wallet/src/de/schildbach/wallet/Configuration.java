@@ -75,7 +75,7 @@ public class Configuration {
     private static final String PREFS_KEY_LAST_BLUETOOTH_ADDRESS = "last_bluetooth_address";
 
     private static final int PREFS_DEFAULT_BTC_SHIFT = 3;
-    private static final int PREFS_DEFAULT_BTC_PRECISION = 2;
+    private static final int PREFS_DEFAULT_BTC_PRECISION = 4;
 
     private static final Logger log = LoggerFactory.getLogger(Configuration.class);
 

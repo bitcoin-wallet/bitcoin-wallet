@@ -252,7 +252,9 @@
     <string name="preferences_precision_labels_8">BTC, 8 Dezimalen</string>
     <string name="preferences_precision_labels_6">BTC, 6 Dezimalen</string>
     <string name="preferences_precision_labels_4">BTC, 4 Dezimalen</string>
+    <string name="preferences_precision_labels_4_3">mBTC, 4 Dezimalen</string>
     <string name="preferences_precision_labels_2_3">mBTC, 2 Dezimalen</string>
+    <string name="preferences_precision_labels_2_6">µBTC, 2 Dezimalen</string>
     <string name="preferences_precision_labels_0_6">µBTC, keine Dezimalen</string>
     <string name="preferences_precision_labels_0_8">sat, keine Dezimalen</string>
     <string name="preferences_own_name_title">Eigener Name</string>

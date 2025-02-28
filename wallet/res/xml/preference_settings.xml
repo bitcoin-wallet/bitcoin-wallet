@@ -9,7 +9,7 @@
             android:key="btc_precision"
             android:title="@string/preferences_precision_title"
             android:summary="@string/preferences_precision_summary"
-            android:defaultValue="2/3"
+            android:defaultValue="4/3"
             android:entries="@array/preferences_precision_labels"
             android:entryValues="@array/preferences_precision_values" />
 

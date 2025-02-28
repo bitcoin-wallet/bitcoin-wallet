@@ -238,7 +238,9 @@
   <string name="preferences_precision_labels_8">BTC, 8 десятичных разрядов</string>
   <string name="preferences_precision_labels_6">BTC, 6 десятичных разрядов</string>
   <string name="preferences_precision_labels_4">BTC, 4 десятичных разряда</string>
+  <string name="preferences_precision_labels_4_3">mBTC, 4 десятичных разряда</string>
   <string name="preferences_precision_labels_2_3">mBTC, 2 десятичных разряда</string>
+  <string name="preferences_precision_labels_2_6">µBTC, 2 десятичных разряда</string>
   <string name="preferences_precision_labels_0_6">µBTC, без десятичных разрядов</string>
   <string name="preferences_own_name_title">Собственное название</string>
   <string name="preferences_own_name_summary">Ваше имя для добавления в запросы платежей. Желательно, покороче.</string>

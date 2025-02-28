@@ -244,7 +244,9 @@
   <string name="preferences_precision_labels_8">BTC, 8 miejsc po przecinku</string>
   <string name="preferences_precision_labels_6">BTC, 6 miejsc po przecinku</string>
   <string name="preferences_precision_labels_4">BTC, 4 miejsca po przecinku</string>
+  <string name="preferences_precision_labels_4_3">mBTC, 4 miejsca po przecinku</string>
   <string name="preferences_precision_labels_2_3">mBTC, 2 miejsca po przecinku</string>
+  <string name="preferences_precision_labels_2_6">µBTC, 2 miejsca po przecinku</string>
   <string name="preferences_precision_labels_0_6">µBTC, bez miejsc po przecinku</string>
   <string name="preferences_precision_labels_0_8">sat, bez miejsc po przecinku</string>
   <string name="preferences_own_name_title">Własna nazwa</string>

@@ -243,7 +243,9 @@
   <string name="preferences_precision_labels_8">BTC, 8 desimaalia</string>
   <string name="preferences_precision_labels_6">BTC, 6 desimaalia</string>
   <string name="preferences_precision_labels_4">BTC, 4 desimaalia</string>
+  <string name="preferences_precision_labels_4_3">mBTC, 4 desimaalia</string>
   <string name="preferences_precision_labels_2_3">mBTC, 2 desimaalia</string>
+  <string name="preferences_precision_labels_2_6">µBTC, 2 desimaalia</string>
   <string name="preferences_precision_labels_0_6">µBTC, ei desimaalia</string>
   <string name="preferences_own_name_title">Oma nimi</string>
   <string name="preferences_own_name_summary">Nimesi tai yrityksesi nimi lisätään asiakkaille lähettämiisi maksupyyntöihin.</string>

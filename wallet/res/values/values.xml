@@ -10,7 +10,9 @@
         <item>8</item>
         <item>6</item>
         <item>4</item>
+        <item>4/3</item>
         <item>2/3</item>
+        <item>2/6</item>
         <item>0/6</item>
         <item>0/8</item>
     </string-array>
@@ -18,7 +20,9 @@
         <item>@string/preferences_precision_labels_8</item>
         <item>@string/preferences_precision_labels_6</item>
         <item>@string/preferences_precision_labels_4</item>
+        <item>@string/preferences_precision_labels_4_3</item>
         <item>@string/preferences_precision_labels_2_3</item>
+        <item>@string/preferences_precision_labels_2_6</item>
         <item>@string/preferences_precision_labels_0_6</item>
         <item>@string/preferences_precision_labels_0_8</item>
     </string-array>
