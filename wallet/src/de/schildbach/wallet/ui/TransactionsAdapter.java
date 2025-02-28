@@ -231,10 +231,16 @@ public class TransactionsAdapter extends ListAdapter<TransactionsAdapter.ListIte
 
                 // time
                 final Date time = tx.getUpdateTime();
-                this.time = DateUtils.getRelativeTimeSpanString(context, time.getTime());
-                this.timeSelected = DateUtils.formatDateTime(context, time.getTime(),
-                        DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_TIME);
-                this.timeColor = textColor;
+                if (time != null && time.getTime() != 0) {
+                    this.time = DateUtils.getRelativeTimeSpanString(context, time.getTime());
+                    this.timeSelected = DateUtils.formatDateTime(context, time.getTime(),
+                            DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_TIME);
+                    this.timeColor = textColor;
+                } else {
+                    this.time = null;
+                    this.timeSelected = null;
+                    this.timeColor = 0;
+                }
 
                 // address
                 final Address address = sent ? WalletUtils.getToAddressOfSent(tx, wallet)
