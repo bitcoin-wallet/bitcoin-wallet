@@ -15,14 +15,14 @@ source_lang = en
 file_filter = wallet/res/values-<lang>/strings_help.xml
 lang_map = sl_SI:sl, pt_PT:pt-rPT, pt_BR:pt-rBR, zh_TW:zh-rTW
 
-[bitcoin-wallet.market-promo-text]
+[bitcoin-wallet.short-description]
 type = TXT
 source_file = metadata/en-US/short_description.txt
 source_lang = en
 file_filter = metadata/<lang>/short_description.txt
 lang_map = sl_SI:sl, pt_PT:pt-PT, pt_BR:pt-BR, zh_TW:zh-TW
 
-[bitcoin-wallet.market-description]
+[bitcoin-wallet.full-description]
 type = TXT
 source_file = metadata/en-US/full_description.txt
 source_lang = en
