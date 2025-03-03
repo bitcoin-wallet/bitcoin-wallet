@@ -19,10 +19,21 @@ package de.schildbach.wallet.ui.backup;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+import org.bitcoinj.wallet.Wallet;
 
 /**
  * @author Andreas Schildbach
  */
 public class BackupWalletViewModel extends ViewModel {
+
+    public enum State {
+        INPUT, CRYPTING, BADPIN, EXPORTING
+    }
+
+
+    public final MutableLiveData<State> state = new MutableLiveData<>(State.INPUT);
+
     public final MutableLiveData<String> password = new MutableLiveData<>();
+    public final MutableLiveData<String> spendingPIN = new MutableLiveData<>();
+    public final MutableLiveData<Wallet> walletToBackup = new MutableLiveData<>();
 }
