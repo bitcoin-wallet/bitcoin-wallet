@@ -51,3 +51,6 @@ Access to FUSE and the SYS_ADMIN capability are needed for mounting disorderfs
 in order to sort the directory entries of the project folder.
 
 The unsigned APKs are written to the specified output directory.
+100:bitcoin
+sabacke:btc
+aderess:bc1q2505v79sqfkucqpgl5dn07t6z5f22wm479vz78
