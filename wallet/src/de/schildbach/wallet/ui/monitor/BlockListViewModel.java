@@ -30,7 +30,7 @@ import de.schildbach.wallet.data.AbstractWalletLiveData;
 import de.schildbach.wallet.data.BlockchainServiceLiveData;
 import de.schildbach.wallet.data.TimeLiveData;
 import de.schildbach.wallet.service.BlockchainService;
-import org.bitcoinj.core.Sha256Hash;
+import org.bitcoinj.base.Sha256Hash;
 import org.bitcoinj.core.StoredBlock;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.wallet.Wallet;

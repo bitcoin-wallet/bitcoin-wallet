@@ -22,44 +22,38 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.text.format.DateUtils;
+import android.os.AsyncTask;
 import androidx.annotation.WorkerThread;
 import androidx.core.app.NotificationCompat;
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.R;
 import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.data.PaymentIntent;
 import de.schildbach.wallet.ui.WalletActivity;
 import de.schildbach.wallet.ui.send.FeeCategory;
 import de.schildbach.wallet.ui.send.SendCoinsActivity;
-import org.bitcoinj.core.Coin;
-import org.bitcoinj.utils.ContextPropagatingThreadFactory;
-import org.bitcoinj.utils.MonetaryFormat;
+import org.bitcoinj.base.Coin;
+import org.bitcoinj.base.utils.MonetaryFormat;
 import org.bitcoinj.wallet.Wallet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
 
 /**
  * @author Andreas Schildbach
  */
 public class BootstrapReceiver extends BroadcastReceiver {
-    private final Executor executor = Executors.newSingleThreadExecutor(new ContextPropagatingThreadFactory("bootstrap"));
-
     private static final Logger log = LoggerFactory.getLogger(BootstrapReceiver.class);
 
     private static final String ACTION_DISMISS = BootstrapReceiver.class.getPackage().getName() + ".dismiss";
     private static final String ACTION_DISMISS_FOREVER = BootstrapReceiver.class.getPackage().getName() +
             ".dismiss_forever";
+    private static final String ACTION_DONATE = BootstrapReceiver.class.getPackage().getName() + ".donate";
 
     @Override
     public void onReceive(final Context context, final Intent intent) {
         log.info("got broadcast: " + intent);
         final PendingResult result = goAsync();
-        executor.execute(() -> {
+        AsyncTask.execute(() -> {
             org.bitcoinj.core.Context.propagate(Constants.CONTEXT);
             onAsyncReceive(context, intent);
             result.finish();
@@ -85,9 +79,11 @@ public class BootstrapReceiver extends BroadcastReceiver {
             // if the app hasn't been used for a while and contains coins, maybe show reminder
             maybeShowInactivityNotification(application);
         } else if (ACTION_DISMISS.equals(action)) {
-            dismissNotification(context, application.getConfiguration());
+            dismissNotification(context);
         } else if (ACTION_DISMISS_FOREVER.equals(action)) {
             dismissNotificationForever(context, application.getConfiguration());
+        } else if (ACTION_DONATE.equals(action)) {
+            donate(context, application.getWallet());
         } else {
             throw new IllegalArgumentException(action);
         }
@@ -112,7 +108,7 @@ public class BootstrapReceiver extends BroadcastReceiver {
     @WorkerThread
     private void maybeShowInactivityNotification(final WalletApplication application) {
         final Configuration config = application.getConfiguration();
-        if (!config.isTimeToRemindBalance())
+        if (!config.remindBalance() || !config.hasBeenUsed() || config.getLastUsedAgo() <= Constants.LAST_USAGE_THRESHOLD_INACTIVE_MS)
             return;
 
         final Wallet wallet = application.getWallet();
@@ -140,8 +136,8 @@ public class BootstrapReceiver extends BroadcastReceiver {
         notification.setSmallIcon(R.drawable.stat_notify_received_24dp);
         notification.setContentTitle(title);
         notification.setContentText(text);
-        notification.setContentIntent(PendingIntent.getActivity(application, 0,
-                new Intent(application, WalletActivity.class), PendingIntent.FLAG_IMMUTABLE));
+        notification.setContentIntent(PendingIntent.getActivity(application, 0, new Intent(application, WalletActivity.class),
+                0));
         notification.setAutoCancel(true);
 
         if (!canDonate) {
@@ -149,45 +145,49 @@ public class BootstrapReceiver extends BroadcastReceiver {
             dismissIntent.setAction(ACTION_DISMISS);
             notification.addAction(new NotificationCompat.Action.Builder(0,
                     application.getString(R.string.notification_inactivity_action_dismiss),
-                    PendingIntent.getBroadcast(application, 0, dismissIntent, PendingIntent.FLAG_IMMUTABLE)).build());
+                    PendingIntent.getBroadcast(application, 0, dismissIntent, 0)).build());
         }
 
         final Intent dismissForeverIntent = new Intent(application, BootstrapReceiver.class);
         dismissForeverIntent.setAction(ACTION_DISMISS_FOREVER);
         notification.addAction(new NotificationCompat.Action.Builder(0,
                 application.getString(R.string.notification_inactivity_action_dismiss_forever),
-                PendingIntent.getBroadcast(application, 0, dismissForeverIntent, PendingIntent.FLAG_IMMUTABLE)).build());
+                PendingIntent.getBroadcast(application, 0, dismissForeverIntent, 0)).build());
 
         if (canDonate) {
-            final PaymentIntent paymentIntent = PaymentIntent.from(Constants.DONATION_ADDRESS,
-                    application.getString(R.string.wallet_donate_address_label),
-                    Constants.NETWORK_PARAMETERS.getMaxMoney());
-            final Intent donateIntent = SendCoinsActivity.startIntent(application, paymentIntent,
-                    FeeCategory.ECONOMIC, Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            final PendingIntent pendingIntent = PendingIntent.getActivity(application, 0, donateIntent,
-                    PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT);
-            final NotificationCompat.Action action = new NotificationCompat.Action.Builder(0,
-                    application.getString(R.string.wallet_options_donate), pendingIntent).build();
-            notification.addAction(action);
+            final Intent donateIntent = new Intent(application, BootstrapReceiver.class);
+            donateIntent.setAction(ACTION_DONATE);
+            notification.addAction(new NotificationCompat.Action.Builder(0,
+                    application.getString(R.string.wallet_options_donate), PendingIntent.getBroadcast(application, 0,
+                    donateIntent, 0)).build());
         }
 
-        final NotificationManager nm = application.getSystemService(NotificationManager.class);
+        final NotificationManager nm = (NotificationManager) application.getSystemService(Context.NOTIFICATION_SERVICE);
         nm.notify(Constants.NOTIFICATION_ID_INACTIVITY, notification.build());
     }
 
     @WorkerThread
-    private void dismissNotification(final Context context, final Configuration config) {
+    private void dismissNotification(final Context context) {
         log.info("dismissing inactivity notification");
-        config.setRemindBalanceTimeIn(DateUtils.DAY_IN_MILLIS);
-        final NotificationManager nm = context.getSystemService(NotificationManager.class);
+        final NotificationManager nm = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         nm.cancel(Constants.NOTIFICATION_ID_INACTIVITY);
     }
 
     @WorkerThread
     private void dismissNotificationForever(final Context context, final Configuration config) {
         log.info("dismissing inactivity notification forever");
-        config.setRemindBalanceTimeIn(DateUtils.WEEK_IN_MILLIS * 52);
-        final NotificationManager nm = context.getSystemService(NotificationManager.class);
+        config.setRemindBalance(false);
+        final NotificationManager nm = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         nm.cancel(Constants.NOTIFICATION_ID_INACTIVITY);
+    }
+
+    @WorkerThread
+    private void donate(final Context context, final Wallet wallet) {
+        final Coin balance = wallet.getBalance(Wallet.BalanceType.AVAILABLE_SPENDABLE);
+        SendCoinsActivity.startDonate(context, balance, FeeCategory.ECONOMIC,
+                Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        final NotificationManager nm = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        nm.cancel(Constants.NOTIFICATION_ID_INACTIVITY);
+        context.sendBroadcast(new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS));
     }
 }

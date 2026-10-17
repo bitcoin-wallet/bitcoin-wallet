@@ -1,0 +1,6 @@
+{
+    "markdown.validate.enabled": true,
+    "cSpell.enabledSchemes": {
+        "file": false
+    }
+}

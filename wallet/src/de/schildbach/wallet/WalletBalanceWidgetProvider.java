@@ -23,6 +23,7 @@ import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.Spanned;
@@ -39,26 +40,21 @@ import de.schildbach.wallet.ui.WalletActivity;
 import de.schildbach.wallet.ui.send.SendCoinsActivity;
 import de.schildbach.wallet.util.GenericUtils;
 import de.schildbach.wallet.util.MonetarySpannable;
-import org.bitcoinj.core.Coin;
-import org.bitcoinj.core.NetworkParameters;
-import org.bitcoinj.utils.ContextPropagatingThreadFactory;
+import org.bitcoinj.base.BitcoinNetwork;
+import org.bitcoinj.base.Coin;
 import org.bitcoinj.utils.ExchangeRate;
-import org.bitcoinj.utils.Fiat;
-import org.bitcoinj.utils.MonetaryFormat;
+import org.bitcoinj.base.utils.Fiat;
+import org.bitcoinj.base.utils.MonetaryFormat;
 import org.bitcoinj.wallet.Wallet.BalanceType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Method;
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
 
 /**
  * @author Andreas Schildbach
  */
 public class WalletBalanceWidgetProvider extends AppWidgetProvider {
-    private final Executor executor = Executors.newSingleThreadExecutor(new ContextPropagatingThreadFactory("appwidget"));
-
     private static final StrikethroughSpan STRIKE_THRU_SPAN = new StrikethroughSpan();
 
     private static final Logger log = LoggerFactory.getLogger(WalletBalanceWidgetProvider.class);
@@ -66,7 +62,7 @@ public class WalletBalanceWidgetProvider extends AppWidgetProvider {
     @Override
     public void onUpdate(final Context context, final AppWidgetManager appWidgetManager, final int[] appWidgetIds) {
         final PendingResult result = goAsync();
-        executor.execute(() -> {
+        AsyncTask.execute(() -> {
             final WalletApplication application = (WalletApplication) context.getApplicationContext();
             final Coin balance = application.getWallet().getBalance(BalanceType.ESTIMATED);
             final Configuration config = application.getConfiguration();
@@ -86,7 +82,7 @@ public class WalletBalanceWidgetProvider extends AppWidgetProvider {
             log.info("app widget {} options changed: minWidth={}", appWidgetId,
                     newOptions.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_WIDTH));
         final PendingResult result = goAsync();
-        executor.execute(() -> {
+        AsyncTask.execute(() -> {
             final WalletApplication application = (WalletApplication) context.getApplicationContext();
             final Coin balance = application.getWallet().getBalance(BalanceType.ESTIMATED);
             final Configuration config = application.getConfiguration();
@@ -141,7 +137,7 @@ public class WalletBalanceWidgetProvider extends AppWidgetProvider {
                     new ForegroundColorSpan(context.getColor(R.color.fg_insignificant_darkdefault)) };
             localBalanceStr = new MonetarySpannable(localFormat, localBalance).applyMarkup(prefixSpans,
                     MonetarySpannable.STANDARD_INSIGNIFICANT_SPANS);
-            if (!Constants.NETWORK_PARAMETERS.getId().equals(NetworkParameters.ID_MAINNET))
+            if (!Constants.NETWORK_PARAMETERS.getId().equals(BitcoinNetwork.ID_MAINNET))
                 localBalanceStr.setSpan(STRIKE_THRU_SPAN, 0, localBalanceStr.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         } else {
             localBalanceStr = null;
@@ -169,14 +165,14 @@ public class WalletBalanceWidgetProvider extends AppWidgetProvider {
             views.setViewVisibility(R.id.widget_button_send_qr, minWidth > 200 ? View.VISIBLE : View.GONE);
         }
 
-        views.setOnClickPendingIntent(R.id.widget_button_balance, PendingIntent.getActivity(context, 0,
-                new Intent(context, WalletActivity.class), PendingIntent.FLAG_IMMUTABLE));
-        views.setOnClickPendingIntent(R.id.widget_button_request, PendingIntent.getActivity(context, 0,
-                new Intent(context, RequestCoinsActivity.class), PendingIntent.FLAG_IMMUTABLE));
-        views.setOnClickPendingIntent(R.id.widget_button_send, PendingIntent.getActivity(context, 0,
-                new Intent(context, SendCoinsActivity.class), PendingIntent.FLAG_IMMUTABLE));
-        views.setOnClickPendingIntent(R.id.widget_button_send_qr, PendingIntent.getActivity(context, 0,
-                new Intent(context, SendCoinsQrActivity.class), PendingIntent.FLAG_IMMUTABLE));
+        views.setOnClickPendingIntent(R.id.widget_button_balance,
+                PendingIntent.getActivity(context, 0, new Intent(context, WalletActivity.class), 0));
+        views.setOnClickPendingIntent(R.id.widget_button_request,
+                PendingIntent.getActivity(context, 0, new Intent(context, RequestCoinsActivity.class), 0));
+        views.setOnClickPendingIntent(R.id.widget_button_send,
+                PendingIntent.getActivity(context, 0, new Intent(context, SendCoinsActivity.class), 0));
+        views.setOnClickPendingIntent(R.id.widget_button_send_qr,
+                PendingIntent.getActivity(context, 0, new Intent(context, SendCoinsQrActivity.class), 0));
 
         appWidgetManager.updateAppWidget(appWidgetId, views);
     }

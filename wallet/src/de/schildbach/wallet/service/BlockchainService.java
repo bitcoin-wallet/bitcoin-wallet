@@ -68,25 +68,25 @@ import org.bitcoinj.core.Address;
 import org.bitcoinj.core.Block;
 import org.bitcoinj.core.BlockChain;
 import org.bitcoinj.core.CheckpointManager;
-import org.bitcoinj.core.Coin;
+import org.bitcoinj.base.Coin;
 import org.bitcoinj.core.FilteredBlock;
 import org.bitcoinj.core.Peer;
 import org.bitcoinj.core.PeerAddress;
 import org.bitcoinj.core.PeerGroup;
-import org.bitcoinj.core.Sha256Hash;
+import org.bitcoinj.base.Sha256Hash;
 import org.bitcoinj.core.StoredBlock;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.TransactionBroadcast;
 import org.bitcoinj.core.TransactionConfidence.ConfidenceType;
 import org.bitcoinj.core.VersionMessage;
-import org.bitcoinj.core.listeners.AbstractPeerDataEventListener;
+import org.bitcoinj.core.listeners.BlockchainDownloadEventListener;
 import org.bitcoinj.core.listeners.PeerConnectedEventListener;
 import org.bitcoinj.core.listeners.PeerDataEventListener;
 import org.bitcoinj.core.listeners.PeerDisconnectedEventListener;
 import org.bitcoinj.store.BlockStore;
 import org.bitcoinj.store.BlockStoreException;
 import org.bitcoinj.store.SPVBlockStore;
-import org.bitcoinj.utils.MonetaryFormat;
+import org.bitcoinj.base.utils.MonetaryFormat;
 import org.bitcoinj.utils.Threading;
 import org.bitcoinj.wallet.Wallet;
 import org.bitcoinj.wallet.listeners.WalletCoinsReceivedEventListener;
@@ -313,9 +313,9 @@ public class BlockchainService extends LifecycleService {
         }
     }
 
-    private final PeerDataEventListener blockchainDownloadListener = new BlockchainDownloadListener();
+    private final BlockchainDownloadEventListener blockchainDownloadListener = new BlockchainDownloadListener();
 
-    private class BlockchainDownloadListener extends AbstractPeerDataEventListener implements Runnable {
+    private class BlockchainDownloadListener implements BlockchainDownloadEventListener, Runnable {
         private final AtomicLong lastMessageTime = new AtomicLong(0);
         private final AtomicInteger blocksToDownload = new AtomicInteger();
         private final AtomicInteger blocksLeft = new AtomicInteger();
